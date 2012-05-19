@@ -3,3 +3,5 @@
 .classpath
 .idea/workspace.xml
 schlock-website.iml
+schlock-website.ipr
+schlock-website.iws
