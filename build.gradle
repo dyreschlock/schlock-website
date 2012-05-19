@@ -14,4 +14,38 @@ dependencies {
     groovy group: 'org.codehaus.groovy', name: 'groovy', version: '1.7.6'
     compile group: 'org.codehaus.groovy', name: 'groovy', version: '1.7.6'
 
+    compile group: 'org.eclipse.jetty.aggregate', name: 'jetty-all', version: '7.2.0.v20101020'
+
+    runtime group: 'ch.qos.logback', name: 'logback-core', version: '0.9.24'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '0.9.24'
+
+    compile group: 'commons-io', name: 'commons-io', version: '1.4'
+    compile group: 'commons-lang', name: 'commons-lang', version: '2.5'
+
+    ext.tapestryVersion = '5.3.3'
+    compile group: 'org.apache.tapestry', name: 'tapestry5-annotations', version: tapestryVersion
+    compile group: 'org.apache.tapestry', name: 'tapestry-core', version: tapestryVersion
+    compile group: 'org.apache.tapestry', name: 'tapestry-func', version: tapestryVersion
+    compile group: 'org.apache.tapestry', name: 'tapestry-hibernate', version: tapestryVersion, transitive: false
+    compile group: 'org.apache.tapestry', name: 'tapestry-hibernate-core', version: tapestryVersion, transitive: false
+    compile group: 'org.apache.tapestry', name: 'tapestry-ioc', version: tapestryVersion
+    compile group: 'org.apache.tapestry', name: 'tapestry-json', version: tapestryVersion
+    compile group: 'org.apache.tapestry', name: 'tapestry-upload', version: tapestryVersion
+    compile group: 'org.apache.tapestry', name: 'tapestry-test', version: tapestryVersion, transitive: false
+}
+
+tasks.idea {
+    dependsOn = [ cleanIdeaModule, ideaModule ]
+}
+
+sourceSets {
+    main {
+        java.srcDirs = files('src')
+        resources.srcDirs = files('src')
+        classesDir = file('bin')
+    }
+}
+
+clean {
+    delete sourceSets.main.classesDir
 }
