@@ -26,8 +26,8 @@ dependencies {
     compile group: 'org.apache.tapestry', name: 'tapestry5-annotations', version: tapestryVersion
     compile group: 'org.apache.tapestry', name: 'tapestry-core', version: tapestryVersion
     compile group: 'org.apache.tapestry', name: 'tapestry-func', version: tapestryVersion
-    compile group: 'org.apache.tapestry', name: 'tapestry-hibernate', version: tapestryVersion, transitive: false
-    compile group: 'org.apache.tapestry', name: 'tapestry-hibernate-core', version: tapestryVersion, transitive: false
+//    compile group: 'org.apache.tapestry', name: 'tapestry-hibernate', version: tapestryVersion, transitive: false
+//    compile group: 'org.apache.tapestry', name: 'tapestry-hibernate-core', version: tapestryVersion, transitive: false
     compile group: 'org.apache.tapestry', name: 'tapestry-ioc', version: tapestryVersion
     compile group: 'org.apache.tapestry', name: 'tapestry-json', version: tapestryVersion
     compile group: 'org.apache.tapestry', name: 'tapestry-upload', version: tapestryVersion

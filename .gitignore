@@ -2,6 +2,7 @@
 .gradle
 .classpath
 .idea/workspace.xml
+out/
 schlock-website.iml
 schlock-website.ipr
 schlock-website.iws

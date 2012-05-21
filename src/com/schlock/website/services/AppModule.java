@@ -1,5 +1,5 @@
 package com.schlock.website.services;
 
-public class SchlockModule
+public class AppModule
 {
 }
