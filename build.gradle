@@ -42,10 +42,9 @@ sourceSets {
     main {
         java.srcDirs = files('src')
         resources.srcDirs = files('src')
-        classesDir = file('bin')
     }
 }
 
 clean {
-    delete sourceSets.main.classesDir
+    delete files('out')
 }

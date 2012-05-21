@@ -3,7 +3,7 @@ package com.schlock.website;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
-public class SchlockRunner
+public class AppRunner
 {
 	public static void main(String[] args) throws Exception
 	{
