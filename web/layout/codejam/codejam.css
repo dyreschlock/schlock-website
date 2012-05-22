@@ -1,0 +1,31 @@
+div.dayColumn
+{
+    width: 350px;
+    float: left;
+    color: #333;
+    margin-right: 15px;
+}
+div.dayColumn div
+{
+    padding: 5px;
+}
+div.decision
+{
+    border: 1px solid #666;
+}
+div.dream
+{
+    color: #fff;
+    background-color: #666;
+}
+div.dream .decision
+{
+    border: 1px solid #fff;
+}
+h3
+{
+    padding: 0px 0px 5px 0px;
+    margin: 0px;
+    text-decoration: underline;
+    font-size: 12px;
+}

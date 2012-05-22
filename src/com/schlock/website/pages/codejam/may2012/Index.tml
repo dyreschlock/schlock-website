@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="layout" title="${message:page-title}"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <h1 class="title">
+        ${message:page-title}
+    </h1>
+
+    <div class="content">
+
+        <t:zone t:id="pageZone" id="pageZone">
+
+            <div class="dayColumn">
+                <h2>
+                    Dream...
+                </h2>
+
+                <div class="dream">
+
+                    ${message:dummy-text}
+                    <br /><br />
+                    ${message:dummy-text2}
+                    <br /><br />
+
+                    <div class="decision">
+
+                        What should I do?
+                        <br /><br />
+                        A. Wake up <br />
+                        B. Do something else <br />
+                        C. Nothing <br />
+
+                    </div>
+                </div>
+            </div>
+            <div class="dayColumn">
+                <h2>
+                    Monday
+                </h2>
+
+                <div class="">
+                    <h3>Day</h3>
+
+                    ${message:dummy-text}
+                    <br /><br />
+                    <div class="decision">
+
+                        What should I do?
+                        <br /><br />
+                        A. Wake up <br />
+                        B. Do Something Else <br/>
+                        C. Nothing <br />
+
+                    </div>
+                    <br />
+
+                    ${message:dummy-text2}
+                </div>
+
+                <div class="">
+                    <h3>Evening</h3>
+                    ${message:dummy-text}
+                </div>
+
+                <div class="">
+                    <h3>Night</h3>
+                    ${message:dummy-text}
+                </div>
+
+                <div class="dream">
+                    <h3>Dream...</h3>
+
+                    ${message:dummy-text}
+
+                </div>
+
+            </div>
+            <div class="dayColumn">
+                <h2>
+                    Tuesday
+                </h2>
+
+                <div class="">
+
+                    ${message:dummy-text}
+                    <br /><br />
+                    ${message:dummy-text2}
+
+                </div>
+
+            </div>
+            <div class="dayColumn">
+                <h2>
+                    Wednesday
+                </h2>
+
+                <div class="">
+
+                    ${message:dummy-text}
+                    <br /><br />
+                    ${message:dummy-text2}
+
+                </div>
+
+            </div>
+        </t:zone>
+    </div>
+</html>
