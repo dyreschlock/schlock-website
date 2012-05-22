@@ -1,8 +1,16 @@
 package com.schlock.website.pages;
 
 import org.apache.tapestry5.annotations.Import;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
-@Import(stylesheet = "context:layout/site.css")
 public class Index
 {
+    @Inject
+    private PageRenderLinkSource linkSource;
+    
+    Object onCodejamLink()
+    {
+        return linkSource.createPageRenderLink(com.schlock.website.pages.codejam.may2012.Index.class);
+    }
 }

@@ -3,6 +3,6 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
-    hi
+    <t:eventlink t:id="codejamLink">${message:codejam}</t:eventlink>
 
 </html>
