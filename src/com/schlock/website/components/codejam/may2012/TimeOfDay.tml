@@ -1,0 +1,61 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:d="tapestry-library:codejam/may2012"
+    >
+
+    <t:if test="available">
+
+        <div class="${cssClass}">
+            <h3>${timeName}</h3>
+
+            ${introduction}
+            <br /><br />
+
+            <t:if test="hasDecisions">
+                <div class="decision">
+
+                    What should I do?
+                    <br /><br />
+                    <t:loop source="decisions" value="currentDecision" index="currentIndex">
+
+                        <t:if test="decisionAvailable">
+                            <t:eventlink t:id="makeDecision" context="[day, time, currentDecision]" zone="${pageZoneId}">
+                                ${decisionText}<br />
+                            </t:eventlink>
+                        </t:if>
+
+                        <t:if test="!decisionAvailable">
+                            <span class="unavailable">${decisionText}</span> (${unavailableText})<br />
+                        </t:if>
+
+                    </t:loop>
+                </div>
+                <br />
+
+                <t:if test="decisionMade">
+                    <t:outputraw value="${decisionResult}" />
+                </t:if>
+            </t:if>
+
+        </div>
+
+        <t:if test="decisionMade">
+
+            <t:if test="gameOver">
+                <div class="">
+                    ${message:game-over}
+                </div>
+            </t:if>
+
+            <t:if test="!gameOver">
+                <div class="">
+                    <t:eventlink t:id="continue" context="[day, time]" zone="${pageZoneId}">
+                        ${message:continue}
+                    </t:eventlink>
+                </div>
+            </t:if>
+        </t:if>
+
+    </t:if>
+
+</t:container>

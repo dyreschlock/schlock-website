@@ -29,3 +29,17 @@ h3
     text-decoration: underline;
     font-size: 12px;
 }
+a
+{
+    text-decoration: none;
+    color: #333;
+}
+.unavailable
+{
+    text-decoration: line-through;
+    color: #f00;
+}
+div.content
+{
+    width: 2200px;
+}

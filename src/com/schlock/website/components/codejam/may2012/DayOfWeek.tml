@@ -1,0 +1,20 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:d="tapestry-library:codejam/may2012"
+    >
+
+    <t:if test="available">
+
+        <div class="dayColumn">
+            <h2>
+                ${dayName}
+            </h2>
+
+            <t:loop source="times" value="currentTime">
+                <d:timeOfDay day="day" time="currentTime" />
+            </t:loop>
+        </div>
+
+    </t:if>
+
+</t:container>

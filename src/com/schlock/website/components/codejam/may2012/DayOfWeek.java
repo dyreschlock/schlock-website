@@ -1,0 +1,43 @@
+package com.schlock.website.components.codejam.may2012;
+
+import com.schlock.website.codejam.may2012.model.DayOption;
+import com.schlock.website.codejam.may2012.model.TimeOption;
+import com.schlock.website.codejam.may2012.services.DecisionManagement;
+import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.Messages;
+import org.apache.tapestry5.ioc.annotations.Inject;
+
+import java.util.List;
+
+public class DayOfWeek
+{
+    @Parameter(required = true)
+    @Property
+    private DayOption day;
+
+    @Property
+    private TimeOption currentTime;
+
+    @Inject
+    private Messages messages;
+
+    @Inject
+    private DecisionManagement decisionManagement;
+
+
+    public boolean isAvailable()
+    {
+        return decisionManagement.isAvailable(day);
+    }
+
+    public String getDayName()
+    {
+        return messages.get(day.name());
+    }
+
+    public List<TimeOption> getTimes()
+    {
+        return TimeOption.values(day);
+    }
+}
