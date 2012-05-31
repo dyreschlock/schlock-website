@@ -1,9 +1,6 @@
 package com.schlock.website.components.codejam.may2012;
 
-import com.schlock.website.codejam.may2012.model.DayOption;
-import com.schlock.website.codejam.may2012.model.DecisionController;
-import com.schlock.website.codejam.may2012.model.DecisionOption;
-import com.schlock.website.codejam.may2012.model.TimeOption;
+import com.schlock.website.codejam.may2012.model.*;
 import com.schlock.website.codejam.may2012.services.DecisionManagement;
 import com.schlock.website.pages.codejam.may2012.Index;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -12,6 +9,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.AssetSource;
 
 import java.util.List;
 
@@ -27,13 +25,19 @@ public class TimeOfDay
 
     @Property
     private DecisionOption currentDecision;
-            
+    
+    @Property
+    private SwitchOption currentSwitch;
+    
     @Property
     private int currentIndex;
 
     @Inject
     private Messages messages;
 
+    @Inject
+    private AssetSource assetSource;
+    
     @Inject
     private DecisionManagement decisionManagement;
 
@@ -53,7 +57,12 @@ public class TimeOfDay
     {
         return messages.get(time.name());
     }
-    
+
+    public boolean isDream()
+    {
+        return TimeOption.DREAM.equals(time);
+    }
+
     public String getCssClass()
     {
         if (TimeOption.DREAM.equals(time))
@@ -65,13 +74,7 @@ public class TimeOfDay
     
     public String getIntroduction()
     {
-        String key =
-                day.name().toLowerCase() +
-                "-" +
-                time.name().toLowerCase() +
-                "-" +
-                "introduction";
-
+        String key = decisionManagement.getIntroductionKey(day, time);
         return messages.get(key);
     }
 
@@ -100,6 +103,13 @@ public class TimeOfDay
         return decisionManagement.isAvailable(day, time, currentDecision);
     }
 
+    public boolean isSelectedDecision()
+    {
+        DecisionOption decision = decisionManagement.getDecision(day, time);
+
+        return currentDecision.equals(decision);
+    }
+
     Object onMakeDecision(DayOption day, TimeOption time, DecisionOption decision)
     {
         decisionManagement.makeDecision(day, time, decision);
@@ -109,28 +119,67 @@ public class TimeOfDay
 
     public boolean isDecisionMade()
     {
-        if (TimeOption.DREAM.equals(time))
-        {
-            return true;
-        }
-
-        DecisionOption decision = decisionManagement.getDecision(day, time);
-
-        return decision != null;
+        return decisionManagement.isDecisionMade(day, time);
     }
 
     public String getDecisionResult()
     {
-        DecisionOption decision = decisionManagement.getDecision(day, time);
+        return decisionManagement.getDecisionResult(day, time, messages);
+    }
 
-        String key =
-                day.name().toLowerCase() +
-                        "-" +
-                        time.name().toLowerCase() +
-                        "-" +
-                        decision.name().toLowerCase();
+    public boolean isDecisionSuccess()
+    {
+        return decisionManagement.isDecisionSuccess(day, time);
+    }
+    
+    public String getDecisionSuccessImageUrl()
+    {
+        String context = "context:images/codejam/" + day.name().toLowerCase() + ".png";
+        return assetSource.getAsset(null, context, null).toClientURL();
+    }
+    
+    public boolean isHasSwitches()
+    {
+        return !getSwitches().isEmpty();
+    }
 
-        return messages.get(key);
+    public List<SwitchOption> getSwitches()
+    {
+        return SwitchOption.values(day, time);
+    }
+    
+    public String getSwitchText()
+    {
+        return messages.get(currentSwitch.name().toLowerCase());
+    }
+
+    public boolean isSelectedSwitch()
+    {
+        SwitchOption switchOption = decisionManagement.getSwitch(day);
+
+        return currentSwitch.equals(switchOption);
+    }
+
+    Object onMakeSwitch(DayOption day, TimeOption time, SwitchOption switchOption)
+    {
+        decisionManagement.makeSwitch(day, switchOption);
+
+        return indexPage.getPageZone();
+    }
+
+    public boolean isSwitchMade()
+    {
+        return decisionManagement.isSwitchMade(day, time);
+    }
+
+    public String getSwitchResult()
+    {
+        return "asdf";
+    }
+    
+    public boolean isTimeComplete()
+    {
+        return isDecisionMade() || isSwitchMade();
     }
 
     public boolean isGameOver()

@@ -8,7 +8,7 @@
         <div class="${cssClass}">
             <h3>${timeName}</h3>
 
-            ${introduction}
+            <t:outputraw value="${introduction}" />
             <br /><br />
 
             <t:if test="hasDecisions">
@@ -20,7 +20,15 @@
 
                         <t:if test="decisionAvailable">
                             <t:eventlink t:id="makeDecision" context="[day, time, currentDecision]" zone="${pageZoneId}">
-                                ${decisionText}<br />
+
+                                <t:if test="selectedDecision">
+                                    <b>${decisionText}</b><br />
+                                </t:if>
+
+                                <t:if test="!selectedDecision">
+                                    ${decisionText}<br />
+                                </t:if>
+
                             </t:eventlink>
                         </t:if>
 
@@ -34,28 +42,54 @@
 
                 <t:if test="decisionMade">
                     <t:outputraw value="${decisionResult}" />
+                    <br/><br/>
+                    <t:if test="decisionSuccess">
+                        <img src="${decisionSuccessImageUrl}" />
+                    </t:if>
+                </t:if>
+            </t:if>
+
+            <t:if test="hasSwitches">
+                <div class="decision">
+
+                    <t:loop source="switches" value="currentSwitch" index="currentIndex">
+                        <t:eventlink t:id="makeSwitch" context="[day, time, currentSwitch]" zone="${pageZoneId}">
+
+                            <t:if test="selectedSwitch">
+                                <b>${switchText}</b><br />
+                            </t:if>
+                            <t:if test="!selectedSwitch">
+                                ${switchText}<br />
+                            </t:if>
+
+                        </t:eventlink>
+                    </t:loop>
+                </div>
+                <br />
+
+                <t:if test="switchMade">
+                    <t:outputraw value="${switchResult}" />
+                    <br/><br/>
+                </t:if>
+            </t:if>
+
+            <t:if test="timeComplete">
+
+                <t:if test="gameOver">
+                    <div class="decision">
+                        <t:outputraw value="${message:game-over}" />
+                    </div>
+                </t:if>
+
+                <t:if test="!gameOver">
+                    <t:eventlink t:id="continue" context="[day, time]" zone="${pageZoneId}">
+                        <t:if test="dream">${message:next-day}</t:if>
+                        <t:if test="!dream">${message:continue}</t:if>
+                    </t:eventlink>
                 </t:if>
             </t:if>
 
         </div>
-
-        <t:if test="decisionMade">
-
-            <t:if test="gameOver">
-                <div class="">
-                    ${message:game-over}
-                </div>
-            </t:if>
-
-            <t:if test="!gameOver">
-                <div class="">
-                    <t:eventlink t:id="continue" context="[day, time]" zone="${pageZoneId}">
-                        ${message:continue}
-                    </t:eventlink>
-                </div>
-            </t:if>
-        </t:if>
-
     </t:if>
 
 </t:container>

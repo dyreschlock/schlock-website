@@ -1,13 +1,12 @@
 package com.schlock.website.codejam.may2012.services.impl;
 
-import com.schlock.website.codejam.may2012.model.DayOption;
-import com.schlock.website.codejam.may2012.model.DecisionController;
-import com.schlock.website.codejam.may2012.model.DecisionOption;
-import com.schlock.website.codejam.may2012.model.TimeOption;
+import com.schlock.website.codejam.may2012.model.*;
 import com.schlock.website.codejam.may2012.services.DecisionManagement;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.services.ApplicationStateManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DecisionManagementImpl implements DecisionManagement
@@ -81,6 +80,28 @@ public class DecisionManagementImpl implements DecisionManagement
             }
             return true;
         }
+        if (DecisionOption.MUSIC_STORE.equals(decision) ||
+                DecisionOption.GROCERY_STORE.equals(decision))
+        {
+            if (DayOption.TUESDAY.equals(day))
+            {
+                SwitchOption switchOption = getController().getSwitch(day);
+                if (SwitchOption.WINTER.equals(switchOption))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        if (DecisionOption.FRIENDS.equals(decision))
+        {
+            if (DayOption.WEDNESDAY.equals(day) ||
+                    DayOption.FRIDAY.equals(day))
+            {
+                return false;
+            }
+            return true;
+        }
 
 
         return true;
@@ -122,9 +143,147 @@ public class DecisionManagementImpl implements DecisionManagement
         return getController().getDecision(day, time);
     }
 
+    public boolean isDecisionMade(DayOption day, TimeOption time)
+    {
+        DecisionOption decision = getDecision(day, time);
+
+        return decision != null;
+    }
+
     public void makeDecision(DayOption day, TimeOption time, DecisionOption decision)
     {
         getController().makeDecision(day, time, decision);
+    }
+
+    public String getIntroductionKey(DayOption day, TimeOption time)
+    {
+        String key =
+                day.name().toLowerCase() +
+                        "-" +
+                        time.name().toLowerCase() +
+                        "-" +
+                        "introduction";
+
+        if ((DayOption.TUESDAY.equals(day) || DayOption.WEDNESDAY.equals(day)) &&
+                (!TimeOption.DREAM.equals(time)))
+        {
+            SwitchOption option = getSwitch(DayOption.TUESDAY);
+
+            key += "-" + option.name().toLowerCase();
+        }
+        return key;
+    }
+    
+    public String getDecisionResult(DayOption day, TimeOption time, Messages messages)
+    {
+        DecisionOption decision = getDecision(day, time);
+
+        String key =
+                day.name().toLowerCase() +
+                        "-" +
+                        time.name().toLowerCase() +
+                        "-" +
+                        decision.name().toLowerCase();
+
+        if (DecisionOption.MUSIC_STORE.equals(decision) &&
+                DayOption.WEDNESDAY.equals(day))
+        {
+            DecisionOption tuesday = getDecision(DayOption.TUESDAY, TimeOption.EVENING);
+            SwitchOption option = getSwitch(DayOption.TUESDAY);
+            if (DecisionOption.MUSIC_STORE.equals(tuesday) && SwitchOption.SUMMER.equals(option))
+            {
+                key += "-yes";
+            }
+            else
+            {
+                key += "-no";
+            }
+        }
+
+        if ((DayOption.TUESDAY.equals(day) || DayOption.WEDNESDAY.equals(day)) &&
+                (!TimeOption.DREAM.equals(time)))
+        {
+            SwitchOption option = getSwitch(DayOption.TUESDAY);
+
+            key += "-" + option.name().toLowerCase();
+        }
+
+        if (DecisionOption.CLUB.equals(decision))
+        {
+            SwitchOption option = getSwitch(DayOption.WEDNESDAY);
+            String paramKey = day.name().toLowerCase() +
+                    "-" +
+                    time.name().toLowerCase() +
+                    "-" +
+                    decision.name().toLowerCase() +
+                    "-" +
+                    option.name().toLowerCase();
+
+            return messages.format(key, messages.get(paramKey));
+        }
+        return messages.get(key);
+    }
+
+    public boolean isDecisionSuccess(DayOption day, TimeOption time)
+    {
+        DecisionOption decision = getDecision(day, time);
+
+        if ((DayOption.MONDAY.equals(day) && TimeOption.EVENING.equals(time) && DecisionOption.GROCERY_STORE.equals(decision)) ||
+                (DayOption.TUESDAY.equals(day) && TimeOption.EVENING.equals(time) && DecisionOption.MUSIC_STORE.equals(decision)) ||
+                (DayOption.WEDNESDAY.equals(day) && TimeOption.NIGHT.equals(time) && DecisionOption.CLUB.equals(decision)) ||
+                (DayOption.THURSDAY.equals(day) && TimeOption.EVENING.equals(time) && DecisionOption.FRIENDS.equals(decision)))
+        {
+
+            return true;
+        }
+
+        if (DayOption.FRIDAY.equals(day) && TimeOption.DAY.equals(day))
+        {
+            int daysWorked = 0;
+            
+            List<DayOption> days = Arrays.asList(DayOption.MONDAY, DayOption.TUESDAY, DayOption.WEDNESDAY, DayOption.THURSDAY);
+            for(DayOption previousDay : days)
+            {
+                if (DecisionOption.WORK.equals(getDecision(previousDay, TimeOption.DAY)))
+                {
+                    daysWorked++;
+                }
+            }
+            
+            SwitchOption option = getSwitch(DayOption.THURSDAY);
+            if (daysWorked < 3 && SwitchOption.WAXING_GIBBOUS.equals(option))
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    public SwitchOption getSwitch(DayOption day)
+    {
+        return getController().getSwitch(day);
+    }
+
+    public boolean isSwitchMade(DayOption day, TimeOption time)
+    {
+        if (TimeOption.DREAM.equals(time))
+        {
+            if (DayOption.SUNDAY.equals(day) ||
+                    DayOption.MONDAY.equals(day))
+            {
+                return true;
+            }
+
+            SwitchOption option = getController().getSwitch(day);
+            return option != null;
+        }
+        return false;
+    }
+    
+    public void makeSwitch(DayOption day, SwitchOption switchOption)
+    {
+        getController().makeSwitch(day, switchOption);
     }
 
     public boolean isGameOver(DayOption day, TimeOption time)
