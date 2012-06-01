@@ -62,8 +62,12 @@ public class Finale
     
     public boolean isHasFriends()
     {
-        DecisionOption friends = decisionManagement.getDecision(DayOption.THURSDAY, TimeOption.EVENING);
-        return DecisionOption.FRIENDS.equals(friends);
+        if (isMale())
+        {
+            DecisionOption friends = decisionManagement.getDecision(DayOption.THURSDAY, TimeOption.EVENING);
+            return DecisionOption.FRIENDS.equals(friends);
+        }
+        return false;
     }
 
     public List<SwitchOption> getSwitches()
@@ -138,7 +142,12 @@ public class Finale
     
     public String getDecisionText()
     {
-        return messages.get(currentDecision.name().toLowerCase());
+        String character = messages.get("dream-female");
+        if (isMale())
+        {
+            character = messages.get("dream-male");
+        }
+        return messages.format(currentDecision.name().toLowerCase(), character);
     }
 
     Object onMakeDecision(DayOption day, TimeOption time, DecisionOption option)
@@ -168,7 +177,38 @@ public class Finale
 
         String key = switchOption.name().toLowerCase() + "-" + decision.name().toLowerCase();
 
-        return messages.format(key, character);
+        return messages.format(key, character, character);
+    }
+    
+    public String getBarDecisionText()
+    {
+        SwitchOption switchOption = decisionManagement.getSwitch(DayOption.FRIDAY);
+        DecisionOption decision = decisionManagement.getDecision(DayOption.FRIDAY, TimeOption.DREAM);
+
+        String key = "bar-" +
+                switchOption.name().toLowerCase() +
+                "-" +
+                decision.name().toLowerCase();
+
+        return messages.get(key);
+    }
+    
+    public String getGenderDecisionText()
+    {
+        SwitchOption switchOption = decisionManagement.getSwitch(DayOption.WEDNESDAY);
+        DecisionOption decision = decisionManagement.getDecision(DayOption.FRIDAY, TimeOption.DREAM);
+
+        String key = "bar-" +
+                decision.name().toLowerCase();
+
+        if (isHasFriends())
+        {
+            key += "-friends";
+        }
+        
+        key += "-" + switchOption.name().toLowerCase();
+
+        return messages.get(key);
     }
 
     

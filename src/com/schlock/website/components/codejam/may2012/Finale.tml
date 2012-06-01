@@ -109,13 +109,22 @@
                 <br/>
 
                 <t:if test="decisionMade">
-                    ${decisionResultText}
+                    <t:outputraw value="${decisionResultText}" />
                 </t:if>
 
             </div>
 
             <t:if test="decisionMade">
+                <div>
+                    ${barDecisionText}
+                    <br /><br />
+                    <t:outputraw value="${genderDecisionText}" />
 
+                </div>
+
+                <div class="dream">
+
+                </div>
             </t:if>
         </t:if>
     </t:if>
