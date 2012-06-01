@@ -22,6 +22,18 @@ public enum TimeOption
         return Arrays.asList(values());
     }
 
+    public static TimeOption previous(DayOption day, TimeOption time)
+    {
+        List<TimeOption> values = values(day);
+        int previous = values.indexOf(time) -1;
+
+        if (previous == -1)
+        {
+            return null;
+        }
+        return values.get(previous);
+    }
+
     public static TimeOption next(DayOption day, TimeOption time)
     {
         List<TimeOption> values = values(day);

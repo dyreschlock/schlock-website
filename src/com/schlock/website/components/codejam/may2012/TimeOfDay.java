@@ -65,11 +65,16 @@ public class TimeOfDay
 
     public String getCssClass()
     {
+        String cls = "";
         if (TimeOption.DREAM.equals(time))
         {
-            return "dream";
+            cls = "dream";
         }
-        return "";
+        if (!decisionManagement.isValid(day, time))
+        {
+            cls += " none";
+        }
+        return cls;
     }
     
     public String getIntroduction()

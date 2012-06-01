@@ -16,6 +16,8 @@ public interface DecisionManagement
 
     boolean isAvailable(DayOption day, TimeOption time, DecisionOption decisions);
 
+    boolean isValid(DayOption day, TimeOption time);
+    
     List<DecisionOption> getDecisions(DayOption day, TimeOption time);
     
     DecisionOption getDecision(DayOption day, TimeOption time);

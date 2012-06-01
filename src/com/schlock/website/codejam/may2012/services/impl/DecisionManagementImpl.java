@@ -49,7 +49,7 @@ public class DecisionManagementImpl implements DecisionManagement
             return false;
         }
 
-        List<DecisionOption> decisions = DecisionOption.values(time);
+        List<DecisionOption> decisions = getDecisions(day, time);
         if (!decisions.contains(decision))
         {
             return false;
@@ -131,12 +131,72 @@ public class DecisionManagementImpl implements DecisionManagement
 
         return true;
     }
-    
+
+    public boolean isValid(DayOption day, TimeOption time)
+    {
+        if (DayOption.SUNDAY.equals(day) || DayOption.MONDAY.equals(day))
+        {
+            return true;
+        }
+        if (isGameOver(DayOption.MONDAY, TimeOption.DREAM))
+        {
+            List<DayOption> days = Arrays.asList(DayOption.TUESDAY, DayOption.WEDNESDAY, DayOption.THURSDAY, DayOption.FRIDAY);
+            if (days.contains(day))
+            {
+                return false;
+            }
+        }
+        if (isGameOver(DayOption.WEDNESDAY, TimeOption.DREAM))
+        {
+            List<DayOption> days = Arrays.asList(DayOption.THURSDAY, DayOption.FRIDAY);
+            if (days.contains(day))
+            {
+                return false;
+            }
+        }
+        if (isGameOver(DayOption.FRIDAY, TimeOption.DAY))
+        {
+            if (DayOption.FRIDAY.equals(day))
+            {
+                List<TimeOption> times = Arrays.asList(TimeOption.EVENING, TimeOption.NIGHT, TimeOption.DREAM);
+                if (times.contains(time))
+                {
+                    return false;
+                }
+            }
+        }
+        if (isGameOver(DayOption.FRIDAY, TimeOption.NIGHT))
+        {
+            if (DayOption.FRIDAY.equals(day) && TimeOption.DREAM.equals(time))
+            {
+                return false;
+            }
+        }
+
+        DayOption previousDay = day;
+        TimeOption previousTime = TimeOption.previous(day, time);
+        if (previousTime == null)
+        {
+            previousDay = DayOption.previous(day);
+            previousTime = TimeOption.DREAM;
+        }
+
+        if (!TimeOption.DREAM.equals(previousTime))
+        {
+            boolean decisionMade = isDecisionMade(previousDay, previousTime);
+            if(!decisionMade)
+            {
+                return false;
+            }
+        }
+        return isValid(previousDay, previousTime);
+    }
+
     public List<DecisionOption> getDecisions(DayOption day, TimeOption time)
     {
         List<DecisionOption> decisions = new ArrayList<DecisionOption>();
 
-        List<DecisionOption> options = DecisionOption.values(time);
+        List<DecisionOption> options = DecisionOption.values(day, time);
         for (DecisionOption option : options)
         {
             if (DecisionOption.HOME.equals(option))
@@ -168,6 +228,10 @@ public class DecisionManagementImpl implements DecisionManagement
                 {
                     decisions.add(option);
                 }
+                else if (TimeOption.DREAM.equals(time))
+                {
+                    decisions.add(option);
+                }
             }
             else
             {
@@ -185,8 +249,11 @@ public class DecisionManagementImpl implements DecisionManagement
     public boolean isDecisionMade(DayOption day, TimeOption time)
     {
         DecisionOption decision = getDecision(day, time);
-
-        return decision != null;
+        if (decision == null)
+        {
+            return false;
+        }
+        return isAvailable(day, time, decision);
     }
 
     public void makeDecision(DayOption day, TimeOption time, DecisionOption decision)

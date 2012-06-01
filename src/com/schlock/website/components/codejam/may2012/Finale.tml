@@ -8,9 +8,116 @@
         <div>
             <h3>${message:title}</h3>
 
+            At the end of town on the north side, is this tiny club called <b>Black Castle</b>.  My cab drops me
+            off just in time for the party.  Inside the place, there are plenty of people hanging out.  On the stage,
+            DJ Chemo is playing some groovy songs.  Perfect to set the tone for the night.
 
+            <br/><br/>
+
+            <t:if test="male">
+                <b>Dave</b> is hanging out by the bar, as usual.  I walk over to greet him, and he buys me
+                a drink.
+            </t:if>
+
+            <t:if test="female">
+                <b>Sharla</b> is hanging out by the bar, as usual.  I walk over to greet her, and she buys me
+                a drink.
+            </t:if>
+        </div>
+
+        <div class="dream">
+            It's the perfect night to attack <b>Black Castle</b>.
+
+            <t:if test="male">
+                <b>Zarbash</b> and Cecil are prepared for battle, and must decide how to attack to the castle.
+            </t:if>
+
+            <t:if test="female">
+                <b>Nina</b> and Cecil are prepared for battle, and must decide how to attack to the castle.
+            </t:if>
+
+            <br/><br/>
+
+            <div class="decision">
+                <t:loop source="switches" value="currentSwitch">
+                    <t:eventlink t:id="makeSwitch" context="[day, time, currentSwitch]" zone="${pageZoneId}">
+
+                        <t:if test="selectedSwitch">
+                            <b>${switchText}</b><br />
+                        </t:if>
+                        <t:if test="!selectedSwitch">
+                            ${switchText}<br/>
+                        </t:if>
+
+                    </t:eventlink>
+                </t:loop>
+            </div>
+            <br />
+
+            <t:if test="switchMade">
+                ${switchResultText}
+            </t:if>
 
         </div>
+
+        <t:if test="switchMade">
+            <div>
+                As the night continues, the club begins to fill up with more and more people.
+
+                ${barSwitchResultText}
+
+                <br/><br/>
+                <t:if test="hasFriends">
+                    My friends show up before the night really begins to take off.
+                    <t:if test="male">Dave</t:if>
+                    <t:if test="female">Sharla</t:if>
+                    has run off somewhere.
+                </t:if>
+                <t:if test="!hasFriends">
+                    It's just me in the crowds, along with
+                    <t:if test="male">Dave</t:if>
+                    <t:if test="female">Sharla</t:if>
+                    who ran off somewhere.
+                </t:if>
+
+                <br/><br/>
+
+                In the middle of the crowd, there's a single person who lights up the entire space.
+                Her kooky dress, and odd looking glasses makes her stand out from the crowd.  She's
+                really quite stunning.
+
+            </div>
+
+            <div class="dream">
+                ${fightSwitchResultText}
+                <br/><br/>
+
+                <div class="decision">
+                    <t:loop source="decisions" value="currentDecision">
+                        <t:eventlink t:id="makeDecision" context="[day, time, currentDecision]" zone="${pageZoneId}">
+
+                            <t:if test="selectedDecision">
+                                <b>${decisionText}</b><br />
+                            </t:if>
+                            <t:if test="!selectedDecision">
+                                ${decisionText}<br/>
+                            </t:if>
+
+                        </t:eventlink>
+                    </t:loop>
+                </div>
+                <br/>
+
+                <t:if test="decisionMade">
+                    ${decisionResultText}
+                </t:if>
+
+            </div>
+
+            <t:if test="decisionMade">
+
+            </t:if>
+        </t:if>
     </t:if>
 
 </t:container>

@@ -17,12 +17,12 @@ public enum DecisionOption
     BAR,
     CLUB,
     BED,
-    PARTY;
+    PARTY,
 
+    DIRECT,
+    WAIT;
 
-
-
-    public static List<DecisionOption> values(TimeOption time)
+    public static List<DecisionOption> values(DayOption day, TimeOption time)
     {
         if(TimeOption.DAY.equals(time))
         {
@@ -35,6 +35,10 @@ public enum DecisionOption
         if (TimeOption.NIGHT.equals(time))
         {
             return Arrays.asList(BAR, CLUB, BED, PARTY);
+        }
+        if (DayOption.FRIDAY.equals(day) && TimeOption.DREAM.equals(time))
+        {
+            return Arrays.asList(DIRECT, WAIT);
         }
         return Collections.EMPTY_LIST;
     }

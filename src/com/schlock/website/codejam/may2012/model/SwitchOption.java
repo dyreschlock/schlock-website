@@ -16,7 +16,11 @@ public enum SwitchOption
     WAXING_HALF,
     WAXING_GIBBOUS,
     FULL,
-    WANING_GIBBOUS;
+    WANING_GIBBOUS,
+    
+    SEWERS,
+    GATE,
+    WALL;
 
 
     public static List<SwitchOption> values(DayOption day, TimeOption time)
@@ -34,6 +38,10 @@ public enum SwitchOption
             if (DayOption.THURSDAY.equals(day))
             {
                 return Arrays.asList(WAXING_CRESCENT, WAXING_HALF, WAXING_GIBBOUS, FULL, WANING_GIBBOUS);
+            }
+            if (DayOption.FRIDAY.equals(day))
+            {
+                return Arrays.asList(SEWERS, GATE, WALL);
             }
         }
         return Collections.EMPTY_LIST;

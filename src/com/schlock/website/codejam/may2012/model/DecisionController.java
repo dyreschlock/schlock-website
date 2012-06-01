@@ -48,6 +48,7 @@ public class DecisionController
     public void completeDay(DayOption day, TimeOption time)
     {
         currentTime = TimeOption.next(day, time);
+        currentDay = day;
         if (currentTime == null)
         {
             currentTime = TimeOption.DAY;
