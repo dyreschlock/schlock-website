@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="Layout" title="Google Maps Average"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+    xmlns:p="tapestry:parameter">
+
+	<h2>Google Map Locator</h2>
+
+	<t:form t:id="mapForm" class="wrapUnder">
+		
+		<fieldset>
+			
+			<t:label t:for="origins" />
+	        <t:textarea t:id="origins" t:label="Origins" value="originsText" class="normalField" />
+	
+			<t:label for="destination"/>
+	        <t:textfield t:id="destination" t:label="Destination" value="destinationText" class="normalField" />
+	
+			<br class="clr" />
+	
+			<t:checkbox t:id="useGuessBox" value="usePinPoint" class="cBox" t:label="Second Location"
+							t:mixins="CheckboxClickHideShowsDiv" divId="${guessDivId}" />
+			<t:label t:for="useGuessBox" class="cBox" />
+	
+			<div id="${guessDivId}">
+			
+				<t:label t:for="guess" />
+				<t:textfield t:id="guess" t:label="Guess" value="guessText" class="normalField"/>
+				
+			</div>
+			
+			<br class="clr" />
+		
+			<t:checkbox t:id="determine" value="determineLocation" class="cBox" t:label="Determine Location"
+							t:mixins="CheckboxClickHideShowsDiv" divId="${locationDivId}" />
+			<t:label t:for="determine" class="cBox" />
+			
+			<div id="${locationDivId}">
+				
+				<br class="clr" />
+				
+				<t:checkbox t:id="duration" value="useDuration" class="cBox" t:label="Use Duration instead of Distance" />
+				<t:label t:for="duration" class="cBox" />
+				
+				<br class="clr" />
+				
+				<t:label t:for="multiplierField" />
+				<t:textfield t:id="multiplierField" value="multiplier" t:label="Multiplier" class="normalField" minValue="1" />
+				
+				<t:label t:for="iterationsField" />
+				<t:textfield t:id="iterationsField" value="iterations" t:label="Iterations" class="normalField" minValue="1" />
+			
+			</div>
+			
+		</fieldset>
+		
+		<t:submit t:id="submitButton" value="Submit" class="normalButton" />
+		
+		<t:if test="hasErrorMessage">
+			${errorMessage}
+		</t:if>
+	</t:form>
+	
+	<br class="clr" />
+	<br /><br />
+	
+	<div class="fLeft" style="width: 520px;">
+		<t:if test="hasImage">
+			<img src="${imgUrl}" />
+			<br />
+			${imgUrl}
+		</t:if>
+	</div>
+	
+	<div>
+		<t:if test="hasOrigins">
+			Origins
+			<table class="tableBorder">
+				<tr>
+					<th>Address</th>
+					<th>Latitude</th>
+					<th>Longitude</th>
+					<t:loop source="destinationKeys" value="loopKey">
+						<th colspan="2">${loopKey.displayText}</th>
+					</t:loop>
+				</tr>
+				<t:loop source="origins" value="loopOrigin">
+					<tr>
+						<td>${loopOrigin.address}</td>
+						<td>${loopOrigin.latitudeText}</td>
+						<td>${loopOrigin.longitudeText}</td>
+						<t:loop source="destinationKeys" value="loopKey">
+							<td>${loopOriginDestinationDistance?.distanceText}</td>
+							<td>${loopOriginDestinationDistance?.durationText}</td>
+						</t:loop>
+					</tr>
+				</t:loop>
+			</table>
+			
+			Destinations
+			<table class="tableBorder">
+				<tr>
+					<th>Type</th>
+					<th>Address</th>
+					<th>Latitude</th>
+					<th>Longitude</th>
+					<th colspan="2">Average</th>
+				</tr>
+				<t:loop source="destinationKeys" value="loopKey">
+					<tr>
+						<td>${loopKey.displayText}</td>
+						<td>${loopDestination?.address}</td>
+						<td>${loopDestination.latitudeText}</td>
+						<td>${loopDestination.longitudeText}</td>
+						<td>${loopDestinationDistanceAverage}</td>
+						<td>${loopDestinationDurationAverage}</td>
+					</tr>
+				</t:loop>
+			</table>
+		</t:if>
+	</div>
+</html>
