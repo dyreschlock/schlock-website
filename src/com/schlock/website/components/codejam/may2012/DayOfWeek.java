@@ -31,6 +31,11 @@ public class DayOfWeek
         return decisionManagement.isAvailable(day);
     }
 
+    public boolean isFinale()
+    {
+        return DayOption.FRIDAY.equals(day) && TimeOption.DREAM.equals(currentTime);
+    }
+
     public String getDayName()
     {
         return messages.get(day.name());

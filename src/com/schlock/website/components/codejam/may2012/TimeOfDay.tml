@@ -43,9 +43,11 @@
                 <t:if test="decisionMade">
                     <t:outputraw value="${decisionResult}" />
                     <br/><br/>
+                    <t:remove>
                     <t:if test="decisionSuccess">
                         <img src="${decisionSuccessImageUrl}" />
                     </t:if>
+                    </t:remove>
                 </t:if>
             </t:if>
 

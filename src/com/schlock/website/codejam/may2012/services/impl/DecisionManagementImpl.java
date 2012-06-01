@@ -72,13 +72,32 @@ public class DecisionManagementImpl implements DecisionManagement
             }
             return false;
         }
+        if (DecisionOption.WORK.equals(decision))
+        {
+            DayOption previous = DayOption.previous(day);
+            DayOption twodays = DayOption.previous(previous);
+
+            if (previous == null || twodays == null)
+            {
+                return true;
+            }
+
+            DecisionOption lastNight = getDecision(previous, TimeOption.NIGHT);
+            DecisionOption twoNights = getDecision(twodays, TimeOption.NIGHT);
+
+            if ((DecisionOption.BAR.equals(lastNight) || DecisionOption.CLUB.equals(lastNight)) &&
+                (DecisionOption.BAR.equals(twoNights) || DecisionOption.CLUB.equals(twoNights)))
+            {
+                return false;
+            }
+            return true;
+        }
         if (DecisionOption.CLUB.equals(decision))
         {
             if (DayOption.MONDAY.equals(day))
             {
                 return false;
             }
-            return true;
         }
         if (DecisionOption.MUSIC_STORE.equals(decision) ||
                 DecisionOption.GROCERY_STORE.equals(decision))
@@ -91,7 +110,6 @@ public class DecisionManagementImpl implements DecisionManagement
                     return false;
                 }
             }
-            return true;
         }
         if (DecisionOption.FRIENDS.equals(decision))
         {
@@ -100,7 +118,14 @@ public class DecisionManagementImpl implements DecisionManagement
             {
                 return false;
             }
-            return true;
+        }
+        if (DecisionOption.BAR.equals(decision) ||
+                DecisionOption.CLUB.equals(decision))
+        {
+            if (DayOption.THURSDAY.equals(day))
+            {
+                return false;
+            }
         }
 
 
@@ -124,8 +149,22 @@ public class DecisionManagementImpl implements DecisionManagement
             else if (DecisionOption.PARTY.equals(option))
             {
                 DecisionOption wedNight = getDecision(DayOption.WEDNESDAY, TimeOption.NIGHT);
-                if (DecisionOption.CLUB.equals(wedNight) &&
-                        DayOption.FRIDAY.equals(day))
+                if (DecisionOption.CLUB.equals(wedNight) && DayOption.FRIDAY.equals(day))
+                {
+                    decisions.add(option);
+                }
+            }
+            else if (DayOption.FRIDAY.equals(day))
+            {
+                if (TimeOption.DAY.equals(time) && DecisionOption.WORK.equals(option))
+                {
+                    decisions.add(option);
+                }
+                else if (TimeOption.EVENING.equals(time) && DecisionOption.HOME.equals(option))
+                {
+                    decisions.add(option);
+                }
+                else if (TimeOption.NIGHT.equals(time))
                 {
                     decisions.add(option);
                 }
@@ -200,6 +239,55 @@ public class DecisionManagementImpl implements DecisionManagement
             }
         }
 
+        if (DayOption.THURSDAY.equals(day) && TimeOption.EVENING.equals(time))
+        {
+            if (DecisionOption.MUSIC_STORE.equals(decision) || DecisionOption.FRIENDS.equals(decision))
+            {
+                DecisionOption wednesday = getDecision(DayOption.WEDNESDAY, TimeOption.NIGHT);
+                if (DecisionOption.CLUB.equals(wednesday))
+                {
+                    if (DecisionOption.FRIENDS.equals(decision))
+                    {
+                        SwitchOption option = getSwitch(DayOption.WEDNESDAY);
+                        key += "-" + option.name().toLowerCase();
+                    }
+
+                    key += "-yes";
+                }
+                else
+                {
+                    key += "-no";
+                }
+            }
+        }
+
+        if (DayOption.FRIDAY.equals(day) && TimeOption.DAY.equals(time))
+        {
+            int daysWorked = 0;
+            List<DayOption> days = Arrays.asList(DayOption.MONDAY, DayOption.TUESDAY, DayOption.WEDNESDAY, DayOption.THURSDAY);
+            for(DayOption previousDay : days)
+            {
+                DecisionOption work = getDecision(previousDay, TimeOption.DAY);
+                if (DecisionOption.WORK.equals(work))
+                {
+                    daysWorked++;
+                }
+            }
+
+            if (daysWorked < 3)
+            {
+                key += "-no";
+            }
+            else
+            {
+                key += "-yes";
+
+                SwitchOption option = getSwitch(DayOption.THURSDAY);
+
+                key += "-" + option.name().toLowerCase();
+            }
+        }
+
         if ((DayOption.TUESDAY.equals(day) || DayOption.WEDNESDAY.equals(day)) &&
                 (!TimeOption.DREAM.equals(time)))
         {
@@ -230,14 +318,20 @@ public class DecisionManagementImpl implements DecisionManagement
 
         if ((DayOption.MONDAY.equals(day) && TimeOption.EVENING.equals(time) && DecisionOption.GROCERY_STORE.equals(decision)) ||
                 (DayOption.TUESDAY.equals(day) && TimeOption.EVENING.equals(time) && DecisionOption.MUSIC_STORE.equals(decision)) ||
-                (DayOption.WEDNESDAY.equals(day) && TimeOption.NIGHT.equals(time) && DecisionOption.CLUB.equals(decision)) ||
-                (DayOption.THURSDAY.equals(day) && TimeOption.EVENING.equals(time) && DecisionOption.FRIENDS.equals(decision)))
+                (DayOption.WEDNESDAY.equals(day) && TimeOption.NIGHT.equals(time) && DecisionOption.CLUB.equals(decision)))
         {
 
             return true;
         }
 
-        if (DayOption.FRIDAY.equals(day) && TimeOption.DAY.equals(day))
+        if (DayOption.THURSDAY.equals(day) && TimeOption.EVENING.equals(time) && DecisionOption.FRIENDS.equals(decision))
+        {
+            DecisionOption party = getDecision(DayOption.WEDNESDAY, TimeOption.NIGHT);
+            SwitchOption male = getSwitch(DayOption.WEDNESDAY);
+            return DecisionOption.CLUB.equals(party) && SwitchOption.MALE.equals(male);
+        }
+
+        if (DayOption.FRIDAY.equals(day) && TimeOption.DAY.equals(time))
         {
             int daysWorked = 0;
             
@@ -251,12 +345,12 @@ public class DecisionManagementImpl implements DecisionManagement
             }
             
             SwitchOption option = getSwitch(DayOption.THURSDAY);
-            if (daysWorked < 3 && SwitchOption.WAXING_GIBBOUS.equals(option))
+            if (daysWorked >= 3 && SwitchOption.WAXING_GIBBOUS.equals(option))
             {
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -309,6 +403,20 @@ public class DecisionManagementImpl implements DecisionManagement
                 return true;
             }
             if (!DecisionOption.MUSIC_STORE.equals(tueEvening))
+            {
+                return true;
+            }
+        }
+
+        if (DayOption.FRIDAY.equals(day) && TimeOption.DAY.equals(time))
+        {
+            return !isDecisionSuccess(day, time);
+        }
+
+        if (DayOption.FRIDAY.equals(day) && TimeOption.NIGHT.equals(time))
+        {
+            DecisionOption decision = getDecision(day, time);
+            if (!DecisionOption.PARTY.equals(decision))
             {
                 return true;
             }

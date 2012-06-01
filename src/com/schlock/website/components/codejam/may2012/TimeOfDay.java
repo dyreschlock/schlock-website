@@ -95,6 +95,10 @@ public class TimeOfDay
 
     public String getUnavailableText()
     {
+        if (DayOption.THURSDAY.equals(day) && TimeOption.NIGHT.equals(time))
+        {
+            return messages.get("unavailable-" + day.name().toLowerCase() + "-" + time.name().toLowerCase());
+        }
         return messages.get("unavailable-" + currentDecision.name());
     }
     

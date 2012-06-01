@@ -11,7 +11,12 @@
             </h2>
 
             <t:loop source="times" value="currentTime">
-                <d:timeOfDay day="day" time="currentTime" />
+                <t:if test="!finale">
+                    <d:timeOfDay day="day" time="currentTime" />
+                </t:if>
+                <t:if test="finale">
+                    <d:finale />
+                </t:if>
             </t:loop>
         </div>
 

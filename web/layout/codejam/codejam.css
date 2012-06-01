@@ -39,6 +39,11 @@ a
     text-decoration: none;
     color: #333;
 }
+.blue
+{
+    font-weight: bold;
+    color: #00f;
+}
 .unavailable
 {
     text-decoration: line-through;
