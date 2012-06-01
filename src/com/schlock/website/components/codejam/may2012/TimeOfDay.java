@@ -178,7 +178,7 @@ public class TimeOfDay
 
     public String getSwitchResult()
     {
-        return "asdf";
+        return decisionManagement.getSwitchResults(day, messages);
     }
     
     public boolean isTimeComplete()

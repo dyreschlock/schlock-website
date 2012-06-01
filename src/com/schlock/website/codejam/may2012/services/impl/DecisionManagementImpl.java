@@ -203,6 +203,24 @@ public class DecisionManagementImpl implements DecisionManagement
                         "-" +
                         "introduction";
 
+        if (DayOption.MONDAY.equals(day) && TimeOption.DREAM.equals(time))
+        {
+            DecisionOption evening = getDecision(DayOption.MONDAY, TimeOption.EVENING);
+            key += "-" + evening.name().toLowerCase();
+
+            if (!DecisionOption.GROCERY_STORE.equals(evening))
+            {
+                DecisionOption night = getDecision(DayOption.MONDAY, TimeOption.NIGHT);
+                key += "-" + night.name().toLowerCase();
+            }
+        }
+
+        if (DayOption.THURSDAY.equals(day) && TimeOption.DREAM.equals(time))
+        {
+            SwitchOption option = getSwitch(DayOption.WEDNESDAY);
+            key += "-" + option.name().toLowerCase();
+        }
+        
         if ((DayOption.TUESDAY.equals(day) || DayOption.WEDNESDAY.equals(day)) &&
                 (!TimeOption.DREAM.equals(time)))
         {
@@ -378,6 +396,32 @@ public class DecisionManagementImpl implements DecisionManagement
     public void makeSwitch(DayOption day, SwitchOption switchOption)
     {
         getController().makeSwitch(day, switchOption);
+    }
+
+    public String getSwitchResults(DayOption day, Messages messages)
+    {
+        SwitchOption option = getSwitch(day);
+
+        String key = day.name().toLowerCase() +
+                "-" +
+                TimeOption.DREAM.name().toLowerCase() +
+                "-" +
+                option.name().toLowerCase();
+
+        if (DayOption.WEDNESDAY.equals(day))
+        {
+            DecisionOption music = getDecision(DayOption.TUESDAY, TimeOption.EVENING);
+            if (DecisionOption.MUSIC_STORE.equals(music))
+            {
+                key += "-yes";
+            }
+            else
+            {
+                key += "-no";
+            }
+        }
+
+        return messages.get(key);
     }
 
     public boolean isGameOver(DayOption day, TimeOption time)

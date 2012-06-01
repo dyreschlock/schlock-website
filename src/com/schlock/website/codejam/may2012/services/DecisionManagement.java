@@ -36,5 +36,7 @@ public interface DecisionManagement
 
     void makeSwitch(DayOption day, SwitchOption switchOption);
     
+    String getSwitchResults(DayOption day, Messages messages);
+    
     boolean isGameOver(DayOption day, TimeOption time);
 }
