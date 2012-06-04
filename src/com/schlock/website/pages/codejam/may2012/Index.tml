@@ -5,7 +5,7 @@
     >
 
     <h1 class="title">
-        ${message:page-title}
+        <t:eventlink t:id="reset">${message:page-title}</t:eventlink>
     </h1>
 
     <div class="content">

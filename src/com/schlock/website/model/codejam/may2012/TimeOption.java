@@ -1,4 +1,4 @@
-package com.schlock.website.codejam.may2012.model;
+package com.schlock.website.model.codejam.may2012;
 
 import java.util.Arrays;
 import java.util.List;

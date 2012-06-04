@@ -1,4 +1,4 @@
-package com.schlock.website.codejam.may2012.model;
+package com.schlock.website.model.codejam.may2012;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +44,10 @@ public class DecisionController
         return currentDay.compareTo(day) > 0;
     }
 
+    public boolean isCurrent(DayOption day, TimeOption time)
+    {
+        return day.equals(currentDay) && time.equals(currentTime);
+    }
 
     public void completeDay(DayOption day, TimeOption time)
     {

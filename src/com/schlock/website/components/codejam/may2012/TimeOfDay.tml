@@ -42,7 +42,7 @@
 
                 <t:if test="decisionMade">
                     <t:outputraw value="${decisionResult}" />
-                    <br/><br/>
+                    <br/>
                     <t:remove>
                     <t:if test="decisionSuccess">
                         <img src="${decisionSuccessImageUrl}" />
@@ -71,19 +71,21 @@
 
                 <t:if test="switchMade">
                     <t:outputraw value="${switchResult}" />
-                    <br/><br/>
+                    <br/>
                 </t:if>
             </t:if>
 
             <t:if test="timeComplete">
 
                 <t:if test="gameOver">
+                    <br/>
                     <div class="decision">
                         <t:outputraw value="${message:game-over}" />
                     </div>
                 </t:if>
 
-                <t:if test="!gameOver">
+                <t:if test="showContinue">
+                    <br/>
                     <t:eventlink t:id="continue" context="[day, time]" zone="${pageZoneId}">
                         <t:if test="dream">${message:next-day}</t:if>
                         <t:if test="!dream">${message:continue}</t:if>

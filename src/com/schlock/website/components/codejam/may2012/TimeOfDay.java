@@ -1,7 +1,7 @@
 package com.schlock.website.components.codejam.may2012;
 
-import com.schlock.website.codejam.may2012.model.*;
-import com.schlock.website.codejam.may2012.services.DecisionManagement;
+import com.schlock.website.services.codejam.may2012.DecisionManagement;
+import com.schlock.website.model.codejam.may2012.*;
 import com.schlock.website.pages.codejam.may2012.Index;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;
@@ -195,7 +195,17 @@ public class TimeOfDay
     {
         return decisionManagement.isGameOver(day, time);
     }
-    
+
+    public boolean isShowContinue()
+    {
+        return !isGameOver() && isCurrent();
+    }
+
+    public boolean isCurrent()
+    {
+        return decisionManagement.isCurrent(day, time);
+    }
+
     Object onContinue(DayOption day, TimeOption time)
     {
         controller.completeDay(day, time);

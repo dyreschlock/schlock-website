@@ -1,9 +1,9 @@
-package com.schlock.website.codejam.may2012.services;
+package com.schlock.website.services.codejam.may2012;
 
-import com.schlock.website.codejam.may2012.model.DayOption;
-import com.schlock.website.codejam.may2012.model.DecisionOption;
-import com.schlock.website.codejam.may2012.model.SwitchOption;
-import com.schlock.website.codejam.may2012.model.TimeOption;
+import com.schlock.website.model.codejam.may2012.DayOption;
+import com.schlock.website.model.codejam.may2012.DecisionOption;
+import com.schlock.website.model.codejam.may2012.SwitchOption;
+import com.schlock.website.model.codejam.may2012.TimeOption;
 import org.apache.tapestry5.ioc.Messages;
 
 import java.util.List;
@@ -17,7 +17,9 @@ public interface DecisionManagement
     boolean isAvailable(DayOption day, TimeOption time, DecisionOption decisions);
 
     boolean isValid(DayOption day, TimeOption time);
-    
+
+    boolean isCurrent(DayOption day, TimeOption time);
+
     List<DecisionOption> getDecisions(DayOption day, TimeOption time);
     
     DecisionOption getDecision(DayOption day, TimeOption time);

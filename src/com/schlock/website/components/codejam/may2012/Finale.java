@@ -1,10 +1,10 @@
 package com.schlock.website.components.codejam.may2012;
 
-import com.schlock.website.codejam.may2012.model.DayOption;
-import com.schlock.website.codejam.may2012.model.DecisionOption;
-import com.schlock.website.codejam.may2012.model.SwitchOption;
-import com.schlock.website.codejam.may2012.model.TimeOption;
-import com.schlock.website.codejam.may2012.services.DecisionManagement;
+import com.schlock.website.model.codejam.may2012.DayOption;
+import com.schlock.website.model.codejam.may2012.DecisionOption;
+import com.schlock.website.model.codejam.may2012.SwitchOption;
+import com.schlock.website.services.codejam.may2012.DecisionManagement;
+import com.schlock.website.model.codejam.may2012.TimeOption;
 import com.schlock.website.pages.codejam.may2012.Index;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;

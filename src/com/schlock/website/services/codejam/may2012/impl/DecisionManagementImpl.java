@@ -1,7 +1,7 @@
-package com.schlock.website.codejam.may2012.services.impl;
+package com.schlock.website.services.codejam.may2012.impl;
 
-import com.schlock.website.codejam.may2012.model.*;
-import com.schlock.website.codejam.may2012.services.DecisionManagement;
+import com.schlock.website.services.codejam.may2012.DecisionManagement;
+import com.schlock.website.model.codejam.may2012.*;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.services.ApplicationStateManager;
 
@@ -192,8 +192,22 @@ public class DecisionManagementImpl implements DecisionManagement
         return isValid(previousDay, previousTime);
     }
 
+    public boolean isCurrent(DayOption day, TimeOption time)
+    {
+        return getController().isCurrent(day, time);
+    }
+
     public List<DecisionOption> getDecisions(DayOption day, TimeOption time)
     {
+        if (DayOption.FRIDAY.equals(day) && TimeOption.DAY.equals(time))
+        {
+            return Arrays.asList(DecisionOption.WORK);
+        }
+        if (DayOption.FRIDAY.equals(day) && TimeOption.EVENING.equals(time))
+        {
+            return Arrays.asList(DecisionOption.HOME);
+        }
+
         List<DecisionOption> decisions = new ArrayList<DecisionOption>();
 
         List<DecisionOption> options = DecisionOption.values(day, time);
@@ -210,25 +224,6 @@ public class DecisionManagementImpl implements DecisionManagement
             {
                 DecisionOption wedNight = getDecision(DayOption.WEDNESDAY, TimeOption.NIGHT);
                 if (DecisionOption.CLUB.equals(wedNight) && DayOption.FRIDAY.equals(day))
-                {
-                    decisions.add(option);
-                }
-            }
-            else if (DayOption.FRIDAY.equals(day))
-            {
-                if (TimeOption.DAY.equals(time) && DecisionOption.WORK.equals(option))
-                {
-                    decisions.add(option);
-                }
-                else if (TimeOption.EVENING.equals(time) && DecisionOption.HOME.equals(option))
-                {
-                    decisions.add(option);
-                }
-                else if (TimeOption.NIGHT.equals(time))
-                {
-                    decisions.add(option);
-                }
-                else if (TimeOption.DREAM.equals(time))
                 {
                     decisions.add(option);
                 }
@@ -309,8 +304,7 @@ public class DecisionManagementImpl implements DecisionManagement
                         "-" +
                         decision.name().toLowerCase();
 
-        if (DecisionOption.MUSIC_STORE.equals(decision) &&
-                DayOption.WEDNESDAY.equals(day))
+        if (DecisionOption.MUSIC_STORE.equals(decision) && DayOption.WEDNESDAY.equals(day))
         {
             DecisionOption tuesday = getDecision(DayOption.TUESDAY, TimeOption.EVENING);
             SwitchOption option = getSwitch(DayOption.TUESDAY);
@@ -368,7 +362,6 @@ public class DecisionManagementImpl implements DecisionManagement
                 key += "-yes";
 
                 SwitchOption option = getSwitch(DayOption.THURSDAY);
-
                 key += "-" + option.name().toLowerCase();
             }
         }
@@ -405,7 +398,6 @@ public class DecisionManagementImpl implements DecisionManagement
                 (DayOption.TUESDAY.equals(day) && TimeOption.EVENING.equals(time) && DecisionOption.MUSIC_STORE.equals(decision)) ||
                 (DayOption.WEDNESDAY.equals(day) && TimeOption.NIGHT.equals(time) && DecisionOption.CLUB.equals(decision)))
         {
-
             return true;
         }
 
@@ -448,12 +440,10 @@ public class DecisionManagementImpl implements DecisionManagement
     {
         if (TimeOption.DREAM.equals(time))
         {
-            if (DayOption.SUNDAY.equals(day) ||
-                    DayOption.MONDAY.equals(day))
+            if (DayOption.SUNDAY.equals(day) || DayOption.MONDAY.equals(day))
             {
                 return true;
             }
-
             SwitchOption option = getController().getSwitch(day);
             return option != null;
         }
@@ -495,30 +485,12 @@ public class DecisionManagementImpl implements DecisionManagement
     {
         if (DayOption.MONDAY.equals(day) && TimeOption.DREAM.equals(time))
         {
-            DecisionOption monEvening = getDecision(DayOption.MONDAY, TimeOption.EVENING);
-            if(monEvening == null)
-            {
-                return true;
-            }
-            if (!DecisionOption.GROCERY_STORE.equals(monEvening))
-            {
-                return true;
-            }
-
+            return !isDecisionSuccess(DayOption.MONDAY, TimeOption.EVENING);
         }
         if (DayOption.WEDNESDAY.equals(day) && TimeOption.DREAM.equals(time))
         {
-            DecisionOption tueEvening = getDecision(DayOption.TUESDAY, TimeOption.EVENING);
-            if(tueEvening == null)
-            {
-                return true;
-            }
-            if (!DecisionOption.MUSIC_STORE.equals(tueEvening))
-            {
-                return true;
-            }
+            return !isDecisionSuccess(DayOption.TUESDAY, TimeOption.EVENING);
         }
-
         if (DayOption.FRIDAY.equals(day) && TimeOption.DAY.equals(time))
         {
             return !isDecisionSuccess(day, time);
@@ -532,7 +504,6 @@ public class DecisionManagementImpl implements DecisionManagement
                 return true;
             }
         }
-
         return false;
     }
 }
