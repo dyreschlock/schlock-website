@@ -28,4 +28,74 @@ public abstract class Post extends Persisted
     {
         return this instanceof TextPost;
     }
+
+    public String getUuid()
+    {
+        return uuid;
+    }
+
+    public void setUuid(String uuid)
+    {
+        this.uuid = uuid;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+    public Date getCreated()
+    {
+        return created;
+    }
+
+    public void setCreated(Date created)
+    {
+        this.created = created;
+    }
+
+    public boolean isPublished()
+    {
+        return published;
+    }
+
+    public void setPublished(boolean published)
+    {
+        this.published = published;
+    }
+
+    public boolean isPinned()
+    {
+        return pinned;
+    }
+
+    public void setPinned(boolean pinned)
+    {
+        this.pinned = pinned;
+    }
+
+    public boolean isPage()
+    {
+        return page;
+    }
+
+    public void setPage(boolean page)
+    {
+        this.page = page;
+    }
+
+    public Set<Category> getCategories()
+    {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories)
+    {
+        this.categories = categories;
+    }
 }

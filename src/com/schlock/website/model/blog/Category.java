@@ -39,9 +39,39 @@ import com.schlock.website.model.Persisted;
 public class Category extends Persisted
 {
     private String name;
+    private int order;
 
     private Category parent;
-    
-    private boolean top;
-    private int order;
+
+
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public int getOrder()
+    {
+        return order;
+    }
+
+    public void setOrder(int order)
+    {
+        this.order = order;
+    }
+
+    public Category getParent()
+    {
+        return parent;
+    }
+
+    public void setParent(Category parent)
+    {
+        this.parent = parent;
+    }
 }
