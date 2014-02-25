@@ -1,13 +1,12 @@
 <t:container
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:l="tapestry-library:blog/link"
     >
 
-    <div class="currentCategory">
+    <div class="previous">
 
-        ${currentCategory.title}
-
-
-
+        <l:postlink post="nextPost" />
 
     </div>
+
 </t:container>

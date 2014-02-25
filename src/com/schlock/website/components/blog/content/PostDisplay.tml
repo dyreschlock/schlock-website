@@ -4,12 +4,14 @@
 
     <div class="content">
 
-        <t:if text="post.text">
+        <!--
+        <t:if test="post.text">
 
         </t:if>
-        <t:if text="post.photo">
+        <t:if test="post.photo">
 
         </t:if>
+        -->
     </div>
 
 

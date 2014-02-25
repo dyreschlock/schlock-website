@@ -1,6 +1,6 @@
 <t:container
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-    xmlns:l="tapestery:blog/link"
+    xmlns:l="tapestery-library:blog/link"
     >
 
     <div class="links">

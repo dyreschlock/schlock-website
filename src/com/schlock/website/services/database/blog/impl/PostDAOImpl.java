@@ -1,5 +1,6 @@
 package com.schlock.website.services.database.blog.impl;
 
+import com.schlock.website.model.blog.Category;
 import com.schlock.website.model.blog.Post;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -15,12 +16,12 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public Post getNextPost(boolean withUnpublished)
+    public Post getNextPost(Post currentPost, boolean withUnpublished, Category category)
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public Post getPreviousPost(boolean withUnplished)
+    public Post getPreviousPost(Post currentPost, boolean withUnplished, Category category)
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
