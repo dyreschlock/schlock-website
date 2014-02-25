@@ -1,6 +1,6 @@
 package com.schlock.website.components.blog.link;
 
-import com.schlock.website.model.blog.Post;
+import com.schlock.website.entities.blog.Post;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 

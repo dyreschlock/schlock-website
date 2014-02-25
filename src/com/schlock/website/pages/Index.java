@@ -1,7 +1,7 @@
 package com.schlock.website.pages;
 
-import com.schlock.website.model.blog.Post;
-import com.schlock.website.model.blog.ViewState;
+import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.SessionState;

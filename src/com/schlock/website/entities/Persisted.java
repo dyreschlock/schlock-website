@@ -1,4 +1,4 @@
-package com.schlock.website.model;
+package com.schlock.website.entities;
 
 public class Persisted
 {

@@ -1,6 +1,6 @@
-package com.schlock.website.model.blog;
+package com.schlock.website.entities.blog;
 
-import com.schlock.website.model.Persisted;
+import com.schlock.website.entities.Persisted;
 
 /**
  *

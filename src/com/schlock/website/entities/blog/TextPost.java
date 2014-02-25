@@ -1,4 +1,4 @@
-package com.schlock.website.model.blog;
+package com.schlock.website.entities.blog;
 
 public class TextPost extends Post
 {

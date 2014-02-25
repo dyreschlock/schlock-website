@@ -2,7 +2,7 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping default-access="field" >
-    <class name="com.schlock.website.model.blog.Category" table="blog-categories">
+    <class name="com.schlock.website.entities.blog.Category" table="blog-categories">
         <id name="id" unsaved-value="null">
             <generator class="native" />
         </id>
@@ -10,7 +10,7 @@
         <property name="name" />
         <property name="order" />
 
-        <many-to-one name="parent" column="parentId" class="com.schlock.website.model.blog.Category" />
+        <many-to-one name="parent" column="parentId" class="com.schlock.website.entities.blog.Category" />
 
     </class>
 </hibernate-mapping>

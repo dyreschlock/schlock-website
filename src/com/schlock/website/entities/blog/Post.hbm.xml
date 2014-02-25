@@ -2,7 +2,7 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping default-access="field" >
-    <class name="com.schlock.website.model.blog.Post" table="blog-posts">
+    <class name="com.schlock.website.entities.blog.Post" table="blog-posts">
         <id name="id" unsaved-value="null">
             <generator class="native" />
         </id>
@@ -18,15 +18,15 @@
 
         <set name="categories" cascade="none" lazy="true" table="blog-posts-categories">
             <key column="postId" />
-            <many-to-many class="com.schlock.website.model.blog.Category" column="categoryId" />
+            <many-to-many class="com.schlock.website.entities.blog.Category" column="categoryId" />
         </set>
 
-        <subclass name="com.schlock.website.model.blog.TextPost">
+        <subclass name="com.schlock.website.entities.blog.TextPost">
             <property name="bodyText" />
             <property name="bodyHTML" />
         </subclass>
 
-        <subclass name="com.schlock.website.model.blog.PhotoPost">
+        <subclass name="com.schlock.website.entities.blog.PhotoPost">
             <property name="fileLocation" />
             <property name="text" />
         </subclass>

@@ -1,7 +1,7 @@
 package com.schlock.website.components.codejam.may2012;
 
 import com.schlock.website.services.codejam.may2012.DecisionManagement;
-import com.schlock.website.model.codejam.may2012.*;
+import com.schlock.website.entities.codejam.may2012.*;
 import com.schlock.website.pages.codejam.may2012.Index;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;

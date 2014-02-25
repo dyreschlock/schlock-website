@@ -1,7 +1,7 @@
 package com.schlock.website.services.database.blog.impl;
 
-import com.schlock.website.model.blog.Category;
-import com.schlock.website.model.blog.Post;
+import com.schlock.website.entities.blog.Category;
+import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.blog.PostDAO;
 

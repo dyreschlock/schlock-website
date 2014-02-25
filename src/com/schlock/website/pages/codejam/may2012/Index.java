@@ -1,7 +1,7 @@
 package com.schlock.website.pages.codejam.may2012;
 
-import com.schlock.website.model.codejam.may2012.DayOption;
-import com.schlock.website.model.codejam.may2012.DecisionController;
+import com.schlock.website.entities.codejam.may2012.DayOption;
+import com.schlock.website.entities.codejam.may2012.DecisionController;
 import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;

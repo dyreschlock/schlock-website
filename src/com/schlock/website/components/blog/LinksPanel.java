@@ -1,8 +1,8 @@
 package com.schlock.website.components.blog;
 
-import com.schlock.website.model.blog.Category;
-import com.schlock.website.model.blog.Post;
-import com.schlock.website.model.blog.ViewState;
+import com.schlock.website.entities.blog.Category;
+import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Property;

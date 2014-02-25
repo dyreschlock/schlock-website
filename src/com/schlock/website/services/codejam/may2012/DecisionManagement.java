@@ -1,9 +1,9 @@
 package com.schlock.website.services.codejam.may2012;
 
-import com.schlock.website.model.codejam.may2012.DayOption;
-import com.schlock.website.model.codejam.may2012.DecisionOption;
-import com.schlock.website.model.codejam.may2012.SwitchOption;
-import com.schlock.website.model.codejam.may2012.TimeOption;
+import com.schlock.website.entities.codejam.may2012.DayOption;
+import com.schlock.website.entities.codejam.may2012.DecisionOption;
+import com.schlock.website.entities.codejam.may2012.SwitchOption;
+import com.schlock.website.entities.codejam.may2012.TimeOption;
 import org.apache.tapestry5.ioc.Messages;
 
 import java.util.List;

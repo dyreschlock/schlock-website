@@ -1,7 +1,7 @@
 package com.schlock.website.services.codejam.may2012.impl;
 
 import com.schlock.website.services.codejam.may2012.DecisionManagement;
-import com.schlock.website.model.codejam.may2012.*;
+import com.schlock.website.entities.codejam.may2012.*;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.services.ApplicationStateManager;
 
