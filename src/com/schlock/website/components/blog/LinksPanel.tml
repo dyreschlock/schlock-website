@@ -1,0 +1,33 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:l="tapestery:blog/link"
+    >
+
+    <div class="links">
+
+        ${message:categories}
+        <t:loop source="categories" value="currentCategory">
+            <l:categorylink category="currentCategory" />
+        </t:loop>
+
+        <!-- ${message:photos} -->
+
+        ${message:recent-posts}
+        <t:loop source="recentPosts" value="currentPost">
+            <l:postlink post="currentPost" />
+        </t:loop>
+
+        ${message:recent-pinned-posts}
+        <t:loop source="pinnedPosts" value="currentPost">
+            <l:postlink post="currentPost" />
+        </t:loop>
+
+        ${message:pages}
+        <!--  Post Archive -->
+        <t:loop source="pages" value="currentPost">
+            <l:postlink post="currentPost" />
+        </t:loop>
+
+    </div>
+
+</t:container>

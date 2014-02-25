@@ -1,0 +1,17 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <div class="content">
+
+        <t:if text="post.text">
+
+        </t:if>
+        <t:if text="post.photo">
+
+        </t:if>
+    </div>
+
+
+
+</t:container>
