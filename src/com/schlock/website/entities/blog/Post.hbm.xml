@@ -22,8 +22,8 @@
         </set>
 
         <subclass name="com.schlock.website.entities.blog.TextPost">
-            <property name="bodyText" />
-            <property name="bodyHTML" />
+            <property name="bodyText" length="1000000" />
+            <property name="bodyHTML" length="1000000" />
         </subclass>
 
         <subclass name="com.schlock.website.entities.blog.PhotoPost">
