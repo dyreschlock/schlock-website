@@ -31,7 +31,7 @@ public class LinksPanel
 
     public List<Category> getCategories()
     {
-        return categoryDAO.getAllInOrder();
+        return categoryDAO.getTopCategoriesInOrder();
     }
 
     public List<Post> getRecentPosts()

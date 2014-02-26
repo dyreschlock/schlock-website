@@ -3,13 +3,25 @@ package com.schlock.website.services.database.blog.impl;
 import com.schlock.website.entities.blog.Category;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.blog.CategoryDAO;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 import java.util.List;
 
 public class CategoryDAOImpl extends BaseDAOImpl<Category> implements CategoryDAO
 {
-    public List<Category> getAllInOrder()
+    public CategoryDAOImpl(Session session)
     {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        super(Category.class, session);
+    }
+
+    public List<Category> getTopCategoriesInOrder()
+    {
+        String text = "from Category " +
+                        " where parentId is null " +
+                        " order by ordering ";
+
+        Query query = session.createQuery(text);
+        return query.list();
     }
 }

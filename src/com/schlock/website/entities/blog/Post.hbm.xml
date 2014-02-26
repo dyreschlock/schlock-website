@@ -2,7 +2,7 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping default-access="field" >
-    <class name="com.schlock.website.entities.blog.Post" table="blog-posts">
+    <class name="com.schlock.website.entities.blog.Post" table="blog_posts">
         <id name="id" unsaved-value="null">
             <generator class="native" />
         </id>
@@ -16,7 +16,7 @@
         <property name="pinned" />
         <property name="page" />
 
-        <set name="categories" cascade="none" lazy="true" table="blog-posts-categories">
+        <set name="categories" cascade="none" lazy="true" table="blog_posts_categories">
             <key column="postId" />
             <many-to-many class="com.schlock.website.entities.blog.Category" column="categoryId" />
         </set>

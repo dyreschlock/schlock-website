@@ -39,7 +39,7 @@ import com.schlock.website.entities.Persisted;
 public class Category extends Persisted
 {
     private String name;
-    private int order;
+    private int ordering;
 
     private Category parent;
 
@@ -55,14 +55,14 @@ public class Category extends Persisted
         this.name = name;
     }
 
-    public int getOrder()
+    public int getOrdering()
     {
-        return order;
+        return ordering;
     }
 
-    public void setOrder(int order)
+    public void setOrdering(int ordering)
     {
-        this.order = order;
+        this.ordering = ordering;
     }
 
     public Category getParent()

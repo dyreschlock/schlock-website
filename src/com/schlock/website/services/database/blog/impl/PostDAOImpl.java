@@ -4,12 +4,18 @@ import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.blog.PostDAO;
+import org.hibernate.Session;
 
 import java.util.List;
 
 public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
 {
     private static final int TOP_RECENT = 5;
+
+    public PostDAOImpl(Session session)
+    {
+        super(Post.class, session);
+    }
 
     public Post getMostRecentPost(boolean withUnpublished)
     {
