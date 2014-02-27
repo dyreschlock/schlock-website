@@ -5,7 +5,7 @@ import com.schlock.website.entities.Persisted;
 import java.util.Date;
 import java.util.Set;
 
-public abstract class Post extends Persisted
+public class Post extends Persisted
 {
     private String uuid;
     private String title;
@@ -17,22 +17,21 @@ public abstract class Post extends Persisted
     private boolean pinned;
     private boolean page;
 
+    private String bodyText;
+    private String bodyHTML;
+
     private Set<Category> categories;
+
+
+    protected Post()
+    {
+    }
 
     public Post(String uuid)
     {
         this.uuid = uuid;
     }
 
-    public boolean isPhoto()
-    {
-        return this instanceof PhotoPost;
-    }
-
-    public boolean isText()
-    {
-        return this instanceof TextPost;
-    }
 
     public String getUuid()
     {
@@ -102,6 +101,26 @@ public abstract class Post extends Persisted
     public void setPage(boolean page)
     {
         this.page = page;
+    }
+
+    public String getBodyText()
+    {
+        return bodyText;
+    }
+
+    public void setBodyText(String bodyText)
+    {
+        this.bodyText = bodyText;
+    }
+
+    public String getBodyHTML()
+    {
+        return bodyHTML;
+    }
+
+    public void setBodyHTML(String bodyHTML)
+    {
+        this.bodyHTML = bodyHTML;
     }
 
     public Set<Category> getCategories()

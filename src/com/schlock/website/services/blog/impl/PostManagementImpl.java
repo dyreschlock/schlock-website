@@ -1,9 +1,9 @@
 package com.schlock.website.services.blog.impl;
 
 import com.schlock.website.entities.blog.Post;
-import com.schlock.website.entities.blog.TextPost;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -68,22 +68,27 @@ public class PostManagementImpl implements PostManagement
         return uuid;
     }
 
-    public Post createTextPost(String postTitle, String postContent)
+    public Post createPost(String postTitle, String postContent)
     {
+        if (StringUtils.isEmpty(postTitle))
+        {
+            return null;
+        }
+
         Calendar cal = Calendar.getInstance();
         Date created = cal.getTime();
 
         cal.setTimeZone(TimeZone.getTimeZone("GMT"));
         Date createdGMT = cal.getTime();
 
-        return createTextPost(created, createdGMT, postTitle, postContent);
+        return createPost(created, createdGMT, postTitle, postContent);
     }
 
-    public Post createTextPost(Date created, Date createdGMT, String postTitle, String postContent)
+    public Post createPost(Date created, Date createdGMT, String postTitle, String postContent)
     {
         String uuid = createUuid(postTitle);
 
-        TextPost post = new TextPost(uuid);
+        Post post = new Post(uuid);
         post.setCreated(created);
         post.setCreatedGMT(createdGMT);
 
@@ -93,5 +98,45 @@ public class PostManagementImpl implements PostManagement
         postDAO.save(post);
 
         return post;
+    }
+
+    public void regenerateAllPostHTML()
+    {
+        for (Post post : postDAO.getAll())
+        {
+            generatePostHTML(post);
+        }
+    }
+
+    public void generatePostHTML(Post post)
+    {
+        String tempText = post.getBodyText();
+
+        String bodyHTML = "";
+
+        String[] paragraphs = tempText.split("\r\n\r\n");
+        for (int i = 0; i < paragraphs.length; i++)
+        {
+            String p = paragraphs[i];
+
+            bodyHTML += "<p>" + p + "</p>";
+        }
+
+        tempText = bodyHTML;
+        bodyHTML = "";
+
+        String[] paragraphs2 = tempText.split("\n\n");
+        for (int i = 0; i < paragraphs2.length; i++)
+        {
+            String p = paragraphs2[i];
+
+            bodyHTML += "<p>" + p + "</p>";
+        }
+
+        bodyHTML = bodyHTML.replaceAll("\r\n", "<br/>");
+        bodyHTML = bodyHTML.replaceAll("\n", "<br/>");
+
+        post.setBodyHTML(bodyHTML);
+        postDAO.save(post);
     }
 }

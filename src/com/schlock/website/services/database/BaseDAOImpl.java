@@ -17,6 +17,13 @@ public abstract class BaseDAOImpl<T> implements BaseDAO<T>
         this.entityClass = entityClass;
     }
 
+    public List<T> getAll()
+    {
+        String text = String.format("from %s order by id", entityClass.getName());
+        Query query = session.createQuery(text);
+        return query.list();
+    }
+
     public T getById(Long id)
     {
         return (T) session.load(entityClass, id);

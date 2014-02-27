@@ -5,17 +5,10 @@
     <div class="content">
 
         ${post.title}
+        <br /><br />
+        <t:outputraw value="post.bodyHTML" />
 
-        <!--
-        <t:if test="post.text">
-
-        </t:if>
-        <t:if test="post.photo">
-
-        </t:if>
-        -->
     </div>
-
 
 
 </t:container>

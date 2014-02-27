@@ -4,11 +4,13 @@ import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.services.blog.ConvertWordpress;
+import com.schlock.website.services.blog.PostManagement;
+import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Persist;
-import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
@@ -21,6 +23,9 @@ public class Index
     private ConvertWordpress convertWordpress;
 
     @Inject
+    private PostManagement postManagement;
+
+    @Inject
     private PageRenderLinkSource linkSource;
 
     @Inject
@@ -29,8 +34,10 @@ public class Index
     @Inject
     private PostDAO postDAO;
 
+    @Inject
+    private CategoryDAO categoryDAO;
+
     @Persist
-    @Property
     private Post currentPost;
 
     @SessionState
@@ -41,7 +48,9 @@ public class Index
         viewState.setCurrentCategory(null);
         viewState.setShowUnpublished(false);
 
-        currentPost = postDAO.getMostRecentPost(false, null);
+        Category category = null;
+
+        currentPost = postDAO.getMostRecentPost(false, category);
 
         return true;
     }
@@ -68,8 +77,21 @@ public class Index
         return true;
     }
 
-    public Post getPost()
+    Object onPassivate()
     {
+        if(currentPost != null)
+        {
+            return new Object[] { currentPost.getUuid() };
+        }
+        return null;
+    }
+
+    public Post getCurrentPost()
+    {
+        if(currentPost == null)
+        {
+            currentPost = postDAO.getMostRecentPost(false, null);
+        }
         return currentPost;
     }
 
@@ -80,6 +102,17 @@ public class Index
 
 
 
+    //@CommitAfter
+    void onConvertWordpress()
+    {
+        //convertWordpress.startProcess();
+    }
+
+    @CommitAfter
+    void onRegeneratePostHTML()
+    {
+        postManagement.regenerateAllPostHTML();
+    }
 
     Object onCodejamLink()
     {

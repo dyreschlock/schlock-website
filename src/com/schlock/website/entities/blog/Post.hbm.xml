@@ -18,19 +18,12 @@
         <property name="pinned" />
         <property name="page" />
 
+        <property name="bodyText" length="1000000" />
+        <property name="bodyHTML" length="1000000" />
+
         <set name="categories" cascade="none" lazy="true" table="blog_posts_categories">
             <key column="postId" />
             <many-to-many class="com.schlock.website.entities.blog.Category" column="categoryId" />
         </set>
-
-        <subclass name="com.schlock.website.entities.blog.TextPost">
-            <property name="bodyText" length="1000000" />
-            <property name="bodyHTML" length="1000000" />
-        </subclass>
-
-        <subclass name="com.schlock.website.entities.blog.PhotoPost">
-            <property name="fileLocation" />
-            <property name="text" />
-        </subclass>
     </class>
 </hibernate-mapping>

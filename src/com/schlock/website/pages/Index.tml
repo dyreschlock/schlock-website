@@ -6,7 +6,10 @@
 
     <t:remove>
         <t:eventlink t:id="codejamLink">${message:codejam}</t:eventlink>
+        <t:eventlink t:id="convertWordpress">Convert Wordpress</t:eventlink>
     </t:remove>
+
+    <t:eventlink t:id="regeneratePostHTML">Regenerate Post HTML</t:eventlink>
 
 
     <c:postdisplay post="currentPost" />

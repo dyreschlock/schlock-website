@@ -4,6 +4,7 @@ import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.blog.ConvertWordpress;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
+import org.apache.commons.lang.time.DateUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -34,7 +35,6 @@ public class ConvertWordpressImpl implements ConvertWordpress
         {
             Post post = createPost(entry);
         }
-
     }
 
     private Post createPost(Object[] entry)
@@ -44,7 +44,16 @@ public class ConvertWordpressImpl implements ConvertWordpress
         String postContent = (String) entry[2];
         String postTitle = (String) entry[3];
 
-        Post post = postManagement.createTextPost(created, createdGMT, postTitle, postContent);
+        Date date = new Date();
+        date = DateUtils.setYears(date, 2014);
+        date = DateUtils.setMonths(date, 1);
+        date = DateUtils.setDays(date, 1);
+
+        Post post = postManagement.createPost(created, createdGMT, postTitle, postContent);
+        if (created.after(date))
+        {
+            post.setPublished(true);
+        }
         return post;
     }
 

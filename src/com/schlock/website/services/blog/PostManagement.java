@@ -6,7 +6,11 @@ import java.util.Date;
 
 public interface PostManagement
 {
-    public Post createTextPost(String postTitle, String postContent);
+    public Post createPost(String postTitle, String postContent);
 
-    public Post createTextPost(Date created, Date createdGMT, String postTitle, String postContent);
+    public Post createPost(Date created, Date createdGMT, String postTitle, String postContent);
+
+    public void regenerateAllPostHTML();
+
+    public void generatePostHTML(Post post);
 }
