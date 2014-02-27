@@ -8,6 +8,7 @@
         <t:eventlink t:id="codejamLink">${message:codejam}</t:eventlink>
     </t:remove>
 
-    <c:postdisplay post="post" />
+
+    <c:postdisplay post="currentPost" />
 
 </html>

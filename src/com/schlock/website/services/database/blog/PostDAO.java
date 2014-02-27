@@ -5,10 +5,15 @@ import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.database.BaseDAO;
 
 import java.util.List;
+import java.util.Set;
 
 public interface PostDAO extends BaseDAO<Post>
 {
-    public Post getMostRecentPost(boolean withUnpublished);
+    public Post getByUuid(String uuid);
+
+    public Set<String> getAllUuids();
+
+    public Post getMostRecentPost(boolean withUnpublished, Category category);
 
     public Post getNextPost(Post currentPost, boolean withUnpublished, Category category);
 

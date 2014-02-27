@@ -10,7 +10,9 @@
 
         <property name="uuid" not-null="true" />
         <property name="title" />
+
         <property name="created" />
+        <property name="createdGMT" />
 
         <property name="published" />
         <property name="pinned" />

@@ -4,6 +4,8 @@
 
     <div class="content">
 
+        ${post.title}
+
         <!--
         <t:if test="post.text">
 

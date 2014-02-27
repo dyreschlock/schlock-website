@@ -1,0 +1,61 @@
+package com.schlock.website.services.blog.impl;
+
+import com.schlock.website.entities.blog.Post;
+import com.schlock.website.services.blog.ConvertWordpress;
+import com.schlock.website.services.blog.PostManagement;
+import com.schlock.website.services.database.blog.PostDAO;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import java.util.Date;
+import java.util.List;
+
+public class ConvertWordpressImpl implements ConvertWordpress
+{
+    private final PostManagement postManagement;
+
+    private final PostDAO postDAO;
+    private final Session session;
+
+    public ConvertWordpressImpl(PostManagement postManagement,
+                                PostDAO postDAO,
+                                Session session)
+    {
+        this.postManagement = postManagement;
+
+        this.postDAO = postDAO;
+        this.session = session;
+    }
+
+    public void startProcess()
+    {
+        List<Object[]> entries = retrieveWordpressEntries();
+        for(Object[] entry : entries)
+        {
+            Post post = createPost(entry);
+        }
+
+    }
+
+    private Post createPost(Object[] entry)
+    {
+        Date created = (Date) entry[0];
+        Date createdGMT = (Date) entry[1];
+        String postContent = (String) entry[2];
+        String postTitle = (String) entry[3];
+
+        Post post = postManagement.createTextPost(created, createdGMT, postTitle, postContent);
+        return post;
+    }
+
+    private List<Object[]> retrieveWordpressEntries()
+    {
+        String queryText = "select post_date, post_date_gmt, post_content, post_title " +
+                            " from wp_posts " +
+                            " where post_type = 'post' " +
+                            " and post_status = 'publish' ";
+
+        Query query = session.createSQLQuery(queryText);
+        return query.list();
+    }
+}

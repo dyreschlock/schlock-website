@@ -8,9 +8,10 @@ import java.util.Set;
 public abstract class Post extends Persisted
 {
     private String uuid;
-
     private String title;
+
     private Date created;
+    private Date createdGMT;
 
     private boolean published;
     private boolean pinned;
@@ -18,6 +19,10 @@ public abstract class Post extends Persisted
 
     private Set<Category> categories;
 
+    public Post(String uuid)
+    {
+        this.uuid = uuid;
+    }
 
     public boolean isPhoto()
     {
@@ -57,6 +62,16 @@ public abstract class Post extends Persisted
     public void setCreated(Date created)
     {
         this.created = created;
+    }
+
+    public Date getCreatedGMT()
+    {
+        return createdGMT;
+    }
+
+    public void setCreatedGMT(Date createdGMT)
+    {
+        this.createdGMT = createdGMT;
     }
 
     public boolean isPublished()
