@@ -1,0 +1,18 @@
+.w200 { width: 200px; }
+
+
+.w35p { width: 35%; }
+
+
+.h100p { height: 100%; }
+
+
+
+.fLeft { float: left; }
+.fRight { float: right; }
+.clr { clear: both: }
+
+
+.posRelative { position: relative; }
+
+table td { vertical-align: top; }

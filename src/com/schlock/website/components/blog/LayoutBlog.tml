@@ -10,13 +10,31 @@
     </head>
     <body>
 
-        <div class="header">${message:title}</div>
+        <div id="header" class="header clr">
+            ${message:title}
+        </div>
 
-        <b:linkspanel />
+        <div id="pageContent">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="w200">
+                            <div id="links">
+                                <b:linkspanel />
+                            </div>
+                        </td>
+                        <td>
+                            <div id="content">
+                                <t:body />
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-        <t:body />
 
-        <div class="footer"></div>
+        <div id="footer"></div>
 
     </body>
 </html>

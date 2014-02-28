@@ -3,8 +3,6 @@
     xmlns:l="tapestry-library:blog/link"
     >
 
-    <div class="links">
-
         ${message:categories}
         <t:loop source="categories" value="currentCategory">
             <l:categorylink category="currentCategory" />
@@ -27,7 +25,5 @@
         <t:loop source="pages" value="currentPost">
             <l:postlink post="currentPost" />
         </t:loop>
-
-    </div>
 
 </t:container>

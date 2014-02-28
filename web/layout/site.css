@@ -3,7 +3,8 @@ body
     color: #000000;
     font : 12px arial
 }
-.clr
+header
 {
-	clear: both;
+    font-weight: bold;
 }
+
