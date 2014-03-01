@@ -3,6 +3,7 @@ package com.schlock.website.components.blog;
 import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
+import com.schlock.website.pages.Archive;
 import com.schlock.website.pages.Index;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -43,6 +44,9 @@ public class LinksPanel
 
     @InjectPage
     private Index index;
+
+    @InjectPage
+    private Archive archive;
 
     @SessionState
     private ViewState viewState;
@@ -90,6 +94,11 @@ public class LinksPanel
         Post post = postDAO.getMostRecentPost(unpublished, categoryId);
 
         return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid());
+    }
+
+    Object onSelectArchive()
+    {
+        return archive;
     }
 
 

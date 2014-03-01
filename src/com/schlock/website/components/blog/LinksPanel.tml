@@ -49,6 +49,8 @@
         <div class="title">
             ${message:pages}
         </div>
+        <t:eventlink t:id="selectArchive">${message:archive}</t:eventlink>
+
         <!--  Post Archive -->
         <t:loop source="pages" value="currentPost">
             <l:postlink post="currentPost" />
