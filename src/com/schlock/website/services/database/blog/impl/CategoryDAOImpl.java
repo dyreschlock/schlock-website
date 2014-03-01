@@ -24,4 +24,15 @@ public class CategoryDAOImpl extends BaseDAOImpl<Category> implements CategoryDA
         Query query = session.createQuery(text);
         return query.list();
     }
+
+    public List<Category> getSubcategoriesInOrder(Long categoryId)
+    {
+        String text = "from Category " +
+                        " where parentId = :categoryId " +
+                        " order by ordering ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("categoryId", categoryId);
+        return query.list();
+    }
 }

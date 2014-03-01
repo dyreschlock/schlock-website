@@ -91,12 +91,58 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
 
     public Post getNextPost(Post currentPost, boolean withUnpublished, Long categoryId)
     {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        String text = " from Post p";
+        if(categoryId != null)
+        {
+            text += " join p.categories c ";
+        }
+        text += " where p.createdGMT > :currentCreated ";
+        if(categoryId != null)
+        {
+            text += " and c.id = :categoryId ";
+        }
+        if (!withUnpublished)
+        {
+            text += " and p.published is true ";
+        }
+        text += " order by p.createdGMT desc";
+
+        Query query = session.createQuery(text);
+        query.setTimestamp("currentCreated", currentPost.getCreatedGMT());
+        if(categoryId != null)
+        {
+            query.setParameter("categoryId", categoryId);
+        }
+
+        return (Post) singleResult(query);
     }
 
-    public Post getPreviousPost(Post currentPost, boolean withUnplished, Long categoryId)
+    public Post getPreviousPost(Post currentPost, boolean withUnpublished, Long categoryId)
     {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        String text = " from Post p";
+        if(categoryId != null)
+        {
+            text += " join p.categories c ";
+        }
+        text += " where p.createdGMT < :currentCreated ";
+        if(categoryId != null)
+        {
+            text += " and c.id = :categoryId ";
+        }
+        if (!withUnpublished)
+        {
+            text += " and p.published is true ";
+        }
+        text += " order by p.createdGMT desc";
+
+        Query query = session.createQuery(text);
+        query.setTimestamp("currentCreated", currentPost.getCreatedGMT());
+        if(categoryId != null)
+        {
+            query.setParameter("categoryId", categoryId);
+        }
+
+        return (Post) singleResult(query);
     }
 
     public List<Post> getRecentPosts(boolean withUnpublished, Long categoryId)

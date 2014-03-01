@@ -20,5 +20,7 @@
 .posRelative { position: relative; }
 
 table td { vertical-align: top; }
+table td .right { text-align: right; }
+table td .left { text-align: left; }
 
 .roundcorners { -moz-border-radius: 10px; -webkit-border-radius: 10px; }

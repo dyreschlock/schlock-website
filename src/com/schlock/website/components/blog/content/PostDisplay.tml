@@ -1,8 +1,32 @@
 <t:container
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:l="tapestry-library:blog/link"
     >
 
-    <div id="postContent" class="maxw1024 roundcorners p20">
+    <div id="previousNext" class="">
+        <table>
+            <tbody>
+                <tr>
+                    <td class="left">
+                        <t:if test="hasPreviousPost">
+                            <div id="previous">
+                                <l:postlink post="previousPost" />
+                            </div>
+                        </t:if>
+                    </td>
+                    <td class="right">
+                        <t:if test="hasNextPost">
+                            <div id="next">
+                                <l:postlink post="nextPost" />
+                            </div>
+                        </t:if>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="postContent" class="maxw1024 p20">
 
         <div id="postHeader" class="header">
             ${post.title}

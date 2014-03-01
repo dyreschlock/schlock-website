@@ -28,6 +28,9 @@ public class LinksPanel
     private Category currentCategory;
 
     @Property
+    private Category currentSubcategory;
+
+    @Property
     private Post currentPost;
 
 
@@ -44,6 +47,11 @@ public class LinksPanel
     public List<Category> getCategories()
     {
         return categoryDAO.getTopCategoriesInOrder();
+    }
+
+    public List<Category> getSubcategories()
+    {
+        return categoryDAO.getSubcategoriesInOrder(currentCategory.getId());
     }
 
     public boolean isExpanded()

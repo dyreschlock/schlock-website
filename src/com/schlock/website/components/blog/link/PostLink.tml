@@ -2,4 +2,13 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
+    <t:eventlink t:id="selectPost" context="post.uuid">
+        <div id="postTitle">
+            ${post.title}
+        </div>
+        <div id="postDate">
+            ${post.prettyCreatedDate}
+        </div>
+    </t:eventlink>
+
 </t:container>

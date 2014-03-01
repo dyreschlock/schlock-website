@@ -16,9 +16,16 @@
                     <t:if test="expanded">- </t:if>
                     <t:if test="!expanded">+ </t:if>
                 </t:eventlink>
-                <t:eventlink t:id="selectCategory" context="currentCategory.id">${currentCategory.name}</t:eventlink>
+                <t:eventlink event="selectCategory" context="currentCategory.id">${currentCategory.name}</t:eventlink>
             </div>
 
+            <t:if test="expanded">
+                <t:loop source="subcategories" value="currentSubcategory">
+                    <div id="category" class="p10 clr">
+                        <t:eventlink event="selectCategory" context="currentSubcategory.id">${currentSubcategory.name}</t:eventlink>
+                    </div>
+                </t:loop>
+            </t:if>
 
         </t:loop>
 
