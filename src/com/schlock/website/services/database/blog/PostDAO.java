@@ -1,6 +1,5 @@
 package com.schlock.website.services.database.blog;
 
-import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.database.BaseDAO;
 
@@ -13,13 +12,13 @@ public interface PostDAO extends BaseDAO<Post>
 
     public Set<String> getAllUuids();
 
-    public Post getMostRecentPost(boolean withUnpublished, Category category);
+    public Post getMostRecentPost(boolean withUnpublished, Long categoryId);
 
-    public Post getNextPost(Post currentPost, boolean withUnpublished, Category category);
+    public Post getNextPost(Post currentPost, boolean withUnpublished, Long categoryId);
 
-    public Post getPreviousPost(Post currentPost, boolean withUnplished, Category category);
+    public Post getPreviousPost(Post currentPost, boolean withUnplished, Long categoryId);
 
-    public List<Post> getRecentPosts(boolean withUnpublished);
+    public List<Post> getRecentPosts(boolean withUnpublished, Long categoryId);
 
     public List<Post> getRecentPinnedPosts(boolean withUnpublished);
 

@@ -1,18 +1,24 @@
 .w200 { width: 200px; }
 
-
 .w35p { width: 35%; }
 
+.minw200 { min-width: 200px; }
+.minw800 { min-width: 800px; }
 
-.h100p { height: 100%; }
+.maxw1030 { max-width: 1030px; }
+.maxw1024 { max-width: 1024px; }
 
+.pt20 { padding-top: 20px; }
 
+.p10 { padding: 10px; }
+.p20 { padding: 20px; }
 
 .fLeft { float: left; }
 .fRight { float: right; }
 .clr { clear: both: }
 
-
 .posRelative { position: relative; }
 
 table td { vertical-align: top; }
+
+.roundcorners { -moz-border-radius: 10px; -webkit-border-radius: 10px; }

@@ -1,6 +1,5 @@
 package com.schlock.website.services.database.blog.impl;
 
-import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -56,10 +55,10 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return uuids;
     }
 
-    public Post getMostRecentPost(boolean withUnpublished, Category category)
+    public Post getMostRecentPost(boolean withUnpublished, Long categoryId)
     {
         Query query;
-        if(category == null)
+        if(categoryId == null)
         {
             String text = "from Post p ";
 
@@ -84,23 +83,23 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
             text += " order by p.createdGMT desc";
 
             query = session.createQuery(text);
-            query.setParameter("categoryId", category.getId());
+            query.setParameter("categoryId", categoryId);
         }
 
         return (Post) singleResult(query);
     }
 
-    public Post getNextPost(Post currentPost, boolean withUnpublished, Category category)
+    public Post getNextPost(Post currentPost, boolean withUnpublished, Long categoryId)
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public Post getPreviousPost(Post currentPost, boolean withUnplished, Category category)
+    public Post getPreviousPost(Post currentPost, boolean withUnplished, Long categoryId)
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public List<Post> getRecentPosts(boolean withUnpublished)
+    public List<Post> getRecentPosts(boolean withUnpublished, Long categoryId)
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }

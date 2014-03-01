@@ -2,11 +2,17 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
-    <div class="content">
+    <div id="postContent" class="maxw1024 roundcorners p20">
 
-        ${post.title}
-        <br /><br />
-        <t:outputraw value="post.bodyHTML" />
+        <div id="postHeader" class="header">
+            ${post.title}
+        </div>
+        <div id="postDate">
+            ${post.prettyCreatedDate}
+        </div>
+        <div id="postBody" class="minw800 pt20">
+            <t:outputraw value="post.bodyHTML" />
+        </div>
 
     </div>
 

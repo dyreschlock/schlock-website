@@ -1,6 +1,5 @@
 package com.schlock.website.components.blog.link;
 
-import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -23,8 +22,8 @@ public class NextPostLink
     public Post getNextPost()
     {
         boolean unpublished = viewState.isShowUnpublished();
-        Category category = viewState.getCurrentCategory();
+        Long categoryId = viewState.getCurrentCategoryId();
 
-        return postDAO.getNextPost(currentPost, unpublished, category);
+        return postDAO.getNextPost(currentPost, unpublished, categoryId);
     }
 }

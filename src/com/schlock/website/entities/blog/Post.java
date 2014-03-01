@@ -2,11 +2,14 @@ package com.schlock.website.entities.blog;
 
 import com.schlock.website.entities.Persisted;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
 public class Post extends Persisted
 {
+    private static final String DATE_FORMAT = "EEEEE  MMMMM d, yyyy  hh:mm aaa";
+
     private String uuid;
     private String title;
 
@@ -30,6 +33,13 @@ public class Post extends Persisted
     public Post(String uuid)
     {
         this.uuid = uuid;
+    }
+
+
+    public String getPrettyCreatedDate()
+    {
+        SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
+        return format.format(created);
     }
 
 

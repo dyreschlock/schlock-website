@@ -14,19 +14,15 @@
             ${message:title}
         </div>
 
-        <div id="pageContent">
+        <div id="pageContent" class="pt20">
             <table>
                 <tbody>
                     <tr>
-                        <td class="w200">
-                            <div id="links">
-                                <b:linkspanel />
-                            </div>
+                        <td class="w200 minw200">
+                            <b:linkspanel />
                         </td>
-                        <td>
-                            <div id="content">
-                                <t:body />
-                            </div>
+                        <td class="minw800">
+                            <t:body />
                         </td>
                     </tr>
                 </tbody>

@@ -3,27 +3,50 @@
     xmlns:l="tapestry-library:blog/link"
     >
 
-        ${message:categories}
+    <t:zone t:id="linksZone" id="linksZone" t:update="show">
+    <div id="links" class="p20">
+
+
+        <div id="category" class="p10 clr">
+            <t:eventlink t:id="removeCategory">${message:home}</t:eventlink>
+        </div>
         <t:loop source="categories" value="currentCategory">
-            <l:categorylink category="currentCategory" />
+            <div id="category" class="p10 clr">
+                <t:eventlink t:id="expandCategory" context="currentCategory.id" class="noDecor" zone="linksZone">
+                    <t:if test="expanded">- </t:if>
+                    <t:if test="!expanded">+ </t:if>
+                </t:eventlink>
+                <t:eventlink t:id="selectCategory" context="currentCategory.id">${currentCategory.name}</t:eventlink>
+            </div>
+
+
         </t:loop>
 
         <!-- ${message:photos} -->
 
-        ${message:recent-posts}
+        <div class="title">
+            ${message:recent-posts}
+        </div>
+
         <t:loop source="recentPosts" value="currentPost">
             <l:postlink post="currentPost" />
         </t:loop>
 
-        ${message:recent-pinned-posts}
+        <div class="title">
+            ${message:recent-pinned-posts}
+        </div>
         <t:loop source="pinnedPosts" value="currentPost">
             <l:postlink post="currentPost" />
         </t:loop>
 
-        ${message:pages}
+        <div class="title">
+            ${message:pages}
+        </div>
         <!--  Post Archive -->
         <t:loop source="pages" value="currentPost">
             <l:postlink post="currentPost" />
         </t:loop>
 
+    </div>
+    </t:zone>
 </t:container>

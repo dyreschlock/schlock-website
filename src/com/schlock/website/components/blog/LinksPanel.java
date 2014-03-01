@@ -3,10 +3,14 @@ package com.schlock.website.components.blog;
 import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
+import com.schlock.website.pages.Index;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
+import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.corelib.components.Zone;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -19,11 +23,19 @@ public class LinksPanel
     @Inject
     private CategoryDAO categoryDAO;
 
+
     @Property
     private Category currentCategory;
 
     @Property
     private Post currentPost;
+
+
+    @InjectComponent
+    private Zone linksZone;
+
+    @InjectPage
+    private Index index;
 
     @SessionState
     private ViewState viewState;
@@ -34,10 +46,46 @@ public class LinksPanel
         return categoryDAO.getTopCategoriesInOrder();
     }
 
+    public boolean isExpanded()
+    {
+        return currentCategory.getId().equals(viewState.getExpandedCategoryId());
+    }
+
+    Object onExpandCategory(Long categoryId)
+    {
+        if (categoryId.equals(viewState.getExpandedCategoryId()))
+        {
+            viewState.setExpandedCategoryId(null);
+        }
+        else
+        {
+            viewState.setExpandedCategoryId(categoryId);
+        }
+        return linksZone;
+    }
+
+    Object onRemoveCategory()
+    {
+        viewState.setCurrentCategoryId(null);
+        return index;
+    }
+
+    Object onSelectCategory(Long categoryId)
+    {
+        viewState.setCurrentCategoryId(categoryId);
+        return index;
+    }
+
+
+
+
+
     public List<Post> getRecentPosts()
     {
         boolean unpublished = viewState.isShowUnpublished();
-        return postDAO.getRecentPosts(unpublished);
+        Long categoryId = viewState.getCurrentCategoryId();
+
+        return postDAO.getRecentPosts(unpublished, categoryId);
     }
 
     public List<Post> getPinnedPosts()

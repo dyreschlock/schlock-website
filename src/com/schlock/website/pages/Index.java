@@ -1,6 +1,5 @@
 package com.schlock.website.pages;
 
-import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.services.blog.ConvertWordpress;
@@ -45,12 +44,9 @@ public class Index
 
     Object onActivate()
     {
-        viewState.setCurrentCategory(null);
-        viewState.setShowUnpublished(false);
+        viewState.reset();
 
-        Category category = null;
-
-        currentPost = postDAO.getMostRecentPost(false, category);
+        currentPost = postDAO.getMostRecentPost(false, null);
 
         return true;
     }
@@ -64,12 +60,12 @@ public class Index
         else
         {
             boolean unpublished = viewState.isShowUnpublished();
-            Category category = viewState.getCurrentCategory();
+            Long categoryId = viewState.getCurrentCategoryId();
 
             Post post = postDAO.getByUuid(parameter);
             if(post == null)
             {
-                post = postDAO.getMostRecentPost(unpublished, category);
+                post = postDAO.getMostRecentPost(unpublished, categoryId);
             }
             currentPost = post;
         }
