@@ -3,29 +3,6 @@
     xmlns:l="tapestry-library:blog/link"
     >
 
-    <div id="previousNext" class="">
-        <table>
-            <tbody>
-                <tr>
-                    <td class="left">
-                        <t:if test="hasPreviousPost">
-                            <div id="previous">
-                                <l:postlink post="previousPost" />
-                            </div>
-                        </t:if>
-                    </td>
-                    <td class="right">
-                        <t:if test="hasNextPost">
-                            <div id="next">
-                                <l:postlink post="nextPost" />
-                            </div>
-                        </t:if>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
     <div id="postContent" class="maxw1024 p20">
 
         <div id="postHeader" class="header">
@@ -40,5 +17,38 @@
 
     </div>
 
+
+    <table class="w100p">
+        <tbody>
+            <tr>
+                <td class="left w50p">
+                    <t:if test="hasPreviousPosts">
+                        <div id="previousNext" class="p20">
+                            <div id="title" class="pb10">${message:previous}</div>
+
+                            <t:loop source="previousPosts" value="currentPost" index="currentIndex">
+                                <div id="link${currentIndex}" class="pt10">
+                                    <l:postlink post="currentPost" />
+                                </div>
+                            </t:loop>
+                        </div>
+                    </t:if>
+                </td>
+                <td class="right w50p">
+                    <t:if test="hasNextPosts">
+                        <div id="previousNext" class="p20">
+                            <div id="title" class="pb10">${message:next}</div>
+
+                            <t:loop source="nextPosts" value="currentPost" index="currentIndex">
+                                <div id="link${currentIndex}" class="pt10">
+                                    <l:postlink post="currentPost" />
+                                </div>
+                            </t:loop>
+                        </div>
+                    </t:if>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
 </t:container>

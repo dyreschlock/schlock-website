@@ -109,7 +109,7 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return (Post) singleResult(query);
     }
 
-    public Post getNextPost(Post currentPost, boolean withUnpublished, Long categoryId)
+    public List<Post> getNextPosts(Post currentPost, boolean withUnpublished, Long categoryId)
     {
         String text = "select p " +
                         " from Post p";
@@ -135,10 +135,15 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
             query.setParameter("categoryId", categoryId);
         }
 
-        return (Post) singleResult(query);
+        List list = query.list();
+        if (list.size() > 5)
+        {
+            return list.subList(0, 5);
+        }
+        return list;
     }
 
-    public Post getPreviousPost(Post currentPost, boolean withUnpublished, Long categoryId)
+    public List<Post> getPreviousPosts(Post currentPost, boolean withUnpublished, Long categoryId)
     {
         String text = "select p" +
                         " from Post p";
@@ -164,7 +169,12 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
             query.setParameter("categoryId", categoryId);
         }
 
-        return (Post) singleResult(query);
+        List list = query.list();
+        if (list.size() > 5)
+        {
+            return list.subList(0, 5);
+        }
+        return list;
     }
 
     public List<Post> getRecentPosts(boolean withUnpublished, Long categoryId)

@@ -18,9 +18,9 @@ public interface PostDAO extends BaseDAO<Post>
 
     public Post getMostRecentPost(boolean withUnpublished, Long categoryId);
 
-    public Post getNextPost(Post currentPost, boolean withUnpublished, Long categoryId);
+    public List<Post> getNextPosts(Post currentPost, boolean withUnpublished, Long categoryId);
 
-    public Post getPreviousPost(Post currentPost, boolean withUnplished, Long categoryId);
+    public List<Post> getPreviousPosts(Post currentPost, boolean withUnplished, Long categoryId);
 
     public List<Post> getRecentPosts(boolean withUnpublished, Long categoryId);
 

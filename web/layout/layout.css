@@ -1,5 +1,7 @@
 .w200 { width: 200px; }
 
+.w100p { width: 100% }
+.w50p { width: 50%; }
 .w35p { width: 35%; }
 
 .minw200 { min-width: 200px; }
@@ -9,9 +11,15 @@
 .maxw1024 { max-width: 1024px; }
 
 .pt20 { padding-top: 20px; }
+.pt10 { padding-top: 10px; }
 
+.pb10 { padding-bottom: 10px; }
+
+.p0 { padding: 0; }
 .p10 { padding: 10px; }
 .p20 { padding: 20px; }
+
+.m0 { margin: 0; }
 
 .fLeft { float: left; }
 .fRight { float: right; }

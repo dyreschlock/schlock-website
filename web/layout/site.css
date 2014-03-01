@@ -54,9 +54,56 @@ body
     font-size: 12px;
     color: #777;
 }
+
 #postContent
 {
     font-size: 16px;
     background-color: #fff;
     border: 1px solid #ccc;
+}
+#postContent a:link
+{
+    text-decoration: none; color: #800;
+}
+#postContent a:visited
+{
+    text-decoration: none; color: #800;
+}
+#postContent a:hover
+{
+    text-decoration: underline; color: #800;
+}
+
+#previousNext
+{
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+#previousNext #title
+{
+    font-size: 12px;
+    text-decoration: underline;
+}
+#previousNext a:link
+{
+    text-decoration: none; color: #333;
+}
+#previousNext a:visited
+{
+    text-decoration: none; color: #333;
+}
+#previousNext a:hover
+{
+    text-decoration: none; color: #333;
+}
+
+#link1 #postTitle, #link2 #postTitle, #link3 #postTitle, #link4 #postTitle
+{
+    font-size: 12px;
+    color: #777;
+}
+#link1 #postDate, #link2 #postDate, #link3 #postDate, #link4 #postDate
+{
+    font-size: 9px;
+    color: #ccc;
 }

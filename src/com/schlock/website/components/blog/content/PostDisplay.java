@@ -8,6 +8,8 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import java.util.List;
+
 public class PostDisplay
 {
     @Parameter(required = true)
@@ -20,41 +22,49 @@ public class PostDisplay
     @SessionState
     private ViewState viewState;
 
-    private Post cachedNextPost;
-    private Post cachedPreviousPost;
+    @Property
+    private Post currentPost;
+
+    @Property
+    private int currentIndex;
+
+    private List<Post> cachedNextPosts;
+    private List<Post> cachedPreviousPosts;
 
 
-    public boolean isHasNextPost()
+    public boolean isHasNextPosts()
     {
-        return getNextPost() != null;
+        List<Post> posts = getNextPosts();
+        return posts != null && posts.size() > 0;
     }
 
-    public Post getNextPost()
+    public List<Post> getNextPosts()
     {
-        if(cachedNextPost == null)
+        if(cachedNextPosts == null)
         {
             boolean unpublished = viewState.isShowUnpublished();
             Long categoryId = viewState.getCurrentCategoryId();
 
-            cachedNextPost = postDAO.getNextPost(post, unpublished, categoryId);
+            cachedNextPosts = postDAO.getNextPosts(post, unpublished, categoryId);
         }
-        return cachedNextPost;
+        return cachedNextPosts;
     }
 
-    public boolean isHasPreviousPost()
+    public boolean isHasPreviousPosts()
     {
-        return getPreviousPost() != null;
+        List<Post> posts = getPreviousPosts();
+        return posts != null && posts.size() > 0;
     }
 
-    public Post getPreviousPost()
+    public List<Post> getPreviousPosts()
     {
-        if(cachedPreviousPost == null)
+        if(cachedPreviousPosts == null)
         {
             boolean unpublished = viewState.isShowUnpublished();
             Long categoryId = viewState.getCurrentCategoryId();
 
-            cachedPreviousPost = postDAO.getPreviousPost(post, unpublished, categoryId);
+            cachedPreviousPosts = postDAO.getPreviousPosts(post, unpublished, categoryId);
         }
-        return cachedPreviousPost;
+        return cachedPreviousPosts;
     }
 }
