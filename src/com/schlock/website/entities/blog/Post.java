@@ -3,8 +3,7 @@ package com.schlock.website.entities.blog;
 import com.schlock.website.entities.Persisted;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 public class Post extends Persisted
 {
@@ -38,6 +37,39 @@ public class Post extends Persisted
         this.uuid = uuid;
     }
 
+
+    public List<Category> getTopCategories()
+    {
+        List<Category> top = new ArrayList<Category>();
+
+        for (Category category : getCategories())
+        {
+            if (category.isTopCategory())
+            {
+                top.add(category);
+            }
+        }
+
+        Collections.sort(top, new CategoryComparator());
+        return top;
+    }
+
+    public List<Category> getSubcategories(Category top)
+    {
+        List<Category> sub = new ArrayList<Category>();
+
+        for (Category category : getCategories())
+        {
+            if (category.getParent() != null &&
+                    category.getParent().getId().equals(top.getId()))
+            {
+                sub.add(category);
+            }
+        }
+
+        Collections.sort(sub, new CategoryComparator());
+        return sub;
+    }
 
     public String getPrettyCreatedDate()
     {

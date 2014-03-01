@@ -44,6 +44,10 @@ public class Category extends Persisted
     private Category parent;
 
 
+    public boolean isTopCategory()
+    {
+        return parent == null;
+    }
 
     public String getName()
     {

@@ -10,6 +10,13 @@
         </div>
         <div id="postDate">
             ${post.prettyCreatedDate}
+            <t:loop source="topCategories" value="currentCategory">
+                //
+                <t:eventlink event="selectCategory" context="currentCategory.id">${currentCategory.name}</t:eventlink>
+                <t:loop source="subcategories" value="currentSubcategory">
+                    .<t:eventlink event="selectCategory" context="currentSubcategory.id">${currentSubcategory.name}</t:eventlink>
+                </t:loop>
+            </t:loop>
         </div>
         <div id="postBody" class="minw800 pt20">
             <t:outputraw value="post.bodyHTML" />
