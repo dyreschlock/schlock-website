@@ -6,7 +6,8 @@
     <div id="postContent" class="maxw1024 p20">
 
         <div id="postHeader" class="header">
-            ${post.id} - ${post.title}
+            <!-- ${post.id} - -->
+            ${post.title}
         </div>
         <div id="postDate">
             ${post.prettyCreatedDate}
