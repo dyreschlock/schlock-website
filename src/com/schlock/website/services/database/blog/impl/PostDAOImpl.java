@@ -40,6 +40,24 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return (Post) list.get(0);
     }
 
+    public Post getByWpid(String wpid)
+    {
+        String text = "from Post p where p.wpid = :wpid";
+        Query query = session.createQuery(text);
+        query.setParameter("wpid", wpid);
+
+        return (Post) singleResult(query);
+    }
+
+    public Post getByMtid(String mtid)
+    {
+        String text = "from Post p where p.mtid = :mtid";
+        Query query = session.createQuery(text);
+        query.setParameter("mtid", mtid);
+
+        return (Post) singleResult(query);
+    }
+
     public Set<String> getAllUuids()
     {
         String text = "select p.uuid " +
@@ -60,7 +78,8 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         Query query;
         if(categoryId == null)
         {
-            String text = "from Post p ";
+            String text = "select p " +
+                            " from Post p ";
 
             if (!withUnpublished)
             {
@@ -72,13 +91,14 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         }
         else
         {
-            String text = "from Post p " +
+            String text = "select p " +
+                    " from Post p " +
                     " join p.categories c " +
                     " where c.id = :categoryId ";
 
             if (!withUnpublished)
             {
-                text += " where p.published is true ";
+                text += " and p.published is true ";
             }
             text += " order by p.createdGMT desc";
 
@@ -91,7 +111,8 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
 
     public Post getNextPost(Post currentPost, boolean withUnpublished, Long categoryId)
     {
-        String text = " from Post p";
+        String text = "select p " +
+                        " from Post p";
         if(categoryId != null)
         {
             text += " join p.categories c ";
@@ -105,7 +126,7 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         {
             text += " and p.published is true ";
         }
-        text += " order by p.createdGMT desc";
+        text += " order by p.createdGMT asc";
 
         Query query = session.createQuery(text);
         query.setTimestamp("currentCreated", currentPost.getCreatedGMT());
@@ -119,7 +140,8 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
 
     public Post getPreviousPost(Post currentPost, boolean withUnpublished, Long categoryId)
     {
-        String text = " from Post p";
+        String text = "select p" +
+                        " from Post p";
         if(categoryId != null)
         {
             text += " join p.categories c ";

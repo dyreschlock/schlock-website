@@ -10,6 +10,10 @@ public interface PostDAO extends BaseDAO<Post>
 {
     public Post getByUuid(String uuid);
 
+    public Post getByWpid(String wpid);
+
+    public Post getByMtid(String mtid);
+
     public Set<String> getAllUuids();
 
     public Post getMostRecentPost(boolean withUnpublished, Long categoryId);

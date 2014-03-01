@@ -43,6 +43,7 @@ public class ConvertWordpressImpl implements ConvertWordpress
         Date createdGMT = (Date) entry[1];
         String postContent = (String) entry[2];
         String postTitle = (String) entry[3];
+        Long id = (Long) entry[4];
 
         Date date = new Date();
         date = DateUtils.setYears(date, 2014);
@@ -50,6 +51,7 @@ public class ConvertWordpressImpl implements ConvertWordpress
         date = DateUtils.setDays(date, 1);
 
         Post post = postManagement.createPost(created, createdGMT, postTitle, postContent);
+        post.setWpid(id.toString());
         if (created.after(date))
         {
             post.setPublished(true);
@@ -59,7 +61,7 @@ public class ConvertWordpressImpl implements ConvertWordpress
 
     private List<Object[]> retrieveWordpressEntries()
     {
-        String queryText = "select post_date, post_date_gmt, post_content, post_title " +
+        String queryText = "select post_date, post_date_gmt, post_content, post_title, id " +
                             " from wp_posts " +
                             " where post_type = 'post' " +
                             " and post_status = 'publish' ";

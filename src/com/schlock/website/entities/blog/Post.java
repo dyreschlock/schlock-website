@@ -10,6 +10,9 @@ public class Post extends Persisted
 {
     private static final String DATE_FORMAT = "EEEEE  MMMMM d, yyyy  hh:mm aaa";
 
+    private String wpid; //legacy Wordpress id
+    private String mtid; //legacy MoveableType id
+
     private String uuid;
     private String title;
 
@@ -42,6 +45,26 @@ public class Post extends Persisted
         return format.format(created);
     }
 
+
+    public String getWpid()
+    {
+        return wpid;
+    }
+
+    public void setWpid(String wpid)
+    {
+        this.wpid = wpid;
+    }
+
+    public String getMtid()
+    {
+        return mtid;
+    }
+
+    public void setMtid(String mtid)
+    {
+        this.mtid = mtid;
+    }
 
     public String getUuid()
     {

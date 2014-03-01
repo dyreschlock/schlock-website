@@ -6,9 +6,11 @@
         <id name="id" unsaved-value="null">
             <generator class="native" />
         </id>
-        <discriminator />
 
         <property name="uuid" not-null="true" />
+        <property name="wpid" />
+        <property name="mtid" />
+
         <property name="title" />
 
         <property name="created" />

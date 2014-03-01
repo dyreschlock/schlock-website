@@ -11,6 +11,7 @@ import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -18,10 +19,13 @@ import java.util.List;
 public class LinksPanel
 {
     @Inject
-    private PostDAO postDAO;
+    private PageRenderLinkSource linkSource;
 
     @Inject
     private CategoryDAO categoryDAO;
+
+    @Inject
+    private PostDAO postDAO;
 
 
     @Property
@@ -81,11 +85,12 @@ public class LinksPanel
     Object onSelectCategory(Long categoryId)
     {
         viewState.setCurrentCategoryId(categoryId);
-        return index;
+
+        boolean unpublished = viewState.isShowUnpublished();
+        Post post = postDAO.getMostRecentPost(unpublished, categoryId);
+
+        return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid());
     }
-
-
-
 
 
     public List<Post> getRecentPosts()
