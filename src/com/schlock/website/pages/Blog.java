@@ -1,16 +1,19 @@
-package com.schlock.website.pages.journal;
+package com.schlock.website.pages;
 
 import com.schlock.website.entities.blog.Post;
-import com.schlock.website.pages.Index;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
+import org.apache.tapestry5.services.Request;
 
-public class Archives
+public class Blog
 {
     @Inject
     private PageRenderLinkSource linkSource;
+
+    @Inject
+    private Request request;
 
     @Inject
     private PostDAO postDAO;
@@ -18,27 +21,18 @@ public class Archives
     @InjectPage
     private Index index;
 
-    Object onActivate()
-    {
-        return index;
-    }
-
     /**
-     * /journal/achives/000***.html
+     * /blog/?p=***
      *
-     * This is the URL pattern for the archives on the MoveableType
-     *  blog I used from 2003 to 2006.  This will take the ID from
+     * This is the URL pattern for the archives on the Wordpress
+     *  blog I used from 2006 to 2013.  This will take the ID from
      *  the page and redirect to the current entry.
      */
-    Object onActivate(String parameter)
+    Object onActivate()
     {
-        String mtid = parameter.substring(0, parameter.indexOf("."));
-        while (mtid.startsWith("0"))
-        {
-            mtid = mtid.substring(1);
-        }
+        String wpid = request.getParameter("p");
 
-        Post post = postDAO.getByMtid(mtid);
+        Post post = postDAO.getByWpid(wpid);
         if (post != null)
         {
             return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid());
