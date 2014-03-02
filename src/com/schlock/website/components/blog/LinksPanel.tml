@@ -3,31 +3,32 @@
     xmlns:l="tapestry-library:blog/link"
     >
 
-    <t:zone t:id="linksZone" id="linksZone" t:update="show">
     <div id="links" class="p20">
 
 
-        <div id="category" class="p10 clr">
-            <t:eventlink t:id="removeCategory">${message:home}</t:eventlink>
-        </div>
-        <t:loop source="categories" value="currentCategory">
+        <t:zone t:id="linksZone" id="linksZone" t:update="show">
             <div id="category" class="p10 clr">
-                <t:eventlink t:id="expandCategory" context="currentCategory.id" class="noDecor" zone="linksZone">
-                    <t:if test="expanded">- </t:if>
-                    <t:if test="!expanded">+ </t:if>
-                </t:eventlink>
-                <t:eventlink event="selectCategory" context="currentCategory.id">${currentCategory.name}</t:eventlink>
+                <t:eventlink t:id="removeCategory">${message:home}</t:eventlink>
             </div>
+            <t:loop source="categories" value="currentCategory">
+                <div id="category" class="p10 clr">
+                    <t:eventlink t:id="expandCategory" context="currentCategory.id" class="noDecor" zone="linksZone">
+                        <t:if test="expanded">- </t:if>
+                        <t:if test="!expanded">+ </t:if>
+                    </t:eventlink>
+                    <t:eventlink event="selectCategory" context="currentCategory.id">${currentCategory.name}</t:eventlink>
+                </div>
 
-            <t:if test="expanded">
-                <t:loop source="subcategories" value="currentSubcategory">
-                    <div id="category" class="p10 clr">
-                        <t:eventlink event="selectCategory" context="currentSubcategory.id">${currentSubcategory.name}</t:eventlink>
-                    </div>
-                </t:loop>
-            </t:if>
+                <t:if test="expanded">
+                    <t:loop source="subcategories" value="currentSubcategory">
+                        <div id="category" class="p10 clr">
+                            <t:eventlink event="selectCategory" context="currentSubcategory.id">${currentSubcategory.name}</t:eventlink>
+                        </div>
+                    </t:loop>
+                </t:if>
 
-        </t:loop>
+            </t:loop>
+        </t:zone>
 
         <!-- ${message:photos} -->
 
@@ -57,5 +58,4 @@
         </t:loop>
 
     </div>
-    </t:zone>
 </t:container>

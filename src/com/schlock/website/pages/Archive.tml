@@ -1,7 +1,55 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html t:type="blog/layoutblog" title="${pageTitle}"
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:l="tapestry-library:blog/link"
     >
 
-
+    <div id="postContent" class="maxw1024">
+        <t:zone t:id="archiveZone" id="archiveZone" t:update="show">
+            <table class="w100p">
+                <tr>
+                    <td id="archiveYearColumn" class="w10p">
+                        <t:loop source="postYears" value="currentYear">
+                            <t:eventlink t:id="selectYear" context="currentYear" zone="archiveZone">
+                                <div id="archiveYear" class="">
+                                    ${currentYear}
+                                </div>
+                            </t:eventlink>
+                        </t:loop>
+                    </td>
+                    <t:if test="yearSelected">
+                        <td id="archiveMonthColumn" class="w20p">
+                            <t:loop source="postMonths" value="currentMonth">
+                                <t:eventlink t:id="selectMonth" context="currentMonth" zone="archiveZone">
+                                    <div id="archiveMonth" class="">
+                                        ${currentMonthString}
+                                    </div>
+                                </t:eventlink>
+                            </t:loop>
+                        </td>
+                        <t:if test="monthSelected">
+                            <td id="archivePosts" class="w35p">
+                                <div id="title" class="pt10 pb10">${message:archive-posts}</div>
+                                <t:loop source="archivedPosts" value="currentPost">
+                                    <div class="pt10">
+                                        <l:postlink post="currentPost" />
+                                    </div>
+                                </t:loop>
+                            </td>
+                            <td id="archivePinned" class="w35p">
+                                <t:if test="hasPinnedPosts">
+                                    <div id="title" class="pt10 pb10">${message:archive-pinned-posts}</div>
+                                    <t:loop source="archivedPosts" value="currentPost">
+                                        <div class="pt10">
+                                            <l:postlink post="currentPost" />
+                                        </div>
+                                    </t:loop>
+                                </t:if>
+                            </td>
+                        </t:if>
+                    </t:if>
+                </tr>
+            </table>
+        </t:zone>
+    </div>
 </html>

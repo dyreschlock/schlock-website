@@ -177,6 +177,110 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return list;
     }
 
+
+
+    public List<Integer> getPostYears(boolean withUnpublished, Long categoryId)
+    {
+        Query query;
+        if(categoryId == null)
+        {
+            String text = "select distinct(year(p.created)) " +
+                            " from Post p ";
+
+            if (!withUnpublished)
+            {
+                text += " where p.published is true ";
+            }
+            text += " order by year(p.created) desc ";
+
+            query = session.createQuery(text);
+        }
+        else
+        {
+            String text = "select distinct(year(p.created)) " +
+                            " from Post p " +
+                            " join p.categories c " +
+                            " where c.id = :categoryId ";
+
+            if (!withUnpublished)
+            {
+                text += " and p.published is true ";
+            }
+            text += " order by year(p.created) desc ";
+
+            query = session.createQuery(text);
+            query.setParameter("categoryId", categoryId);
+        }
+        return query.list();
+    }
+
+    public List<Integer> getPostMonths(int year, boolean withUnpublished, Long categoryId)
+    {
+        String text = "select distinct(month(p.created)) " +
+                        " from Post p ";
+        if(categoryId != null)
+        {
+            text += " join p.categories c ";
+        }
+        text += " where year(p.created) = :year ";
+        if (!withUnpublished)
+        {
+            text += " and p.published is true ";
+        }
+        if (categoryId != null)
+        {
+            text += " and c.id = :categoryId ";
+        }
+        text += " order by month(p.created) desc ";
+
+
+        Query query = session.createQuery(text);
+        query.setParameter("year", year);
+        if (categoryId != null)
+        {
+            query.setParameter("categoryId", categoryId);
+        }
+        return query.list();
+    }
+
+    public List<Post> getPostsByYearMonth(int year, int month, boolean withUnpublished, Long categoryId)
+    {
+        String text = "select p " +
+                " from Post p ";
+        if(categoryId != null)
+        {
+            text += " join p.categories c ";
+        }
+        text += " where year(p.created) = :year " +
+                " and month(p.created) = :month ";
+        if (!withUnpublished)
+        {
+            text += " and p.published is true ";
+        }
+        if (categoryId != null)
+        {
+            text += " and c.id = :categoryId ";
+        }
+        text += " order by month(p.created) desc ";
+
+
+        Query query = session.createQuery(text);
+        query.setParameter("year", year);
+        query.setParameter("month", month);
+        if (categoryId != null)
+        {
+            query.setParameter("categoryId", categoryId);
+        }
+        return query.list();
+    }
+
+    public List<Post> getPinnedPostsByYearMonth(int year, int month, boolean withUnpublished, Long categoryId)
+    {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+
+
     public List<Post> getRecentPosts(boolean withUnpublished, Long categoryId)
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.

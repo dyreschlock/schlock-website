@@ -3,6 +3,9 @@
 .w100p { width: 100% }
 .w50p { width: 50%; }
 .w35p { width: 35%; }
+.w15p { width: 15%; }
+.w20p { width: 20%; }
+.w10p { width: 10%; }
 
 .minw200 { min-width: 200px; }
 .minw800 { min-width: 800px; }
