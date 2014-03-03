@@ -28,7 +28,7 @@
 
     <div id="previousLinks">
         <t:if test="hasPreviousPosts">
-            <div id="title" class="pb10">${message:previous}</div>
+            <div id="title" class="pb10">${previousTitle}</div>
 
             <t:loop source="previousPosts" value="currentPost" index="currentIndex">
                 <div id="link${currentIndex}" class="pt10">
@@ -43,7 +43,7 @@
 
     <div id="nextLinks">
         <t:if test="hasNextPosts">
-            <div id="title" class="pb10">${message:next}</div>
+            <div id="title" class="pb10">${nextTitle}</div>
 
             <t:loop source="nextPosts" value="currentPost" index="currentIndex">
                 <div id="link${currentIndex}" class="pt10">

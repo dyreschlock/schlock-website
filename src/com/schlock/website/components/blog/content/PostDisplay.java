@@ -4,10 +4,12 @@ import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.Index;
+import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
@@ -22,6 +24,12 @@ public class PostDisplay
 
     @Inject
     private PageRenderLinkSource linkSource;
+
+    @Inject
+    private Messages messages;
+
+    @Inject
+    private CategoryDAO categoryDAO;
 
     @Inject
     private PostDAO postDAO;
@@ -107,5 +115,29 @@ public class PostDisplay
             cachedPreviousPosts = postDAO.getPreviousPosts(post, unpublished, categoryId);
         }
         return cachedPreviousPosts;
+    }
+
+    public String getNextTitle()
+    {
+        if (viewState.isHasCurrentCategory())
+        {
+            Category category = viewState.getCurrentCategory(categoryDAO);
+
+            String message = messages.get("nextInCategory");
+            return String.format(message, category.getName());
+        }
+        return messages.get("next");
+    }
+
+    public String getPreviousTitle()
+    {
+        if (viewState.isHasCurrentCategory())
+        {
+            Category category = viewState.getCurrentCategory(categoryDAO);
+
+            String message = messages.get("previousInCategory");
+            return String.format(message, category.getName());
+        }
+        return messages.get("previous");
     }
 }
