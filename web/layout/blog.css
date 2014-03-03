@@ -1,0 +1,152 @@
+body
+{
+    background-color: #323232;
+    margin: 0px;
+    padding: 0px;
+    font-family: Garamond, Baskerville, 'Baskerville Old Face', 'Hoefler Text', 'Times New Roman', serif;
+}
+a:link, a:visited, a:hover
+{
+    text-decoration: none;
+}
+h1, h2, h3
+{
+    margin: 0px;
+}
+
+#blogHeader, #blogFooter
+{
+    width: 1050px;
+    background-color: #333;
+    color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+
+    border-left: 1px solid #444;
+    border-right: 1px solid #444;
+}
+#blogHeader #title
+{
+    text-align: left;
+    float: left;
+    position: relative;
+    width: 50%;
+
+    padding: 10px 0px;
+}
+#blogHeader #links
+{
+    text-align: right;
+    float: left;
+    position: relative;
+    width: 49%;
+
+    padding: 18px 0px;
+}
+
+#blogBody
+{
+    width: 100%;
+    background-color: #fefefe;
+}
+#blogContent
+{
+    width: 1050px;
+    background-color: #fff;
+    color: #333;
+    margin-left: auto;
+    margin-right: auto;
+
+    overflow: auto;
+
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+}
+#blogContent hr
+{
+    height: 1px;
+    color: #333;
+
+    margin: 0px 20px;
+}
+
+
+#postContent
+{
+    padding: 20px;
+    padding-top: 30px;
+
+}
+#postContent #postBody
+{
+    font-size: 20px;
+
+    padding-top: 10px;
+}
+#postContent #postDate
+{
+    color: #666;
+}
+#postContent #postDate a:hover
+{
+    text-decoration: underline;
+}
+#postContent a
+{
+    color: #800;
+}
+#postContent img
+{
+    max-width: 100%;
+}
+
+#previousLinks
+{
+    text-align: left;
+    float: left;
+    position: relative;
+    width: 40%;
+
+    margin: 20px;
+}
+#nextLinks
+{
+    text-align: right;
+    float: right;
+    position: relative;
+    width: 40%;
+
+    margin: 20px;
+}
+#previousLinks a, #nextLinks a
+{
+    color: #333;
+}
+#previousLinks #postDate, #previousLinks #postDate
+{
+    color: #666;
+}
+
+#postLink h2
+{
+    margin-top: 10px;
+}
+
+
+#recentPosts, #recentPinnedPosts, #pagesLinks
+{
+    text-alight: right;
+    float: left;
+    position: relative;
+    width: 33%;
+
+    margin: 20px;
+}
+#recentPosts a, #recentPinnedPosts a, #pagesLinks a
+{
+    color: #fff;
+}
+#recentPosts #postDate, #recentPinnedPosts #postDate, #pagesLinks #postDate
+{
+    color: #ccc;
+}

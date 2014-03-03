@@ -3,12 +3,9 @@
     xmlns:l="tapestry-library:blog/link"
     >
 
-    <div id="postContent" class="maxw1024 p20">
+    <div id="postContent">
 
-        <div id="postHeader" class="header">
-            <!-- ${post.id} - -->
-            ${post.title}
-        </div>
+        <h1><!-- ${post.id} // --> ${post.title}</h1>
         <div id="postDate">
             ${post.prettyCreatedDate}
             <t:loop source="topCategories" value="currentCategory">
@@ -19,41 +16,55 @@
                 </t:loop>
             </t:loop>
         </div>
-        <div id="postBody" class="minw800 pt20">
+        <div id="postBody">
             <t:outputraw value="post.bodyHTML" />
         </div>
 
     </div>
+
+    <t:if test="hasPreviousNextPosts">
+        <hr />
+    </t:if>
+
+    <div id="previousLinks">
+        <t:if test="hasPreviousPosts">
+            <div id="title" class="pb10">${message:previous}</div>
+
+            <t:loop source="previousPosts" value="currentPost" index="currentIndex">
+                <div id="link${currentIndex}" class="pt10">
+                    <l:postlink post="currentPost" />
+                </div>
+            </t:loop>
+        </t:if>
+        <t:if test="!hasPreviousPosts">
+            <br />
+        </t:if>
+    </div>
+
+    <div id="nextLinks">
+        <t:if test="hasNextPosts">
+            <div id="title" class="pb10">${message:next}</div>
+
+            <t:loop source="nextPosts" value="currentPost" index="currentIndex">
+                <div id="link${currentIndex}" class="pt10">
+                    <l:postlink post="currentPost" />
+                </div>
+            </t:loop>
+        </t:if>
+        <t:if test="!hasNextPosts">
+            <br />
+        </t:if>
+    </div>
+
+    <br class="clr" />
 
 
     <table class="w100p">
         <tbody>
             <tr>
                 <td class="left w50p">
-                    <t:if test="hasPreviousPosts">
-                        <div id="previousNext" class="p20">
-                            <div id="title" class="pb10">${message:previous}</div>
-
-                            <t:loop source="previousPosts" value="currentPost" index="currentIndex">
-                                <div id="link${currentIndex}" class="pt10">
-                                    <l:postlink post="currentPost" />
-                                </div>
-                            </t:loop>
-                        </div>
-                    </t:if>
                 </td>
                 <td class="right w50p">
-                    <t:if test="hasNextPosts">
-                        <div id="previousNext" class="p20">
-                            <div id="title" class="pb10">${message:next}</div>
-
-                            <t:loop source="nextPosts" value="currentPost" index="currentIndex">
-                                <div id="link${currentIndex}" class="pt10">
-                                    <l:postlink post="currentPost" />
-                                </div>
-                            </t:loop>
-                        </div>
-                    </t:if>
                 </td>
             </tr>
         </tbody>

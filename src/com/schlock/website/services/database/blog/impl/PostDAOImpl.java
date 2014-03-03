@@ -6,14 +6,11 @@ import com.schlock.website.services.database.blog.PostDAO;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
 {
-    private static final int TOP_RECENT = 5;
+    public static final int TOP_RECENT = 5;
 
     public PostDAOImpl(Session session)
     {
@@ -275,10 +272,17 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return query.list();
     }
 
-    public List<Object[]> getRecentYearsMonths(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId)
+    private Query createQuery(Integer postCount,
+                              Integer year,
+                              Integer month,
+                              boolean withUnpublished,
+                              Long categoryId,
+
+                              String selectClause,
+                              List<String> whereClauses,
+                              String orderByClause)
     {
         List<String> phrases = new ArrayList<String>();
-
         if (categoryId != null)
         {
             phrases.add(" c.id = :categoryId ");
@@ -295,14 +299,12 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         {
             phrases.add(" month(p.created) = :month ");
         }
-
-
-        String text = "select year(p.created), month(p.created) from Post p ";
-        if (categoryId != null)
+        if (whereClauses != null && !whereClauses.isEmpty())
         {
-            text += " join p.categories c ";
+            phrases.addAll(whereClauses);
         }
 
+        String text = selectClause;
         boolean first = true;
         for(String phrase : phrases)
         {
@@ -315,8 +317,7 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
 
             first = false;
         }
-
-        text += " order by year(p.created) desc, month(p.created) desc ";
+        text += orderByClause;
 
         Query query = session.createQuery(text);
         if (categoryId != null)
@@ -336,67 +337,58 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
             query.setMaxResults(postCount);
         }
 
+        return query;
+    }
+
+    public List<Object[]> getRecentYearsMonths(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId)
+    {
+        String selectClause = "select year(p.created), month(p.created) from Post p ";
+        String orderByClause = " order by year(p.created) desc, month(p.created) desc ";
+
+        Query query = createQuery(postCount,
+                                    year,
+                                    month,
+                                    withUnpublished,
+                                    categoryId,
+                                    selectClause,
+                                    null,
+                                    orderByClause);
+
         return query.list();
     }
 
-    public List<Post> getRecentPostsByYearMonth(int year, int month, boolean withUnpublished, Long categoryId)
+    public List<Post> getRecentPostsByYearMonth(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId)
     {
-        String text = "select p from Post p ";
-        if(categoryId != null)
-        {
-            text += " join p.categories c ";
-        }
-        text += " where year(p.created) = :year " +
-                " and month(p.created) = :month ";
-        if (!withUnpublished)
-        {
-            text += " and p.published is true ";
-        }
-        if (categoryId != null)
-        {
-            text += " and c.id = :categoryId ";
-        }
-        text += " order by month(p.created) desc ";
+        String selectClause = "select p from Post p ";
+        String orderByClause = " order by p.created desc ";
 
+        Query query = createQuery(postCount,
+                                    year,
+                                    month,
+                                    withUnpublished,
+                                    categoryId,
+                                    selectClause,
+                                    null,
+                                    orderByClause);
 
-        Query query = session.createQuery(text);
-        query.setParameter("year", year);
-        query.setParameter("month", month);
-        if (categoryId != null)
-        {
-            query.setParameter("categoryId", categoryId);
-        }
         return query.list();
     }
 
-    public List<Post> getRecentPinnedPostsByYearMonth(int year, int month, boolean withUnpublished, Long categoryId)
+    public List<Post> getRecentPinnedPostsByYearMonth(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId)
     {
-        String text = "select p from Post p ";
-        if(categoryId != null)
-        {
-            text += " join p.categories c ";
-        }
-        text += " where year(p.created) = :year " +
-                " and month(p.created) = :month " +
-                " and p.pinned is true ";
-        if (!withUnpublished)
-        {
-            text += " and p.published is true ";
-        }
-        if (categoryId != null)
-        {
-            text += " and c.id = :categoryId ";
-        }
-        text += " order by month(p.created) desc ";
+        String selectClause = "select p from Post p ";
+        String extraWhereClause = " p.pinned is true ";
+        String orderByClause = " order by p.created desc ";
 
+        Query query = createQuery(postCount,
+                                    year,
+                                    month,
+                                    withUnpublished,
+                                    categoryId,
+                                    selectClause,
+                                    Arrays.asList(extraWhereClause),
+                                    orderByClause);
 
-        Query query = session.createQuery(text);
-        query.setParameter("year", year);
-        query.setParameter("month", month);
-        if (categoryId != null)
-        {
-            query.setParameter("categoryId", categoryId);
-        }
         return query.list();
     }
 

@@ -146,7 +146,7 @@ public class Archive
         boolean unpublished = viewState.isShowUnpublished();
         Long categoryId = viewState.getCurrentCategoryId();
 
-        List<Post> posts = postDAO.getRecentPostsByYearMonth(currentYear, currentMonth, unpublished, categoryId);
+        List<Post> posts = postDAO.getRecentPostsByYearMonth(null, currentYear, currentMonth, unpublished, categoryId);
         return posts;
     }
 
@@ -164,7 +164,7 @@ public class Archive
             boolean unpublished = viewState.isShowUnpublished();
             Long categoryId = viewState.getCurrentCategoryId();
 
-            cachedArchivedPinnedPosts = postDAO.getRecentPinnedPostsByYearMonth(currentYear, currentMonth, unpublished, categoryId);
+            cachedArchivedPinnedPosts = postDAO.getRecentPinnedPostsByYearMonth(null, currentYear, currentMonth, unpublished, categoryId);
         }
         return cachedArchivedPinnedPosts;
     }

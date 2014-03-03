@@ -3,11 +3,9 @@
     >
 
     <t:eventlink t:id="selectPost" context="post.uuid">
-        <div id="postTitle">
-            ${post.title}
-        </div>
-        <div id="postDate">
-            ${post.prettyCreatedDate}
+        <div id="postLink">
+            <h2>${post.title}</h2>
+            <div id="postDate">${post.prettyCreatedDate}</div>
         </div>
     </t:eventlink>
 

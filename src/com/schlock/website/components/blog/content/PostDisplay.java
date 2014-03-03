@@ -68,6 +68,11 @@ public class PostDisplay
     }
 
 
+    public boolean isHasPreviousNextPosts()
+    {
+        return isHasNextPosts() || isHasPreviousPosts();
+    }
+
     public boolean isHasNextPosts()
     {
         List<Post> posts = getNextPosts();
