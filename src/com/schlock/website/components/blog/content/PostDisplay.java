@@ -122,9 +122,16 @@ public class PostDisplay
         if (viewState.isHasCurrentCategory())
         {
             Category category = viewState.getCurrentCategory(categoryDAO);
+            String categoryName = category.getName();
+
+            if (category.getParent() != null)
+            {
+                String parentName = category.getParent().getName();
+                categoryName = parentName + " ." + categoryName;
+            }
 
             String message = messages.get("nextInCategory");
-            return String.format(message, category.getName());
+            return String.format(message, categoryName);
         }
         return messages.get("next");
     }
@@ -134,9 +141,16 @@ public class PostDisplay
         if (viewState.isHasCurrentCategory())
         {
             Category category = viewState.getCurrentCategory(categoryDAO);
+            String categoryName = category.getName();
+
+            if (category.getParent() != null)
+            {
+                String parentName = category.getParent().getName();
+                categoryName = parentName + " ." + categoryName;
+            }
 
             String message = messages.get("previousInCategory");
-            return String.format(message, category.getName());
+            return String.format(message, categoryName);
         }
         return messages.get("previous");
     }
