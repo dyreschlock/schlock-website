@@ -15,6 +15,7 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
 
 public class LinksPanel
@@ -107,13 +108,14 @@ public class LinksPanel
         boolean unpublished = viewState.isShowUnpublished();
         Long categoryId = viewState.getCurrentCategoryId();
 
-        return postDAO.getRecentPosts(unpublished, categoryId);
+        return Collections.EMPTY_LIST;
     }
 
     public List<Post> getPinnedPosts()
     {
         boolean unpublished = viewState.isShowUnpublished();
-        return postDAO.getRecentPinnedPosts(unpublished);
+
+        return Collections.EMPTY_LIST;
     }
 
     public List<Post> getPages()

@@ -4,11 +4,14 @@ import com.schlock.website.services.database.blog.CategoryDAO;
 
 public class ViewState
 {
+    private static final int VIEWABLE_POST_COUNTS = 20;
+
     private Long expandedCategoryId;
     private Long currentCategoryId;
 
     private boolean showUnpublished = false;
 
+    private int viewableIteration = 1;
 
     private Integer archiveYear;
     private Integer archiveMonth;
@@ -19,9 +22,23 @@ public class ViewState
         currentCategoryId = null;
         showUnpublished = false;
 
+        viewableIteration = 1;
+
         archiveYear = null;
         archiveMonth = null;
     }
+
+    public void incrementViewableIteration()
+    {
+        viewableIteration++;
+    }
+
+    public int getViewingPostCount()
+    {
+        return viewableIteration * VIEWABLE_POST_COUNTS;
+    }
+
+
 
     public Long getExpandedCategoryId()
     {

@@ -6,50 +6,66 @@
 
     <div id="postContent" class="maxw1024">
         <t:zone t:id="archiveZone" id="archiveZone" t:update="show">
-            <table class="w100p">
-                <tr>
-                    <td id="archiveYearColumn" class="w10p">
-                        <t:loop source="postYears" value="currentYear">
-                            <t:eventlink t:id="selectYear" context="currentYear" zone="archiveZone">
-                                <div id="archiveYear" class="">
-                                    ${currentYear}
-                                </div>
-                            </t:eventlink>
-                        </t:loop>
-                    </td>
-                    <t:if test="yearSelected">
-                        <td id="archiveMonthColumn" class="w20p">
-                            <t:loop source="postMonths" value="currentMonth">
-                                <t:eventlink t:id="selectMonth" context="currentMonth" zone="archiveZone">
-                                    <div id="archiveMonth" class="">
-                                        ${currentMonthString}
-                                    </div>
-                                </t:eventlink>
-                            </t:loop>
-                        </td>
-                        <t:if test="monthSelected">
-                            <td id="archivePosts" class="w35p">
-                                <div id="title" class="pt10 pb10">${message:archive-posts}</div>
-                                <t:loop source="archivedPosts" value="currentPost">
-                                    <div class="pt10">
-                                        <l:postlink post="currentPost" />
-                                    </div>
-                                </t:loop>
-                            </td>
-                            <td id="archivePinned" class="w35p">
-                                <t:if test="hasPinnedPosts">
-                                    <div id="title" class="pt10 pb10">${message:archive-pinned-posts}</div>
-                                    <t:loop source="archivedPosts" value="currentPost">
-                                        <div class="pt10">
-                                            <l:postlink post="currentPost" />
-                                        </div>
-                                    </t:loop>
+            <table class="w100p"><tbody><tr>
+                <td id="archiveYearColumn" class="w12p">
+                    <t:loop source="postYears" value="currentYear">
+                        <t:eventlink t:id="selectYear" context="currentYear" zone="archiveZone">
+                            <div id="archiveYear" class="">
+                                <t:if test="yearSelected">
+                                    <u>${currentYear}</u>
                                 </t:if>
-                            </td>
-                        </t:if>
-                    </t:if>
-                </tr>
-            </table>
+                                <t:if test="!yearSelected">
+                                    ${currentYear}
+                                </t:if>
+                            </div>
+                        </t:eventlink>
+                    </t:loop>
+                </td>
+                <td id="archiveMonthColumn" class="w18p">
+                    <t:loop source="postMonths" value="currentMonth">
+                        <t:eventlink t:id="selectMonth" context="currentMonth" zone="archiveZone">
+                            <div id="archiveMonth" class="">
+                                <t:if test="monthSelected">
+                                    <u>${currentMonthString}</u>
+                                </t:if>
+                                <t:if test="!monthSelected">
+                                    ${currentMonthString}
+                                </t:if>
+                            </div>
+                        </t:eventlink>
+                    </t:loop>
+                </td>
+                <td id="archivePosts" class="w70p">
+                    <t:loop source="currentYears" value="currentYear">
+                        <t:loop source="currentMonths" value="currentMonth">
+
+                            <div id="archiveMonthYear" class="">
+                                <table><tbody><tr>
+                                    <td class="w50p">
+                                        <div id="title" class="pt10 pb10">${archivePostsTitle}</div>
+                                        <t:loop source="archivedPosts" value="currentPost">
+                                            <div class="pt10">
+                                                <l:postlink post="currentPost" />
+                                            </div>
+                                        </t:loop>
+                                    </td>
+                                    <td class="w50p">
+                                        <t:if test="hasPinnedPosts">
+                                            <div id="title" class="pt10 pb10">${archivePinnedPostsTitle}</div>
+                                            <t:loop source="archivedPosts" value="currentPost">
+                                                <div class="pt10">
+                                                    <l:postlink post="currentPost" />
+                                                </div>
+                                            </t:loop>
+                                        </t:if>
+                                    </td>
+                                </tr></tbody></table>
+                            </div>
+
+                        </t:loop>
+                    </t:loop>
+                </td>
+            </tr></tbody></table>
         </t:zone>
     </div>
 </html>

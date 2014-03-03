@@ -10,6 +10,7 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,12 +41,23 @@ public class Archive
 
 
 
+    private List<Object[]> cachedAllYearsMonths;
+
+    public List<Object[]> getAllYearsMonths()
+    {
+        if(cachedAllYearsMonths == null)
+        {
+            boolean unpublished = viewState.isShowUnpublished();
+            Long categoryId = viewState.getCurrentCategoryId();
+
+            cachedAllYearsMonths = postDAO.getRecentYearsMonths(null, null, null, unpublished, categoryId);
+        }
+        return cachedAllYearsMonths;
+    }
+
     public List<Integer> getPostYears()
     {
-        boolean unpublished = viewState.isShowUnpublished();
-        Long categoryId = viewState.getCurrentCategoryId();
-
-        List<Integer> years = postDAO.getPostYears(unpublished, categoryId);
+        List<Integer> years = getYearsFromList(null, getAllYearsMonths());
         return years;
     }
 
@@ -58,7 +70,8 @@ public class Archive
 
     public boolean isYearSelected()
     {
-        return viewState.isHasArchiveYear();
+        Integer year = viewState.getArchiveYear();
+        return currentYear == year;
     }
 
     public List<Integer> getPostMonths()
@@ -69,10 +82,7 @@ public class Archive
             return Collections.emptyList();
         }
 
-        boolean unpublished = viewState.isShowUnpublished();
-        Long categoryId = viewState.getCurrentCategoryId();
-
-        List<Integer> months = postDAO.getPostMonths(year, unpublished, categoryId);
+        List<Integer> months = getMonthsFromList(year, null, getAllYearsMonths());
         return months;
     }
 
@@ -85,7 +95,8 @@ public class Archive
 
     public boolean isMonthSelected()
     {
-        return viewState.isHasArchiveMonth();
+        Integer month = viewState.getArchiveMonth();
+        return currentMonth == month;
     }
 
     public String getCurrentMonthString()
@@ -93,23 +104,124 @@ public class Archive
         return messages.get(Integer.toString(currentMonth));
     }
 
+
+
+    private List<Object[]> cachedRecentYearsMonths;
+
+    public List<Object[]> getRecentYearsMonths()
+    {
+        if(cachedRecentYearsMonths == null)
+        {
+            boolean unpublished = viewState.isShowUnpublished();
+            Long categoryId = viewState.getCurrentCategoryId();
+
+            Integer year = viewState.getArchiveYear();
+            Integer month = viewState.getArchiveMonth();
+
+            int postCount = viewState.getViewingPostCount();
+
+            cachedRecentYearsMonths = postDAO.getRecentYearsMonths(postCount, year, month, unpublished, categoryId);
+        }
+        return cachedRecentYearsMonths;
+    }
+
+    public List<Integer> getCurrentYears()
+    {
+        Integer selectedYear = viewState.getArchiveYear();
+        List<Integer> years = getYearsFromList(selectedYear, getRecentYearsMonths());
+        return years;
+    }
+
+    public List<Integer> getCurrentMonths()
+    {
+        Integer selectedMonth = viewState.getArchiveMonth();
+        List<Integer> months = getMonthsFromList(currentYear, selectedMonth, getRecentYearsMonths());
+        return months;
+    }
+
+
+
     public List<Post> getArchivedPosts()
     {
-        Integer year = viewState.getArchiveYear();
-        Integer month = viewState.getArchiveMonth();
-
         boolean unpublished = viewState.isShowUnpublished();
         Long categoryId = viewState.getCurrentCategoryId();
 
-        List<Post> posts = postDAO.getPostsByYearMonth(year, month, unpublished, categoryId);
+        List<Post> posts = postDAO.getRecentPostsByYearMonth(currentYear, currentMonth, unpublished, categoryId);
         return posts;
     }
 
+    public boolean isHasPinnedPosts()
+    {
+        return !getArchivedPinnedPosts().isEmpty();
+    }
+
+    private List<Post> cachedArchivedPinnedPosts;
+
+    public List<Post> getArchivedPinnedPosts()
+    {
+        if(cachedArchivedPinnedPosts == null)
+        {
+            boolean unpublished = viewState.isShowUnpublished();
+            Long categoryId = viewState.getCurrentCategoryId();
+
+            cachedArchivedPinnedPosts = postDAO.getRecentPinnedPostsByYearMonth(currentYear, currentMonth, unpublished, categoryId);
+        }
+        return cachedArchivedPinnedPosts;
+    }
+
+
+    public String getArchivePostsTitle()
+    {
+        String message = messages.get("archive-posts");
+        String month = messages.get(Integer.toString(currentMonth));
+        return String.format(message, month, currentYear);
+    }
+
+    public String getArchivePinnedPostsTitle()
+    {
+        String message = messages.get("archive-pinned-posts");
+        String month = messages.get(Integer.toString(currentMonth));
+        return String.format(message, month, currentYear);
+    }
 
 
 
     public String getPageTitle()
     {
         return messages.get("page-title");
+    }
+
+    private static List<Integer> getYearsFromList(Integer matchingYear, List<Object[]> yearsMonthsList)
+    {
+        List<Integer> years = new ArrayList<Integer>();
+        for (Object[] yearsMonths : yearsMonthsList)
+        {
+            Integer year = (Integer) yearsMonths[0];
+            if (!years.contains(year) &&
+                    (matchingYear == null || ((int) matchingYear) == ((int) year)))
+            {
+                years.add(year);
+            }
+        }
+        return years;
+    }
+
+    private static List<Integer> getMonthsFromList(int selectedYear, Integer matchingMonth, List<Object[]> yearsMonthsList)
+    {
+        List<Integer> months = new ArrayList<Integer>();
+        for (Object[] yearsMonths : yearsMonthsList)
+        {
+            Integer year = (Integer) yearsMonths[0];
+            if (year == selectedYear)
+            {
+                Integer month = (Integer) yearsMonths[1];
+                if (!months.contains(month) &&
+                        (matchingMonth == null || ((int) matchingMonth) == ((int) month)))
+                {
+                    months.add(month);
+                }
+            }
+        }
+        return months;
     }
 }
