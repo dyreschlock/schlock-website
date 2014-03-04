@@ -4,6 +4,7 @@ import com.schlock.website.entities.Icon;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.AboutMe;
+import com.schlock.website.pages.Archive;
 import com.schlock.website.pages.Index;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -40,6 +41,9 @@ public class LayoutBlog
     private Index index;
 
     @InjectPage
+    private Archive archive;
+
+    @InjectPage
     private AboutMe aboutMe;
 
 
@@ -65,6 +69,11 @@ public class LayoutBlog
     Object onHome()
     {
         return index;
+    }
+
+    Object onArchive()
+    {
+        return archive;
     }
 
     Object onAboutMe()
