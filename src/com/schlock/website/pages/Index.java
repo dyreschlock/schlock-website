@@ -90,6 +90,6 @@ public class Index
 
     public String getPageTitle()
     {
-        return messages.get("website-title");
+        return currentPost.getTitle();
     }
 }

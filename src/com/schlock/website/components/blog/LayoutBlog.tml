@@ -14,14 +14,14 @@
         <div id="blogHeader">
             <div style="padding: 10px 30px;">
                 <div id="title">
-                    <h1>${message:title}</h1>
+                    <h1>${message:website-title}</h1>
                 </div>
                 <div id="links">
-                    <t:eventlink t:id="home">Home</t:eventlink>
+                    <t:eventlink t:id="home">${message:home}</t:eventlink>
                     //
-                    Archive
+                    <t:eventlink t:id="archive">${message:archive}</t:eventlink>
                     //
-                    <t:eventlink t:id="aboutMe">About Me</t:eventlink>
+                    <t:eventlink t:id="aboutMe">${message:about-me}</t:eventlink>
                 </div>
                 <br class="clr" />
             </div>
@@ -31,8 +31,8 @@
 
             <t:remove>
                 <t:eventlink t:id="codejamLink">${message:codejam}</t:eventlink>
-            </t:remove>
                 <t:eventlink t:id="regeneratePostHTML">Regenerate Post HTML</t:eventlink>
+            </t:remove>
 
 
 
@@ -80,7 +80,7 @@
                         <l:iconlink icon="twitter" dark="false" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
                         <l:iconlink icon="facebook" dark="false" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
                         <l:iconlink icon="youtube" dark="false" redirectUrl="${message:youtubeUrl}" altTitleText="${message:youtubeTitle}" />
-                        <l:iconlink icon="ebay" dark="false" redirectUrl="${message:stackUrl}" altTitleText="${message:stackTitle}" />
+                        <l:iconlink icon="ebay" dark="false" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
                     </div>
 
                 </div>

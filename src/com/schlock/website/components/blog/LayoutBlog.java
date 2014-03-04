@@ -10,6 +10,7 @@ import com.schlock.website.services.database.blog.PostDAO;
 import com.schlock.website.services.database.blog.impl.PostDAOImpl;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
@@ -20,8 +21,7 @@ import java.util.List;
 public class LayoutBlog
 {
     @Parameter(required = true)
-    @Property
-    private String title;
+    private String pageName;
 
 
     @Inject
@@ -29,6 +29,9 @@ public class LayoutBlog
 
     @Inject
     private PostManagement postManagement;
+
+    @Inject
+    private Messages messages;
 
     @Inject
     private PostDAO postDAO;
@@ -51,6 +54,13 @@ public class LayoutBlog
     @Property
     private Integer currentIndex;
 
+
+    public String getTitle()
+    {
+        String title = messages.get("website-title");
+
+        return title + " // " + pageName;
+    }
 
     Object onHome()
     {

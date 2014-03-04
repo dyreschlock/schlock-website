@@ -14,15 +14,21 @@ public class AboutMe
     @Inject
     private PostDAO postDAO;
 
+
+    private Post cachedPost;
+
     public Post getAboutMePost()
     {
-        Post post = postDAO.getByUuid(Post.ABOUT_ME_UUID);
-        return post;
+        if(cachedPost == null)
+        {
+            cachedPost = postDAO.getByUuid(Post.ABOUT_ME_UUID);
+        }
+        return cachedPost;
     }
 
     public String getPageTitle()
     {
-        return messages.get("website-title");
+        return getAboutMePost().getTitle();
     }
 
     public Icon getTwitter()
