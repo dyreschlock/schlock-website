@@ -73,202 +73,186 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
 
     public Post getMostRecentPost(boolean withUnpublished, Long categoryId)
     {
-        Query query;
-        if(categoryId == null)
-        {
-            String text = "select p " +
-                            " from Post p ";
+        String selectClause = "select p from Post p ";
+        String orderByClause = " order by p.createdGMT desc";
 
-            if (!withUnpublished)
-            {
-                text += " where p.published is true ";
-            }
-            text += " order by p.createdGMT desc";
-
-            query = session.createQuery(text);
-        }
-        else
-        {
-            String text = "select p " +
-                    " from Post p " +
-                    " join p.categories c " +
-                    " where c.id = :categoryId ";
-
-            if (!withUnpublished)
-            {
-                text += " and p.published is true ";
-            }
-            text += " order by p.createdGMT desc";
-
-            query = session.createQuery(text);
-            query.setParameter("categoryId", categoryId);
-        }
+        Query query = createQuery(TOP_RECENT,
+                null,
+                null,
+                withUnpublished,
+                categoryId,
+                false,
+                selectClause,
+                null,
+                orderByClause);
 
         return (Post) singleResult(query);
     }
 
     public List<Post> getNextPosts(Post currentPost, boolean withUnpublished, Long categoryId)
     {
-        String text = "select p " +
-                        " from Post p";
-        if(categoryId != null)
-        {
-            text += " join p.categories c ";
-        }
-        text += " where p.createdGMT > :currentCreated ";
-        if(categoryId != null)
-        {
-            text += " and c.id = :categoryId ";
-        }
-        if (!withUnpublished)
-        {
-            text += " and p.published is true ";
-        }
-        text += " order by p.createdGMT asc";
+        String selectClause = "select p from Post p ";
+        String extraWhereClause = " p.createdGMT > :currentCreated ";
+        String orderByClause = " order by p.createdGMT asc";
 
-        Query query = session.createQuery(text);
+        Query query = createQuery(TOP_RECENT,
+                                    null,
+                                    null,
+                                    withUnpublished,
+                                    categoryId,
+                                    false,
+                                    selectClause,
+                                    Arrays.asList(extraWhereClause),
+                                    orderByClause);
+
         query.setTimestamp("currentCreated", currentPost.getCreatedGMT());
-        if(categoryId != null)
-        {
-            query.setParameter("categoryId", categoryId);
-        }
 
-        List list = query.list();
-        if (list.size() > 5)
-        {
-            return list.subList(0, 5);
-        }
-        return list;
+        return query.list();
     }
 
     public List<Post> getPreviousPosts(Post currentPost, boolean withUnpublished, Long categoryId)
     {
-        String text = "select p" +
-                        " from Post p";
-        if(categoryId != null)
-        {
-            text += " join p.categories c ";
-        }
-        text += " where p.createdGMT < :currentCreated ";
-        if(categoryId != null)
-        {
-            text += " and c.id = :categoryId ";
-        }
-        if (!withUnpublished)
-        {
-            text += " and p.published is true ";
-        }
-        text += " order by p.createdGMT desc";
+        String selectClause = "select p from Post p ";
+        String extraWhereClause = " p.createdGMT < :currentCreated ";
+        String orderByClause = " order by p.createdGMT desc";
 
-        Query query = session.createQuery(text);
+        Query query = createQuery(TOP_RECENT,
+                                    null,
+                                    null,
+                                    withUnpublished,
+                                    categoryId,
+                                    false,
+                                    selectClause,
+                                    Arrays.asList(extraWhereClause),
+                                    orderByClause);
+
         query.setTimestamp("currentCreated", currentPost.getCreatedGMT());
-        if(categoryId != null)
-        {
-            query.setParameter("categoryId", categoryId);
-        }
 
-        List list = query.list();
-        if (list.size() > 5)
-        {
-            return list.subList(0, 5);
-        }
-        return list;
+        return query.list();
     }
 
 
 
     public List<Integer> getPostYears(boolean withUnpublished, Long categoryId)
     {
-        Query query;
-        if(categoryId == null)
-        {
-            String text = "select distinct(year(p.created)) " +
-                            " from Post p ";
+        String selectClause = "select distinct(year(p.created)) from Post p ";
+        String orderByClause = " order by year(p.created) desc";
 
-            if (!withUnpublished)
-            {
-                text += " where p.published is true ";
-            }
-            text += " order by year(p.created) desc ";
+        Query query = createQuery(null,
+                                    null,
+                                    null,
+                                    withUnpublished,
+                                    categoryId,
+                                    false,
+                                    selectClause,
+                                    null,
+                                    orderByClause);
 
-            query = session.createQuery(text);
-        }
-        else
-        {
-            String text = "select distinct(year(p.created)) " +
-                            " from Post p " +
-                            " join p.categories c " +
-                            " where c.id = :categoryId ";
-
-            if (!withUnpublished)
-            {
-                text += " and p.published is true ";
-            }
-            text += " order by year(p.created) desc ";
-
-            query = session.createQuery(text);
-            query.setParameter("categoryId", categoryId);
-        }
         return query.list();
     }
 
     public List<Integer> getPostMonths(int year, boolean withUnpublished, Long categoryId)
     {
-        String text = "select distinct(month(p.created)) " +
-                        " from Post p ";
-        if(categoryId != null)
-        {
-            text += " join p.categories c ";
-        }
-        text += " where year(p.created) = :year ";
-        if (!withUnpublished)
-        {
-            text += " and p.published is true ";
-        }
-        if (categoryId != null)
-        {
-            text += " and c.id = :categoryId ";
-        }
-        text += " order by month(p.created) desc ";
+        String selectClause = "select distinct(month(p.created)) from Post p ";
+        String orderByClause = " order by month(p.created) desc";
 
+        Query query = createQuery(null,
+                                    year,
+                                    null,
+                                    withUnpublished,
+                                    categoryId,
+                                    false,
+                                    selectClause,
+                                    null,
+                                    orderByClause);
 
-        Query query = session.createQuery(text);
-        query.setParameter("year", year);
-        if (categoryId != null)
-        {
-            query.setParameter("categoryId", categoryId);
-        }
         return query.list();
     }
 
     public List<Post> getPostsByYearMonth(int year, int month, boolean withUnpublished, Long categoryId)
     {
-        String text = "select p " +
-                " from Post p ";
-        if(categoryId != null)
-        {
-            text += " join p.categories c ";
-        }
-        text += " where year(p.created) = :year " +
-                " and month(p.created) = :month ";
-        if (!withUnpublished)
-        {
-            text += " and p.published is true ";
-        }
-        if (categoryId != null)
-        {
-            text += " and c.id = :categoryId ";
-        }
-        text += " order by month(p.created) desc ";
+        String selectClause = "select p from Post p ";
+        String orderByClause = " order by month(p.created) desc ";
 
+        Query query = createQuery(null,
+                                    year,
+                                    month,
+                                    withUnpublished,
+                                    categoryId,
+                                    false,
+                                    selectClause,
+                                    null,
+                                    orderByClause);
+        return query.list();
+    }
 
-        Query query = session.createQuery(text);
-        query.setParameter("year", year);
-        query.setParameter("month", month);
-        if (categoryId != null)
-        {
-            query.setParameter("categoryId", categoryId);
-        }
+    public List<Object[]> getRecentYearsMonths(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId)
+    {
+        String selectClause = "select year(p.created), month(p.created) from Post p ";
+        String orderByClause = " order by year(p.created) desc, month(p.created) desc ";
+
+        Query query = createQuery(postCount,
+                                    year,
+                                    month,
+                                    withUnpublished,
+                                    categoryId,
+                                    false,
+                                    selectClause,
+                                    null,
+                                    orderByClause);
+
+        return query.list();
+    }
+
+    public List<Post> getRecentPostsByYearMonth(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId)
+    {
+        String selectClause = "select p from Post p ";
+        String orderByClause = " order by p.created desc ";
+
+        Query query = createQuery(postCount,
+                                    year,
+                                    month,
+                                    withUnpublished,
+                                    categoryId,
+                                    false,
+                                    selectClause,
+                                    null,
+                                    orderByClause);
+
+        return query.list();
+    }
+
+    public List<Post> getRecentPinnedPostsByYearMonth(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId)
+    {
+        String selectClause = "select p from Post p ";
+        String extraWhereClause = " p.pinned is true ";
+        String orderByClause = " order by p.created desc ";
+
+        Query query = createQuery(postCount,
+                                    year,
+                                    month,
+                                    withUnpublished,
+                                    categoryId,
+                                    false,
+                                    selectClause,
+                                    Arrays.asList(extraWhereClause),
+                                    orderByClause);
+
+        return query.list();
+    }
+
+    public List<Post> getAllPages(boolean withUnpublished)
+    {
+        String selectClause = "select p from Post p ";
+        String orderByClause = " order by p.created desc ";
+
+        Query query = createQuery(null, null, null,
+                                    withUnpublished,
+                                    null,
+                                    true,
+                                    selectClause,
+                                    null,
+                                    orderByClause);
         return query.list();
     }
 
@@ -349,75 +333,5 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         }
 
         return query;
-    }
-
-    public List<Object[]> getRecentYearsMonths(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId)
-    {
-        String selectClause = "select year(p.created), month(p.created) from Post p ";
-        String orderByClause = " order by year(p.created) desc, month(p.created) desc ";
-
-        Query query = createQuery(postCount,
-                                    year,
-                                    month,
-                                    withUnpublished,
-                                    categoryId,
-                                    false,
-                                    selectClause,
-                                    null,
-                                    orderByClause);
-
-        return query.list();
-    }
-
-    public List<Post> getRecentPostsByYearMonth(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId)
-    {
-        String selectClause = "select p from Post p ";
-        String orderByClause = " order by p.created desc ";
-
-        Query query = createQuery(postCount,
-                                    year,
-                                    month,
-                                    withUnpublished,
-                                    categoryId,
-                                    false,
-                                    selectClause,
-                                    null,
-                                    orderByClause);
-
-        return query.list();
-    }
-
-    public List<Post> getRecentPinnedPostsByYearMonth(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId)
-    {
-        String selectClause = "select p from Post p ";
-        String extraWhereClause = " p.pinned is true ";
-        String orderByClause = " order by p.created desc ";
-
-        Query query = createQuery(postCount,
-                                    year,
-                                    month,
-                                    withUnpublished,
-                                    categoryId,
-                                    false,
-                                    selectClause,
-                                    Arrays.asList(extraWhereClause),
-                                    orderByClause);
-
-        return query.list();
-    }
-
-    public List<Post> getAllPages(boolean withUnpublished)
-    {
-        String selectClause = "select p from Post p ";
-        String orderByClause = " order by p.created desc ";
-
-        Query query = createQuery(null, null, null,
-                                    withUnpublished,
-                                    null,
-                                    true,
-                                    selectClause,
-                                    null,
-                                    orderByClause);
-        return query.list();
     }
 }
