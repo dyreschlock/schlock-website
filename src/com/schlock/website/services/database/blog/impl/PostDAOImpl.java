@@ -278,6 +278,8 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
                               boolean withUnpublished,
                               Long categoryId,
 
+                              boolean isPage,
+
                               String selectClause,
                               List<String> whereClauses,
                               String orderByClause)
@@ -302,6 +304,15 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         if (whereClauses != null && !whereClauses.isEmpty())
         {
             phrases.addAll(whereClauses);
+        }
+
+        if (isPage)
+        {
+            phrases.add(" p.page is true ");
+        }
+        else
+        {
+            phrases.add(" p.page is false ");
         }
 
         String text = selectClause;
@@ -350,6 +361,7 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
                                     month,
                                     withUnpublished,
                                     categoryId,
+                                    false,
                                     selectClause,
                                     null,
                                     orderByClause);
@@ -367,6 +379,7 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
                                     month,
                                     withUnpublished,
                                     categoryId,
+                                    false,
                                     selectClause,
                                     null,
                                     orderByClause);
@@ -385,6 +398,7 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
                                     month,
                                     withUnpublished,
                                     categoryId,
+                                    false,
                                     selectClause,
                                     Arrays.asList(extraWhereClause),
                                     orderByClause);
@@ -394,6 +408,16 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
 
     public List<Post> getAllPages(boolean withUnpublished)
     {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        String selectClause = "select p from Post p ";
+        String orderByClause = " order by p.created desc ";
+
+        Query query = createQuery(null, null, null,
+                                    withUnpublished,
+                                    null,
+                                    true,
+                                    selectClause,
+                                    null,
+                                    orderByClause);
+        return query.list();
     }
 }

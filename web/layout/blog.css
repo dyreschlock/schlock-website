@@ -43,6 +43,14 @@ h1, h2, h3
 
     padding: 18px 0px;
 }
+#blogHeader #links a
+{
+    color: #fff;
+}
+#blogHeader #links a:hover
+{
+    text-decoration: underline;
+}
 
 #blogBody
 {
@@ -57,7 +65,8 @@ h1, h2, h3
     margin-left: auto;
     margin-right: auto;
 
-    overflow: auto;
+    overflow-y: hidden;
+    overflow-x: hidden;
 
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
@@ -133,14 +142,29 @@ h1, h2, h3
 }
 
 
+#footerContent
+{
+    padding: 20px;
+    width: 100%;
+}
 #recentPosts, #recentPinnedPosts, #pagesLinks
 {
     text-alight: right;
     float: left;
     position: relative;
     width: 33%;
-
-    margin: 20px;
+}
+#pagesLinks
+{
+    width: 28%;
+}
+#pagesLinks #links
+{
+    padding-top: 30px;
+}
+#pagesLinks #links img
+{
+    padding: 0px 20px 0px 0px;
 }
 #recentPosts a, #recentPinnedPosts a, #pagesLinks a
 {
@@ -149,4 +173,42 @@ h1, h2, h3
 #recentPosts #postDate, #recentPinnedPosts #postDate, #pagesLinks #postDate
 {
     color: #ccc;
+}
+
+#aboutMessage
+{
+    padding-top: 30px;
+    font-size: 18px;
+    color: #eee;
+}
+#aboutMessage b
+{
+    color: #fff;
+}
+
+
+
+#aboutMe
+{
+    padding: 20px;
+    padding-top: 0px;
+
+    font-size: 20px;
+
+    width: 100%;
+}
+#aboutMe #internetLinks, #aboutMe #gameLinks, #aboutMe #buyLinks
+{
+    float: left;
+    position: relative;
+    width: 33%;
+}
+#aboutMe #title
+{
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+#aboutMe img
+{
+    padding: 0px 10px 0px 0px;
 }

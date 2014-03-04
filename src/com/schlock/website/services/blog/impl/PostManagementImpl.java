@@ -111,6 +111,10 @@ public class PostManagementImpl implements PostManagement
     public void generatePostHTML(Post post)
     {
         String tempText = post.getBodyText();
+        if (tempText == null)
+        {
+            return;
+        }
 
         String bodyHTML = "";
 

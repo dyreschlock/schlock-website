@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="blog/layoutblog" title="${pageTitle}"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:c="tapestry-library:blog/content"
+    xmlns:l="tapestry-library:blog/link"
+    >
+
+    <c:postdisplay post="aboutMePost" />
+
+    <div id="aboutMe">
+
+        <div id="details">
+            <p>
+                <b>${message:email-title}</b><br />
+                ${message:email}
+            </p>
+            <p>
+                <b>${message:resume-title}</b><br />
+                ${message:resume}
+            </p>
+        </div>
+
+        <div id="internetLinks">
+            <div id="title">${message:internetTitle}</div>
+            <l:iconlink icon="twitter" dark="true" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
+            <l:iconlink icon="facebook" dark="true" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
+            <l:iconlink icon="youtube" dark="true" redirectUrl="${message:youtubeUrl}" altTitleText="${message:youtubeTitle}" />
+            <l:iconlink icon="stack" dark="true" redirectUrl="${message:stackUrl}" altTitleText="${message:stackTitle}" />
+            <l:iconlink icon="github" dark="true" redirectUrl="${message:githubUrl}" altTitleText="${message:githubTitle}" />
+        </div>
+        <div id="gameLinks">
+            <div id="title">${message:gamesTitle}</div>
+            <l:iconlink icon="psn" dark="true" redirectUrl="${message:psnUrl}" altTitleText="${message:psnTitle}" />
+            <l:iconlink icon="xbox" dark="true" redirectUrl="${message:xboxUrl}" altTitleText="${message:xboxTitle}" />
+            <l:iconlink icon="steam" dark="true" redirectUrl="${message:steamUrl}" altTitleText="${message:steamTitle}" />
+        </div>
+        <div id="buyLinks">
+            <div id="title">${message:buyTitle}</div>
+            <l:iconlink icon="ebay" dark="true" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
+        </div>
+
+        <br class="clr" />
+
+    </div>
+
+</html>

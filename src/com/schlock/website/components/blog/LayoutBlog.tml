@@ -17,41 +17,73 @@
                     <h1>${message:title}</h1>
                 </div>
                 <div id="links">
-                    Home // Archive // About Me
+                    <t:eventlink t:id="home">Home</t:eventlink>
+                    //
+                    Archive
+                    //
+                    <t:eventlink t:id="aboutMe">About Me</t:eventlink>
                 </div>
                 <br class="clr" />
             </div>
         </div>
 
         <div id="blogBody">
+
+            <t:remove>
+                <t:eventlink t:id="codejamLink">${message:codejam}</t:eventlink>
+            </t:remove>
+                <t:eventlink t:id="regeneratePostHTML">Regenerate Post HTML</t:eventlink>
+
+
+
             <div id="blogContent">
                 <t:body />
             </div>
         </div>
 
         <div id="blogFooter">
-            <div id="recentPosts">
-                <div id="title" class="pb10">${message:recent-posts}</div>
+            <div id="footerContent">
+                <div id="recentPosts">
+                    <div id="title" class="pb10">${message:recent-posts}</div>
 
-                <t:loop source="recentPosts" value="currentPost" index="currentIndex">
-                    <div id="link${currentIndex}" class="pt10">
-                        <l:postlink post="currentPost" />
+                    <t:loop source="recentPosts" value="currentPost" index="currentIndex">
+                        <div id="link${currentIndex}" class="pt10">
+                            <l:postlink post="currentPost" />
+                        </div>
+                    </t:loop>
+                </div>
+                <div id="recentPinnedPosts">
+                    <div id="title" class="pb10">${message:recent-pinned-posts}</div>
+
+                    <t:loop source="recentPinnedPosts" value="currentPost" index="currentIndex">
+                        <div id="link${currentIndex}" class="pt10">
+                            <l:postlink post="currentPost" />
+                        </div>
+                    </t:loop>
+                </div>
+                <div id="pagesLinks">
+                    <div id="title" class="pb10">${message:pages}</div>
+
+                    <t:loop source="pages" value="currentPost" index="currentIndex">
+                        <div id="link${currentIndex}" class="pt10">
+                            <l:postlink post="currentPost" />
+                        </div>
+                    </t:loop>
+
+                    <div id="aboutMessage">
+                        <t:outputraw value="message:about-message" />
                     </div>
-                </t:loop>
-            </div>
-            <div id="recentPinnedPosts">
-                <div id="title" class="pb10">${message:recent-pinned-posts}</div>
 
-                <t:loop source="recentPinnedPosts" value="currentPost" index="currentIndex">
-                    <div id="link${currentIndex}" class="pt10">
-                        <l:postlink post="currentPost" />
+                    <div id="links">
+                        <l:iconlink icon="twitter" dark="false" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
+                        <l:iconlink icon="facebook" dark="false" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
+                        <l:iconlink icon="youtube" dark="false" redirectUrl="${message:youtubeUrl}" altTitleText="${message:youtubeTitle}" />
+                        <l:iconlink icon="ebay" dark="false" redirectUrl="${message:stackUrl}" altTitleText="${message:stackTitle}" />
                     </div>
-                </t:loop>
-            </div>
-            <div id="pagesLinks">
 
+                </div>
+                <br class="clr" />
             </div>
-            <br class="clr" />
         </div>
     </body>
 </html>

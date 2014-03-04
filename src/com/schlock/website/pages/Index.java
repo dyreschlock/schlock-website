@@ -2,30 +2,18 @@ package com.schlock.website.pages;
 
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
-import com.schlock.website.services.blog.ConvertWordpress;
-import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.SessionState;
-import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.PageRenderLinkSource;
 
 public class Index
 {
     private static final String UNPUBLISHED_FLAG = "u";
-
-    @Inject
-    private ConvertWordpress convertWordpress;
-
-    @Inject
-    private PostManagement postManagement;
-
-    @Inject
-    private PageRenderLinkSource linkSource;
 
     @Inject
     private Messages messages;
@@ -36,8 +24,13 @@ public class Index
     @Inject
     private CategoryDAO categoryDAO;
 
+
     @Persist
     private Post currentPost;
+
+
+    @InjectPage
+    private AboutMe aboutMe;
 
     @SessionState
     private ViewState viewState;
@@ -57,13 +50,17 @@ public class Index
         {
             viewState.setShowUnpublished(true);
         }
+        else if (StringUtils.equals(Post.ABOUT_ME_UUID, parameter))
+        {
+            return aboutMe;
+        }
         else
         {
             boolean unpublished = viewState.isShowUnpublished();
             Long categoryId = viewState.getCurrentCategoryId();
 
             Post post = postDAO.getByUuid(parameter);
-            if(post == null)
+            if (post == null)
             {
                 post = postDAO.getMostRecentPost(unpublished, categoryId);
             }
@@ -94,24 +91,5 @@ public class Index
     public String getPageTitle()
     {
         return messages.get("website-title");
-    }
-
-
-
-    //@CommitAfter
-    void onConvertWordpress()
-    {
-        //convertWordpress.startProcess();
-    }
-
-    @CommitAfter
-    void onRegeneratePostHTML()
-    {
-        postManagement.regenerateAllPostHTML();
-    }
-
-    Object onCodejamLink()
-    {
-        return linkSource.createPageRenderLink(com.schlock.website.pages.codejam.may2012.Index.class);
     }
 }

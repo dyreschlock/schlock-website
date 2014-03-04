@@ -1,0 +1,9 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <a href="${redirectUrl}">
+        <img src="${iconUrl}" alt="${altTitleText}" title="${altTitleText}" />
+    </a>
+
+</t:container>

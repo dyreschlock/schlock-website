@@ -6,68 +6,60 @@
     <div id="postContent">
 
         <h1><!-- ${post.id} // --> ${post.title}</h1>
-        <div id="postDate">
-            ${post.prettyCreatedDate}
-            <t:loop source="topCategories" value="currentCategory">
-                //
-                <t:eventlink event="selectCategory" context="currentCategory.id">${currentCategory.name}</t:eventlink>
-                <t:loop source="subcategories" value="currentSubcategory">
-                    .<t:eventlink event="selectCategory" context="currentSubcategory.id">${currentSubcategory.name}</t:eventlink>
+        <t:if test="!post.page">
+            <div id="postDate">
+                ${post.prettyCreatedDate}
+                <t:loop source="topCategories" value="currentCategory">
+                    //
+                    <t:eventlink event="selectCategory" context="currentCategory.id">${currentCategory.name}</t:eventlink>
+                    <t:loop source="subcategories" value="currentSubcategory">
+                        .<t:eventlink event="selectCategory" context="currentSubcategory.id">${currentSubcategory.name}</t:eventlink>
+                    </t:loop>
                 </t:loop>
-            </t:loop>
-        </div>
+            </div>
+        </t:if>
         <div id="postBody">
             <t:outputraw value="post.bodyHTML" />
         </div>
 
     </div>
 
-    <t:if test="hasPreviousNextPosts">
-        <hr />
+    <t:if test="!post.page">
+        <t:if test="hasPreviousNextPosts">
+            <hr />
+        </t:if>
+
+        <div id="previousLinks">
+            <t:if test="hasPreviousPosts">
+                <div id="title" class="pb10">${previousTitle}</div>
+
+                <t:loop source="previousPosts" value="currentPost" index="currentIndex">
+                    <div id="link${currentIndex}" class="pt10">
+                        <l:postlink post="currentPost" />
+                    </div>
+                </t:loop>
+            </t:if>
+            <t:if test="!hasPreviousPosts">
+                <br />
+            </t:if>
+        </div>
+
+        <div id="nextLinks">
+            <t:if test="hasNextPosts">
+                <div id="title" class="pb10">${nextTitle}</div>
+
+                <t:loop source="nextPosts" value="currentPost" index="currentIndex">
+                    <div id="link${currentIndex}" class="pt10">
+                        <l:postlink post="currentPost" />
+                    </div>
+                </t:loop>
+            </t:if>
+            <t:if test="!hasNextPosts">
+                <br />
+            </t:if>
+        </div>
+
+        <br class="clr" />
     </t:if>
-
-    <div id="previousLinks">
-        <t:if test="hasPreviousPosts">
-            <div id="title" class="pb10">${previousTitle}</div>
-
-            <t:loop source="previousPosts" value="currentPost" index="currentIndex">
-                <div id="link${currentIndex}" class="pt10">
-                    <l:postlink post="currentPost" />
-                </div>
-            </t:loop>
-        </t:if>
-        <t:if test="!hasPreviousPosts">
-            <br />
-        </t:if>
-    </div>
-
-    <div id="nextLinks">
-        <t:if test="hasNextPosts">
-            <div id="title" class="pb10">${nextTitle}</div>
-
-            <t:loop source="nextPosts" value="currentPost" index="currentIndex">
-                <div id="link${currentIndex}" class="pt10">
-                    <l:postlink post="currentPost" />
-                </div>
-            </t:loop>
-        </t:if>
-        <t:if test="!hasNextPosts">
-            <br />
-        </t:if>
-    </div>
-
-    <br class="clr" />
-
-
-    <table class="w100p">
-        <tbody>
-            <tr>
-                <td class="left w50p">
-                </td>
-                <td class="right w50p">
-                </td>
-            </tr>
-        </tbody>
-    </table>
 
 </t:container>
