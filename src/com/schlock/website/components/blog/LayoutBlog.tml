@@ -72,6 +72,8 @@
 
                     <div id="aboutMessage">
                         <t:outputraw value="message:about-message" />
+                        <br/><br/>
+                        <b>Email:</b> ${message:email-address}
                     </div>
 
                     <div id="links">
