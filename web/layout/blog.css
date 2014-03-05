@@ -42,7 +42,7 @@ h1, h2, h3
     position: relative;
     width: 50%;
 
-    padding: 10px 0px;
+    padding: 0px 0px;
 }
 #blogHeader #links
 {
@@ -51,7 +51,7 @@ h1, h2, h3
     position: relative;
     width: 49%;
 
-    padding: 18px 0px;
+    padding: 8px 0px;
 }
 #blogHeader #links a
 {
@@ -72,7 +72,7 @@ h1, h2, h3
 {
     width: 100%;
     background-color: #fefefe;
-    padding-top: 70px;
+    padding-top: 50px;
 }
 #blogContent
 {
