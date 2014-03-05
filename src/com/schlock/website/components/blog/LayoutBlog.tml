@@ -11,20 +11,22 @@
     </head>
     <body>
 
+        <div id="topBar">
         <div id="blogHeader">
             <div style="padding: 10px 30px;">
                 <div id="title">
                     <h1>${message:website-title}</h1>
                 </div>
                 <div id="links">
-                    <t:eventlink t:id="home">${message:home}</t:eventlink>
+                    <t:eventlink event="home">${message:home}</t:eventlink>
                     //
-                    <t:eventlink t:id="archive">${message:archive}</t:eventlink>
+                    <t:eventlink event="archive">${message:archive}</t:eventlink>
                     //
-                    <t:eventlink t:id="aboutMe">${message:about-me}</t:eventlink>
+                    <t:eventlink event="aboutMe">${message:about-me}</t:eventlink>
                 </div>
                 <br class="clr" />
             </div>
+        </div>
         </div>
 
         <div id="blogBody">
@@ -72,6 +74,8 @@
 
                     <div id="aboutMessage">
                         <t:outputraw value="message:about-message" />
+                        &nbsp;
+                        <t:eventlink event="aboutMe">${message:read-more}</t:eventlink>
                         <br/><br/>
                         <b>Email:</b> ${message:email-address}
                     </div>
