@@ -9,7 +9,8 @@ public class Post extends Persisted
 {
     public static final String ABOUT_ME_UUID = "about-me";
 
-    private static final String DATE_FORMAT = "EEEEE  MMMMM d, yyyy  hh:mm aaa";
+    private static final String DATE_FORMAT = "EEEEE  MMMMM d, yyyy";
+//    private static final String DATE_FORMAT = "EEEEE  MMMMM d, yyyy  hh:mm aaa";
 
     private String wpid; //legacy Wordpress id
     private String mtid; //legacy MoveableType id
