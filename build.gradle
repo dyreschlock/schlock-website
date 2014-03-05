@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'groovy'
+apply plugin: 'war'
 
 targetCompatibility = '1.6'
 sourceCompatibility = '1.6'
@@ -38,6 +39,10 @@ dependencies {
 
 tasks.idea {
     dependsOn = [ cleanIdeaModule, ideaModule ]
+}
+
+war {
+    archiveName = 'ROOT.war'
 }
 
 sourceSets {

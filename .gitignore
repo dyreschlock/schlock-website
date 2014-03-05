@@ -4,6 +4,7 @@
 .idea/workspace.xml
 .idea/gradle.xml
 out/
+build/
 schlock-website.iml
 schlock-website.ipr
 schlock-website.iws
