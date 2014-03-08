@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CustomTapestryFilter extends TapestryFilter
 {
-    private static final List<String> FILTER_FOLDERS = Arrays.asList("photo", "cpanel");
+    private static final List<String> FILTER_FOLDERS = Arrays.asList("photo", "misc", "cpanel");
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
     {

@@ -300,6 +300,10 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         }
 
         String text = selectClause;
+        if (categoryId != null)
+        {
+            text += " join p.categories c ";
+        }
         boolean first = true;
         for(String phrase : phrases)
         {

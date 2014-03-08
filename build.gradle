@@ -3,6 +3,8 @@ apply plugin: 'idea'
 apply plugin: 'groovy'
 apply plugin: 'war'
 
+webAppDirName = 'web'
+
 targetCompatibility = '1.6'
 sourceCompatibility = '1.6'
 
@@ -41,8 +43,12 @@ tasks.idea {
     dependsOn = [ cleanIdeaModule, ideaModule ]
 }
 
+jar {
+    enabled = true
+}
+
 war {
-    archiveName = 'ROOT.war'
+    archiveName = 'ROOT.zip'
 }
 
 sourceSets {
@@ -54,4 +60,5 @@ sourceSets {
 
 clean {
     delete files('out')
+    delete files('build')
 }
