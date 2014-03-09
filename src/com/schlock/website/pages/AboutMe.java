@@ -5,9 +5,13 @@ import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 public class AboutMe
 {
+    @Inject
+    private PageRenderLinkSource linkSource;
+
     @Inject
     private Messages messages;
 
@@ -16,6 +20,7 @@ public class AboutMe
 
 
     private Post cachedPost;
+
 
     public Post getAboutMePost()
     {
@@ -29,6 +34,17 @@ public class AboutMe
     public String getPageTitle()
     {
         return getAboutMePost().getTitle();
+    }
+
+    public String getRssRedirect()
+    {
+        String url = linkSource.createPageRenderLink(Feed.class).toURI();
+        return url;
+    }
+
+    public Icon getRss()
+    {
+        return Icon.RSS;
     }
 
     public Icon getTwitter()

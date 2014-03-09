@@ -4,6 +4,7 @@ import org.apache.tapestry5.services.AssetSource;
 
 public enum Icon
 {
+    RSS,
     TWITTER,
     FACEBOOK,
     YOUTUBE,

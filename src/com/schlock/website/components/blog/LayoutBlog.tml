@@ -81,6 +81,7 @@
                     </div>
 
                     <div id="links">
+                        <l:iconlink icon="rss" dark="false" redirectUrl="rssUrl" altTitle="${message:rssTitle}" />
                         <l:iconlink icon="twitter" dark="false" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
                         <l:iconlink icon="facebook" dark="false" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
                         <l:iconlink icon="youtube" dark="false" redirectUrl="${message:youtubeUrl}" altTitleText="${message:youtubeTitle}" />

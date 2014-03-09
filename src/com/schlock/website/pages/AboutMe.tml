@@ -22,6 +22,7 @@
 
         <div id="internetLinks">
             <div id="title">${message:internetTitle}</div>
+            <l:iconlink icon="rss" dark="true" redirectUrl="rssRedirect" altTitleText="${message:rssTitle}" />
             <l:iconlink icon="twitter" dark="true" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
             <l:iconlink icon="facebook" dark="true" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
             <l:iconlink icon="youtube" dark="true" redirectUrl="${message:youtubeUrl}" altTitleText="${message:youtubeTitle}" />

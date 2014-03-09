@@ -5,6 +5,7 @@ import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.AboutMe;
 import com.schlock.website.pages.Archive;
+import com.schlock.website.pages.Feed;
 import com.schlock.website.pages.Index;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -116,6 +117,17 @@ public class LayoutBlog
 
         List<Post> pages = postDAO.getAllPages(unpublished);
         return pages;
+    }
+
+    public String getRssUrl()
+    {
+        String url = linkSource.createPageRenderLink(Feed.class).toURI();
+        return url;
+    }
+
+    public Icon getRss()
+    {
+        return Icon.RSS;
     }
 
     public Icon getTwitter()
