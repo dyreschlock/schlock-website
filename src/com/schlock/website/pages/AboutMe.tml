@@ -12,7 +12,7 @@
         <div id="details">
             <p>
                 <b>${message:email-title}</b><br />
-                ${message:email-address}
+                ${message:website-email}
             </p>
             <p>
                 <b>${message:resume-title}</b><br />

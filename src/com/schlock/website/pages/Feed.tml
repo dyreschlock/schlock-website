@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+    <channel>
+        <title>${message:website-title}</title>
+        <description>${message:website-about}</description>
+        <link>${message:website-url}</link>
+    </channel>
+
+    <t:loop source="recentPosts" value="currentPost">
+
+        <item>
+            <title>${currentPost.title}</title>
+            <description>${currentPost.bodyHTML}</description>
+            <link>${currentPostURL}</link>
+        </item>
+
+    </t:loop>
+</rss>

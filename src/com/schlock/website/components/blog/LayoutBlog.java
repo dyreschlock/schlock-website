@@ -97,7 +97,7 @@ public class LayoutBlog
         int postCount = PostDAOImpl.TOP_RECENT;
         boolean unpublished = viewState.isShowUnpublished();
 
-        List<Post> posts = postDAO.getRecentPostsByYearMonth(postCount, null, null, unpublished, null);
+        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished);
         return posts;
     }
 

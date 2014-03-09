@@ -89,6 +89,11 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return (Post) singleResult(query);
     }
 
+    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished)
+    {
+        return getRecentPostsByYearMonth(postCount, null, null, withUnpublished, null);
+    }
+
     public List<Post> getNextPosts(Post currentPost, boolean withUnpublished, Long categoryId)
     {
         String selectClause = "select p from Post p ";

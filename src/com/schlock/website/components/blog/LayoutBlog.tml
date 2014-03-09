@@ -73,11 +73,11 @@
                     </t:loop>
 
                     <div id="aboutMessage">
-                        <t:outputraw value="message:about-message" />
+                        <t:outputraw value="message:website-about" />
                         &nbsp;
                         <t:eventlink event="aboutMe">${message:read-more}</t:eventlink>
                         <br/><br/>
-                        <b>Email:</b> ${message:email-address}
+                        <b>Email:</b> ${message:website-email}
                     </div>
 
                     <div id="links">

@@ -11,9 +11,13 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Index
 {
     private static final String UNPUBLISHED_FLAG = "u";
+    private static final List<String> RSS_FLAGS = Arrays.asList("rss", "rss2", "rss.xml", "rss2.xml");
 
     @Inject
     private Messages messages;
@@ -32,6 +36,9 @@ public class Index
     @InjectPage
     private AboutMe aboutMe;
 
+    @InjectPage
+    private Feed feed;
+
     @SessionState
     private ViewState viewState;
 
@@ -49,6 +56,10 @@ public class Index
         if (StringUtils.equals(UNPUBLISHED_FLAG, parameter))
         {
             viewState.setShowUnpublished(true);
+        }
+        else if (RSS_FLAGS.contains(parameter.toLowerCase()))
+        {
+            return feed;
         }
         else if (StringUtils.equals(Post.ABOUT_ME_UUID, parameter))
         {
@@ -69,6 +80,10 @@ public class Index
 
         return true;
     }
+
+
+
+
 
     Object onPassivate()
     {
