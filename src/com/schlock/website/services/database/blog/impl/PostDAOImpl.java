@@ -71,6 +71,26 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return uuids;
     }
 
+    public List<Object[]> getYearsMonthPostCounts(boolean withUnpublished)
+    {
+        String text =
+                "select year(p.created), month(p.created), count(p.id) " +
+                " from Post p ";
+
+        if (!withUnpublished)
+        {
+            text += " where p.published is true ";
+        }
+
+        text += " group by year(p.created), month(p.created) " +
+                " order by year(p.created) desc, month(p.created) desc";
+
+        Query query = session.createQuery(text);
+
+        List<Object[]> list = query.list();
+        return list;
+    }
+
     public Post getMostRecentPost(boolean withUnpublished, Long categoryId)
     {
         String selectClause = "select p from Post p ";
@@ -132,79 +152,6 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
                                     orderByClause);
 
         query.setTimestamp("currentCreated", currentPost.getCreatedGMT());
-
-        return query.list();
-    }
-
-
-
-    public List<Integer> getPostYears(boolean withUnpublished, Long categoryId)
-    {
-        String selectClause = "select distinct(year(p.created)) from Post p ";
-        String orderByClause = " order by year(p.created) desc";
-
-        Query query = createQuery(null,
-                                    null,
-                                    null,
-                                    withUnpublished,
-                                    categoryId,
-                                    false,
-                                    selectClause,
-                                    null,
-                                    orderByClause);
-
-        return query.list();
-    }
-
-    public List<Integer> getPostMonths(int year, boolean withUnpublished, Long categoryId)
-    {
-        String selectClause = "select distinct(month(p.created)) from Post p ";
-        String orderByClause = " order by month(p.created) desc";
-
-        Query query = createQuery(null,
-                                    year,
-                                    null,
-                                    withUnpublished,
-                                    categoryId,
-                                    false,
-                                    selectClause,
-                                    null,
-                                    orderByClause);
-
-        return query.list();
-    }
-
-    public List<Post> getPostsByYearMonth(int year, int month, boolean withUnpublished, Long categoryId)
-    {
-        String selectClause = "select p from Post p ";
-        String orderByClause = " order by month(p.created) desc ";
-
-        Query query = createQuery(null,
-                                    year,
-                                    month,
-                                    withUnpublished,
-                                    categoryId,
-                                    false,
-                                    selectClause,
-                                    null,
-                                    orderByClause);
-        return query.list();
-    }
-
-    public List<Object[]> getRecentYearsMonths(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId)
-    {
-        String selectClause = "select year(p.created), month(p.created) from Post p ";
-        String orderByClause = " order by year(p.created) desc, month(p.created) desc ";
-
-        Query query = createQuery(postCount,
-                                    year,
-                                    month,
-                                    withUnpublished,
-                                    categoryId,
-                                    false,
-                                    selectClause,
-                                    null,
-                                    orderByClause);
 
         return query.list();
     }

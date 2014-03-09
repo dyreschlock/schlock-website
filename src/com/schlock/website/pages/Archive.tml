@@ -1,71 +1,88 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html t:type="blog/layoutblog" pageName="${pageTitle}"
+<html t:type="blog/layoutblog" pageName="${message:page-title}"
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     xmlns:l="tapestry-library:blog/link"
     >
 
-    <div id="postContent" class="maxw1024">
+    <div id="postContent">
         <t:zone t:id="archiveZone" id="archiveZone" t:update="show">
-            <table class="w100p"><tbody><tr>
-                <td id="archiveYearColumn" class="w12p">
-                    <t:loop source="postYears" value="currentYear">
-                        <t:eventlink t:id="selectYear" context="currentYear" zone="archiveZone">
-                            <div id="archiveYear" class="">
-                                <t:if test="yearSelected">
-                                    <u>${currentYear}</u>
-                                </t:if>
-                                <t:if test="!yearSelected">
-                                    ${currentYear}
-                                </t:if>
-                            </div>
-                        </t:eventlink>
-                    </t:loop>
-                </td>
-                <td id="archiveMonthColumn" class="w18p">
-                    <t:loop source="postMonths" value="currentMonth">
-                        <t:eventlink t:id="selectMonth" context="currentMonth" zone="archiveZone">
-                            <div id="archiveMonth" class="">
-                                <t:if test="monthSelected">
-                                    <u>${currentMonthString}</u>
-                                </t:if>
-                                <t:if test="!monthSelected">
-                                    ${currentMonthString}
-                                </t:if>
-                            </div>
-                        </t:eventlink>
-                    </t:loop>
-                </td>
-                <td id="archivePosts" class="w70p">
-                    <t:loop source="currentYears" value="currentYear">
-                        <t:loop source="currentMonths" value="currentMonth">
 
-                            <div id="archiveMonthYear" class="">
-                                <table><tbody><tr>
-                                    <td class="w50p">
-                                        <div id="title" class="pt10 pb10">${archivePostsTitle}</div>
-                                        <t:loop source="archivedPosts" value="currentPost">
-                                            <div class="pt10">
-                                                <l:postlink post="currentPost" />
-                                            </div>
-                                        </t:loop>
-                                    </td>
-                                    <td class="w50p">
-                                        <t:if test="hasPinnedPosts">
-                                            <div id="title" class="pt10 pb10">${archivePinnedPostsTitle}</div>
-                                            <t:loop source="archivedPosts" value="currentPost">
-                                                <div class="pt10">
-                                                    <l:postlink post="currentPost" />
-                                                </div>
-                                            </t:loop>
-                                        </t:if>
-                                    </td>
-                                </tr></tbody></table>
-                            </div>
+            <div id="archiveCategories">
+                <table><tbody>
+                    <t:loop source="topCategories" value="currentCategory">
+                        <tr>
+                            <td class="top ${selectedCategory}">
 
-                        </t:loop>
+                                <t:if test="categoryHasPosts">
+                                    <t:eventlink event="selectCategory" context="currentCategory.id" zone="archiveZone">
+                                        ${categoryTitle}
+                                    </t:eventlink>
+                                </t:if>
+                                <t:if test="!categoryHasPosts">
+                                    ${categoryTitle}
+                                </t:if>
+
+                            </td>
+                            <t:loop source="subcategories" value="currentSubcategory" index="currentIndex">
+                                <td class="${selectedSubcategory}">
+
+                                    <t:if test="subcategoryHasPosts">
+                                        <t:eventlink event="selectCategory" context="currentSubcategory.id" zone="archiveZone">
+                                            ${subcategoryTitle}
+                                        </t:eventlink>
+                                    </t:if>
+                                    <t:if test="!subcategoryHasPosts">
+                                        ${subcategoryTitle}
+                                    </t:if>
+
+                                </td>
+                            </t:loop>
+                        </tr>
                     </t:loop>
-                </td>
-            </tr></tbody></table>
+                </tbody></table>
+            </div>
+            <hr class="clr" />
+            <div id="archiveYears">
+                <table><tbody>
+                    <t:loop source="years" value="currentYear">
+                        <tr>
+                            <td class="top ${selectedYearMonth}">
+
+                                <t:if test="yearHasPosts">
+                                    <t:eventlink event="selectYearMonth" context="[currentYear, null]" zone="archiveZone">
+                                        ${currentYearText}
+                                    </t:eventlink>
+                                </t:if>
+                                <t:if test="!yearHasPosts">
+                                    ${currentYearText}
+                                </t:if>
+
+                            </td>
+                            <t:loop source="months" value="currentMonth">
+                                <td class="${selectedYearMonth}">
+
+                                    <t:if test="monthHasPosts">
+                                        <t:eventlink event="selectYearMonth" context="[currentYear, currentMonth]" zone="archiveZone">
+                                            ${currentMonthText}
+                                        </t:eventlink>
+                                    </t:if>
+                                    <t:if test="!monthHasPosts">
+                                        ${currentMonthText}
+                                    </t:if>
+
+                                </td>
+                            </t:loop>
+                        </tr>
+                    </t:loop>
+                </tbody></table>
+            </div>
+            <hr class="clr" />
+
+            <div id="archivePosts">
+
+
+            </div>
+
         </t:zone>
     </div>
 </html>

@@ -1,8 +1,10 @@
 package com.schlock.website.pages;
 
-import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.ViewState;
+import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -11,24 +13,40 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 public class Archive
 {
+    private static final Integer CATEGORY_COLUMN_COUNT = 4;
+
     @Inject
     private Messages messages;
 
     @Inject
-    private PostDAO postDAO;
+    private CategoryDAO categoryDAO;
 
-    @InjectComponent
-    private Zone archiveZone;
+    @Inject
+    private PostDAO postDAO;
 
 
     @SessionState
     private ViewState viewState;
 
+
+    @InjectComponent
+    private Zone archiveZone;
+
+
+    @Property
+    private Category currentCategory;
+
+    @Property
+    private Category currentSubcategory;
+
+    @Property
+    private Integer currentIndex;
 
     @Property
     private Integer currentYear;
@@ -36,192 +54,279 @@ public class Archive
     @Property
     private Integer currentMonth;
 
-    @Property
-    private Post currentPost;
 
 
-
-    private List<Object[]> cachedAllYearsMonths;
-
-    public List<Object[]> getAllYearsMonths()
+    public List<Category> getTopCategories()
     {
-        if(cachedAllYearsMonths == null)
+        List<Category> categories = new ArrayList<Category>();
+        for (Category c : getCategories())
         {
-            boolean unpublished = viewState.isShowUnpublished();
-            Long categoryId = viewState.getCurrentCategoryId();
-
-            cachedAllYearsMonths = postDAO.getRecentYearsMonths(null, null, null, unpublished, categoryId);
+            if (c.isTopCategory())
+            {
+                categories.add(c);
+            }
         }
-        return cachedAllYearsMonths;
+        return categories;
     }
 
-    public List<Integer> getPostYears()
+    public List<Category> getSubcategories()
     {
-        List<Integer> years = getYearsFromList(null, getAllYearsMonths());
-        return years;
+        List<Category> categories = new ArrayList<Category>();
+        for (Category c : getCategories())
+        {
+            if (!c.isTopCategory() &&
+                    c.getParent().getId().equals(currentCategory.getId()))
+            {
+                categories.add(c);
+            }
+        }
+        return categories;
     }
 
-    Object onSelectYear(int year)
+    public boolean isCategoryHasPosts()
     {
-        viewState.setArchiveYear(year);
+        String count = getCategoryCount(currentCategory);
+        return count != null;
+    }
+
+    public boolean isSubcategoryHasPosts()
+    {
+        String count = getCategoryCount(currentSubcategory);
+        return count != null;
+    }
+
+    public String getCategoryTitle()
+    {
+        String name = currentCategory.getName();
+        String count = getCategoryCount(currentCategory);
+
+        if (StringUtils.isNotBlank(count))
+        {
+            return name + " (" + count + ")";
+        }
+        return name;
+    }
+
+    public String getSubcategoryTitle()
+    {
+        String name = currentSubcategory.getName();
+        String count = getCategoryCount(currentSubcategory);
+
+        if (StringUtils.isNotBlank(count))
+        {
+            return "." + name + " (" + count + ")";
+        }
+        return "." + name;
+    }
+
+    private String getCategoryCount(Category category)
+    {
+        for (Object[] counts : getCategoriesCounts())
+        {
+            Long cid = (Long) counts[0];
+            if (category.getId().equals(cid))
+            {
+                Long count = (Long) counts[1];
+                return Long.toString(count);
+            }
+        }
+        return null;
+    }
+
+    public String getSelectedCategory()
+    {
+        Long selectedId = viewState.getCurrentCategoryId();
+        if (selectedId != null &&
+                selectedId.equals(currentCategory.getId()))
+        {
+            return "selected";
+        }
+        return "";
+    }
+
+    public String getSelectedSubcategory()
+    {
+        Long selectedId = viewState.getCurrentCategoryId();
+        if(selectedId != null &&
+                selectedId.equals(currentSubcategory.getId()))
+        {
+            return "selected";
+        }
+        return "";
+    }
+
+    Object onSelectCategory(Long categoryId)
+    {
+        viewState.reset();
+        viewState.setCurrentCategoryId(categoryId);
 
         return archiveZone;
     }
 
-    public boolean isYearSelected()
-    {
-        Integer year = viewState.getArchiveYear();
-        return currentYear == year;
-    }
 
-    public List<Integer> getPostMonths()
+
+
+    public List<Integer> getYears()
     {
-        Integer year = viewState.getArchiveYear();
-        if(year == null)
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int oldestYear = getOldestYear();
+
+        List<Integer> years = new ArrayList<Integer>();
+        while (year >= oldestYear)
         {
-            return Collections.emptyList();
+            years.add(year);
+            year--;
         }
-
-        List<Integer> months = getMonthsFromList(year, null, getAllYearsMonths());
-        return months;
+        return years;
     }
 
-    Object onSelectMonth(int month)
+    private int getOldestYear()
     {
+        List<Object[]> yearMonth = getYearsMonthsCounts();
+        Object[] oldest = yearMonth.get(yearMonth.size() - 1);
+
+        return (Integer) oldest[0];
+    }
+
+    public List<Integer> getMonths()
+    {
+        return Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+    }
+
+    public boolean isYearHasPosts()
+    {
+        String count = getYearCount(currentYear);
+        return count != null;
+    }
+
+    public String getCurrentYearText()
+    {
+        String name = Integer.toString(currentYear);
+        String count = getYearCount(currentYear);
+
+        if (StringUtils.isNotBlank(count))
+        {
+            return name + " (" + count + ")";
+        }
+        return name;
+    }
+
+    private String getYearCount(Integer year)
+    {
+        Integer overallCount = 0;
+        for (Object[] count : getYearsMonthsCounts())
+        {
+            Integer y = (Integer) count[0];
+            if (year.equals(y))
+            {
+                Long c = (Long) count[2];
+                overallCount += c.intValue();
+            }
+        }
+        return Integer.toString(overallCount);
+    }
+
+    public boolean isMonthHasPosts()
+    {
+        String count = getYearMonthCount(currentYear, currentMonth);
+        return count != null;
+    }
+
+    public String getCurrentMonthText()
+    {
+        String name = messages.get(currentMonth.toString());
+        String count = getYearMonthCount(currentYear, currentMonth);
+
+        if (StringUtils.isNotBlank(count))
+        {
+            return name + " (" + count + ")";
+        }
+        return name;
+    }
+
+    private String getYearMonthCount(Integer year, Integer month)
+    {
+        for (Object[] count : getYearsMonthsCounts())
+        {
+            Integer y = (Integer) count[0];
+            Integer m = (Integer) count[1];
+
+            if (year.equals(y) && month.equals(m))
+            {
+                Long c = (Long) count[2];
+                return Long.toString(c);
+            }
+        }
+        return null;
+    }
+
+    public String getSelectedYearMonth()
+    {
+        Integer year = viewState.getArchiveYear();
+        Integer month = viewState.getArchiveMonth();
+
+        if (year != null && year.equals(currentYear))
+        {
+            if (month != null && month.equals(currentMonth))
+            {
+                return "selected";
+            }
+            if (month == null && currentMonth == null)
+            {
+                return "selected";
+            }
+        }
+        return "";
+    }
+
+    Object onSelectYearMonth(Integer year, Integer month)
+    {
+        viewState.reset();
+        viewState.setArchiveYear(year);
         viewState.setArchiveMonth(month);
 
         return archiveZone;
     }
 
-    public boolean isMonthSelected()
+
+
+    private List<Object[]> cachedYearsMonthsCounts;
+
+    private List<Object[]> getYearsMonthsCounts()
     {
-        Integer month = viewState.getArchiveMonth();
-        return currentMonth == month;
-    }
-
-    public String getCurrentMonthString()
-    {
-        return messages.get(Integer.toString(currentMonth));
-    }
-
-
-
-    private List<Object[]> cachedRecentYearsMonths;
-
-    public List<Object[]> getRecentYearsMonths()
-    {
-        if(cachedRecentYearsMonths == null)
+        if (cachedYearsMonthsCounts == null)
         {
             boolean unpublished = viewState.isShowUnpublished();
-            Long categoryId = viewState.getCurrentCategoryId();
 
-            Integer year = viewState.getArchiveYear();
-            Integer month = viewState.getArchiveMonth();
-
-            int postCount = viewState.getViewingPostCount();
-
-            cachedRecentYearsMonths = postDAO.getRecentYearsMonths(postCount, year, month, unpublished, categoryId);
+            cachedYearsMonthsCounts = postDAO.getYearsMonthPostCounts(unpublished);
         }
-        return cachedRecentYearsMonths;
-    }
-
-    public List<Integer> getCurrentYears()
-    {
-        Integer selectedYear = viewState.getArchiveYear();
-        List<Integer> years = getYearsFromList(selectedYear, getRecentYearsMonths());
-        return years;
-    }
-
-    public List<Integer> getCurrentMonths()
-    {
-        Integer selectedMonth = viewState.getArchiveMonth();
-        List<Integer> months = getMonthsFromList(currentYear, selectedMonth, getRecentYearsMonths());
-        return months;
+        return cachedYearsMonthsCounts;
     }
 
 
+    private List<Object[]> cachedCategoriesCounts;
 
-    public List<Post> getArchivedPosts()
+    private List<Object[]> getCategoriesCounts()
     {
-        boolean unpublished = viewState.isShowUnpublished();
-        Long categoryId = viewState.getCurrentCategoryId();
-
-        List<Post> posts = postDAO.getRecentPostsByYearMonth(null, currentYear, currentMonth, unpublished, categoryId);
-        return posts;
-    }
-
-    public boolean isHasPinnedPosts()
-    {
-        return !getArchivedPinnedPosts().isEmpty();
-    }
-
-    private List<Post> cachedArchivedPinnedPosts;
-
-    public List<Post> getArchivedPinnedPosts()
-    {
-        if(cachedArchivedPinnedPosts == null)
+        if(cachedCategoriesCounts == null)
         {
             boolean unpublished = viewState.isShowUnpublished();
-            Long categoryId = viewState.getCurrentCategoryId();
 
-            cachedArchivedPinnedPosts = postDAO.getRecentPinnedPostsByYearMonth(null, currentYear, currentMonth, unpublished, categoryId);
+            cachedCategoriesCounts = categoryDAO.getWithPostCounts(unpublished);
         }
-        return cachedArchivedPinnedPosts;
+        return cachedCategoriesCounts;
     }
 
 
-    public String getArchivePostsTitle()
+    private List<Category> cachedCategories;
+
+    private List<Category> getCategories()
     {
-        String message = messages.get("archive-posts");
-        String month = messages.get(Integer.toString(currentMonth));
-        return String.format(message, month, currentYear);
-    }
-
-    public String getArchivePinnedPostsTitle()
-    {
-        String message = messages.get("archive-pinned-posts");
-        String month = messages.get(Integer.toString(currentMonth));
-        return String.format(message, month, currentYear);
-    }
-
-
-
-    public String getPageTitle()
-    {
-        return messages.get("page-title");
-    }
-
-    private static List<Integer> getYearsFromList(Integer matchingYear, List<Object[]> yearsMonthsList)
-    {
-        List<Integer> years = new ArrayList<Integer>();
-        for (Object[] yearsMonths : yearsMonthsList)
+        if (cachedCategories == null)
         {
-            Integer year = (Integer) yearsMonths[0];
-            if (!years.contains(year) &&
-                    (matchingYear == null || ((int) matchingYear) == ((int) year)))
-            {
-                years.add(year);
-            }
+            cachedCategories = categoryDAO.getAllInOrder();
         }
-        return years;
-    }
-
-    private static List<Integer> getMonthsFromList(int selectedYear, Integer matchingMonth, List<Object[]> yearsMonthsList)
-    {
-        List<Integer> months = new ArrayList<Integer>();
-        for (Object[] yearsMonths : yearsMonthsList)
-        {
-            Integer year = (Integer) yearsMonths[0];
-            if (year == selectedYear)
-            {
-                Integer month = (Integer) yearsMonths[1];
-                if (!months.contains(month) &&
-                        (matchingMonth == null || ((int) matchingMonth) == ((int) month)))
-                {
-                    months.add(month);
-                }
-            }
-        }
-        return months;
+        return cachedCategories;
     }
 }

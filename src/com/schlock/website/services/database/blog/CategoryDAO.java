@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CategoryDAO extends BaseDAO<Category>
 {
-    public List<Category> getTopCategoriesInOrder();
+    public List<Category> getAllInOrder();
 
-    public List<Category> getSubcategoriesInOrder(Long categoryId);
+    public List<Object[]> getWithPostCounts(boolean withUnpublished);
 }

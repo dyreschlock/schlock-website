@@ -15,24 +15,28 @@ public class CategoryDAOImpl extends BaseDAOImpl<Category> implements CategoryDA
         super(Category.class, session);
     }
 
-    public List<Category> getTopCategoriesInOrder()
+    public List<Category> getAllInOrder()
     {
         String text = "from Category " +
-                        " where parentId is null " +
-                        " order by ordering ";
+                      " order by parentId, ordering ";
 
         Query query = session.createQuery(text);
         return query.list();
     }
 
-    public List<Category> getSubcategoriesInOrder(Long categoryId)
+    public List<Object[]> getWithPostCounts(boolean withUnpublished)
     {
-        String text = "from Category " +
-                        " where parentId = :categoryId " +
-                        " order by ordering ";
+        String text = "select c.id, count(p.id) " +
+                        " from Post p " +
+                        " join p.categories c ";
+        if (!withUnpublished)
+        {
+            text += " where p.published is true ";
+        }
+        text += " group by c.id ";
 
         Query query = session.createQuery(text);
-        query.setParameter("categoryId", categoryId);
-        return query.list();
+        List<Object[]> list = query.list();
+        return list;
     }
 }

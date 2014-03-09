@@ -91,7 +91,10 @@ h1, h2, h3
 #blogContent hr
 {
     height: 1px;
+    border: 0;
+    font-size: 0;
     color: #333;
+    background: #333;
 
     margin: 0px 20px;
 }
@@ -233,4 +236,41 @@ h1, h2, h3
 #aboutMe img
 {
     padding: 0px 10px 0px 0px;
+}
+
+
+#archiveCategories
+{
+    text-align: left;
+    //float: left;
+    //position: relative;
+    width: 100%;
+
+    margin: 0px 0px 15px 0px;
+}
+#archiveYears
+{
+    text-align: left;
+    //float: right;
+    //position: relative;
+    width: 100%;
+
+    margin: 15px 0px 15px 0px;
+}
+#archiveCategories table, #archiveYears table
+{
+    width: 100%;
+}
+#archiveCategories td, #archiveYears td
+{
+    color: #999;
+    padding: 3px 10px;
+}
+#archiveCategories td.top, #archiveYears td.top
+{
+    font-weight: bold;
+}
+#archiveCategories td.selected, #archiveYears td.selected
+{
+    background-color: #eee;
 }

@@ -24,11 +24,11 @@ public interface PostDAO extends BaseDAO<Post>
 
     public List<Post> getPreviousPosts(Post currentPost, boolean withUnplished, Long categoryId);
 
-    public List<Object[]> getRecentYearsMonths(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId);
-
     public List<Post> getRecentPostsByYearMonth(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId);
 
     public List<Post> getRecentPinnedPostsByYearMonth(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId);
+
+    public List<Object[]> getYearsMonthPostCounts(boolean withUnpublished);
 
     public List<Post> getAllPages(boolean withUnpublished);
 }
