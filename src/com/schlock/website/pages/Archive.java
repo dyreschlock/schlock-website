@@ -1,6 +1,7 @@
 package com.schlock.website.pages;
 
 import com.schlock.website.entities.blog.Category;
+import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -53,6 +54,57 @@ public class Archive
 
     @Property
     private Integer currentMonth;
+
+    @Property
+    private Post currentPost;
+
+
+    public String getPublishedText()
+    {
+        String text = messages.get("published");
+
+        Long c = 0l;
+        for (Object[] count : getPublishedCounts())
+        {
+            Boolean published = (Boolean) count[0];
+            if(published)
+            {
+                c = (Long) count[1];
+            }
+        }
+
+        String count = Long.toString(c);
+        return text + " (" + count + ")";
+    }
+
+    public String getUnpublishedText()
+    {
+        String text = messages.get("unpublished");
+
+        Long c = 0l;
+        for (Object[] count : getPublishedCounts())
+        {
+            c += (Long) count[1];
+        }
+
+        String count = Long.toString(c);
+        return text + " (" + count + ")";
+    }
+
+    Object onPublished()
+    {
+        viewState.reset();
+
+        return archiveZone;
+    }
+
+    Object onUnpublished()
+    {
+        viewState.reset();
+        viewState.setShowUnpublished(true);
+
+        return archiveZone;
+    }
 
 
 
@@ -291,6 +343,30 @@ public class Archive
 
 
 
+    public boolean isCreateNewLine()
+    {
+        int numberOfPosts = getPosts().size();
+
+        boolean endofrow = (currentIndex + 1) % 2 == 0;
+        boolean lastOne = (currentIndex + 1) == numberOfPosts;
+
+        return endofrow || lastOne;
+    }
+
+
+
+
+    private List<Object[]> cachedPublishedCounts;
+
+    private List<Object[]> getPublishedCounts()
+    {
+        if (cachedPublishedCounts == null)
+        {
+            cachedPublishedCounts = postDAO.getPublishedPostCounts();
+        }
+        return cachedPublishedCounts;
+    }
+
     private List<Object[]> cachedYearsMonthsCounts;
 
     private List<Object[]> getYearsMonthsCounts()
@@ -313,7 +389,7 @@ public class Archive
         {
             boolean unpublished = viewState.isShowUnpublished();
 
-            cachedCategoriesCounts = categoryDAO.getWithPostCounts(unpublished);
+            cachedCategoriesCounts = postDAO.getCategoryPostCounts(unpublished);
         }
         return cachedCategoriesCounts;
     }
@@ -328,5 +404,23 @@ public class Archive
             cachedCategories = categoryDAO.getAllInOrder();
         }
         return cachedCategories;
+    }
+
+
+    private List<Post> cachedPosts;
+
+    public List<Post> getPosts()
+    {
+        if (cachedPosts == null)
+        {
+            Integer postCount = viewState.getViewingPostCount();
+            Integer year = viewState.getArchiveYear();
+            Integer month = viewState.getArchiveMonth();
+            Boolean unpublished = viewState.isShowUnpublished();
+            Long categoryId = viewState.getCurrentCategoryId();
+
+            cachedPosts = postDAO.getRecentPostsByYearMonth(postCount, year, month, unpublished, categoryId);
+        }
+        return cachedPosts;
     }
 }

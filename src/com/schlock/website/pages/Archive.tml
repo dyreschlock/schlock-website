@@ -2,11 +2,26 @@
 <html t:type="blog/layoutblog" pageName="${message:page-title}"
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     xmlns:l="tapestry-library:blog/link"
+    xmlns:c="tapestry-library:blog/content"
     >
 
     <div id="postContent">
         <t:zone t:id="archiveZone" id="archiveZone" t:update="show">
 
+            <div id="archivePublished" class="hidden">
+                <table><tbody><tr>
+                    <td class="top">
+                        <t:eventlink t:id="published" zone="archiveZone">
+                            ${publishedText}
+                        </t:eventlink>
+                    </td>
+                    <td>
+                        <t:eventlink t:id="unpublished" zone="archiveZone">
+                            ${unpublishedText}
+                        </t:eventlink>
+                    </td>
+                </tr></tbody></table>
+            </div>
             <div id="archiveCategories">
                 <table><tbody>
                     <t:loop source="topCategories" value="currentCategory">
@@ -79,10 +94,15 @@
             <hr class="clr" />
 
             <div id="archivePosts">
+                <t:loop source="posts" value="currentPost" index="currentIndex">
 
+                    <c:archivepostdisplay post="currentPost" />
 
+                    <t:if test="createNewLine">
+                        <br class="clr" />
+                    </t:if>
+                </t:loop>
             </div>
-
         </t:zone>
     </div>
 </html>

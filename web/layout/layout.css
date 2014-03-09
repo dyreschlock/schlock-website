@@ -26,9 +26,12 @@
 
 .m0 { margin: 0; }
 
+.mb { margin-bottom: 20px; }
+
 .fLeft { float: left; }
 .fRight { float: right; }
 .clr { clear: both; }
+.hidden { display: none; visibility: hidden; }
 
 .posRelative { position: relative; }
 

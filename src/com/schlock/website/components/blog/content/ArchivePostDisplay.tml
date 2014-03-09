@@ -1,0 +1,19 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+    <div id="archivePost">
+
+        <t:eventlink t:id="selectPost" context="post.uuid">
+            <h1><!-- ${post.id} // --> ${post.title}</h1>
+        </t:eventlink>
+        <t:if test="!post.page">
+            <div id="postDate">
+                ${post.prettyCreatedDate}
+            </div>
+        </t:if>
+        <div id="postBody">
+            <t:outputraw value="post.bodyHTML" />
+        </div>
+
+    </div>
+</t:container>

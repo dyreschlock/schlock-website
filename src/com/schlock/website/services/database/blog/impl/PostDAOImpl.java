@@ -71,15 +71,46 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return uuids;
     }
 
+    public List<Object[]> getPublishedPostCounts()
+    {
+        String text = "select p.published, count(p.id) " +
+                      " from Post p " +
+                      " where p.page is false " +
+                      " group by p.published " +
+                      " order by p.published desc ";
+
+        Query query = session.createQuery(text);
+        List<Object[]> list = query.list();
+        return list;
+    }
+
+    public List<Object[]> getCategoryPostCounts(boolean withUnpublished)
+    {
+        String text = "select c.id, count(p.id) " +
+                " from Post p " +
+                " join p.categories c " +
+                " where p.page is false ";
+        if (!withUnpublished)
+        {
+            text += " and p.published is true ";
+        }
+        text += " group by c.id ";
+
+        Query query = session.createQuery(text);
+        List<Object[]> list = query.list();
+        return list;
+    }
+
     public List<Object[]> getYearsMonthPostCounts(boolean withUnpublished)
     {
         String text =
                 "select year(p.created), month(p.created), count(p.id) " +
-                " from Post p ";
+                " from Post p " +
+                " where p.page is false ";
 
         if (!withUnpublished)
         {
-            text += " where p.published is true ";
+            text += " and p.published is true ";
         }
 
         text += " group by year(p.created), month(p.created) " +

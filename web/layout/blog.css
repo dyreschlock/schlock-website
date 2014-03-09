@@ -96,7 +96,7 @@ h1, h2, h3
     color: #333;
     background: #333;
 
-    margin: 0px 20px;
+    margin: 0px 15px;
 }
 
 
@@ -239,38 +239,89 @@ h1, h2, h3
 }
 
 
-#archiveCategories
+
+#archivePublished, #archiveCategories, #archiveYears
 {
     text-align: left;
-    //float: left;
-    //position: relative;
     width: 100%;
 
-    margin: 0px 0px 15px 0px;
+    margin: 5px 0px 5px 0px;
 }
-#archiveYears
+#archivePublished, #archiveCategories
 {
-    text-align: left;
-    //float: right;
-    //position: relative;
-    width: 100%;
-
-    margin: 15px 0px 15px 0px;
+    margin: 0px 0px 5px 0px;
 }
 #archiveCategories table, #archiveYears table
 {
     width: 100%;
 }
-#archiveCategories td, #archiveYears td
+#archivePublished td, #archiveCategories td, #archiveYears td
 {
     color: #999;
     padding: 3px 10px;
 }
-#archiveCategories td.top, #archiveYears td.top
+#archivePublished td.top, #archiveCategories td.top, #archiveYears td.top
 {
     font-weight: bold;
 }
-#archiveCategories td.selected, #archiveYears td.selected
+#archivePublished td.selected, #archiveCategories td.selected, #archiveYears td.selected
 {
-    background-color: #eee;
+    background-color: #f6f6f6;
+}
+#archivePosts
+{
+    margin-top: 20px;
+}
+
+#archivePost
+{
+    position: relative;
+    float: left;
+    width: 50%;
+
+    height: 294px;
+    max-height: 294px;
+
+    overflow-y: hidden;
+    overflow-x: hidden;
+
+    padding-top: 20px;
+}
+#archivePost h1
+{
+    font-size: 1.4em;
+}
+#archivePost #postDate
+{
+    font-size: 14px;
+}
+#archivePost #postBody
+{
+    font-size: 16px;
+    width: 95%;
+}
+
+
+
+#postContent
+{
+    padding: 20px;
+    padding-top: 30px;
+
+}
+#postContent #postDate
+{
+    color: #666;
+}
+#postContent #postDate a:hover
+{
+    text-decoration: underline;
+}
+#postContent a
+{
+    color: #800;
+}
+#postContent img
+{
+    max-width: 100%;
 }

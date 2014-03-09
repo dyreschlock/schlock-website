@@ -23,20 +23,4 @@ public class CategoryDAOImpl extends BaseDAOImpl<Category> implements CategoryDA
         Query query = session.createQuery(text);
         return query.list();
     }
-
-    public List<Object[]> getWithPostCounts(boolean withUnpublished)
-    {
-        String text = "select c.id, count(p.id) " +
-                        " from Post p " +
-                        " join p.categories c ";
-        if (!withUnpublished)
-        {
-            text += " where p.published is true ";
-        }
-        text += " group by c.id ";
-
-        Query query = session.createQuery(text);
-        List<Object[]> list = query.list();
-        return list;
-    }
 }
