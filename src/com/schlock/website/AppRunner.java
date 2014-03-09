@@ -10,7 +10,7 @@ public class AppRunner
 		System.setProperty("org.apache.tapestry.disable-caching", "false");
 		System.setProperty("org.apache.tapestry.enable-reset-service", "true");
 
-		Server server = new Server(8080);
+		Server server = new Server(8084);
 
 		WebAppContext context = new WebAppContext();
 		context.setContextPath("/");
