@@ -13,6 +13,22 @@ import java.util.TimeZone;
 public class PostManagementImpl implements PostManagement
 {
     private final static String VALID_UUID_CHARACTERS = "abcdefghijklmnopqrstuvwxyz1234567890";
+    private final static int PREVIEW_LENGTH = 900;
+
+    private final static String ITALICS_OPEN = "<i>";
+    private final static String ITALICS_CLOSE = "</i>";
+
+    private final static String EM_OPEN = "<em>";
+    private final static String EM_CLOSE = "</em>";
+
+    private final static String BOLD_OPEN = "<b>";
+    private final static String BOLD_CLOSE = "</b>";
+
+    private final static String STRONG_OPEN = "<strong>";
+    private final static String STRONG_CLOSE = "</strong>";
+
+    private final static String UNDER_OPEN = "<b>";
+    private final static String UNDER_CLOSE = "</b>";
 
     private final PostDAO postDAO;
 
@@ -104,43 +120,91 @@ public class PostManagementImpl implements PostManagement
     {
         for (Post post : postDAO.getAll())
         {
-            generatePostHTML(post);
+            setPostHTML(post);
         }
     }
 
-    public void generatePostHTML(Post post)
+    public void setPostHTML(Post post)
+    {
+        String text = post.getBodyText();
+        String html = generatePostHTML(text);
+        post.setBodyHTML(html);
+        postDAO.save(post);
+    }
+
+    public String generatePostPreview(Post post)
     {
         String tempText = post.getBodyText();
-        if (tempText == null)
+
+        int length = tempText.length();
+        if (length > PREVIEW_LENGTH)
         {
-            return;
+            length = PREVIEW_LENGTH;
+        }
+        tempText = tempText.substring(0, length);
+
+        int openTag = tempText.lastIndexOf("<");
+        int closeTag = tempText.lastIndexOf(">");
+        if (openTag != -1 && openTag > closeTag)
+        {
+            tempText = tempText.substring(0, openTag);
         }
 
-        String bodyHTML = "";
+
+        tempText = closeTags(tempText, BOLD_OPEN, BOLD_CLOSE);
+        tempText = closeTags(tempText, STRONG_OPEN, STRONG_CLOSE);
+        tempText = closeTags(tempText, UNDER_OPEN, UNDER_CLOSE);
+        tempText = closeTags(tempText, ITALICS_OPEN, ITALICS_CLOSE);
+        tempText = closeTags(tempText, EM_OPEN, EM_CLOSE);
+
+        String html = generatePostHTML(tempText);
+        return html;
+    }
+
+    private String closeTags(final String text, final String OPEN, final String CLOSE)
+    {
+        int oi = text.lastIndexOf(OPEN);
+        int ci = text.lastIndexOf(CLOSE);
+        if (oi != -1 && oi > ci)
+        {
+            return text + CLOSE;
+        }
+        return text;
+    }
+
+
+    private String generatePostHTML(String tempText)
+    {
+        if (StringUtils.isBlank(tempText))
+        {
+            return tempText;
+        }
+
+
+        String html = "";
 
         String[] paragraphs = tempText.split("\r\n\r\n");
         for (int i = 0; i < paragraphs.length; i++)
         {
-            String p = paragraphs[i];
+            String[] paragraphs2 = paragraphs[i].split("\n\n");
+            for (int j = 0; j < paragraphs2.length; j++)
+            {
+                String p = paragraphs2[j];
 
-            bodyHTML += "<p>" + p + "</p>";
+                html += "<p>" + p + "</p>";
+            }
+
         }
 
-        tempText = bodyHTML;
-        bodyHTML = "";
+        html = html.replaceAll("\r\n", "<br/>");
+        html = html.replaceAll("\n", "<br/>");
 
-        String[] paragraphs2 = tempText.split("\n\n");
-        for (int i = 0; i < paragraphs2.length; i++)
-        {
-            String p = paragraphs2[i];
+        html = html.replaceAll("href=\"http://theschlock.com/", "href=\"/");
+        html = html.replaceAll("href=\"http://www.theschlock.com/", "href=\"/");
 
-            bodyHTML += "<p>" + p + "</p>";
-        }
+//        html = html.replaceAll("src=\"http://theschlock.com/", "src=\"/");
+//        html = html.replaceAll("src=\"http://www.theschlock.com/", "src=\"/");
 
-        bodyHTML = bodyHTML.replaceAll("\r\n", "<br/>");
-        bodyHTML = bodyHTML.replaceAll("\n", "<br/>");
-
-        post.setBodyHTML(bodyHTML);
-        postDAO.save(post);
+        return html;
     }
 }

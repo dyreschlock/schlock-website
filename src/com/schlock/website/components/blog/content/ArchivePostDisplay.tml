@@ -12,8 +12,9 @@
             </div>
         </t:if>
         <div id="postBody">
-            <t:outputraw value="post.bodyHTML" />
+            <t:outputraw value="previewHtml" />
         </div>
 
+        <span></span>
     </div>
 </t:container>

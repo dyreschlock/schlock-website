@@ -12,5 +12,7 @@ public interface PostManagement
 
     public void regenerateAllPostHTML();
 
-    public void generatePostHTML(Post post);
+    public void setPostHTML(Post post);
+
+    public String generatePostPreview(Post post);
 }

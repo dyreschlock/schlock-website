@@ -25,6 +25,8 @@ public class Post extends Persisted
     private boolean pinned;
     private boolean page;
 
+    private String galleryName;
+
     private String bodyText;
     private String bodyHTML;
 
@@ -169,6 +171,16 @@ public class Post extends Persisted
     public void setPage(boolean page)
     {
         this.page = page;
+    }
+
+    public String getGalleryName()
+    {
+        return galleryName;
+    }
+
+    public void setGalleryName(String galleryName)
+    {
+        this.galleryName = galleryName;
     }
 
     public String getBodyText()

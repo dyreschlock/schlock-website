@@ -209,8 +209,15 @@ public class Archive
 
     Object onSelectCategory(Long categoryId)
     {
-        viewState.reset();
-        viewState.setCurrentCategoryId(categoryId);
+        Long currentId = viewState.getCurrentCategoryId();
+        if (categoryId != null && categoryId.equals(currentId))
+        {
+            viewState.setCurrentCategoryId(null);
+        }
+        else
+        {
+            viewState.setCurrentCategoryId(categoryId);
+        }
 
         return archiveZone;
     }
@@ -334,9 +341,25 @@ public class Archive
 
     Object onSelectYearMonth(Integer year, Integer month)
     {
-        viewState.reset();
-        viewState.setArchiveYear(year);
-        viewState.setArchiveMonth(month);
+        Integer currentYear = viewState.getArchiveYear();
+        Integer currentMonth = viewState.getArchiveMonth();
+        if(year != null && month != null &&
+           year.equals(currentYear) && month.equals(currentMonth))
+        {
+            viewState.setArchiveYear(null);
+            viewState.setArchiveMonth(null);
+        }
+        else if(year != null && month == null &&
+                year.equals(currentYear) && currentMonth == null)
+        {
+            viewState.setArchiveYear(null);
+            viewState.setArchiveMonth(null);
+        }
+        else
+        {
+            viewState.setArchiveYear(year);
+            viewState.setArchiveMonth(month);
+        }
 
         return archiveZone;
     }
