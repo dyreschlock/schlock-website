@@ -23,6 +23,10 @@
                     <t:eventlink event="archive">${message:archive}</t:eventlink>
                     //
                     <t:eventlink event="aboutMe">${message:about-me}</t:eventlink>
+                    <t:remove>
+                        <t:eventlink t:id="codejamLink">${message:codejam}</t:eventlink>
+                    </t:remove>
+                        // <t:eventlink t:id="regeneratePostHTML">Regen</t:eventlink>
                 </div>
                 <br class="clr" />
             </div>
@@ -30,14 +34,6 @@
         </div>
 
         <div id="blogBody">
-
-            <t:remove>
-                <t:eventlink t:id="codejamLink">${message:codejam}</t:eventlink>
-                <t:eventlink t:id="regeneratePostHTML">Regenerate Post HTML</t:eventlink>
-            </t:remove>
-
-
-
             <div id="blogContent">
                 <t:body />
             </div>

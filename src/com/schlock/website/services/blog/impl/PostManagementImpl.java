@@ -1,17 +1,19 @@
 package com.schlock.website.services.blog.impl;
 
 import com.schlock.website.entities.blog.Post;
+import com.schlock.website.services.blog.PhotoFileFilter;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Set;
-import java.util.TimeZone;
+import java.io.File;
+import java.util.*;
 
 public class PostManagementImpl implements PostManagement
 {
+    public static final String LOCAL_PHOTO_DIR = "/Users/JHendricks/Google Drive/Blog/www/photo/";
+    public static final String PHOTO_DIR = "photo/";
+
     private final static String VALID_UUID_CHARACTERS = "abcdefghijklmnopqrstuvwxyz1234567890";
     private final static int PREVIEW_LENGTH = 900;
 
@@ -150,7 +152,6 @@ public class PostManagementImpl implements PostManagement
             tempText = tempText.substring(0, openTag);
         }
 
-
         tempText = closeTags(tempText, BOLD_OPEN, BOLD_CLOSE);
         tempText = closeTags(tempText, STRONG_OPEN, STRONG_CLOSE);
         tempText = closeTags(tempText, UNDER_OPEN, UNDER_CLOSE);
@@ -171,7 +172,6 @@ public class PostManagementImpl implements PostManagement
         }
         return text;
     }
-
 
     private String generatePostHTML(String tempText)
     {
@@ -202,9 +202,37 @@ public class PostManagementImpl implements PostManagement
         html = html.replaceAll("href=\"http://theschlock.com/", "href=\"/");
         html = html.replaceAll("href=\"http://www.theschlock.com/", "href=\"/");
 
-//        html = html.replaceAll("src=\"http://theschlock.com/", "src=\"/");
-//        html = html.replaceAll("src=\"http://www.theschlock.com/", "src=\"/");
+        html = html.replaceAll("src=\"http://theschlock.com/", "src=\"/");
+        html = html.replaceAll("src=\"http://www.theschlock.com/", "src=\"/");
 
         return html;
+    }
+
+    public List<String> getGalleryImages(Post post)
+    {
+        String galleryName = post.getGalleryName();
+        if (StringUtils.isBlank(galleryName))
+        {
+            return Collections.EMPTY_LIST;
+        }
+
+        File gallery = new File(LOCAL_PHOTO_DIR + galleryName);
+        if (!gallery.exists())
+        {
+             return Collections.EMPTY_LIST;
+        }
+
+        File[] files = gallery.listFiles(new PhotoFileFilter());
+
+        List<String> images = new ArrayList<String>();
+        for (File file : files)
+        {
+            String path = file.getAbsolutePath();
+            int i = path.indexOf(PHOTO_DIR);
+
+            path = "/" + path.substring(i);
+            images.add(path);
+        }
+        return images;
     }
 }

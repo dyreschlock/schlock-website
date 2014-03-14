@@ -1,6 +1,7 @@
 <t:container
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     xmlns:l="tapestry-library:blog/link"
+    xmlns:c="tapestry-library:blog/content"
     >
 
     <div id="postContent">
@@ -21,8 +22,12 @@
         <div id="postBody">
             <t:outputraw value="post.bodyHTML" />
         </div>
-
     </div>
+
+    <t:if test="post.hasGallery">
+        <hr class="clr" />
+        <c:imagegallery post="post" />
+    </t:if>
 
     <t:if test="!post.page">
         <t:if test="hasPreviousNextPosts">

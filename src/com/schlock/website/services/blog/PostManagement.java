@@ -3,6 +3,7 @@ package com.schlock.website.services.blog;
 import com.schlock.website.entities.blog.Post;
 
 import java.util.Date;
+import java.util.List;
 
 public interface PostManagement
 {
@@ -15,4 +16,6 @@ public interface PostManagement
     public void setPostHTML(Post post);
 
     public String generatePostPreview(Post post);
+
+    public List<String> getGalleryImages(Post post);
 }

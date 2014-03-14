@@ -1,0 +1,23 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+    <t:if test="post.hasGallery">
+        <div id="images">
+            <div id="title">${message:images}</div>
+
+            <t:loop source="galleryImages" value="currentImage" index="currentIndex">
+
+                <t:if test="newLine">
+                    <br class="clr" />
+                </t:if>
+
+                <a href="${currentImage}" target="_blank" >
+                    <div id="image" style="background-image: url(${currentImage})">
+                    </div>
+                </a>
+
+            </t:loop>
+            <br class="clr" />
+        </div>
+    </t:if>
+</t:container>

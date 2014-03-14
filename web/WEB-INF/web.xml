@@ -23,4 +23,14 @@
     </filter-mapping>
 
 
+    <servlet>
+        <servlet-name>Photos</servlet-name>
+        <servlet-class>com.schlock.website.servlet.PhotoServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Photos</servlet-name>
+        <url-pattern>/photo/*</url-pattern>
+    </servlet-mapping>
+
 </web-app>

@@ -1,6 +1,7 @@
 package com.schlock.website.entities.blog;
 
 import com.schlock.website.entities.Persisted;
+import org.apache.commons.lang.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -80,6 +81,11 @@ public class Post extends Persisted
     {
         SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
         return format.format(created);
+    }
+
+    public boolean isHasGallery()
+    {
+        return StringUtils.isNotBlank(galleryName);
     }
 
 

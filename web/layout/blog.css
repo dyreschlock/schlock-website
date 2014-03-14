@@ -129,6 +129,37 @@ h1, h2, h3
     max-width: 100%;
 }
 
+#images
+{
+    margin-top: 10px;
+}
+#images #title
+{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+#images #image
+{
+    background-position: center;
+    background-size: 300%;
+    opacity: 0.5;
+
+    width: 22.5%;
+    max-height: 200px;
+    min-height: 200px;
+    height: 200px;
+    position: relative;
+    float: left;
+
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+#images #image:hover
+{
+    opacity: 1;
+}
+
+
 #previousLinks
 {
     text-align: left;
