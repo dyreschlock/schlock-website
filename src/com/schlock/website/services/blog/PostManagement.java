@@ -9,7 +9,7 @@ public interface PostManagement
 {
     public Post createPost(String postTitle, String postContent);
 
-    public Post createPost(Date created, Date createdGMT, String postTitle, String postContent);
+    public Post createPost(Date created, String postTitle, String postContent);
 
     public void regenerateAllPostHTML();
 

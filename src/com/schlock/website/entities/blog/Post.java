@@ -20,7 +20,6 @@ public class Post extends Persisted
     private String title;
 
     private Date created;
-    private Date createdGMT;
 
     private boolean published;
     private boolean pinned;
@@ -137,16 +136,6 @@ public class Post extends Persisted
     public void setCreated(Date created)
     {
         this.created = created;
-    }
-
-    public Date getCreatedGMT()
-    {
-        return createdGMT;
-    }
-
-    public void setCreatedGMT(Date createdGMT)
-    {
-        this.createdGMT = createdGMT;
     }
 
     public boolean isPublished()

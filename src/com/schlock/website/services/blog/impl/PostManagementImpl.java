@@ -96,19 +96,15 @@ public class PostManagementImpl implements PostManagement
         Calendar cal = Calendar.getInstance();
         Date created = cal.getTime();
 
-        cal.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date createdGMT = cal.getTime();
-
-        return createPost(created, createdGMT, postTitle, postContent);
+        return createPost(created, postTitle, postContent);
     }
 
-    public Post createPost(Date created, Date createdGMT, String postTitle, String postContent)
+    public Post createPost(Date created, String postTitle, String postContent)
     {
         String uuid = createUuid(postTitle);
 
         Post post = new Post(uuid);
         post.setCreated(created);
-        post.setCreatedGMT(createdGMT);
 
         post.setTitle(postTitle);
         post.setBodyText(postContent);

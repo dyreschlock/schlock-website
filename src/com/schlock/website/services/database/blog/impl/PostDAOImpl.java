@@ -125,7 +125,7 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
     public Post getMostRecentPost(boolean withUnpublished, Long categoryId)
     {
         String selectClause = "select p from Post p ";
-        String orderByClause = " order by p.createdGMT desc";
+        String orderByClause = " order by p.created desc";
 
         Query query = createQuery(TOP_RECENT,
                 null,
@@ -148,8 +148,8 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
     public List<Post> getNextPosts(Post currentPost, boolean withUnpublished, Long categoryId)
     {
         String selectClause = "select p from Post p ";
-        String extraWhereClause = " p.createdGMT > :currentCreated ";
-        String orderByClause = " order by p.createdGMT asc";
+        String extraWhereClause = " p.created > :currentCreated ";
+        String orderByClause = " order by p.created asc";
 
         Query query = createQuery(TOP_RECENT,
                                     null,
@@ -161,7 +161,7 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
                                     Arrays.asList(extraWhereClause),
                                     orderByClause);
 
-        query.setTimestamp("currentCreated", currentPost.getCreatedGMT());
+        query.setTimestamp("currentCreated", currentPost.getCreated());
 
         return query.list();
     }
@@ -169,8 +169,8 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
     public List<Post> getPreviousPosts(Post currentPost, boolean withUnpublished, Long categoryId)
     {
         String selectClause = "select p from Post p ";
-        String extraWhereClause = " p.createdGMT < :currentCreated ";
-        String orderByClause = " order by p.createdGMT desc";
+        String extraWhereClause = " p.created < :currentCreated ";
+        String orderByClause = " order by p.created desc";
 
         Query query = createQuery(TOP_RECENT,
                                     null,
@@ -182,7 +182,7 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
                                     Arrays.asList(extraWhereClause),
                                     orderByClause);
 
-        query.setTimestamp("currentCreated", currentPost.getCreatedGMT());
+        query.setTimestamp("currentCreated", currentPost.getCreated());
 
         return query.list();
     }

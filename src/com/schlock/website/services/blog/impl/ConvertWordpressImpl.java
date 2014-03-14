@@ -40,7 +40,6 @@ public class ConvertWordpressImpl implements ConvertWordpress
     private Post createPost(Object[] entry)
     {
         Date created = (Date) entry[0];
-        Date createdGMT = (Date) entry[1];
         String postContent = (String) entry[2];
         String postTitle = (String) entry[3];
         Long id = (Long) entry[4];
@@ -50,7 +49,7 @@ public class ConvertWordpressImpl implements ConvertWordpress
         date = DateUtils.setMonths(date, 1);
         date = DateUtils.setDays(date, 1);
 
-        Post post = postManagement.createPost(created, createdGMT, postTitle, postContent);
+        Post post = postManagement.createPost(created, postTitle, postContent);
         post.setWpid(id.toString());
         if (created.after(date))
         {

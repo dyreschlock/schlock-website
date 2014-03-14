@@ -14,7 +14,6 @@
         <property name="title" />
 
         <property name="created" />
-        <property name="createdGMT" />
 
         <property name="published" />
         <property name="pinned" />
