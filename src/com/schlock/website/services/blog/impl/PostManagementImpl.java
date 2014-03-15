@@ -12,8 +12,9 @@ import java.util.*;
 
 public class PostManagementImpl implements PostManagement
 {
-    public static final String LOCAL_PHOTO_DIR = "/Users/JHendricks/Google Drive/Blog/www/photo/";
-    public static final String HOSTED_PHOTO_DIR = "/";
+    private static final String LOCAL_PHOTO_DIR = "/Users/JHendricks/Google Drive/Blog/www/photo/";
+    private static final String HOSTED_PHOTO_DIR = "/";
+
     public static final String PHOTO_DIR = "photo/";
 
     private final static String VALID_UUID_CHARACTERS = "abcdefghijklmnopqrstuvwxyz1234567890";

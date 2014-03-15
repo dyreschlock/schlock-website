@@ -1,13 +1,25 @@
 package com.schlock.website.servlet;
 
 import com.schlock.website.DeploymentContext;
+import com.schlock.website.entities.blog.Post;
+import com.schlock.website.pages.Index;
+import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.blog.impl.PostManagementImpl;
+import com.schlock.website.services.database.blog.PostDAO;
+import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.TapestryFilter;
+import org.apache.tapestry5.ioc.Registry;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 public class PhotoServlet extends HttpServlet
 {
@@ -16,14 +28,19 @@ public class PhotoServlet extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
+        Post post = getPostByGalleryName(req);
+        if (post != null)
+        {
+            redirectToGallery(post, req, resp);
+            return;
+        }
+
         String ok = req.getParameter(OK);
         if (ok != null)
         {
             hostPhoto(req, resp);
             return;
         }
-
-        //if is gallery only, redirect to post using gallery
 
         String referrer = req.getHeader("referer");
         if (DeploymentContext.isAcceptedUrlReferrer(referrer))
@@ -35,13 +52,51 @@ public class PhotoServlet extends HttpServlet
         resp.sendError(HttpServletResponse.SC_NOT_FOUND);
     }
 
+    private Post getPostByGalleryName(HttpServletRequest req)
+    {
+        int HTTP = 0;
+        int SLASH = 1;
+        int HOST = 2;
+        int PHOTO = 3;
+        int GALLERY = 4;
+        int IMAGE = 5;
+
+        String url = req.getRequestURL().toString();
+
+        String[] parts = url.split("/");
+        if (parts.length > IMAGE)
+        {
+            String part = parts[IMAGE];
+            if (StringUtils.isNotBlank(part))
+            {
+                return null;
+            }
+        }
+        if (parts.length > GALLERY)
+        {
+            String gallery = parts[GALLERY];
+            Post post = postDAO(req).getByGalleryName(gallery);
+            return post;
+        }
+        return null;
+    }
+
+    private void redirectToGallery(Post post, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+    {
+        String uuid = post.getUuid();
+        String redirect = linkSource(req).createPageRenderLinkWithContext(Index.class, uuid).toURI();
+
+        resp.sendRedirect(redirect);
+    }
+
     private void hostPhoto(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
         String url = req.getRequestURL().toString();
         int photo = url.indexOf(PostManagementImpl.PHOTO_DIR);
         String relative = url.substring(photo + PostManagementImpl.PHOTO_DIR.length());
 
-        File file = new File(photoLocation() + relative);
+        String photoLocation = postManagement(req).photoLocation();
+        File file = new File(photoLocation + relative);
 
         if (file.exists())
         {
@@ -60,12 +115,24 @@ public class PhotoServlet extends HttpServlet
         }
     }
 
-    private String photoLocation()
+    private PostDAO postDAO(HttpServletRequest req)
     {
-        if (DeploymentContext.isLocal())
-        {
-            return PostManagementImpl.LOCAL_PHOTO_DIR;
-        }
-        return PostManagementImpl.HOSTED_PHOTO_DIR;
+        return registry(req).getService(PostDAO.class);
+    }
+
+    private PostManagement postManagement(HttpServletRequest req)
+    {
+        return registry(req).getService(PostManagement.class);
+    }
+
+    private PageRenderLinkSource linkSource(HttpServletRequest req)
+    {
+        return registry(req).getService(PageRenderLinkSource.class);
+    }
+
+    private Registry registry(HttpServletRequest req)
+    {
+        ServletContext context = getServletContext();
+        return (Registry) context.getAttribute(TapestryFilter.REGISTRY_CONTEXT_NAME);
     }
 }

@@ -56,6 +56,15 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return (Post) singleResult(query);
     }
 
+    public Post getByGalleryName(String galleryName)
+    {
+        String text = "from Post p where p.galleryName = :galleryName";
+        Query query = session.createQuery(text);
+        query.setParameter("galleryName", galleryName);
+
+        return (Post) singleResult(query);
+    }
+
     public Set<String> getAllUuids()
     {
         String text = "select p.uuid " +

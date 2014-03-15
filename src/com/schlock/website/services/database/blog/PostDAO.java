@@ -14,6 +14,8 @@ public interface PostDAO extends BaseDAO<Post>
 
     public Post getByMtid(String mtid);
 
+    public Post getByGalleryName(String galleryName);
+
     public Set<String> getAllUuids();
 
     public Post getMostRecentPost(boolean withUnpublished, Long categoryId);
