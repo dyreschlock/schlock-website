@@ -1,5 +1,6 @@
 package com.schlock.website.services.blog.impl;
 
+import com.schlock.website.DeploymentContext;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.blog.PhotoFileFilter;
 import com.schlock.website.services.blog.PostManagement;
@@ -12,6 +13,7 @@ import java.util.*;
 public class PostManagementImpl implements PostManagement
 {
     public static final String LOCAL_PHOTO_DIR = "/Users/JHendricks/Google Drive/Blog/www/photo/";
+    public static final String HOSTED_PHOTO_DIR = "/";
     public static final String PHOTO_DIR = "photo/";
 
     private final static String VALID_UUID_CHARACTERS = "abcdefghijklmnopqrstuvwxyz1234567890";
@@ -212,7 +214,7 @@ public class PostManagementImpl implements PostManagement
             return Collections.EMPTY_LIST;
         }
 
-        File gallery = new File(LOCAL_PHOTO_DIR + galleryName);
+        File gallery = new File(photoLocation() + galleryName);
         if (!gallery.exists())
         {
              return Collections.EMPTY_LIST;
@@ -230,5 +232,14 @@ public class PostManagementImpl implements PostManagement
             images.add(path);
         }
         return images;
+    }
+
+    public String photoLocation()
+    {
+        if (DeploymentContext.isLocal())
+        {
+            return LOCAL_PHOTO_DIR;
+        }
+        return HOSTED_PHOTO_DIR;
     }
 }

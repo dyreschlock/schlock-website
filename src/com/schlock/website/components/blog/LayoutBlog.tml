@@ -26,7 +26,9 @@
                     <t:remove>
                         <t:eventlink t:id="codejamLink">${message:codejam}</t:eventlink>
                     </t:remove>
+                    <t:if test="local">
                         // <t:eventlink t:id="regeneratePostHTML">Regen</t:eventlink>
+                    </t:if>
                 </div>
                 <br class="clr" />
             </div>

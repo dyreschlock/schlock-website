@@ -1,5 +1,6 @@
 package com.schlock.website.components.blog;
 
+import com.schlock.website.DeploymentContext;
 import com.schlock.website.entities.Icon;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
@@ -80,6 +81,11 @@ public class LayoutBlog
     Object onAboutMe()
     {
         return aboutMe;
+    }
+
+    public boolean isLocal()
+    {
+        return DeploymentContext.isLocal();
     }
 
     @CommitAfter
