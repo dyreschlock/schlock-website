@@ -14,7 +14,7 @@
 
     <filter>
         <filter-name>app</filter-name>
-        <filter-class>com.schlock.website.CustomTapestryFilter</filter-class>
+        <filter-class>org.apache.tapestry5.TapestryFilter</filter-class>
     </filter>
 
     <filter-mapping>
