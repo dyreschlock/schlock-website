@@ -6,15 +6,15 @@
         <title>${message:website-title}</title>
         <description>${message:website-about}</description>
         <link>${message:website-url}</link>
+
+        <t:loop source="recentPosts" value="currentPost">
+
+            <item>
+                <title>${currentPost.title}</title>
+                <description>${currentPost.bodyHTML}</description>
+                <link>${currentPostURL}</link>
+            </item>
+
+        </t:loop>
     </channel>
-
-    <t:loop source="recentPosts" value="currentPost">
-
-        <item>
-            <title>${currentPost.title}</title>
-            <description>${currentPost.bodyHTML}</description>
-            <link>${currentPostURL}</link>
-        </item>
-
-    </t:loop>
 </rss>
