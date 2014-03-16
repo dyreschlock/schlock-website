@@ -15,6 +15,6 @@
             <t:outputraw value="previewHtml" />
         </div>
 
-        <span></span>
+        <span><!-- bottom fade --></span>
     </div>
 </t:container>
