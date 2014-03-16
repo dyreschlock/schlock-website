@@ -11,13 +11,27 @@
                     <br class="clr" />
                 </t:if>
 
-                <a href="${currentImage}" target="_blank" >
+                <t:eventlink event="selectImage" context="currentImage" zone="imageOverlayZone">
                     <div class="image" style="background-image: url(${currentImage})">
                     </div>
-                </a>
+                </t:eventlink>
 
             </t:loop>
             <br class="clr" />
+
+
+            <t:zone t:id="imageOverlayZone" id="imageOverlayZone" t:update="show">
+
+                <t:if test="hasImageSelected">
+                    <div id="overlayImage" class="overlay">
+                        <div id="overlayedImage">
+                            <img src="${selectedImage}" />
+                        </div>
+                    </div>
+                    <div id="overlayBackground" class="overlay"></div>
+                </t:if>
+
+            </t:zone>
         </div>
     </t:if>
 </t:container>
