@@ -3,10 +3,10 @@
     >
 
     <t:eventlink t:id="selectPost" context="post.uuid">
-        <div id="postLink">
+        <div class="postLink">
             <h2>${post.title}</h2>
             <t:if test="!post.page">
-                <div id="postDate">${post.prettyCreatedDate}</div>
+                <div class="postDate">${post.prettyCreatedDate}</div>
             </t:if>
         </div>
     </t:eventlink>

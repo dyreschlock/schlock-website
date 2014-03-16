@@ -8,7 +8,7 @@
 
         <h1><!-- ${post.id} // --> ${post.title}</h1>
         <t:if test="!post.page">
-            <div id="postDate">
+            <div class="postDate">
                 ${post.prettyCreatedDate}
                 <t:loop source="topCategories" value="currentCategory">
                     //
@@ -19,7 +19,7 @@
                 </t:loop>
             </div>
         </t:if>
-        <div id="postBody">
+        <div class="postBody">
             <t:outputraw value="post.bodyHTML" />
         </div>
     </div>
@@ -36,10 +36,10 @@
 
         <div id="previousLinks">
             <t:if test="hasPreviousPosts">
-                <div id="title" class="pb10">${previousTitle}</div>
+                <div class="title pb10">${previousTitle}</div>
 
                 <t:loop source="previousPosts" value="currentPost" index="currentIndex">
-                    <div id="link${currentIndex}" class="pt10">
+                    <div class="link${currentIndex} pt10">
                         <l:postlink post="currentPost" />
                     </div>
                 </t:loop>
@@ -51,10 +51,10 @@
 
         <div id="nextLinks">
             <t:if test="hasNextPosts">
-                <div id="title" class="pb10">${nextTitle}</div>
+                <div class="title pb10">${nextTitle}</div>
 
                 <t:loop source="nextPosts" value="currentPost" index="currentIndex">
-                    <div id="link${currentIndex}" class="pt10">
+                    <div class="link${currentIndex} pt10">
                         <l:postlink post="currentPost" />
                     </div>
                 </t:loop>

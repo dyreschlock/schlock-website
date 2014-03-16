@@ -7,11 +7,11 @@
             <h1><!-- ${post.id} // --> ${post.title}</h1>
         </t:eventlink>
         <t:if test="!post.page">
-            <div id="postDate">
+            <div class="postDate">
                 ${post.prettyCreatedDate}
             </div>
         </t:if>
-        <div id="postBody">
+        <div class="postBody">
             <t:outputraw value="previewHtml" />
         </div>
 

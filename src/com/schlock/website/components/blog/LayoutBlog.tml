@@ -14,10 +14,10 @@
         <div id="topBar">
         <div id="blogHeader">
             <div style="padding: 10px 30px;">
-                <div id="title">
+                <div class="title">
                     <h1>${message:website-title}</h1>
                 </div>
-                <div id="links">
+                <div class="links">
                     <t:eventlink event="home">${message:home}</t:eventlink>
                     //
                     <t:eventlink event="archive">${message:archive}</t:eventlink>
@@ -78,7 +78,7 @@
                         <b>Email:</b> ${message:website-email}
                     </div>
 
-                    <div id="links">
+                    <div id="iconLinks">
                         <l:iconlink icon="rss" dark="false" redirectUrl="rssUrl" altTitle="${message:rssTitle}" />
                         <l:iconlink icon="twitter" dark="false" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
                         <l:iconlink icon="facebook" dark="false" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />

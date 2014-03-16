@@ -18,7 +18,7 @@ h1, h2, h3
 {
     background-color: #323232;
     width: 100%;
-    z-index: 1000;
+    z-index: 100;
     position: fixed;
     left: 0;
     right: 0;
@@ -35,7 +35,7 @@ h1, h2, h3
     border-left: 1px solid #444;
     border-right: 1px solid #444;
 }
-#blogHeader #title
+#blogHeader div.title
 {
     text-align: left;
     float: left;
@@ -44,7 +44,7 @@ h1, h2, h3
 
     padding: 0px 0px;
 }
-#blogHeader #links
+#blogHeader div.links
 {
     text-align: right;
     float: left;
@@ -53,11 +53,11 @@ h1, h2, h3
 
     padding: 8px 0px;
 }
-#blogHeader #links a
+#blogHeader div.links a
 {
     color: #fff;
 }
-#blogHeader #links a:hover
+#blogHeader div.links a:hover
 {
     text-decoration: underline;
 }
@@ -106,17 +106,17 @@ h1, h2, h3
     padding-top: 30px;
 
 }
-#postContent #postBody
+#postContent div.postBody
 {
     font-size: 20px;
 
     padding-top: 10px;
 }
-#postContent #postDate
+#postContent div.postDate
 {
     color: #666;
 }
-#postContent #postDate a:hover
+#postContent div.postDate a:hover
 {
     text-decoration: underline;
 }
@@ -133,12 +133,12 @@ h1, h2, h3
 {
     margin-top: 10px;
 }
-#images #title
+#images div.title
 {
     margin-top: 20px;
     margin-left: 20px;
 }
-#images #image
+#images div.image
 {
     background-position: center;
     background-size: 300%;
@@ -154,9 +154,20 @@ h1, h2, h3
     margin-bottom: 20px;
     margin-left: 20px;
 }
-#images #image:hover
+#images div.image:hover
 {
     opacity: 1;
+}
+
+#imageOverlay
+{
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 1000;
+    background-opacity: 0.5;
+    background-color: #000000;
 }
 
 
@@ -182,16 +193,16 @@ h1, h2, h3
 {
     color: #333;
 }
-#previousLinks #postDate, #previousLinks #postDate
+#previousLinks div.postDate, #nextLinks div.postDate
 {
     color: #666;
 }
 
-#blogFooter #postLink
+#blogFooter div.postLink
 {
     width: 90%;
 }
-#postLink h2
+div.postLink h2
 {
     margin-top: 10px;
 }
@@ -215,11 +226,11 @@ h1, h2, h3
 {
     width: 28%;
 }
-#pagesLinks #links
+#pagesLinks #iconLinks
 {
     padding-top: 15px;
 }
-#pagesLinks #links img
+#pagesLinks #iconLinks img
 {
     padding: 0px 16px 0px 0px;
 }
@@ -227,7 +238,7 @@ h1, h2, h3
 {
     color: #fff;
 }
-#recentPosts #postDate, #recentPinnedPosts #postDate, #pagesLinks #postDate
+#recentPosts div.postDate, #recentPinnedPosts div.postDate, #pagesLinks div.postDate
 {
     color: #ccc;
 }
@@ -259,7 +270,7 @@ h1, h2, h3
     position: relative;
     width: 33%;
 }
-#aboutMe #title
+#aboutMe div.title
 {
     font-weight: bold;
     padding-bottom: 10px;
@@ -322,11 +333,11 @@ h1, h2, h3
 {
     font-size: 1.4em;
 }
-#archivePost #postDate
+#archivePost div.postDate
 {
     font-size: 14px;
 }
-#archivePost #postBody
+#archivePost div.postBody
 {
     font-size: 16px;
     width: 95%;
@@ -350,11 +361,11 @@ h1, h2, h3
     padding-top: 30px;
 
 }
-#postContent #postDate
+#postContent div.postDate
 {
     color: #666;
 }
-#postContent #postDate a:hover
+#postContent div.postDate a:hover
 {
     text-decoration: underline;
 }

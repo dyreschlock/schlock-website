@@ -21,7 +21,7 @@
         </div>
 
         <div id="internetLinks">
-            <div id="title">${message:internetTitle}</div>
+            <div class="title">${message:internetTitle}</div>
             <l:iconlink icon="rss" dark="true" redirectUrl="rssRedirect" altTitleText="${message:rssTitle}" />
             <l:iconlink icon="twitter" dark="true" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
             <l:iconlink icon="facebook" dark="true" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
@@ -30,13 +30,13 @@
             <l:iconlink icon="github" dark="true" redirectUrl="${message:githubUrl}" altTitleText="${message:githubTitle}" />
         </div>
         <div id="gameLinks">
-            <div id="title">${message:gamesTitle}</div>
+            <div class="title">${message:gamesTitle}</div>
             <l:iconlink icon="psn" dark="true" redirectUrl="${message:psnUrl}" altTitleText="${message:psnTitle}" />
             <l:iconlink icon="xbox" dark="true" redirectUrl="${message:xboxUrl}" altTitleText="${message:xboxTitle}" />
             <l:iconlink icon="steam" dark="true" redirectUrl="${message:steamUrl}" altTitleText="${message:steamTitle}" />
         </div>
         <div id="buyLinks">
-            <div id="title">${message:buyTitle}</div>
+            <div class="title">${message:buyTitle}</div>
             <l:iconlink icon="ebay" dark="true" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
         </div>
 
