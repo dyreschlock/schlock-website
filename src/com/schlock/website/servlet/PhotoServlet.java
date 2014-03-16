@@ -1,8 +1,8 @@
 package com.schlock.website.servlet;
 
-import com.schlock.website.DeploymentContext;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.pages.Index;
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.blog.impl.PostManagementImpl;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -43,7 +43,7 @@ public class PhotoServlet extends HttpServlet
         }
 
         String referrer = req.getHeader("referer");
-        if (DeploymentContext.isAcceptedUrlReferrer(referrer))
+        if (deploymentContext(req).isAcceptedUrlReferrer(referrer))
         {
             hostPhoto(req, resp);
             return;
@@ -123,6 +123,11 @@ public class PhotoServlet extends HttpServlet
     private PostManagement postManagement(HttpServletRequest req)
     {
         return registry(req).getService(PostManagement.class);
+    }
+
+    private DeploymentContext deploymentContext(HttpServletRequest req)
+    {
+        return registry(req).getService(DeploymentContext.class);
     }
 
     private PageRenderLinkSource linkSource(HttpServletRequest req)

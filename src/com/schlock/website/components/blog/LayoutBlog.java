@@ -1,6 +1,5 @@
 package com.schlock.website.components.blog;
 
-import com.schlock.website.DeploymentContext;
 import com.schlock.website.entities.Icon;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
@@ -8,6 +7,7 @@ import com.schlock.website.pages.AboutMe;
 import com.schlock.website.pages.Archive;
 import com.schlock.website.pages.Feed;
 import com.schlock.website.pages.Index;
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import com.schlock.website.services.database.blog.impl.PostDAOImpl;
@@ -29,6 +29,9 @@ public class LayoutBlog
 
     @Inject
     private PageRenderLinkSource linkSource;
+
+    @Inject
+    private DeploymentContext deploymentContext;
 
     @Inject
     private PostManagement postManagement;
@@ -85,7 +88,7 @@ public class LayoutBlog
 
     public boolean isLocal()
     {
-        return DeploymentContext.isLocal();
+        return deploymentContext.isLocal();
     }
 
     @CommitAfter

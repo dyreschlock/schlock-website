@@ -8,4 +8,4 @@ build/
 schlock-website.iml
 schlock-website.ipr
 schlock-website.iws
-src/hibernate.cfg.xml
+src/hibernate.properties

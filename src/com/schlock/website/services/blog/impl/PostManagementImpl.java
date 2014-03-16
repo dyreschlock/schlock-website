@@ -1,7 +1,7 @@
 package com.schlock.website.services.blog.impl;
 
-import com.schlock.website.DeploymentContext;
 import com.schlock.website.entities.blog.Post;
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.PhotoFileFilter;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -35,12 +35,15 @@ public class PostManagementImpl implements PostManagement
     private final static String UNDER_OPEN = "<b>";
     private final static String UNDER_CLOSE = "</b>";
 
+    private final DeploymentContext deploymentContext;
     private final PostDAO postDAO;
 
     private Set<String> cachedUuids;
 
-    public PostManagementImpl(PostDAO postDAO)
+    public PostManagementImpl(DeploymentContext deploymentContext,
+                                PostDAO postDAO)
     {
+        this.deploymentContext = deploymentContext;
         this.postDAO = postDAO;
     }
 
@@ -237,7 +240,7 @@ public class PostManagementImpl implements PostManagement
 
     public String photoLocation()
     {
-        if (DeploymentContext.isLocal())
+        if (deploymentContext.isLocal())
         {
             return LOCAL_PHOTO_DIR;
         }

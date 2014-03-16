@@ -3,13 +3,16 @@ package com.schlock.website.services;
 import com.schlock.website.services.blog.BlogModule;
 import com.schlock.website.services.codejam.may2012.May2012Module;
 import com.schlock.website.services.database.DatabaseModule;
+import com.schlock.website.services.impl.DeploymentContextImpl;
 import org.apache.tapestry5.SymbolConstants;
+import org.apache.tapestry5.hibernate.HibernateSymbols;
 import org.apache.tapestry5.internal.services.RequestImpl;
 import org.apache.tapestry5.internal.services.ResponseImpl;
 import org.apache.tapestry5.internal.services.TapestrySessionFactory;
 import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
+import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.SubModule;
 import org.apache.tapestry5.ioc.annotations.Symbol;
@@ -26,9 +29,16 @@ import java.io.IOException;
 })
 public class AppModule
 {
+    public static void bind(ServiceBinder binder)
+    {
+        binder.bind(DeploymentContext.class, DeploymentContextImpl.class);
+    }
+
+
     public static void contributeApplicationDefaults(MappedConfiguration<String, Object> configuration)
     {
-        configuration.add(SymbolConstants.PRODUCTION_MODE, false);
+        configuration.add(SymbolConstants.PRODUCTION_MODE, true);
+        configuration.add(HibernateSymbols.DEFAULT_CONFIGURATION, "false");
     }
 
     public static void contributeIgnoredPathsFilter(Configuration<String> configuration)
@@ -38,6 +48,9 @@ public class AppModule
         configuration.add("/cpanel/.*");
     }
 
+    /**
+     * Adding the RequestGlobal into the servlet request so T5 services can be used in a regular 'ol servlet
+     */
     public void contributeHttpServletRequestHandler(OrderedConfiguration<HttpServletRequestFilter> configuration,
                                                     @Inject @Symbol(SymbolConstants.CHARSET) final String applicationCharset,
                                                     @Inject final TapestrySessionFactory sessionFactory,
@@ -57,5 +70,4 @@ public class AppModule
 
         configuration.add("StoreRequestResponse", storeRequestResponse, "before:*");
     }
-
 }
