@@ -1,13 +1,14 @@
 package com.schlock.website.services.database;
 
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import com.schlock.website.services.database.blog.impl.CategoryDAOImpl;
 import com.schlock.website.services.database.blog.impl.PostDAOImpl;
-import com.schlock.website.services.impl.DeploymentContextImpl;
 import org.apache.tapestry5.hibernate.HibernateConfigurer;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
 public class DatabaseModule
 {
@@ -22,11 +23,12 @@ public class DatabaseModule
     private final static String HIBERNATE_PASSWORD = "hibernate.connection.password";
     private final static String HIBERNATE_URL = "hibernate.connection.url";
 
-    public void contributeHibernateSessionSource( OrderedConfiguration<HibernateConfigurer> configuration)
+    public void contributeHibernateSessionSource(OrderedConfiguration<HibernateConfigurer> configuration,
+                                                 @Inject DeploymentContext context)
     {
-        final String username = DeploymentContextImpl.getInstance().getHibernateProperty(HIBERNATE_USERNAME);
-        final String password = DeploymentContextImpl.getInstance().getHibernateProperty(HIBERNATE_PASSWORD);
-        final String url = DeploymentContextImpl.getInstance().getHibernateProperty(HIBERNATE_URL);
+        final String username = context.getHibernateProperty(HIBERNATE_USERNAME);
+        final String password = context.getHibernateProperty(HIBERNATE_PASSWORD);
+        final String url = context.getHibernateProperty(HIBERNATE_URL);
 
         HibernateConfigurer configurer = new HibernateConfigurer() {
 

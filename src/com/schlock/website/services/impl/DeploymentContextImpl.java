@@ -24,17 +24,6 @@ public class DeploymentContextImpl implements DeploymentContext
                     "localhost"
             );
 
-    private static DeploymentContextImpl INSTANCE;
-
-    public static DeploymentContextImpl getInstance()
-    {
-        if (INSTANCE == null)
-        {
-            INSTANCE = new DeploymentContextImpl();
-        }
-        return INSTANCE;
-    }
-
 
     private Properties hibernateProperties;
 
