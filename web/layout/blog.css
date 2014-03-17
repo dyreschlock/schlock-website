@@ -193,26 +193,22 @@ h1, h2, h3
 {
     color: #fff;
 }
-#overlayedImage div.close
-{
-    width: 100%;
-    position: relative;
-    text-align: right;
-}
 #overlayedImage img
 {
     border: 3px solid #fff;
     max-width: 100%;
 }
-#overlayedImage div.previous
+#overlayedImage div.link, #overlayedImage div.previous
 {
+    padding: 3px 0;
     width: 40%;
     text-align: left;
     position: relative;
     float: left;
 }
-#overlayedImage div.next
+#overlayedImage div.close, #overlayedImage div.next
 {
+    padding: 3px 0;
     width: 40%;
     text-align: right;
     position: relative;

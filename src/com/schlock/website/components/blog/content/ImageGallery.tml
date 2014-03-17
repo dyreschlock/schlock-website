@@ -26,6 +26,9 @@
                     <div id="overlayImage" class="overlay">
                         <div id="overlayedImage">
 
+                            <div class="link">
+                                <a href="${selectedImage}" target="_blank">${selectedImage}</a>
+                            </div>
                             <div class="close">
                                 <t:eventlink event="selectImage" context="[null]" zone="imageOverlayZone">Close</t:eventlink>
                             </div>
