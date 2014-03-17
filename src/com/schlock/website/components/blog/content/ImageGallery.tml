@@ -25,7 +25,25 @@
                 <t:if test="hasImageSelected">
                     <div id="overlayImage" class="overlay">
                         <div id="overlayedImage">
-                            <img src="${selectedImage}" />
+
+                            <div class="close">
+                                <t:eventlink event="selectImage" context="[null]" zone="imageOverlayZone">Close</t:eventlink>
+                            </div>
+
+                            <img class="clr" src="${selectedImage}" />
+
+                            <div class="previous">
+                                <t:if test="hasPreviousImage">
+                                    <t:eventlink event="selectImage" context="previousImage" zone="imageOverlayZone">Previous</t:eventlink>
+                                </t:if>
+                            </div>
+                            <div class="next">
+                                <t:if test="hasNextImage">
+                                    <t:eventlink event="selectImage" context="nextImage" zone="imageOverlayZone">Next</t:eventlink>
+                                </t:if>
+                            </div>
+
+                            <br class="clr" />
                         </div>
                     </div>
                     <div id="overlayBackground" class="overlay"></div>

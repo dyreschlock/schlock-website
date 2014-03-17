@@ -171,7 +171,7 @@ h1, h2, h3
 #overlayBackground
 {
     z-index: 1000;
-    opacity: 0.9;
+    opacity: 0.8;
     background-color: #000;
 }
 #overlayImage
@@ -181,19 +181,42 @@ h1, h2, h3
 #overlayedImage
 {
     width: 1000px;
-    background-color: #fff;
+    color: #fff;
 
     text-align: center;
-
-    padding: 3px;
 
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
 }
+#overlayedImage a
+{
+    color: #fff;
+}
+#overlayedImage div.close
+{
+    width: 100%;
+    position: relative;
+    text-align: right;
+}
 #overlayedImage img
 {
+    border: 3px solid #fff;
     max-width: 100%;
+}
+#overlayedImage div.previous
+{
+    width: 40%;
+    text-align: left;
+    position: relative;
+    float: left;
+}
+#overlayedImage div.next
+{
+    width: 40%;
+    text-align: right;
+    position: relative;
+    float: right;
 }
 
 

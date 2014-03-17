@@ -43,8 +43,7 @@ public class ImageGallery
     {
         selectedImage = null;
 
-        List<String> gallery = postManagement.getGalleryImages(post);
-        return gallery;
+        return loadGalleryImages();
     }
 
     public boolean isNewLine()
@@ -62,5 +61,51 @@ public class ImageGallery
         this.selectedImage = image;
 
         return imageOverlayZone;
+    }
+
+    public boolean isHasPreviousImage()
+    {
+        return StringUtils.isNotBlank(getPreviousImage());
+    }
+
+    public String getPreviousImage()
+    {
+        List<String> gallery = loadGalleryImages();
+
+        int index = gallery.indexOf(selectedImage);
+        if (index == 0)
+        {
+            return null;
+        }
+        return gallery.get(index - 1);
+    }
+
+    public boolean isHasNextImage()
+    {
+        return StringUtils.isNotBlank(getNextImage());
+    }
+
+    public String getNextImage()
+    {
+        List<String> gallery = loadGalleryImages();
+
+        int index = gallery.indexOf(selectedImage);
+        if (index == gallery.size() - 1)
+        {
+            return null;
+        }
+        return gallery.get(index + 1);
+    }
+
+
+    private List<String> cachedGalleryImages;
+
+    private List<String> loadGalleryImages()
+    {
+        if(cachedGalleryImages == null)
+        {
+            cachedGalleryImages = postManagement.getGalleryImages(post);
+        }
+        return cachedGalleryImages;
     }
 }
