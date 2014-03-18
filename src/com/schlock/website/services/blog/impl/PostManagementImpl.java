@@ -220,26 +220,43 @@ public class PostManagementImpl implements PostManagement
         html = html.replaceAll("<strong>", "<b>");
         html = html.replaceAll("</strong>", "</b>");
 
-        int start = 0;
+        html = tagReplacement(html, "<p><b>", "</b>", "</p>", "<div class='title'>", "</div>");
+        html = tagReplacement(html, "<p><br/><b>", "</b>", "</p>", "<div class='title'>", "</div>");
 
-        start = html.substring(start).indexOf("<p><b>");
-        while(start != -1)
+        html = tagReplacement(html, "<p><b>", "</b>", "<br/>", "<div class='title'>", "</div><p>");
+
+        return html;
+    }
+
+    private String tagReplacement(final String h,
+                                  final String FIND_START,
+                                  final String FIND_END_P1,
+                                  final String FIND_END_P2,
+                                  final String REPLACE_START,
+                                  final String REPLACE_END)
+    {
+        final String FIND_END = FIND_END_P1 + FIND_END_P2;
+
+        String html = h;
+
+        int start = html.indexOf(FIND_START);
+        while (start != -1)
         {
-            int end = html.substring(start).indexOf("</b></p>");
-            if(end != -1)
+            int end = html.substring(start).indexOf(FIND_END);
+            if (end != -1)
             {
                 end += start;
 
-                int p_end = start + html.substring(start).indexOf("</p>");
-                if (p_end == (end + "</b>".length()))
+                int p_end = start + html.substring(start).indexOf(FIND_END_P2);
+                if (p_end == (end + FIND_END_P1.length()))
                 {
                     String newHtml = "";
 
                     newHtml += html.substring(0, start);
-                    newHtml += "<div class='title'>";
-                    newHtml += html.substring(start + "<p><b>".length(), end);
-                    newHtml += "</div>";
-                    newHtml += html.substring(end + "</b></p>".length());
+                    newHtml += REPLACE_START;
+                    newHtml += html.substring(start + FIND_START.length(), end);
+                    newHtml += REPLACE_END;
+                    newHtml += html.substring(end + FIND_END.length());
 
                     html = newHtml;
                 }
@@ -253,7 +270,7 @@ public class PostManagementImpl implements PostManagement
                 start++;
             }
 
-            int index = html.substring(start).indexOf("<p><b>");
+            int index = html.substring(start).indexOf(FIND_START);
             if (index != -1)
             {
                 start += index;
@@ -263,8 +280,6 @@ public class PostManagementImpl implements PostManagement
                 start = index;
             }
         }
-
-
         return html;
     }
 
