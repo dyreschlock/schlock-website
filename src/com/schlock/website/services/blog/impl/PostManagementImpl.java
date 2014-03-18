@@ -182,10 +182,20 @@ public class PostManagementImpl implements PostManagement
             return tempText;
         }
 
+        String html = tempText;
 
+        html = changeLineBreaksToHtmlTags(html);
+        html = changePostTitlesForCss(html);
+        html = changeImagesAndLinksToLocal(html);
+
+        return html;
+    }
+
+    private String changeLineBreaksToHtmlTags(String h)
+    {
         String html = "";
 
-        String[] paragraphs = tempText.split("\r\n\r\n");
+        String[] paragraphs = h.split("\r\n\r\n");
         for (int i = 0; i < paragraphs.length; i++)
         {
             String[] paragraphs2 = paragraphs[i].split("\n\n");
@@ -195,11 +205,72 @@ public class PostManagementImpl implements PostManagement
 
                 html += "<p>" + p + "</p>";
             }
-
         }
 
         html = html.replaceAll("\r\n", "<br/>");
         html = html.replaceAll("\n", "<br/>");
+
+        return html;
+    }
+
+    private String changePostTitlesForCss(String h)
+    {
+        String html = h;
+
+        html = html.replaceAll("<strong>", "<b>");
+        html = html.replaceAll("</strong>", "</b>");
+
+        int start = 0;
+
+        start = html.substring(start).indexOf("<p><b>");
+        while(start != -1)
+        {
+            int end = html.substring(start).indexOf("</b></p>");
+            if(end != -1)
+            {
+                end += start;
+
+                int p_end = start + html.substring(start).indexOf("</p>");
+                if (p_end == (end + "</b>".length()))
+                {
+                    String newHtml = "";
+
+                    newHtml += html.substring(0, start);
+                    newHtml += "<div class='title'>";
+                    newHtml += html.substring(start + "<p><b>".length(), end);
+                    newHtml += "</div>";
+                    newHtml += html.substring(end + "</b></p>".length());
+
+                    html = newHtml;
+                }
+                else
+                {
+                    start++;
+                }
+            }
+            else
+            {
+                start++;
+            }
+
+            int index = html.substring(start).indexOf("<p><b>");
+            if (index != -1)
+            {
+                start += index;
+            }
+            else
+            {
+                start = index;
+            }
+        }
+
+
+        return html;
+    }
+
+    private String changeImagesAndLinksToLocal(String h)
+    {
+        String html = h;
 
         html = html.replaceAll("href=\"http://theschlock.com/", "href=\"/");
         html = html.replaceAll("href=\"http://www.theschlock.com/", "href=\"/");
