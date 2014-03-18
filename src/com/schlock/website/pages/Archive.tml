@@ -5,7 +5,7 @@
     xmlns:c="tapestry-library:blog/content"
     >
 
-    <div id="postContent">
+    <div id="postContent" class="archive">
         <t:zone t:id="archiveZone" id="archiveZone" t:update="show">
 
             <div id="archivePublished" class="hidden">
@@ -96,7 +96,7 @@
             <div id="archivePosts">
                 <t:loop source="posts" value="currentPost" index="currentIndex">
 
-                    <c:archivepostdisplay post="currentPost" />
+                    <c:archivepostdisplay post="currentPost" postClass="postClass" />
 
                     <t:if test="createNewLine">
                         <br class="clr" />

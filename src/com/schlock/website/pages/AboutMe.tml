@@ -9,16 +9,11 @@
 
     <div id="aboutMe">
 
-        <div id="details">
-            <p>
-                <b>${message:email-title}</b><br />
-                ${message:website-email}
-            </p>
-            <p>
-                <b>${message:resume-title}</b><br />
-                ${message:resume}
-            </p>
-        </div>
+        <div class="title">${message:email-title}</div>
+        <div class="details">${message:website-email}</div>
+
+        <div class="title">${message:resume-title}</div>
+        <div class="details">${message:resume}</div>
 
         <div id="internetLinks">
             <div class="title">${message:internetTitle}</div>

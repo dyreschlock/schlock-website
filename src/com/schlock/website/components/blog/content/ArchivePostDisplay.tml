@@ -1,7 +1,7 @@
 <t:container
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
-    <div id="archivePost">
+    <div class="${postClass}">
 
         <t:eventlink t:id="selectPost" context="post.uuid">
             <h1><!-- ${post.id} // --> ${post.title}</h1>

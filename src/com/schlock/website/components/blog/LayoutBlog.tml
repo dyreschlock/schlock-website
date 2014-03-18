@@ -12,27 +12,25 @@
     <body>
 
         <div id="topBar">
-        <div id="blogHeader">
-            <div style="padding: 10px 30px;">
+            <div id="blogHeader">
                 <div class="title">
                     <h1>${message:website-title}</h1>
                 </div>
                 <div class="links">
                     <t:eventlink event="home">${message:home}</t:eventlink>
-                    //
+                    /
                     <t:eventlink event="archive">${message:archive}</t:eventlink>
-                    //
+                    /
                     <t:eventlink event="aboutMe">${message:about-me}</t:eventlink>
                     <t:remove>
                         <t:eventlink t:id="codejamLink">${message:codejam}</t:eventlink>
                     </t:remove>
                     <t:if test="local">
-                        // <t:eventlink t:id="regeneratePostHTML">Regen</t:eventlink>
+                        / <t:eventlink t:id="regeneratePostHTML">Regen</t:eventlink>
                     </t:if>
                 </div>
                 <br class="clr" />
             </div>
-        </div>
         </div>
 
         <div id="blogBody">
@@ -44,7 +42,7 @@
         <div id="blogFooter">
             <div id="footerContent">
                 <div id="recentPosts">
-                    <div id="title" class="pb10">${message:recent-posts}</div>
+                    <div class="title pb10">${message:recent-posts}</div>
 
                     <t:loop source="recentPosts" value="currentPost" index="currentIndex">
                         <div id="link${currentIndex}" class="pt10">
@@ -53,7 +51,7 @@
                     </t:loop>
                 </div>
                 <div id="recentPinnedPosts">
-                    <div id="title" class="pb10">${message:recent-pinned-posts}</div>
+                    <div class="title pb10">${message:recent-pinned-posts}</div>
 
                     <t:loop source="recentPinnedPosts" value="currentPost" index="currentIndex">
                         <div id="link${currentIndex}" class="pt10">
@@ -62,7 +60,7 @@
                     </t:loop>
                 </div>
                 <div id="pagesLinks">
-                    <div id="title" class="pb10">${message:pages}</div>
+                    <div class="title pb10">${message:pages}</div>
 
                     <t:loop source="pages" value="currentPost" index="currentIndex">
                         <div id="link${currentIndex}" class="pt10">

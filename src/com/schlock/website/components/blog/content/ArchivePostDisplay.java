@@ -20,6 +20,11 @@ public class ArchivePostDisplay
     @Property
     private Post post;
 
+    @Parameter(required = true)
+    @Property
+    private String postClass;
+
+
 
     Object onSelectPost(String postUuid)
     {

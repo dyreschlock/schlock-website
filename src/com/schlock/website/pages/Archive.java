@@ -365,6 +365,14 @@ public class Archive
     }
 
 
+    public String getPostClass()
+    {
+        if (currentIndex % 2 == 0)
+        {
+            return "left";
+        }
+        return "right";
+    }
 
     public boolean isCreateNewLine()
     {

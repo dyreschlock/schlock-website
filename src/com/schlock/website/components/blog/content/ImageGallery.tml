@@ -12,7 +12,7 @@
                 </t:if>
 
                 <t:eventlink event="selectImage" context="currentImage" zone="imageOverlayZone">
-                    <div class="image" style="background-image: url(${currentImage})">
+                    <div class="image ${lastImage}" style="background-image: url(${currentImage})">
                     </div>
                 </t:eventlink>
 

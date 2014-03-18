@@ -51,6 +51,15 @@ public class ImageGallery
         return currentIndex % 4 == 0;
     }
 
+    public String getLastImage()
+    {
+        if (currentIndex % 4 == 3)
+        {
+            return "lastImage";
+        }
+        return "";
+    }
+
     public boolean isHasImageSelected()
     {
         return StringUtils.isNotBlank(selectedImage);

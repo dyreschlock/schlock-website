@@ -4,6 +4,7 @@ body
     margin: 0px;
     padding: 0px;
     font-family: Garamond, Baskerville, 'Baskerville Old Face', 'Hoefler Text', 'Times New Roman', serif;
+    font-size: 100%;
 }
 a:link, a:visited, a:hover
 {
@@ -26,7 +27,6 @@ h1, h2, h3
 }
 #blogHeader, #blogFooter
 {
-    width: 1050px;
     background-color: #333;
     color: #fff;
     margin-left: auto;
@@ -34,6 +34,18 @@ h1, h2, h3
 
     border-left: 1px solid #444;
     border-right: 1px solid #444;
+}
+#blogHeader
+{
+    width: 964px; /* 1024px total */
+
+    padding: 10px 30px;
+}
+#blogFooter
+{
+    width: 886px; /* 1024px total */
+
+    padding: 20px 70px;
 }
 #blogHeader div.title
 {
@@ -46,6 +58,7 @@ h1, h2, h3
 }
 #blogHeader div.links
 {
+    font-family: 'Gill Sans';
     text-align: right;
     float: left;
     position: relative;
@@ -60,6 +73,10 @@ h1, h2, h3
 #blogHeader div.links a:hover
 {
     text-decoration: underline;
+}
+#blogFooter div.postLink
+{
+    width: 90%;
 }
 
 #blogWindow
@@ -76,7 +93,7 @@ h1, h2, h3
 }
 #blogContent
 {
-    width: 1050px;
+    width: 886px; /* 1024px total */
     background-color: #fff;
     color: #333;
     margin-left: auto;
@@ -87,6 +104,9 @@ h1, h2, h3
 
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
+
+    padding-left: 70px;
+    padding-right: 70px;
 }
 #blogContent hr
 {
@@ -102,23 +122,32 @@ h1, h2, h3
 
 #postContent
 {
-    padding: 20px;
-    padding-top: 30px;
-
+    padding-top: 60px;
+}
+#postContent.archive
+{
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 #postContent div.postBody
 {
-    font-size: 20px;
+    font-size: 1.1em;
 
-    padding-top: 10px;
+    padding-top: 50px;
 }
 #postContent div.postDate
 {
     color: #666;
+    font-size: 1em;
 }
 #postContent div.postDate a:hover
 {
     text-decoration: underline;
+}
+#postContent h1
+{
+    font-family: 'Gill Sans';
+    font-weight: bold;
 }
 #postContent a
 {
@@ -128,6 +157,11 @@ h1, h2, h3
 {
     max-width: 100%;
 }
+#postContent pre
+{
+    font-size: 1em;
+    background-color: #eee;
+}
 
 #images
 {
@@ -135,8 +169,8 @@ h1, h2, h3
 }
 #images div.title
 {
+    font-family: "Gill Sans";
     margin-top: 20px;
-    margin-left: 20px;
 }
 #images div.image
 {
@@ -144,15 +178,19 @@ h1, h2, h3
     background-size: 300%;
     opacity: 0.5;
 
-    width: 22.5%;
-    max-height: 200px;
-    min-height: 200px;
-    height: 200px;
+    width: 23%;
+    max-height: 180px;
+    min-height: 180px;
+    height: 180px;
     position: relative;
     float: left;
 
+    margin-right: 20px;
     margin-bottom: 20px;
-    margin-left: 20px;
+}
+#images div.lastImage
+{
+    margin-right: 0px;
 }
 #images div.image:hover
 {
@@ -180,7 +218,7 @@ h1, h2, h3
 }
 #overlayedImage
 {
-    width: 1000px;
+    max-width: 1000px;
     color: #fff;
 
     text-align: center;
@@ -201,7 +239,7 @@ h1, h2, h3
 #overlayedImage div.link, #overlayedImage div.previous
 {
     padding: 3px 0;
-    width: 40%;
+    width: 68%;
     text-align: left;
     position: relative;
     float: left;
@@ -209,7 +247,7 @@ h1, h2, h3
 #overlayedImage div.close, #overlayedImage div.next
 {
     padding: 3px 0;
-    width: 40%;
+    width: 30%;
     text-align: right;
     position: relative;
     float: right;
@@ -223,7 +261,7 @@ h1, h2, h3
     position: relative;
     width: 40%;
 
-    margin: 20px;
+    padding: 30px 0px;
 }
 #nextLinks
 {
@@ -232,7 +270,7 @@ h1, h2, h3
     position: relative;
     width: 40%;
 
-    margin: 20px;
+    padding: 30px 0px;
 }
 #previousLinks a, #nextLinks a
 {
@@ -242,20 +280,25 @@ h1, h2, h3
 {
     color: #666;
 }
-
-#blogFooter div.postLink
+#previousLinks div.title, #nextLinks div.title
 {
-    width: 90%;
+    font-size: 1em;
+    font-family: "Gill Sans";
 }
+
 div.postLink h2
 {
+    font-size: 1.3em;
     margin-top: 10px;
+}
+div.postLink div.postDate
+{
+    font-size: 0.9em;
 }
 
 
 #footerContent
 {
-    padding: 20px;
     width: 100%;
 }
 #recentPosts, #recentPinnedPosts, #pagesLinks
@@ -263,13 +306,19 @@ div.postLink h2
     text-alight: right;
     float: left;
     position: relative;
-    width: 33%;
+    width: 32%;
 
-    margin: 0px 0px 0px 0px;
+    padding-right: 23px;
 }
 #pagesLinks
 {
-    width: 28%;
+    width: 30%;
+    padding-right: 0px;
+}
+#recentPosts div.title, #recentPinnedPosts div.title, #pagesLinks div.title
+{
+    font-family: 'Gill Sans';
+    font-size: 1em;
 }
 #pagesLinks #iconLinks
 {
@@ -291,7 +340,7 @@ div.postLink h2
 #aboutMessage
 {
     padding-top: 30px;
-    font-size: 18px;
+    font-size: 0.9em;
     color: #eee;
 }
 #aboutMessage a, #aboutMessage b
@@ -302,23 +351,33 @@ div.postLink h2
 
 #aboutMe
 {
-    padding: 20px;
-    padding-top: 0px;
-
-    font-size: 20px;
-
     width: 100%;
+    padding-top: 30px;
+    padding-bottom: 20px;
 }
 #aboutMe #internetLinks, #aboutMe #gameLinks, #aboutMe #buyLinks
 {
     float: left;
     position: relative;
-    width: 33%;
+    width: 32%;
+
+    padding-right: 23px;
+}
+#aboutMe #buyLinks
+{
+    width: 30%;
+    padding-right: 0px;
 }
 #aboutMe div.title
 {
+    font-family: "Gill Sans";
     font-weight: bold;
     padding-bottom: 10px;
+}
+#aboutMe div.details
+{
+    font-size: 1.1em;
+    padding-bottom: 15px;
 }
 #aboutMe img
 {
@@ -329,14 +388,16 @@ div.postLink h2
 
 #archivePublished, #archiveCategories, #archiveYears
 {
+    font-size: 0.9em;
     text-align: left;
     width: 100%;
 
-    margin: 5px 0px 5px 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 #archivePublished, #archiveCategories
 {
-    margin: 0px 0px 5px 0px;
+    margin-bottom: 5px;
 }
 #archiveCategories table, #archiveYears table
 {
@@ -345,7 +406,7 @@ div.postLink h2
 #archivePublished td, #archiveCategories td, #archiveYears td
 {
     color: #999;
-    padding: 3px 10px;
+    padding: 3px 3px;
 }
 #archivePublished td.top, #archiveCategories td.top, #archiveYears td.top
 {
@@ -357,14 +418,13 @@ div.postLink h2
 }
 #archivePosts
 {
-    margin-top: 20px;
+    margin: 20px 0px;
 }
 
-#archivePost
+#archivePosts div.left, #archivePosts div.right
 {
     position: relative;
-    float: left;
-    width: 50%;
+    width: 47%;
 
     height: 294px;
     max-height: 294px;
@@ -374,20 +434,29 @@ div.postLink h2
 
     padding-top: 20px;
 }
-#archivePost h1
+#archivePosts div.left
 {
-    font-size: 1.4em;
+    float: left;
 }
-#archivePost div.postDate
+#archivePosts div.right
 {
-    font-size: 14px;
+    float: right;
 }
-#archivePost div.postBody
+#archivePosts h1
 {
-    font-size: 16px;
-    width: 95%;
+    font-size: 1.1em;
 }
-#archivePost span
+#archivePosts div.postDate
+{
+    font-size: 0.8em;
+}
+#archivePosts div.postBody
+{
+    font-size: 0.9em;
+    width: 100%;
+    padding-top: 15px;
+}
+#archivePosts span
 {
     display: block;
     position: absolute;
@@ -396,29 +465,4 @@ div.postLink h2
     right: 0;
     background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
     bottom: 0;
-}
-
-
-
-#postContent
-{
-    padding: 20px;
-    padding-top: 30px;
-
-}
-#postContent div.postDate
-{
-    color: #666;
-}
-#postContent div.postDate a:hover
-{
-    text-decoration: underline;
-}
-#postContent a
-{
-    color: #800;
-}
-#postContent img
-{
-    max-width: 100%;
 }
