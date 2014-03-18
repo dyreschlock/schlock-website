@@ -19,8 +19,6 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.List;
 
-@Import(stylesheet = {"context:layout/blog.css",
-                        "context:layout/layout.css"})
 public class LayoutBlog
 {
     @Parameter(required = true)

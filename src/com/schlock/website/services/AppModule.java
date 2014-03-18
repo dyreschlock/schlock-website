@@ -46,6 +46,7 @@ public class AppModule
         configuration.add("/photo/.*");
         configuration.add("/misc/.*");
         configuration.add("/cpanel/.*");
+        configuration.add("/layout/blog.css");
     }
 
     /**
