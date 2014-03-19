@@ -76,7 +76,8 @@
                         &nbsp;
                         <t:eventlink event="aboutMe">${message:read-more}</t:eventlink>
                         <br/><br/>
-                        <b>Email:</b> ${message:website-email}
+                        <div class="title">Email</div>
+                        ${message:website-email}
                     </div>
 
                     <div id="iconLinks">
