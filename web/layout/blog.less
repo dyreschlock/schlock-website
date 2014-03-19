@@ -1,6 +1,8 @@
 @font1: Garamond, Baskerville, 'Baskerville Old Face', 'Hoefler Text', 'Times New Roman', serif;
 @font2: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
 
+@linkcolor: #800;
+
 @app_width: 1024;
 
 body
@@ -77,7 +79,7 @@ h1, h2, h3
 }
 #blogFooter
 {
-    width: 886px; /* 1024px total */
+    width: 884px; /* 1024px total */
 
     padding: 20px 70px;
 
@@ -102,7 +104,7 @@ h1, h2, h3
 }
 #blogContent
 {
-    width: 886px; /* 1024px total */
+    width: 884px; /* 1024px total */
     background-color: #fff;
     color: #333;
     margin-left: auto;
@@ -142,7 +144,7 @@ h1, h2, h3
     }
     a
     {
-        color: #800;
+        color: @linkcolor;
     }
     img
     {
@@ -313,7 +315,8 @@ div.postLink
 {
     h2
     {
-        font-size: 1.3em;
+        font-family: @font2;
+        font-size: 1.1em;
         margin-top: 10px;
     }
     div.postDate
@@ -401,7 +404,7 @@ div.postLink
     }
     div.title
     {
-        font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+        font-family: @font2;
         font-weight: bold;
         padding-bottom: 10px;
     }
