@@ -225,6 +225,8 @@ public class PostManagementImpl implements PostManagement
 
         html = tagReplacement(html, "<p><b>", "</b>", "<br/>", "<div class='title'>", "</div><p>");
 
+        html = tagReplacement(html, "<p><span style=\"font-weight: bold\">", "</span>", "</p>", "<div class='title'>", "</div>");
+
         return html;
     }
 
