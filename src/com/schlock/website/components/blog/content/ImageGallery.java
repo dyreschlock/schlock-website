@@ -72,6 +72,13 @@ public class ImageGallery
         return imageOverlayZone;
     }
 
+    public String getImageLink()
+    {
+        String thumbless = selectedImage.replaceAll("_t.jpg", ".jpg");
+        return thumbless;
+    }
+
+
     public boolean isHasPreviousImage()
     {
         return StringUtils.isNotBlank(getPreviousImage());
