@@ -18,6 +18,4 @@ public interface PostManagement
     public String generatePostPreview(Post post);
 
     public List<String> getGalleryImages(Post post);
-
-    public String photoLocation();
 }

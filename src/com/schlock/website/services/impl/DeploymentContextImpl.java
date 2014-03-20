@@ -12,6 +12,9 @@ import java.util.Properties;
 
 public class DeploymentContextImpl implements DeploymentContext
 {
+    private static final String LOCAL_DIR = "/Users/JHendricks/Google Drive/Blog/www/";
+    private static final String HOSTED_DIR = "/";
+
     private static final String LOCATION = "com.schlock.website.location";
 
     private static final String LOCAL = "local";
@@ -80,5 +83,24 @@ public class DeploymentContextImpl implements DeploymentContext
     {
         String context = getContext();
         return getHibernateProperties().getProperty(name + "." + context);
+    }
+
+
+    public String imageLocation()
+    {
+        if (isLocal())
+        {
+            return LOCAL_DIR + IMAGE_DIR;
+        }
+        return "/" + IMAGE_DIR;
+    }
+
+    public String photoLocation()
+    {
+        if (isLocal())
+        {
+            return LOCAL_DIR + PHOTO_DIR;
+        }
+        return "/" + PHOTO_DIR;
     }
 }

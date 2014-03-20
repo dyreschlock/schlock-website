@@ -12,11 +12,6 @@ import java.util.*;
 
 public class PostManagementImpl implements PostManagement
 {
-    private static final String LOCAL_PHOTO_DIR = "/Users/JHendricks/Google Drive/Blog/www/photo/";
-    private static final String HOSTED_PHOTO_DIR = "/";
-
-    public static final String PHOTO_DIR = "photo/";
-
     private final static String VALID_UUID_CHARACTERS = "abcdefghijklmnopqrstuvwxyz1234567890";
     private final static int PREVIEW_LENGTH = 900;
 
@@ -306,7 +301,8 @@ public class PostManagementImpl implements PostManagement
             return Collections.EMPTY_LIST;
         }
 
-        File gallery = new File(photoLocation() + galleryName);
+        String photoLocation = deploymentContext.photoLocation();
+        File gallery = new File(photoLocation + galleryName);
         if (!gallery.exists())
         {
              return Collections.EMPTY_LIST;
@@ -318,20 +314,11 @@ public class PostManagementImpl implements PostManagement
         for (File file : files)
         {
             String path = file.getAbsolutePath();
-            int i = path.indexOf(PHOTO_DIR);
+            int i = path.indexOf(DeploymentContext.PHOTO_DIR);
 
             path = "/" + path.substring(i);
             images.add(path);
         }
         return images;
-    }
-
-    public String photoLocation()
-    {
-        if (deploymentContext.isLocal())
-        {
-            return LOCAL_PHOTO_DIR;
-        }
-        return HOSTED_PHOTO_DIR;
     }
 }

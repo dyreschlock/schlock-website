@@ -29,6 +29,11 @@
     </servlet>
 
     <servlet>
+        <servlet-name>images</servlet-name>
+        <servlet-class>com.schlock.website.servlet.ImageServlet</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>css</servlet-name>
         <servlet-class>com.schlock.website.servlet.CssServlet</servlet-class>
     </servlet>
@@ -36,6 +41,11 @@
     <servlet-mapping>
         <servlet-name>photos</servlet-name>
         <url-pattern>/photo/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>images</servlet-name>
+        <url-pattern>/image/*</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

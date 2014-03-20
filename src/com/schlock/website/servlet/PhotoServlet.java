@@ -3,8 +3,6 @@ package com.schlock.website.servlet;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.pages.Index;
 import com.schlock.website.services.DeploymentContext;
-import com.schlock.website.services.blog.PostManagement;
-import com.schlock.website.services.blog.impl.PostManagementImpl;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.TapestryFilter;
@@ -92,10 +90,10 @@ public class PhotoServlet extends HttpServlet
     private void hostPhoto(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
         String url = req.getRequestURL().toString();
-        int photo = url.indexOf(PostManagementImpl.PHOTO_DIR);
-        String relative = url.substring(photo + PostManagementImpl.PHOTO_DIR.length());
+        int photo = url.indexOf(DeploymentContext.PHOTO_DIR);
+        String relative = url.substring(photo + DeploymentContext.PHOTO_DIR.length());
 
-        String photoLocation = postManagement(req).photoLocation();
+        String photoLocation = deploymentContext(req).photoLocation();
         File file = new File(photoLocation + relative);
 
         if (file.exists())
@@ -118,11 +116,6 @@ public class PhotoServlet extends HttpServlet
     private PostDAO postDAO(HttpServletRequest req)
     {
         return registry(req).getService(PostDAO.class);
-    }
-
-    private PostManagement postManagement(HttpServletRequest req)
-    {
-        return registry(req).getService(PostManagement.class);
     }
 
     private DeploymentContext deploymentContext(HttpServletRequest req)
