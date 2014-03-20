@@ -1,3 +1,9 @@
+body
+{
+    background-color: #fff;
+    color: #333;
+    font: 12px arial;
+}
 div.dayColumn
 {
     width: 350px;
