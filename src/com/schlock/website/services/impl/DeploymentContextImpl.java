@@ -12,10 +12,9 @@ import java.util.Properties;
 
 public class DeploymentContextImpl implements DeploymentContext
 {
-    private static final String LOCAL_DIR = "/Users/JHendricks/Google Drive/Blog/www/";
-    private static final String HOSTED_DIR = "/";
+    private static final String LOCATION = "com.schlock.website.deploy";
 
-    private static final String LOCATION = "com.schlock.website.location";
+    private static final String WEBDIR_PARAM = "webdirectory.location";
 
     private static final String LOCAL = "local";
     private static final String HOSTED = "hosted";
@@ -28,25 +27,25 @@ public class DeploymentContextImpl implements DeploymentContext
             );
 
 
-    private Properties hibernateProperties;
+    private Properties deployProperties;
 
-    private Properties getHibernateProperties()
+    private Properties getDeployProperties()
     {
-        if(hibernateProperties == null)
+        if(deployProperties == null)
         {
-            InputStream in = getClass().getResourceAsStream("/hibernate.properties");
+            InputStream in = getClass().getResourceAsStream("/deploy.properties");
 
-            hibernateProperties = new Properties();
+            deployProperties = new Properties();
             try
             {
-                hibernateProperties.load(in);
+                deployProperties.load(in);
             }
             catch (IOException e)
             {
                 throw new RuntimeException(e);
             }
         }
-        return hibernateProperties;
+        return deployProperties;
     }
 
 
@@ -62,9 +61,8 @@ public class DeploymentContextImpl implements DeploymentContext
 
     public boolean isLocal()
     {
-        String location = System.getProperty(LOCATION);
-
-        return StringUtils.equalsIgnoreCase(LOCAL, location);
+        String context = getContext();
+        return StringUtils.equalsIgnoreCase(LOCAL, context);
     }
 
     public boolean isAcceptedUrlReferrer(String referrer)
@@ -82,25 +80,23 @@ public class DeploymentContextImpl implements DeploymentContext
     public String getHibernateProperty(String name)
     {
         String context = getContext();
-        return getHibernateProperties().getProperty(name + "." + context);
+        return getDeployProperties().getProperty(name + "." + context);
     }
 
 
     public String imageLocation()
     {
-        if (isLocal())
-        {
-            return LOCAL_DIR + IMAGE_DIR;
-        }
-        return "/" + IMAGE_DIR;
+        return getWebDirectory() + IMAGE_DIR;
     }
 
     public String photoLocation()
     {
-        if (isLocal())
-        {
-            return LOCAL_DIR + PHOTO_DIR;
-        }
-        return "/" + PHOTO_DIR;
+        return getWebDirectory() + PHOTO_DIR;
+    }
+
+    private String getWebDirectory()
+    {
+        String context = getContext();
+        return getDeployProperties().getProperty(WEBDIR_PARAM + "." + context);
     }
 }
