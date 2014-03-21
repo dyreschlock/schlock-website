@@ -23,7 +23,8 @@ public class DeploymentContextImpl implements DeploymentContext
     private static final List<String> ACCEPTED_REFERRERS =
             Arrays.asList(
                     "theschlock.com",
-                    "localhost"
+                    "localhost",
+                    "feedly.com"
             );
 
 
