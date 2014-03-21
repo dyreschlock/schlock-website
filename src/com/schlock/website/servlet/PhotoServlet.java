@@ -29,7 +29,7 @@ public class PhotoServlet extends HttpServlet
         Post post = getPostByGalleryName(req);
         if (post != null)
         {
-            redirectToGallery(post, req, resp);
+            redirectToGallery(post, resp);
             return;
         }
 
@@ -41,7 +41,7 @@ public class PhotoServlet extends HttpServlet
         }
 
         String referrer = req.getHeader("referer");
-        if (deploymentContext(req).isAcceptedUrlReferrer(referrer))
+        if (deploymentContext().isAcceptedUrlReferrer(referrer))
         {
             hostPhoto(req, resp);
             return;
@@ -73,16 +73,16 @@ public class PhotoServlet extends HttpServlet
         if (parts.length > GALLERY)
         {
             String gallery = parts[GALLERY];
-            Post post = postDAO(req).getByGalleryName(gallery);
+            Post post = postDAO().getByGalleryName(gallery);
             return post;
         }
         return null;
     }
 
-    private void redirectToGallery(Post post, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+    private void redirectToGallery(Post post, HttpServletResponse resp) throws ServletException, IOException
     {
         String uuid = post.getUuid();
-        String redirect = linkSource(req).createPageRenderLinkWithContext(Index.class, uuid).toURI();
+        String redirect = linkSource().createPageRenderLinkWithContext(Index.class, uuid).toURI();
 
         resp.sendRedirect(redirect);
     }
@@ -93,7 +93,7 @@ public class PhotoServlet extends HttpServlet
         int photo = url.indexOf(DeploymentContext.PHOTO_DIR);
         String relative = url.substring(photo + DeploymentContext.PHOTO_DIR.length());
 
-        String photoLocation = deploymentContext(req).photoLocation();
+        String photoLocation = deploymentContext().photoLocation();
         File file = new File(photoLocation + relative);
 
         if (file.exists())
@@ -113,22 +113,22 @@ public class PhotoServlet extends HttpServlet
         }
     }
 
-    private PostDAO postDAO(HttpServletRequest req)
+    private PostDAO postDAO()
     {
-        return registry(req).getService(PostDAO.class);
+        return registry().getService(PostDAO.class);
     }
 
-    private DeploymentContext deploymentContext(HttpServletRequest req)
+    private DeploymentContext deploymentContext()
     {
-        return registry(req).getService(DeploymentContext.class);
+        return registry().getService(DeploymentContext.class);
     }
 
-    private PageRenderLinkSource linkSource(HttpServletRequest req)
+    private PageRenderLinkSource linkSource()
     {
-        return registry(req).getService(PageRenderLinkSource.class);
+        return registry().getService(PageRenderLinkSource.class);
     }
 
-    private Registry registry(HttpServletRequest req)
+    private Registry registry()
     {
         ServletContext context = getServletContext();
         return (Registry) context.getAttribute(TapestryFilter.REGISTRY_CONTEXT_NAME);

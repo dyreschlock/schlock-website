@@ -19,7 +19,7 @@ public class ImageServlet extends HttpServlet
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
         String referrer = req.getHeader("referer");
-        if (deploymentContext(req).isAcceptedUrlReferrer(referrer))
+        if (deploymentContext().isAcceptedUrlReferrer(referrer))
         {
             hostImage(req, resp);
             return;
@@ -34,7 +34,7 @@ public class ImageServlet extends HttpServlet
         int photo = url.indexOf(DeploymentContext.IMAGE_DIR);
         String relative = url.substring(photo + DeploymentContext.IMAGE_DIR.length());
 
-        String imageLocation = deploymentContext(req).imageLocation();
+        String imageLocation = deploymentContext().imageLocation();
         File file = new File(imageLocation + relative);
 
         if (file.exists())
@@ -55,12 +55,12 @@ public class ImageServlet extends HttpServlet
     }
 
 
-    private DeploymentContext deploymentContext(HttpServletRequest req)
+    private DeploymentContext deploymentContext()
     {
-        return registry(req).getService(DeploymentContext.class);
+        return registry().getService(DeploymentContext.class);
     }
 
-    private Registry registry(HttpServletRequest req)
+    private Registry registry()
     {
         ServletContext context = getServletContext();
         return (Registry) context.getAttribute(TapestryFilter.REGISTRY_CONTEXT_NAME);
