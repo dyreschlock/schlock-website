@@ -1,6 +1,6 @@
 package com.schlock.website.services.blog;
 
-public interface CssManagement
+public interface CssCache
 {
     public String getCss();
 }

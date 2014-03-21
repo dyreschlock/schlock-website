@@ -1,6 +1,6 @@
 package com.schlock.website.servlet;
 
-import com.schlock.website.services.blog.CssManagement;
+import com.schlock.website.services.blog.CssCache;
 import org.apache.tapestry5.TapestryFilter;
 import org.apache.tapestry5.ioc.Registry;
 
@@ -29,9 +29,9 @@ public class CssServlet extends HttpServlet
     }
 
 
-    private CssManagement css()
+    private CssCache css()
     {
-        return registry().getService(CssManagement.class);
+        return registry().getService(CssCache.class);
     }
 
     private Registry registry()

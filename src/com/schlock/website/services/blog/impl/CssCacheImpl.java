@@ -2,10 +2,8 @@ package com.schlock.website.services.blog.impl;
 
 import com.asual.lesscss.LessEngine;
 import com.asual.lesscss.LessException;
-import com.schlock.website.entities.blog.CachedCss;
-import com.schlock.website.services.blog.CssManagement;
+import com.schlock.website.services.blog.CssCache;
 import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.services.ApplicationStateManager;
 import org.apache.tapestry5.services.Context;
 
 import java.io.BufferedReader;
@@ -15,32 +13,27 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class CssManagementImpl implements CssManagement
+public class CssCacheImpl implements CssCache
 {
     private final static List<String> CSS_FILES =
             Arrays.asList("layout/blog.less", "layout/layout.css");
 
     private final Context context;
 
-    private final ApplicationStateManager asoManager;
+    private String cachedCss;
 
-    public CssManagementImpl(Context context,
-                             ApplicationStateManager asoManager)
+    public CssCacheImpl(Context context)
     {
         this.context = context;
-        this.asoManager = asoManager;
     }
 
     public String getCss()
     {
-        final CachedCss cachedCss = asoManager.get(CachedCss.class);
-
-        if (StringUtils.isBlank(cachedCss.getCss()))
+        if (StringUtils.isBlank(cachedCss))
         {
-            String css = createCss();
-            cachedCss.setCss(css);
+            cachedCss = createCss();
         }
-        return cachedCss.getCss();
+        return cachedCss;
     }
 
 
