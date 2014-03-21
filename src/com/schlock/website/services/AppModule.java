@@ -43,11 +43,16 @@ public class AppModule
 
     public static void contributeIgnoredPathsFilter(Configuration<String> configuration)
     {
+        configuration.add("/layout/blog.css");
+
         configuration.add("/photo/.*");
         configuration.add("/image/.*");
+
         configuration.add("/misc/.*");
+        configuration.add("/pages/.*");
+        configuration.add("/spamm/.*");
+
         configuration.add("/cpanel/.*");
-        configuration.add("/layout/blog.css");
     }
 
     /**

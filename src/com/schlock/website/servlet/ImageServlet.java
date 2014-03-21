@@ -1,20 +1,14 @@
 package com.schlock.website.servlet;
 
 import com.schlock.website.services.DeploymentContext;
-import org.apache.tapestry5.TapestryFilter;
-import org.apache.tapestry5.ioc.Registry;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
-public class ImageServlet extends HttpServlet
+public class ImageServlet extends AbstractHttpServlet
 {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
@@ -37,32 +31,8 @@ public class ImageServlet extends HttpServlet
         String imageLocation = deploymentContext().imageLocation();
         File file = new File(imageLocation + relative);
 
-        if (file.exists())
-        {
-            FileInputStream io = new FileInputStream(file);
-            int bytes = io.available();
-            byte[] body = new byte[bytes];
-            io.read(body);
-            io.close();
+        String type = getContentType(relative);
 
-            OutputStream out = resp.getOutputStream();
-            resp.setContentType("image/jpeg");
-            resp.setContentLength(bytes);
-            out.write(body);
-            out.flush();
-            out.close();
-        }
-    }
-
-
-    private DeploymentContext deploymentContext()
-    {
-        return registry().getService(DeploymentContext.class);
-    }
-
-    private Registry registry()
-    {
-        ServletContext context = getServletContext();
-        return (Registry) context.getAttribute(TapestryFilter.REGISTRY_CONTEXT_NAME);
+        hostFile(file, type, resp);
     }
 }

@@ -87,15 +87,15 @@ public class DeploymentContextImpl implements DeploymentContext
 
     public String imageLocation()
     {
-        return getWebDirectory() + IMAGE_DIR;
+        return webDirectory() + IMAGE_DIR;
     }
 
     public String photoLocation()
     {
-        return getWebDirectory() + PHOTO_DIR;
+        return webDirectory() + PHOTO_DIR;
     }
 
-    private String getWebDirectory()
+    public String webDirectory()
     {
         String context = getContext();
         return getDeployProperties().getProperty(WEBDIR_PARAM + "." + context);

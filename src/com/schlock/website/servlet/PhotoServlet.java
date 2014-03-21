@@ -3,15 +3,9 @@ package com.schlock.website.servlet;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.pages.Index;
 import com.schlock.website.services.DeploymentContext;
-import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.TapestryFilter;
-import org.apache.tapestry5.ioc.Registry;
-import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -19,7 +13,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class PhotoServlet extends HttpServlet
+public class PhotoServlet extends AbstractHttpServlet
 {
     private static final String OK = "ok";
 
@@ -111,26 +105,5 @@ public class PhotoServlet extends HttpServlet
             out.flush();
             out.close();
         }
-    }
-
-    private PostDAO postDAO()
-    {
-        return registry().getService(PostDAO.class);
-    }
-
-    private DeploymentContext deploymentContext()
-    {
-        return registry().getService(DeploymentContext.class);
-    }
-
-    private PageRenderLinkSource linkSource()
-    {
-        return registry().getService(PageRenderLinkSource.class);
-    }
-
-    private Registry registry()
-    {
-        ServletContext context = getServletContext();
-        return (Registry) context.getAttribute(TapestryFilter.REGISTRY_CONTEXT_NAME);
     }
 }
