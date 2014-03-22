@@ -19,6 +19,8 @@ public class Index
     private static final String UNPUBLISHED_FLAG = "u";
     private static final List<String> RSS_FLAGS = Arrays.asList("rss", "rss2", "rss.xml", "rss2.xml");
 
+    private static final String EVENT = "events.html";
+
     @Inject
     private Messages messages;
 
@@ -38,6 +40,9 @@ public class Index
 
     @InjectPage
     private Feed feed;
+
+    @InjectPage
+    private Club club;
 
     @SessionState
     private ViewState viewState;
@@ -64,6 +69,10 @@ public class Index
         else if (StringUtils.equals(Post.ABOUT_ME_UUID, parameter))
         {
             return aboutMe;
+        }
+        else if (StringUtils.equalsIgnoreCase(EVENT, parameter))
+        {
+            return club;
         }
         else
         {
