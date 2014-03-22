@@ -136,7 +136,7 @@ h1, h2, h3
 #postContent
 {
     padding-top: 60px;
-    padding-bottom: 80px;
+    padding-bottom: 60px;
 
     h1
     {
@@ -198,8 +198,8 @@ h1, h2, h3
     div.image
     {
         background-position: center;
-        background-size: 300%;
-        opacity: 0.5;
+        background-size: 200%;
+        opacity: 0.7;
 
         width: 23%;
         max-height: 180px;
@@ -510,5 +510,76 @@ div.postLink
         right: 0;
         background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
         bottom: 0;
+    }
+}
+
+
+#clubGalleries
+{
+    width: 100%;
+
+    div.gallery
+    {
+        vertical-align: bottom;
+
+        position: relative;
+        float: left;
+
+        background-position: center;
+        background-size: 130%;
+
+        height: 180px;
+        max-height: 180px;
+        min-height: 180px;
+
+        width: 32%;
+        margin-right: 23px;
+
+        margin-bottom: 25px;
+
+        div.text
+        {
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+        }
+        div.title
+        {
+            font-family: @font2;
+            font-weight: bold;
+            font-size: 1.1em;
+
+            padding-right: 10px;
+
+            a
+            {
+                color: #fff;
+            }
+            a:hover
+            {
+                text-decoration: underline;
+            }
+        }
+        div.postDate
+        {
+            color: #ddd;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+    }
+    div.year
+    {
+        font-size: 1.5em;
+        font-family: @font2;
+        font-weight: bold;
+
+        width: 100%;
+
+        padding: 10px 0;
+    }
+    div.last
+    {
+        width: 30%;
+        margin-right: 0;
     }
 }

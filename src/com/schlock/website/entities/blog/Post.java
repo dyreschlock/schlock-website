@@ -25,7 +25,9 @@ public class Post extends Persisted
     private boolean pinned;
     private boolean page;
 
+    private boolean showGallery;
     private String galleryName;
+    private String coverImage;
 
     private String bodyText;
     private String bodyHTML;
@@ -84,7 +86,7 @@ public class Post extends Persisted
 
     public boolean isHasGallery()
     {
-        return StringUtils.isNotBlank(galleryName);
+        return StringUtils.isNotBlank(galleryName) && showGallery;
     }
 
 
@@ -168,6 +170,16 @@ public class Post extends Persisted
         this.page = page;
     }
 
+    public boolean isShowGallery()
+    {
+        return showGallery;
+    }
+
+    public void setShowGallery(boolean showGallery)
+    {
+        this.showGallery = showGallery;
+    }
+
     public String getGalleryName()
     {
         return galleryName;
@@ -176,6 +188,16 @@ public class Post extends Persisted
     public void setGalleryName(String galleryName)
     {
         this.galleryName = galleryName;
+    }
+
+    public String getCoverImage()
+    {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage)
+    {
+        this.coverImage = coverImage;
     }
 
     public String getBodyText()

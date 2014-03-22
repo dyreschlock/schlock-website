@@ -321,4 +321,68 @@ public class PostManagementImpl implements PostManagement
         }
         return images;
     }
+
+
+    public String getPostImage(Post post)
+    {
+        List<String> images = getGalleryImages(post);
+
+        String header = post.getCoverImage();
+        if (StringUtils.isNotBlank(header))
+        {
+            for (String image : images)
+            {
+                if (StringUtils.endsWithIgnoreCase(image, header))
+                {
+                    return image;
+                }
+            }
+        }
+
+        int index = images.size() / 4;
+        index = images.size() - index;
+
+        if (index < 0)
+        {
+            index = 0;
+        }
+        if (index >= images.size())
+        {
+            index = images.size() -1;
+        }
+
+        return images.get(index);
+    }
+
+    public String getStylizedHTMLTitle(Post post)
+    {
+        String title = post.getTitle();
+
+        String html = "";
+
+        String[] parts = title.split("@");
+        if (parts.length == 2)
+        {
+            String name = parts[0];
+            String venue = parts[1];
+
+            String[] names = name.split(",");
+            name = "";
+            for (int i = 0; i < names.length; i++)
+            {
+                if (i != 0)
+                {
+                    name += "<br />";
+                }
+                name += names[i];
+            }
+
+            html = name + "<br />" + "@" + venue;
+        }
+        else
+        {
+            html = title;
+        }
+        return html;
+    }
 }

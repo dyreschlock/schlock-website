@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="blog/layoutblog" pageName="${pageTitle}"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:c="tapestry-library:blog/content"
+    >
+
+    <c:postdisplay post="page" />
+
+    <div id="clubGalleries">
+        <t:loop source="clubGalleries" value="currentPost" index="currentIndex">
+
+            <t:if test="newLine">
+                <br class="clr" />
+            </t:if>
+
+            <t:if test="newYear">
+                <div class="year">${currentYear}</div>
+            </t:if>
+
+            <div class="gallery ${last}" style="background-image: url(${currentImage})">
+
+                <div class="text">
+                    <div class="title">
+                        <t:eventlink t:id="selectPost" context="currentPost.uuid">
+                            <t:outputraw value="postTitleHTML" />
+                        </t:eventlink>
+                    </div>
+                    <div class="postDate">
+                        ${currentPost.prettyCreatedDate}
+                    </div>
+                </div>
+            </div>
+
+        </t:loop>
+    </div>
+
+</html>

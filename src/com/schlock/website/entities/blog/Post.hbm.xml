@@ -19,7 +19,9 @@
         <property name="pinned" />
         <property name="page" />
 
+        <property name="showGallery" />
         <property name="galleryName" />
+        <property name="coverImage" />
 
         <property name="bodyText" length="1000000" />
         <property name="bodyHTML" length="1000000" />
