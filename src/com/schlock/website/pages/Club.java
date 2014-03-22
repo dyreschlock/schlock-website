@@ -30,6 +30,20 @@ public class Club
     private Integer actualIndex;
 
 
+    Object onActivate(String parameter)
+    {
+        if (StringUtils.isNotBlank(parameter))
+        {
+            Post post = postDAO.getByGalleryName(parameter);
+            if (post != null)
+            {
+                return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid());
+            }
+        }
+        return true;
+    }
+
+
     public Integer getCurrentIndex()
     {
         return currentIndex;
