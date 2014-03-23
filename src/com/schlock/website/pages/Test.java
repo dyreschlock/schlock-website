@@ -23,6 +23,18 @@ public class Test
     private String currentFolder;
 
 
+    Object onActivate()
+    {
+        boolean local = deploymentContext.isLocal();
+        if(!local)
+        {
+            return Index.class;
+        }
+        return true;
+    }
+
+
+
     public List<String> getFolders()
     {
         String photo = deploymentContext.photoLocation();
