@@ -5,7 +5,7 @@
     xmlns:l="tapestry-library:blog/link"
     >
 
-    <c:postdisplay post="aboutMePost" />
+    <c:postdisplay post="page" />
 
     <div id="aboutMe">
 

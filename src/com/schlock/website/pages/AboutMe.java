@@ -19,23 +19,6 @@ public class AboutMe
     private PostDAO postDAO;
 
 
-    private Post cachedPost;
-
-
-    public Post getAboutMePost()
-    {
-        if(cachedPost == null)
-        {
-            cachedPost = postDAO.getByUuid(Post.ABOUT_ME_UUID);
-        }
-        return cachedPost;
-    }
-
-    public String getPageTitle()
-    {
-        return getAboutMePost().getTitle();
-    }
-
     public String getRssRedirect()
     {
         String url = linkSource.createPageRenderLink(Feed.class).toURI();
@@ -90,5 +73,25 @@ public class AboutMe
     public Icon getEbay()
     {
         return Icon.EBAY;
+    }
+
+
+
+
+
+    public String getPageTitle()
+    {
+        return getPage().getTitle();
+    }
+
+    private Post cachedPage;
+
+    public Post getPage()
+    {
+        if(cachedPage == null)
+        {
+            cachedPage = postDAO.getByUuid(Post.ABOUT_ME_UUID);
+        }
+        return cachedPage;
     }
 }

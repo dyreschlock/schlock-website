@@ -141,19 +141,6 @@ public class Club
     }
 
 
-    public Post getPage()
-    {
-        String pageName = getClass().getSimpleName().toLowerCase();
-        Post page = postDAO.getByUuid(pageName);
-        return page;
-    }
-
-    public String getPageTitle()
-    {
-        return getPage().getTitle();
-    }
-
-
     private List<Post> cachedClubGalleries;
 
     public List<Post> getClubGalleries()
@@ -164,5 +151,23 @@ public class Club
             cachedClubGalleries = postDAO.getFromCategoriesWithGallery(names);
         }
         return cachedClubGalleries;
+    }
+
+
+    public String getPageTitle()
+    {
+        return getPage().getTitle();
+    }
+
+    private Post cachedPage;
+
+    public Post getPage()
+    {
+        if (cachedPage == null)
+        {
+            String pageName = getClass().getSimpleName().toLowerCase();
+            cachedPage = postDAO.getByUuid(pageName);
+        }
+        return cachedPage;
     }
 }

@@ -9,6 +9,7 @@ import java.util.*;
 public class Post extends Persisted
 {
     public static final String ABOUT_ME_UUID = "about-me";
+    public static final String ALT_MATERIALS_UUID = "alt-materials";
 
     private static final String DATE_FORMAT = "EEEEE  MMMMM d, yyyy";
     private static final String DAY_FORMAT = "MMMMM d";

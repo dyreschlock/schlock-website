@@ -102,7 +102,7 @@ public class LayoutBlog
 
     public List<Post> getRecentPosts()
     {
-        int postCount = PostDAOImpl.TOP_RECENT;
+        int postCount = PostDAOImpl.TOP_RECENT +1;
         boolean unpublished = viewState.isShowUnpublished();
 
         List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished);
@@ -111,7 +111,7 @@ public class LayoutBlog
 
     public List<Post> getRecentPinnedPosts()
     {
-        int postCount = PostDAOImpl.TOP_RECENT;
+        int postCount = PostDAOImpl.TOP_RECENT +1;
         boolean unpublished = viewState.isShowUnpublished();
 
         List<Post> posts = postDAO.getRecentPinnedPostsByYearMonth(postCount, null, null, unpublished, null);

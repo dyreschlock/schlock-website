@@ -49,7 +49,7 @@ public class Index
 
     Object onActivate(String parameter)
     {
-        if (StringUtils.equals(UNPUBLISHED_FLAG, parameter))
+        if (StringUtils.equalsIgnoreCase(UNPUBLISHED_FLAG, parameter))
         {
             viewState.setShowUnpublished(true);
         }
@@ -57,9 +57,13 @@ public class Index
         {
             return Feed.class;
         }
-        else if (StringUtils.equals(Post.ABOUT_ME_UUID, parameter))
+        else if (StringUtils.equalsIgnoreCase(Post.ABOUT_ME_UUID, parameter))
         {
             return AboutMe.class;
+        }
+        else if (StringUtils.equalsIgnoreCase(Post.ALT_MATERIALS_UUID, parameter))
+        {
+            return Alt.class;
         }
         else if (StringUtils.equalsIgnoreCase(EVENT, parameter))
         {
