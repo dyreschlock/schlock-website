@@ -366,6 +366,8 @@ public class PostManagementImpl implements PostManagement
             String name = parts[0];
             String venue = parts[1];
 
+            name = splitBy(name, ",", "<br />");
+
             String[] names = name.split(",");
             name = "";
             for (int i = 0; i < names.length; i++)
@@ -381,8 +383,24 @@ public class PostManagementImpl implements PostManagement
         }
         else
         {
-            html = title;
+            html = splitBy(title, " - ", "<br />");
         }
         return html;
+    }
+
+    private String splitBy(final String str, String split, String add)
+    {
+        String[] parts = str.split(split);
+
+        String newStr = "";
+        for (int i = 0; i < parts.length; i++)
+        {
+            if (i != 0)
+            {
+                newStr += add;
+            }
+            newStr += parts[i];
+        }
+        return newStr;
     }
 }

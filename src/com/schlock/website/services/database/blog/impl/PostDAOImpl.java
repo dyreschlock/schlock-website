@@ -233,19 +233,37 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return query.list();
     }
 
-    public List<Post> getFromCategoryWithGallery(Long categoryId)
+    public List<Post> getFromCategoriesWithGallery(List<String> categoryNames)
     {
-        String selectClause = "select p from Post p ";
-        String extraWhereClause = " p.galleryName is not null ";
-        String orderByClause = " order by p.created desc";
+        String text = "select p from Post p " +
+                        " join p.categories c " +
+                        " where p.page is false " +
+                        " and p.galleryName is not null ";
 
-        Query query = createQuery(null, null, null,
-                                    true,
-                                    categoryId,
-                                    false,
-                                    selectClause,
-                                    Arrays.asList(extraWhereClause),
-                                    orderByClause);
+        if (!categoryNames.isEmpty())
+        {
+            text += " and (";
+            for (int i = 0; i < categoryNames.size(); i++)
+            {
+                if (i != 0)
+                {
+                    text += " or ";
+                }
+                text += " c.name = :name" + i + " ";
+            }
+            text += ") ";
+        }
+        text += " order by p.created desc";
+
+        Query query = session.createQuery(text);
+
+        for (int i = 0; i < categoryNames.size(); i++)
+        {
+            String name = categoryNames.get(i);
+
+            String param = "name" + i;
+            query.setParameter(param, name);
+        }
 
         return query.list();
     }

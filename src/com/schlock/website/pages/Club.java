@@ -1,5 +1,6 @@
 package com.schlock.website.pages;
 
+import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -8,6 +9,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -158,8 +160,8 @@ public class Club
     {
         if (cachedClubGalleries == null)
         {
-            Long eventCategory = 8l;
-            cachedClubGalleries = postDAO.getFromCategoryWithGallery(eventCategory);
+            List<String> names = Arrays.asList(Category.EVENT, Category.FESTIVAL);
+            cachedClubGalleries = postDAO.getFromCategoriesWithGallery(names);
         }
         return cachedClubGalleries;
     }

@@ -38,6 +38,9 @@ import com.schlock.website.entities.Persisted;
  */
 public class Category extends Persisted
 {
+    public static final String EVENT = "events";
+    public static final String FESTIVAL = "festivals";
+
     private String name;
     private int ordering;
 
