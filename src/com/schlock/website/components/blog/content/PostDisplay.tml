@@ -39,9 +39,7 @@
                 <div class="title pb10">${previousTitle}</div>
 
                 <t:loop source="previousPosts" value="currentPost" index="currentIndex">
-                    <div class="link${currentIndex} pt10">
-                        <l:postlink post="currentPost" />
-                    </div>
+                    <l:postlink post="currentPost" />
                 </t:loop>
             </t:if>
             <t:if test="!hasPreviousPosts">
@@ -54,9 +52,7 @@
                 <div class="title pb10">${nextTitle}</div>
 
                 <t:loop source="nextPosts" value="currentPost" index="currentIndex">
-                    <div class="link${currentIndex} pt10">
-                        <l:postlink post="currentPost" />
-                    </div>
+                    <l:postlink post="currentPost" />
                 </t:loop>
             </t:if>
             <t:if test="!hasNextPosts">

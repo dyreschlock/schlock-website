@@ -48,27 +48,21 @@
                     <div class="title pb10">${message:recent-posts}</div>
 
                     <t:loop source="recentPosts" value="currentPost" index="currentIndex">
-                        <div class="pt10 link${currentIndex}">
-                            <l:postlink post="currentPost" />
-                        </div>
+                        <l:postlink post="currentPost" />
                     </t:loop>
                 </div>
                 <div id="recentPinnedPosts">
                     <div class="title pb10">${message:recent-pinned-posts}</div>
 
                     <t:loop source="recentPinnedPosts" value="currentPost" index="currentIndex">
-                        <div class="pt10 link${currentIndex}">
-                            <l:postlink post="currentPost" />
-                        </div>
+                        <l:postlink post="currentPost" />
                     </t:loop>
                 </div>
                 <div id="pagesLinks">
                     <div class="title pb10">${message:pages}</div>
 
                     <t:loop source="pages" value="currentPost" index="currentIndex">
-                        <div class="pt10 link${currentIndex}">
-                            <l:postlink post="currentPost" />
-                        </div>
+                        <l:postlink post="currentPost" />
                     </t:loop>
 
                     <div id="aboutMessage">

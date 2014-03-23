@@ -11,10 +11,9 @@
                     <br class="clr" />
                 </t:if>
 
-                <t:eventlink event="selectImage" context="currentImage" zone="imageOverlayZone">
-                    <div class="image ${lastImage}" style="background-image: url(${currentImage})">
-                    </div>
-                </t:eventlink>
+                <div class="image ${lastImage}" style="background-image: url(${currentImage})">
+                    <t:eventlink event="selectImage" context="currentImage" zone="imageOverlayZone" />
+                </div>
 
             </t:loop>
             <br class="clr" />
