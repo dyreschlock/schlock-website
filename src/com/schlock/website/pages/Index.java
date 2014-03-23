@@ -5,7 +5,6 @@ import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
@@ -35,14 +34,6 @@ public class Index
     private Post currentPost;
 
 
-    @InjectPage
-    private AboutMe aboutMe;
-
-    @InjectPage
-    private Feed feed;
-
-    @InjectPage
-    private Club club;
 
     @SessionState
     private ViewState viewState;
@@ -64,15 +55,15 @@ public class Index
         }
         else if (RSS_FLAGS.contains(parameter.toLowerCase()))
         {
-            return feed;
+            return Feed.class;
         }
         else if (StringUtils.equals(Post.ABOUT_ME_UUID, parameter))
         {
-            return aboutMe;
+            return AboutMe.class;
         }
         else if (StringUtils.equalsIgnoreCase(EVENT, parameter))
         {
-            return club;
+            return Club.class;
         }
         else
         {
