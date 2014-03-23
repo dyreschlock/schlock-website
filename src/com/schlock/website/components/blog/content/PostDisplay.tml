@@ -9,7 +9,7 @@
         <h1><!-- ${post.id} // --> ${post.title}</h1>
         <t:if test="!post.page">
             <div class="postDate">
-                ${post.prettyCreatedDate}
+                ${post.createdDateFormat}
                 <t:loop source="topCategories" value="currentCategory">
                     //
                     <t:eventlink event="selectCategory" context="currentCategory.id">${currentCategory.name}</t:eventlink>

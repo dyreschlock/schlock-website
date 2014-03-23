@@ -520,8 +520,6 @@ div.postLink
 
     div.gallery
     {
-        vertical-align: bottom;
-
         position: relative;
         float: left;
 
@@ -538,34 +536,43 @@ div.postLink
 
         margin-bottom: 25px;
 
-        div.text
+        font-family: @font2;
+        font-weight: bold;
+        font-size: 1.1em;
+
+        color: #fff;
+
+        a
+        {
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        div.title
         {
             position: absolute;
             left: 10px;
-            bottom: 10px;
-        }
-        div.title
-        {
-            font-family: @font2;
-            font-weight: bold;
-            font-size: 1.1em;
+            bottom: 7px;
 
             padding-right: 10px;
-
-            a
-            {
-                color: #fff;
-            }
-            a:hover
-            {
-                text-decoration: underline;
-            }
         }
         div.postDate
         {
-            color: #ddd;
-            font-size: 0.9em;
-            font-weight: bold;
+            position: absolute;
+            left: 10px;
+            top: 5px;
+        }
+    }
+    div.gallery:hover
+    {
+        div.title, div.postDate
+        {
+            text-decoration: underline;
         }
     }
     div.year

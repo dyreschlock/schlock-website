@@ -11,7 +11,8 @@ public class Post extends Persisted
     public static final String ABOUT_ME_UUID = "about-me";
 
     private static final String DATE_FORMAT = "EEEEE  MMMMM d, yyyy";
-//    private static final String DATE_FORMAT = "EEEEE  MMMMM d, yyyy  hh:mm aaa";
+    private static final String DAY_FORMAT = "MMMMM d";
+
 
     private String wpid; //legacy Wordpress id
     private String mtid; //legacy MoveableType id
@@ -78,9 +79,15 @@ public class Post extends Persisted
         return sub;
     }
 
-    public String getPrettyCreatedDate()
+    public String getCreatedDateFormat()
     {
         SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
+        return format.format(created);
+    }
+
+    public String getCreatedDayFormat()
+    {
+        SimpleDateFormat format = new SimpleDateFormat(DAY_FORMAT);
         return format.format(created);
     }
 

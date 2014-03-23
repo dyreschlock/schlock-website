@@ -19,18 +19,16 @@
 
             <div class="gallery ${last}" style="background-image: url(${currentImage})">
 
-                <div class="text">
-                    <div class="title">
-                        <t:eventlink t:id="selectPost" context="currentPost.uuid">
-                            <t:outputraw value="postTitleHTML" />
-                        </t:eventlink>
-                    </div>
-                    <div class="postDate">
-                        ${currentPost.prettyCreatedDate}
-                    </div>
+                <t:eventlink event="selectPost" context="currentPost.uuid" />
+
+                <div class="title">
+                    <t:outputraw value="postTitleHTML" />
+                </div>
+
+                <div class="postDate">
+                    ${currentPost.createdDayFormat}
                 </div>
             </div>
-
         </t:loop>
     </div>
 
