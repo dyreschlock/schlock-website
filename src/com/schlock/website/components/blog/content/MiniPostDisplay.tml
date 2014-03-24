@@ -1,0 +1,33 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+    <div class="miniPost">
+
+        <t:eventlink event="selectPost" context="post.uuid">
+            <h1><!-- ${post.id} // --> ${post.title}</h1>
+        </t:eventlink>
+        <t:if test="!post.page">
+            <div class="postDate">
+                ${post.createdDateFormat}
+            </div>
+        </t:if>
+        <div class="postBody">
+            <t:outputraw value="previewHtml" />
+        </div>
+
+        <div class="links">
+            <t:if test="hasLessonPlan">
+                <a href="${post.lessonPlanLink}">${message:lesson-plan}</a> /
+            </t:if>
+
+            <t:if test="hasFlashCards">
+                <a href="${post.flashCardsLink}">${message:flash-cards}</a> /
+            </t:if>
+
+            <t:eventlink event="selectPost" context="post.uuid">
+                ${message:more}
+            </t:eventlink>
+        </div>
+
+    </div>
+</t:container>

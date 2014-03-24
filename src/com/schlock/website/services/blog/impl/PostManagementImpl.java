@@ -15,6 +15,8 @@ public class PostManagementImpl implements PostManagement
     private final static String VALID_UUID_CHARACTERS = "abcdefghijklmnopqrstuvwxyz1234567890";
     private final static int PREVIEW_LENGTH = 900;
 
+    private final static String BREAK = "<break>";
+
     private final static String ITALICS_OPEN = "<i>";
     private final static String ITALICS_CLOSE = "</i>";
 
@@ -135,12 +137,21 @@ public class PostManagementImpl implements PostManagement
     {
         String tempText = post.getBodyText();
 
-        int length = tempText.length();
-        if (length > PREVIEW_LENGTH)
+        int brake = 0;
+        if (StringUtils.containsIgnoreCase(tempText, BREAK))
         {
-            length = PREVIEW_LENGTH;
+            brake = tempText.indexOf(BREAK);
         }
-        tempText = tempText.substring(0, length);
+        else
+        {
+            brake = tempText.length();
+            if (brake > PREVIEW_LENGTH)
+            {
+                brake = PREVIEW_LENGTH;
+            }
+        }
+        tempText = tempText.substring(0, brake);
+
 
         int openTag = tempText.lastIndexOf("<");
         int closeTag = tempText.lastIndexOf(">");
@@ -179,6 +190,7 @@ public class PostManagementImpl implements PostManagement
 
         String html = tempText;
 
+        html = html.replaceAll(BREAK, "");
         html = changeLineBreaksToHtmlTags(html);
         html = changePostTitlesForCss(html);
         html = changeImagesAndLinksToLocal(html);
@@ -204,6 +216,8 @@ public class PostManagementImpl implements PostManagement
 
         html = html.replaceAll("\r\n", "<br/>");
         html = html.replaceAll("\n", "<br/>");
+
+        html = html.replaceAll("<p></p>", "");
 
         return html;
     }

@@ -233,13 +233,16 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return query.list();
     }
 
-    public List<Post> getFromCategoriesWithGallery(List<String> categoryNames)
+    public List<Post> getByCategoryNames(List<String> categoryNames, boolean onlyWithGallery)
     {
         String text = "select p from Post p " +
                         " join p.categories c " +
-                        " where p.page is false " +
-                        " and p.galleryName is not null ";
+                        " where p.page is false ";
 
+        if (onlyWithGallery)
+        {
+            text += " and p.galleryName is not null ";
+        }
         if (!categoryNames.isEmpty())
         {
             text += " and (";

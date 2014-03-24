@@ -148,7 +148,7 @@ public class Club
         if (cachedClubGalleries == null)
         {
             List<String> names = Arrays.asList(Category.EVENT, Category.FESTIVAL);
-            cachedClubGalleries = postDAO.getFromCategoriesWithGallery(names);
+            cachedClubGalleries = postDAO.getByCategoryNames(names, true);
         }
         return cachedClubGalleries;
     }

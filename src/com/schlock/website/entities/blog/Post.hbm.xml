@@ -30,5 +30,8 @@
             <key column="postId" />
             <many-to-many class="com.schlock.website.entities.blog.Category" column="categoryId" />
         </set>
+
+        <property name="lessonPlanLink" />
+        <property name="flashCardsLink" />
     </class>
 </hibernate-mapping>

@@ -6,6 +6,7 @@ import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.Index;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -73,6 +74,17 @@ public class PostDisplay
         Post post = postDAO.getMostRecentPost(unpublished, categoryId);
 
         return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid());
+    }
+
+
+    public boolean isHasLessonPlan()
+    {
+        return StringUtils.isNotBlank(post.getLessonPlanLink());
+    }
+
+    public boolean isHasFlashCards()
+    {
+        return StringUtils.isNotBlank(post.getFlashCardsLink());
     }
 
 

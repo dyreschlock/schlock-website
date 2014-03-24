@@ -41,6 +41,8 @@ public class Category extends Persisted
     public static final String EVENT = "events";
     public static final String FESTIVAL = "festivals";
 
+    public static final String TEACHING = "teaching";
+
     private String name;
     private int ordering;
 

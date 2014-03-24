@@ -36,7 +36,7 @@ public interface PostDAO extends BaseDAO<Post>
 
     public List<Object[]> getYearsMonthPostCounts(boolean withUnpublished);
 
-    public List<Post> getFromCategoriesWithGallery(List<String> categoryNames);
+    public List<Post> getByCategoryNames(List<String> categoryNames, boolean onlyWithGallery);
 
     public List<Post> getAllPages(boolean withUnpublished);
 }

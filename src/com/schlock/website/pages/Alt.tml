@@ -4,6 +4,50 @@
     xmlns:c="tapestry-library:blog/content"
     >
 
-    <c:postdisplay post="page" />
+    <div id="postContent" class="alt">
+        <h1>${page.title}</h1>
+        <div class="postBody">
+            <t:outputraw value="page.bodyHTML" />
+        </div>
+    </div>
 
+    <div id="lessonContent">
+
+        <div id="sixNenPosts">
+            <h2>${message:6nen-title}</h2>
+
+            <t:loop source="sixNenPosts" value="currentPost">
+                <c:minipostdisplay post="currentPost" />
+            </t:loop>
+        </div>
+
+        <div id="fiveNenPosts">
+            <h2>${message:5nen-title}</h2>
+
+            <t:loop source="fiveNenPosts" value="currentPost">
+                <c:minipostdisplay post="currentPost" />
+            </t:loop>
+        </div>
+
+        <br class="clr" />
+
+        <div id="otherPosts">
+            <h2>${message:other-title}</h2>
+
+            <t:loop source="otherPosts" value="currentPost">
+                <c:minipostdisplay post="currentPost" />
+            </t:loop>
+        </div>
+
+        <div id="specialPosts">
+            <h2>${message:special-title}</h2>
+
+            <t:loop source="specialPosts" value="currentPost">
+                <c:minipostdisplay post="currentPost" />
+            </t:loop>
+        </div>
+
+        <br class="clr" />
+
+    </div>
 </html>

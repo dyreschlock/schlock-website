@@ -133,11 +133,8 @@ h1, h2, h3
 
 
 
-#postContent
+#postContent, #lessonContent
 {
-    padding-top: 60px;
-    padding-bottom: 60px;
-
     h1
     {
         font-family: @font2;
@@ -177,6 +174,22 @@ h1, h2, h3
             text-decoration: underline;
         }
     }
+    div.links
+    {
+        margin-top: 40px;
+
+        font-size: 1.1em;
+
+        a
+        {
+            font-family: @font2;
+        }
+    }
+}
+#postContent
+{
+    padding-top: 60px;
+    padding-bottom: 60px;
 }
 #postContent.archive
 {
@@ -535,6 +548,63 @@ div.postLink
         background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
         bottom: 0;
     }
+}
+
+#sixNenPosts, #fiveNenPosts, #otherPosts, #specialPosts
+{
+    width: 47%;
+    position: relative;
+
+    h2
+    {
+        padding-bottom: 30px;
+
+        font-weight: bold;
+        font-family: @font2;
+        font-size: 1.1em;
+    }
+
+    div.miniPost
+    {
+        padding-bottom: 60px;
+    }
+    h1
+    {
+        font-size: 1.1em;
+    }
+    div.postDate
+    {
+        font-size: 0.8em;
+    }
+    div.postBody
+    {
+        font-size: 0.9em;
+        width: 100%;
+        padding-top: 15px;
+
+        a
+        {
+            font-weight: bold;
+        }
+    }
+    div.links
+    {
+        font-size: 1em;
+        margin-top: 20px;
+
+        a
+        {
+            font-family: @font2;
+        }
+    }
+}
+#sixNenPosts, #otherPosts
+{
+    float: left;
+}
+#fiveNenPosts, #specialPosts
+{
+    float: right;
 }
 
 

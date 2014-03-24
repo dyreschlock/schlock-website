@@ -11,6 +11,13 @@ public class Post extends Persisted
     public static final String ABOUT_ME_UUID = "about-me";
     public static final String ALT_MATERIALS_UUID = "alt-materials";
 
+    public static final String SIX_UUID_PREFIX = "6nen";
+    public static final String FIVE_UUID_PREFIX = "5nen";
+    public static final String FOUR_UUID_PREFIX = "34nen";
+    public static final String TWO_UUID_PREFIX = "12nen";
+    public static final String SPECIAL_UUID_PREFIX = "special";
+
+
     private static final String DATE_FORMAT = "EEEEE  MMMMM d, yyyy";
     private static final String DAY_FORMAT = "MMMMM d";
 
@@ -35,6 +42,9 @@ public class Post extends Persisted
     private String bodyHTML;
 
     private Set<Category> categories;
+
+    private String lessonPlanLink;
+    private String flashCardsLink;
 
 
     protected Post()
@@ -236,5 +246,25 @@ public class Post extends Persisted
     public void setCategories(Set<Category> categories)
     {
         this.categories = categories;
+    }
+
+    public String getLessonPlanLink()
+    {
+        return lessonPlanLink;
+    }
+
+    public void setLessonPlanLink(String lessonPlanLink)
+    {
+        this.lessonPlanLink = lessonPlanLink;
+    }
+
+    public String getFlashCardsLink()
+    {
+        return flashCardsLink;
+    }
+
+    public void setFlashCardsLink(String flashCardsLink)
+    {
+        this.flashCardsLink = flashCardsLink;
     }
 }
