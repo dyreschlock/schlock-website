@@ -32,7 +32,18 @@
                                 <t:eventlink event="selectImage" context="[null]" zone="imageOverlayZone">Close</t:eventlink>
                             </div>
 
-                            <img class="clr" src="${selectedImage}" />
+                            <div class="clr overlayLinks">
+                                <img src="${selectedImage}" />
+
+                                <t:if test="hasPreviousImage">
+                                    <t:eventlink class="previous" event="selectImage" context="previousImage" zone="imageOverlayZone"/>
+                                </t:if>
+
+
+                                <t:if test="hasNextImage">
+                                    <t:eventlink class="next" event="selectImage" context="nextImage" zone="imageOverlayZone"/>
+                                </t:if>
+                            </div>
 
                             <div class="previous">
                                 <t:if test="hasPreviousImage">
