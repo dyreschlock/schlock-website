@@ -152,6 +152,11 @@ h1, h2, h3
     {
         background-color: #eee;
     }
+    iframe
+    {
+        width: 100%;
+        height: 700px;
+    }
     div.postBody
     {
         font-size: 1.1em;
@@ -183,6 +188,55 @@ h1, h2, h3
         a
         {
             font-family: @font2;
+        }
+    }
+    div.castingFirst, div.castingMiddle, div.castingLast
+    {
+        position: relative;
+        float: left;
+
+        width: 32%;
+
+        padding-right: 23px;
+
+        font-size: 0.8em;
+
+        div.left
+        {
+            text-align: left;
+            position: relative;
+            float: left;
+        }
+        div.right
+        {
+            text-align: right;
+            position: relative;
+            float: right;
+        }
+    }
+    div.castingFirst, div.castingMiddle
+    {
+        div.left
+        {
+            width: 55%;
+        }
+        div.right
+        {
+            width: 45%;
+        }
+    }
+    div.castingLast
+    {
+        width: 30%;
+        padding-right: 0px;
+
+        div.left
+        {
+            width: 43%;
+        }
+        div.right
+        {
+            width: 57%;
         }
     }
 }
@@ -647,11 +701,27 @@ div.postLink
             left: 0;
         }
 
+        span
+        {
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            background-color: #000;
+            opacity: 0;
+        }
+
         div.title
         {
             position: absolute;
             left: 10px;
             bottom: 7px;
+            z-index: 5;
 
             padding-right: 10px;
         }
@@ -660,13 +730,14 @@ div.postLink
             position: absolute;
             left: 10px;
             top: 5px;
+            z-index: 5;
         }
     }
     div.gallery:hover
     {
-        div.title, div.postDate
+        span
         {
-            text-decoration: underline;
+            opacity: 0.4;
         }
     }
     div.year

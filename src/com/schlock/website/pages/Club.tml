@@ -21,6 +21,8 @@
 
                 <t:eventlink event="selectPost" context="currentPost.uuid" />
 
+                <span><!-- overlay effect --></span>
+
                 <div class="title">
                     <t:outputraw value="postTitleHTML" />
                 </div>
