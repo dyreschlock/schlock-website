@@ -47,6 +47,7 @@
 
                             <br class="clr" />
                         </div>
+                        <t:eventlink class="overlay" event="selectImage" context="[null]" zone="imageOverlayZone" />
                     </div>
                     <div id="overlayBackground" class="overlay"></div>
                 </t:if>

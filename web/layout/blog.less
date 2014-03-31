@@ -309,16 +309,30 @@ h1, h2, h3
 }
 #overlayBackground
 {
-    z-index: 1000;
+    z-index: 100;
     opacity: 0.8;
     background-color: #000;
 }
 #overlayImage
 {
-    z-index: 1001;
+    z-index: 120;
+
+    a.overlay
+    {
+        width: 100%;
+        height: 100%;
+        z-index: 110;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 }
 #overlayedImage
 {
+    position: relative;
+    z-index: 120;
+
     max-width: 1000px;
     color: #fff;
 
