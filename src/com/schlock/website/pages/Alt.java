@@ -33,9 +33,15 @@ public class Alt
         return posts;
     }
 
-    public List<Post> getOtherPosts()
+    public List<Post> getThreeFourNenPosts()
     {
-        List<Post> posts = getPostsByPrefix(Post.FOUR_UUID_PREFIX, Post.TWO_UUID_PREFIX);
+        List<Post> posts = getPostsByPrefix(Post.THREE_FOUR_UUID_PREFIX);
+        return posts;
+    }
+
+    public List<Post> getOneTwoNenPosts()
+    {
+        List<Post> posts = getPostsByPrefix(Post.ONE_TWO_UUID_PREFIX);
         return posts;
     }
 

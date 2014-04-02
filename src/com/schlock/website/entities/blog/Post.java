@@ -13,8 +13,8 @@ public class Post extends Persisted
 
     public static final String SIX_UUID_PREFIX = "6nen";
     public static final String FIVE_UUID_PREFIX = "5nen";
-    public static final String FOUR_UUID_PREFIX = "34nen";
-    public static final String TWO_UUID_PREFIX = "12nen";
+    public static final String THREE_FOUR_UUID_PREFIX = "34nen";
+    public static final String ONE_TWO_UUID_PREFIX = "12nen";
     public static final String SPECIAL_UUID_PREFIX = "special";
 
 
