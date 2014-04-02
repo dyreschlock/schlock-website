@@ -11,7 +11,10 @@ import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import com.schlock.website.services.database.blog.impl.PostDAOImpl;
-import org.apache.tapestry5.annotations.*;
+import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -134,26 +137,26 @@ public class LayoutBlog
 
     public Icon getRss()
     {
-        return Icon.RSS;
+        return Icon.RSS_LIGHT;
     }
 
     public Icon getTwitter()
     {
-        return Icon.TWITTER;
+        return Icon.TWITTER_LIGHT;
     }
 
     public Icon getFacebook()
     {
-        return Icon.FACEBOOK;
+        return Icon.FACEBOOK_LIGHT;
     }
 
     public Icon getYoutube()
     {
-        return Icon.YOUTUBE;
+        return Icon.YOUTUBE_LIGHT;
     }
 
     public Icon getEbay()
     {
-        return Icon.EBAY;
+        return Icon.EBAY_LIGHT;
     }
 }

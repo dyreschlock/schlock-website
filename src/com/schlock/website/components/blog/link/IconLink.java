@@ -1,18 +1,15 @@
 package com.schlock.website.components.blog.link;
 
 import com.schlock.website.entities.Icon;
+import com.schlock.website.services.blog.ImageManagement;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.AssetSource;
 
 public class IconLink
 {
     @Parameter(required = true)
     private Icon icon;
-
-    @Parameter(required = true)
-    private Boolean dark;
 
     @Parameter
     @Property
@@ -24,15 +21,12 @@ public class IconLink
 
 
     @Inject
-    private AssetSource assetSource;
+    private ImageManagement imageManagement;
 
 
     public String getIconUrl()
     {
-        if(dark)
-        {
-            return icon.getDarkIconPath(assetSource);
-        }
-        return icon.getLightIconPath(assetSource);
+        String dataUrl = imageManagement.createBase64ImgLink(icon);
+        return dataUrl;
     }
 }

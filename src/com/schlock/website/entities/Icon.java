@@ -1,46 +1,28 @@
 package com.schlock.website.entities;
 
-import org.apache.tapestry5.services.AssetSource;
-
 public enum Icon
 {
-    RSS,
-    TWITTER,
-    FACEBOOK,
-    YOUTUBE,
-    STACK, //stack overflow
-    GITHUB,
-    PSN,
-    XBOX,
-    STEAM,
-    EBAY;
+    RSS_DARK,
+    TWITTER_DARK,
+    FACEBOOK_DARK,
+    YOUTUBE_DARK,
+    STACK_DARK,
+    GITHUB_DARK,
+    PSN_DARK,
+    XBOX_DARK,
+    STEAM_DARK,
+    EBAY_DARK,
+
+    RSS_LIGHT,
+    TWITTER_LIGHT,
+    FACEBOOK_LIGHT,
+    YOUTUBE_LIGHT,
+    EBAY_LIGHT;
 
 
-
-    public String getLightIconPath(AssetSource assetSource)
-    {
-        String path = "context:" + iconPath(false, true);
-        return assetSource.getAsset(null, path, null).toClientURL();
-    }
-
-    public String getDarkIconPath(AssetSource assetSource)
-    {
-        String path = "context:" + iconPath(true, false);
-        return assetSource.getAsset(null, path, null).toClientURL();
-    }
-
-    private String iconPath(boolean dark, boolean light)
+    public String getIconPath()
     {
         String path = "icons/" + this.name().toLowerCase();
-
-        if (dark)
-        {
-            path += "_dark";
-        }
-        if (light)
-        {
-            path += "_light";
-        }
         path += ".png";
 
         return path;

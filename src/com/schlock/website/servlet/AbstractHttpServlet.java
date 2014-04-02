@@ -2,6 +2,7 @@ package com.schlock.website.servlet;
 
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.database.blog.PostDAO;
+import org.apache.commons.io.FileUtils;
 import org.apache.tapestry5.TapestryFilter;
 import org.apache.tapestry5.ioc.Registry;
 import org.apache.tapestry5.services.PageRenderLinkSource;
@@ -10,7 +11,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -58,15 +58,11 @@ public abstract class AbstractHttpServlet extends HttpServlet
     {
         if (file.exists() && !file.isDirectory())
         {
-            FileInputStream io = new FileInputStream(file);
-            int bytes = io.available();
-            byte[] body = new byte[bytes];
-            io.read(body);
-            io.close();
+            byte[] body = FileUtils.readFileToByteArray(file);
 
             OutputStream out = resp.getOutputStream();
             resp.setContentType(contentType);
-            resp.setContentLength(bytes);
+            resp.setContentLength(body.length);
             out.write(body);
             out.flush();
             out.close();

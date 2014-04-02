@@ -28,6 +28,7 @@ dependencies {
 
     compile group: 'commons-io', name: 'commons-io', version: '1.4'
     compile group: 'commons-lang', name: 'commons-lang', version: '2.5'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
 
     ext.tapestryVersion = '5.3.3'
     compile group: 'org.apache.tapestry', name: 'tapestry5-annotations', version: tapestryVersion

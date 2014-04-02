@@ -75,11 +75,11 @@
                     </div>
 
                     <div id="iconLinks">
-                        <l:iconlink icon="rss" dark="false" redirectUrl="rssUrl" altTitleText="${message:rssTitle}" />
-                        <l:iconlink icon="twitter" dark="false" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
-                        <l:iconlink icon="facebook" dark="false" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
-                        <l:iconlink icon="youtube" dark="false" redirectUrl="${message:youtubeUrl}" altTitleText="${message:youtubeTitle}" />
-                        <l:iconlink icon="ebay" dark="false" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
+                        <l:iconlink icon="rss" redirectUrl="rssUrl" altTitleText="${message:rssTitle}" />
+                        <l:iconlink icon="twitter" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
+                        <l:iconlink icon="facebook" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
+                        <l:iconlink icon="youtube" redirectUrl="${message:youtubeUrl}" altTitleText="${message:youtubeTitle}" />
+                        <l:iconlink icon="ebay" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
                     </div>
 
                 </div>

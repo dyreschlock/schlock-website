@@ -17,23 +17,23 @@
 
         <div id="internetLinks">
             <div class="title">${message:internetTitle}</div>
-            <l:iconlink icon="rss" dark="true" redirectUrl="rssRedirect" altTitleText="${message:rssTitle}" />
-            <l:iconlink icon="twitter" dark="true" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
-            <l:iconlink icon="facebook" dark="true" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
-            <l:iconlink icon="youtube" dark="true" redirectUrl="${message:youtubeUrl}" altTitleText="${message:youtubeTitle}" />
+            <l:iconlink icon="rss" redirectUrl="rssRedirect" altTitleText="${message:rssTitle}" />
+            <l:iconlink icon="twitter" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
+            <l:iconlink icon="facebook" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
+            <l:iconlink icon="youtube" redirectUrl="${message:youtubeUrl}" altTitleText="${message:youtubeTitle}" />
             <div class="title pt10">${message:codeTitle}</div>
-            <l:iconlink icon="stack" dark="true" redirectUrl="${message:stackUrl}" altTitleText="${message:stackTitle}" />
-            <l:iconlink icon="github" dark="true" redirectUrl="${message:githubUrl}" altTitleText="${message:githubTitle}" />
+            <l:iconlink icon="stack" redirectUrl="${message:stackUrl}" altTitleText="${message:stackTitle}" />
+            <l:iconlink icon="github" redirectUrl="${message:githubUrl}" altTitleText="${message:githubTitle}" />
         </div>
         <div id="gameLinks">
             <div class="title">${message:gamesTitle}</div>
-            <l:iconlink icon="psn" dark="true" redirectUrl="${message:psnUrl}" altTitleText="${message:psnTitle}" />
-            <l:iconlink icon="xbox" dark="true" redirectUrl="${message:xboxUrl}" altTitleText="${message:xboxTitle}" />
-            <l:iconlink icon="steam" dark="true" redirectUrl="${message:steamUrl}" altTitleText="${message:steamTitle}" />
+            <l:iconlink icon="psn" redirectUrl="${message:psnUrl}" altTitleText="${message:psnTitle}" />
+            <l:iconlink icon="xbox" redirectUrl="${message:xboxUrl}" altTitleText="${message:xboxTitle}" />
+            <l:iconlink icon="steam" redirectUrl="${message:steamUrl}" altTitleText="${message:steamTitle}" />
         </div>
         <div id="buyLinks">
             <div class="title">${message:buyTitle}</div>
-            <l:iconlink icon="ebay" dark="true" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
+            <l:iconlink icon="ebay" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
         </div>
 
         <br class="clr" />
