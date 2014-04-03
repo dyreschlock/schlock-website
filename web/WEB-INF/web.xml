@@ -17,9 +17,20 @@
         <filter-class>org.apache.tapestry5.TapestryFilter</filter-class>
     </filter>
 
+    <filter>
+        <filter-name>gzip</filter-name>
+        <filter-class>org.eclipse.jetty.servlets.GzipFilter</filter-class>
+    </filter>
+
+
     <filter-mapping>
         <filter-name>app</filter-name>
         <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>gzip</filter-name>
+        <servlet-name>css</servlet-name>
     </filter-mapping>
 
 
