@@ -13,9 +13,12 @@ import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
+import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.SubModule;
 import org.apache.tapestry5.ioc.annotations.Symbol;
+import org.apache.tapestry5.ioc.services.ApplicationDefaults;
+import org.apache.tapestry5.ioc.services.SymbolProvider;
 import org.apache.tapestry5.services.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,12 +37,14 @@ public class AppModule
         binder.bind(DeploymentContext.class, DeploymentContextImpl.class);
     }
 
-
+    @Contribute(SymbolProvider.class)
+    @ApplicationDefaults
     public static void contributeApplicationDefaults(MappedConfiguration<String, Object> configuration)
     {
         configuration.add(SymbolConstants.PRODUCTION_MODE, true);
-        configuration.add(HibernateSymbols.DEFAULT_CONFIGURATION, "false");
-        configuration.add(SymbolConstants.MINIFICATION_ENABLED, "true");
+        configuration.add(SymbolConstants.MINIFICATION_ENABLED, true);
+
+        configuration.add(HibernateSymbols.DEFAULT_CONFIGURATION, false);
     }
 
     public static void contributeIgnoredPathsFilter(Configuration<String> configuration)

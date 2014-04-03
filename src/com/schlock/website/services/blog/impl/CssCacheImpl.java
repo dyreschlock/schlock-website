@@ -54,6 +54,7 @@ public class CssCacheImpl implements CssCache
         }
 
         css = convertLessToCss(css);
+        css = StringUtils.remove(css, "\\n");
 
         return css;
     }
@@ -70,8 +71,7 @@ public class CssCacheImpl implements CssCache
             String line = io.readLine();
             while (line != null)
             {
-                css += line;
-                css += "\r\n";
+                css += StringUtils.trim(line);
 
                 line = io.readLine();
             }

@@ -30,7 +30,7 @@ dependencies {
     compile group: 'commons-lang', name: 'commons-lang', version: '2.5'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
 
-    ext.tapestryVersion = '5.3.3'
+    ext.tapestryVersion = '5.3.7'
     compile group: 'org.apache.tapestry', name: 'tapestry5-annotations', version: tapestryVersion
     compile group: 'org.apache.tapestry', name: 'tapestry-core', version: tapestryVersion
     compile group: 'org.apache.tapestry', name: 'tapestry-func', version: tapestryVersion
@@ -39,8 +39,16 @@ dependencies {
     compile group: 'org.apache.tapestry', name: 'tapestry-ioc', version: tapestryVersion
     compile group: 'org.apache.tapestry', name: 'tapestry-json', version: tapestryVersion
     compile group: 'org.apache.tapestry', name: 'tapestry-upload', version: tapestryVersion
-    compile group: 'org.apache.tapestry', name: 'tapestry-yuicompressor', version: tapestryVersion
     compile group: 'org.apache.tapestry', name: 'tapestry-test', version: tapestryVersion, transitive: false
+
+    compile group: 'com.yahoo.platform.yui', name: 'yuicompressor', version: '2.4.7'
+
+    compile group: 'org.apache.tapestry', name: 'tapestry-yuicompressor', version: tapestryVersion
+
+    compile('org.apache.tapestry:tapestry-yuicompressor:' + tapestryVersion) {
+        exclude group: 'com.yahoo.platform.yui', module: 'yuicompressor'
+    }
+
 }
 
 tasks.idea {
