@@ -63,6 +63,10 @@ public abstract class AbstractHttpServlet extends HttpServlet
             OutputStream out = resp.getOutputStream();
             resp.setContentType(contentType);
             resp.setContentLength(body.length);
+
+            // 2592000 seconds = 30 days
+            resp.addHeader("Cache-Control", "max-age=2592000");
+
             out.write(body);
             out.flush();
             out.close();

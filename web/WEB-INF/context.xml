@@ -1,0 +1,4 @@
+<context>
+    <valve className="org.apache.catalina.authenticator.BasicAuthenticator"
+           disableProxyCaching="false" />
+</context>
