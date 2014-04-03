@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Calendar;
 
 public class CssServlet extends AbstractHttpServlet
 {
@@ -23,7 +24,16 @@ public class CssServlet extends AbstractHttpServlet
         if (!deploymentContext().isLocal())
         {
             // 604800 seconds = 1 week
-            resp.addHeader("Cache-Control", "max-age=604800");
+            long week = 604800l;
+
+            resp.addHeader("Cache-Control", "max-age=" + Long.toString(week));
+            resp.addHeader("Vary", "Accept-Encoding");
+
+            Calendar cal = Calendar.getInstance();
+            long now = cal.getTimeInMillis();
+
+            long weekAgo = now - week;
+            resp.addDateHeader("Last-Modified", weekAgo);
         }
 
         out.write(bytes);

@@ -66,6 +66,10 @@ public abstract class AbstractHttpServlet extends HttpServlet
 
             // 2592000 seconds = 30 days
             resp.addHeader("Cache-Control", "max-age=2592000");
+            resp.addHeader("Vary", "Accept-Encoding");
+
+            long lastModified = file.lastModified();
+            resp.setDateHeader("Last-Modified", lastModified);
 
             out.write(body);
             out.flush();
