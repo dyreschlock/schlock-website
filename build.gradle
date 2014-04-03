@@ -39,6 +39,7 @@ dependencies {
     compile group: 'org.apache.tapestry', name: 'tapestry-ioc', version: tapestryVersion
     compile group: 'org.apache.tapestry', name: 'tapestry-json', version: tapestryVersion
     compile group: 'org.apache.tapestry', name: 'tapestry-upload', version: tapestryVersion
+    compile group: 'org.apache.tapestry', name: 'tapestry-yuicompressor', version: tapestryVersion
     compile group: 'org.apache.tapestry', name: 'tapestry-test', version: tapestryVersion, transitive: false
 }
 

@@ -39,6 +39,7 @@ public class AppModule
     {
         configuration.add(SymbolConstants.PRODUCTION_MODE, true);
         configuration.add(HibernateSymbols.DEFAULT_CONFIGURATION, "false");
+        configuration.add(SymbolConstants.MINIFICATION_ENABLED, "true");
     }
 
     public static void contributeIgnoredPathsFilter(Configuration<String> configuration)

@@ -84,7 +84,7 @@ public class CssCacheImpl implements CssCache
         LessEngine engine = new LessEngine();
         try
         {
-            String css = engine.compile(less);
+            String css = engine.compile(less, true);
             return css;
         }
         catch (LessException e)
