@@ -19,6 +19,13 @@ public class CssServlet extends AbstractHttpServlet
         OutputStream out = resp.getOutputStream();
         resp.setContentType("text/css");
         resp.setContentLength(bytes.length);
+
+        if (!deploymentContext().isLocal())
+        {
+            // 604800 seconds = 1 week
+            resp.addHeader("Cache-Control", "max-age=604800");
+        }
+
         out.write(bytes);
         out.flush();
         out.close();
