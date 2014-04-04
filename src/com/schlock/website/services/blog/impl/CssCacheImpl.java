@@ -15,35 +15,48 @@ import java.util.List;
 
 public class CssCacheImpl implements CssCache
 {
-    private final static List<String> CSS_FILES =
-            Arrays.asList("layout/blog.less", "layout/layout.css");
+    private final static List<String> PRIMARY_CSS_FILES =
+            Arrays.asList("layout/primary.less");
+
+    private final static List<String> SECONDARY_CSS_FILES =
+            Arrays.asList("layout/secondary.less", "layout/layout.css");
 
     private final Context context;
 
-    private String cachedCss;
+    private String cachedPrimary;
+    private String cachedSecondary;
 
     public CssCacheImpl(Context context)
     {
         this.context = context;
     }
 
-    public String getCss()
+    public String getPrimaryCss()
     {
-        if (StringUtils.isBlank(cachedCss))
+        if (StringUtils.isBlank(cachedPrimary))
         {
-            cachedCss = createCss();
+            cachedPrimary = createCss(PRIMARY_CSS_FILES);
         }
-        return cachedCss;
+        return cachedPrimary;
+    }
+
+    public String getSecondaryCss()
+    {
+        if (StringUtils.isBlank(cachedSecondary))
+        {
+            cachedSecondary = createCss(SECONDARY_CSS_FILES);
+        }
+        return cachedSecondary;
     }
 
 
-    private String createCss()
+    private String createCss(final List<String> cssFiles)
     {
         String css = "";
 
         try
         {
-            for (String file : CSS_FILES)
+            for (String file : cssFiles)
             {
                 css += getFileAsString(file);
             }

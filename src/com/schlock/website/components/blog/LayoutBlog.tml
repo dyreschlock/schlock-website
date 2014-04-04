@@ -11,7 +11,7 @@
         <title>${title}</title>
         <link rel="shortcut icon" href="/icons/favicon.ico" type="image/x-icon"/>
         <link rel="icon" href="/icons/favicon.ico" type="image/x-icon"/>
-        <link rel="stylesheet" href="/layout/blog.css" type="text/css"/>
+        <style>${primaryCss}</style>
     </head>
     <body>
         <div id="headerFullBody"><div id="headerInnerBody"><div id="headerBody">
@@ -90,5 +90,6 @@
 
             </div>
         </div></div></div>
+        <link rel="stylesheet" href="/layout/blog.css" type="text/css"/>
     </body>
 </html>

@@ -8,6 +8,7 @@ import com.schlock.website.pages.Archive;
 import com.schlock.website.pages.Feed;
 import com.schlock.website.pages.Index;
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import com.schlock.website.services.database.blog.impl.PostDAOImpl;
@@ -36,6 +37,9 @@ public class LayoutBlog
 
     @Inject
     private PostManagement postManagement;
+
+    @Inject
+    private CssCache cssCache;
 
     @Inject
     private Messages messages;
@@ -70,6 +74,11 @@ public class LayoutBlog
         String title = messages.get("website-title");
 
         return title + " // " + pageName;
+    }
+
+    public String getPrimaryCss()
+    {
+        return cssCache.getPrimaryCss();
     }
 
     Object onHome()
