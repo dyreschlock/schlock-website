@@ -3,6 +3,7 @@
 
 @linkcolor: #800;
 
+@app_width: 1024px;
 
 body
 {
@@ -12,10 +13,6 @@ body
     font-family: @font1;
     font-size: 100%;
 }
-#body
-{
-}
-
 a:link, a:visited, a:hover
 {
     text-decoration: none;
@@ -25,31 +22,61 @@ h1, h2, h3
     margin: 0px;
 }
 
-#topBar
+#headerFullBody, #blogFullBody, #footerFullyBody
+{
+    width: 100%;
+}
+#headerInnerBody, #blogInnerBody, #footerInnerBody
+{
+    width: @app_width;
+    margin-left: auto;
+    margin-right: auto;
+}
+#headerFullBody
 {
     background-color: #323232;
-    width: 100%;
-    z-index: 100;
+
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
+    z-index: 100;
 }
-#blogHeader, #blogFooter
+#blogFullBody
+{
+    background-color: #fefefe;
+    padding-top: 50px;
+}
+
+#headerBody, #footerBody
 {
     background-color: #333;
     color: #fff;
-    margin-left: auto;
-    margin-right: auto;
 
     border-left: 1px solid #444;
     border-right: 1px solid #444;
 }
-#blogHeader
+#headerBody
 {
-    width: 964px; /* 1024px total */
-
     padding: 10px 30px;
+}
+#footerBody
+{
+    padding: 20px 70px;
+}
+#blogBody
+{
+    padding-left: 70px;
+    padding-right: 70px;
+
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+}
+
+
+#headerContent
+{
+    width: 100%;
 
     div.title
     {
@@ -80,47 +107,16 @@ h1, h2, h3
         }
     }
 }
-#blogFooter
-{
-    width: 884px; /* 1024px total */
-
-    padding: 20px 70px;
-
-    div.postLink
-    {
-        width: 90%;
-    }
-}
 
 
-#blogWindow
-{
-    width: 100%;
-    height: 100%;
-    overflow: scroll;
-}
-#blogBody
-{
-    width: 100%;
-    background-color: #fefefe;
-    padding-top: 50px;
-}
 #blogContent
 {
-    width: 884px; /* 1024px total */
+    width: 100%;
     background-color: #fff;
     color: #333;
-    margin-left: auto;
-    margin-right: auto;
 
     overflow-y: hidden;
     overflow-x: hidden;
-
-    border-left: 1px solid #eee;
-    border-right: 1px solid #eee;
-
-    padding-left: 70px;
-    padding-right: 70px;
 
     hr
     {
@@ -461,6 +457,11 @@ div.postLink
 #footerContent
 {
     width: 100%;
+
+    div.postLink
+    {
+        width: 90%;
+    }
 }
 #recentPosts, #recentPinnedPosts, #pagesLinks
 {
@@ -806,27 +807,33 @@ div.postLink
     body
     {
         font-size: 95%;
-        background-color: #333;
+    }
+    #headerInnerBody, #blogInnerBody, #footerInnerBody
+    {
         width: 100%;
     }
-    #blogHeader, #blogFooter, #blogContent
+    #headerBody, #blogBody, #footerBody
     {
         border-left: 0;
         border-right: 0;
     }
 
-    #topBar
+    #headerBody
     {
-        background-color: #333;
-
-        width: auto;
         padding: 10px;
     }
-    #blogHeader
+    #footerBody
     {
-        width: 100%;
-        padding: 0;
+        padding: 10px;
+    }
+    #blogBody
+    {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
 
+    #headerContent
+    {
         div.title
         {
             width: 100%;
@@ -838,30 +845,6 @@ div.postLink
         }
     }
 
-    #blogFooter
-    {
-        width: auto;
-        padding: 10px;
-    }
-    #footerContent
-    {
-        width: 100%;
-        padding: 0;
-    }
-
-    #blogBody
-    {
-        background-color: #fff;
-
-        width: auto;
-        padding-right: 15px;
-        padding-left: 15px;
-    }
-    #blogContent
-    {
-        width: 100%;
-        padding: 0;
-    }
     #postContent
     {
         padding-top: 20px;
@@ -875,39 +858,28 @@ div.postLink
 }
 
 /* ipad viewport size */
-@media all and (mix-width: 701px) and (max-width: 1024px)
+@media all and (min-width: 701px) and (max-width: 1024px)
 {
-    body, #topBar
+    #headerInnerBody, #blogInnerBody, #footerInnerBody
     {
-        background-color: #333;
+        width: 100%;
     }
-    #blogBody
-    {
-        background-color: #fff;
-    }
-    #blogHeader, #blogFooter, #blogContent
+    #headerBody, #blogBody, #footerBody
     {
         border-left: 0;
         border-right: 0;
     }
-    #blogHeader
+
+    #headerBody
     {
-        width: 100%;
-        padding: 0;
-        margin: 10px 20px;
+        padding: 10px 20px;
     }
-    #blogFooter
+    #footerBody
     {
-        width: 100%;
-        padding: 0;
-        margin: 10px 30px;
+        padding: 10px 30px;
     }
-    #blogContent
+    #blogBody
     {
-        width: 100%;
-        padding: 0;
-        margin: 0 40px;
+        padding: 0 40px;
     }
 }
-
-

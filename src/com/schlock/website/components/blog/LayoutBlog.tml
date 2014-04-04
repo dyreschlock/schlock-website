@@ -14,9 +14,9 @@
         <link rel="stylesheet" href="/layout/blog.css" type="text/css"/>
     </head>
     <body>
+        <div id="headerFullBody"><div id="headerInnerBody"><div id="headerBody">
+            <div id="headerContent">
 
-        <div id="topBar">
-            <div id="blogHeader">
                 <div class="title">
                     <h1>${message:website-title}</h1>
                 </div>
@@ -34,17 +34,19 @@
                     </t:if>
                 </div>
                 <br class="clr" />
-            </div>
-        </div>
 
-        <div id="blogBody">
+            </div>
+        </div></div></div>
+        <div id="blogFullBody"><div id="blogInnerBody"><div id="blogBody">
             <div id="blogContent">
-                <t:body />
-            </div>
-        </div>
 
-        <div id="blogFooter">
+                <t:body />
+
+            </div>
+        </div></div></div>
+        <div id="footerFullBody"><div id="footerInnerBody"><div id="footerBody">
             <div id="footerContent">
+
                 <div id="recentPosts">
                     <div class="title pb10">${message:recent-posts}</div>
 
@@ -85,7 +87,8 @@
 
                 </div>
                 <br class="clr" />
+
             </div>
-        </div>
+        </div></div></div>
     </body>
 </html>
