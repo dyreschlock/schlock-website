@@ -40,6 +40,11 @@ public class AboutMe
         return Icon.FACEBOOK_DARK;
     }
 
+    public Icon getGoogle()
+    {
+        return Icon.GOOGLE_DARK;
+    }
+
     public Icon getYoutube()
     {
         return Icon.YOUTUBE_DARK;

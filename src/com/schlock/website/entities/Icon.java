@@ -5,6 +5,7 @@ public enum Icon
     RSS_DARK,
     TWITTER_DARK,
     FACEBOOK_DARK,
+    GOOGLE_DARK,
     YOUTUBE_DARK,
     STACK_DARK,
     GITHUB_DARK,
@@ -16,6 +17,7 @@ public enum Icon
     RSS_LIGHT,
     TWITTER_LIGHT,
     FACEBOOK_LIGHT,
+    GOOGLE_LIGHT,
     YOUTUBE_LIGHT,
     EBAY_LIGHT;
 

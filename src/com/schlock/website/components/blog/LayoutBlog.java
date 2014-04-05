@@ -157,6 +157,11 @@ public class LayoutBlog
         return Icon.FACEBOOK_LIGHT;
     }
 
+    public Icon getGoogle()
+    {
+        return Icon.GOOGLE_LIGHT;
+    }
+
     public Icon getYoutube()
     {
         return Icon.YOUTUBE_LIGHT;

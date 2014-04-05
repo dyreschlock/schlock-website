@@ -81,6 +81,7 @@
                         <l:iconlink icon="rss" redirectUrl="rssUrl" altTitleText="${message:rssTitle}" />
                         <l:iconlink icon="twitter" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
                         <l:iconlink icon="facebook" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
+                        <l:iconlink icon="google" redirectUrl="${message:googleUrl}" altTitleText="${message:googleTitle}" />
                         <l:iconlink icon="youtube" redirectUrl="${message:youtubeUrl}" altTitleText="${message:youtubeTitle}" />
                         <l:iconlink icon="ebay" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
                     </div>

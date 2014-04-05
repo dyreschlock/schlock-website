@@ -20,6 +20,7 @@
             <l:iconlink icon="rss" redirectUrl="rssRedirect" altTitleText="${message:rssTitle}" />
             <l:iconlink icon="twitter" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
             <l:iconlink icon="facebook" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
+            <l:iconlink icon="google" redirectUrl="${message:googleUrl}" altTitleText="${message:googleTitle}" />
             <l:iconlink icon="youtube" redirectUrl="${message:youtubeUrl}" altTitleText="${message:youtubeTitle}" />
         </div>
         <div id="gameLinks">
