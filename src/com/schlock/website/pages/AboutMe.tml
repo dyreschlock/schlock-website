@@ -21,9 +21,6 @@
             <l:iconlink icon="twitter" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
             <l:iconlink icon="facebook" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
             <l:iconlink icon="youtube" redirectUrl="${message:youtubeUrl}" altTitleText="${message:youtubeTitle}" />
-            <div class="title pt10">${message:codeTitle}</div>
-            <l:iconlink icon="stack" redirectUrl="${message:stackUrl}" altTitleText="${message:stackTitle}" />
-            <l:iconlink icon="github" redirectUrl="${message:githubUrl}" altTitleText="${message:githubTitle}" />
         </div>
         <div id="gameLinks">
             <div class="title">${message:gamesTitle}</div>
@@ -34,6 +31,11 @@
         <div id="buyLinks">
             <div class="title">${message:buyTitle}</div>
             <l:iconlink icon="ebay" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
+        </div>
+        <div id="codeLinks">
+            <div class="title">${message:codeTitle}</div>
+            <l:iconlink icon="stack" redirectUrl="${message:stackUrl}" altTitleText="${message:stackTitle}" />
+            <l:iconlink icon="github" redirectUrl="${message:githubUrl}" altTitleText="${message:githubTitle}" />
         </div>
 
         <br class="clr" />

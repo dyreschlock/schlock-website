@@ -272,15 +272,16 @@ div.postLink
 {
     width: 100%;
     padding-top: 30px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 
-    #internetLinks, #gameLinks, #buyLinks
+    #internetLinks, #gameLinks, #buyLinks, #codeLinks
     {
         float: left;
         position: relative;
         width: 32%;
 
         padding-right: 23px;
+        padding-bottom: 10px;
     }
     #buyLinks
     {
@@ -576,5 +577,31 @@ div.postLink
     #recentPinnedPosts, #pagesLinks
     {
         padding-top: 40px;
+    }
+
+    #images
+    {
+        div.image
+        {
+            width: 43%;
+            max-height: 100px;
+            min-height: 100px;
+            height: 100px;
+        }
+    }
+    #overlayedImage
+    {
+        margin-top: 20px;
+        max-width: 95%;
+        width: 95%;
+    }
+
+    #aboutMe
+    {
+        #internetLinks, #gameLinks, #buyLinks, #codeLinks
+        {
+            width: 90%;
+            padding-right: 0;
+        }
     }
 }
