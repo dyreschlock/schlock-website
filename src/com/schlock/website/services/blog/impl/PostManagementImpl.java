@@ -333,6 +333,15 @@ public class PostManagementImpl implements PostManagement
             path = "/" + path.substring(i);
             images.add(path);
         }
+
+        Collections.sort(images, new Comparator<String>()
+        {
+            public int compare(String s1, String s2)
+            {
+                return s1.compareToIgnoreCase(s2);
+            }
+        });
+
         return images;
     }
 
