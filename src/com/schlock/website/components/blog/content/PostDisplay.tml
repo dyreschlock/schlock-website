@@ -4,12 +4,20 @@
     xmlns:c="tapestry-library:blog/content"
     >
 
-    <div id="postContent">
+    <div id="postContent" itemscope="" itemtype="http://schema.org/BlogPosting">
 
-        <h1><!-- ${post.id} // --> ${post.title}</h1>
+        <h1 itemprop="name headline">${post.title}</h1>
         <t:if test="!post.page">
             <div class="postDate">
-                ${post.createdDateFormat}
+                <time datetime="${post.createdTagFormat}" itemprop="datePublished">
+                    ${post.createdDateFormat}
+                </time>
+                <span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+                    <span itemprop="name">
+                        <a href="${message:googleUrl}" itemprop="url" rel="author">${message:author}</a>
+                    </span>
+                </span>
+
                 <t:loop source="topCategories" value="currentCategory">
                     //
                     <t:eventlink event="selectCategory" context="currentCategory.id">${currentCategory.name}</t:eventlink>
@@ -19,7 +27,7 @@
                 </t:loop>
             </div>
         </t:if>
-        <div class="postBody">
+        <div class="postBody" itemprop="articleBody">
             <t:outputraw value="post.bodyHTML" />
         </div>
 

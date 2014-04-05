@@ -19,6 +19,7 @@ public class Post extends Persisted
 
 
     private static final String DATE_FORMAT = "EEEEE  MMMMM d, yyyy";
+    private static final String HTML_TAG_FORMAT = "yyyy-MM-dd'T'hh:mm";
     private static final String DAY_FORMAT = "MMMMM d";
 
 
@@ -93,6 +94,12 @@ public class Post extends Persisted
     public String getCreatedDateFormat()
     {
         SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
+        return format.format(created);
+    }
+
+    public String getCreatedTagFormat()
+    {
+        SimpleDateFormat format = new SimpleDateFormat(HTML_TAG_FORMAT);
         return format.format(created);
     }
 
