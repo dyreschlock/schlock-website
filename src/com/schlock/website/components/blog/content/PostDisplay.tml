@@ -44,31 +44,25 @@
             <hr />
         </t:if>
 
-        <div id="previousLinks">
-            <t:if test="hasPreviousPosts">
+        <t:if test="hasPreviousPosts">
+            <div id="previousLinks">
                 <div class="title pb10">${previousTitle}</div>
 
                 <t:loop source="previousPosts" value="currentPost" index="currentIndex">
-                    <l:postlink post="currentPost" />
+                    <l:postlink post="currentPost" cssClass="postClass" />
                 </t:loop>
-            </t:if>
-            <t:if test="!hasPreviousPosts">
-                <br />
-            </t:if>
-        </div>
+            </div>
+        </t:if>
 
-        <div id="nextLinks">
-            <t:if test="hasNextPosts">
+        <t:if test="hasNextPosts">
+            <div id="nextLinks">
                 <div class="title pb10">${nextTitle}</div>
 
                 <t:loop source="nextPosts" value="currentPost" index="currentIndex">
-                    <l:postlink post="currentPost" />
+                    <l:postlink post="currentPost" cssClass="postClass" />
                 </t:loop>
-            </t:if>
-            <t:if test="!hasNextPosts">
-                <br />
-            </t:if>
-        </div>
+            </div>
+        </t:if>
 
         <br class="clr" />
     </t:if>

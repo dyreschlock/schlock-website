@@ -2,7 +2,7 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
-    <div class="postLink">
+    <div class="postLink ${cssClass}">
         <t:eventlink t:id="selectPost" context="post.uuid" />
         <h2>${post.title}</h2>
         <t:if test="!post.page">

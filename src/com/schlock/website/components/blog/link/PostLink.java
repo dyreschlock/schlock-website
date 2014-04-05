@@ -9,12 +9,16 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 
 public class PostLink
 {
-    @Inject
-    private PageRenderLinkSource linkSource;
-
     @Parameter(required = true)
     @Property
     private Post post;
+
+    @Parameter
+    @Property
+    private String cssClass;
+
+    @Inject
+    private PageRenderLinkSource linkSource;
 
 
     Object onSelectPost(String postUuid)

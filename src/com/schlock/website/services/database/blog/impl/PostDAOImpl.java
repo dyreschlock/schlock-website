@@ -11,6 +11,7 @@ import java.util.*;
 public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
 {
     public static final int TOP_RECENT = 5;
+    public static final int MIN_RECENT = 2;
 
     public PostDAOImpl(Session session)
     {

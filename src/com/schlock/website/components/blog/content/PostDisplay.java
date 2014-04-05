@@ -6,6 +6,7 @@ import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.Index;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
+import com.schlock.website.services.database.blog.impl.PostDAOImpl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -85,6 +86,17 @@ public class PostDisplay
     public boolean isHasFlashCards()
     {
         return StringUtils.isNotBlank(post.getFlashCardsLink());
+    }
+
+
+
+    public String getPostClass()
+    {
+        if (currentIndex >= PostDAOImpl.MIN_RECENT)
+        {
+            return "minSizeHidden";
+        }
+        return "";
     }
 
 

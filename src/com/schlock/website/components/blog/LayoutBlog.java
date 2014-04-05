@@ -112,6 +112,15 @@ public class LayoutBlog
         return linkSource.createPageRenderLink(com.schlock.website.pages.codejam.may2012.Index.class);
     }
 
+    public String getPostClass()
+    {
+        if (currentIndex >= PostDAOImpl.MIN_RECENT)
+        {
+            return "minSizeHidden";
+        }
+        return "";
+    }
+
     public List<Post> getRecentPosts()
     {
         int postCount = PostDAOImpl.TOP_RECENT +1;

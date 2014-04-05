@@ -544,3 +544,37 @@ div.postLink
         margin-right: 0;
     }
 }
+
+/* iphone viewport size */
+@media all and (max-width: 700px)
+{
+    div.minSizeHidden
+    {
+        display: none;
+        visibility: hidden;
+    }
+    div.postLink
+    {
+        width: 90%;
+    }
+
+    #previousLinks, #nextLinks
+    {
+        width: 100%;
+    }
+    #nextLinks
+    {
+        text-align: left;
+        padding-top: 0;
+    }
+
+    #recentPosts, #recentPinnedPosts, #pagesLinks
+    {
+        width: 100%;
+        padding-right: 0;
+    }
+    #recentPinnedPosts, #pagesLinks
+    {
+        padding-top: 40px;
+    }
+}

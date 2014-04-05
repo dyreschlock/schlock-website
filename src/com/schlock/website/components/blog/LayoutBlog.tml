@@ -51,14 +51,14 @@
                     <div class="title pb10">${message:recent-posts}</div>
 
                     <t:loop source="recentPosts" value="currentPost" index="currentIndex">
-                        <l:postlink post="currentPost" />
+                        <l:postlink post="currentPost" cssClass="postClass" />
                     </t:loop>
                 </div>
                 <div id="recentPinnedPosts">
                     <div class="title pb10">${message:recent-pinned-posts}</div>
 
                     <t:loop source="recentPinnedPosts" value="currentPost" index="currentIndex">
-                        <l:postlink post="currentPost" />
+                        <l:postlink post="currentPost" cssClass="postClass" />
                     </t:loop>
                 </div>
                 <div id="pagesLinks">
