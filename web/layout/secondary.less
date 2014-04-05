@@ -6,6 +6,59 @@
 @app_width: 1024px;
 
 
+#postContent, #lessonContent
+{
+    div.castingFirst, div.castingMiddle, div.castingLast
+    {
+        position: relative;
+        float: left;
+
+        width: 32%;
+
+        padding-right: 23px;
+
+        font-size: 0.8em;
+
+        div.left
+        {
+            text-align: left;
+            position: relative;
+            float: left;
+        }
+        div.right
+        {
+            text-align: right;
+            position: relative;
+            float: right;
+        }
+    }
+    div.castingFirst, div.castingMiddle
+    {
+        div.left
+        {
+            width: 55%;
+        }
+        div.right
+        {
+            width: 45%;
+        }
+    }
+    div.castingLast
+    {
+        width: 30%;
+        padding-right: 0px;
+
+        div.left
+        {
+            width: 43%;
+        }
+        div.right
+        {
+            width: 57%;
+        }
+    }
+}
+
 #images
 {
     margin-top: 10px;
@@ -557,6 +610,22 @@ div.postLink
     div.postLink
     {
         width: 90%;
+    }
+
+    #postContent, #lessonContent
+    {
+        div.casting
+        {
+            padding: 0 30px;
+        }
+        div.castingFirst, div.castingMiddle, div.castingLast
+        {
+            width: 100%;
+
+            padding-right: 0px;
+
+            font-size: 0.7em;
+        }
     }
 
     #previousLinks, #nextLinks
