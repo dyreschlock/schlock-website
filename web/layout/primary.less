@@ -9,8 +9,8 @@
 body
 {
     background-color: #323232;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     font-family: @font1;
     font-size: 100%;
 }
@@ -20,7 +20,7 @@ a:link, a:visited, a:hover
 }
 h1, h2, h3
 {
-    margin: 0px;
+    margin: 0;
 }
 
 #headerFullBody, #blogFullBody, #footerFullyBody
@@ -86,7 +86,7 @@ h1, h2, h3
         position: relative;
         width: 55%;
 
-        padding: 0px 0px;
+        padding: 0 0;
     }
     div.links
     {
@@ -96,7 +96,7 @@ h1, h2, h3
         position: relative;
         width: 40%;
 
-        padding: 8px 0px;
+        padding: 8px 0;
 
         a
         {
@@ -127,7 +127,7 @@ h1, h2, h3
         color: #333;
         background: #333;
 
-        margin: 0px 15px;
+        margin: 0 15px;
     }
 }
 
@@ -215,7 +215,7 @@ h1, h2, h3
 
 
 /* iphone viewport size */
-@media all and (max-width: 700px)
+@media all and (max-width: 767px)
 {
     h1
     {
@@ -279,7 +279,7 @@ h1, h2, h3
 }
 
 /* ipad viewport size */
-@media all and (min-width: 701px) and (max-width: 1000px)
+@media all and (min-width: 768px) and (max-width: 1000px)
 {
     #headerInnerBody, #blogInnerBody, #footerInnerBody
     {
@@ -302,5 +302,13 @@ h1, h2, h3
     #blogBody
     {
         padding: 0 40px;
+    }
+
+    #postContent
+    {
+        iframe
+        {
+            height: 400px;
+        }
     }
 }

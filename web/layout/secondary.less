@@ -15,7 +15,7 @@
 
         width: 32%;
 
-        padding-right: 23px;
+        padding-right: 3%;
 
         font-size: 0.8em;
 
@@ -46,7 +46,7 @@
     div.castingLast
     {
         width: 30%;
-        padding-right: 0px;
+        padding-right: 0;
 
         div.left
         {
@@ -75,14 +75,16 @@
         background-size: 200%;
         opacity: 0.7;
 
-        width: 23%;
+        height: 180px;
         max-height: 180px;
         min-height: 180px;
-        height: 180px;
+
+        width: 22%;
+
         position: relative;
         float: left;
 
-        margin-right: 20px;
+        margin-right: 4%;
         margin-bottom: 20px;
 
         a
@@ -101,7 +103,7 @@
     }
     div.fourColumnLast
     {
-        margin-right: 0px;
+        margin-right: 0;
     }
 }
 
@@ -205,7 +207,7 @@
     position: relative;
     width: 40%;
 
-    padding: 30px 0px;
+    padding: 30px 0;
 
     a
     {
@@ -267,9 +269,9 @@ div.postLink
     text-alight: right;
     float: left;
     position: relative;
-    width: 32%;
+    width: 31%;
 
-    padding-right: 23px;
+    padding-right: 3%;
 
     a
     {
@@ -287,8 +289,7 @@ div.postLink
 }
 #pagesLinks
 {
-    width: 30%;
-    padding-right: 0px;
+    padding-right: 0;
 
     #iconLinks
     {
@@ -296,7 +297,7 @@ div.postLink
 
         img
         {
-            padding: 0px 16px 0px 0px;
+            padding: 0 16px 0 0;
         }
     }
 }
@@ -331,15 +332,15 @@ div.postLink
     {
         float: left;
         position: relative;
-        width: 32%;
 
-        padding-right: 23px;
+        width: 31%;
+        padding-right: 3%;
         padding-bottom: 10px;
     }
     #buyLinks
     {
         width: 30%;
-        padding-right: 0px;
+        padding-right: 0;
     }
     div.title
     {
@@ -354,7 +355,7 @@ div.postLink
     }
     img
     {
-        margin: 0px 10px 0px 0px;
+        margin: 0 10px 0 0;
     }
 }
 
@@ -394,7 +395,7 @@ div.postLink
 
 #archivePosts
 {
-    margin: 20px 0px;
+    margin: 20px 0;
 
     h1
     {
@@ -521,8 +522,8 @@ div.postLink
         max-height: 180px;
         min-height: 180px;
 
-        width: 32%;
-        margin-right: 23px;
+        width: 31%;
+        margin-right: 3%;
 
         margin-bottom: 25px;
 
@@ -600,7 +601,7 @@ div.postLink
 }
 
 /* iphone viewport size */
-@media all and (max-width: 700px)
+@media all and (max-width: 767px)
 {
     div.minSizeHidden
     {
@@ -622,7 +623,7 @@ div.postLink
         {
             width: 100%;
 
-            padding-right: 0px;
+            padding-right: 0;
 
             font-size: 0.7em;
         }
@@ -656,14 +657,14 @@ div.postLink
             max-height: 100px;
             min-height: 100px;
 
-            width: 46%;
+            width: 47%;
 
+            margin-right: 6%;
             margin-bottom: 18px;
-            margin-right: 18px;
         }
         div.twoColumnLast
         {
-            margin-right: 0px;
+            margin-right: 0;
         }
     }
     #overlayedImage
@@ -713,10 +714,10 @@ div.postLink
             max-height: 115px;
             min-height: 115px;
 
-            width: 46%;
+            width: 47%;
 
             margin-bottom: 18px;
-            margin-right: 18px;
+            margin-right: 6%;
 
             font-size: 0.9em;
         }
@@ -724,6 +725,68 @@ div.postLink
         {
         }
         div.twoColumnLast
+        {
+            margin-right: 0;
+        }
+    }
+}
+
+/* ipad viewport size */
+@media all and (min-width: 768px) and (max-width: 1000px)
+{
+    #postContent, #lessonContent
+    {
+        div.castingFirst, div.castingMiddle, div.castingLast
+        {
+            width: 47%;
+            padding-right: 0;
+        }
+        div.castingFirst
+        {
+            padding-right: 6%;
+        }
+    }
+
+    #pagesLinks #iconLinks img
+    {
+        padding: 0 10px 0 0;
+    }
+
+    #images
+    {
+        div.image
+        {
+            height: 140px;
+            max-height: 140px;
+            min-height: 140px;
+
+            margin-bottom: 20px;
+        }
+        div.fourColumnLast
+        {
+            margin-right: 0;
+        }
+    }
+    #overlayedImage
+    {
+        margin-top: 20px;
+        max-width: 95%;
+        width: 95%;
+    }
+
+
+
+    #clubGalleries
+    {
+        div.gallery
+        {
+            height: 135px;
+            max-height: 135px;
+            min-height: 135px;
+
+            font-size: 1.0em;
+        }
+        div.threeColumnLast
         {
             margin-right: 0;
         }
