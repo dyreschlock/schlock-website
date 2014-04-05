@@ -2,6 +2,7 @@ package com.schlock.website.pages;
 
 import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Post;
+import com.schlock.website.services.blog.LayoutManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
@@ -17,6 +18,9 @@ public class Club
 {
     @Inject
     private PostDAO postDAO;
+
+    @Inject
+    private LayoutManagement layoutManagement;
 
     @Inject
     private PostManagement postManagement;
@@ -54,7 +58,6 @@ public class Club
     public void setCurrentIndex(Integer index)
     {
         this.currentIndex = index;
-
         if (currentIndex == 0)
         {
             this.actualIndex = 0;
@@ -63,16 +66,6 @@ public class Club
         {
             this.actualIndex++;
         }
-    }
-
-    public boolean isNewLine()
-    {
-        int index = actualIndex;
-
-        boolean newLine = (index != 0 && index % 3 == 0);
-        boolean newYear = isNewYear();
-
-        return newLine || newYear;
     }
 
     public boolean isNewYear()
@@ -113,14 +106,10 @@ public class Club
     }
 
 
-    public String getLast()
+    public String getColumnClass()
     {
-        int index = actualIndex;
-        if (index % 3 == 2)
-        {
-            return "last";
-        }
-        return "";
+        String cls = layoutManagement.getColumnClassByIndex(actualIndex);
+        return cls;
     }
 
     public String getCurrentImage()

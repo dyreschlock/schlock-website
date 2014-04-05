@@ -1,15 +1,13 @@
 package com.schlock.website.services.blog;
 
-import com.schlock.website.services.blog.impl.ConvertWordpressImpl;
-import com.schlock.website.services.blog.impl.CssCacheImpl;
-import com.schlock.website.services.blog.impl.ImageManagementImpl;
-import com.schlock.website.services.blog.impl.PostManagementImpl;
+import com.schlock.website.services.blog.impl.*;
 import org.apache.tapestry5.ioc.ServiceBinder;
 
 public class BlogModule
 {
     public static void bind(ServiceBinder binder)
     {
+        binder.bind(LayoutManagement.class, LayoutManagementImpl.class);
         binder.bind(ImageManagement.class, ImageManagementImpl.class);
         binder.bind(PostManagement.class, PostManagementImpl.class);
 

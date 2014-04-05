@@ -14,7 +14,7 @@
     div.title
     {
         font-family: @font2;
-        margin-top: 20px;
+        margin: 20px 0;
     }
     div.image
     {
@@ -46,7 +46,7 @@
     {
         opacity: 1;
     }
-    div.lastImage
+    div.fourColumnLast
     {
         margin-right: 0px;
     }
@@ -539,7 +539,7 @@ div.postLink
 
         padding: 10px 0;
     }
-    div.last
+    div.threeColumnLast
     {
         width: 30%;
         margin-right: 0;
@@ -583,10 +583,18 @@ div.postLink
     {
         div.image
         {
-            width: 43%;
+            height: 100px;
             max-height: 100px;
             min-height: 100px;
-            height: 100px;
+
+            width: 46%;
+
+            margin-bottom: 18px;
+            margin-right: 18px;
+        }
+        div.twoColumnLast
+        {
+            margin-right: 0px;
         }
     }
     #overlayedImage
@@ -602,6 +610,30 @@ div.postLink
         {
             width: 90%;
             padding-right: 0;
+        }
+    }
+
+    #clubGalleries
+    {
+        div.gallery
+        {
+            height: 115px;
+            max-height: 115px;
+            min-height: 115px;
+
+            width: 46%;
+
+            margin-bottom: 18px;
+            margin-right: 18px;
+
+            font-size: 0.9em;
+        }
+        div.threeColumnLast
+        {
+        }
+        div.twoColumnLast
+        {
+            margin-right: 0;
         }
     }
 }

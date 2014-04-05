@@ -7,11 +7,7 @@
 
             <t:loop source="galleryImages" value="currentImage" index="currentIndex">
 
-                <t:if test="newLine">
-                    <br class="clr" />
-                </t:if>
-
-                <div class="image ${lastImage}" style="background-image: url(${currentImage})">
+                <div class="image ${columnClasses}" style="background-image: url(${currentImage})">
                     <t:eventlink event="selectImage" context="currentImage" zone="imageOverlayZone" />
                 </div>
 

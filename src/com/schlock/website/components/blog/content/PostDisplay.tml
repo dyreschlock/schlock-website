@@ -23,15 +23,17 @@
             <t:outputraw value="post.bodyHTML" />
         </div>
 
-        <div class="links">
-            <t:if test="hasLessonPlan">
-                <a href="${post.lessonPlanLink}">${message:lesson-plan}</a>
-            </t:if>
-            <t:if test="hasFlashCards">
-                <t:if test="hasLessonPlan"> / </t:if>
-                <a href="${post.flashCardsLink}">${message:flash-cards}</a>
-            </t:if>
-        </div>
+        <t:if test="hasLinks">
+            <div class="links">
+                <t:if test="hasLessonPlan">
+                    <a href="${post.lessonPlanLink}">${message:lesson-plan}</a>
+                </t:if>
+                <t:if test="hasFlashCards">
+                    <t:if test="hasLessonPlan"> / </t:if>
+                    <a href="${post.flashCardsLink}">${message:flash-cards}</a>
+                </t:if>
+            </div>
+        </t:if>
     </div>
 
     <t:if test="post.hasGallery">

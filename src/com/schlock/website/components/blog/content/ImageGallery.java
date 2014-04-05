@@ -1,6 +1,7 @@
 package com.schlock.website.components.blog.content;
 
 import com.schlock.website.entities.blog.Post;
+import com.schlock.website.services.blog.LayoutManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.InjectComponent;
@@ -18,6 +19,9 @@ public class ImageGallery
     @Property
     private Post post;
 
+
+    @Inject
+    private LayoutManagement layoutManagement;
 
     @Inject
     private PostManagement postManagement;
@@ -46,18 +50,10 @@ public class ImageGallery
         return loadGalleryImages();
     }
 
-    public boolean isNewLine()
+    public String getColumnClasses()
     {
-        return currentIndex % 4 == 0;
-    }
-
-    public String getLastImage()
-    {
-        if (currentIndex % 4 == 3)
-        {
-            return "lastImage";
-        }
-        return "";
+        String cls = layoutManagement.getColumnClassByIndex(currentIndex);
+        return cls;
     }
 
     public boolean isHasImageSelected()

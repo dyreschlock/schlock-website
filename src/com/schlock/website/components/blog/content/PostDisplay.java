@@ -78,6 +78,11 @@ public class PostDisplay
     }
 
 
+    public boolean isHasLinks()
+    {
+        return isHasFlashCards() || isHasLessonPlan();
+    }
+
     public boolean isHasLessonPlan()
     {
         return StringUtils.isNotBlank(post.getLessonPlanLink());

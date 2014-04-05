@@ -9,15 +9,12 @@
     <div id="clubGalleries">
         <t:loop source="clubGalleries" value="currentPost" index="currentIndex">
 
-            <t:if test="newLine">
-                <br class="clr" />
-            </t:if>
-
             <t:if test="newYear">
+                <br class="clr" />
                 <div class="year">${currentYear}</div>
             </t:if>
 
-            <div class="gallery ${last}" style="background-image: url(${currentImage})">
+            <div class="gallery ${columnClass}" style="background-image: url(${currentImage})">
 
                 <t:eventlink event="selectPost" context="currentPost.uuid" />
 
