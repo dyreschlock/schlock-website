@@ -30,6 +30,9 @@ dependencies {
     compile group: 'commons-lang', name: 'commons-lang', version: '2.5'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
 
+    compile group: 'com.jolbox', name: 'bonecp', version: '0.7.1.RELEASE'
+    compile group: 'com.jolbox', name: 'bonecp-provider', version: '0.7.1.RELEASE'
+
     ext.tapestryVersion = '5.3.7'
     compile group: 'org.apache.tapestry', name: 'tapestry5-annotations', version: tapestryVersion
     compile group: 'org.apache.tapestry', name: 'tapestry-core', version: tapestryVersion

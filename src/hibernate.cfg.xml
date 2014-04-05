@@ -4,6 +4,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.provider_class">com.jolbox.bonecp.provider.BoneCPConnectionProvider</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
 
         <!--
@@ -15,6 +16,17 @@
         <property name="hibernate.connection.CharSet">utf8</property>
         <property name="hibernate.connection.characterEncoding">utf8</property>
         <property name="hibernate.connection.useUnicode">true</property>
+
+
+        <property name="bonecp.idleMaxAge">240</property>
+        <property name="bonecp.idleConnectionTestPeriod">60</property>
+        <property name="bonecp.partitionCount">3</property>
+        <property name="bonecp.acquireIncrement">10</property>
+        <property name="bonecp.maxConnectionsPerPartition">60</property>
+        <property name="bonecp.minConnectionsPerPartition">20</property>
+        <property name="bonecp.statementsCacheSize">50</property>
+        <property name="bonecp.releaseHelperThreads">3</property>
+
 
 
         <mapping resource="com/schlock/website/entities/blog/Category.hbm.xml" />
