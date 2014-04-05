@@ -12,7 +12,6 @@ import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import com.schlock.website.services.database.blog.impl.PostDAOImpl;
-import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -47,16 +46,6 @@ public class LayoutBlog
     @Inject
     private PostDAO postDAO;
 
-    @InjectPage
-    private Index index;
-
-    @InjectPage
-    private Archive archive;
-
-    @InjectPage
-    private AboutMe aboutMe;
-
-
 
     @SessionState
     private ViewState viewState;
@@ -83,17 +72,17 @@ public class LayoutBlog
 
     Object onHome()
     {
-        return index;
+        return linkSource.createPageRenderLinkWithContext(Index.class);
     }
 
     Object onArchive()
     {
-        return archive;
+        return Archive.class;
     }
 
     Object onAboutMe()
     {
-        return aboutMe;
+        return AboutMe.class;
     }
 
     public boolean isLocal()
