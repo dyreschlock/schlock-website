@@ -28,7 +28,7 @@ public class DatabaseModule
     {
         final String username = context.getHibernateProperty(HIBERNATE_USERNAME);
         final String password = context.getHibernateProperty(HIBERNATE_PASSWORD);
-        final String url = context.getHibernateProperty(HIBERNATE_URL);
+        final String url = context.getHibernateProperty(HIBERNATE_URL) + "?characterEncoding=utf-8";
 
         HibernateConfigurer configurer = new HibernateConfigurer() {
 
