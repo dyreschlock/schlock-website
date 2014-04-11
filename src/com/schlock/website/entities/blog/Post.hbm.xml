@@ -6,6 +6,7 @@
         <id name="id" unsaved-value="null">
             <generator class="native" />
         </id>
+        <discriminator />
 
         <property name="uuid" not-null="true" />
         <property name="wpid" />
@@ -31,7 +32,15 @@
             <many-to-many class="com.schlock.website.entities.blog.Category" column="categoryId" />
         </set>
 
-        <property name="lessonPlanLink" />
-        <property name="flashCardsLink" />
+        <subclass name="com.schlock.website.entities.blog.ClubPost">
+            <property name="eventDate" />
+        </subclass>
+
+        <subclass name="com.schlock.website.entities.blog.LessonPost">
+            <property name="lessonPlanLink" />
+            <property name="flashCardsLink" />
+        </subclass>
+
+
     </class>
 </hibernate-mapping>

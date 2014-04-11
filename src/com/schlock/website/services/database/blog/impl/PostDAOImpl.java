@@ -1,5 +1,7 @@
 package com.schlock.website.services.database.blog.impl;
 
+import com.schlock.website.entities.blog.ClubPost;
+import com.schlock.website.entities.blog.LessonPost;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -284,6 +286,46 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
                                     selectClause,
                                     null,
                                     orderByClause);
+        return query.list();
+    }
+
+    private Query clubPostsQuery(boolean withUnpublished)
+    {
+        String text = "from ClubPost p ";
+
+        if (!withUnpublished)
+        {
+            text += " where p.published is true ";
+        }
+        text += " order by p.eventDate desc ";
+
+        Query query = session.createQuery(text);
+        return query;
+    }
+
+    public ClubPost getMostRecentClubPost(boolean withUnpublished)
+    {
+        Query query = clubPostsQuery(withUnpublished);
+        return (ClubPost) singleResult(query);
+    }
+
+    public List<ClubPost> getAllClubPosts(boolean withUnpublished)
+    {
+        Query query = clubPostsQuery(withUnpublished);
+        return query.list();
+    }
+
+    public List<LessonPost> getAllLessonPosts(boolean withUnpublished)
+    {
+        String text = "from LessonPost p ";
+
+        if (!withUnpublished)
+        {
+            text += " with p.published is true ";
+        }
+        text += " order by p.created desc ";
+
+        Query query = session.createQuery(text);
         return query.list();
     }
 

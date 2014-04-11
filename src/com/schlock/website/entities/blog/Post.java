@@ -18,9 +18,9 @@ public class Post extends Persisted
     public static final String SPECIAL_UUID_PREFIX = "special";
 
 
-    private static final String DATE_FORMAT = "EEEEE  MMMMM d, yyyy";
-    private static final String HTML_TAG_FORMAT = "yyyy-MM-dd'T'hh:mm";
-    private static final String DAY_FORMAT = "MMMMM d";
+    protected static final String DATE_FORMAT = "EEEEE  MMMMM d, yyyy";
+    protected static final String HTML_TAG_FORMAT = "yyyy-MM-dd'T'hh:mm";
+    protected static final String DAY_FORMAT = "MMMMM d";
 
 
     private String wpid; //legacy Wordpress id
@@ -43,9 +43,6 @@ public class Post extends Persisted
     private String bodyHTML;
 
     private Set<Category> categories;
-
-    private String lessonPlanLink;
-    private String flashCardsLink;
 
 
     protected Post()
@@ -113,6 +110,10 @@ public class Post extends Persisted
     {
         return StringUtils.isNotBlank(galleryName) && showGallery;
     }
+
+    public String getLessonPlanLink() { return null; }
+    public String getFlashCardsLink() { return null; }
+
 
 
     public String getWpid()
@@ -253,25 +254,5 @@ public class Post extends Persisted
     public void setCategories(Set<Category> categories)
     {
         this.categories = categories;
-    }
-
-    public String getLessonPlanLink()
-    {
-        return lessonPlanLink;
-    }
-
-    public void setLessonPlanLink(String lessonPlanLink)
-    {
-        this.lessonPlanLink = lessonPlanLink;
-    }
-
-    public String getFlashCardsLink()
-    {
-        return flashCardsLink;
-    }
-
-    public void setFlashCardsLink(String flashCardsLink)
-    {
-        this.flashCardsLink = flashCardsLink;
     }
 }

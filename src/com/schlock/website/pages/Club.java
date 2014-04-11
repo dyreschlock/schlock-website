@@ -1,6 +1,6 @@
 package com.schlock.website.pages;
 
-import com.schlock.website.entities.blog.Category;
+import com.schlock.website.entities.blog.ClubPost;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.blog.LayoutManagement;
 import com.schlock.website.services.blog.PostManagement;
@@ -10,7 +10,6 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class Club
 
 
     @Property
-    private Post currentPost;
+    private ClubPost currentPost;
 
     private Integer currentIndex;
     private Integer actualIndex;
@@ -130,14 +129,13 @@ public class Club
     }
 
 
-    private List<Post> cachedClubGalleries;
+    private List<ClubPost> cachedClubGalleries;
 
-    public List<Post> getClubGalleries()
+    public List<ClubPost> getClubGalleries()
     {
         if (cachedClubGalleries == null)
         {
-            List<String> names = Arrays.asList(Category.EVENT, Category.FESTIVAL);
-            cachedClubGalleries = postDAO.getByCategoryNames(names, true);
+            cachedClubGalleries = postDAO.getAllClubPosts(true);
         }
         return cachedClubGalleries;
     }

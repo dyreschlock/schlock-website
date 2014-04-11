@@ -1,5 +1,7 @@
 package com.schlock.website.services.database.blog;
 
+import com.schlock.website.entities.blog.ClubPost;
+import com.schlock.website.entities.blog.LessonPost;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.database.BaseDAO;
 
@@ -39,4 +41,10 @@ public interface PostDAO extends BaseDAO<Post>
     public List<Post> getByCategoryNames(List<String> categoryNames, boolean onlyWithGallery);
 
     public List<Post> getAllPages(boolean withUnpublished);
+
+    public ClubPost getMostRecentClubPost(boolean withUnpublished);
+
+    public List<ClubPost> getAllClubPosts(boolean withUnpublished);
+
+    public List<LessonPost> getAllLessonPosts(boolean withUnpublished);
 }
