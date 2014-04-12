@@ -18,15 +18,15 @@
         <property name="hibernate.connection.useUnicode">true</property>
 
 
-        <property name="bonecp.idleMaxAge">240</property>
+        <property name="bonecp.partitionCount">2</property>
+        <property name="bonecp.maxConnectionsPerPartition">3</property>
+        <property name="bonecp.minConnectionsPerPartition">1</property>
+        <property name="bonecp.acquireIncrement">2</property>
+
+        <property name="bonecp.idleMaxAge">120</property>
         <property name="bonecp.idleConnectionTestPeriod">60</property>
-        <property name="bonecp.partitionCount">3</property>
-        <property name="bonecp.acquireIncrement">10</property>
-        <property name="bonecp.maxConnectionsPerPartition">60</property>
-        <property name="bonecp.minConnectionsPerPartition">20</property>
         <property name="bonecp.statementsCacheSize">50</property>
         <property name="bonecp.releaseHelperThreads">3</property>
-
 
 
         <mapping resource="com/schlock/website/entities/blog/Category.hbm.xml" />
