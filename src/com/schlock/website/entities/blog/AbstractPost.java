@@ -3,26 +3,10 @@ package com.schlock.website.entities.blog;
 import com.schlock.website.entities.Persisted;
 import org.apache.commons.lang.StringUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class Post extends Persisted
+public abstract class AbstractPost extends Persisted
 {
-    public static final String ABOUT_ME_UUID = "about-me";
-    public static final String ALT_MATERIALS_UUID = "alt-materials";
-
-    public static final String SIX_UUID_PREFIX = "6nen";
-    public static final String FIVE_UUID_PREFIX = "5nen";
-    public static final String THREE_FOUR_UUID_PREFIX = "34nen";
-    public static final String ONE_TWO_UUID_PREFIX = "12nen";
-    public static final String SPECIAL_UUID_PREFIX = "special";
-
-
-    protected static final String DATE_FORMAT = "EEEEE  MMMMM d, yyyy";
-    protected static final String HTML_TAG_FORMAT = "yyyy-MM-dd'T'hh:mm";
-    protected static final String DAY_FORMAT = "MMMMM d";
-
-
     private String wpid; //legacy Wordpress id
     private String mtid; //legacy MoveableType id
 
@@ -33,7 +17,6 @@ public class Post extends Persisted
 
     private boolean published;
     private boolean pinned;
-    private boolean page;
 
     private boolean showGallery;
     private String galleryName;
@@ -45,11 +28,14 @@ public class Post extends Persisted
     private Set<Category> categories;
 
 
-    protected Post()
+    public abstract boolean isPage();
+
+
+    protected AbstractPost()
     {
     }
 
-    public Post(String uuid)
+    public AbstractPost(String uuid)
     {
         this.uuid = uuid;
     }
@@ -86,24 +72,6 @@ public class Post extends Persisted
 
         Collections.sort(sub, new CategoryComparator());
         return sub;
-    }
-
-    public String getCreatedDateFormat()
-    {
-        SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
-        return format.format(created);
-    }
-
-    public String getCreatedTagFormat()
-    {
-        SimpleDateFormat format = new SimpleDateFormat(HTML_TAG_FORMAT);
-        return format.format(created);
-    }
-
-    public String getCreatedDayFormat()
-    {
-        SimpleDateFormat format = new SimpleDateFormat(DAY_FORMAT);
-        return format.format(created);
     }
 
     public boolean isHasGallery()
@@ -184,16 +152,6 @@ public class Post extends Persisted
     public void setPinned(boolean pinned)
     {
         this.pinned = pinned;
-    }
-
-    public boolean isPage()
-    {
-        return page;
-    }
-
-    public void setPage(boolean page)
-    {
-        this.page = page;
     }
 
     public boolean isShowGallery()

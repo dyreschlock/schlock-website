@@ -1,14 +1,13 @@
 package com.schlock.website.pages;
 
-import com.schlock.website.entities.blog.Category;
-import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.LessonPost;
+import com.schlock.website.entities.blog.Page;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Alt
@@ -17,44 +16,44 @@ public class Alt
     private PostDAO postDAO;
 
     @Property
-    private Post currentPost;
+    private LessonPost currentPost;
 
 
 
-    public List<Post> getSixNenPosts()
+    public List<LessonPost> getSixNenPosts()
     {
-        List<Post> posts = getPostsByPrefix(Post.SIX_UUID_PREFIX);
+        List<LessonPost> posts = getPostsByPrefix(LessonPost.SIX_UUID_PREFIX);
         return posts;
     }
 
-    public List<Post> getFiveNenPosts()
+    public List<LessonPost> getFiveNenPosts()
     {
-        List<Post> posts = getPostsByPrefix(Post.FIVE_UUID_PREFIX);
+        List<LessonPost> posts = getPostsByPrefix(LessonPost.FIVE_UUID_PREFIX);
         return posts;
     }
 
-    public List<Post> getThreeFourNenPosts()
+    public List<LessonPost> getThreeFourNenPosts()
     {
-        List<Post> posts = getPostsByPrefix(Post.THREE_FOUR_UUID_PREFIX);
+        List<LessonPost> posts = getPostsByPrefix(LessonPost.THREE_FOUR_UUID_PREFIX);
         return posts;
     }
 
-    public List<Post> getOneTwoNenPosts()
+    public List<LessonPost> getOneTwoNenPosts()
     {
-        List<Post> posts = getPostsByPrefix(Post.ONE_TWO_UUID_PREFIX);
+        List<LessonPost> posts = getPostsByPrefix(LessonPost.ONE_TWO_UUID_PREFIX);
         return posts;
     }
 
-    public List<Post> getSpecialPosts()
+    public List<LessonPost> getSpecialPosts()
     {
-        List<Post> posts = getPostsByPrefix(Post.SPECIAL_UUID_PREFIX);
+        List<LessonPost> posts = getPostsByPrefix(LessonPost.SPECIAL_UUID_PREFIX);
         return posts;
     }
 
-    private List<Post> getPostsByPrefix(String... prefix)
+    private List<LessonPost> getPostsByPrefix(String... prefix)
     {
-        List<Post> posts = new ArrayList<Post>();
-        for (Post post : getAllPosts())
+        List<LessonPost> posts = new ArrayList<LessonPost>();
+        for (LessonPost post : getAllPosts())
         {
             for (String pre : prefix)
             {
@@ -71,13 +70,13 @@ public class Alt
 
 
 
-    private List<Post> cachedPosts;
+    private List<LessonPost> cachedPosts;
 
-    private List<Post> getAllPosts()
+    private List<LessonPost> getAllPosts()
     {
         if (cachedPosts == null)
         {
-            List<Post> posts = postDAO.getByCategoryNames(Arrays.asList(Category.TEACHING), false);
+            List<LessonPost> posts = postDAO.getAllLessonPosts(true);
             cachedPosts = posts;
         }
         return cachedPosts;
@@ -88,13 +87,13 @@ public class Alt
         return getPage().getTitle();
     }
 
-    private Post cachedPage;
+    private Page cachedPage;
 
-    public Post getPage()
+    public Page getPage()
     {
         if (cachedPage == null)
         {
-            cachedPage = postDAO.getByUuid(Post.ALT_MATERIALS_UUID);
+            cachedPage = (Page) postDAO.getByUuid(Page.ALT_MATERIALS_UUID);
         }
         return cachedPage;
     }

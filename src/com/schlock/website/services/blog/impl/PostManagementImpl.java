@@ -1,6 +1,6 @@
 package com.schlock.website.services.blog.impl;
 
-import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.*;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.PhotoFileFilter;
 import com.schlock.website.services.blog.PostManagement;
@@ -35,6 +35,7 @@ public class PostManagementImpl implements PostManagement
     private final DeploymentContext deploymentContext;
     private final PostDAO postDAO;
 
+    private Map<String, Date> cachedUpdateTime;
     private Set<String> cachedUuids;
 
     public PostManagementImpl(DeploymentContext deploymentContext,
@@ -117,15 +118,41 @@ public class PostManagementImpl implements PostManagement
         return post;
     }
 
+    public Date getUpdatedTime(Page page)
+    {
+        if (cachedUpdateTime == null)
+        {
+            cachedUpdateTime = new HashMap<String, Date>();
+        }
+
+        Date updatedTime = cachedUpdateTime.get(page.getUuid());
+        if (updatedTime == null)
+        {
+            if (page.isClub())
+            {
+                ClubPost recent = postDAO.getMostRecentClubPost(true);
+                updatedTime = recent.getCreated();
+            }
+            if (page.isAlt())
+            {
+                LessonPost recent = postDAO.getMostRecentLessonPost(true);
+                updatedTime = recent.getCreated();
+            }
+        }
+
+        cachedUpdateTime.put(page.getUuid(), updatedTime);
+        return updatedTime;
+    }
+
     public void regenerateAllPostHTML()
     {
-        for (Post post : postDAO.getAll())
+        for (AbstractPost post : postDAO.getAll())
         {
             setPostHTML(post);
         }
     }
 
-    public void setPostHTML(Post post)
+    public void setPostHTML(AbstractPost post)
     {
         String text = post.getBodyText();
         String html = generatePostHTML(text);
@@ -133,7 +160,7 @@ public class PostManagementImpl implements PostManagement
         postDAO.save(post);
     }
 
-    public String generatePostPreview(Post post)
+    public String generatePostPreview(AbstractPost post)
     {
         String tempText = post.getBodyText();
 
@@ -307,7 +334,7 @@ public class PostManagementImpl implements PostManagement
         return html;
     }
 
-    public List<String> getGalleryImages(Post post)
+    public List<String> getGalleryImages(AbstractPost post)
     {
         String galleryName = post.getGalleryName();
         if (StringUtils.isBlank(galleryName))
@@ -346,7 +373,7 @@ public class PostManagementImpl implements PostManagement
     }
 
 
-    public String getPostImage(Post post)
+    public String getPostImage(AbstractPost post)
     {
         List<String> images = getGalleryImages(post);
 
@@ -377,7 +404,7 @@ public class PostManagementImpl implements PostManagement
         return images.get(index);
     }
 
-    public String getStylizedHTMLTitle(Post post)
+    public String getStylizedHTMLTitle(AbstractPost post)
     {
         String title = post.getTitle();
 

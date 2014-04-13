@@ -1,6 +1,6 @@
 package com.schlock.website.servlet;
 
-import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.pages.Index;
 import com.schlock.website.services.DeploymentContext;
 import org.apache.commons.lang.StringUtils;
@@ -18,7 +18,7 @@ public class PhotoServlet extends AbstractHttpServlet
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        Post post = getPostByGalleryName(req);
+        AbstractPost post = getPostByGalleryName(req);
         if (post != null)
         {
             redirectToGallery(post, resp);
@@ -42,7 +42,7 @@ public class PhotoServlet extends AbstractHttpServlet
         resp.sendError(HttpServletResponse.SC_NOT_FOUND);
     }
 
-    private Post getPostByGalleryName(HttpServletRequest req)
+    private AbstractPost getPostByGalleryName(HttpServletRequest req)
     {
         int HTTP = 0;
         int SLASH = 1;
@@ -65,13 +65,13 @@ public class PhotoServlet extends AbstractHttpServlet
         if (parts.length > GALLERY)
         {
             String gallery = parts[GALLERY];
-            Post post = postDAO().getByGalleryName(gallery);
+            AbstractPost post = postDAO().getByGalleryName(gallery);
             return post;
         }
         return null;
     }
 
-    private void redirectToGallery(Post post, HttpServletResponse resp) throws ServletException, IOException
+    private void redirectToGallery(AbstractPost post, HttpServletResponse resp) throws ServletException, IOException
     {
         String uuid = post.getUuid();
         String redirect = linkSource().createPageRenderLinkWithContext(Index.class, uuid).toURI();

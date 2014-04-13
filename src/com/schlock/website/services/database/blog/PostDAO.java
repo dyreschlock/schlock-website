@@ -1,22 +1,20 @@
 package com.schlock.website.services.database.blog;
 
-import com.schlock.website.entities.blog.ClubPost;
-import com.schlock.website.entities.blog.LessonPost;
-import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.*;
 import com.schlock.website.services.database.BaseDAO;
 
 import java.util.List;
 import java.util.Set;
 
-public interface PostDAO extends BaseDAO<Post>
+public interface PostDAO extends BaseDAO<AbstractPost>
 {
-    public Post getByUuid(String uuid);
+    public AbstractPost getByUuid(String uuid);
 
-    public Post getByWpid(String wpid);
+    public AbstractPost getByWpid(String wpid);
 
-    public Post getByMtid(String mtid);
+    public AbstractPost getByMtid(String mtid);
 
-    public Post getByGalleryName(String galleryName);
+    public AbstractPost getByGalleryName(String galleryName);
 
     public Set<String> getAllUuids();
 
@@ -24,9 +22,9 @@ public interface PostDAO extends BaseDAO<Post>
 
     public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished);
 
-    public List<Post> getNextPosts(Post currentPost, boolean withUnpublished, Long categoryId);
+    public List<Post> getNextPosts(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
 
-    public List<Post> getPreviousPosts(Post currentPost, boolean withUnplished, Long categoryId);
+    public List<Post> getPreviousPosts(AbstractPost currentPost, boolean withUnplished, Long categoryId);
 
     public List<Post> getRecentPostsByYearMonth(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId);
 
@@ -40,11 +38,13 @@ public interface PostDAO extends BaseDAO<Post>
 
     public List<Post> getByCategoryNames(List<String> categoryNames, boolean onlyWithGallery);
 
-    public List<Post> getAllPages(boolean withUnpublished);
+    public List<Page> getAllPages(boolean withUnpublished);
 
     public ClubPost getMostRecentClubPost(boolean withUnpublished);
 
     public List<ClubPost> getAllClubPosts(boolean withUnpublished);
+
+    public LessonPost getMostRecentLessonPost(boolean withUnpublished);
 
     public List<LessonPost> getAllLessonPosts(boolean withUnpublished);
 }

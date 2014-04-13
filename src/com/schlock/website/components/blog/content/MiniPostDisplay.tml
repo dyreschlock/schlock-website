@@ -8,7 +8,7 @@
         </t:eventlink>
         <t:if test="!post.page">
             <div class="postDate">
-                ${post.createdDateFormat}
+                ${createdDate}
             </div>
         </t:if>
         <div class="postBody">

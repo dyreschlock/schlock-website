@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="postDate">
-                    ${currentPost.eventDayFormat}
+                    ${eventDay}
                 </div>
             </div>
         </t:loop>

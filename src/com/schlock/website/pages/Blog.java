@@ -1,6 +1,6 @@
 package com.schlock.website.pages;
 
-import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -62,7 +62,7 @@ public class Blog
         String wpid = request.getParameter(POST_PARAMETER);
         if (StringUtils.isNotBlank(wpid))
         {
-            Post post = postDAO.getByWpid(wpid);
+            AbstractPost post = postDAO.getByWpid(wpid);
             if (post != null)
             {
                 return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid());

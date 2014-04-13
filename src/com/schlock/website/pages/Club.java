@@ -1,7 +1,9 @@
 package com.schlock.website.pages;
 
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.ClubPost;
-import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.Page;
+import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.LayoutManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -25,6 +27,9 @@ public class Club
     private PostManagement postManagement;
 
     @Inject
+    private DateFormatter dateFormat;
+
+    @Inject
     private PageRenderLinkSource linkSource;
 
 
@@ -39,7 +44,7 @@ public class Club
     {
         if (StringUtils.isNotBlank(parameter))
         {
-            Post post = postDAO.getByGalleryName(parameter);
+            AbstractPost post = postDAO.getByGalleryName(parameter);
             if (post != null)
             {
                 return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid());
@@ -75,7 +80,7 @@ public class Club
         }
 
         int previous = currentIndex -1;
-        Post previousPost = getClubGalleries().get(previous);
+        ClubPost previousPost = getClubGalleries().get(previous);
 
         String thisYear = getCurrentYear();
         String lastYear = getYear(previousPost);
@@ -95,7 +100,7 @@ public class Club
         return year;
     }
 
-    private String getYear(Post post)
+    private String getYear(AbstractPost post)
     {
         Calendar cal = Calendar.getInstance();
         cal.setTime(post.getCreated());
@@ -123,6 +128,11 @@ public class Club
         return html;
     }
 
+    public String getEventDay()
+    {
+        return dateFormat.dayFormat(currentPost.getEventDate());
+    }
+
     Object onSelectPost(String uuid)
     {
         return linkSource.createPageRenderLinkWithContext(Index.class, uuid);
@@ -146,14 +156,14 @@ public class Club
         return getPage().getTitle();
     }
 
-    private Post cachedPage;
+    private Page cachedPage;
 
-    public Post getPage()
+    public Page getPage()
     {
         if (cachedPage == null)
         {
             String pageName = getClass().getSimpleName().toLowerCase();
-            cachedPage = postDAO.getByUuid(pageName);
+            cachedPage = (Page) postDAO.getByUuid(pageName);
         }
         return cachedPage;
     }

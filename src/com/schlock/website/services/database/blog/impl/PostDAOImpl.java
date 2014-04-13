@@ -1,8 +1,6 @@
 package com.schlock.website.services.database.blog.impl;
 
-import com.schlock.website.entities.blog.ClubPost;
-import com.schlock.website.entities.blog.LessonPost;
-import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.*;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.hibernate.Query;
@@ -10,19 +8,19 @@ import org.hibernate.Session;
 
 import java.util.*;
 
-public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
+public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 {
     public static final int TOP_RECENT = 5;
     public static final int MIN_RECENT = 2;
 
     public PostDAOImpl(Session session)
     {
-        super(Post.class, session);
+        super(AbstractPost.class, session);
     }
 
-    public Post getByUuid(String uuid)
+    public AbstractPost getByUuid(String uuid)
     {
-        String text = "from Post p " +
+        String text = "from AbstractPost p " +
                         " where p.uuid = :uuid ";
 
         Query query = session.createQuery(text);
@@ -38,40 +36,40 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         {
             return null;
         }
-        return (Post) list.get(0);
+        return (AbstractPost) list.get(0);
     }
 
-    public Post getByWpid(String wpid)
+    public AbstractPost getByWpid(String wpid)
     {
-        String text = "from Post p where p.wpid = :wpid";
+        String text = "from AbstractPost p where p.wpid = :wpid";
         Query query = session.createQuery(text);
         query.setParameter("wpid", wpid);
 
-        return (Post) singleResult(query);
+        return (AbstractPost) singleResult(query);
     }
 
-    public Post getByMtid(String mtid)
+    public AbstractPost getByMtid(String mtid)
     {
-        String text = "from Post p where p.mtid = :mtid";
+        String text = "from AbstractPost p where p.mtid = :mtid";
         Query query = session.createQuery(text);
         query.setParameter("mtid", mtid);
 
-        return (Post) singleResult(query);
+        return (AbstractPost) singleResult(query);
     }
 
-    public Post getByGalleryName(String galleryName)
+    public AbstractPost getByGalleryName(String galleryName)
     {
-        String text = "from Post p where p.galleryName = :galleryName";
+        String text = "from AbstractPost p where p.galleryName = :galleryName";
         Query query = session.createQuery(text);
         query.setParameter("galleryName", galleryName);
 
-        return (Post) singleResult(query);
+        return (AbstractPost) singleResult(query);
     }
 
     public Set<String> getAllUuids()
     {
         String text = "select p.uuid " +
-                        " from Post p ";
+                        " from AbstractPost p ";
 
         Query query = session.createQuery(text);
 
@@ -87,7 +85,6 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
     {
         String text = "select p.published, count(p.id) " +
                       " from Post p " +
-                      " where p.page is false " +
                       " group by p.published " +
                       " order by p.published desc ";
 
@@ -99,12 +96,11 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
     public List<Object[]> getCategoryPostCounts(boolean withUnpublished)
     {
         String text = "select c.id, count(p.id) " +
-                " from Post p " +
-                " join p.categories c " +
-                " where p.page is false ";
+                        " from Post p " +
+                        " join p.categories c ";
         if (!withUnpublished)
         {
-            text += " and p.published is true ";
+            text += " where p.published is true ";
         }
         text += " group by c.id ";
 
@@ -117,12 +113,11 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
     {
         String text =
                 "select year(p.created), month(p.created), count(p.id) " +
-                " from Post p " +
-                " where p.page is false ";
+                " from Post p ";
 
         if (!withUnpublished)
         {
-            text += " and p.published is true ";
+            text += " where p.published is true ";
         }
 
         text += " group by year(p.created), month(p.created) " +
@@ -140,14 +135,13 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         String orderByClause = " order by p.created desc";
 
         Query query = createQuery(TOP_RECENT,
-                null,
-                null,
-                withUnpublished,
-                categoryId,
-                false,
-                selectClause,
-                null,
-                orderByClause);
+                                    null,
+                                    null,
+                                    withUnpublished,
+                                    categoryId,
+                                    selectClause,
+                                    null,
+                                    orderByClause);
 
         return (Post) singleResult(query);
     }
@@ -157,7 +151,7 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return getRecentPostsByYearMonth(postCount, null, null, withUnpublished, null);
     }
 
-    public List<Post> getNextPosts(Post currentPost, boolean withUnpublished, Long categoryId)
+    public List<Post> getNextPosts(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
     {
         String selectClause = "select p from Post p ";
         String extraWhereClause = " p.created > :currentCreated ";
@@ -168,7 +162,6 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
                                     null,
                                     withUnpublished,
                                     categoryId,
-                                    false,
                                     selectClause,
                                     Arrays.asList(extraWhereClause),
                                     orderByClause);
@@ -178,7 +171,7 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return query.list();
     }
 
-    public List<Post> getPreviousPosts(Post currentPost, boolean withUnpublished, Long categoryId)
+    public List<Post> getPreviousPosts(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
     {
         String selectClause = "select p from Post p ";
         String extraWhereClause = " p.created < :currentCreated ";
@@ -189,7 +182,6 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
                                     null,
                                     withUnpublished,
                                     categoryId,
-                                    false,
                                     selectClause,
                                     Arrays.asList(extraWhereClause),
                                     orderByClause);
@@ -209,7 +201,6 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
                                     month,
                                     withUnpublished,
                                     categoryId,
-                                    false,
                                     selectClause,
                                     null,
                                     orderByClause);
@@ -228,7 +219,6 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
                                     month,
                                     withUnpublished,
                                     categoryId,
-                                    false,
                                     selectClause,
                                     Arrays.asList(extraWhereClause),
                                     orderByClause);
@@ -239,26 +229,45 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
     public List<Post> getByCategoryNames(List<String> categoryNames, boolean onlyWithGallery)
     {
         String text = "select p from Post p " +
-                        " join p.categories c " +
-                        " where p.page is false ";
+                        " join p.categories c ";
 
+        List<String> where = new ArrayList<String>();
         if (onlyWithGallery)
         {
-            text += " and p.galleryName is not null ";
+            String clause = " p.galleryName is not null ";
+            where.add(clause);
         }
         if (!categoryNames.isEmpty())
         {
-            text += " and (";
+            String clause = " (";
             for (int i = 0; i < categoryNames.size(); i++)
             {
                 if (i != 0)
                 {
                     text += " or ";
                 }
-                text += " c.name = :name" + i + " ";
+                clause += " c.name = :name" + i + " ";
             }
-            text += ") ";
+            clause += ") ";
+
+            where.add(clause);
         }
+
+        for (int i = 0; i < where.size(); i++)
+        {
+            String clause = where.get(i);
+
+            if (i == 0)
+            {
+                text += " where ";
+            }
+            else
+            {
+                text += " and ";
+            }
+            text += clause;
+        }
+
         text += " order by p.created desc";
 
         Query query = session.createQuery(text);
@@ -274,18 +283,17 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return query.list();
     }
 
-    public List<Post> getAllPages(boolean withUnpublished)
+    public List<Page> getAllPages(boolean withUnpublished)
     {
-        String selectClause = "select p from Post p ";
-        String orderByClause = " order by p.created asc ";
+        String text = "from Page p ";
 
-        Query query = createQuery(null, null, null,
-                                    withUnpublished,
-                                    null,
-                                    true,
-                                    selectClause,
-                                    null,
-                                    orderByClause);
+        if (!withUnpublished)
+        {
+            text += " where p.published is true ";
+        }
+        text += " order by p.created desc ";
+
+        Query query = session.createQuery(text);
         return query.list();
     }
 
@@ -315,7 +323,7 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         return query.list();
     }
 
-    public List<LessonPost> getAllLessonPosts(boolean withUnpublished)
+    private Query lessonPostsQuery(boolean withUnpublished)
     {
         String text = "from LessonPost p ";
 
@@ -326,6 +334,18 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         text += " order by p.created desc ";
 
         Query query = session.createQuery(text);
+        return query;
+    }
+
+    public LessonPost getMostRecentLessonPost(boolean withUnpublished)
+    {
+        Query query = lessonPostsQuery(withUnpublished);
+        return (LessonPost) singleResult(query);
+    }
+
+    public List<LessonPost> getAllLessonPosts(boolean withUnpublished)
+    {
+        Query query = lessonPostsQuery(withUnpublished);
         return query.list();
     }
 
@@ -334,8 +354,6 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
                               Integer month,
                               boolean withUnpublished,
                               Long categoryId,
-
-                              boolean isPage,
 
                               String selectClause,
                               List<String> whereClauses,
@@ -361,15 +379,6 @@ public class PostDAOImpl extends BaseDAOImpl<Post> implements PostDAO
         if (whereClauses != null && !whereClauses.isEmpty())
         {
             phrases.addAll(whereClauses);
-        }
-
-        if (isPage)
-        {
-            phrases.add(" p.page is true ");
-        }
-        else
-        {
-            phrases.add(" p.page is false ");
         }
 
         String text = selectClause;

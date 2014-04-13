@@ -2,7 +2,7 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping default-access="field" >
-    <class name="com.schlock.website.entities.blog.Post" table="blog_posts">
+    <class name="com.schlock.website.entities.blog.AbstractPost" table="blog_posts">
         <id name="id" unsaved-value="null">
             <generator class="native" />
         </id>
@@ -18,7 +18,6 @@
 
         <property name="published" />
         <property name="pinned" />
-        <property name="page" />
 
         <property name="showGallery" />
         <property name="galleryName" />
@@ -32,13 +31,19 @@
             <many-to-many class="com.schlock.website.entities.blog.Category" column="categoryId" />
         </set>
 
-        <subclass name="com.schlock.website.entities.blog.ClubPost">
-            <property name="eventDate" />
+        <subclass name="com.schlock.website.entities.blog.Post">
+            <subclass name="com.schlock.website.entities.blog.ClubPost">
+                <property name="eventDate" />
+            </subclass>
+
+            <subclass name="com.schlock.website.entities.blog.LessonPost">
+                <property name="lessonPlanLink" />
+                <property name="flashCardsLink" />
+            </subclass>
         </subclass>
 
-        <subclass name="com.schlock.website.entities.blog.LessonPost">
-            <property name="lessonPlanLink" />
-            <property name="flashCardsLink" />
+        <subclass name="com.schlock.website.entities.blog.Page">
+
         </subclass>
 
 

@@ -1,6 +1,8 @@
 package com.schlock.website.components.blog;
 
 import com.schlock.website.entities.Icon;
+import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.AboutMe;
@@ -52,7 +54,7 @@ public class LayoutBlog
 
 
     @Property
-    private Post currentPost;
+    private AbstractPost currentPost;
 
     @Property
     private Integer currentIndex;
@@ -128,11 +130,11 @@ public class LayoutBlog
         return posts;
     }
 
-    public List<Post> getPages()
+    public List<Page> getPages()
     {
         boolean unpublished = viewState.isShowUnpublished();
 
-        List<Post> pages = postDAO.getAllPages(unpublished);
+        List<Page> pages = postDAO.getAllPages(unpublished);
         return pages;
     }
 

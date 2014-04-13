@@ -9,8 +9,8 @@
         <h1 itemprop="name headline">${post.title}</h1>
         <t:if test="!post.page">
             <div class="postDate">
-                <time datetime="${post.createdTagFormat}" itemprop="datePublished">
-                    ${post.createdDateFormat}
+                <time datetime="${createdDateHtmlTag}" itemprop="datePublished">
+                    ${createdDate}
                 </time>
                 <span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
                     <span itemprop="name">

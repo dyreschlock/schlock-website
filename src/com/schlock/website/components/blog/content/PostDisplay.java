@@ -1,9 +1,11 @@
 package com.schlock.website.components.blog.content;
 
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.Index;
+import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import com.schlock.website.services.database.blog.impl.PostDAOImpl;
@@ -21,11 +23,14 @@ public class PostDisplay
 {
     @Parameter(required = true)
     @Property
-    private Post post;
+    private AbstractPost post;
 
 
     @Inject
     private PageRenderLinkSource linkSource;
+
+    @Inject
+    private DateFormatter dateFormat;
 
     @Inject
     private Messages messages;
@@ -75,6 +80,16 @@ public class PostDisplay
         Post post = postDAO.getMostRecentPost(unpublished, categoryId);
 
         return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid());
+    }
+
+    public String getCreatedDate()
+    {
+        return dateFormat.dateFormat(post.getCreated());
+    }
+
+    public String getCreatedDateHtmlTag()
+    {
+        return dateFormat.htmlTagFormat(post.getCreated());
     }
 
 

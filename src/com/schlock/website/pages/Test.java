@@ -1,6 +1,6 @@
 package com.schlock.website.pages;
 
-import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Property;
@@ -46,7 +46,7 @@ public class Test
             if (file.isDirectory())
             {
                 String name = file.getName();
-                Post post = postDAO.getByGalleryName(name);
+                AbstractPost post = postDAO.getByGalleryName(name);
                 if(post == null)
                 {
                     folders.add(name);

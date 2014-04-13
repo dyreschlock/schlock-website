@@ -2,6 +2,7 @@ package com.schlock.website.components.blog.content;
 
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.pages.Index;
+import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
@@ -19,12 +20,20 @@ public class MiniPostDisplay
     private PageRenderLinkSource linkSource;
 
     @Inject
+    private DateFormatter dateFormat;
+
+    @Inject
     private PostManagement postManagement;
 
 
     Object onSelectPost(String uuid)
     {
         return linkSource.createPageRenderLinkWithContext(Index.class, uuid);
+    }
+
+    public String getCreatedDate()
+    {
+        return dateFormat.dateFormat(post.getCreated());
     }
 
     public String getPreviewHtml()

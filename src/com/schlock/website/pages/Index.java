@@ -1,6 +1,7 @@
 package com.schlock.website.pages;
 
-import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -31,7 +32,7 @@ public class Index
 
 
     @Persist
-    private Post currentPost;
+    private AbstractPost currentPost;
 
 
 
@@ -57,11 +58,11 @@ public class Index
         {
             return Feed.class;
         }
-        else if (StringUtils.equalsIgnoreCase(Post.ABOUT_ME_UUID, parameter))
+        else if (StringUtils.equalsIgnoreCase(Page.ABOUT_ME_UUID, parameter))
         {
             return AboutMe.class;
         }
-        else if (StringUtils.equalsIgnoreCase(Post.ALT_MATERIALS_UUID, parameter))
+        else if (StringUtils.equalsIgnoreCase(Page.ALT_MATERIALS_UUID, parameter))
         {
             return Alt.class;
         }
@@ -74,7 +75,7 @@ public class Index
             boolean unpublished = viewState.isShowUnpublished();
             Long categoryId = viewState.getCurrentCategoryId();
 
-            Post post = postDAO.getByUuid(parameter);
+            AbstractPost post = postDAO.getByUuid(parameter);
             if (post == null)
             {
                 post = postDAO.getMostRecentPost(unpublished, categoryId);
@@ -98,7 +99,7 @@ public class Index
         return null;
     }
 
-    public Post getCurrentPost()
+    public AbstractPost getCurrentPost()
     {
         if(currentPost == null)
         {

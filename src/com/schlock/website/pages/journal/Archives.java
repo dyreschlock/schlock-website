@@ -1,6 +1,6 @@
 package com.schlock.website.pages.journal;
 
-import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.pages.Index;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -38,7 +38,7 @@ public class Archives
             mtid = mtid.substring(1);
         }
 
-        Post post = postDAO.getByMtid(mtid);
+        AbstractPost post = postDAO.getByMtid(mtid);
         if (post != null)
         {
             return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid());

@@ -6,7 +6,10 @@
         <t:eventlink t:id="selectPost" context="post.uuid" />
         <h2>${post.title}</h2>
         <t:if test="!post.page">
-            <div class="postDate">${post.createdDateFormat}</div>
+            <div class="postDate">${createdDate}</div>
+        </t:if>
+        <t:if test="hasUpdatedTime">
+            <div class="postDate"><i>${message:updated}</i>: ${updatedTime}</div>
         </t:if>
     </div>
 

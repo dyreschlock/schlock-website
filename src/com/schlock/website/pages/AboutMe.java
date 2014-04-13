@@ -1,7 +1,7 @@
 package com.schlock.website.pages;
 
 import com.schlock.website.entities.Icon;
-import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.Page;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -89,13 +89,13 @@ public class AboutMe
         return getPage().getTitle();
     }
 
-    private Post cachedPage;
+    private Page cachedPage;
 
-    public Post getPage()
+    public Page getPage()
     {
         if(cachedPage == null)
         {
-            cachedPage = postDAO.getByUuid(Post.ABOUT_ME_UUID);
+            cachedPage = (Page) postDAO.getByUuid(Page.ABOUT_ME_UUID);
         }
         return cachedPage;
     }

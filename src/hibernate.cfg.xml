@@ -30,7 +30,7 @@
 
 
         <mapping resource="com/schlock/website/entities/blog/Category.hbm.xml" />
-        <mapping resource="com/schlock/website/entities/blog/Post.hbm.xml" />
+        <mapping resource="com/schlock/website/entities/blog/AbstractPost.hbm.xml" />
 
     </session-factory>
 </hibernate-configuration>
