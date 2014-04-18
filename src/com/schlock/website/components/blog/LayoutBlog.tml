@@ -2,8 +2,7 @@
 <html
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-    xmlns:b="tapestry-library:blog"
-    xmlns:l="tapestry-library:blog/link"
+    xmlns:l="tapestry-library:blog/layout"
     >
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
@@ -17,26 +16,18 @@
         <div id="headerFullBody"><div id="headerInnerBody"><div id="headerBody">
             <div id="headerContent">
 
-                <div class="title">
-                    <h1>${message:website-title}</h1>
-                </div>
-                <div class="links">
-                    <t:eventlink event="home">${message:home}</t:eventlink>
-                    /
-                    <t:eventlink event="archive">${message:archive}</t:eventlink>
-                    /
-                    <t:eventlink event="aboutMe">${message:about-me}</t:eventlink>
-                    <t:remove>
-                        <t:eventlink t:id="codejamLink">${message:codejam}</t:eventlink>
-                    </t:remove>
-                    <t:if test="local">
-                        / <t:eventlink t:id="regeneratePostHTML">Regen</t:eventlink>
-                    </t:if>
-                </div>
-                <br class="clr" />
+                <l:header />
 
             </div>
         </div></div></div>
+        <div id="subheaderFullBody"><div id="subheaderInnerBody"><div id="subheaderBody">
+            <div id="subheaderContent">
+
+                <l:subheader post="post" />
+
+            </div>
+        </div></div></div>
+
         <div id="blogFullBody"><div id="blogInnerBody"><div id="blogBody">
             <div id="blogContent">
 
@@ -47,47 +38,7 @@
         <div id="footerFullBody"><div id="footerInnerBody"><div id="footerBody">
             <div id="footerContent">
 
-                <div id="recentPosts">
-                    <div class="title pb10">${message:recent-posts}</div>
-
-                    <t:loop source="recentPosts" value="currentPost" index="currentIndex">
-                        <l:postlink post="currentPost" cssClass="postClass" />
-                    </t:loop>
-                </div>
-                <div id="recentPinnedPosts">
-                    <div class="title pb10">${message:recent-pinned-posts}</div>
-
-                    <t:loop source="recentPinnedPosts" value="currentPost" index="currentIndex">
-                        <l:postlink post="currentPost" cssClass="postClass" />
-                    </t:loop>
-                </div>
-                <div id="pagesLinks">
-                    <div class="title pb10">${message:pages}</div>
-
-                    <t:loop source="pages" value="currentPost" index="currentIndex">
-                        <l:postlink post="currentPost" />
-                    </t:loop>
-
-                    <div id="aboutMessage">
-                        <t:outputraw value="message:website-about" />
-                        &nbsp;
-                        <t:eventlink event="aboutMe">${message:read-more}</t:eventlink>
-                        <br/><br/>
-                        <div class="title">Email</div>
-                        ${message:website-email}
-                    </div>
-
-                    <div id="iconLinks">
-                        <l:iconlink icon="rss" redirectUrl="rssUrl" altTitleText="${message:rssTitle}" />
-                        <l:iconlink icon="twitter" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
-                        <l:iconlink icon="facebook" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
-                        <l:iconlink icon="google" redirectUrl="${message:googleUrl}" altTitleText="${message:googleTitle}" />
-                        <l:iconlink icon="youtube" redirectUrl="${message:youtubeUrl}" altTitleText="${message:youtubeTitle}" />
-                        <l:iconlink icon="ebay" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
-                    </div>
-
-                </div>
-                <br class="clr" />
+                <l:footer />
 
             </div>
         </div></div></div>

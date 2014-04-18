@@ -82,11 +82,6 @@ public class Alt
         return cachedPosts;
     }
 
-    public String getPageTitle()
-    {
-        return getPage().getTitle();
-    }
-
     private Page cachedPage;
 
     public Page getPage()

@@ -1,0 +1,23 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <div class="title">
+        <h1>${message:website-title}</h1>
+    </div>
+    <div class="links">
+        <t:eventlink event="home">${message:home}</t:eventlink>
+        /
+        <t:eventlink event="archive">${message:archive}</t:eventlink>
+        /
+        <t:eventlink event="aboutMe">${message:about-me}</t:eventlink>
+        <t:remove>
+            <t:eventlink t:id="codejamLink">${message:codejam}</t:eventlink>
+        </t:remove>
+        <t:if test="local">
+            / <t:eventlink t:id="regeneratePostHTML">Regen</t:eventlink>
+        </t:if>
+    </div>
+    <br class="clr" />
+
+</t:container>

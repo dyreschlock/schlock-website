@@ -151,7 +151,8 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return getRecentPostsByYearMonth(postCount, null, null, withUnpublished, null);
     }
 
-    public List<Post> getNextPosts(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
+
+    private Query nextPostQuery(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
     {
         String selectClause = "select p from Post p ";
         String extraWhereClause = " p.created > :currentCreated ";
@@ -167,11 +168,23 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
                                     orderByClause);
 
         query.setTimestamp("currentCreated", currentPost.getCreated());
+        return query;
+    }
 
+    public Post getNextPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
+    {
+        Query query = nextPostQuery(currentPost, withUnpublished, categoryId);
+        return (Post) singleResult(query);
+    }
+
+    public List<Post> getNextPosts(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
+    {
+        Query query = nextPostQuery(currentPost, withUnpublished, categoryId);
         return query.list();
     }
 
-    public List<Post> getPreviousPosts(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
+
+    private Query previousPostQuery(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
     {
         String selectClause = "select p from Post p ";
         String extraWhereClause = " p.created < :currentCreated ";
@@ -187,9 +200,21 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
                                     orderByClause);
 
         query.setTimestamp("currentCreated", currentPost.getCreated());
+        return query;
+    }
 
+    public Post getPreviousPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
+    {
+        Query query = previousPostQuery(currentPost, withUnpublished, categoryId);
+        return (Post) singleResult(query);
+    }
+
+    public List<Post> getPreviousPosts(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
+    {
+        Query query = previousPostQuery(currentPost, withUnpublished, categoryId);
         return query.list();
     }
+
 
     public List<Post> getRecentPostsByYearMonth(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId)
     {

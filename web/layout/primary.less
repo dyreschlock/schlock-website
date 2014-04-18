@@ -23,11 +23,11 @@ h1, h2, h3
     margin: 0;
 }
 
-#headerFullBody, #blogFullBody, #footerFullyBody
+#headerFullBody, #subheaderFullBody, #blogFullBody, #footerFullyBody
 {
     width: 100%;
 }
-#headerInnerBody, #blogInnerBody, #footerInnerBody
+#headerInnerBody, #subheaderInnerBody, #blogInnerBody, #footerInnerBody
 {
     width: @app_width;
     margin-left: auto;
@@ -43,10 +43,14 @@ h1, h2, h3
     top: 0;
     z-index: 100;
 }
+#subheaderFullBody
+{
+    background-color: #ededed;
+    padding-top: 55px;
+}
 #blogFullBody
 {
     background-color: #fefefe;
-    padding-top: 50px;
 }
 
 #headerBody, #footerBody
@@ -65,8 +69,24 @@ h1, h2, h3
 {
     padding: 20px 70px;
 }
+#subheaderBody
+{
+    background-color: #eee;
+    color: #999;
+
+    padding: 5px 30px;
+
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+
+    font-family: @font2;
+    font-size: 0.8em;
+}
 #blogBody
 {
+    background-color: #fff;
+    color: #333;
+
     padding-left: 70px;
     padding-right: 70px;
 
@@ -108,13 +128,39 @@ h1, h2, h3
         }
     }
 }
+#subheaderContent
+{
+    width: 100%;
+
+    div.previousNext
+    {
+        position: relative;
+        float: left;
+
+        a
+        {
+            color: #999;
+        }
+        span.title
+        {
+            color: #888;
+        }
+        span.divider
+        {
+            padding: 0 10px;
+        }
+    }
+    div.categories
+    {
+        position: relative;
+        float: right;
+    }
+}
 
 
 #blogContent
 {
     width: 100%;
-    background-color: #fff;
-    color: #333;
 
     overflow-y: hidden;
     overflow-x: hidden;
@@ -232,11 +278,11 @@ h1, h2, h3
     {
         font-size: 95%;
     }
-    #headerInnerBody, #blogInnerBody, #footerInnerBody
+    #headerInnerBody, #subheaderInnerBody, #blogInnerBody, #footerInnerBody
     {
         width: 100%;
     }
-    #headerBody, #blogBody, #footerBody
+    #headerBody, #subheaderBody, #blogBody, #footerBody
     {
         border-left: 0;
         border-right: 0;
@@ -245,6 +291,10 @@ h1, h2, h3
     #headerBody
     {
         padding: 10px;
+    }
+    #subheaderFullBody
+    {
+        padding-top: 42px;
     }
     #footerBody
     {
@@ -263,6 +313,23 @@ h1, h2, h3
             width: 100%;
         }
         div.links
+        {
+            display: none;
+            visibility: hidden;
+        }
+    }
+
+    #subheaderContent
+    {
+        div.previousNext
+        {
+            span.name
+            {
+                display: none;
+                visibility: hidden;
+            }
+        }
+        div.categories
         {
             display: none;
             visibility: hidden;
@@ -288,11 +355,11 @@ h1, h2, h3
 /* ipad viewport size */
 @media all and (min-width: 768px) and (max-width: 1000px)
 {
-    #headerInnerBody, #blogInnerBody, #footerInnerBody
+    #headerInnerBody, #subheaderInnerBody, #blogInnerBody, #footerInnerBody
     {
         width: 100%;
     }
-    #headerBody, #blogBody, #footerBody
+    #headerBody, #subheaderBody, #blogBody, #footerBody
     {
         border-left: 0;
         border-right: 0;
@@ -301,6 +368,10 @@ h1, h2, h3
     #headerBody
     {
         padding: 10px 20px;
+    }
+    #subheaderBody
+    {
+        padding: 5px 20px;
     }
     #footerBody
     {

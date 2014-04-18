@@ -151,11 +151,6 @@ public class Club
     }
 
 
-    public String getPageTitle()
-    {
-        return getPage().getTitle();
-    }
-
     private Page cachedPage;
 
     public Page getPage()

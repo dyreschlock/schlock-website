@@ -1,0 +1,48 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:l="tapestry-library:blog/link"
+    >
+
+    <div id="recentPosts">
+        <div class="title pb10">${message:recent-posts}</div>
+
+        <t:loop source="recentPosts" value="currentPost" index="currentIndex">
+            <l:postlink post="currentPost" cssClass="postClass" />
+        </t:loop>
+    </div>
+    <div id="recentPinnedPosts">
+        <div class="title pb10">${message:recent-pinned-posts}</div>
+
+        <t:loop source="recentPinnedPosts" value="currentPost" index="currentIndex">
+            <l:postlink post="currentPost" cssClass="postClass" />
+        </t:loop>
+    </div>
+    <div id="pagesLinks">
+        <div class="title pb10">${message:pages}</div>
+
+        <t:loop source="pages" value="currentPost" index="currentIndex">
+            <l:postlink post="currentPost" />
+        </t:loop>
+
+        <div id="aboutMessage">
+            <t:outputraw value="message:website-about" />
+            &nbsp;
+            <t:eventlink event="aboutMe">${message:read-more}</t:eventlink>
+            <br/><br/>
+            <div class="title">Email</div>
+            ${message:website-email}
+        </div>
+
+        <div id="iconLinks">
+            <l:iconlink icon="rss" redirectUrl="rssUrl" altTitleText="${message:rssTitle}" />
+            <l:iconlink icon="twitter" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
+            <l:iconlink icon="facebook" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
+            <l:iconlink icon="google" redirectUrl="${message:googleUrl}" altTitleText="${message:googleTitle}" />
+            <l:iconlink icon="youtube" redirectUrl="${message:youtubeUrl}" altTitleText="${message:youtubeTitle}" />
+            <l:iconlink icon="ebay" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
+        </div>
+
+    </div>
+    <br class="clr" />
+
+</t:container>

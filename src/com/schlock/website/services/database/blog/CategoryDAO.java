@@ -8,4 +8,6 @@ import java.util.List;
 public interface CategoryDAO extends BaseDAO<Category>
 {
     public List<Category> getAllInOrder();
+
+    public List<Category> getTopInOrder();
 }

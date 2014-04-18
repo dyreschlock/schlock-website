@@ -23,4 +23,14 @@ public class CategoryDAOImpl extends BaseDAOImpl<Category> implements CategoryDA
         Query query = session.createQuery(text);
         return query.list();
     }
+
+    public List<Category> getTopInOrder()
+    {
+        String text = "from Category " +
+                        " where parent is null " +
+                        " order by ordering ";
+
+        Query query = session.createQuery(text);
+        return query.list();
+    }
 }

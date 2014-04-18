@@ -107,9 +107,4 @@ public class Index
         }
         return currentPost;
     }
-
-    public String getPageTitle()
-    {
-        return currentPost.getTitle();
-    }
 }

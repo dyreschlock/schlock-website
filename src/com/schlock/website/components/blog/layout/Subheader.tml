@@ -1,0 +1,42 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <div class="previousNext">
+
+        <t:if test="hasPrevious">
+
+            <t:eventlink event="selectPost" context="previousPost.uuid">
+
+                <span class="title">${message:previous}</span>
+                <span class="name">: ${previousPost.title}</span>
+
+            </t:eventlink>
+
+        </t:if>
+        <t:if test="hasBoth">
+            <span class="divider"> | </span>
+        </t:if>
+        <t:if test="hasNext">
+
+            <t:eventlink event="selectPost" context="nextPost.uuid">
+
+                <span class="title">${message:next}</span>
+                <span class="name">: ${nextPost.title}</span>
+
+            </t:eventlink>
+
+        </t:if>
+        <br class="clr" />
+
+    </div>
+
+    <div class="categories">
+        <t:loop source="categories" value="currentCategory" index="currentIndex">
+            <t:if test="notFirst"> / </t:if>
+            ${currentCategory.name}
+        </t:loop>
+    </div>
+    <br class="clr" />
+
+</t:container>
