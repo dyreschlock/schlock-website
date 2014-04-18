@@ -19,9 +19,9 @@
 
 
         <property name="bonecp.partitionCount">2</property>
-        <property name="bonecp.maxConnectionsPerPartition">3</property>
+        <property name="bonecp.maxConnectionsPerPartition">1</property>
         <property name="bonecp.minConnectionsPerPartition">1</property>
-        <property name="bonecp.acquireIncrement">2</property>
+        <property name="bonecp.acquireIncrement">1</property>
 
         <property name="bonecp.idleMaxAge">120</property>
         <property name="bonecp.idleConnectionTestPeriod">60</property>
