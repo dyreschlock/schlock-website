@@ -12,9 +12,9 @@
         <property name="wpid" />
         <property name="mtid" />
 
-        <property name="title" />
+        <property name="title" not-null="true" />
 
-        <property name="created" />
+        <property name="created" not-null="true" />
 
         <property name="published" />
         <property name="pinned" />

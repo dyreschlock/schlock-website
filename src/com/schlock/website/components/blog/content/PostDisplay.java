@@ -8,7 +8,6 @@ import com.schlock.website.pages.Index;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
-import com.schlock.website.services.database.blog.impl.PostDAOImpl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -45,15 +44,6 @@ public class PostDisplay
     @SessionState
     private ViewState viewState;
 
-
-    @Property
-    private Post currentPost;
-
-    @Property
-    private int currentIndex;
-
-    private List<Post> cachedNextPosts;
-    private List<Post> cachedPreviousPosts;
 
     @Property
     private Category currentCategory;
@@ -108,94 +98,8 @@ public class PostDisplay
         return StringUtils.isNotBlank(post.getFlashCardsLink());
     }
 
-
-
-    public String getPostClass()
-    {
-        if (currentIndex >= PostDAOImpl.MIN_RECENT)
-        {
-            return "minSizeHidden";
-        }
-        return "";
-    }
-
-
     public boolean isHasPreviousNextPosts()
     {
-        return isHasNextPosts() || isHasPreviousPosts();
-    }
-
-    public boolean isHasNextPosts()
-    {
-        List<Post> posts = getNextPosts();
-        return posts != null && posts.size() > 0;
-    }
-
-    public List<Post> getNextPosts()
-    {
-        if(cachedNextPosts == null)
-        {
-            boolean unpublished = viewState.isShowUnpublished();
-            Long categoryId = viewState.getCurrentCategoryId();
-
-            cachedNextPosts = postDAO.getNextPosts(post, unpublished, categoryId);
-        }
-        return cachedNextPosts;
-    }
-
-    public boolean isHasPreviousPosts()
-    {
-        List<Post> posts = getPreviousPosts();
-        return posts != null && posts.size() > 0;
-    }
-
-    public List<Post> getPreviousPosts()
-    {
-        if(cachedPreviousPosts == null)
-        {
-            boolean unpublished = viewState.isShowUnpublished();
-            Long categoryId = viewState.getCurrentCategoryId();
-
-            cachedPreviousPosts = postDAO.getPreviousPosts(post, unpublished, categoryId);
-        }
-        return cachedPreviousPosts;
-    }
-
-    public String getNextTitle()
-    {
-        if (viewState.isHasCurrentCategory())
-        {
-            Category category = viewState.getCurrentCategory(categoryDAO);
-            String categoryName = category.getName();
-
-            if (category.getParent() != null)
-            {
-                String parentName = category.getParent().getName();
-                categoryName = parentName + " ." + categoryName;
-            }
-
-            String message = messages.get("nextInCategory");
-            return String.format(message, categoryName);
-        }
-        return messages.get("next");
-    }
-
-    public String getPreviousTitle()
-    {
-        if (viewState.isHasCurrentCategory())
-        {
-            Category category = viewState.getCurrentCategory(categoryDAO);
-            String categoryName = category.getName();
-
-            if (category.getParent() != null)
-            {
-                String parentName = category.getParent().getName();
-                categoryName = parentName + " ." + categoryName;
-            }
-
-            String message = messages.get("previousInCategory");
-            return String.format(message, categoryName);
-        }
-        return messages.get("previous");
+        return !post.isPage();
     }
 }

@@ -49,32 +49,8 @@
         <c:imagegallery post="post" />
     </t:if>
 
-    <t:if test="!post.page">
-        <t:if test="hasPreviousNextPosts">
-            <hr />
-        </t:if>
-
-        <t:if test="hasPreviousPosts">
-            <div id="previousLinks">
-                <div class="title pb10">${previousTitle}</div>
-
-                <t:loop source="previousPosts" value="currentPost" index="currentIndex">
-                    <l:postlink post="currentPost" cssClass="postClass" />
-                </t:loop>
-            </div>
-        </t:if>
-
-        <t:if test="hasNextPosts">
-            <div id="nextLinks">
-                <div class="title pb10">${nextTitle}</div>
-
-                <t:loop source="nextPosts" value="currentPost" index="currentIndex">
-                    <l:postlink post="currentPost" cssClass="postClass" />
-                </t:loop>
-            </div>
-        </t:if>
-
-        <br class="clr" />
+    <t:if test="hasPreviousNextPosts">
+        <hr class="clr" />
+        <c:postpreviousnext post="post" />
     </t:if>
-
 </t:container>

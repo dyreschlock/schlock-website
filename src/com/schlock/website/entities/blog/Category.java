@@ -43,6 +43,8 @@ public class Category extends Persisted
 
     public static final String TEACHING = "teaching";
 
+    private String uuid;
+
     private String name;
     private int ordering;
 
@@ -52,6 +54,16 @@ public class Category extends Persisted
     public boolean isTopCategory()
     {
         return parent == null;
+    }
+
+    public String getUuid()
+    {
+        return uuid;
+    }
+
+    public void setUuid(String uuid)
+    {
+        this.uuid = uuid;
     }
 
     public String getName()

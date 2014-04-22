@@ -1,0 +1,174 @@
+package com.schlock.website.components.blog.content;
+
+import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Category;
+import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.ViewState;
+import com.schlock.website.services.database.blog.PostDAO;
+import com.schlock.website.services.database.blog.impl.PostDAOImpl;
+import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.ioc.Messages;
+import org.apache.tapestry5.ioc.annotations.Inject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class PostPreviousNext
+{
+    @Parameter(required = true)
+    @Property
+    private AbstractPost post;
+
+    @Inject
+    private Messages messages;
+
+    @Inject
+    private PostDAO postDAO;
+
+
+    @SessionState
+    private ViewState viewState;
+
+
+    @Property
+    private Post currentPost;
+
+    @Property
+    private int currentIndex;
+
+    @Property
+    private Category currentCategory;
+
+
+
+    public List<Category> getCategories()
+    {
+        List<Category> categories = new ArrayList<Category>();
+        categories.add(null);
+
+        for (Category top : post.getTopCategories())
+        {
+            categories.add(top);
+            for (Category sub : post.getSubcategories(top))
+            {
+                categories.add(sub);
+            }
+        }
+        return categories;
+    }
+
+
+    public String getPostClass()
+    {
+        if (currentIndex >= PostDAOImpl.MIN_RECENT)
+        {
+            return "minSizeHidden";
+        }
+        return "";
+    }
+
+    public String getCategoryClass()
+    {
+        if (currentCategory != null)
+        {
+            return "minSizeHidden";
+        }
+        return "";
+    }
+
+
+    public boolean isHasNextPosts()
+    {
+        List<Post> posts = getNextPosts();
+        return posts != null && posts.size() > 0;
+    }
+
+    public List<Post> getNextPosts()
+    {
+        boolean unpublished = viewState.isShowUnpublished();
+
+        List<Post> posts = null;
+        if (currentCategory != null)
+        {
+            Long categoryId = currentCategory.getId();
+
+            Post next = postDAO.getNextPost(post, unpublished, categoryId);
+            if(next != null)
+            {
+                posts = Arrays.asList(next);
+            }
+        }
+        else
+        {
+            posts = postDAO.getNextPosts(post, unpublished, null);
+        }
+        return posts;
+    }
+
+    public boolean isHasPreviousPosts()
+    {
+        List<Post> posts = getPreviousPosts();
+        return posts != null && posts.size() > 0;
+    }
+
+    public List<Post> getPreviousPosts()
+    {
+        boolean unpublished = viewState.isShowUnpublished();
+
+        List<Post> posts = null;
+        if (currentCategory != null)
+        {
+            Long categoryId = currentCategory.getId();
+
+            Post previous = postDAO.getPreviousPost(post, unpublished, categoryId);
+            if(previous != null)
+            {
+                posts = Arrays.asList(previous);
+            }
+        }
+        else
+        {
+            posts = postDAO.getPreviousPosts(post, unpublished, null);
+        }
+        return posts;
+    }
+
+    public String getNextTitle()
+    {
+        if (currentCategory != null)
+        {
+            String categoryName = currentCategory.getName();
+
+            if (currentCategory.getParent() != null)
+            {
+                String parentName = currentCategory.getParent().getName();
+                categoryName = parentName + " ." + categoryName;
+            }
+
+            String message = messages.get("nextInCategory");
+            return String.format(message, categoryName);
+        }
+        return messages.get("next");
+    }
+
+    public String getPreviousTitle()
+    {
+        if (currentCategory != null)
+        {
+            String categoryName = currentCategory.getName();
+
+            if (currentCategory.getParent() != null)
+            {
+                String parentName = currentCategory.getParent().getName();
+                categoryName = parentName + " ." + categoryName;
+            }
+
+            String message = messages.get("previousInCategory");
+            return String.format(message, categoryName);
+        }
+        return messages.get("previous");
+    }
+}

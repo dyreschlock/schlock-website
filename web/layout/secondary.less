@@ -202,12 +202,11 @@
 }
 
 
-#previousLinks, #nextLinks
+#previousNext
 {
-    position: relative;
-    width: 46%;
+    width: 100%;
 
-    padding: 30px 0;
+    padding-bottom: 30px;
 
     a
     {
@@ -222,23 +221,33 @@
         font-size: 1em;
         font-family: @font2;
     }
-}
-#previousLinks
-{
-    text-align: left;
-    float: left;
-}
-#nextLinks
-{
-    text-align: right;
-    float: right;
+
+
+    div.previousLinks, div.nextLinks
+    {
+        position: relative;
+        width: 46%;
+
+        padding-top: 30px;
+    }
+    div.previousLinks
+    {
+        text-align: left;
+        float: left;
+    }
+    div.nextLinks
+    {
+        text-align: right;
+        float: right;
+    }
 }
 
 
 div.postLink
 {
     position: relative;
-    padding-top: 10px;
+    padding-top: 12px;
+    padding-bottom: 8px;
 
     overflow: hidden;
 
@@ -255,7 +264,6 @@ div.postLink
     {
         font-family: @font2;
         font-size: 1.1em;
-        margin-top: 10px;
     }
     div.postDate
     {
@@ -603,7 +611,7 @@ div.postLink
 /* iphone viewport size */
 @media all and (max-width: 767px)
 {
-    div.minSizeHidden
+    .minSizeHidden
     {
         display: none;
         visibility: hidden;
@@ -629,14 +637,16 @@ div.postLink
         }
     }
 
-    #previousLinks, #nextLinks
+    #previousNext
     {
-        width: 100%;
-    }
-    #nextLinks
-    {
-        text-align: left;
-        padding-top: 0;
+        div.previousLinks, div.nextLinks
+        {
+            width: 100%;
+        }
+        div.nextLinks
+        {
+            text-align: left;
+        }
     }
 
     #recentPosts, #recentPinnedPosts, #pagesLinks

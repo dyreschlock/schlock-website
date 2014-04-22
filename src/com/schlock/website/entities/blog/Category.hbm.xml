@@ -7,7 +7,8 @@
             <generator class="native" />
         </id>
 
-        <property name="name" />
+        <property name="uuid" not-null="true" />
+        <property name="name" not-null="true" />
         <property name="ordering" />
 
         <many-to-one name="parent" column="parentId" class="com.schlock.website.entities.blog.Category" />

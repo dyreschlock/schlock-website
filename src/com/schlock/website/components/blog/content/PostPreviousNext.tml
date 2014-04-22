@@ -1,0 +1,33 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:l="tapestry-library:blog/link"
+    >
+
+    <t:if test="!post.page">
+        <div id="previousNext">
+            <t:loop source="categories" value="currentCategory">
+                <t:if test="hasPreviousPosts">
+                    <div class="previousLinks ${categoryClass}">
+                        <div class="title">${previousTitle}</div>
+
+                        <t:loop source="previousPosts" value="currentPost" index="currentIndex">
+                            <l:postlink post="currentPost" cssClass="postClass" />
+                        </t:loop>
+                    </div>
+                </t:if>
+
+                <t:if test="hasNextPosts">
+                    <div class="nextLinks ${categoryClass}">
+                        <div class="title">${nextTitle}</div>
+
+                        <t:loop source="nextPosts" value="currentPost" index="currentIndex">
+                            <l:postlink post="currentPost" cssClass="postClass" />
+                        </t:loop>
+                    </div>
+                </t:if>
+                <br class="clr ${categoryClass}" />
+            </t:loop>
+        </div>
+    </t:if>
+
+</t:container>

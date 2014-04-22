@@ -15,7 +15,7 @@ public class CategoryComparator implements Comparator<Category>
         }
         if (c2 < c1)
         {
-            return -1;
+            return 1;
         }
         return 0;
     }
