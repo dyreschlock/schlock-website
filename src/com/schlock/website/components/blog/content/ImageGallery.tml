@@ -3,7 +3,7 @@
     >
     <t:if test="post.hasGallery">
         <div id="images">
-            <div class="title">${message:images}</div>
+            <div class="title">${imageMessage}</div>
 
             <t:loop source="galleryImages" value="currentImage" index="currentIndex">
 

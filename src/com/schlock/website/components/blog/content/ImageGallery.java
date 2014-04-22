@@ -9,6 +9,7 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.List;
@@ -26,6 +27,9 @@ public class ImageGallery
     @Inject
     private PostManagement postManagement;
 
+    @Inject
+    private Messages messages;
+
 
     @InjectComponent
     private Zone imageOverlayZone;
@@ -41,6 +45,14 @@ public class ImageGallery
     @Persist
     private String selectedImage;
 
+
+    public String getImageMessage()
+    {
+        String message = messages.get("images");
+        int count = getGalleryImages().size();
+
+        return String.format(message, count);
+    }
 
 
     public List<String> getGalleryImages()
