@@ -3,7 +3,9 @@
     >
 
     <div class="title">
-        <h1>${message:website-title}</h1>
+        <t:eventlink event="home">
+            <h1>${message:website-title}</h1>
+        </t:eventlink>
     </div>
     <div class="links">
         <t:eventlink event="home">${message:home}</t:eventlink>
