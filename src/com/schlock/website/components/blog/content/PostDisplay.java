@@ -2,9 +2,8 @@ package com.schlock.website.components.blog.content;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Category;
-import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
-import com.schlock.website.pages.Index;
+import com.schlock.website.pages.category.CategoryIndex;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -62,14 +61,9 @@ public class PostDisplay
         return post.getSubcategories(currentCategory);
     }
 
-    Object onSelectCategory(Long categoryId)
+    Object onSelectCategory(String categoryUuid)
     {
-        viewState.setCurrentCategoryId(categoryId);
-
-        boolean unpublished = viewState.isShowUnpublished();
-        Post post = postDAO.getMostRecentPost(unpublished, categoryId);
-
-        return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid());
+        return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, categoryUuid);
     }
 
     public String getCreatedDate()

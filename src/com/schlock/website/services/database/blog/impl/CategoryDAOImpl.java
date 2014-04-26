@@ -15,6 +15,17 @@ public class CategoryDAOImpl extends BaseDAOImpl<Category> implements CategoryDA
         super(Category.class, session);
     }
 
+    public Category getByUuid(String uuid)
+    {
+        String text = "from Category " +
+                      " where uuid = :uuid ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("uuid", uuid);
+
+        return (Category) singleResult(query);
+    }
+
     public List<Category> getAllInOrder()
     {
         String text = "from Category " +
@@ -31,6 +42,20 @@ public class CategoryDAOImpl extends BaseDAOImpl<Category> implements CategoryDA
                         " order by ordering ";
 
         Query query = session.createQuery(text);
+        return query.list();
+    }
+
+    public List<Category> getSubInOrder(Long categoryId)
+    {
+        String text = "select child " +
+                        " from Category child " +
+                        " join child.parent par " +
+                        " where par.id = :categoryId " +
+                        " order by child.ordering ";
+
+        Query query = session.createQuery(text);
+        query.setLong("categoryId", categoryId);
+
         return query.list();
     }
 }

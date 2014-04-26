@@ -99,6 +99,11 @@ h1, h2, h3
 {
     width: 100%;
 
+    a
+    {
+        color: #fff;
+    }
+
     div.title
     {
         text-align: left;
@@ -107,6 +112,7 @@ h1, h2, h3
         width: 55%;
 
         padding: 0 0;
+
     }
     div.links
     {
@@ -118,10 +124,6 @@ h1, h2, h3
 
         padding: 8px 0;
 
-        a
-        {
-            color: #fff;
-        }
         a:hover
         {
             text-decoration: underline;
@@ -154,6 +156,15 @@ h1, h2, h3
     {
         position: relative;
         float: right;
+
+        a
+        {
+            color: #999;
+        }
+        a:hover
+        {
+            text-decoration: underline;
+        }
     }
 }
 
@@ -253,6 +264,38 @@ h1, h2, h3
 {
     padding-top: 20px;
     padding-bottom: 20px;
+
+    div.title
+    {
+        font-family: @font2;
+        font-weight: bold;
+        font-size: 1.2em;
+
+        padding-bottom: 5px;
+    }
+
+    div.postLink
+    {
+        vertical-align: bottom;
+        padding: 5px 0;
+
+        h2
+        {
+            font-size: 0.9em;
+
+            position: relative;
+            float: left;
+
+            padding-left: 20px;
+        }
+        div.postDate
+        {
+            position: relative;
+            float: left;
+
+            padding-left: 7px;
+        }
+    }
 }
 
 

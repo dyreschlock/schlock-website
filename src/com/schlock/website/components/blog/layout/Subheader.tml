@@ -1,7 +1,6 @@
 <t:container
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
-
     <div class="previousNext">
 
         <t:if test="hasPrevious">
@@ -34,7 +33,7 @@
     <div class="categories">
         <t:loop source="categories" value="currentCategory" index="currentIndex">
             <t:if test="notFirst"> / </t:if>
-            ${currentCategory.name}
+            <t:eventlink event="selectCategory" context="currentCategory.uuid">${currentCategory.name}</t:eventlink>
         </t:loop>
     </div>
     <br class="clr" />

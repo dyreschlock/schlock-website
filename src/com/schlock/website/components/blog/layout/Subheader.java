@@ -5,6 +5,7 @@ import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.Index;
+import com.schlock.website.pages.category.CategoryIndex;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Parameter;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class Subheader
 {
-    @Parameter(required = true)
+    @Parameter
     private AbstractPost post;
 
 
@@ -58,13 +59,12 @@ public class Subheader
 
     public Post getPreviousPost()
     {
-        if (!post.isPage() && cachedPreviousPost == null)
+        if (post != null && !post.isPage() && cachedPreviousPost == null)
         {
             Post currentPost = (Post) post;
             boolean unpublished = viewState.isShowUnpublished();
-            Long categoryId = viewState.getCurrentCategoryId();
 
-            cachedPreviousPost = postDAO.getPreviousPost(currentPost, unpublished, categoryId);
+            cachedPreviousPost = postDAO.getPreviousPost(currentPost, unpublished, null);
         }
         return cachedPreviousPost;
     }
@@ -79,13 +79,12 @@ public class Subheader
 
     public Post getNextPost()
     {
-        if (!post.isPage() && cachedNextPost == null)
+        if (post != null && !post.isPage() && cachedNextPost == null)
         {
             Post currentPost = (Post) post;
             boolean unpublished = viewState.isShowUnpublished();
-            Long categoryId = viewState.getCurrentCategoryId();
 
-            cachedNextPost = postDAO.getNextPost(currentPost, unpublished, categoryId);
+            cachedNextPost = postDAO.getNextPost(currentPost, unpublished, null);
         }
         return cachedNextPost;
     }
@@ -105,5 +104,10 @@ public class Subheader
     public boolean isNotFirst()
     {
         return currentIndex != 0;
+    }
+
+    Object onSelectCategory(String categoryUuid)
+    {
+        return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, categoryUuid);
     }
 }

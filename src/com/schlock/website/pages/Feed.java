@@ -32,7 +32,7 @@ public class Feed
     {
         int postCount = PostDAOImpl.TOP_RECENT;
 
-        List<Post> posts = postDAO.getMostRecentPosts(postCount, false);
+        List<Post> posts = postDAO.getMostRecentPosts(postCount, false, null);
         return posts;
     }
 

@@ -20,9 +20,9 @@
 
                 <t:loop source="topCategories" value="currentCategory">
                     //
-                    <t:eventlink event="selectCategory" context="currentCategory.id">${currentCategory.name}</t:eventlink>
+                    <t:eventlink event="selectCategory" context="currentCategory.uuid">${currentCategory.name}</t:eventlink>
                     <t:loop source="subcategories" value="currentSubcategory">
-                        .<t:eventlink event="selectCategory" context="currentSubcategory.id">${currentSubcategory.name}</t:eventlink>
+                        .<t:eventlink event="selectCategory" context="currentSubcategory.uuid">${currentSubcategory.name}</t:eventlink>
                     </t:loop>
                 </t:loop>
             </div>

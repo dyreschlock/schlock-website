@@ -7,7 +7,11 @@ import java.util.List;
 
 public interface CategoryDAO extends BaseDAO<Category>
 {
+    public Category getByUuid(String uuid);
+
     public List<Category> getAllInOrder();
 
     public List<Category> getTopInOrder();
+
+    public List<Category> getSubInOrder(Long categoryId);
 }

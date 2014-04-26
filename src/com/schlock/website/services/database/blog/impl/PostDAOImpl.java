@@ -146,9 +146,9 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return (Post) singleResult(query);
     }
 
-    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished)
+    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Long categoryId)
     {
-        return getRecentPostsByYearMonth(postCount, null, null, withUnpublished, null);
+        return getRecentPostsByYearMonth(postCount, null, null, withUnpublished, categoryId);
     }
 
 

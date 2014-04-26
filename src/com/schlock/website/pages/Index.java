@@ -73,12 +73,11 @@ public class Index
         else
         {
             boolean unpublished = viewState.isShowUnpublished();
-            Long categoryId = viewState.getCurrentCategoryId();
 
             AbstractPost post = postDAO.getByUuid(parameter);
             if (post == null)
             {
-                post = postDAO.getMostRecentPost(unpublished, categoryId);
+                post = postDAO.getMostRecentPost(unpublished, null);
             }
             currentPost = post;
         }

@@ -187,7 +187,7 @@ public class Archive
 
     public String getSelectedCategory()
     {
-        Long selectedId = viewState.getCurrentCategoryId();
+        Long selectedId = null;
         if (selectedId != null &&
                 selectedId.equals(currentCategory.getId()))
         {
@@ -198,7 +198,7 @@ public class Archive
 
     public String getSelectedSubcategory()
     {
-        Long selectedId = viewState.getCurrentCategoryId();
+        Long selectedId =null;
         if(selectedId != null &&
                 selectedId.equals(currentSubcategory.getId()))
         {
@@ -209,16 +209,6 @@ public class Archive
 
     Object onSelectCategory(Long categoryId)
     {
-        Long currentId = viewState.getCurrentCategoryId();
-        if (categoryId != null && categoryId.equals(currentId))
-        {
-            viewState.setCurrentCategoryId(null);
-        }
-        else
-        {
-            viewState.setCurrentCategoryId(categoryId);
-        }
-
         return archiveZone;
     }
 
@@ -448,7 +438,7 @@ public class Archive
             Integer year = viewState.getArchiveYear();
             Integer month = viewState.getArchiveMonth();
             Boolean unpublished = viewState.isShowUnpublished();
-            Long categoryId = viewState.getCurrentCategoryId();
+            Long categoryId = null;
 
             cachedPosts = postDAO.getRecentPostsByYearMonth(postCount, year, month, unpublished, categoryId);
         }
