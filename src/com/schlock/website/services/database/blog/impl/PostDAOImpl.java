@@ -135,13 +135,31 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         String orderByClause = " order by p.created desc";
 
         Query query = createQuery(TOP_RECENT,
-                                    null,
-                                    null,
-                                    withUnpublished,
-                                    categoryId,
-                                    selectClause,
-                                    null,
-                                    orderByClause);
+                null,
+                null,
+                withUnpublished,
+                categoryId,
+                selectClause,
+                null,
+                orderByClause);
+
+        return (Post) singleResult(query);
+    }
+
+    public Post getMostRecentPostWithGallery(boolean withUnpublished, Long categoryId)
+    {
+        String selectClause = "select p from Post p ";
+        String whereClause = " p.galleryName is not null ";
+        String orderByClause = " order by p.created desc";
+
+        Query query = createQuery(TOP_RECENT,
+                null,
+                null,
+                withUnpublished,
+                categoryId,
+                selectClause,
+                Arrays.asList(whereClause),
+                orderByClause);
 
         return (Post) singleResult(query);
     }
@@ -149,6 +167,11 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
     public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Long categoryId)
     {
         return getRecentPostsByYearMonth(postCount, null, null, withUnpublished, categoryId);
+    }
+
+    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Long categoryId)
+    {
+        return getRecentPinnedPostsByYearMonth(postCount, null, null, withUnpublished, categoryId);
     }
 
 

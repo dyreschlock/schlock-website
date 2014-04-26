@@ -6,6 +6,7 @@ import com.schlock.website.services.blog.PhotoFileFilter;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.services.ApplicationStateManager;
 
 import java.io.File;
 import java.util.*;
@@ -32,15 +33,20 @@ public class PostManagementImpl implements PostManagement
     private final static String UNDER_OPEN = "<b>";
     private final static String UNDER_CLOSE = "</b>";
 
+    private final ApplicationStateManager asoManager;
+
     private final DeploymentContext deploymentContext;
     private final PostDAO postDAO;
 
     private Map<String, Date> cachedUpdateTime;
     private Set<String> cachedUuids;
 
-    public PostManagementImpl(DeploymentContext deploymentContext,
+    public PostManagementImpl(ApplicationStateManager asoManager,
+                                DeploymentContext deploymentContext,
                                 PostDAO postDAO)
     {
+        this.asoManager = asoManager;
+
         this.deploymentContext = deploymentContext;
         this.postDAO = postDAO;
     }
@@ -401,7 +407,11 @@ public class PostManagementImpl implements PostManagement
             index = images.size() -1;
         }
 
-        return images.get(index);
+        if (images.size() > 0)
+        {
+            return images.get(index);
+        }
+        return null;
     }
 
     public String getStylizedHTMLTitle(AbstractPost post)
@@ -452,5 +462,45 @@ public class PostManagementImpl implements PostManagement
             newStr += parts[i];
         }
         return newStr;
+    }
+
+
+    public List<Post> getTop3Posts(Category category)
+    {
+        final int LIMIT = 3;
+
+        List<Post> posts = new ArrayList<Post>();
+
+        boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
+        Long categoryId = category.getId();
+
+        Post recentGallery = postDAO.getMostRecentPostWithGallery(unpublished, categoryId);
+        if (recentGallery != null)
+        {
+            posts.add(recentGallery);
+        }
+
+        List<Post> pinned = postDAO.getMostRecentPinnedPosts(LIMIT, unpublished, categoryId);
+        for (Post post : pinned)
+        {
+            if (!posts.contains(post) && posts.size() < LIMIT)
+            {
+                posts.add(post);
+            }
+        }
+
+        if (posts.size() < LIMIT)
+        {
+            List<Post> recent = postDAO.getMostRecentPosts(LIMIT, unpublished, categoryId);
+            for (Post post : recent)
+            {
+                if (!posts.contains(post) && posts.size() < LIMIT)
+                {
+                    posts.add(post);
+                }
+            }
+        }
+
+        return posts;
     }
 }

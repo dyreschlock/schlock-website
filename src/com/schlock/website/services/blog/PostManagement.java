@@ -1,6 +1,7 @@
 package com.schlock.website.services.blog;
 
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.Post;
 
@@ -26,4 +27,6 @@ public interface PostManagement
     public String getPostImage(AbstractPost post);
 
     public String getStylizedHTMLTitle(AbstractPost post);
+
+    public List<Post> getTop3Posts(Category category);
 }
