@@ -28,5 +28,5 @@ public interface PostManagement
 
     public String getStylizedHTMLTitle(AbstractPost post);
 
-    public List<Post> getTop3Posts(Category category);
+    public List<Post> getTopPostsForCategory(Integer count, Category category);
 }

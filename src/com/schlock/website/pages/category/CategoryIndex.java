@@ -4,8 +4,6 @@ import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.Archive;
-import com.schlock.website.pages.Index;
-import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -14,7 +12,6 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +21,6 @@ public class CategoryIndex
     @SessionState
     private ViewState viewState;
 
-
-    @Inject
-    private PageRenderLinkSource linkSource;
-
-    @Inject
-    private DateFormatter dateFormat;
 
     @Inject
     private Messages messages;
@@ -77,49 +68,21 @@ public class CategoryIndex
     }
 
 
-    public List<Post> getTop3Posts()
+    public List<Post> getTopPostsForCategory()
     {
-        List<Post> posts = postManagement.getTop3Posts(category);
+        final int LIMIT = 3;
+
+        List<Post> posts = postManagement.getTopPostsForCategory(LIMIT, category);
         return posts;
     }
 
-    public String getDivId()
+    public List<Post> getTopPostsForSubcategory()
     {
-        if (currentIndex == 0)
-        {
-            return "primaryPost";
-        }
-        if (currentIndex == 1)
-        {
-            return "secondaryPost";
-        }
-        if (currentIndex == 2)
-        {
-            return "tertiaryPost";
-        }
-        return "";
-    }
+        final int LIMIT = 2;
 
-    Object onSelectPost(String uuid)
-    {
-        return linkSource.createPageRenderLinkWithContext(Index.class, uuid);
+        List<Post> posts = postManagement.getTopPostsForCategory(LIMIT, currentCategory);
+        return posts;
     }
-
-    public boolean isHasImage()
-    {
-        return StringUtils.isNotBlank(getCurrentImage());
-    }
-
-    public String getCurrentImage()
-    {
-        return postManagement.getPostImage(currentPost);
-    }
-
-    public String getCreatedDate()
-    {
-        return dateFormat.dateFormat(currentPost.getCreated());
-    }
-
 
 
 
@@ -131,6 +94,15 @@ public class CategoryIndex
 
         List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, categoryId);
         return posts;
+    }
+
+    public boolean isHasManyPosts()
+    {
+        if (!currentCategory.isTopCategory())
+        {
+            return getPosts().size() > 10;
+        }
+        return false;
     }
 
 

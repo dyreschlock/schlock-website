@@ -1,0 +1,26 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+    <div class="postPreviews">
+
+        <t:loop source="posts" value="currentPost" index="currentIndex">
+            <div id="${divId}">
+                <t:eventlink t:id="selectPost" context="currentPost.uuid" />
+
+                <t:if test="hasImage">
+                    <div class="postImage" style="background-image: url(${currentImage})" />
+                </t:if>
+                <t:if test="!hasImage">
+                    <div class="postImage noImage" />
+                </t:if>
+
+                <h2>${currentPost.title}</h2>
+                <div class="postDate">${createdDate}</div>
+                <br class="clr" />
+            </div>
+        </t:loop>
+
+        <br class="clr" />
+    </div>
+
+</t:container>

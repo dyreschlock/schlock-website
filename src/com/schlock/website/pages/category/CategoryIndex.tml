@@ -10,26 +10,16 @@
         <h1>${pageTitle}</h1>
 
         <div class="postBody">
-            <t:loop source="top3Posts" value="currentPost" index="currentIndex">
-                <div id="${divId}">
-                    <t:eventlink t:id="selectPost" context="currentPost.uuid" />
-
-                    <t:if test="hasImage">
-                        <div class="postImage" style="background-image: url(${currentImage})" />
-                    </t:if>
-                    <t:if test="!hasImage">
-                        <div class="postImage noImage" />
-                    </t:if>
-
-                    <h2>${currentPost.title}</h2>
-                    <div class="postDate">${createdDate}</div>
-                    <br class="clr" />
-                </div>
-            </t:loop>
+            <c:postspreviewdisplay posts="topPostsForCategory" />
 
             <div id="archivedPosts" class="clr">
                 <t:loop source="categories" value="currentCategory">
+
                     <div class="title">${categoryTitle}</div>
+
+                    <t:if test="hasManyPosts">
+                        <c:postspreviewdisplay posts="topPostsForSubcategory" />
+                    </t:if>
 
                     <t:loop source="posts" value="currentPost">
                         <l:postlink post="currentPost" cssClass="'archive'" />

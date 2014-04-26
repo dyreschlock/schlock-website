@@ -465,10 +465,8 @@ public class PostManagementImpl implements PostManagement
     }
 
 
-    public List<Post> getTop3Posts(Category category)
+    public List<Post> getTopPostsForCategory(final Integer LIMIT, Category category)
     {
-        final int LIMIT = 3;
-
         List<Post> posts = new ArrayList<Post>();
 
         boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
