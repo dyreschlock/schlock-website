@@ -5,12 +5,12 @@
 
     <t:if test="!post.page">
         <div id="previousNext">
-            <t:loop source="categories" value="currentCategory">
+            <t:loop source="categories" value="currentCategory" index="currentCategoryIndex">
                 <t:if test="hasPreviousPosts">
                     <div class="previousLinks ${categoryClass}">
                         <div class="title">${previousTitle}</div>
 
-                        <t:loop source="previousPosts" value="currentPost" index="currentIndex">
+                        <t:loop source="previousPosts" value="currentPost" index="currentPostIndex">
                             <l:postlink post="currentPost" cssClass="postClass" />
                         </t:loop>
                     </div>
@@ -20,12 +20,14 @@
                     <div class="nextLinks ${categoryClass}">
                         <div class="title">${nextTitle}</div>
 
-                        <t:loop source="nextPosts" value="currentPost" index="currentIndex">
+                        <t:loop source="nextPosts" value="currentPost" index="currentPostIndex">
                             <l:postlink post="currentPost" cssClass="postClass" />
                         </t:loop>
                     </div>
                 </t:if>
-                <br class="clr ${categoryClass}" />
+                <t:if test="newLine">
+                    <br class="clr ${categoryClass}" />
+                </t:if>
             </t:loop>
         </div>
     </t:if>

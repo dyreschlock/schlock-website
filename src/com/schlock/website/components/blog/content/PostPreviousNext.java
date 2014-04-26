@@ -37,10 +37,13 @@ public class PostPreviousNext
     private Post currentPost;
 
     @Property
-    private int currentIndex;
+    private int currentPostIndex;
 
     @Property
     private Category currentCategory;
+
+    @Property
+    private int currentCategoryIndex;
 
 
 
@@ -61,9 +64,33 @@ public class PostPreviousNext
     }
 
 
+    public boolean isNewLine()
+    {
+        if (currentCategory == null || currentCategory.isTopCategory())
+        {
+            return true;
+        }
+
+        List<Category> categories = getCategories();
+        int nextCategoryIndex = currentCategoryIndex + 1;
+
+        if (nextCategoryIndex == categories.size())
+        {
+            return true;
+        }
+
+        Category nextCategory = categories.get(nextCategoryIndex);
+        if (nextCategory.isTopCategory())
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public String getPostClass()
     {
-        if (currentIndex >= PostDAOImpl.MIN_RECENT)
+        if (currentPostIndex >= PostDAOImpl.MIN_RECENT)
         {
             return "minSizeHidden";
         }
@@ -72,11 +99,16 @@ public class PostPreviousNext
 
     public String getCategoryClass()
     {
+        String classes = "";
         if (currentCategory != null)
         {
-            return "minSizeHidden";
+            classes += " minSizeHidden";
+            if (!currentCategory.isTopCategory())
+            {
+                classes += " subcategory";
+            }
         }
-        return "";
+        return classes;
     }
 
 
