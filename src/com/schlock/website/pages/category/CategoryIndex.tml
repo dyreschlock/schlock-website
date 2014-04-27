@@ -2,7 +2,6 @@
 <html t:type="blog/layoutblog" pageName="pageTitle"
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     xmlns:l="tapestry-library:blog/link"
-    xmlns:c="tapestry-library:blog/content"
     >
 
     <div id="postContent" class="archive">
@@ -33,7 +32,6 @@
                 </div>
 
                 <div class="postPreviews">
-
                     <t:loop source="previewPosts" value="currentPost">
                         <l:postpreviewlink post="currentPost" cssClass="'secondaryPost'" />
                     </t:loop>

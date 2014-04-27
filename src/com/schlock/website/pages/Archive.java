@@ -12,6 +12,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,6 +42,9 @@ public class Archive
 
     @Property
     private String currentIteration;
+
+    @Property
+    private Post currentPost;
 
 
     Object onActivate()
@@ -107,13 +111,6 @@ public class Archive
         return null;
     }
 
-    public Post getMostRecent()
-    {
-        int LIMIT = 1;
-        List<Post> posts = postManagement.getTopPostsForYearMonth(LIMIT, year, month, Collections.EMPTY_LIST);
-        return posts.get(0);
-    }
-
     public List<String> getIterations()
     {
         List<String> iterations = new ArrayList<String>();
@@ -178,11 +175,6 @@ public class Archive
         return title(year, month);
     }
 
-    public boolean isSubiteration()
-    {
-        return year != null;
-    }
-
     Object onSelectIteration(String iteration)
     {
         Integer year = parseYear(iteration);
@@ -199,10 +191,57 @@ public class Archive
         return onSelectIteration();
     }
 
+    public boolean isSubiteration()
+    {
+        return year != null;
+    }
+
     Object onSelectIteration()
     {
         return linkSource.createPageRenderLinkWithContext(Archive.class);
     }
+
+
+    public Post getMostRecent()
+    {
+        int LIMIT = 1;
+        List<Post> posts = postManagement.getTopPostsForYearMonth(LIMIT, year, month, Collections.EMPTY_LIST);
+        return posts.get(0);
+    }
+
+    public List<Post> getPosts()
+    {
+        int postCount = 20;
+        boolean unpublished = viewState.isShowUnpublished();
+
+        Integer year = parseYear(currentIteration);
+        Integer month = parseMonth(currentIteration);
+
+        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, year, month);
+        return posts;
+    }
+
+    public List<Post> getPreviewPosts()
+    {
+        int count = getPosts().size();
+        int LIMIT = (int) Math.floor(((double) count ) / ((double) 7));
+        if (LIMIT < 1)
+        {
+            LIMIT = 1;
+        }
+
+        Integer year = parseYear(currentIteration);
+        Integer month = parseMonth(currentIteration);
+
+        List<Long> exclude = Arrays.asList(getMostRecent().getId());
+
+        List<Post> posts = postManagement.getTopPostsForYearMonth(LIMIT, year, month, exclude);
+        return posts;
+    }
+
+
+
+
 
     public String getParentIteration()
     {

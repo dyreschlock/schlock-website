@@ -101,6 +101,16 @@ public class CategoryIndex
         return posts.get(0);
     }
 
+    public List<Post> getPosts()
+    {
+        int postCount = 20;
+        boolean unpublished = viewState.isShowUnpublished();
+        Long categoryId = currentCategory.getId();
+
+        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, categoryId);
+        return posts;
+    }
+
     public List<Post> getPreviewPosts()
     {
         int count = getPosts().size();
@@ -114,26 +124,6 @@ public class CategoryIndex
 
         List<Post> posts = postManagement.getTopPostsForCategory(LIMIT, currentCategory, exclude);
         return posts;
-    }
-
-
-    public List<Post> getPosts()
-    {
-        int postCount = 20;
-        boolean unpublished = viewState.isShowUnpublished();
-        Long categoryId = currentCategory.getId();
-
-        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, categoryId);
-        return posts;
-    }
-
-    public boolean isHasManyPosts()
-    {
-        if (!currentCategory.isTopCategory())
-        {
-            return getPosts().size() > 10;
-        }
-        return false;
     }
 
 

@@ -2,7 +2,6 @@
 <html t:type="blog/layoutblog" pageName="pageTitle"
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     xmlns:l="tapestry-library:blog/link"
-    xmlns:c="tapestry-library:blog/content"
     >
 
     <div id="postContent" class="archive">
@@ -19,6 +18,22 @@
                     <div class="title clr">${iterationTitle}</div>
                 </t:eventlink>
 
+
+                <div class="categoryPosts">
+                    <t:loop source="posts" value="currentPost">
+                        <l:postlink post="currentPost" cssClass="'archive'" />
+                    </t:loop>
+                    <br class="clr" />
+                </div>
+
+                <div class="postPreviews">
+                    <t:loop source="previewPosts" value="currentPost">
+                        <l:postpreviewlink post="currentPost" cssClass="'secondaryPost'" />
+                    </t:loop>
+                    <br class="clr" />
+                </div>
+
+                <br class="clr" />
             </t:loop>
 
             <t:if test="subiteration">
