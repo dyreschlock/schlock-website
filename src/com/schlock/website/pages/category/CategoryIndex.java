@@ -12,8 +12,11 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class CategoryIndex
@@ -21,6 +24,9 @@ public class CategoryIndex
     @SessionState
     private ViewState viewState;
 
+
+    @Inject
+    private PageRenderLinkSource linkSource;
 
     @Inject
     private Messages messages;
@@ -58,9 +64,17 @@ public class CategoryIndex
         return true;
     }
 
+    public boolean isPageCategory()
+    {
+        Long pageId = category.getId();
+        Long catId = currentCategory.getId();
+
+        return pageId.equals(catId);
+    }
+
     public String getCategoryTitle()
     {
-        if (currentCategory.isTopCategory())
+        if (isPageCategory())
         {
             return messages.get("most-recent");
         }
@@ -68,22 +82,33 @@ public class CategoryIndex
     }
 
 
-    public List<Post> getTopPostsForCategory()
+    Object onSelectCategory(String categoryUuid)
     {
-        final int LIMIT = 3;
-
-        List<Post> posts = postManagement.getTopPostsForCategory(LIMIT, category);
-        return posts;
+        return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, categoryUuid);
     }
 
-    public List<Post> getTopPostsForSubcategory()
-    {
-        final int LIMIT = 2;
 
-        List<Post> posts = postManagement.getTopPostsForCategory(LIMIT, currentCategory);
-        return posts;
+    public Post getMostRecent()
+    {
+        int LIMIT = 1;
+        List<Post> posts = postManagement.getTopPostsForCategory(LIMIT, category, Collections.EMPTY_LIST);
+        return posts.get(0);
     }
 
+    public List<Post> getPreviewPosts()
+    {
+        int count = getPosts().size();
+        int LIMIT = (int) Math.floor(((double) count ) / ((double) 7));
+        if (LIMIT < 1)
+        {
+            LIMIT = 1;
+        }
+
+        List<Long> exclude = Arrays.asList(getMostRecent().getId());
+
+        List<Post> posts = postManagement.getTopPostsForCategory(LIMIT, currentCategory, exclude);
+        return posts;
+    }
 
 
     public List<Post> getPosts()
@@ -103,6 +128,22 @@ public class CategoryIndex
             return getPosts().size() > 10;
         }
         return false;
+    }
+
+
+    public Category getParent()
+    {
+        return category.getParent();
+    }
+
+    public boolean isSubcategory()
+    {
+        return !category.isTopCategory();
+    }
+
+    public String getReturnToCategory()
+    {
+        return messages.format("return", category.getParent().getName());
     }
 
 

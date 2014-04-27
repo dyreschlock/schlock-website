@@ -465,7 +465,7 @@ public class PostManagementImpl implements PostManagement
     }
 
 
-    public List<Post> getTopPostsForCategory(final Integer LIMIT, Category category)
+    public List<Post> getTopPostsForCategory(final Integer LIMIT, Category category, List<Long> excludeIds)
     {
         List<Post> posts = new ArrayList<Post>();
 
@@ -473,15 +473,17 @@ public class PostManagementImpl implements PostManagement
         Long categoryId = category.getId();
 
         Post recentGallery = postDAO.getMostRecentPostWithGallery(unpublished, categoryId);
-        if (recentGallery != null)
+        if (recentGallery != null && !excludeIds.contains(recentGallery.getId()))
         {
             posts.add(recentGallery);
         }
 
-        List<Post> pinned = postDAO.getMostRecentPinnedPosts(LIMIT, unpublished, categoryId);
+        List<Post> pinned = postDAO.getMostRecentPinnedPosts(LIMIT+1, unpublished, categoryId);
         for (Post post : pinned)
         {
-            if (!posts.contains(post) && posts.size() < LIMIT)
+            if (!posts.contains(post) &&
+                    !excludeIds.contains(post.getId()) &&
+                    posts.size() < LIMIT)
             {
                 posts.add(post);
             }
@@ -489,10 +491,12 @@ public class PostManagementImpl implements PostManagement
 
         if (posts.size() < LIMIT)
         {
-            List<Post> recent = postDAO.getMostRecentPosts(LIMIT, unpublished, categoryId);
+            List<Post> recent = postDAO.getMostRecentPosts(LIMIT+1, unpublished, categoryId);
             for (Post post : recent)
             {
-                if (!posts.contains(post) && posts.size() < LIMIT)
+                if (!posts.contains(post) &&
+                        !excludeIds.contains(post.getId()) &&
+                        posts.size() < LIMIT)
                 {
                     posts.add(post);
                 }

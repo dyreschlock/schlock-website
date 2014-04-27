@@ -10,23 +10,47 @@
         <h1>${pageTitle}</h1>
 
         <div class="postBody">
-            <c:postspreviewdisplay posts="topPostsForCategory" />
 
-            <div id="archivedPosts" class="clr">
-                <t:loop source="categories" value="currentCategory">
+            <l:postpreviewlink post="mostRecent" cssClass="'primaryPost'" />
 
-                    <div class="title">${categoryTitle}</div>
+            <t:loop source="categories" value="currentCategory">
 
-                    <t:if test="hasManyPosts">
-                        <c:postspreviewdisplay posts="topPostsForSubcategory" />
-                    </t:if>
+                <t:if test="!pageCategory">
+                    <t:eventlink event="selectCategory" context="currentCategory.uuid">
+                        <div class="title clr">${categoryTitle}</div>
+                    </t:eventlink>
+                </t:if>
+                <t:if test="pageCategory">
+                    <div class="title clr">${categoryTitle}</div>
+                </t:if>
 
+
+                <div class="categoryPosts">
                     <t:loop source="posts" value="currentPost">
                         <l:postlink post="currentPost" cssClass="'archive'" />
                     </t:loop>
                     <br class="clr" />
-                </t:loop>
-            </div>
+                </div>
+
+                <div class="postPreviews">
+
+                    <t:loop source="previewPosts" value="currentPost">
+                        <l:postpreviewlink post="currentPost" cssClass="'secondaryPost'" />
+                    </t:loop>
+                    <br class="clr" />
+                </div>
+
+                <br class="clr" />
+            </t:loop>
+
+            <t:if test="subcategory">
+                <div class="returnLink">
+                    //
+                    <t:eventlink event="selectCategory" context="parent.uuid">
+                        ${returnToCategory}
+                    </t:eventlink>
+                </div>
+            </t:if>
         </div>
     </div>
 </html>

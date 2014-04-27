@@ -203,7 +203,6 @@ h1, h2, h3
     }
     img
     {
-        width: 100%;
         max-width: 100%;
     }
     pre
@@ -262,6 +261,10 @@ h1, h2, h3
 }
 #postContent.archive
 {
+    a
+    {
+        color: #333;
+    }
     h2
     {
         font-family: @font2;
@@ -276,11 +279,17 @@ h1, h2, h3
 
         position: relative;
         float: left;
+
+        padding-left: 7px;
     }
 
-    #primaryPost, #secondaryPost, #tertiaryPost
+    div.primaryPost, div.secondaryPost
     {
         position: relative;
+        float: left;
+
+        max-width: 100%;
+        width: 100%;
 
         a
         {
@@ -299,60 +308,55 @@ h1, h2, h3
             background-size: 100%;
 
             max-width: 100%;
+
+            margin-bottom: 7px;
         }
         div.noImage
         {
             border: 1px solid #333;
         }
-
-        h2
-        {
-            padding-top: 7px;
-            padding-left: 7px;
-        }
-        div.postDate
-        {
-            padding-top: 7px;
-            padding-left: 7px;
-        }
     }
 
-    #primaryPost
+    div.primaryPost
     {
-        max-width: 100%;
+        margin-bottom: 40px;
 
         div.postImage
         {
             height: 350px;
         }
-
-        margin-bottom: 20px;
+        h2
+        {
+            padding-left: 7px;
+        }
     }
 
-    #secondaryPost, #tertiaryPost
+    div.secondaryPost
     {
-        width: 49%;
+        margin-bottom: 20px;
 
         div.postImage
         {
-            height: 250px;
+            height: 220px;
         }
     }
-    #secondaryPost
+
+    div.categoryPosts
     {
+        position: relative;
         float: left;
-    }
-    #tertiaryPost
-    {
-        float: right;
+
+        width: 54%;
+
+        margin-left: 1%;
     }
 
-    #archivedPosts
-    {
-        padding-top: 20px;
-    }
     div.postPreviews
     {
+        position: relative;
+        float: right;
+
+        width: 44%;
         padding-bottom: 30px;
     }
 
@@ -369,14 +373,16 @@ h1, h2, h3
         vertical-align: bottom;
         padding: 5px 0;
 
-        h2
-        {
-            padding-left: 15px;
-        }
         div.postDate
         {
             padding-left: 7px;
         }
+    }
+
+    div.returnLink
+    {
+        font-family: @font2;
+        font-size: 0.9em;
     }
 }
 
