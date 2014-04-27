@@ -9,6 +9,8 @@ public interface CategoryDAO extends BaseDAO<Category>
 {
     public Category getByUuid(String uuid);
 
+    public Category getFirstCategory();
+
     public List<Category> getAllInOrder();
 
     public List<Category> getTopInOrder();

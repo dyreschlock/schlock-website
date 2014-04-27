@@ -53,6 +53,12 @@ public class CategoryIndex
     private Integer currentIndex;
 
 
+    Object onActivate()
+    {
+        category = categoryDAO.getFirstCategory();
+        return true;
+    }
+
     Object onActivate(String parameter)
     {
         if (StringUtils.isBlank(parameter))
