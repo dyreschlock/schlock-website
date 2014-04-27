@@ -505,4 +505,44 @@ public class PostManagementImpl implements PostManagement
 
         return posts;
     }
+
+    public List<Post> getTopPostsForYearMonth(final Integer LIMIT, Integer year, Integer month, List<Long> excludeIds)
+    {
+        List<Post> posts = new ArrayList<Post>();
+
+        boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
+
+        Post recentGallery = postDAO.getMostRecentPostWithGallery(unpublished, year, month);
+        if (recentGallery != null && !excludeIds.contains(recentGallery.getId()))
+        {
+            posts.add(recentGallery);
+        }
+
+        List<Post> pinned = postDAO.getMostRecentPinnedPosts(LIMIT+1, unpublished, year, month);
+        for (Post post : pinned)
+        {
+            if (!posts.contains(post) &&
+                    !excludeIds.contains(post.getId()) &&
+                    posts.size() < LIMIT)
+            {
+                posts.add(post);
+            }
+        }
+
+        if (posts.size() < LIMIT)
+        {
+            List<Post> recent = postDAO.getMostRecentPosts(LIMIT+1, unpublished, year, month);
+            for (Post post : recent)
+            {
+                if (!posts.contains(post) &&
+                        !excludeIds.contains(post.getId()) &&
+                        posts.size() < LIMIT)
+                {
+                    posts.add(post);
+                }
+            }
+        }
+
+        return posts;
+    }
 }

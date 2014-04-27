@@ -18,6 +18,7 @@ public interface PostDAO extends BaseDAO<AbstractPost>
 
     public Set<String> getAllUuids();
 
+
     public Post getMostRecentPost(boolean withUnpublished, Long categoryId);
 
     public Post getMostRecentPostWithGallery(boolean withUnpublished, Long categoryId);
@@ -26,25 +27,27 @@ public interface PostDAO extends BaseDAO<AbstractPost>
 
     public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Long categoryId);
 
+
+    public Post getMostRecentPostWithGallery(boolean withUnpublished, Integer year, Integer month);
+
+    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month);
+
+    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month);
+
+
     public Post getNextPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
 
     public List<Post> getNextPosts(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
 
-    public Post getPreviousPost(AbstractPost currentPost, boolean withUnpublihed, Long categoryId);
+    public Post getPreviousPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
 
-    public List<Post> getPreviousPosts(AbstractPost currentPost, boolean withUnplished, Long categoryId);
+    public List<Post> getPreviousPosts(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
 
-    public List<Post> getRecentPostsByYearMonth(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId);
 
-    public List<Post> getRecentPinnedPostsByYearMonth(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId);
+    public List<Integer> getAllYears(boolean withUnpublished);
 
-    public List<Object[]> getPublishedPostCounts();
+    public List<Integer> getMonths(Integer year, boolean withUnpublished);
 
-    public List<Object[]> getCategoryPostCounts(boolean withUnpublished);
-
-    public List<Object[]> getYearsMonthPostCounts(boolean withUnpublished);
-
-    public List<Post> getByCategoryNames(List<String> categoryNames, boolean onlyWithGallery);
 
     public List<Page> getAllPages(boolean withUnpublished);
 

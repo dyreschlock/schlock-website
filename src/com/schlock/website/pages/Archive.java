@@ -1,32 +1,32 @@
 package com.schlock.website.pages;
 
-import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
-import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 public class Archive
 {
-    private static final Integer CATEGORY_COLUMN_COUNT = 4;
+    private static final String ITERATION_DELIM = "-";
 
     @Inject
     private Messages messages;
 
     @Inject
-    private CategoryDAO categoryDAO;
+    private PageRenderLinkSource linkSource;
+
+    @Inject
+    private PostManagement postManagement;
 
     @Inject
     private PostDAO postDAO;
@@ -36,412 +36,262 @@ public class Archive
     private ViewState viewState;
 
 
-    @InjectComponent
-    private Zone archiveZone;
-
-
-    @Property
-    private Category currentCategory;
+    private Integer year;
+    private Integer month;
 
     @Property
-    private Category currentSubcategory;
-
-    @Property
-    private Integer currentIndex;
-
-    @Property
-    private Integer currentYear;
-
-    @Property
-    private Integer currentMonth;
-
-    @Property
-    private Post currentPost;
+    private String currentIteration;
 
 
-    public String getPublishedText()
+    Object onActivate()
     {
-        String text = messages.get("published");
+        year = null;
+        month = null;
 
-        Long c = 0l;
-        for (Object[] count : getPublishedCounts())
+        return true;
+    }
+
+    Object onActivate(String yearParam)
+    {
+        year = getYearFromParam(yearParam);
+        month = null;
+
+        return true;
+    }
+
+    Object onActivate(String yearParam, String monthParam)
+    {
+        year = getYearFromParam(yearParam);
+        month = getMonthFromParam(year, monthParam);
+
+        return true;
+    }
+
+    private Integer getYearFromParam(String param)
+    {
+        Integer possibleYear = null;
+        try
         {
-            Boolean published = (Boolean) count[0];
-            if(published)
-            {
-                c = (Long) count[1];
-            }
+            possibleYear = Integer.valueOf(param);
+        }
+        catch (NumberFormatException e)
+        {
         }
 
-        String count = Long.toString(c);
-        return text + " (" + count + ")";
-    }
-
-    public String getUnpublishedText()
-    {
-        String text = messages.get("unpublished");
-
-        Long c = 0l;
-        for (Object[] count : getPublishedCounts())
+        boolean unpublished = viewState.isShowUnpublished();
+        List<Integer> years = postDAO.getAllYears(unpublished);
+        if (years.contains(possibleYear))
         {
-            c += (Long) count[1];
-        }
-
-        String count = Long.toString(c);
-        return text + " (" + count + ")";
-    }
-
-    Object onPublished()
-    {
-        viewState.reset();
-
-        return archiveZone;
-    }
-
-    Object onUnpublished()
-    {
-        viewState.reset();
-        viewState.setShowUnpublished(true);
-
-        return archiveZone;
-    }
-
-
-
-    public List<Category> getTopCategories()
-    {
-        List<Category> categories = new ArrayList<Category>();
-        for (Category c : getCategories())
-        {
-            if (c.isTopCategory())
-            {
-                categories.add(c);
-            }
-        }
-        return categories;
-    }
-
-    public List<Category> getSubcategories()
-    {
-        List<Category> categories = new ArrayList<Category>();
-        for (Category c : getCategories())
-        {
-            if (!c.isTopCategory() &&
-                    c.getParent().getId().equals(currentCategory.getId()))
-            {
-                categories.add(c);
-            }
-        }
-        return categories;
-    }
-
-    public boolean isCategoryHasPosts()
-    {
-        String count = getCategoryCount(currentCategory);
-        return count != null;
-    }
-
-    public boolean isSubcategoryHasPosts()
-    {
-        String count = getCategoryCount(currentSubcategory);
-        return count != null;
-    }
-
-    public String getCategoryTitle()
-    {
-        String name = currentCategory.getName();
-        String count = getCategoryCount(currentCategory);
-
-        if (StringUtils.isNotBlank(count))
-        {
-            return name + " (" + count + ")";
-        }
-        return name;
-    }
-
-    public String getSubcategoryTitle()
-    {
-        String name = currentSubcategory.getName();
-        String count = getCategoryCount(currentSubcategory);
-
-        if (StringUtils.isNotBlank(count))
-        {
-            return "." + name + " (" + count + ")";
-        }
-        return "." + name;
-    }
-
-    private String getCategoryCount(Category category)
-    {
-        for (Object[] counts : getCategoriesCounts())
-        {
-            Long cid = (Long) counts[0];
-            if (category.getId().equals(cid))
-            {
-                Long count = (Long) counts[1];
-                return Long.toString(count);
-            }
+            return possibleYear;
         }
         return null;
     }
 
-    public String getSelectedCategory()
+    private Integer getMonthFromParam(Integer year, String param)
     {
-        Long selectedId = null;
-        if (selectedId != null &&
-                selectedId.equals(currentCategory.getId()))
+        Integer possibleMonth = null;
+        try
         {
-            return "selected";
+            possibleMonth = Integer.valueOf(param);
         }
-        return "";
-    }
-
-    public String getSelectedSubcategory()
-    {
-        Long selectedId =null;
-        if(selectedId != null &&
-                selectedId.equals(currentSubcategory.getId()))
+        catch (NumberFormatException e)
         {
-            return "selected";
         }
-        return "";
-    }
 
-    Object onSelectCategory(Long categoryId)
-    {
-        return archiveZone;
-    }
-
-
-
-
-    public List<Integer> getYears()
-    {
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int oldestYear = getOldestYear();
-
-        List<Integer> years = new ArrayList<Integer>();
-        while (year >= oldestYear)
+        boolean unpublished = viewState.isShowUnpublished();
+        List<Integer> months = postDAO.getMonths(year, unpublished);
+        if (months.contains(possibleMonth))
         {
-            years.add(year);
-            year--;
-        }
-        return years;
-    }
-
-    private int getOldestYear()
-    {
-        List<Object[]> yearMonth = getYearsMonthsCounts();
-        Object[] oldest = yearMonth.get(yearMonth.size() - 1);
-
-        return (Integer) oldest[0];
-    }
-
-    public List<Integer> getMonths()
-    {
-        return Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
-    }
-
-    public boolean isYearHasPosts()
-    {
-        String count = getYearCount(currentYear);
-        return count != null;
-    }
-
-    public String getCurrentYearText()
-    {
-        String name = Integer.toString(currentYear);
-        String count = getYearCount(currentYear);
-
-        if (StringUtils.isNotBlank(count))
-        {
-            return name + " (" + count + ")";
-        }
-        return name;
-    }
-
-    private String getYearCount(Integer year)
-    {
-        Integer overallCount = 0;
-        for (Object[] count : getYearsMonthsCounts())
-        {
-            Integer y = (Integer) count[0];
-            if (year.equals(y))
-            {
-                Long c = (Long) count[2];
-                overallCount += c.intValue();
-            }
-        }
-        return Integer.toString(overallCount);
-    }
-
-    public boolean isMonthHasPosts()
-    {
-        String count = getYearMonthCount(currentYear, currentMonth);
-        return count != null;
-    }
-
-    public String getCurrentMonthText()
-    {
-        String name = messages.get(currentMonth.toString());
-        String count = getYearMonthCount(currentYear, currentMonth);
-
-        if (StringUtils.isNotBlank(count))
-        {
-            return name + " (" + count + ")";
-        }
-        return name;
-    }
-
-    private String getYearMonthCount(Integer year, Integer month)
-    {
-        for (Object[] count : getYearsMonthsCounts())
-        {
-            Integer y = (Integer) count[0];
-            Integer m = (Integer) count[1];
-
-            if (year.equals(y) && month.equals(m))
-            {
-                Long c = (Long) count[2];
-                return Long.toString(c);
-            }
+            return possibleMonth;
         }
         return null;
     }
 
-    public String getSelectedYearMonth()
+    public Post getMostRecent()
     {
-        Integer year = viewState.getArchiveYear();
-        Integer month = viewState.getArchiveMonth();
-
-        if (year != null && year.equals(currentYear))
-        {
-            if (month != null && month.equals(currentMonth))
-            {
-                return "selected";
-            }
-            if (month == null && currentMonth == null)
-            {
-                return "selected";
-            }
-        }
-        return "";
+        int LIMIT = 1;
+        List<Post> posts = postManagement.getTopPostsForYearMonth(LIMIT, year, month, Collections.EMPTY_LIST);
+        return posts.get(0);
     }
 
-    Object onSelectYearMonth(Integer year, Integer month)
+    public List<String> getIterations()
     {
-        Integer currentYear = viewState.getArchiveYear();
-        Integer currentMonth = viewState.getArchiveMonth();
-        if(year != null && month != null &&
-           year.equals(currentYear) && month.equals(currentMonth))
+        List<String> iterations = new ArrayList<String>();
+
+        if (year != null && month != null)
         {
-            viewState.setArchiveYear(null);
-            viewState.setArchiveMonth(null);
+            iterations.add(createIteration(year, month));
         }
-        else if(year != null && month == null &&
-                year.equals(currentYear) && currentMonth == null)
+        else if (year != null)
         {
-            viewState.setArchiveYear(null);
-            viewState.setArchiveMonth(null);
+            boolean unpublished = viewState.isShowUnpublished();
+            List<Integer> months = postDAO.getMonths(year, unpublished);
+
+            for (Integer m : months)
+            {
+                iterations.add(createIteration(year, m));
+            }
         }
         else
         {
-            viewState.setArchiveYear(year);
-            viewState.setArchiveMonth(month);
-        }
-
-        return archiveZone;
-    }
-
-
-    public String getPostClass()
-    {
-        if (currentIndex % 2 == 0)
-        {
-            return "left";
-        }
-        return "right";
-    }
-
-    public boolean isCreateNewLine()
-    {
-        int numberOfPosts = getPosts().size();
-
-        boolean endofrow = (currentIndex + 1) % 2 == 0;
-        boolean lastOne = (currentIndex + 1) == numberOfPosts;
-
-        return endofrow || lastOne;
-    }
-
-
-
-
-    private List<Object[]> cachedPublishedCounts;
-
-    private List<Object[]> getPublishedCounts()
-    {
-        if (cachedPublishedCounts == null)
-        {
-            cachedPublishedCounts = postDAO.getPublishedPostCounts();
-        }
-        return cachedPublishedCounts;
-    }
-
-    private List<Object[]> cachedYearsMonthsCounts;
-
-    private List<Object[]> getYearsMonthsCounts()
-    {
-        if (cachedYearsMonthsCounts == null)
-        {
             boolean unpublished = viewState.isShowUnpublished();
+            List<Integer> years = postDAO.getAllYears(unpublished);
 
-            cachedYearsMonthsCounts = postDAO.getYearsMonthPostCounts(unpublished);
+            for(Integer y : years)
+            {
+                iterations.add(createIteration(y, null));
+            }
         }
-        return cachedYearsMonthsCounts;
+
+        return iterations;
+    }
+
+    public boolean isPageIteration()
+    {
+        Integer y = parseYear(currentIteration);
+        Integer m = parseMonth(currentIteration);
+
+        if (year == null)
+        {
+            if (y == null)
+            {
+                return true;
+            }
+            return false;
+        }
+        if (month == null)
+        {
+            if (m == null)
+            {
+                return true;
+            }
+            return false;
+        }
+        return year.equals(y) && month.equals(m);
+    }
+
+    public String getIterationTitle()
+    {
+        Integer year = parseYear(currentIteration);
+        Integer month = parseMonth(currentIteration);
+
+        return title(year, month);
+    }
+
+    public boolean isSubiteration()
+    {
+        return year != null;
+    }
+
+    Object onSelectIteration(String iteration)
+    {
+        Integer year = parseYear(iteration);
+        Integer month = parseMonth(iteration);
+
+        if (year != null && month != null)
+        {
+            return linkSource.createPageRenderLinkWithContext(Archive.class, year, month);
+        }
+        if (year != null)
+        {
+            return linkSource.createPageRenderLinkWithContext(Archive.class, year);
+        }
+        return onSelectIteration();
+    }
+
+    Object onSelectIteration()
+    {
+        return linkSource.createPageRenderLinkWithContext(Archive.class);
+    }
+
+    public String getParentIteration()
+    {
+        if (month != null)
+        {
+            return createIteration(year, null);
+        }
+        return createIteration(null, null);
+    }
+
+    public String getReturnToPrevious()
+    {
+        if (month != null)
+        {
+            return messages.format("return", year);
+        }
+        if (year != null)
+        {
+            String def = messages.get("page-title");
+            return messages.format("return", def);
+        }
+        return "";
     }
 
 
-    private List<Object[]> cachedCategoriesCounts;
 
-    private List<Object[]> getCategoriesCounts()
+    private String createIteration(Integer year, Integer month)
     {
-        if(cachedCategoriesCounts == null)
+        if (year != null)
         {
-            boolean unpublished = viewState.isShowUnpublished();
-
-            cachedCategoriesCounts = postDAO.getCategoryPostCounts(unpublished);
+            String iteration = Integer.toString(year);
+            if (month != null)
+            {
+                iteration += ITERATION_DELIM + month;
+            }
+            return iteration;
         }
-        return cachedCategoriesCounts;
+        return null;
     }
 
-
-    private List<Category> cachedCategories;
-
-    private List<Category> getCategories()
+    private Integer parseYear(String iteration)
     {
-        if (cachedCategories == null)
+        String[] parts = StringUtils.split(iteration, ITERATION_DELIM);
+
+        if (parts.length > 0)
         {
-            cachedCategories = categoryDAO.getAllInOrder();
+            String year = parts[0];
+            return Integer.parseInt(year);
         }
-        return cachedCategories;
+        return null;
     }
 
-
-    private List<Post> cachedPosts;
-
-    public List<Post> getPosts()
+    private Integer parseMonth(String iteration)
     {
-        if (cachedPosts == null)
+        String[] parts = StringUtils.split(iteration, ITERATION_DELIM);
+        if (parts.length > 1)
         {
-            Integer postCount = viewState.getViewingPostCount();
-            Integer year = viewState.getArchiveYear();
-            Integer month = viewState.getArchiveMonth();
-            Boolean unpublished = viewState.isShowUnpublished();
-            Long categoryId = null;
-
-            cachedPosts = postDAO.getRecentPostsByYearMonth(postCount, year, month, unpublished, categoryId);
+            String month = parts[1];
+            return Integer.parseInt(month);
         }
-        return cachedPosts;
+        return null;
+    }
+
+    private String title(Integer year, Integer month)
+    {
+        String title = "";
+        if (year != null)
+        {
+            if (month != null)
+            {
+                String m = messages.get(Integer.toString(month));
+                title += m + " ";
+            }
+            title += year;
+        }
+        return title;
+    }
+
+    public String getPageTitle()
+    {
+        String title = "";
+        if (year != null)
+        {
+            title = title(year, month);
+        }
+        else
+        {
+            title = messages.get("page-title");
+        }
+        return title;
     }
 }

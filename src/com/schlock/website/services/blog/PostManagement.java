@@ -29,4 +29,6 @@ public interface PostManagement
     public String getStylizedHTMLTitle(AbstractPost post);
 
     public List<Post> getTopPostsForCategory(Integer count, Category category, List<Long> excludeIds);
+
+    public List<Post> getTopPostsForYearMonth(Integer count, Integer year, Integer month, List<Long> excludeIds);
 }

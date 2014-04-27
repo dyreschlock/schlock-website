@@ -59,7 +59,7 @@ public class Footer
         int postCount = PostDAOImpl.TOP_RECENT +2;
         boolean unpublished = viewState.isShowUnpublished();
 
-        List<Post> posts = postDAO.getRecentPinnedPostsByYearMonth(postCount, null, null, unpublished, null);
+        List<Post> posts = postDAO.getMostRecentPinnedPosts(postCount, unpublished, null);
         return posts;
     }
 

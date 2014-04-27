@@ -1,108 +1,34 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html t:type="blog/layoutblog" post="null"
+<html t:type="blog/layoutblog" pageName="pageTitle"
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     xmlns:l="tapestry-library:blog/link"
     xmlns:c="tapestry-library:blog/content"
     >
 
     <div id="postContent" class="archive">
-        <t:zone t:id="archiveZone" id="archiveZone" t:update="show">
 
-            <div id="archivePublished" class="hidden">
-                <table><tbody><tr>
-                    <td class="top">
-                        <t:eventlink t:id="published" zone="archiveZone">
-                            ${publishedText}
-                        </t:eventlink>
-                    </td>
-                    <td>
-                        <t:eventlink t:id="unpublished" zone="archiveZone">
-                            ${unpublishedText}
-                        </t:eventlink>
-                    </td>
-                </tr></tbody></table>
-            </div>
-            <div id="archiveCategories">
-                <table><tbody>
-                    <t:loop source="topCategories" value="currentCategory">
-                        <tr>
-                            <td class="top ${selectedCategory}">
+        <h1>${pageTitle}</h1>
 
-                                <t:if test="categoryHasPosts">
-                                    <t:eventlink event="selectCategory" context="currentCategory.id" zone="archiveZone">
-                                        ${categoryTitle}
-                                    </t:eventlink>
-                                </t:if>
-                                <t:if test="!categoryHasPosts">
-                                    ${categoryTitle}
-                                </t:if>
+        <div class="postBody">
 
-                            </td>
-                            <t:loop source="subcategories" value="currentSubcategory" index="currentIndex">
-                                <td class="${selectedSubcategory}">
+            <l:postpreviewlink post="mostRecent" cssClass="'primaryPost'" />
 
-                                    <t:if test="subcategoryHasPosts">
-                                        <t:eventlink event="selectCategory" context="currentSubcategory.id" zone="archiveZone">
-                                            ${subcategoryTitle}
-                                        </t:eventlink>
-                                    </t:if>
-                                    <t:if test="!subcategoryHasPosts">
-                                        ${subcategoryTitle}
-                                    </t:if>
+            <t:loop source="iterations" value="currentIteration">
 
-                                </td>
-                            </t:loop>
-                        </tr>
-                    </t:loop>
-                </tbody></table>
-            </div>
-            <hr class="clr" />
-            <div id="archiveYears">
-                <table><tbody>
-                    <t:loop source="years" value="currentYear">
-                        <tr>
-                            <td class="top ${selectedYearMonth}">
+                <t:eventlink event="selectIteration" context="currentIteration">
+                    <div class="title clr">${iterationTitle}</div>
+                </t:eventlink>
 
-                                <t:if test="yearHasPosts">
-                                    <t:eventlink event="selectYearMonth" context="[currentYear, null]" zone="archiveZone">
-                                        ${currentYearText}
-                                    </t:eventlink>
-                                </t:if>
-                                <t:if test="!yearHasPosts">
-                                    ${currentYearText}
-                                </t:if>
+            </t:loop>
 
-                            </td>
-                            <t:loop source="months" value="currentMonth">
-                                <td class="${selectedYearMonth}">
-
-                                    <t:if test="monthHasPosts">
-                                        <t:eventlink event="selectYearMonth" context="[currentYear, currentMonth]" zone="archiveZone">
-                                            ${currentMonthText}
-                                        </t:eventlink>
-                                    </t:if>
-                                    <t:if test="!monthHasPosts">
-                                        ${currentMonthText}
-                                    </t:if>
-
-                                </td>
-                            </t:loop>
-                        </tr>
-                    </t:loop>
-                </tbody></table>
-            </div>
-            <hr class="clr" />
-
-            <div id="archivePosts">
-                <t:loop source="posts" value="currentPost" index="currentIndex">
-
-                    <c:archivepostdisplay post="currentPost" postClass="postClass" />
-
-                    <t:if test="createNewLine">
-                        <br class="clr" />
-                    </t:if>
-                </t:loop>
-            </div>
-        </t:zone>
+            <t:if test="subiteration">
+                <div class="returnLink">
+                    //
+                    <t:eventlink event="selectIteration" context="parentIteration">
+                        ${returnToPrevious}
+                    </t:eventlink>
+                </div>
+            </t:if>
+        </div>
     </div>
 </html>

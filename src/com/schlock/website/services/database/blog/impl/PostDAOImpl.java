@@ -81,54 +81,6 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return uuids;
     }
 
-    public List<Object[]> getPublishedPostCounts()
-    {
-        String text = "select p.published, count(p.id) " +
-                      " from Post p " +
-                      " group by p.published " +
-                      " order by p.published desc ";
-
-        Query query = session.createQuery(text);
-        List<Object[]> list = query.list();
-        return list;
-    }
-
-    public List<Object[]> getCategoryPostCounts(boolean withUnpublished)
-    {
-        String text = "select c.id, count(p.id) " +
-                        " from Post p " +
-                        " join p.categories c ";
-        if (!withUnpublished)
-        {
-            text += " where p.published is true ";
-        }
-        text += " group by c.id ";
-
-        Query query = session.createQuery(text);
-        List<Object[]> list = query.list();
-        return list;
-    }
-
-    public List<Object[]> getYearsMonthPostCounts(boolean withUnpublished)
-    {
-        String text =
-                "select year(p.created), month(p.created), count(p.id) " +
-                " from Post p ";
-
-        if (!withUnpublished)
-        {
-            text += " where p.published is true ";
-        }
-
-        text += " group by year(p.created), month(p.created) " +
-                " order by year(p.created) desc, month(p.created) desc";
-
-        Query query = session.createQuery(text);
-
-        List<Object[]> list = query.list();
-        return list;
-    }
-
     public Post getMostRecentPost(boolean withUnpublished, Long categoryId)
     {
         String selectClause = "select p from Post p ";
@@ -164,16 +116,43 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return (Post) singleResult(query);
     }
 
+    public Post getMostRecentPostWithGallery(boolean withUnpublished, Integer year, Integer month)
+    {
+        String selectClause = "select p from Post p ";
+        String whereClause = " p.galleryName is not null ";
+        String orderByClause = " order by p.created desc ";
+
+        Query query = createQuery(TOP_RECENT,
+                year,
+                month,
+                withUnpublished,
+                null,
+                selectClause,
+                Arrays.asList(whereClause),
+                orderByClause);
+
+        return (Post) singleResult(query);
+    }
+
     public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Long categoryId)
     {
-        return getRecentPostsByYearMonth(postCount, null, null, withUnpublished, categoryId);
+        return getRecentPostsByYearMonth(postCount, withUnpublished, null, null, categoryId);
     }
 
     public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Long categoryId)
     {
-        return getRecentPinnedPostsByYearMonth(postCount, null, null, withUnpublished, categoryId);
+        return getRecentPinnedPostsByYearMonth(postCount, withUnpublished, null, null, categoryId);
     }
 
+    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month)
+    {
+        return getRecentPostsByYearMonth(postCount, withUnpublished, year, month, null);
+    }
+
+    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month)
+    {
+        return getRecentPinnedPostsByYearMonth(postCount, withUnpublished, year, month, null);
+    }
 
     private Query nextPostQuery(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
     {
@@ -239,7 +218,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
     }
 
 
-    public List<Post> getRecentPostsByYearMonth(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId)
+    private List<Post> getRecentPostsByYearMonth(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId)
     {
         String selectClause = "select p from Post p ";
         String orderByClause = " order by p.created desc ";
@@ -256,7 +235,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
-    public List<Post> getRecentPinnedPostsByYearMonth(Integer postCount, Integer year, Integer month, boolean withUnpublished, Long categoryId)
+    private List<Post> getRecentPinnedPostsByYearMonth(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId)
     {
         String selectClause = "select p from Post p ";
         String extraWhereClause = " p.pinned is true ";
@@ -274,62 +253,41 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
-    public List<Post> getByCategoryNames(List<String> categoryNames, boolean onlyWithGallery)
+
+    public List<Integer> getAllYears(boolean withUnpublished)
     {
-        String text = "select p from Post p " +
-                        " join p.categories c ";
+        String text = "select year(p.created)" +
+                        " from Post p ";
 
-        List<String> where = new ArrayList<String>();
-        if (onlyWithGallery)
+        if (!withUnpublished)
         {
-            String clause = " p.galleryName is not null ";
-            where.add(clause);
+            text += " where p.published is true ";
         }
-        if (!categoryNames.isEmpty())
-        {
-            String clause = " (";
-            for (int i = 0; i < categoryNames.size(); i++)
-            {
-                if (i != 0)
-                {
-                    text += " or ";
-                }
-                clause += " c.name = :name" + i + " ";
-            }
-            clause += ") ";
-
-            where.add(clause);
-        }
-
-        for (int i = 0; i < where.size(); i++)
-        {
-            String clause = where.get(i);
-
-            if (i == 0)
-            {
-                text += " where ";
-            }
-            else
-            {
-                text += " and ";
-            }
-            text += clause;
-        }
-
-        text += " order by p.created desc";
+        text += " group by year(p.created) " +
+                " order by year(p.created) desc ";
 
         Query query = session.createQuery(text);
-
-        for (int i = 0; i < categoryNames.size(); i++)
-        {
-            String name = categoryNames.get(i);
-
-            String param = "name" + i;
-            query.setParameter(param, name);
-        }
-
         return query.list();
     }
+
+    public List<Integer> getMonths(Integer year, boolean withUnpublished)
+    {
+        String text = "select month(p.created)" +
+                        " from Post p " +
+                        " where year(p.created) = :year ";
+
+        if (!withUnpublished)
+        {
+            text += " and p.published is true ";
+        }
+        text += " group by month(p.created) " +
+                " order by month(p.created) desc ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("year", year);
+        return query.list();
+    }
+
 
     public List<Page> getAllPages(boolean withUnpublished)
     {
@@ -396,6 +354,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         Query query = lessonPostsQuery(withUnpublished);
         return query.list();
     }
+
 
     private Query createQuery(Integer postCount,
                               Integer year,
