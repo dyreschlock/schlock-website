@@ -8,6 +8,8 @@ public class Page extends AbstractPost
     public static final String CLUB_UUID = "club";
     public static final String ALT_MATERIALS_UUID = "alt-materials";
 
+    public static final String SUBTITLES_UUID = "subtitles";
+
 
     public boolean isPage()
     {

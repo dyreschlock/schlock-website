@@ -8,6 +8,7 @@ import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -23,6 +24,9 @@ public class PostDisplay
     @Property
     private AbstractPost post;
 
+    @Parameter(defaultPrefix = BindingConstants.LITERAL)
+    @Property
+    private String cssClass;
 
     @Inject
     private PageRenderLinkSource linkSource;

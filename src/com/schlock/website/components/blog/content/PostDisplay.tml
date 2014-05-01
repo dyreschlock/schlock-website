@@ -4,7 +4,7 @@
     xmlns:c="tapestry-library:blog/content"
     >
 
-    <div id="postContent" itemscope="" itemtype="http://schema.org/BlogPosting">
+    <div id="postContent" class="${cssClass}" itemscope="" itemtype="http://schema.org/BlogPosting">
 
         <h1 itemprop="name headline">${post.title}</h1>
         <t:if test="!post.page">
@@ -42,6 +42,8 @@
                 </t:if>
             </div>
         </t:if>
+
+        <t:body />
     </div>
 
     <t:if test="post.hasGallery">

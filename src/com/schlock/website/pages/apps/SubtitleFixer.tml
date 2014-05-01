@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="blog/layoutblog" post="page"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:c="tapestry-library:blog/content"
+    >
+
+    <c:postdisplay post="page" cssClass="subtitles">
+
+        <div class="input">
+
+            <t:form t:id="inputForm" id="inputForm" clientValidation="none" zone="outputZone">
+
+                <div class="field">
+                    <t:label for="inputTextArea">${message:input-label}</t:label>
+                    <br />
+                    <t:textarea t:id="inputTextArea" value="inputText" />
+                </div>
+                <div class="field">
+                    <t:label for="offsetTextField">${message:offset-time}</t:label>
+                    <br />
+                    <t:textfield t:id="offsetTextField" value="offsetTime" />
+                </div>
+
+                <div class="button">
+                    <t:linksubmit>${message:submit}</t:linksubmit>
+                </div>
+            </t:form>
+
+        </div>
+
+        <div class="output">
+
+            <t:zone t:id="outputZone" id="outputZone" t:update="show">
+
+                <t:form t:id="outputForm" id="outputForm" clientValidation="none">
+                    <div class="field">
+                        <t:label for="outputTextArea">${message:output-label}</t:label>
+                        <br />
+                        <t:textarea t:id="outputTextArea" value="outputText" />
+                    </div>
+                </t:form>
+
+                <div class="errors">
+
+
+
+                </div>
+            </t:zone>
+        </div>
+        <br class="clr" />
+    </c:postdisplay>
+</html>
