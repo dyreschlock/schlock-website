@@ -6,7 +6,7 @@
 @app_width: 1024px;
 
 
-#postContent, #lessonContent
+#postContent
 {
     div.castingFirst, div.castingMiddle, div.castingLast
     {
@@ -56,6 +56,81 @@
         {
             width: 57%;
         }
+    }
+}
+
+#postContent.alt
+{
+    #lessonContent
+    {
+        margin-top: 50px;
+
+        h1.year
+        {
+            margin-bottom: 40px;
+        }
+    }
+
+
+    div.sixNenPosts,
+    div.fiveNenPosts,
+    div.threeFourNenPosts,
+    div.oneTwoNenPosts,
+    div.specialPosts
+    {
+        width: 47%;
+        position: relative;
+
+        h2
+        {
+            padding-bottom: 30px;
+
+            font-weight: bold;
+            font-family: @font2;
+            font-size: 1.1em;
+        }
+
+        div.miniPost
+        {
+            padding-bottom: 60px;
+        }
+        h1
+        {
+            font-size: 1.1em;
+        }
+        div.postDate
+        {
+            font-size: 0.8em;
+        }
+        div.postBody
+        {
+            font-size: 0.9em;
+            width: 100%;
+            padding-top: 15px;
+
+            a
+            {
+                font-weight: bold;
+            }
+        }
+        div.links
+        {
+            font-size: 1em;
+            margin-top: 20px;
+
+            a
+            {
+                font-family: @font2;
+            }
+        }
+    }
+    div.sixNenPosts, div.threeFourNenPosts, div.specialPosts
+    {
+        float: left;
+    }
+    div.fiveNenPosts, div.oneTwoNenPosts
+    {
+        float: right;
     }
 }
 
@@ -380,64 +455,6 @@ div.postLink
     }
 }
 
-#sixNenPosts, #fiveNenPosts, #threeFourNenPosts, #oneTwoNenPosts, #specialPosts
-{
-    width: 47%;
-    position: relative;
-
-    h2
-    {
-        padding-bottom: 30px;
-
-        font-weight: bold;
-        font-family: @font2;
-        font-size: 1.1em;
-    }
-
-    div.miniPost
-    {
-        padding-bottom: 60px;
-    }
-    h1
-    {
-        font-size: 1.1em;
-    }
-    div.postDate
-    {
-        font-size: 0.8em;
-    }
-    div.postBody
-    {
-        font-size: 0.9em;
-        width: 100%;
-        padding-top: 15px;
-
-        a
-        {
-            font-weight: bold;
-        }
-    }
-    div.links
-    {
-        font-size: 1em;
-        margin-top: 20px;
-
-        a
-        {
-            font-family: @font2;
-        }
-    }
-}
-#sixNenPosts, #threeFourNenPosts, #specialPosts
-{
-    float: left;
-}
-#fiveNenPosts, #oneTwoNenPosts
-{
-    float: right;
-}
-
-
 #clubGalleries
 {
     width: 100%;
@@ -546,7 +563,7 @@ div.postLink
         width: 90%;
     }
 
-    #postContent, #lessonContent
+    #postContent
     {
         div.casting
         {
@@ -560,6 +577,37 @@ div.postLink
 
             font-size: 0.7em;
         }
+    }
+
+    #postContent.alt
+    {
+        div.sixNenPosts,
+        div.fiveNenPosts,
+        div.threeFourNenPosts,
+        div.oneTwoNenPosts,
+        div.specialPosts
+        {
+            width: 100%;
+
+            div.miniPost
+            {
+                padding-bottom: 40px;
+            }
+            div.postDate
+            {
+                font-size: 0.9em;
+            }
+            div.postBody
+            {
+                display: none;
+                visibility: hidden;
+            }
+            div.links
+            {
+                margin-top: 10px;
+            }
+        }
+
     }
 
     #previousNext
@@ -618,29 +666,6 @@ div.postLink
         }
     }
 
-    #sixNenPosts, #fiveNenPosts, #threeFourNenPosts, #oneTwoNenPosts, #specialPosts
-    {
-        width: 100%;
-
-        div.miniPost
-        {
-            padding-bottom: 40px;
-        }
-        div.postDate
-        {
-            font-size: 0.9em;
-        }
-        div.postBody
-        {
-            display: none;
-            visibility: hidden;
-        }
-        div.links
-        {
-            margin-top: 10px;
-        }
-    }
-
     #clubGalleries
     {
         div.gallery
@@ -669,7 +694,7 @@ div.postLink
 /* ipad viewport size */
 @media all and (min-width: 768px) and (max-width: 1000px)
 {
-    #postContent, #lessonContent
+    #postContent
     {
         div.castingFirst, div.castingMiddle, div.castingLast
         {

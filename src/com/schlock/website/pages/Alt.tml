@@ -4,60 +4,60 @@
     xmlns:c="tapestry-library:blog/content"
     >
 
-    <div id="postContent" class="alt">
-        <h1>${page.title}</h1>
-        <div class="postBody">
-            <t:outputraw value="page.bodyHTML" />
-        </div>
-    </div>
+    <c:postdisplay post="page" cssClass="alt">
 
-    <div id="lessonContent">
+        <div id="lessonContent">
+            <t:loop source="years" value="currentYear">
 
-        <div id="sixNenPosts">
-            <h2>${message:6nen-title}</h2>
+                <h1 class="year">${yearTitle}</h1>
 
-            <t:loop source="sixNenPosts" value="currentPost">
-                <c:minipostdisplay post="currentPost" />
+                <div class="sixNenPosts">
+                    <h2>${message:6nen-title}</h2>
+
+                    <t:loop source="sixNenPosts" value="currentPost">
+                        <c:minipostdisplay post="currentPost" />
+                    </t:loop>
+                </div>
+
+                <div class="fiveNenPosts">
+                    <h2>${message:5nen-title}</h2>
+
+                    <t:loop source="fiveNenPosts" value="currentPost">
+                        <c:minipostdisplay post="currentPost" />
+                    </t:loop>
+                </div>
+
+                <br class="clr" />
+
+                <div class="threeFourNenPosts">
+                    <h2>${message:34nen-title}</h2>
+
+                    <t:loop source="threeFourNenPosts" value="currentPost">
+                        <c:minipostdisplay post="currentPost" />
+                    </t:loop>
+                </div>
+
+                <div class="oneTwoNenPosts">
+                    <h2>${message:12nen-title}</h2>
+
+                    <t:loop source="oneTwoNenPosts" value="currentPost">
+                        <c:minipostdisplay post="currentPost" />
+                    </t:loop>
+                </div>
+
+                <br class="clr" />
+
+                <div class="specialPosts">
+                    <h2>${message:special-title}</h2>
+
+                    <t:loop source="specialPosts" value="currentPost">
+                        <c:minipostdisplay post="currentPost" />
+                    </t:loop>
+                </div>
+
+                <br class="clr" />
+
             </t:loop>
         </div>
-
-        <div id="fiveNenPosts">
-            <h2>${message:5nen-title}</h2>
-
-            <t:loop source="fiveNenPosts" value="currentPost">
-                <c:minipostdisplay post="currentPost" />
-            </t:loop>
-        </div>
-
-        <br class="clr" />
-
-        <div id="threeFourNenPosts">
-            <h2>${message:34nen-title}</h2>
-
-            <t:loop source="threeFourNenPosts" value="currentPost">
-                <c:minipostdisplay post="currentPost" />
-            </t:loop>
-        </div>
-
-        <div id="oneTwoNenPosts">
-            <h2>${message:12nen-title}</h2>
-
-            <t:loop source="oneTwoNenPosts" value="currentPost">
-                <c:minipostdisplay post="currentPost" />
-            </t:loop>
-        </div>
-
-        <br class="clr" />
-
-        <div id="specialPosts">
-            <h2>${message:special-title}</h2>
-
-            <t:loop source="specialPosts" value="currentPost">
-                <c:minipostdisplay post="currentPost" />
-            </t:loop>
-        </div>
-
-        <br class="clr" />
-
-    </div>
+    </c:postdisplay>
 </html>

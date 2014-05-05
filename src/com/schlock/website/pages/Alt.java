@@ -2,9 +2,11 @@ package com.schlock.website.pages;
 
 import com.schlock.website.entities.blog.LessonPost;
 import com.schlock.website.entities.blog.Page;
+import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.ArrayList;
@@ -15,9 +17,22 @@ public class Alt
     @Inject
     private PostDAO postDAO;
 
+    @Inject
+    private Messages messages;
+
+
     @Property
     private LessonPost currentPost;
 
+    @Property
+    private String currentYear;
+
+
+    public String getYearTitle()
+    {
+        String key = currentYear + "-title";
+        return messages.get(key);
+    }
 
 
     public List<LessonPost> getSixNenPosts()
@@ -50,17 +65,16 @@ public class Alt
         return posts;
     }
 
-    private List<LessonPost> getPostsByPrefix(String... prefix)
+    private List<LessonPost> getPostsByPrefix(String startingPrefix)
     {
+        String prefix = startingPrefix + "-" + currentYear + "-";
+
         List<LessonPost> posts = new ArrayList<LessonPost>();
         for (LessonPost post : getAllPosts())
         {
-            for (String pre : prefix)
+            if (StringUtils.startsWithIgnoreCase(post.getUuid(), prefix))
             {
-                if (StringUtils.startsWithIgnoreCase(post.getUuid(), pre + "-"))
-                {
-                    posts.add(post);
-                }
+                posts.add(post);
             }
         }
         return posts;
@@ -69,6 +83,25 @@ public class Alt
 
 
 
+    public List<String> getYears()
+    {
+        List<String> years = new ArrayList<String>();
+
+        for (Post post : getAllPosts())
+        {
+            String[] parts = StringUtils.split(post.getUuid(), "-");
+
+            if (parts.length > 2)
+            {
+                String year = parts[1];
+                if (year.length() == 2 && !years.contains(year))
+                {
+                    years.add(year);
+                }
+            }
+        }
+        return years;
+    }
 
     private List<LessonPost> cachedPosts;
 
