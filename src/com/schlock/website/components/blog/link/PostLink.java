@@ -32,6 +32,14 @@ public class PostLink
     private PostManagement postManagement;
 
 
+    public String getPostTitleHtml()
+    {
+        String title = post.getTitle();
+        String html = postManagement.wrapJapaneseTextInTags(title);
+
+        return html;
+    }
+
     Object onSelectPost(String postUuid)
     {
         return linkSource.createPageRenderLinkWithContext(Index.class, postUuid);

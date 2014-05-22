@@ -8,7 +8,7 @@
             <t:eventlink event="selectPost" context="previousPost.uuid">
 
                 <span class="title">${message:previous}</span>
-                <span class="name">: ${previousPost.title}</span>
+                <span class="name">: <t:outputraw value="previousPostTitleHtml" /></span>
 
             </t:eventlink>
 
@@ -21,7 +21,7 @@
             <t:eventlink event="selectPost" context="nextPost.uuid">
 
                 <span class="title">${message:next}</span>
-                <span class="name">: ${nextPost.title}</span>
+                <span class="name">: <t:outputraw value="nextPostTitleHtml" /></span>
 
             </t:eventlink>
 

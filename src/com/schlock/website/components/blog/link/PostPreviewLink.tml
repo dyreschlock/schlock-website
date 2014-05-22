@@ -11,7 +11,7 @@
             <div class="postImage noImage" />
         </t:if>
 
-        <h2>${post.title}</h2>
+        <h2><t:outputraw value="postTitleHtml" /></h2>
         <div class="postDate">${createdDate}</div>
         <br class="clr" />
     </div>

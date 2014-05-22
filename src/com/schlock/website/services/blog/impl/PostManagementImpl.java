@@ -230,6 +230,8 @@ public class PostManagementImpl implements PostManagement
 
         html = removeBreaksFromBetweenHtmlCode(html);
 
+        html = wrapJapaneseTextInTags(html);
+
         return html;
     }
 
@@ -356,6 +358,59 @@ public class PostManagementImpl implements PostManagement
 
         return html;
     }
+
+    public String wrapJapaneseTextInTags(String h)
+    {
+        String html = h;
+
+        int i = 0;
+        while (i < html.length())
+        {
+            char c = html.charAt(i);
+            if (isJapaneseCharacter(c))
+            {
+                int start = i;
+
+                int end = i +1;
+                char c_end = html.charAt(end);
+                while (isJapaneseCharacter(c_end))
+                {
+                    end++;
+                    c_end = html.charAt(end);
+                }
+
+                String jtext = html.substring(start, end);
+                jtext = "<span class='ja'>" + jtext + "</span>";
+
+                html = html.substring(0, start) + jtext + html.substring(end);
+
+                i = start + jtext.length();
+            }
+
+            i++;
+        }
+
+        return html;
+    }
+
+    private boolean isJapaneseCharacter(char c)
+    {
+        int FULL_WIDTH_LEFT_PAREN = 65288;
+        int FULL_WIDTH_RIGHT_PAREN = 65289;
+
+        Character.UnicodeBlock b = Character.UnicodeBlock.of(c);
+
+        return Character.UnicodeBlock.HIRAGANA.equals(b) ||
+                Character.UnicodeBlock.KATAKANA.equals(b) ||
+                Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS.equals(b) ||
+                Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION.equals(b) ||
+                Character.UnicodeBlock.CJK_COMPATIBILITY.equals(b) ||
+                Character.UnicodeBlock.CJK_COMPATIBILITY_FORMS.equals(b) ||
+                Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS.equals(b) ||
+                ((int) c) == FULL_WIDTH_LEFT_PAREN ||
+                ((int) c) == FULL_WIDTH_RIGHT_PAREN;
+    }
+
 
     public List<String> getGalleryImages(AbstractPost post)
     {

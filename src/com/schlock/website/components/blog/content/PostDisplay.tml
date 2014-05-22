@@ -6,7 +6,9 @@
 
     <div id="postContent" class="${cssClass}" itemscope="" itemtype="http://schema.org/BlogPosting">
 
-        <h1 itemprop="name headline">${post.title}</h1>
+        <h1 itemprop="name headline">
+            <t:outputraw value="postTitleHtml" />
+        </h1>
         <t:if test="!post.page">
             <div class="postDate">
                 <time datetime="${createdDateHtmlTag}" itemprop="datePublished">

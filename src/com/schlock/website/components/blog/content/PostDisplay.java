@@ -5,6 +5,7 @@ import com.schlock.website.entities.blog.Category;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.category.CategoryIndex;
 import com.schlock.website.services.DateFormatter;
+import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
@@ -32,6 +33,9 @@ public class PostDisplay
     private PageRenderLinkSource linkSource;
 
     @Inject
+    private PostManagement postManagement;
+
+    @Inject
     private DateFormatter dateFormat;
 
     @Inject
@@ -54,6 +58,14 @@ public class PostDisplay
     @Property
     private Category currentSubcategory;
 
+
+    public String getPostTitleHtml()
+    {
+        String title = post.getTitle();
+        String html = postManagement.wrapJapaneseTextInTags(title);
+
+        return html;
+    }
 
     public List<Category> getTopCategories()
     {

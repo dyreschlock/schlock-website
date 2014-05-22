@@ -31,6 +31,14 @@ public class PostPreviewLink
     private DateFormatter dateFormat;
 
 
+    public String getPostTitleHtml()
+    {
+        String title = post.getTitle();
+        String html = postManagement.wrapJapaneseTextInTags(title);
+
+        return html;
+    }
+
     Object onSelectPost(String uuid)
     {
         return linkSource.createPageRenderLinkWithContext(Index.class, uuid);

@@ -22,6 +22,8 @@ public interface PostManagement
 
     public String generatePostPreview(AbstractPost post);
 
+    public String wrapJapaneseTextInTags(String html);
+
     public List<String> getGalleryImages(AbstractPost post);
 
     public String getPostImage(AbstractPost post);

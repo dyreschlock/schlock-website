@@ -6,6 +6,7 @@ import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.Index;
 import com.schlock.website.pages.category.CategoryIndex;
+import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Parameter;
@@ -24,6 +25,9 @@ public class Subheader
 
     @Inject
     private PageRenderLinkSource linkSource;
+
+    @Inject
+    private PostManagement postManagement;
 
     @Inject
     private CategoryDAO categoryDAO;
@@ -69,6 +73,14 @@ public class Subheader
         return cachedPreviousPost;
     }
 
+    public String getPreviousPostTitleHtml()
+    {
+        String title = getPreviousPost().getTitle();
+        String html = postManagement.wrapJapaneseTextInTags(title);
+
+        return html;
+    }
+
 
     public boolean isHasNext()
     {
@@ -87,6 +99,14 @@ public class Subheader
             cachedNextPost = postDAO.getNextPost(currentPost, unpublished, null);
         }
         return cachedNextPost;
+    }
+
+    public String getNextPostTitleHtml()
+    {
+        String title = getNextPost().getTitle();
+        String html = postManagement.wrapJapaneseTextInTags(title);
+
+        return html;
     }
 
     Object onSelectPost(String postUuid)
