@@ -372,11 +372,10 @@ public class PostManagementImpl implements PostManagement
                 int start = i;
 
                 int end = i +1;
-                char c_end = html.charAt(end);
-                while (isJapaneseCharacter(c_end))
+                while (end < html.length() &&
+                        isJapaneseCharacter(html.charAt(end)))
                 {
                     end++;
-                    c_end = html.charAt(end);
                 }
 
                 String jtext = html.substring(start, end);

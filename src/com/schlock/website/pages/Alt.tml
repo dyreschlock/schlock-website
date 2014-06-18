@@ -9,10 +9,10 @@
         <div id="lessonContent">
             <t:loop source="years" value="currentYear">
 
-                <h1 class="year">${yearTitle}</h1>
+                <h1 class="year"><t:outputraw value="yearTitle" /></h1>
 
                 <div class="sixNenPosts">
-                    <h2>${message:6nen-title}</h2>
+                    <h2><t:outputraw value="sixNenTitle" /></h2>
 
                     <t:loop source="sixNenPosts" value="currentPost">
                         <c:minipostdisplay post="currentPost" />
@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="fiveNenPosts">
-                    <h2>${message:5nen-title}</h2>
+                    <h2><t:outputraw value="fiveNenTitle" /></h2>
 
                     <t:loop source="fiveNenPosts" value="currentPost">
                         <c:minipostdisplay post="currentPost" />
@@ -30,7 +30,7 @@
                 <br class="clr" />
 
                 <div class="threeFourNenPosts">
-                    <h2>${message:34nen-title}</h2>
+                    <h2><t:outputraw value="threeFourNenTitle" /></h2>
 
                     <t:loop source="threeFourNenPosts" value="currentPost">
                         <c:minipostdisplay post="currentPost" />
@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="oneTwoNenPosts">
-                    <h2>${message:12nen-title}</h2>
+                    <h2><t:outputraw value="oneTwoNenTitle" /></h2>
 
                     <t:loop source="oneTwoNenPosts" value="currentPost">
                         <c:minipostdisplay post="currentPost" />
