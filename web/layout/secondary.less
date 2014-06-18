@@ -3,7 +3,26 @@
 
 @linkcolor: #800;
 
+@red: #f00;
+@green: #3a3;
+@cyan: #0bb;
+
 @app_width: 1024px;
+
+
+span.red
+{
+    color: @red;
+}
+span.green
+{
+    color: @green;
+}
+span.cyan
+{
+    color: @cyan;
+}
+
 
 
 #postContent
@@ -21,6 +40,38 @@
         {
             margin-right: 0;
             float: right;
+        }
+    }
+
+    div.threeColumns
+    {
+        div.column
+        {
+            width: 32%;
+            margin-right: 2%;
+            position: relative;
+            float: left;
+        }
+        div.threeColumnLast
+        {
+            margin-right: 0;
+            float: right;
+        }
+    }
+
+    div.eightColumns
+    {
+        div.column
+        {
+            width: 11%;
+            margin-right: 1%;
+            position: relative;
+            float: left;
+        }
+        div.eightColumnLast
+        {
+            margin-right: 0;
+            float: float;
         }
     }
 
