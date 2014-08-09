@@ -1,6 +1,6 @@
-package com.schlock.website.services.applications.subtitles.impl;
+package com.schlock.website.services.apps.subtitles.impl;
 
-import com.schlock.website.services.applications.subtitles.SubtitleFixerService;
+import com.schlock.website.services.apps.subtitles.SubtitleFixerService;
 import org.apache.commons.lang.StringUtils;
 
 public class SubtitleFixerServiceImpl implements SubtitleFixerService

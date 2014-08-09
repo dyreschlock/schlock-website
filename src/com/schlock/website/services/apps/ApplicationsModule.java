@@ -1,7 +1,7 @@
-package com.schlock.website.services.applications;
+package com.schlock.website.services.apps;
 
-import com.schlock.website.services.applications.subtitles.SubtitleFixerService;
-import com.schlock.website.services.applications.subtitles.impl.SubtitleFixerServiceImpl;
+import com.schlock.website.services.apps.subtitles.SubtitleFixerService;
+import com.schlock.website.services.apps.subtitles.impl.SubtitleFixerServiceImpl;
 import org.apache.tapestry5.ioc.ServiceBinder;
 
 public class ApplicationsModule

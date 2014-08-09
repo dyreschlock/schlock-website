@@ -1,4 +1,4 @@
-package com.schlock.website.services.applications.subtitles;
+package com.schlock.website.services.apps.subtitles;
 
 public interface SubtitleFixerService
 {

@@ -1,6 +1,6 @@
 package com.schlock.website.services;
 
-import com.schlock.website.services.applications.ApplicationsModule;
+import com.schlock.website.services.apps.ApplicationsModule;
 import com.schlock.website.services.blog.BlogModule;
 import com.schlock.website.services.codejam.may2012.May2012Module;
 import com.schlock.website.services.database.DatabaseModule;

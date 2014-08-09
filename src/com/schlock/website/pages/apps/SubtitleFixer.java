@@ -1,7 +1,7 @@
 package com.schlock.website.pages.apps;
 
 import com.schlock.website.entities.blog.Page;
-import com.schlock.website.services.applications.subtitles.SubtitleFixerService;
+import com.schlock.website.services.apps.subtitles.SubtitleFixerService;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
