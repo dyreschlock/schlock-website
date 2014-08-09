@@ -81,10 +81,20 @@ public class SubtitleFixerServiceImpl implements SubtitleFixerService
             sec -= 60;
             min += 1;
         }
+        while(sec < 0)
+        {
+            sec += 60;
+            min -= 1;
+        }
         while(min >= 60)
         {
             min -= 60;
             hr += 1;
+        }
+        while(min < 0)
+        {
+            min += 60;
+            hr -= 1;
         }
 
         String hour = Integer.toString(hr);
