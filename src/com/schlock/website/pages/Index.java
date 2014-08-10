@@ -3,6 +3,7 @@ package com.schlock.website.pages;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.ViewState;
+import com.schlock.website.pages.apps.SubtitleFixer;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
@@ -65,6 +66,10 @@ public class Index
         else if (StringUtils.equalsIgnoreCase(Page.ALT_MATERIALS_UUID, parameter))
         {
             return Alt.class;
+        }
+        else if (StringUtils.equalsIgnoreCase(Page.SUBTITLES_UUID, parameter))
+        {
+            return SubtitleFixer.class;
         }
         else if (StringUtils.equalsIgnoreCase(EVENT, parameter))
         {
