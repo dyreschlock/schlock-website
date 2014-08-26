@@ -14,6 +14,8 @@ public interface DeploymentContext
 
     public boolean isAcceptedUrlReferrer(String referrer);
 
+    public boolean isAcceptedUserAgent(String userAgent);
+
     public String getHibernateProperty(String name);
 
     public String webDirectory();

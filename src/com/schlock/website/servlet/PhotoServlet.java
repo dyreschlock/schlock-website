@@ -39,6 +39,13 @@ public class PhotoServlet extends AbstractHttpServlet
             return;
         }
 
+        String userAgent = req.getHeader("user-agent");
+        if (deploymentContext().isAcceptedUserAgent(userAgent))
+        {
+            hostPhoto(req, resp);
+            return;
+        }
+
         resp.sendError(HttpServletResponse.SC_NOT_FOUND);
     }
 

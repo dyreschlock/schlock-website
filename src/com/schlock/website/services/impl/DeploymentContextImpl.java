@@ -28,6 +28,11 @@ public class DeploymentContextImpl implements DeploymentContext
                     "facebook.com"
             );
 
+    private static final List<String> ACCEPTED_USER_AGENTS =
+            Arrays.asList(
+                    "facebook.com"
+            );
+
 
     private Properties deployProperties;
 
@@ -72,6 +77,18 @@ public class DeploymentContextImpl implements DeploymentContext
         for (String host : ACCEPTED_REFERRERS)
         {
             if (StringUtils.containsIgnoreCase(referrer, host))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isAcceptedUserAgent(String userAgent)
+    {
+        for (String agent : ACCEPTED_USER_AGENTS)
+        {
+            if (StringUtils.containsIgnoreCase(userAgent, agent))
             {
                 return true;
             }
