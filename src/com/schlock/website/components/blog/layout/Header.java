@@ -3,6 +3,7 @@ package com.schlock.website.components.blog.layout;
 import com.schlock.website.pages.AboutMe;
 import com.schlock.website.pages.Archive;
 import com.schlock.website.pages.Index;
+import com.schlock.website.pages.apps.AppsIndex;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
@@ -29,6 +30,11 @@ public class Header
     Object onArchive()
     {
         return Archive.class;
+    }
+
+    Object onApplications()
+    {
+        return AppsIndex.class;
     }
 
     Object onAboutMe()

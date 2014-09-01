@@ -1,6 +1,6 @@
 package com.schlock.website.components.blog.content;
 
-import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.pages.Index;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.PostManagement;
@@ -14,7 +14,7 @@ public class MiniPostDisplay
 {
     @Parameter(required = true)
     @Property
-    private Post post;
+    private AbstractPost post;
 
     @Inject
     private PageRenderLinkSource linkSource;

@@ -15,19 +15,20 @@
             <t:outputraw value="previewHtml" />
         </div>
 
-        <div class="links">
-            <t:if test="hasLessonPlan">
-                <a href="${post.lessonPlanLink}">${message:lesson-plan}</a> /
-            </t:if>
+        <t:if test="!post.page">
+            <div class="links">
+                <t:if test="hasLessonPlan">
+                    <a href="${post.lessonPlanLink}">${message:lesson-plan}</a> /
+                </t:if>
 
-            <t:if test="hasFlashCards">
-                <a href="${post.flashCardsLink}">${message:flash-cards}</a> /
-            </t:if>
+                <t:if test="hasFlashCards">
+                    <a href="${post.flashCardsLink}">${message:flash-cards}</a> /
+                </t:if>
 
-            <t:eventlink event="selectPost" context="post.uuid">
-                ${message:more}
-            </t:eventlink>
-        </div>
-
+                <t:eventlink event="selectPost" context="post.uuid">
+                    ${message:more}
+                </t:eventlink>
+            </div>
+        </t:if>
     </div>
 </t:container>

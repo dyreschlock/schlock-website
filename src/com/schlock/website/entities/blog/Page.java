@@ -7,8 +7,7 @@ public class Page extends AbstractPost
     public static final String ABOUT_ME_UUID = "about-me";
     public static final String CLUB_UUID = "club";
     public static final String ALT_MATERIALS_UUID = "alt-materials";
-
-    public static final String SUBTITLES_UUID = "subtitles";
+    public static final String APPLICATIONS_UUID = "apps";
 
 
     public boolean isPage()

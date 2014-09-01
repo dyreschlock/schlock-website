@@ -46,6 +46,9 @@
 
         </subclass>
 
+        <subclass name="com.schlock.website.entities.blog.ApplicationPage">
+
+        </subclass>
 
     </class>
 </hibernate-mapping>

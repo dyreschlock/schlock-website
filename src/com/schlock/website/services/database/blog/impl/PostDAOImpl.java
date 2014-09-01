@@ -303,6 +303,19 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
+    public List<ApplicationPage> getAllApplicationPages(boolean withUnpublished)
+    {
+        String text = "from ApplicationPage p ";
+        if (!withUnpublished)
+        {
+            text += " where p.published is true ";
+        }
+        text += " order by p.created desc ";
+
+        Query query = session.createQuery(text);
+        return query.list();
+    }
+
     private Query clubPostsQuery(boolean withUnpublished)
     {
         String text = "from ClubPost p ";

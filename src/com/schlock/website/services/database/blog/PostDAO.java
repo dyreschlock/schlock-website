@@ -51,6 +51,8 @@ public interface PostDAO extends BaseDAO<AbstractPost>
 
     public List<Page> getAllPages(boolean withUnpublished);
 
+    public List<ApplicationPage> getAllApplicationPages(boolean withUnpublished);
+
     public ClubPost getMostRecentClubPost(boolean withUnpublished);
 
     public List<ClubPost> getAllClubPosts(boolean withUnpublished);
