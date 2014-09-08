@@ -30,7 +30,8 @@ public class DeploymentContextImpl implements DeploymentContext
 
     private static final List<String> ACCEPTED_USER_AGENTS =
             Arrays.asList(
-                    "facebook.com"
+                    "facebook.com",
+                    "visionutils"
             );
 
 
