@@ -12,8 +12,10 @@
         /
         <t:eventlink event="archive">${message:archive}</t:eventlink>
         /
+        <!--
         <t:eventlink event="applications">${message:applications}</t:eventlink>
         /
+        -->
         <t:eventlink event="aboutMe">${message:about-me}</t:eventlink>
         <t:remove>
             <t:eventlink t:id="codejamLink">${message:codejam}</t:eventlink>
