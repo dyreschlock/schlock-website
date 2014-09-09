@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="blog/layoutblog" post="page"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:c="tapestry-library:blog/content"
+    xmlns:l="tapestry-library:blog/link"
+    >
+
+    <c:postdisplay post="page">
+
+        <div class="postBody kendo">
+
+            <t:form t:id="questionForm" id="questionForm" clientValidation="none">
+
+                <t:loop source="questions" value="currentQuestion">
+
+                    <div class="title"><t:outputraw value="questionHtml" /></div>
+
+                    <p><t:textarea t:id="questionTextArea" value="questionResponse" /></p>
+
+                </t:loop>
+
+                <div class="button">
+                    <t:linksubmit>${message:submit}</t:linksubmit>
+                </div>
+            </t:form>
+        </div>
+    </c:postdisplay>
+</html>

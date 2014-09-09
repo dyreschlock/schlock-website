@@ -32,5 +32,7 @@
         <mapping resource="com/schlock/website/entities/blog/Category.hbm.xml" />
         <mapping resource="com/schlock/website/entities/blog/AbstractPost.hbm.xml" />
 
+        <mapping resource="com/schlock/website/entities/apps/kendo/ExamQuestion.hbm.xml" />
+
     </session-factory>
 </hibernate-configuration>

@@ -1,6 +1,8 @@
 package com.schlock.website.services.database;
 
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.database.apps.kendo.ExamQuestionDAO;
+import com.schlock.website.services.database.apps.kendo.impl.ExamQuestionDAOImpl;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import com.schlock.website.services.database.blog.impl.CategoryDAOImpl;
@@ -16,6 +18,8 @@ public class DatabaseModule
     {
         binder.bind(PostDAO.class, PostDAOImpl.class);
         binder.bind(CategoryDAO.class, CategoryDAOImpl.class);
+
+        binder.bind(ExamQuestionDAO.class, ExamQuestionDAOImpl.class);
     }
 
 

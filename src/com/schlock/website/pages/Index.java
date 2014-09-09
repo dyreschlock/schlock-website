@@ -6,6 +6,7 @@ import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.apps.AppsIndex;
 import com.schlock.website.pages.apps.SubtitleFixer;
+import com.schlock.website.pages.apps.kendo.KendoIndex;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
@@ -80,6 +81,10 @@ public class Index
         else if (StringUtils.equalsIgnoreCase(ApplicationPage.CODEJAM_MAY2012_UUID, parameter))
         {
             return com.schlock.website.pages.codejam.may2012.Index.class;
+        }
+        else if (StringUtils.equalsIgnoreCase(ApplicationPage.KENDO_UUID, parameter))
+        {
+            return KendoIndex.class;
         }
         else if (StringUtils.equalsIgnoreCase(EVENT, parameter))
         {

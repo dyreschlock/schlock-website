@@ -1,0 +1,24 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field" >
+    <class name="com.schlock.website.entities.apps.kendo.ExamQuestion" table="kendo_questions">
+        <id name="id" unsaved-value="null">
+            <generator class="native" />
+        </id>
+
+        <property name="number" />
+        <property name="category" type="com.schlock.website.services.database.types.ExamCategoryType" />
+
+        <property name="level" />
+
+        <property name="japaneseTitle" />
+        <property name="englishTitle" />
+
+        <property name="japaneseQuestion" />
+        <property name="englishQuestion" />
+
+        <property name="japaneseAnswer" length="1000000" />
+        <property name="englishAnswer" length="1000000" />
+    </class>
+</hibernate-mapping>
