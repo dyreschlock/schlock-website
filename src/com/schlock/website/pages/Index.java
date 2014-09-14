@@ -2,7 +2,6 @@ package com.schlock.website.pages;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Page;
-import com.schlock.website.entities.blog.Project;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.apps.SubtitleFixer;
 import com.schlock.website.pages.apps.kendo.KendoIndex;
@@ -73,15 +72,15 @@ public class Index
         {
             return Projects.class;
         }
-        else if (StringUtils.equalsIgnoreCase(Project.SUBTITLES_UUID, parameter))
+        else if (StringUtils.equalsIgnoreCase(AbstractPost.SUBTITLES_UUID, parameter))
         {
             return SubtitleFixer.class;
         }
-        else if (StringUtils.equalsIgnoreCase(Project.CODEJAM_MAY2012_UUID, parameter))
+        else if (StringUtils.equalsIgnoreCase(AbstractPost.CODEJAM_MAY2012_UUID, parameter))
         {
             return com.schlock.website.pages.codejam.may2012.Index.class;
         }
-        else if (StringUtils.equalsIgnoreCase(Project.KENDO_UUID, parameter))
+        else if (StringUtils.equalsIgnoreCase(AbstractPost.KENDO_UUID, parameter))
         {
             return KendoIndex.class;
         }

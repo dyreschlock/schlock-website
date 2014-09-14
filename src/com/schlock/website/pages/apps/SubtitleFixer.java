@@ -1,6 +1,6 @@
 package com.schlock.website.pages.apps;
 
-import com.schlock.website.entities.blog.Project;
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.services.apps.subtitles.SubtitleFixerService;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.InjectComponent;
@@ -52,13 +52,13 @@ public class SubtitleFixer
     }
 
 
-    private Project cachedPage;
+    private AbstractPost cachedPage;
 
-    public Project getPage()
+    public AbstractPost getPage()
     {
         if(cachedPage == null)
         {
-            cachedPage = (Project) postDAO.getByUuid(Project.SUBTITLES_UUID);
+            cachedPage = postDAO.getByUuid(AbstractPost.SUBTITLES_UUID);
         }
         return cachedPage;
     }

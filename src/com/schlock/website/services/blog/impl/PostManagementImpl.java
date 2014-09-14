@@ -146,7 +146,7 @@ public class PostManagementImpl implements PostManagement
             }
             if (page.isProjects())
             {
-                Project recent = postDAO.getMostRecentProject(true);
+                AbstractPost recent = postDAO.getMostRecentProject(true);
                 updatedTime = recent.getCreated();
             }
         }

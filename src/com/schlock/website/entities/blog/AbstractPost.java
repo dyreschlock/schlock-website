@@ -7,6 +7,12 @@ import java.util.*;
 
 public abstract class AbstractPost extends Persisted
 {
+    public static final String SUBTITLES_UUID = "subtitles";
+    public static final String CODEJAM_MAY2012_UUID = "codejam-may-2012";
+
+    public static final String KENDO_UUID = "kendo-example-written-exam";
+
+
     private String wpid; //legacy Wordpress id
     private String mtid; //legacy MoveableType id
 
@@ -50,9 +56,17 @@ public abstract class AbstractPost extends Persisted
         return this.getClass().isAssignableFrom(Page.class);
     }
 
+
     public boolean isProject()
     {
-        return this.getClass().isAssignableFrom(Project.class);
+        for (AbstractCategory category : getCategories())
+        {
+            if (category.isProject())
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 

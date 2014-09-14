@@ -1,7 +1,7 @@
 package com.schlock.website.pages;
 
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Page;
-import com.schlock.website.entities.blog.Project;
 import com.schlock.website.entities.blog.ProjectCategory;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -34,7 +34,7 @@ public class Projects
     private ProjectCategory currentSubcategory;
 
     @Property
-    private Project currentPage;
+    private AbstractPost currentPage;
 
     @Property
     private int currentIndex;
@@ -149,7 +149,7 @@ public class Projects
         return extraCss;
     }
 
-    public List<Project> getProjects()
+    public List<AbstractPost> getProjects()
     {
         Long categoryId = null;
         if (category != null)
@@ -157,7 +157,7 @@ public class Projects
             categoryId = category.getId();
         }
 
-        List<Project> pages = postDAO.getAllProjectsByCategory(true, categoryId);
+        List<AbstractPost> pages = postDAO.getAllProjectsByCategory(true, categoryId);
         return pages;
     }
 

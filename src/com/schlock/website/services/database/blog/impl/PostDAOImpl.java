@@ -303,33 +303,43 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
-    public Project getMostRecentProject(boolean withUnpublished)
+    public AbstractPost getMostRecentProject(boolean withUnpublished)
     {
-        String text = "from Project p ";
+        String text = "select p " +
+                        " from Post p " +
+                        " join p.categories c " +
+                        " where c.class = '" + ProjectCategory.class.getCanonicalName() + "' ";
         if (!withUnpublished)
         {
-            text += " where p.published is true ";
+            text += " and p.published is true ";
         }
         text += " order by p.created desc ";
 
         Query query = session.createQuery(text);
-        return (Project) singleResult(query);
+        return (AbstractPost) singleResult(query);
     }
 
-    public List<Project> getAllProjectsByCategory(boolean withUnpublished, Long categoryId)
+    public List<AbstractPost> getAllProjectsByCategory(boolean withUnpublished, Long categoryId)
     {
-        String selectClause = "select p from Project p ";
-        String orderByClause = " order by p.created desc";
+        String text = "select distinct p " +
+                        " from Post p " +
+                        " join p.categories c " +
+                        " where c.class = '" + ProjectCategory.class.getCanonicalName() + "' ";
+        if (!withUnpublished)
+        {
+            text += " and p.published is true ";
+        }
+        if (categoryId != null)
+        {
+            text += " and c.id = :categoryId ";
+        }
+        text += " order by p.created desc ";
 
-        Query query = createQuery(null,
-                                    null,
-                                    null,
-                                    withUnpublished,
-                                    categoryId,
-                                    selectClause,
-                                    null,
-                                    orderByClause);
-
+        Query query = session.createQuery(text);
+        if (categoryId != null)
+        {
+            query.setParameter("categoryId", categoryId);
+        }
         return query.list();
     }
 
