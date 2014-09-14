@@ -26,9 +26,11 @@
         <property name="bodyText" length="1000000" />
         <property name="bodyHTML" length="1000000" />
 
+        <property name="blurb" length="1000000"/>
+
         <set name="categories" cascade="none" lazy="true" table="blog_posts_categories">
             <key column="postId" />
-            <many-to-many class="com.schlock.website.entities.blog.Category" column="categoryId" />
+            <many-to-many class="com.schlock.website.entities.blog.AbstractCategory" column="categoryId" />
         </set>
 
         <subclass name="com.schlock.website.entities.blog.Post">
@@ -42,13 +44,7 @@
             </subclass>
         </subclass>
 
-        <subclass name="com.schlock.website.entities.blog.Page">
-
-        </subclass>
-
-        <subclass name="com.schlock.website.entities.blog.ApplicationPage">
-
-        </subclass>
-
+        <subclass name="com.schlock.website.entities.blog.Page" />
+        <subclass name="com.schlock.website.entities.blog.Project" />
     </class>
 </hibernate-mapping>

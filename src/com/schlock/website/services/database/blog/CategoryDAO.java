@@ -1,19 +1,20 @@
 package com.schlock.website.services.database.blog;
 
-import com.schlock.website.entities.blog.Category;
+import com.schlock.website.entities.blog.AbstractCategory;
+import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.services.database.BaseDAO;
 
 import java.util.List;
 
-public interface CategoryDAO extends BaseDAO<Category>
+public interface CategoryDAO extends BaseDAO<AbstractCategory>
 {
-    public Category getByUuid(String uuid);
+    public AbstractCategory getByUuid(String uuid);
 
-    public Category getFirstCategory();
+    public PostCategory getFirstCategory();
 
-    public List<Category> getAllInOrder();
+    public List<PostCategory> getAllInOrder();
 
-    public List<Category> getTopInOrder();
+    public List<PostCategory> getTopInOrder();
 
-    public List<Category> getSubInOrder(Long categoryId);
+    public List<PostCategory> getSubInOrder(Long categoryId);
 }

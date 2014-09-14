@@ -144,6 +144,11 @@ public class PostManagementImpl implements PostManagement
                 LessonPost recent = postDAO.getMostRecentLessonPost(true);
                 updatedTime = recent.getCreated();
             }
+            if (page.isProjects())
+            {
+                Project recent = postDAO.getMostRecentProject(true);
+                updatedTime = recent.getCreated();
+            }
         }
 
         cachedUpdateTime.put(page.getUuid(), updatedTime);
@@ -168,7 +173,11 @@ public class PostManagementImpl implements PostManagement
 
     public String generatePostPreview(AbstractPost post)
     {
-        String tempText = post.getBodyText();
+        String tempText = post.getBlurb();
+        if (StringUtils.isBlank(tempText))
+        {
+            tempText = post.getBodyText();
+        }
 
         int brake = 0;
         if (StringUtils.containsIgnoreCase(tempText, BREAK))
@@ -536,7 +545,7 @@ public class PostManagementImpl implements PostManagement
     }
 
 
-    public List<Post> getTopPostsForCategory(final Integer LIMIT, Category category, List<Long> excludeIds)
+    public List<Post> getTopPostsForCategory(final Integer LIMIT, AbstractCategory category, List<Long> excludeIds)
     {
         List<Post> posts = new ArrayList<Post>();
 

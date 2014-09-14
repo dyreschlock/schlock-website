@@ -1,6 +1,6 @@
 package com.schlock.website.pages.category;
 
-import com.schlock.website.entities.blog.Category;
+import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.Archive;
@@ -41,10 +41,10 @@ public class CategoryIndex
     private PostDAO postDAO;
 
 
-    private Category category;
+    private AbstractCategory category;
 
     @Property
-    private Category currentCategory;
+    private AbstractCategory currentCategory;
 
     @Property
     private Post currentPost;
@@ -127,7 +127,7 @@ public class CategoryIndex
     }
 
 
-    public Category getParent()
+    public AbstractCategory getParent()
     {
         return category.getParent();
     }
@@ -143,15 +143,15 @@ public class CategoryIndex
     }
 
 
-    private List<Category> cachedCategories;
+    private List<AbstractCategory> cachedCategories;
 
-    public List<Category> getCategories()
+    public List<AbstractCategory> getCategories()
     {
         if (cachedCategories == null)
         {
             Long id = category.getId();
 
-            List<Category> categories = new ArrayList<Category>();
+            List<AbstractCategory> categories = new ArrayList<AbstractCategory>();
             categories.add(category);
             categories.addAll(categoryDAO.getSubInOrder(id));
 
@@ -168,7 +168,7 @@ public class CategoryIndex
         {
             if (!category.isTopCategory())
             {
-                Category parent = category.getParent();
+                AbstractCategory parent = category.getParent();
 
                 title += parent.getName() + " .";
             }

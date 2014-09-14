@@ -1,7 +1,7 @@
 package com.schlock.website.services.blog;
 
 import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.Category;
+import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.Post;
 
@@ -30,7 +30,7 @@ public interface PostManagement
 
     public String getStylizedHTMLTitle(AbstractPost post);
 
-    public List<Post> getTopPostsForCategory(Integer count, Category category, List<Long> excludeIds);
+    public List<Post> getTopPostsForCategory(Integer count, AbstractCategory category, List<Long> excludeIds);
 
     public List<Post> getTopPostsForYearMonth(Integer count, Integer year, Integer month, List<Long> excludeIds);
 }

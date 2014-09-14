@@ -29,7 +29,7 @@
         <property name="bonecp.releaseHelperThreads">3</property>
 
 
-        <mapping resource="com/schlock/website/entities/blog/Category.hbm.xml" />
+        <mapping resource="com/schlock/website/entities/blog/AbstractCategory.hbm.xml" />
         <mapping resource="com/schlock/website/entities/blog/AbstractPost.hbm.xml" />
 
         <mapping resource="com/schlock/website/entities/apps/kendo/ExamQuestion.hbm.xml" />

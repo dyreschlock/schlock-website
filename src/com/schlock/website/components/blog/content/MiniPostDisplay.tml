@@ -4,11 +4,18 @@
     <div class="miniPost">
 
         <t:eventlink event="selectPost" context="post.uuid">
-            <h1><!-- ${post.id} // --> ${post.title}</h1>
+            <h1><t:outputraw value="postTitleHtml" /></h1>
         </t:eventlink>
         <t:if test="!post.page">
             <div class="postDate">
                 ${createdDate}
+
+                <t:if test="project">
+                    <t:loop source="projectCategories" value="currentCategory">
+                        //
+                        <t:eventlink class="${currentCategory.uuid}" event="selectProjectCategory" context="currentCategory.uuid">${currentCategory.name}</t:eventlink>
+                    </t:loop>
+                </t:if>
             </div>
         </t:if>
         <div class="postBody">

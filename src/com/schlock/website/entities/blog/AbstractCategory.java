@@ -36,25 +36,31 @@ import com.schlock.website.entities.Persisted;
  *
  *
  */
-public class Category extends Persisted
+public abstract class AbstractCategory extends Persisted
 {
-    public static final String EVENT = "events";
-    public static final String FESTIVAL = "festivals";
-
-    public static final String TEACHING = "teaching";
-
     private String uuid;
 
     private String name;
     private int ordering;
 
-    private Category parent;
+    private AbstractCategory parent;
 
 
     public boolean isTopCategory()
     {
         return parent == null;
     }
+
+    public boolean isPost()
+    {
+        return this.getClass().isAssignableFrom(PostCategory.class);
+    }
+
+    public boolean isProject()
+    {
+        return this.getClass().isAssignableFrom(ProjectCategory.class);
+    }
+
 
     public String getUuid()
     {
@@ -86,12 +92,12 @@ public class Category extends Persisted
         this.ordering = ordering;
     }
 
-    public Category getParent()
+    public AbstractCategory getParent()
     {
         return parent;
     }
 
-    public void setParent(Category parent)
+    public void setParent(AbstractCategory parent)
     {
         this.parent = parent;
     }

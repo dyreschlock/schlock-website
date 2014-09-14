@@ -1,10 +1,9 @@
 package com.schlock.website.pages;
 
 import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.ApplicationPage;
 import com.schlock.website.entities.blog.Page;
+import com.schlock.website.entities.blog.Project;
 import com.schlock.website.entities.blog.ViewState;
-import com.schlock.website.pages.apps.AppsIndex;
 import com.schlock.website.pages.apps.SubtitleFixer;
 import com.schlock.website.pages.apps.kendo.KendoIndex;
 import com.schlock.website.services.database.blog.CategoryDAO;
@@ -70,19 +69,19 @@ public class Index
         {
             return Alt.class;
         }
-        else if (StringUtils.equalsIgnoreCase(Page.APPLICATIONS_UUID, parameter))
+        else if (StringUtils.equalsIgnoreCase(Page.PROJECTS_UUID, parameter))
         {
-            return AppsIndex.class;
+            return Projects.class;
         }
-        else if (StringUtils.equalsIgnoreCase(ApplicationPage.SUBTITLES_UUID, parameter))
+        else if (StringUtils.equalsIgnoreCase(Project.SUBTITLES_UUID, parameter))
         {
             return SubtitleFixer.class;
         }
-        else if (StringUtils.equalsIgnoreCase(ApplicationPage.CODEJAM_MAY2012_UUID, parameter))
+        else if (StringUtils.equalsIgnoreCase(Project.CODEJAM_MAY2012_UUID, parameter))
         {
             return com.schlock.website.pages.codejam.may2012.Index.class;
         }
-        else if (StringUtils.equalsIgnoreCase(ApplicationPage.KENDO_UUID, parameter))
+        else if (StringUtils.equalsIgnoreCase(Project.KENDO_UUID, parameter))
         {
             return KendoIndex.class;
         }

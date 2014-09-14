@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="blog/layoutblog" post="page"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:c="tapestry-library:blog/content"
+    xmlns:l="tapestry-library:blog/link"
+    >
+
+    <c:postdisplay post="page" cssClass="projects">
+        <div id="projectContent" class="columns">
+            <t:loop source="projects" value="currentPage" index="currentIndex">
+                <div class="column ${extraCss}">
+                    <c:minipostdisplay post="currentPage" />
+                </div>
+            </t:loop>
+        </div>
+    </c:postdisplay>
+</html>

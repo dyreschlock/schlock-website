@@ -1,7 +1,7 @@
 package com.schlock.website.pages.apps.kendo;
 
 import com.schlock.website.entities.apps.kendo.ExamQuestion;
-import com.schlock.website.entities.blog.ApplicationPage;
+import com.schlock.website.entities.blog.Project;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.apps.kendo.ExamQuestionDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -64,13 +64,13 @@ public class KendoIndex
         return cachedQuestions;
     }
 
-    private ApplicationPage cachedPage;
+    private Project cachedPage;
 
-    public ApplicationPage getPage()
+    public Project getPage()
     {
         if (cachedPage == null)
         {
-            cachedPage = (ApplicationPage) postDAO.getByUuid(ApplicationPage.KENDO_UUID);
+            cachedPage = (Project) postDAO.getByUuid(Project.KENDO_UUID);
         }
         return cachedPage;
     }

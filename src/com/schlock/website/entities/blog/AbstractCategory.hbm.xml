@@ -2,16 +2,19 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping default-access="field" >
-    <class name="com.schlock.website.entities.blog.Category" table="blog_categories">
+    <class name="com.schlock.website.entities.blog.AbstractCategory" table="blog_categories">
         <id name="id" unsaved-value="null">
             <generator class="native" />
         </id>
+        <discriminator />
 
         <property name="uuid" not-null="true" />
         <property name="name" not-null="true" />
         <property name="ordering" />
 
-        <many-to-one name="parent" column="parentId" class="com.schlock.website.entities.blog.Category" />
+        <many-to-one name="parent" column="parentId" class="com.schlock.website.entities.blog.AbstractCategory" />
 
+        <subclass name="com.schlock.website.entities.blog.PostCategory" />
+        <subclass name="com.schlock.website.entities.blog.ProjectCategory" />
     </class>
 </hibernate-mapping>

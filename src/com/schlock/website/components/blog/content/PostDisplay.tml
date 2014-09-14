@@ -14,7 +14,7 @@
                 <time datetime="${createdDateHtmlTag}" itemprop="datePublished">
                     ${createdDate}
                 </time>
-                <span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+                <span class="hidden" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
                     <span itemprop="name">
                         <a href="${message:googleUrl}" itemprop="url" rel="author">${message:author}</a>
                     </span>
@@ -27,6 +27,13 @@
                         .<t:eventlink event="selectCategory" context="currentSubcategory.uuid">${currentSubcategory.name}</t:eventlink>
                     </t:loop>
                 </t:loop>
+
+                <t:if test="project">
+                    <t:loop source="projectCategories" value="currentCategory">
+                        //
+                        <t:eventlink class="${currentCategory.uuid}" event="selectProjectCategory" context="currentCategory.uuid">${currentCategory.name}</t:eventlink>
+                    </t:loop>
+                </t:if>
             </div>
         </t:if>
         <div class="postBody" itemprop="articleBody">

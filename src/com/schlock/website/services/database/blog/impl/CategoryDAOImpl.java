@@ -1,6 +1,7 @@
 package com.schlock.website.services.database.blog.impl;
 
-import com.schlock.website.entities.blog.Category;
+import com.schlock.website.entities.blog.AbstractCategory;
+import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import org.hibernate.Query;
@@ -8,48 +9,48 @@ import org.hibernate.Session;
 
 import java.util.List;
 
-public class CategoryDAOImpl extends BaseDAOImpl<Category> implements CategoryDAO
+public class CategoryDAOImpl extends BaseDAOImpl<AbstractCategory> implements CategoryDAO
 {
     public CategoryDAOImpl(Session session)
     {
-        super(Category.class, session);
+        super(AbstractCategory.class, session);
     }
 
-    public Category getByUuid(String uuid)
+    public AbstractCategory getByUuid(String uuid)
     {
-        String text = "from Category " +
+        String text = "from AbstractCategory " +
                       " where uuid = :uuid ";
 
         Query query = session.createQuery(text);
         query.setParameter("uuid", uuid);
 
-        return (Category) singleResult(query);
+        return (AbstractCategory) singleResult(query);
     }
 
-    public Category getFirstCategory()
+    public PostCategory getFirstCategory()
     {
-        String text = "from Category " +
+        String text = "from PostCategory " +
                 " where parent is null " +
                 " order by ordering ";
 
         Query query = session.createQuery(text);
         query.setMaxResults(1);
 
-        return (Category) singleResult(query);
+        return (PostCategory) singleResult(query);
     }
 
-    public List<Category> getAllInOrder()
+    public List<PostCategory> getAllInOrder()
     {
-        String text = "from Category " +
+        String text = "from PostCategory " +
                       " order by parentId, ordering ";
 
         Query query = session.createQuery(text);
         return query.list();
     }
 
-    public List<Category> getTopInOrder()
+    public List<PostCategory> getTopInOrder()
     {
-        String text = "from Category " +
+        String text = "from PostCategory " +
                         " where parent is null " +
                         " order by ordering ";
 
@@ -57,10 +58,10 @@ public class CategoryDAOImpl extends BaseDAOImpl<Category> implements CategoryDA
         return query.list();
     }
 
-    public List<Category> getSubInOrder(Long categoryId)
+    public List<PostCategory> getSubInOrder(Long categoryId)
     {
         String text = "select child " +
-                        " from Category child " +
+                        " from PostCategory child " +
                         " join child.parent par " +
                         " where par.id = :categoryId " +
                         " order by child.ordering ";

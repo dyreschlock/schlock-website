@@ -25,10 +25,9 @@ public abstract class AbstractPost extends Persisted
     private String bodyText;
     private String bodyHTML;
 
-    private Set<Category> categories;
+    private String blurb;
 
-
-    public abstract boolean isPage();
+    private Set<AbstractCategory> categories;
 
 
     protected AbstractPost()
@@ -41,15 +40,31 @@ public abstract class AbstractPost extends Persisted
     }
 
 
-    public List<Category> getTopCategories()
+    public boolean isPost()
     {
-        List<Category> top = new ArrayList<Category>();
+        return this.getClass().isAssignableFrom(Post.class);
+    }
 
-        for (Category category : getCategories())
+    public boolean isPage()
+    {
+        return this.getClass().isAssignableFrom(Page.class);
+    }
+
+    public boolean isProject()
+    {
+        return this.getClass().isAssignableFrom(Project.class);
+    }
+
+
+    public List<PostCategory> getTopPostCategories()
+    {
+        List<PostCategory> top = new ArrayList<PostCategory>();
+
+        for (AbstractCategory category : getCategories())
         {
-            if (category.isTopCategory())
+            if (category.isTopCategory() && category.isPost())
             {
-                top.add(category);
+                top.add((PostCategory) category);
             }
         }
 
@@ -57,11 +72,11 @@ public abstract class AbstractPost extends Persisted
         return top;
     }
 
-    public List<Category> getSubcategories(Category top)
+    public List<AbstractCategory> getSubcategories(AbstractCategory top)
     {
-        List<Category> sub = new ArrayList<Category>();
+        List<AbstractCategory> sub = new ArrayList<AbstractCategory>();
 
-        for (Category category : getCategories())
+        for (AbstractCategory category : getCategories())
         {
             if (category.getParent() != null &&
                     category.getParent().getId().equals(top.getId()))
@@ -72,6 +87,21 @@ public abstract class AbstractPost extends Persisted
 
         Collections.sort(sub, new CategoryComparator());
         return sub;
+    }
+
+    public List<ProjectCategory> getProjectCategories()
+    {
+        List<ProjectCategory> cat = new ArrayList<ProjectCategory>();
+
+        for (AbstractCategory category : getCategories())
+        {
+            if (category.isProject())
+            {
+                cat.add((ProjectCategory) category);
+            }
+        }
+
+        return cat;
     }
 
     public boolean isHasGallery()
@@ -204,12 +234,22 @@ public abstract class AbstractPost extends Persisted
         this.bodyHTML = bodyHTML;
     }
 
-    public Set<Category> getCategories()
+    public String getBlurb()
+    {
+        return blurb;
+    }
+
+    public void setBlurb(String blurb)
+    {
+        this.blurb = blurb;
+    }
+
+    public Set<AbstractCategory> getCategories()
     {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories)
+    public void setCategories(Set<AbstractCategory> categories)
     {
         this.categories = categories;
     }

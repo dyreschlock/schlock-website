@@ -1,9 +1,6 @@
 package com.schlock.website.components.blog.layout;
 
-import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.Category;
-import com.schlock.website.entities.blog.Post;
-import com.schlock.website.entities.blog.ViewState;
+import com.schlock.website.entities.blog.*;
 import com.schlock.website.pages.Index;
 import com.schlock.website.pages.category.CategoryIndex;
 import com.schlock.website.services.blog.PostManagement;
@@ -41,7 +38,7 @@ public class Subheader
 
 
     @Property
-    private Category currentCategory;
+    private AbstractCategory currentCategory;
 
     @Property
     private Integer currentIndex;
@@ -63,7 +60,7 @@ public class Subheader
 
     public Post getPreviousPost()
     {
-        if (post != null && !post.isPage() && cachedPreviousPost == null)
+        if (post != null && post.isPost() && cachedPreviousPost == null)
         {
             Post currentPost = (Post) post;
             boolean unpublished = viewState.isShowUnpublished();
@@ -91,7 +88,7 @@ public class Subheader
 
     public Post getNextPost()
     {
-        if (post != null && !post.isPage() && cachedNextPost == null)
+        if (post != null && post.isPost() && cachedNextPost == null)
         {
             Post currentPost = (Post) post;
             boolean unpublished = viewState.isShowUnpublished();
@@ -116,7 +113,7 @@ public class Subheader
 
 
 
-    public List<Category> getCategories()
+    public List<PostCategory> getCategories()
     {
         return categoryDAO.getTopInOrder();
     }

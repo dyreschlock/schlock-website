@@ -1,9 +1,6 @@
 package com.schlock.website.components.blog.content;
 
-import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.Category;
-import com.schlock.website.entities.blog.Post;
-import com.schlock.website.entities.blog.ViewState;
+import com.schlock.website.entities.blog.*;
 import com.schlock.website.services.database.blog.PostDAO;
 import com.schlock.website.services.database.blog.impl.PostDAOImpl;
 import org.apache.tapestry5.annotations.Parameter;
@@ -40,24 +37,24 @@ public class PostPreviousNext
     private int currentPostIndex;
 
     @Property
-    private Category currentCategory;
+    private AbstractCategory currentCategory;
 
     @Property
     private int currentCategoryIndex;
 
 
 
-    public List<Category> getCategories()
+    public List<PostCategory> getCategories()
     {
-        List<Category> categories = new ArrayList<Category>();
+        List<PostCategory> categories = new ArrayList<PostCategory>();
         categories.add(null);
 
-        for (Category top : post.getTopCategories())
+        for (PostCategory top : post.getTopPostCategories())
         {
             categories.add(top);
-            for (Category sub : post.getSubcategories(top))
+            for (AbstractCategory sub : post.getSubcategories(top))
             {
-                categories.add(sub);
+                categories.add((PostCategory) sub);
             }
         }
         return categories;
@@ -71,7 +68,7 @@ public class PostPreviousNext
             return true;
         }
 
-        List<Category> categories = getCategories();
+        List<PostCategory> categories = getCategories();
         int nextCategoryIndex = currentCategoryIndex + 1;
 
         if (nextCategoryIndex == categories.size())
@@ -79,7 +76,7 @@ public class PostPreviousNext
             return true;
         }
 
-        Category nextCategory = categories.get(nextCategoryIndex);
+        PostCategory nextCategory = categories.get(nextCategoryIndex);
         if (nextCategory.isTopCategory())
         {
             return true;

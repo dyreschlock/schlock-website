@@ -303,9 +303,9 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
-    public List<ApplicationPage> getAllApplicationPages(boolean withUnpublished)
+    private Query projectsQuery(boolean withUnpublished)
     {
-        String text = "from ApplicationPage p ";
+        String text = "from Project p ";
         if (!withUnpublished)
         {
             text += " where p.published is true ";
@@ -313,6 +313,18 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         text += " order by p.created desc ";
 
         Query query = session.createQuery(text);
+        return query;
+    }
+
+    public Project getMostRecentProject(boolean withUnpublished)
+    {
+        Query query = projectsQuery(withUnpublished);
+        return (Project) singleResult(query);
+    }
+
+    public List<Project> getAllProjects(boolean withUnpublished)
+    {
+        Query query = projectsQuery(withUnpublished);
         return query.list();
     }
 

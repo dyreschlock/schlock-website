@@ -1,8 +1,7 @@
 package com.schlock.website.components.blog.content;
 
-import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.Category;
-import com.schlock.website.entities.blog.ViewState;
+import com.schlock.website.entities.blog.*;
+import com.schlock.website.pages.Projects;
 import com.schlock.website.pages.category.CategoryIndex;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.PostManagement;
@@ -53,10 +52,10 @@ public class PostDisplay
 
 
     @Property
-    private Category currentCategory;
+    private AbstractCategory currentCategory;
 
     @Property
-    private Category currentSubcategory;
+    private AbstractCategory currentSubcategory;
 
 
     public String getPostTitleHtml()
@@ -67,19 +66,34 @@ public class PostDisplay
         return html;
     }
 
-    public List<Category> getTopCategories()
+    public List<PostCategory> getTopCategories()
     {
-        return post.getTopCategories();
+        return post.getTopPostCategories();
     }
 
-    public List<Category> getSubcategories()
+    public List<AbstractCategory> getSubcategories()
     {
         return post.getSubcategories(currentCategory);
+    }
+
+    public boolean isProject()
+    {
+        return post.isProject();
+    }
+
+    public List<ProjectCategory> getProjectCategories()
+    {
+        return post.getProjectCategories();
     }
 
     Object onSelectCategory(String categoryUuid)
     {
         return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, categoryUuid);
+    }
+
+    Object onSelectProjectCategory(String categoryUuid)
+    {
+        return linkSource.createPageRenderLinkWithContext(Projects.class, categoryUuid);
     }
 
     public String getCreatedDate()
