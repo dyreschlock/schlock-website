@@ -306,7 +306,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
     public AbstractPost getMostRecentProject(boolean withUnpublished)
     {
         String text = "select p " +
-                        " from Post p " +
+                        " from AbstractPost p " +
                         " join p.categories c " +
                         " where c.class = '" + ProjectCategory.class.getCanonicalName() + "' ";
         if (!withUnpublished)
@@ -322,7 +322,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
     public List<AbstractPost> getAllProjectsByCategory(boolean withUnpublished, Long categoryId)
     {
         String text = "select distinct p " +
-                        " from Post p " +
+                        " from AbstractPost p " +
                         " join p.categories c " +
                         " where c.class = '" + ProjectCategory.class.getCanonicalName() + "' ";
         if (!withUnpublished)

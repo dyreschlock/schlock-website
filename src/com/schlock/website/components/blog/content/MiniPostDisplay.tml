@@ -6,7 +6,7 @@
         <t:eventlink event="selectPost" context="post.uuid">
             <h1><t:outputraw value="postTitleHtml" /></h1>
         </t:eventlink>
-        <t:if test="!post.page">
+        <t:if test="showDate">
             <div class="postDate">
                 ${createdDate}
 

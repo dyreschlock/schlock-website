@@ -40,6 +40,15 @@ public class MiniPostDisplay
         return linkSource.createPageRenderLinkWithContext(Index.class, uuid);
     }
 
+    public boolean isShowDate()
+    {
+        if (post.isPage() && !post.isProject())
+        {
+            return false;
+        }
+        return true;
+    }
+
     public String getCreatedDate()
     {
         return dateFormat.dateFormat(post.getCreated());
