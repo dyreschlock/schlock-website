@@ -63,6 +63,18 @@ public class MiniPostDisplay
         return post.getProjectCategories();
     }
 
+    public String getCategoryCssClass()
+    {
+        String css = "";
+
+        AbstractCategory parent = currentCategory.getParent();
+        if(parent != null)
+        {
+            css = parent.getUuid();
+        }
+        return css;
+    }
+
     Object onSelectProjectCategory(String categoryUuid)
     {
         return linkSource.createPageRenderLinkWithContext(Projects.class, categoryUuid);

@@ -6,12 +6,38 @@
     >
 
     <c:postdisplay post="page" cssClass="projects">
-        <div id="projectContent" class="columns">
-            <t:loop source="projects" value="currentPage" index="currentIndex">
-                <div class="column ${extraCss}">
-                    <c:minipostdisplay post="currentPage" />
-                </div>
-            </t:loop>
-        </div>
+
+        <t:zone t:id="postZone" id="postZone" t:update="show">
+            <div class="fourColumns">
+                <t:loop source="categories" value="currentCategory" index="currentIndex">
+                    <div class="column ${extraCategoryCss}">
+
+                        <div class="categoryCategory">
+                        <t:eventlink event="selectCategory" context="${categoryUuid}" zone="postZone">
+                            ${currentCategory.name}
+                        </t:eventlink>
+                        </div>
+
+                        <t:loop source="subcategories" value="currentSubcategory">
+                            <div class="categoryTitle">
+                            <t:eventlink class="${categoryCssClass}" event="selectCategory" context="${subcategoryUuid}" zone="postZone">
+                                ${currentSubcategory.name}
+                            </t:eventlink>
+                            </div>
+                        </t:loop>
+                        <br class="clr" />
+                    </div>
+                </t:loop>
+                <br class="clr" />
+            </div>
+
+            <div class="projectPosts columns">
+                <t:loop source="projects" value="currentPage" index="currentIndex">
+                    <div class="column ${extraPostCss}">
+                        <c:minipostdisplay post="currentPage" />
+                    </div>
+                </t:loop>
+            </div>
+        </t:zone>
     </c:postdisplay>
 </html>

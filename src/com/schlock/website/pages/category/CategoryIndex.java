@@ -2,6 +2,7 @@ package com.schlock.website.pages.category;
 
 import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.Archive;
 import com.schlock.website.services.blog.PostManagement;
@@ -66,7 +67,7 @@ public class CategoryIndex
             return Archive.class;
         }
 
-        category = categoryDAO.getByUuid(parameter);
+        category = categoryDAO.getByUuid(PostCategory.class, parameter);
         return true;
     }
 

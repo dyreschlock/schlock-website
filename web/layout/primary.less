@@ -4,6 +4,18 @@
 @fontJ: Meiryo, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",Osaka, "メイリオ", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 
 @linkcolor: #800;
+@textcolor: #333;
+
+@programmingcolor: #880060;     /* 318 */
+@artworkcolor: #008;            /* 240 */
+@audiovideocolor: #006088;      /* 198 */
+@writingcolor: #080;            /* 120 */
+
+@programmingcolorlight: #e3c3d9;
+@artworkcolorlight: #c3c3e3;
+@audiovideocolorlight: #c3d9e3;
+@writingcolorlight: #c3e3c3;
+
 
 @app_width: 1024px;
 
@@ -210,21 +222,38 @@ h1, h2, h3
     {
         color: @linkcolor;
     }
-    a.webapps
+    a.programming
     {
-        color: #008;
+        color: @programmingcolor;
     }
-    a.drawing
+    a.artwork
     {
-        color: #008088;
+        color: @artworkcolor;
     }
-    a.film
+    a.audiovideo
     {
-        color: #880;
+        color: @audiovideocolor;
     }
-    a.translation
+    a.writing
     {
-        color: #080;
+        color: @writingcolor;
+    }
+
+    a.programmingUnselected
+    {
+        color: @programmingcolorlight;
+    }
+    a.artworkUnselected
+    {
+        color: @artworkcolorlight;
+    }
+    a.audiovideoUnselected
+    {
+        color: @audiovideocolorlight;
+    }
+    a.writingUnselected
+    {
+        color: @writingcolorlight;
     }
 
     img
@@ -264,7 +293,7 @@ h1, h2, h3
     div.postDate
     {
         color: #666;
-        font-size: 0.9em;
+        font-size: 1.0em;
 
         span
         {
@@ -477,9 +506,32 @@ h1, h2, h3
         height: 350px;
     }
 }
-#projectContent
+#postContent.projects
 {
-    padding-top: 40px;
+    div.categoryCategory
+    {
+        font-family: @font2;
+
+        a
+        {
+            color: @textcolor;
+        }
+    }
+    div.categoryTitle
+    {
+        font-family: @font2;
+        font-size: 1.1em;
+        font-weight: bold;
+
+        padding-right: 15px;
+
+        float: left;
+    }
+
+    div.projectPosts
+    {
+        padding-top: 60px;
+    }
 
     div.miniPost
     {

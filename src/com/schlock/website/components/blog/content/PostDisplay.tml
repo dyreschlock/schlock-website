@@ -31,7 +31,7 @@
                 <t:if test="project">
                     <t:loop source="projectCategories" value="currentCategory">
                         //
-                        <t:eventlink class="${currentCategory.uuid}" event="selectProjectCategory" context="currentCategory.uuid">${currentCategory.name}</t:eventlink>
+                        <t:eventlink class="${categoryCssClass}" event="selectProjectCategory" context="currentCategory.uuid">${currentCategory.name}</t:eventlink>
                     </t:loop>
                 </t:if>
             </div>

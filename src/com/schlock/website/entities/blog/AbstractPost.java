@@ -95,12 +95,13 @@ public abstract class AbstractPost extends Persisted
 
         for (AbstractCategory category : getCategories())
         {
-            if (category.isProject())
+            if (category.isProject() && !category.isTopCategory())
             {
                 cat.add((ProjectCategory) category);
             }
         }
 
+        Collections.sort(cat, new CategoryComparator());
         return cat;
     }
 

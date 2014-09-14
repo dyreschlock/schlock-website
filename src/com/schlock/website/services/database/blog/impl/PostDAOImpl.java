@@ -303,7 +303,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
-    private Query projectsQuery(boolean withUnpublished)
+    public Project getMostRecentProject(boolean withUnpublished)
     {
         String text = "from Project p ";
         if (!withUnpublished)
@@ -313,18 +313,23 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         text += " order by p.created desc ";
 
         Query query = session.createQuery(text);
-        return query;
-    }
-
-    public Project getMostRecentProject(boolean withUnpublished)
-    {
-        Query query = projectsQuery(withUnpublished);
         return (Project) singleResult(query);
     }
 
-    public List<Project> getAllProjects(boolean withUnpublished)
+    public List<Project> getAllProjectsByCategory(boolean withUnpublished, Long categoryId)
     {
-        Query query = projectsQuery(withUnpublished);
+        String selectClause = "select p from Project p ";
+        String orderByClause = " order by p.created desc";
+
+        Query query = createQuery(null,
+                                    null,
+                                    null,
+                                    withUnpublished,
+                                    categoryId,
+                                    selectClause,
+                                    null,
+                                    orderByClause);
+
         return query.list();
     }
 

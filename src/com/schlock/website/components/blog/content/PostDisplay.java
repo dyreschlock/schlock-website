@@ -86,6 +86,18 @@ public class PostDisplay
         return post.getProjectCategories();
     }
 
+    public String getCategoryCssClass()
+    {
+        String css = "";
+
+        AbstractCategory parent = currentCategory.getParent();
+        if (parent != null)
+        {
+            css = parent.getUuid();
+        }
+        return css;
+    }
+
     Object onSelectCategory(String categoryUuid)
     {
         return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, categoryUuid);

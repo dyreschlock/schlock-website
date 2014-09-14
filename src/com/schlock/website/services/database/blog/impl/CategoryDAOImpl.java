@@ -2,6 +2,7 @@ package com.schlock.website.services.database.blog.impl;
 
 import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.PostCategory;
+import com.schlock.website.entities.blog.ProjectCategory;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import org.hibernate.Query;
@@ -16,9 +17,9 @@ public class CategoryDAOImpl extends BaseDAOImpl<AbstractCategory> implements Ca
         super(AbstractCategory.class, session);
     }
 
-    public AbstractCategory getByUuid(String uuid)
+    public AbstractCategory getByUuid(Class cls, String uuid)
     {
-        String text = "from AbstractCategory " +
+        String text = "from " + cls.getSimpleName() + " " +
                       " where uuid = :uuid ";
 
         Query query = session.createQuery(text);
@@ -39,15 +40,6 @@ public class CategoryDAOImpl extends BaseDAOImpl<AbstractCategory> implements Ca
         return (PostCategory) singleResult(query);
     }
 
-    public List<PostCategory> getAllInOrder()
-    {
-        String text = "from PostCategory " +
-                      " order by parentId, ordering ";
-
-        Query query = session.createQuery(text);
-        return query.list();
-    }
-
     public List<PostCategory> getTopInOrder()
     {
         String text = "from PostCategory " +
@@ -62,6 +54,30 @@ public class CategoryDAOImpl extends BaseDAOImpl<AbstractCategory> implements Ca
     {
         String text = "select child " +
                         " from PostCategory child " +
+                        " join child.parent par " +
+                        " where par.id = :categoryId " +
+                        " order by child.ordering ";
+
+        Query query = session.createQuery(text);
+        query.setLong("categoryId", categoryId);
+
+        return query.list();
+    }
+
+    public List<ProjectCategory> getTopProjectInOrder()
+    {
+        String text = "from ProjectCategory " +
+                        " where parent is null " +
+                        " order by ordering ";
+
+        Query query = session.createQuery(text);
+        return query.list();
+    }
+
+    public List<ProjectCategory> getSubProjectInOrder(Long categoryId)
+    {
+        String text = "select child " +
+                        " from ProjectCategory child " +
                         " join child.parent par " +
                         " where par.id = :categoryId " +
                         " order by child.ordering ";
