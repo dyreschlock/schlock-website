@@ -6,7 +6,7 @@
         <t:eventlink event="selectPost" context="post.uuid">
             <h1><t:outputraw value="postTitleHtml" /></h1>
         </t:eventlink>
-        <t:if test="showDate">
+        <t:if test="showDateLinks">
             <div class="postDate">
                 ${createdDate}
 
@@ -22,7 +22,7 @@
             <t:outputraw value="previewHtml" />
         </div>
 
-        <t:if test="!post.page">
+        <t:if test="showDateLinks">
             <div class="links">
                 <t:if test="hasLessonPlan">
                     <a href="${post.lessonPlanLink}">${message:lesson-plan}</a> /
