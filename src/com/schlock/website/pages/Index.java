@@ -12,6 +12,7 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +33,9 @@ public class Index
     @Inject
     private CategoryDAO categoryDAO;
 
+    @Inject
+    private PageRenderLinkSource linkSource;
+
 
     @Persist
     private AbstractPost currentPost;
@@ -45,9 +49,8 @@ public class Index
     {
         viewState.reset();
 
-        currentPost = postDAO.getMostRecentPost(false, null);
-
-        return true;
+        AbstractPost post = postDAO.getMostRecentPost(false, null);
+        return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid());
     }
 
     Object onActivate(String parameter)
@@ -102,8 +105,6 @@ public class Index
 
         return true;
     }
-
-
 
 
 
