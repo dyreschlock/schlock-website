@@ -361,7 +361,10 @@ public class PostManagementImpl implements PostManagement
 //        html = html.replaceAll("<tr><br/><td>", "<tr><td>");
 //        html = html.replaceAll("</td><br/><td>", "</td><td>");
 //        html = html.replaceAll("</td><br/></tr>", "</td></tr>");
-//        html = html.replaceAll("</tr><br/><tr>", "</tr><tr>");
+
+        html = html.replaceAll("</tr><br/></table>", "</tr></table>");
+        html = html.replaceAll("<table><br/><tr>", "<table><tr>");
+        html = html.replaceAll("</tr><br/><tr>", "</tr><tr>");
 
         html = StringUtils.replaceEach(html, new String[]{"</div><br/><div"}, new String[]{"</div><div"});
 
