@@ -33,4 +33,12 @@ public interface PostManagement
     public List<Post> getTopPostsForCategory(Integer count, AbstractCategory category, List<Long> excludeIds);
 
     public List<Post> getTopPostsForYearMonth(Integer count, Integer year, Integer month, List<Long> excludeIds);
+
+    public List<AbstractPost> getNextPosts(AbstractPost post);
+
+    public List<AbstractPost> getPreviousPosts(AbstractPost post);
+
+    public List<AbstractPost> getNextRelatedPosts(AbstractPost post);
+
+    public List<AbstractPost> getPreviousRelatedPosts(AbstractPost post);
 }

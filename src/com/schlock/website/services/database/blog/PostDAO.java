@@ -8,6 +8,10 @@ import java.util.Set;
 
 public interface PostDAO extends BaseDAO<AbstractPost>
 {
+    public static final int TOP_RECENT = 4;
+    public static final int MIN_RECENT = 2;
+    public static final int ONLY_ONE = 1;
+
     public AbstractPost getByUuid(String uuid);
 
     public AbstractPost getByWpid(String wpid);
@@ -37,11 +41,11 @@ public interface PostDAO extends BaseDAO<AbstractPost>
 
     public Post getNextPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
 
-    public List<Post> getNextPosts(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
+    public List<AbstractPost> getNextPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts);
 
     public Post getPreviousPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
 
-    public List<Post> getPreviousPosts(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
+    public List<AbstractPost> getPreviousPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts);
 
 
     public List<Integer> getAllYears(boolean withUnpublished);

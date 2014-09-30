@@ -639,4 +639,143 @@ public class PostManagementImpl implements PostManagement
 
         return posts;
     }
+
+
+    public List<AbstractPost> getNextPosts(AbstractPost post)
+    {
+        boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
+        int count = PostDAO.MIN_RECENT;
+
+        List<AbstractPost> posts = postDAO.getNextPosts(count, post, null, unpublished, null, null, null);
+        return posts;
+    }
+
+    public List<AbstractPost> getPreviousPosts(AbstractPost post)
+    {
+        boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
+        int count = PostDAO.MIN_RECENT;
+
+        List<AbstractPost> posts = postDAO.getPreviousPosts(count, post, null, unpublished, null, null, null);
+        return posts;
+    }
+
+    public List<AbstractPost> getNextRelatedPosts(AbstractPost post)
+    {
+        Set<Long> exclude = new HashSet<Long>();
+        for (AbstractPost p : getNextPosts(post))
+        {
+            exclude.add(p.getId());
+        }
+
+        boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
+
+        List<AbstractPost> posts = new ArrayList<AbstractPost>();
+
+        Class clazz = null;
+        if (post.isClubPost() || post.isLessonPost())
+        {
+            clazz = post.getClass();
+        }
+
+        for (int i = 0; i < post.getKeywords().size() && posts.size() < PostDAO.TOP_RECENT; i++)
+        {
+            Long keyId = post.getKeywords().get(i).getId();
+            int count = PostDAO.TOP_RECENT - posts.size();
+
+            List<AbstractPost> ps = postDAO.getNextPosts(count, post, clazz, unpublished, null, keyId, exclude);
+
+            for (AbstractPost p : ps)
+            {
+                posts.add(p);
+                exclude.add(p.getId());
+            }
+        }
+
+        List<PostCategory> categories = post.getAllPostCategories();
+        Collections.reverse(categories);
+
+        for (int i = 0; i < categories.size() && posts.size() < PostDAO.TOP_RECENT; i++)
+        {
+            Long catId = categories.get(i).getId();
+            int count = PostDAO.TOP_RECENT - posts.size();
+
+            List<AbstractPost> ps = postDAO.getNextPosts(count, post, clazz, unpublished, catId, null, exclude);
+
+            for (AbstractPost p : ps)
+            {
+                posts.add(p);
+                exclude.add(p.getId());
+            }
+        }
+
+        if (posts.size() < PostDAO.TOP_RECENT)
+        {
+            int count = PostDAO.TOP_RECENT - posts.size();
+            List<AbstractPost> ps = postDAO.getNextPosts(count, post, clazz, unpublished, null, null, exclude);
+
+            posts.addAll(ps);
+        }
+
+        return posts;
+    }
+
+    public List<AbstractPost> getPreviousRelatedPosts(AbstractPost post)
+    {
+        Set<Long> exclude = new HashSet<Long>();
+        for (AbstractPost p : getPreviousPosts(post))
+        {
+            exclude.add(p.getId());
+        }
+
+        boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
+
+        List<AbstractPost> posts = new ArrayList<AbstractPost>();
+
+        Class clazz = null;
+        if (post.isClubPost() || post.isLessonPost())
+        {
+            clazz = post.getClass();
+        }
+
+        for (int i = 0; i < post.getKeywords().size() && posts.size() < PostDAO.TOP_RECENT; i++)
+        {
+            Long keyId = post.getKeywords().get(i).getId();
+            int count = PostDAO.TOP_RECENT - posts.size();
+
+            List<AbstractPost> ps = postDAO.getPreviousPosts(count, post, clazz, unpublished, null, keyId, exclude);
+
+            for (AbstractPost p : ps)
+            {
+                posts.add(p);
+                exclude.add(p.getId());
+            }
+        }
+
+        List<PostCategory> categories = post.getAllPostCategories();
+        Collections.reverse(categories);
+
+        for (int i = 0; i < categories.size() && posts.size() < PostDAO.TOP_RECENT; i++)
+        {
+            Long catId = categories.get(i).getId();
+            int count = PostDAO.TOP_RECENT - posts.size();
+
+            List<AbstractPost> ps = postDAO.getPreviousPosts(count, post, clazz, unpublished, catId, null, exclude);
+
+            for (AbstractPost p : ps)
+            {
+                posts.add(p);
+                exclude.add(p.getId());
+            }
+        }
+
+        if (posts.size() < PostDAO.TOP_RECENT)
+        {
+            int count = PostDAO.TOP_RECENT - posts.size();
+            List<AbstractPost> ps = postDAO.getPreviousPosts(count, post, clazz, unpublished, null, null, exclude);
+
+            posts.addAll(ps);
+        }
+
+        return posts;
+    }
 }

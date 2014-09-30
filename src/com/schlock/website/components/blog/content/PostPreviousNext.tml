@@ -5,30 +5,49 @@
 
     <t:if test="!post.page">
         <div id="previousNext">
-            <t:loop source="categories" value="currentCategory" index="currentCategoryIndex">
-                <t:if test="hasPreviousPosts">
-                    <div class="previousLinks ${categoryClass}">
-                        <div class="title">${previousTitle}</div>
+            <t:if test="hasPreviousPosts">
+                <div class="previousLinks">
+                    <div class="title">${message:previous}</div>
 
-                        <t:loop source="previousPosts" value="currentPost" index="currentPostIndex">
-                            <l:postlink post="currentPost" cssClass="postClass" />
-                        </t:loop>
-                    </div>
-                </t:if>
+                    <t:loop source="previousPosts" value="currentPost">
+                        <l:postlink post="currentPost" />
+                    </t:loop>
+                </div>
+            </t:if>
 
-                <t:if test="hasNextPosts">
-                    <div class="nextLinks ${categoryClass}">
-                        <div class="title">${nextTitle}</div>
+            <t:if test="hasNextPosts">
+                <div class="nextLinks">
+                    <div class="title">${message:next}</div>
 
-                        <t:loop source="nextPosts" value="currentPost" index="currentPostIndex">
-                            <l:postlink post="currentPost" cssClass="postClass" />
-                        </t:loop>
-                    </div>
-                </t:if>
-                <t:if test="newLine">
-                    <br class="clr ${categoryClass}" />
-                </t:if>
-            </t:loop>
+                    <t:loop source="nextPosts" value="currentPost">
+                        <l:postlink post="currentPost" />
+                    </t:loop>
+                </div>
+            </t:if>
+            <br class="clr" />
+
+            <t:if test="hasPreviousRelatedPosts">
+                <div class="previousLinks minSizeHidden">
+                    <div class="title">${message:previous-related-posts}</div>
+
+                    <t:loop source="previousRelatedPosts" value="currentPost">
+                        <l:postlink post="currentPost" />
+                    </t:loop>
+                </div>
+            </t:if>
+
+            <t:if test="hasNextRelatedPosts">
+                <div class="nextLinks minSizeHidden">
+                    <div class="title">${message:next-related-posts}</div>
+
+                    <t:loop source="nextRelatedPosts" value="currentPost">
+                        <l:postlink post="currentPost" />
+                    </t:loop>
+                </div>
+            </t:if>
+            <t:if test="hasRelatedPosts">
+                <br class="clr" />
+            </t:if>
         </div>
     </t:if>
 

@@ -1,16 +1,11 @@
 package com.schlock.website.components.blog.content;
 
-import com.schlock.website.entities.blog.*;
-import com.schlock.website.services.database.blog.PostDAO;
-import com.schlock.website.services.database.blog.impl.PostDAOImpl;
+import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.services.blog.PostManagement;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.annotations.SessionState;
-import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PostPreviousNext
@@ -20,184 +15,58 @@ public class PostPreviousNext
     private AbstractPost post;
 
     @Inject
-    private Messages messages;
-
-    @Inject
-    private PostDAO postDAO;
-
-
-    @SessionState
-    private ViewState viewState;
-
+    private PostManagement postManagement;
 
     @Property
-    private Post currentPost;
-
-    @Property
-    private int currentPostIndex;
-
-    @Property
-    private AbstractCategory currentCategory;
-
-    @Property
-    private int currentCategoryIndex;
-
-
-
-    public List<PostCategory> getCategories()
-    {
-        List<PostCategory> categories = new ArrayList<PostCategory>();
-        categories.add(null);
-
-        for (PostCategory top : post.getTopPostCategories())
-        {
-            categories.add(top);
-            for (AbstractCategory sub : post.getSubcategories(top))
-            {
-                categories.add((PostCategory) sub);
-            }
-        }
-        return categories;
-    }
-
-
-    public boolean isNewLine()
-    {
-        if (currentCategory == null || currentCategory.isTopCategory())
-        {
-            return true;
-        }
-
-        List<PostCategory> categories = getCategories();
-        int nextCategoryIndex = currentCategoryIndex + 1;
-
-        if (nextCategoryIndex == categories.size())
-        {
-            return true;
-        }
-
-        PostCategory nextCategory = categories.get(nextCategoryIndex);
-        if (nextCategory.isTopCategory())
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    public String getPostClass()
-    {
-        if (currentPostIndex >= PostDAOImpl.MIN_RECENT)
-        {
-            return "minSizeHidden";
-        }
-        return "";
-    }
-
-    public String getCategoryClass()
-    {
-        String classes = "";
-        if (currentCategory != null)
-        {
-            classes += " minSizeHidden";
-            if (!currentCategory.isTopCategory())
-            {
-                classes += " subcategory";
-            }
-        }
-        return classes;
-    }
+    private AbstractPost currentPost;
 
 
     public boolean isHasNextPosts()
     {
-        List<Post> posts = getNextPosts();
+        List<AbstractPost> posts = getNextPosts();
         return posts != null && posts.size() > 0;
     }
 
-    public List<Post> getNextPosts()
+    public List<AbstractPost> getNextPosts()
     {
-        boolean unpublished = viewState.isShowUnpublished();
-
-        List<Post> posts = null;
-        if (currentCategory != null)
-        {
-            Long categoryId = currentCategory.getId();
-
-            Post next = postDAO.getNextPost(post, unpublished, categoryId);
-            if(next != null)
-            {
-                posts = Arrays.asList(next);
-            }
-        }
-        else
-        {
-            posts = postDAO.getNextPosts(post, unpublished, null);
-        }
-        return posts;
+        return postManagement.getNextPosts(post);
     }
 
     public boolean isHasPreviousPosts()
     {
-        List<Post> posts = getPreviousPosts();
+        List<AbstractPost> posts = getPreviousPosts();
         return posts != null && posts.size() > 0;
     }
 
-    public List<Post> getPreviousPosts()
+    public List<AbstractPost> getPreviousPosts()
     {
-        boolean unpublished = viewState.isShowUnpublished();
-
-        List<Post> posts = null;
-        if (currentCategory != null)
-        {
-            Long categoryId = currentCategory.getId();
-
-            Post previous = postDAO.getPreviousPost(post, unpublished, categoryId);
-            if(previous != null)
-            {
-                posts = Arrays.asList(previous);
-            }
-        }
-        else
-        {
-            posts = postDAO.getPreviousPosts(post, unpublished, null);
-        }
-        return posts;
+        return postManagement.getPreviousPosts(post);
     }
 
-    public String getNextTitle()
+    public boolean isHasNextRelatedPosts()
     {
-        if (currentCategory != null)
-        {
-            String categoryName = currentCategory.getName();
-
-            if (currentCategory.getParent() != null)
-            {
-                String parentName = currentCategory.getParent().getName();
-                categoryName = parentName + " ." + categoryName;
-            }
-
-            String message = messages.get("nextInCategory");
-            return String.format(message, categoryName);
-        }
-        return messages.get("next");
+        List<AbstractPost> posts = getNextRelatedPosts();
+        return posts != null && posts.size() > 0;
     }
 
-    public String getPreviousTitle()
+    public List<AbstractPost> getNextRelatedPosts()
     {
-        if (currentCategory != null)
-        {
-            String categoryName = currentCategory.getName();
+        return postManagement.getNextRelatedPosts(post);
+    }
 
-            if (currentCategory.getParent() != null)
-            {
-                String parentName = currentCategory.getParent().getName();
-                categoryName = parentName + " ." + categoryName;
-            }
+    public boolean isHasPreviousRelatedPosts()
+    {
+        List<AbstractPost> posts = getPreviousRelatedPosts();
+        return posts != null && posts.size() > 0;
+    }
 
-            String message = messages.get("previousInCategory");
-            return String.format(message, categoryName);
-        }
-        return messages.get("previous");
+    public List<AbstractPost> getPreviousRelatedPosts()
+    {
+        return postManagement.getPreviousRelatedPosts(post);
+    }
+
+    public boolean isHasRelatedPosts()
+    {
+        return isHasNextRelatedPosts() || isHasPreviousRelatedPosts();
     }
 }

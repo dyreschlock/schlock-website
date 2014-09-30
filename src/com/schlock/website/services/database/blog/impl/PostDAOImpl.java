@@ -10,9 +10,6 @@ import java.util.*;
 
 public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 {
-    public static final int TOP_RECENT = 4;
-    public static final int MIN_RECENT = 2;
-
     public PostDAOImpl(Session session)
     {
         super(AbstractPost.class, session);
@@ -87,13 +84,15 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         String orderByClause = " order by p.created desc";
 
         Query query = createQuery(TOP_RECENT,
-                null,
-                null,
-                withUnpublished,
-                categoryId,
-                selectClause,
-                null,
-                orderByClause);
+                                    null,
+                                    null,
+                                    withUnpublished,
+                                    categoryId,
+                                    null,
+                                    null,
+                                    selectClause,
+                                    null,
+                                    orderByClause);
 
         return (Post) singleResult(query);
     }
@@ -105,13 +104,15 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         String orderByClause = " order by p.created desc";
 
         Query query = createQuery(TOP_RECENT,
-                null,
-                null,
-                withUnpublished,
-                categoryId,
-                selectClause,
-                Arrays.asList(whereClause),
-                orderByClause);
+                                    null,
+                                    null,
+                                    withUnpublished,
+                                    categoryId,
+                                    null,
+                                    null,
+                                    selectClause,
+                                    Arrays.asList(whereClause),
+                                    orderByClause);
 
         return (Post) singleResult(query);
     }
@@ -123,13 +124,15 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         String orderByClause = " order by p.created desc ";
 
         Query query = createQuery(TOP_RECENT,
-                year,
-                month,
-                withUnpublished,
-                null,
-                selectClause,
-                Arrays.asList(whereClause),
-                orderByClause);
+                                    year,
+                                    month,
+                                    withUnpublished,
+                                    null,
+                                    null,
+                                    null,
+                                    selectClause,
+                                    Arrays.asList(whereClause),
+                                    orderByClause);
 
         return (Post) singleResult(query);
     }
@@ -154,17 +157,26 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return getRecentPinnedPostsByYearMonth(postCount, withUnpublished, year, month, null);
     }
 
-    private Query nextPostQuery(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
+    private Query nextPostQuery(Integer postCount, AbstractPost currentPost, Class clazz, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts)
     {
-        String selectClause = "select p from Post p ";
+        String classType = "Post";
+        if (clazz != null)
+        {
+            classType = clazz.getSimpleName();
+            withUnpublished = true;
+        }
+
+        String selectClause = "select p from " + classType + " p ";
         String extraWhereClause = " p.created > :currentCreated ";
         String orderByClause = " order by p.created asc";
 
-        Query query = createQuery(TOP_RECENT,
+        Query query = createQuery(postCount,
                                     null,
                                     null,
                                     withUnpublished,
                                     categoryId,
+                                    keywordId,
+                                    excludePosts,
                                     selectClause,
                                     Arrays.asList(extraWhereClause),
                                     orderByClause);
@@ -175,28 +187,37 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
     public Post getNextPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
     {
-        Query query = nextPostQuery(currentPost, withUnpublished, categoryId);
+        Query query = nextPostQuery(ONLY_ONE, currentPost, null, withUnpublished, categoryId, null, null);
         return (Post) singleResult(query);
     }
 
-    public List<Post> getNextPosts(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
+    public List<AbstractPost> getNextPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts)
     {
-        Query query = nextPostQuery(currentPost, withUnpublished, categoryId);
+        Query query = nextPostQuery(postCount, currentPost, clazz, withUnpublished, categoryId, keywordId, excludePosts);
         return query.list();
     }
 
 
-    private Query previousPostQuery(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
+    private Query previousPostQuery(Integer postCount, AbstractPost currentPost, Class clazz, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts)
     {
-        String selectClause = "select p from Post p ";
+        String classType = "Post";
+        if (clazz != null)
+        {
+            classType = clazz.getSimpleName();
+            withUnpublished = true;
+        }
+
+        String selectClause = "select p from " + classType + " p ";
         String extraWhereClause = " p.created < :currentCreated ";
         String orderByClause = " order by p.created desc";
 
-        Query query = createQuery(TOP_RECENT,
+        Query query = createQuery(postCount,
                                     null,
                                     null,
                                     withUnpublished,
                                     categoryId,
+                                    keywordId,
+                                    excludePosts,
                                     selectClause,
                                     Arrays.asList(extraWhereClause),
                                     orderByClause);
@@ -207,13 +228,13 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
     public Post getPreviousPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
     {
-        Query query = previousPostQuery(currentPost, withUnpublished, categoryId);
+        Query query = previousPostQuery(ONLY_ONE, currentPost, null, withUnpublished, categoryId, null, null);
         return (Post) singleResult(query);
     }
 
-    public List<Post> getPreviousPosts(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
+    public List<AbstractPost> getPreviousPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts)
     {
-        Query query = previousPostQuery(currentPost, withUnpublished, categoryId);
+        Query query = previousPostQuery(postCount, currentPost, clazz, withUnpublished, categoryId, keywordId, excludePosts);
         return query.list();
     }
 
@@ -228,6 +249,8 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
                                     month,
                                     withUnpublished,
                                     categoryId,
+                                    null,
+                                    null,
                                     selectClause,
                                     null,
                                     orderByClause);
@@ -246,6 +269,8 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
                                     month,
                                     withUnpublished,
                                     categoryId,
+                                    null,
+                                    null,
                                     selectClause,
                                     Arrays.asList(extraWhereClause),
                                     orderByClause);
@@ -401,6 +426,8 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
                               Integer month,
                               boolean withUnpublished,
                               Long categoryId,
+                              Long keywordId,
+                              Set<Long> excludePosts,
 
                               String selectClause,
                               List<String> whereClauses,
@@ -410,6 +437,10 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         if (categoryId != null)
         {
             phrases.add(" c.id = :categoryId ");
+        }
+        if (keywordId != null)
+        {
+            phrases.add(" k.id = :keywordId ");
         }
         if (!withUnpublished)
         {
@@ -423,6 +454,10 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         {
             phrases.add(" month(p.created) = :month ");
         }
+        if (excludePosts != null && !excludePosts.isEmpty())
+        {
+            phrases.add(" p.id not in (:exclude) ");
+        }
         if (whereClauses != null && !whereClauses.isEmpty())
         {
             phrases.addAll(whereClauses);
@@ -432,6 +467,10 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         if (categoryId != null)
         {
             text += " join p.categories c ";
+        }
+        if (keywordId != null)
+        {
+            text += " join p.keywords k ";
         }
         boolean first = true;
         for(String phrase : phrases)
@@ -452,6 +491,10 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         {
             query.setParameter("categoryId", categoryId);
         }
+        if (keywordId != null)
+        {
+            query.setParameter("keywordId", keywordId);
+        }
         if (year != null)
         {
             query.setParameter("year", year);
@@ -459,6 +502,10 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         if (month != null)
         {
             query.setParameter("month", month);
+        }
+        if (excludePosts != null && !excludePosts.isEmpty())
+        {
+            query.setParameterList("exclude", excludePosts);
         }
         if (postCount != null)
         {

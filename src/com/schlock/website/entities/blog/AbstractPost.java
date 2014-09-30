@@ -58,6 +58,15 @@ public abstract class AbstractPost extends Persisted
         return this.getClass().isAssignableFrom(Page.class);
     }
 
+    public boolean isClubPost()
+    {
+        return this.getClass().isAssignableFrom(ClubPost.class);
+    }
+
+    public boolean isLessonPost()
+    {
+        return this.getClass().isAssignableFrom(LessonPost.class);
+    }
 
     public boolean isProject()
     {
@@ -109,6 +118,22 @@ public abstract class AbstractPost extends Persisted
 
         Collections.sort(sub, new CategoryComparator());
         return sub;
+    }
+
+    public List<PostCategory> getAllPostCategories()
+    {
+        List<PostCategory> cat = new ArrayList<PostCategory>();
+
+        for (AbstractCategory category : getCategories())
+        {
+            if (category.isPost())
+            {
+                cat.add((PostCategory) category);
+            }
+        }
+
+        Collections.sort(cat, new CategoryComparator());
+        return cat;
     }
 
     public List<ProjectCategory> getProjectCategories()
