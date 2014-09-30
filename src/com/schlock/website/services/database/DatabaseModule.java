@@ -4,8 +4,10 @@ import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.database.apps.kendo.ExamQuestionDAO;
 import com.schlock.website.services.database.apps.kendo.impl.ExamQuestionDAOImpl;
 import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import com.schlock.website.services.database.blog.impl.CategoryDAOImpl;
+import com.schlock.website.services.database.blog.impl.KeywordDAOImpl;
 import com.schlock.website.services.database.blog.impl.PostDAOImpl;
 import org.apache.tapestry5.hibernate.HibernateConfigurer;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
@@ -18,6 +20,7 @@ public class DatabaseModule
     {
         binder.bind(PostDAO.class, PostDAOImpl.class);
         binder.bind(CategoryDAO.class, CategoryDAOImpl.class);
+        binder.bind(KeywordDAO.class, KeywordDAOImpl.class);
 
         binder.bind(ExamQuestionDAO.class, ExamQuestionDAOImpl.class);
     }

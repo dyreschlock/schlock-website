@@ -33,8 +33,10 @@ public abstract class AbstractPost extends Persisted
 
     private String blurb;
 
-    private Set<AbstractCategory> categories;
+    private String keywordString;
 
+    private Set<AbstractCategory> categories;
+    private List<Keyword> keywords;
 
     protected AbstractPost()
     {
@@ -67,6 +69,12 @@ public abstract class AbstractPost extends Persisted
             }
         }
         return false;
+    }
+
+
+    public boolean isHasKeywords()
+    {
+        return StringUtils.isNotBlank(keywordString);
     }
 
 
@@ -257,6 +265,26 @@ public abstract class AbstractPost extends Persisted
     public void setBlurb(String blurb)
     {
         this.blurb = blurb;
+    }
+
+    public String getKeywordString()
+    {
+        return keywordString;
+    }
+
+    public void setKeywordString(String keywordString)
+    {
+        this.keywordString = keywordString;
+    }
+
+    public List<Keyword> getKeywords()
+    {
+        return keywords;
+    }
+
+    public void setKeywords(List<Keyword> keywords)
+    {
+        this.keywords = keywords;
     }
 
     public Set<AbstractCategory> getCategories()

@@ -2,6 +2,7 @@ package com.schlock.website.services.blog.impl;
 
 import com.schlock.website.entities.blog.*;
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.blog.KeywordManagement;
 import com.schlock.website.services.blog.PhotoFileFilter;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -36,6 +37,8 @@ public class PostManagementImpl implements PostManagement
     private final ApplicationStateManager asoManager;
 
     private final DeploymentContext deploymentContext;
+
+    private final KeywordManagement keywordManagement;
     private final PostDAO postDAO;
 
     private Map<String, Date> cachedUpdateTime;
@@ -43,11 +46,14 @@ public class PostManagementImpl implements PostManagement
 
     public PostManagementImpl(ApplicationStateManager asoManager,
                                 DeploymentContext deploymentContext,
+                                KeywordManagement keywordManagement,
                                 PostDAO postDAO)
     {
         this.asoManager = asoManager;
 
         this.deploymentContext = deploymentContext;
+
+        this.keywordManagement = keywordManagement;
         this.postDAO = postDAO;
     }
 
@@ -168,6 +174,11 @@ public class PostManagementImpl implements PostManagement
         String text = post.getBodyText();
         String html = generatePostHTML(text);
         post.setBodyHTML(html);
+
+        String keyString = post.getKeywordString();
+        List<Keyword> keywords = keywordManagement.generateKeywords(keyString);
+        post.setKeywords(keywords);
+
         postDAO.save(post);
     }
 
