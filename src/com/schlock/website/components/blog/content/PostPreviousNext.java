@@ -49,9 +49,15 @@ public class PostPreviousNext
         return posts != null && posts.size() > 0;
     }
 
+    private List<AbstractPost> cachedNextRelatedPosts;
+
     public List<AbstractPost> getNextRelatedPosts()
     {
-        return postManagement.getNextRelatedPosts(post);
+        if (cachedNextRelatedPosts == null || cachedNextRelatedPosts.isEmpty())
+        {
+            cachedNextRelatedPosts = postManagement.getNextRelatedPosts(post);
+        }
+        return cachedNextRelatedPosts;
     }
 
     public boolean isHasPreviousRelatedPosts()
@@ -60,9 +66,15 @@ public class PostPreviousNext
         return posts != null && posts.size() > 0;
     }
 
+    private List<AbstractPost> cachedPreviousRelatedPosts;
+
     public List<AbstractPost> getPreviousRelatedPosts()
     {
-        return postManagement.getPreviousRelatedPosts(post);
+        if (cachedPreviousRelatedPosts == null || cachedPreviousRelatedPosts.isEmpty())
+        {
+            cachedPreviousRelatedPosts = postManagement.getPreviousRelatedPosts(post);
+        }
+        return cachedPreviousRelatedPosts;
     }
 
     public boolean isHasRelatedPosts()
