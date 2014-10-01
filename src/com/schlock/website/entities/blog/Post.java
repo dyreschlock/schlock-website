@@ -10,4 +10,10 @@ public class Post extends AbstractPost
     {
         super(uuid);
     }
+
+
+    public boolean isPost()
+    {
+        return true;
+    }
 }

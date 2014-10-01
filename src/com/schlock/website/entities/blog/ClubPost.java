@@ -7,6 +7,11 @@ public class ClubPost extends Post
     private Date eventDate;
 
 
+    public boolean isClubPost()
+    {
+        return true;
+    }
+
     public Date getEventDate()
     {
         return eventDate;

@@ -13,6 +13,12 @@ public class LessonPost extends Post
     private String flashCardsLink;
 
 
+    public boolean isLessonPost()
+    {
+        return true;
+    }
+
+
     public String getLessonPlanLink()
     {
         return lessonPlanLink;

@@ -50,22 +50,22 @@ public abstract class AbstractPost extends Persisted
 
     public boolean isPost()
     {
-        return this.getClass().isAssignableFrom(Post.class);
+        return false;
     }
 
     public boolean isPage()
     {
-        return this.getClass().isAssignableFrom(Page.class);
+        return false;
     }
 
     public boolean isClubPost()
     {
-        return this.getClass().isAssignableFrom(ClubPost.class);
+        return false;
     }
 
     public boolean isLessonPost()
     {
-        return this.getClass().isAssignableFrom(LessonPost.class);
+        return false;
     }
 
     public boolean isProject()

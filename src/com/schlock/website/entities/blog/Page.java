@@ -10,6 +10,12 @@ public class Page extends AbstractPost
     public static final String PROJECTS_UUID = "projects";
 
 
+    public boolean isPage()
+    {
+        return true;
+    }
+
+
     public boolean isClub()
     {
         return StringUtils.equalsIgnoreCase(getUuid(), CLUB_UUID);

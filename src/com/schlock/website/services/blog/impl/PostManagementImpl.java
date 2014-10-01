@@ -646,7 +646,7 @@ public class PostManagementImpl implements PostManagement
         boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
         int count = PostDAO.MIN_RECENT;
 
-        List<AbstractPost> posts = postDAO.getNextPosts(count, post, null, unpublished, null, null, null);
+        List<AbstractPost> posts = postDAO.getNextPosts(count, post, null, false, unpublished, null, null, null);
         return posts;
     }
 
@@ -655,7 +655,7 @@ public class PostManagementImpl implements PostManagement
         boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
         int count = PostDAO.MIN_RECENT;
 
-        List<AbstractPost> posts = postDAO.getPreviousPosts(count, post, null, unpublished, null, null, null);
+        List<AbstractPost> posts = postDAO.getPreviousPosts(count, post, null, false, unpublished, null, null, null);
         return posts;
     }
 
@@ -705,14 +705,16 @@ public class PostManagementImpl implements PostManagement
             Long keyId = c.keywordId;
             Long catId = c.categoryId;
 
+            boolean pinned = c.pinned;
+
             List<AbstractPost> ps;
             if (next)
             {
-                ps = postDAO.getNextPosts(count, post, clazz, unpublished, catId, keyId, excludeIds);
+                ps = postDAO.getNextPosts(count, post, clazz, pinned, unpublished, catId, keyId, excludeIds);
             }
             else
             {
-                ps = postDAO.getPreviousPosts(count, post, clazz, unpublished, catId, keyId, excludeIds);
+                ps = postDAO.getPreviousPosts(count, post, clazz, pinned, unpublished, catId, keyId, excludeIds);
             }
 
             for (AbstractPost p : ps)
@@ -726,6 +728,8 @@ public class PostManagementImpl implements PostManagement
 
 
     /*
+
+     pinned, no class, keyword, no category
 
      class, keyword, category
      class, keyword, no category
@@ -754,6 +758,11 @@ public class PostManagementImpl implements PostManagement
 
         List<SearchCriteria> classCriteria = new ArrayList<SearchCriteria>();
         List<SearchCriteria> criteria = new ArrayList<SearchCriteria>();
+
+        for (Keyword keyword : keywords)
+        {
+            classCriteria.add(new SearchCriteria(null, keyword.getId(), null, true));
+        }
 
         for(PostCategory category : categories)
         {
@@ -793,11 +802,22 @@ public class PostManagementImpl implements PostManagement
         public Long keywordId;
         public Long categoryId;
 
+        public boolean pinned;
+
         public SearchCriteria(Class clazz, Long keywordId, Long categoryId)
         {
             this.clazz = clazz;
             this.keywordId = keywordId;
             this.categoryId = categoryId;
+            this.pinned = false;
+        }
+
+        public SearchCriteria(Class clazz, Long keywordId, Long categoryId, boolean pinned)
+        {
+            this.clazz = clazz;
+            this.keywordId = keywordId;
+            this.categoryId = categoryId;
+            this.pinned = pinned;
         }
     }
 }

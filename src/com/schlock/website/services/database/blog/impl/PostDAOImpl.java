@@ -86,6 +86,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         Query query = createQuery(TOP_RECENT,
                                     null,
                                     null,
+                                    false,
                                     withUnpublished,
                                     categoryId,
                                     null,
@@ -106,6 +107,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         Query query = createQuery(TOP_RECENT,
                                     null,
                                     null,
+                                    false,
                                     withUnpublished,
                                     categoryId,
                                     null,
@@ -126,6 +128,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         Query query = createQuery(TOP_RECENT,
                                     year,
                                     month,
+                                    false,
                                     withUnpublished,
                                     null,
                                     null,
@@ -157,7 +160,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return getRecentPinnedPostsByYearMonth(postCount, withUnpublished, year, month, null);
     }
 
-    private Query nextPostQuery(Integer postCount, AbstractPost currentPost, Class clazz, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts)
+    private Query nextPostQuery(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts)
     {
         String classType = "Post";
         if (clazz != null)
@@ -173,6 +176,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         Query query = createQuery(postCount,
                                     null,
                                     null,
+                                    pinnedOnly,
                                     withUnpublished,
                                     categoryId,
                                     keywordId,
@@ -187,18 +191,18 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
     public Post getNextPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
     {
-        Query query = nextPostQuery(ONLY_ONE, currentPost, null, withUnpublished, categoryId, null, null);
+        Query query = nextPostQuery(ONLY_ONE, currentPost, null, false, withUnpublished, categoryId, null, null);
         return (Post) singleResult(query);
     }
 
-    public List<AbstractPost> getNextPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts)
+    public List<AbstractPost> getNextPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts)
     {
-        Query query = nextPostQuery(postCount, currentPost, clazz, withUnpublished, categoryId, keywordId, excludePosts);
+        Query query = nextPostQuery(postCount, currentPost, clazz, pinnedOnly, withUnpublished, categoryId, keywordId, excludePosts);
         return query.list();
     }
 
 
-    private Query previousPostQuery(Integer postCount, AbstractPost currentPost, Class clazz, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts)
+    private Query previousPostQuery(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts)
     {
         String classType = "Post";
         if (clazz != null)
@@ -214,6 +218,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         Query query = createQuery(postCount,
                                     null,
                                     null,
+                                    pinnedOnly,
                                     withUnpublished,
                                     categoryId,
                                     keywordId,
@@ -228,25 +233,28 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
     public Post getPreviousPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
     {
-        Query query = previousPostQuery(ONLY_ONE, currentPost, null, withUnpublished, categoryId, null, null);
+        Query query = previousPostQuery(ONLY_ONE, currentPost, null, false, withUnpublished, categoryId, null, null);
         return (Post) singleResult(query);
     }
 
-    public List<AbstractPost> getPreviousPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts)
+    public List<AbstractPost> getPreviousPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts)
     {
-        Query query = previousPostQuery(postCount, currentPost, clazz, withUnpublished, categoryId, keywordId, excludePosts);
+        Query query = previousPostQuery(postCount, currentPost, clazz, pinnedOnly, withUnpublished, categoryId, keywordId, excludePosts);
         return query.list();
     }
 
 
     private List<Post> getRecentPostsByYearMonth(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId)
     {
+        boolean pinnedOnly = false;
+
         String selectClause = "select p from Post p ";
         String orderByClause = " order by p.created desc ";
 
         Query query = createQuery(postCount,
                                     year,
                                     month,
+                                    pinnedOnly,
                                     withUnpublished,
                                     categoryId,
                                     null,
@@ -260,19 +268,21 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
     private List<Post> getRecentPinnedPostsByYearMonth(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId)
     {
+        boolean pinnedOnly = true;
+
         String selectClause = "select p from Post p ";
-        String extraWhereClause = " p.pinned is true ";
         String orderByClause = " order by p.created desc ";
 
         Query query = createQuery(postCount,
                                     year,
                                     month,
+                                    pinnedOnly,
                                     withUnpublished,
                                     categoryId,
                                     null,
                                     null,
                                     selectClause,
-                                    Arrays.asList(extraWhereClause),
+                                    null,
                                     orderByClause);
 
         return query.list();
@@ -424,6 +434,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
     private Query createQuery(Integer postCount,
                               Integer year,
                               Integer month,
+                              boolean pinnedOnly,
                               boolean withUnpublished,
                               Long categoryId,
                               Long keywordId,
@@ -441,6 +452,10 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         if (keywordId != null)
         {
             phrases.add(" k.id = :keywordId ");
+        }
+        if (pinnedOnly)
+        {
+            phrases.add(" p.pinned is true ");
         }
         if (!withUnpublished)
         {
