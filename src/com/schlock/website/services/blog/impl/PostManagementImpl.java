@@ -661,121 +661,143 @@ public class PostManagementImpl implements PostManagement
 
     public List<AbstractPost> getNextRelatedPosts(AbstractPost post)
     {
-        Set<Long> exclude = new HashSet<Long>();
-        for (AbstractPost p : getNextPosts(post))
-        {
-            exclude.add(p.getId());
-        }
-
-        boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
-
-        List<AbstractPost> posts = new ArrayList<AbstractPost>();
-
-        Class clazz = null;
-        if (post.isClubPost() || post.isLessonPost())
-        {
-            clazz = post.getClass();
-        }
-
-        for (int i = 0; i < post.getKeywords().size() && posts.size() < PostDAO.TOP_RECENT; i++)
-        {
-            Long keyId = post.getKeywords().get(i).getId();
-            int count = PostDAO.TOP_RECENT - posts.size();
-
-            List<AbstractPost> ps = postDAO.getNextPosts(count, post, clazz, unpublished, null, keyId, exclude);
-
-            for (AbstractPost p : ps)
-            {
-                posts.add(p);
-                exclude.add(p.getId());
-            }
-        }
-
-        List<PostCategory> categories = post.getAllPostCategories();
-        Collections.reverse(categories);
-
-        for (int i = 0; i < categories.size() && posts.size() < PostDAO.TOP_RECENT; i++)
-        {
-            Long catId = categories.get(i).getId();
-            int count = PostDAO.TOP_RECENT - posts.size();
-
-            List<AbstractPost> ps = postDAO.getNextPosts(count, post, clazz, unpublished, catId, null, exclude);
-
-            for (AbstractPost p : ps)
-            {
-                posts.add(p);
-                exclude.add(p.getId());
-            }
-        }
-
-        if (posts.size() < PostDAO.TOP_RECENT)
-        {
-            int count = PostDAO.TOP_RECENT - posts.size();
-            List<AbstractPost> ps = postDAO.getNextPosts(count, post, clazz, unpublished, null, null, exclude);
-
-            posts.addAll(ps);
-        }
-
-        return posts;
+        return getRelatedPosts(true, post);
     }
 
     public List<AbstractPost> getPreviousRelatedPosts(AbstractPost post)
     {
-        Set<Long> exclude = new HashSet<Long>();
-        for (AbstractPost p : getPreviousPosts(post))
-        {
-            exclude.add(p.getId());
-        }
+        return getRelatedPosts(false, post);
+    }
+
+
+    private List<AbstractPost> getRelatedPosts(boolean next, AbstractPost post)
+    {
+        List<AbstractPost> posts = new ArrayList<AbstractPost>();
 
         boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
 
-        List<AbstractPost> posts = new ArrayList<AbstractPost>();
+        Set<Long> excludeIds = new HashSet<Long>();
+        if (next)
+        {
+            for (AbstractPost p : getNextPosts(post))
+            {
+                excludeIds.add(p.getId());
+            }
+        }
+        else
+        {
+            for (AbstractPost p : getPreviousPosts(post))
+            {
+                excludeIds.add(p.getId());
+            }
+        }
 
+        List<SearchCriteria> criteria = createSearchCriteria(post);
+        for (SearchCriteria c : criteria)
+        {
+            int count = PostDAO.TOP_RECENT - posts.size();
+            if (count == 0)
+            {
+                return posts;
+            }
+
+            Class clazz = c.clazz;
+            Long keyId = c.keywordId;
+            Long catId = c.categoryId;
+
+            List<AbstractPost> ps;
+            if (next)
+            {
+                ps = postDAO.getNextPosts(count, post, clazz, unpublished, catId, keyId, excludeIds);
+            }
+            else
+            {
+                ps = postDAO.getPreviousPosts(count, post, clazz, unpublished, catId, keyId, excludeIds);
+            }
+
+            for (AbstractPost p : ps)
+            {
+                posts.add(p);
+                excludeIds.add(p.getId());
+            }
+        }
+        return posts;
+    }
+
+
+    /*
+
+     class, keyword, category
+     class, keyword, no category
+
+     no class, keyword, category
+     no class, keyword, no category
+     no class, no keyword, category
+     no class, no keyword, no category
+
+     */
+
+    private List<SearchCriteria> createSearchCriteria(AbstractPost post)
+    {
         Class clazz = null;
         if (post.isClubPost() || post.isLessonPost())
         {
             clazz = post.getClass();
         }
 
-        for (int i = 0; i < post.getKeywords().size() && posts.size() < PostDAO.TOP_RECENT; i++)
-        {
-            Long keyId = post.getKeywords().get(i).getId();
-            int count = PostDAO.TOP_RECENT - posts.size();
-
-            List<AbstractPost> ps = postDAO.getPreviousPosts(count, post, clazz, unpublished, null, keyId, exclude);
-
-            for (AbstractPost p : ps)
-            {
-                posts.add(p);
-                exclude.add(p.getId());
-            }
-        }
+        List<Keyword> keywords = post.getKeywords();
 
         List<PostCategory> categories = post.getAllPostCategories();
         Collections.reverse(categories);
 
-        for (int i = 0; i < categories.size() && posts.size() < PostDAO.TOP_RECENT; i++)
+
+
+        List<SearchCriteria> classCriteria = new ArrayList<SearchCriteria>();
+        List<SearchCriteria> criteria = new ArrayList<SearchCriteria>();
+
+        for(PostCategory category : categories)
         {
-            Long catId = categories.get(i).getId();
-            int count = PostDAO.TOP_RECENT - posts.size();
-
-            List<AbstractPost> ps = postDAO.getPreviousPosts(count, post, clazz, unpublished, catId, null, exclude);
-
-            for (AbstractPost p : ps)
+            for (Keyword keyword : keywords)
             {
-                posts.add(p);
-                exclude.add(p.getId());
+                if (clazz != null)
+                {
+                    classCriteria.add(new SearchCriteria(clazz, keyword.getId(), category.getId()));
+                }
+                criteria.add(new SearchCriteria(null, keyword.getId(), category.getId()));
             }
         }
 
-        if (posts.size() < PostDAO.TOP_RECENT)
+        for (Keyword keyword : keywords)
         {
-            int count = PostDAO.TOP_RECENT - posts.size();
-            List<AbstractPost> ps = postDAO.getPreviousPosts(count, post, clazz, unpublished, null, null, exclude);
-
-            posts.addAll(ps);
+            if (clazz != null)
+            {
+                classCriteria.add(new SearchCriteria(clazz, keyword.getId(), null));
+            }
+            criteria.add(new SearchCriteria(null, keyword.getId(), null));
         }
 
-        return posts;
+        for (PostCategory category : categories)
+        {
+            criteria.add(new SearchCriteria(null, null, category.getId()));
+        }
+
+        criteria.add(new SearchCriteria(null, null, null));
+
+        classCriteria.addAll(criteria);
+        return classCriteria;
+    }
+
+    private class SearchCriteria
+    {
+        public Class clazz;
+        public Long keywordId;
+        public Long categoryId;
+
+        public SearchCriteria(Class clazz, Long keywordId, Long categoryId)
+        {
+            this.clazz = clazz;
+            this.keywordId = keywordId;
+            this.categoryId = categoryId;
+        }
     }
 }

@@ -489,11 +489,11 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         Query query = session.createQuery(text);
         if (categoryId != null)
         {
-            query.setParameter("categoryId", categoryId);
+            query.setLong("categoryId", categoryId);
         }
         if (keywordId != null)
         {
-            query.setParameter("keywordId", keywordId);
+            query.setLong("keywordId", keywordId);
         }
         if (year != null)
         {
