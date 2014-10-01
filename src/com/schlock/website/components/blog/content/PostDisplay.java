@@ -52,6 +52,9 @@ public class PostDisplay
 
 
     @Property
+    private Keyword currentKeyword;
+
+    @Property
     private AbstractCategory currentCategory;
 
     @Property

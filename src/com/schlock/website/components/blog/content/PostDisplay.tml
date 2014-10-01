@@ -19,6 +19,13 @@
                         <a href="${message:googleUrl}" itemprop="url" rel="author">${message:author}</a>
                     </span>
                 </span>
+                <span class="hidden">
+                    <t:loop source="post.keywords" value="currentKeyword">
+                        <span itemprop="keywords">
+                            ${currentKeyword.name}
+                        </span>
+                    </t:loop>
+                </span>
 
                 <t:loop source="topCategories" value="currentCategory">
                     //
