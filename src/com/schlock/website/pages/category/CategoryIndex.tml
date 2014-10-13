@@ -42,6 +42,28 @@
             </t:loop>
 
             <t:if test="subcategory">
+
+                <t:loop source="iterations" value="currentIteration">
+
+                    <div class="title clr">${iterationTitle}</div>
+
+                    <div class="categoryPosts">
+                        <t:loop source="archivePosts" value="currentPost">
+                            <l:postlink post="currentPost" cssClass="'archive'" />
+                        </t:loop>
+                        <br class="clr" />
+                    </div>
+
+                    <div class="postPreviews">
+                        <t:loop source="archivePreviewPosts" value="currentPost">
+                            <l:postpreviewlink post="currentPost" cssClass="'secondaryPost'" />
+                        </t:loop>
+                        <br class="clr" />
+                    </div>
+
+                    <br class="clr" />
+                </t:loop>
+
                 <div class="returnLink">
                     //
                     <t:eventlink event="selectCategory" context="parent.uuid">

@@ -11,9 +11,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class ArchiveIndex
 {
@@ -142,10 +140,7 @@ public class ArchiveIndex
 
     public String getIterationTitle()
     {
-        Integer year = archiveManagement.parseYear(currentIteration);
-        Integer month = archiveManagement.parseMonth(currentIteration);
-
-        return title(year, month);
+        return archiveManagement.getIterationTitle(currentIteration);
     }
 
     Object onSelectIteration(String iteration)
@@ -178,7 +173,7 @@ public class ArchiveIndex
     public Post getMostRecent()
     {
         int LIMIT = 1;
-        List<Post> posts = postManagement.getTopPostsForYearMonth(LIMIT, year, month, Collections.EMPTY_LIST);
+        List<Post> posts = postManagement.getTopPosts(LIMIT, year, month, Collections.EMPTY_SET);
         return posts.get(0);
     }
 
@@ -189,7 +184,8 @@ public class ArchiveIndex
 
     public List<Post> getPreviewPosts()
     {
-        List<Long> exclude = Arrays.asList(getMostRecent().getId());
+        Set<Long> exclude = new HashSet<Long>();
+        exclude.add(getMostRecent().getId());
 
         return archiveManagement.getPreviewPosts(currentIteration, exclude);
     }
@@ -215,27 +211,12 @@ public class ArchiveIndex
     }
 
 
-    private String title(Integer year, Integer month)
-    {
-        String title = "";
-        if (year != null)
-        {
-            if (month != null)
-            {
-                String m = messages.get(Integer.toString(month));
-                title += m + " ";
-            }
-            title += year;
-        }
-        return title;
-    }
-
     public String getPageTitle()
     {
         String title = "";
         if (year != null)
         {
-            title = title(year, month);
+            title = archiveManagement.getIterationTitle(year, month);
         }
         else
         {

@@ -98,66 +98,104 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return (Post) singleResult(query);
     }
 
-    public Post getMostRecentPostWithGallery(boolean withUnpublished, Long categoryId)
+    public List<Post> getMostRecentPostsWithGallery(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds)
     {
+        boolean pinnedOnly = false;
+
         String selectClause = "select p from Post p ";
         String whereClause = " p.galleryName is not null ";
         String orderByClause = " order by p.created desc";
 
-        Query query = createQuery(TOP_RECENT,
-                                    null,
-                                    null,
-                                    false,
+        Query query = createQuery(postCount,
+                                    year,
+                                    month,
+                                    pinnedOnly,
                                     withUnpublished,
                                     categoryId,
                                     null,
-                                    null,
+                                    excludeIds,
                                     selectClause,
                                     Arrays.asList(whereClause),
                                     orderByClause);
 
-        return (Post) singleResult(query);
+        return query.list();
     }
 
-    public Post getMostRecentPostWithGallery(boolean withUnpublished, Integer year, Integer month)
+    public List<Post> getMostRecentPinnedPostsWithGallery(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds)
     {
+        boolean pinnedOnly = true;
+
         String selectClause = "select p from Post p ";
         String whereClause = " p.galleryName is not null ";
-        String orderByClause = " order by p.created desc ";
+        String orderByClause = " order by p.created desc";
 
-        Query query = createQuery(TOP_RECENT,
+        Query query = createQuery(postCount,
                                     year,
                                     month,
-                                    false,
+                                    pinnedOnly,
                                     withUnpublished,
+                                    categoryId,
                                     null,
-                                    null,
-                                    null,
+                                    excludeIds,
                                     selectClause,
                                     Arrays.asList(whereClause),
                                     orderByClause);
 
-        return (Post) singleResult(query);
-    }
-
-    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Long categoryId)
-    {
-        return getRecentPostsByYearMonth(postCount, withUnpublished, null, null, categoryId);
-    }
-
-    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Long categoryId)
-    {
-        return getRecentPinnedPostsByYearMonth(postCount, withUnpublished, null, null, categoryId);
+        return query.list();
     }
 
     public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId)
     {
-        return getRecentPostsByYearMonth(postCount, withUnpublished, year, month, categoryId);
+        return getMostRecentPosts(postCount, withUnpublished, year, month, categoryId, null);
     }
 
-    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month)
+    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds)
     {
-        return getRecentPinnedPostsByYearMonth(postCount, withUnpublished, year, month, null);
+        boolean pinnedOnly = false;
+
+        String selectClause = "select p from Post p ";
+        String orderByClause = " order by p.created desc ";
+
+        Query query = createQuery(postCount,
+                                    year,
+                                    month,
+                                    pinnedOnly,
+                                    withUnpublished,
+                                    categoryId,
+                                    null,
+                                    excludeIds,
+                                    selectClause,
+                                    null,
+                                    orderByClause);
+
+        return query.list();
+    }
+
+    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId)
+    {
+        return getMostRecentPinnedPosts(postCount, withUnpublished, year, month, categoryId, null);
+    }
+
+    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds)
+    {
+        boolean pinnedOnly = true;
+
+        String selectClause = "select p from Post p ";
+        String orderByClause = " order by p.created desc ";
+
+        Query query = createQuery(postCount,
+                                    year,
+                                    month,
+                                    pinnedOnly,
+                                    withUnpublished,
+                                    categoryId,
+                                    null,
+                                    excludeIds,
+                                    selectClause,
+                                    null,
+                                    orderByClause);
+
+        return query.list();
     }
 
     private Query nextPostQuery(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts)
@@ -244,51 +282,6 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
     }
 
 
-    private List<Post> getRecentPostsByYearMonth(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId)
-    {
-        boolean pinnedOnly = false;
-
-        String selectClause = "select p from Post p ";
-        String orderByClause = " order by p.created desc ";
-
-        Query query = createQuery(postCount,
-                                    year,
-                                    month,
-                                    pinnedOnly,
-                                    withUnpublished,
-                                    categoryId,
-                                    null,
-                                    null,
-                                    selectClause,
-                                    null,
-                                    orderByClause);
-
-        return query.list();
-    }
-
-    private List<Post> getRecentPinnedPostsByYearMonth(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId)
-    {
-        boolean pinnedOnly = true;
-
-        String selectClause = "select p from Post p ";
-        String orderByClause = " order by p.created desc ";
-
-        Query query = createQuery(postCount,
-                                    year,
-                                    month,
-                                    pinnedOnly,
-                                    withUnpublished,
-                                    categoryId,
-                                    null,
-                                    null,
-                                    selectClause,
-                                    null,
-                                    orderByClause);
-
-        return query.list();
-    }
-
-
     public List<Integer> getAllYears(boolean withUnpublished)
     {
         String text = "select year(p.created)" +
@@ -339,7 +332,19 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
         Query query = session.createQuery(text);
         query.setParameter("categoryId", categoryId);
-        return query.list();
+        List<Object[]> results = query.list();
+
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
+
+        for (Object[] result : results)
+        {
+            Integer year = Integer.parseInt(result[0].toString());
+            Integer month = Integer.parseInt(result[1].toString());
+
+            list.add(Arrays.asList(year, month));
+        }
+
+        return list;
     }
 
 

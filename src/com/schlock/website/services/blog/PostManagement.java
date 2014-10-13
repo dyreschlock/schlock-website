@@ -1,12 +1,12 @@
 package com.schlock.website.services.blog;
 
 import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.Post;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public interface PostManagement
 {
@@ -30,9 +30,11 @@ public interface PostManagement
 
     public String getStylizedHTMLTitle(AbstractPost post);
 
-    public List<Post> getTopPostsForCategory(Integer count, AbstractCategory category, List<Long> excludeIds);
+    public List<Post> getTopPosts(Integer count, Long categoryId, Set<Long> excludeIds);
 
-    public List<Post> getTopPostsForYearMonth(Integer count, Integer year, Integer month, List<Long> excludeIds);
+    public List<Post> getTopPosts(Integer count, Integer year, Integer month, Set<Long> excludeIds);
+
+    public List<Post> getTopPosts(Integer count, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
 
     public List<AbstractPost> getNextPosts(AbstractPost post);
 

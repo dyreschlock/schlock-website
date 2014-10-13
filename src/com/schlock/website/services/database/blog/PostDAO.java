@@ -25,18 +25,20 @@ public interface PostDAO extends BaseDAO<AbstractPost>
 
     public Post getMostRecentPost(boolean withUnpublished, Long categoryId);
 
-    public Post getMostRecentPostWithGallery(boolean withUnpublished, Long categoryId);
 
-    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Long categoryId);
+    public List<Post> getMostRecentPostsWithGallery(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
 
-    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Long categoryId);
+    public List<Post> getMostRecentPinnedPostsWithGallery(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
 
-
-    public Post getMostRecentPostWithGallery(boolean withUnpublished, Integer year, Integer month);
 
     public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId);
 
-    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month);
+    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId);
+
+
+    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
+
+    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
 
 
     public Post getNextPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId);

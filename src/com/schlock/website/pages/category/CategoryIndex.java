@@ -5,6 +5,7 @@ import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.archive.ArchiveIndex;
+import com.schlock.website.services.blog.PostArchiveManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -15,10 +16,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class CategoryIndex
 {
@@ -31,6 +29,9 @@ public class CategoryIndex
 
     @Inject
     private Messages messages;
+
+    @Inject
+    private PostArchiveManagement archiveManagement;
 
     @Inject
     private PostManagement postManagement;
@@ -53,6 +54,8 @@ public class CategoryIndex
     @Property
     private Integer currentIndex;
 
+    @Property
+    private String currentIteration;
 
     Object onActivate()
     {
@@ -98,7 +101,9 @@ public class CategoryIndex
     public Post getMostRecent()
     {
         int LIMIT = 1;
-        List<Post> posts = postManagement.getTopPostsForCategory(LIMIT, category, Collections.EMPTY_LIST);
+        Long categoryId = category.getId();
+
+        List<Post> posts = postManagement.getTopPosts(LIMIT, categoryId, Collections.EMPTY_SET);
         return posts.get(0);
     }
 
@@ -108,8 +113,19 @@ public class CategoryIndex
         boolean unpublished = viewState.isShowUnpublished();
         Long categoryId = currentCategory.getId();
 
-        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, categoryId);
+        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, null, null, categoryId);
         return posts;
+    }
+
+    private Set<Long> excludeIds = new HashSet<Long>();
+
+    private Set<Long> getExcludeIds()
+    {
+        if (excludeIds.isEmpty())
+        {
+            excludeIds.add(getMostRecent().getId());
+        }
+        return excludeIds;
     }
 
     public List<Post> getPreviewPosts()
@@ -121,9 +137,14 @@ public class CategoryIndex
             LIMIT = 1;
         }
 
-        List<Long> exclude = Arrays.asList(getMostRecent().getId());
+        Long categoryId = currentCategory.getId();
+        Set<Long> exclude = getExcludeIds();
 
-        List<Post> posts = postManagement.getTopPostsForCategory(LIMIT, currentCategory, exclude);
+        List<Post> posts = postManagement.getTopPosts(LIMIT, categoryId, exclude);
+        for (Post post : posts)
+        {
+            excludeIds.add(post.getId());
+        }
         return posts;
     }
 
@@ -137,6 +158,35 @@ public class CategoryIndex
     {
         return !category.isTopCategory();
     }
+
+
+    public List<String> getIterations()
+    {
+        Long id = category.getId();
+        return archiveManagement.getYearlyMonthlyIterations(id);
+    }
+
+    public String getIterationTitle()
+    {
+        return archiveManagement.getIterationTitle(currentIteration);
+    }
+
+    public List<Post> getArchivePosts()
+    {
+        Long id = category.getId();
+        return archiveManagement.getPosts(currentIteration, id);
+    }
+
+    public List<Post> getArchivePreviewPosts()
+    {
+        Long id = category.getId();
+
+        Set<Long> exclude = new HashSet<Long>();
+        exclude.add(getMostRecent().getId());
+
+        return archiveManagement.getPreviewPosts(currentIteration, id, exclude);
+    }
+
 
     public String getReturnToCategory()
     {
@@ -153,7 +203,10 @@ public class CategoryIndex
             Long id = category.getId();
 
             List<AbstractCategory> categories = new ArrayList<AbstractCategory>();
-            categories.add(category);
+            if (category.isTopCategory())
+            {
+                categories.add(category);
+            }
             categories.addAll(categoryDAO.getSubInOrder(id));
 
             cachedCategories = categories;

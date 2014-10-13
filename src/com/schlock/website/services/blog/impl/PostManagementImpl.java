@@ -559,82 +559,85 @@ public class PostManagementImpl implements PostManagement
     }
 
 
-    public List<Post> getTopPostsForCategory(final Integer LIMIT, AbstractCategory category, List<Long> excludeIds)
+    public List<Post> getTopPosts(Integer count, Long categoryId, Set<Long> excludeIds)
     {
-        List<Post> posts = new ArrayList<Post>();
-
-        boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
-        Long categoryId = category.getId();
-
-        Post recentGallery = postDAO.getMostRecentPostWithGallery(unpublished, categoryId);
-        if (recentGallery != null && !excludeIds.contains(recentGallery.getId()))
-        {
-            posts.add(recentGallery);
-        }
-
-        List<Post> pinned = postDAO.getMostRecentPinnedPosts(LIMIT+1, unpublished, categoryId);
-        for (Post post : pinned)
-        {
-            if (!posts.contains(post) &&
-                    !excludeIds.contains(post.getId()) &&
-                    posts.size() < LIMIT)
-            {
-                posts.add(post);
-            }
-        }
-
-        if (posts.size() < LIMIT)
-        {
-            List<Post> recent = postDAO.getMostRecentPosts(LIMIT+1, unpublished, categoryId);
-            for (Post post : recent)
-            {
-                if (!posts.contains(post) &&
-                        !excludeIds.contains(post.getId()) &&
-                        posts.size() < LIMIT)
-                {
-                    posts.add(post);
-                }
-            }
-        }
-
-        return posts;
+        return getTopPosts(count, null, null, categoryId, excludeIds);
     }
 
-    public List<Post> getTopPostsForYearMonth(final Integer LIMIT, Integer year, Integer month, List<Long> excludeIds)
+    public List<Post> getTopPosts(Integer count, Integer year, Integer month, Set<Long> excludeIds)
+    {
+        return getTopPosts(count, year, month, null, excludeIds);
+    }
+
+    /*
+        - most recent with gallery
+        - most recent pinned
+        - most recent
+     */
+    public List<Post> getTopPosts(final Integer LIMIT, Integer year, Integer month, Long categoryId, final Set<Long> EXCLUDE)
     {
         List<Post> posts = new ArrayList<Post>();
 
         boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
+        int count = LIMIT;
 
-        Post recentGallery = postDAO.getMostRecentPostWithGallery(unpublished, year, month);
-        if (recentGallery != null && !excludeIds.contains(recentGallery.getId()))
+        Set<Long> excludeIds = new HashSet<Long>();
+        excludeIds.addAll(EXCLUDE);
+
+
+        List<Post> gallery = postDAO.getMostRecentPostsWithGallery(1, unpublished, year, month, categoryId, excludeIds);
+        for (Post post : gallery)
         {
-            posts.add(recentGallery);
+            posts.add(post);
+
+            excludeIds.add(post.getId());
+
+            count--;
         }
 
-        List<Post> pinned = postDAO.getMostRecentPinnedPosts(LIMIT+1, unpublished, year, month);
+        if (count == 0)
+        {
+            return posts;
+        }
+
+//        List<Post> pinnedGallery = postDAO.getMostRecentPinnedPostsWithGallery(1, unpublished, year, month, categoryId, excludeIds);
+//        for (Post post : pinnedGallery)
+//        {
+//            posts.add(post);
+//
+//            excludeIds.add(post.getId());
+//
+//            count--;
+//        }
+//
+//        if (count == 0)
+//        {
+//            return posts;
+//        }
+
+        List<Post> pinned = postDAO.getMostRecentPinnedPosts(count, unpublished, year, month, categoryId, excludeIds);
         for (Post post : pinned)
         {
-            if (!posts.contains(post) &&
-                    !excludeIds.contains(post.getId()) &&
-                    posts.size() < LIMIT)
-            {
-                posts.add(post);
-            }
+            posts.add(post);
+
+            excludeIds.add(post.getId());
+
+            count--;
         }
 
-        if (posts.size() < LIMIT)
+        if (count == 0)
         {
-            List<Post> recent = postDAO.getMostRecentPosts(LIMIT+1, unpublished, year, month, null);
-            for (Post post : recent)
-            {
-                if (!posts.contains(post) &&
-                        !excludeIds.contains(post.getId()) &&
-                        posts.size() < LIMIT)
-                {
-                    posts.add(post);
-                }
-            }
+            return posts;
+        }
+
+        List<Post> recent = postDAO.getMostRecentPosts(count, unpublished, year, month, categoryId, excludeIds);
+        for (Post post : recent)
+        {
+            posts.add(post);
+
+            excludeIds.add(post.getId());
+
+            count--;
         }
 
         return posts;
