@@ -34,7 +34,7 @@ public interface PostDAO extends BaseDAO<AbstractPost>
 
     public Post getMostRecentPostWithGallery(boolean withUnpublished, Integer year, Integer month);
 
-    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month);
+    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId);
 
     public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month);
 
@@ -51,6 +51,8 @@ public interface PostDAO extends BaseDAO<AbstractPost>
     public List<Integer> getAllYears(boolean withUnpublished);
 
     public List<Integer> getMonths(Integer year, boolean withUnpublished);
+
+    public List<List<Integer>> getYearsMonthsByCategory(boolean withUnpublished, Long categoryId);
 
 
     public List<Page> getAllPages(boolean withUnpublished);

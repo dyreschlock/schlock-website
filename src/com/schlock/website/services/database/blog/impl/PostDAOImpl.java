@@ -150,9 +150,9 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return getRecentPinnedPostsByYearMonth(postCount, withUnpublished, null, null, categoryId);
     }
 
-    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month)
+    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId)
     {
-        return getRecentPostsByYearMonth(postCount, withUnpublished, year, month, null);
+        return getRecentPostsByYearMonth(postCount, withUnpublished, year, month, categoryId);
     }
 
     public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month)
@@ -320,6 +320,25 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
         Query query = session.createQuery(text);
         query.setParameter("year", year);
+        return query.list();
+    }
+
+    public List<List<Integer>> getYearsMonthsByCategory(boolean withUnpublished, Long categoryId)
+    {
+        String text = "select year(p.created), month(p.created)" +
+                        " from Post p " +
+                        " join p.categories c " +
+                        " where c.id = :categoryId ";
+
+        if (!withUnpublished)
+        {
+            text += " and p.published is true ";
+        }
+        text += " group by year(p.created), month(p.created) " +
+                " order by year(p.created) desc, month(p.created) desc ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("categoryId", categoryId);
         return query.list();
     }
 

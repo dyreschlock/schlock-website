@@ -2,29 +2,29 @@ package com.schlock.website.pages.archive;
 
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
+import com.schlock.website.services.blog.PostArchiveManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
-import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class ArchiveIndex
 {
-    private static final String ITERATION_DELIM = "-";
-
     @Inject
     private Messages messages;
 
     @Inject
     private PageRenderLinkSource linkSource;
+
+    @Inject
+    private PostArchiveManagement archiveManagement;
 
     @Inject
     private PostManagement postManagement;
@@ -113,40 +113,13 @@ public class ArchiveIndex
 
     public List<String> getIterations()
     {
-        List<String> iterations = new ArrayList<String>();
-
-        if (year != null && month != null)
-        {
-            iterations.add(createIteration(year, month));
-        }
-        else if (year != null)
-        {
-            boolean unpublished = viewState.isShowUnpublished();
-            List<Integer> months = postDAO.getMonths(year, unpublished);
-
-            for (Integer m : months)
-            {
-                iterations.add(createIteration(year, m));
-            }
-        }
-        else
-        {
-            boolean unpublished = viewState.isShowUnpublished();
-            List<Integer> years = postDAO.getAllYears(unpublished);
-
-            for(Integer y : years)
-            {
-                iterations.add(createIteration(y, null));
-            }
-        }
-
-        return iterations;
+        return archiveManagement.getYearlyMonthlyIterations(year, month);
     }
 
     public boolean isPageIteration()
     {
-        Integer y = parseYear(currentIteration);
-        Integer m = parseMonth(currentIteration);
+        Integer y = archiveManagement.parseYear(currentIteration);
+        Integer m = archiveManagement.parseMonth(currentIteration);
 
         if (year == null)
         {
@@ -169,16 +142,16 @@ public class ArchiveIndex
 
     public String getIterationTitle()
     {
-        Integer year = parseYear(currentIteration);
-        Integer month = parseMonth(currentIteration);
+        Integer year = archiveManagement.parseYear(currentIteration);
+        Integer month = archiveManagement.parseMonth(currentIteration);
 
         return title(year, month);
     }
 
     Object onSelectIteration(String iteration)
     {
-        Integer year = parseYear(iteration);
-        Integer month = parseMonth(iteration);
+        Integer year = archiveManagement.parseYear(iteration);
+        Integer month = archiveManagement.parseMonth(iteration);
 
         if (year != null && month != null)
         {
@@ -211,45 +184,20 @@ public class ArchiveIndex
 
     public List<Post> getPosts()
     {
-        int postCount = 20;
-        boolean unpublished = viewState.isShowUnpublished();
-
-        Integer year = parseYear(currentIteration);
-        Integer month = parseMonth(currentIteration);
-
-        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, year, month);
-        return posts;
+        return archiveManagement.getPosts(currentIteration);
     }
 
     public List<Post> getPreviewPosts()
     {
-        int count = getPosts().size();
-        int LIMIT = (int) Math.floor(((double) count ) / ((double) 7));
-        if (LIMIT < 1)
-        {
-            LIMIT = 1;
-        }
-
-        Integer year = parseYear(currentIteration);
-        Integer month = parseMonth(currentIteration);
-
         List<Long> exclude = Arrays.asList(getMostRecent().getId());
 
-        List<Post> posts = postManagement.getTopPostsForYearMonth(LIMIT, year, month, exclude);
-        return posts;
+        return archiveManagement.getPreviewPosts(currentIteration, exclude);
     }
-
-
-
 
 
     public String getParentIteration()
     {
-        if (month != null)
-        {
-            return createIteration(year, null);
-        }
-        return createIteration(null, null);
+        return archiveManagement.getParentIteration(year, month);
     }
 
     public String getReturnToPrevious()
@@ -266,44 +214,6 @@ public class ArchiveIndex
         return "";
     }
 
-
-
-    private String createIteration(Integer year, Integer month)
-    {
-        if (year != null)
-        {
-            String iteration = Integer.toString(year);
-            if (month != null)
-            {
-                iteration += ITERATION_DELIM + month;
-            }
-            return iteration;
-        }
-        return null;
-    }
-
-    private Integer parseYear(String iteration)
-    {
-        String[] parts = StringUtils.split(iteration, ITERATION_DELIM);
-
-        if (parts.length > 0)
-        {
-            String year = parts[0];
-            return Integer.parseInt(year);
-        }
-        return null;
-    }
-
-    private Integer parseMonth(String iteration)
-    {
-        String[] parts = StringUtils.split(iteration, ITERATION_DELIM);
-        if (parts.length > 1)
-        {
-            String month = parts[1];
-            return Integer.parseInt(month);
-        }
-        return null;
-    }
 
     private String title(Integer year, Integer month)
     {

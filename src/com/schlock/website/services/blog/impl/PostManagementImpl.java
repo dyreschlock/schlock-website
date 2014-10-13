@@ -625,7 +625,7 @@ public class PostManagementImpl implements PostManagement
 
         if (posts.size() < LIMIT)
         {
-            List<Post> recent = postDAO.getMostRecentPosts(LIMIT+1, unpublished, year, month);
+            List<Post> recent = postDAO.getMostRecentPosts(LIMIT+1, unpublished, year, month, null);
             for (Post post : recent)
             {
                 if (!posts.contains(post) &&
