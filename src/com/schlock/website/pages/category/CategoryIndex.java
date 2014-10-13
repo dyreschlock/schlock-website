@@ -57,9 +57,17 @@ public class CategoryIndex
     @Property
     private String currentIteration;
 
+
+    private Set<Long> excludeIds;
+
+
     Object onActivate()
     {
         category = categoryDAO.getFirstCategory();
+
+        excludeIds = new HashSet<Long>();
+        excludeIds.add(getMostRecent().getId());
+
         return true;
     }
 
@@ -71,6 +79,10 @@ public class CategoryIndex
         }
 
         category = categoryDAO.getByUuid(PostCategory.class, parameter);
+
+        excludeIds = new HashSet<Long>();
+        excludeIds.add(getMostRecent().getId());
+
         return true;
     }
 
@@ -117,17 +129,6 @@ public class CategoryIndex
         return posts;
     }
 
-    private Set<Long> excludeIds = new HashSet<Long>();
-
-    private Set<Long> getExcludeIds()
-    {
-        if (excludeIds.isEmpty())
-        {
-            excludeIds.add(getMostRecent().getId());
-        }
-        return excludeIds;
-    }
-
     public List<Post> getPreviewPosts()
     {
         int count = getPosts().size();
@@ -138,9 +139,8 @@ public class CategoryIndex
         }
 
         Long categoryId = currentCategory.getId();
-        Set<Long> exclude = getExcludeIds();
 
-        List<Post> posts = postManagement.getTopPosts(LIMIT, categoryId, exclude);
+        List<Post> posts = postManagement.getTopPosts(LIMIT, categoryId, excludeIds);
         for (Post post : posts)
         {
             excludeIds.add(post.getId());
