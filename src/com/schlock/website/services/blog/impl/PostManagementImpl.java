@@ -581,6 +581,12 @@ public class PostManagementImpl implements PostManagement
         boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
         int count = LIMIT;
 
+        int MIN = 1;
+        if (LIMIT == 0)
+        {
+            MIN = 0;
+        }
+
         Set<Long> excludeIds = new HashSet<Long>();
         excludeIds.addAll(EXCLUDE);
 
@@ -593,6 +599,7 @@ public class PostManagementImpl implements PostManagement
             excludeIds.add(post.getId());
 
             count--;
+            MIN--;
         }
 
         if (count == 0)
@@ -600,7 +607,7 @@ public class PostManagementImpl implements PostManagement
             return posts;
         }
 
-//        List<Post> pinnedGallery = postDAO.getMostRecentPinnedPostsWithGallery(1, unpublished, year, month, categoryId, excludeIds);
+//        List<Post> pinnedGallery = postDAO.getMostRecentPinnedPostsWithGallery(MIN, unpublished, year, month, categoryId, excludeIds);
 //        for (Post post : pinnedGallery)
 //        {
 //            posts.add(post);
