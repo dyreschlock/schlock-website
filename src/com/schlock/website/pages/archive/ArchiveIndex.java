@@ -1,4 +1,4 @@
-package com.schlock.website.pages;
+package com.schlock.website.pages.archive;
 
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Archive
+public class ArchiveIndex
 {
     private static final String ITERATION_DELIM = "-";
 
@@ -182,11 +182,11 @@ public class Archive
 
         if (year != null && month != null)
         {
-            return linkSource.createPageRenderLinkWithContext(Archive.class, year, month);
+            return linkSource.createPageRenderLinkWithContext(ArchiveIndex.class, year, month);
         }
         if (year != null)
         {
-            return linkSource.createPageRenderLinkWithContext(Archive.class, year);
+            return linkSource.createPageRenderLinkWithContext(ArchiveIndex.class, year);
         }
         return onSelectIteration();
     }
@@ -198,7 +198,7 @@ public class Archive
 
     Object onSelectIteration()
     {
-        return linkSource.createPageRenderLinkWithContext(Archive.class);
+        return linkSource.createPageRenderLinkWithContext(ArchiveIndex.class);
     }
 
 

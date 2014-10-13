@@ -1,7 +1,7 @@
 package com.schlock.website.components.blog.layout;
 
 import com.schlock.website.pages.AboutMe;
-import com.schlock.website.pages.Archive;
+import com.schlock.website.pages.archive.ArchiveIndex;
 import com.schlock.website.pages.Index;
 import com.schlock.website.pages.Projects;
 import com.schlock.website.services.DeploymentContext;
@@ -29,7 +29,7 @@ public class Header
 
     Object onArchive()
     {
-        return Archive.class;
+        return ArchiveIndex.class;
     }
 
     Object onProjects()

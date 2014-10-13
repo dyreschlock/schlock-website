@@ -4,7 +4,7 @@ import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.blog.ViewState;
-import com.schlock.website.pages.Archive;
+import com.schlock.website.pages.archive.ArchiveIndex;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -64,7 +64,7 @@ public class CategoryIndex
     {
         if (StringUtils.isBlank(parameter))
         {
-            return Archive.class;
+            return ArchiveIndex.class;
         }
 
         category = categoryDAO.getByUuid(PostCategory.class, parameter);
