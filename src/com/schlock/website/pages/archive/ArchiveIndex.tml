@@ -6,7 +6,7 @@
 
     <div id="postContent" class="archive">
 
-        <h1>${pageTitle}</h1>
+        <h1 id="headline">${pageTitle}</h1>
 
         <div class="postBody">
 

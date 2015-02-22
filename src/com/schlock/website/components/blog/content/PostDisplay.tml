@@ -6,11 +6,11 @@
 
     <div id="postContent" class="${cssClass}" itemscope="" itemtype="http://schema.org/BlogPosting">
 
-        <h1 itemprop="name headline">
+        <h1 id="headline" itemprop="name headline">
             <t:outputraw value="postTitleHtml" />
         </h1>
         <t:if test="!post.page">
-            <div class="postDate">
+            <div id="headlineContent" class="postDate">
                 <time datetime="${createdDateHtmlTag}" itemprop="datePublished">
                     ${createdDate}
                 </time>

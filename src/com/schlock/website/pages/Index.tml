@@ -4,6 +4,6 @@
     xmlns:c="tapestry-library:blog/content"
     >
 
-    <c:postdisplay post="currentPost" />
+    <c:postdisplay post="currentPost" cssClass="blogPost" />
 
 </html>
