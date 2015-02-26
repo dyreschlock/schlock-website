@@ -12,6 +12,11 @@ public abstract class AbstractPost extends Persisted
 
     public static final String KENDO_UUID = "kendo-example-written-exam";
 
+    public static final int LEVEL_NOT_VISIBLE = 0;
+    public static final int LEVEL_UNPUBLISHED = 1;
+    public static final int LEVEL_PUBLISHED = 2;
+    public static final int LEVEL_PINNED = 3;
+
 
     private String wpid; //legacy Wordpress id
     private String mtid; //legacy MoveableType id
@@ -21,8 +26,7 @@ public abstract class AbstractPost extends Persisted
 
     private Date created;
 
-    private boolean published;
-    private boolean pinned;
+    private int publishedLevel;
 
     private boolean showGallery;
     private String galleryName;
@@ -212,24 +216,14 @@ public abstract class AbstractPost extends Persisted
         this.created = created;
     }
 
-    public boolean isPublished()
+    public int getPublishedLevel()
     {
-        return published;
+        return publishedLevel;
     }
 
-    public void setPublished(boolean published)
+    public void setPublishedLevel(int publishedLevel)
     {
-        this.published = published;
-    }
-
-    public boolean isPinned()
-    {
-        return pinned;
-    }
-
-    public void setPinned(boolean pinned)
-    {
-        this.pinned = pinned;
+        this.publishedLevel = publishedLevel;
     }
 
     public boolean isShowGallery()

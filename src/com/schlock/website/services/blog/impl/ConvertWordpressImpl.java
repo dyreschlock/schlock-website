@@ -1,5 +1,6 @@
 package com.schlock.website.services.blog.impl;
 
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.blog.ConvertWordpress;
 import com.schlock.website.services.blog.PostManagement;
@@ -53,7 +54,7 @@ public class ConvertWordpressImpl implements ConvertWordpress
         post.setWpid(id.toString());
         if (created.after(date))
         {
-            post.setPublished(true);
+            post.setPublishedLevel(AbstractPost.LEVEL_PUBLISHED);
         }
         return post;
     }

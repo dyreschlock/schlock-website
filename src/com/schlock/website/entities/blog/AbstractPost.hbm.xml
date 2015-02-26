@@ -16,8 +16,7 @@
 
         <property name="created" not-null="true" />
 
-        <property name="published" />
-        <property name="pinned" />
+        <property name="publishedLevel" not-null="true" />
 
         <property name="showGallery" />
         <property name="galleryName" />

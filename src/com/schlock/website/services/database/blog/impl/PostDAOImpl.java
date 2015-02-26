@@ -289,7 +289,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
         if (!withUnpublished)
         {
-            text += " where p.published is true ";
+            text += " where p.publishedLevel >= " + AbstractPost.LEVEL_PUBLISHED + " ";
         }
         text += " group by year(p.created) " +
                 " order by year(p.created) desc ";
@@ -306,7 +306,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
         if (!withUnpublished)
         {
-            text += " and p.published is true ";
+            text += " and p.publishedLevel >= " + AbstractPost.LEVEL_PUBLISHED + " ";
         }
         text += " group by month(p.created) " +
                 " order by month(p.created) desc ";
@@ -325,7 +325,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
         if (!withUnpublished)
         {
-            text += " and p.published is true ";
+            text += " and p.publishedLevel >= " + AbstractPost.LEVEL_PUBLISHED + " ";
         }
         text += " group by year(p.created), month(p.created) " +
                 " order by year(p.created) desc, month(p.created) desc ";
@@ -354,7 +354,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
         if (!withUnpublished)
         {
-            text += " where p.published is true ";
+            text += " where p.publishedLevel >= " + AbstractPost.LEVEL_PUBLISHED + " ";
         }
         text += " order by p.created desc ";
 
@@ -370,7 +370,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
                         " where c.class = '" + ProjectCategory.class.getCanonicalName() + "' ";
         if (!withUnpublished)
         {
-            text += " and p.published is true ";
+            text += " and p.publishedLevel >= " + AbstractPost.LEVEL_PUBLISHED + " ";
         }
         text += " order by p.created desc ";
 
@@ -386,7 +386,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
                         " where c.class = '" + ProjectCategory.class.getCanonicalName() + "' ";
         if (!withUnpublished)
         {
-            text += " and p.published is true ";
+            text += " and p.publishedLevel >= " + AbstractPost.LEVEL_PUBLISHED + " ";
         }
         if (categoryId != null)
         {
@@ -408,7 +408,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
         if (!withUnpublished)
         {
-            text += " where p.published is true ";
+            text += " where p.publishedLevel >= " + AbstractPost.LEVEL_PUBLISHED + " ";
         }
         text += " order by p.eventDate desc ";
 
@@ -434,7 +434,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
         if (!withUnpublished)
         {
-            text += " with p.published is true ";
+            text += " where p.publishedLevel >= " + AbstractPost.LEVEL_PUBLISHED + " ";
         }
         text += " order by p.created desc ";
 
@@ -479,11 +479,11 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         }
         if (pinnedOnly)
         {
-            phrases.add(" p.pinned is true ");
+            phrases.add(" p.publishedLevel >= " + AbstractPost.LEVEL_PINNED +" ");
         }
-        if (!withUnpublished)
+        else if (!withUnpublished)
         {
-            phrases.add(" p.published is true ");
+            phrases.add(" p.publishedLevel >= " + AbstractPost.LEVEL_PUBLISHED +" ");
         }
         if (year != null)
         {
