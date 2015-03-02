@@ -7,6 +7,7 @@ public class Page extends AbstractPost
     public static final String ABOUT_ME_UUID = "about-me";
     public static final String CLUB_UUID = "club";
     public static final String ALT_MATERIALS_UUID = "alt-materials";
+    public static final String LESSON_PLANS_UUID = "lesson-plans";
     public static final String PROJECTS_UUID = "projects";
 
 
@@ -23,7 +24,8 @@ public class Page extends AbstractPost
 
     public boolean isAlt()
     {
-        return StringUtils.equalsIgnoreCase(getUuid(), ALT_MATERIALS_UUID);
+        return StringUtils.equalsIgnoreCase(getUuid(), ALT_MATERIALS_UUID) ||
+                StringUtils.equalsIgnoreCase(getUuid(), LESSON_PLANS_UUID);
     }
 
     public boolean isProjects()

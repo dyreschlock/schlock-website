@@ -90,6 +90,10 @@ public abstract class AbstractPost extends Persisted
         return StringUtils.isNotBlank(keywordString);
     }
 
+    public boolean isVisible()
+    {
+        return publishedLevel > LEVEL_NOT_VISIBLE;
+    }
 
     public List<PostCategory> getTopPostCategories()
     {

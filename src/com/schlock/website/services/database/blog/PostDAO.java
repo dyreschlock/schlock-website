@@ -70,4 +70,7 @@ public interface PostDAO extends BaseDAO<AbstractPost>
     public LessonPost getMostRecentLessonPost(boolean withUnpublished);
 
     public List<LessonPost> getAllLessonPosts(boolean withUnpublished);
+
+
+    public List<LessonPost> getLessonPostByKeyword(String keyword);
 }

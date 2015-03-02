@@ -553,4 +553,20 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
         return query;
     }
+
+
+    public List<LessonPost> getLessonPostByKeyword(String keyword)
+    {
+        String text =
+                "select distinct p " +
+                " from LessonPost p " +
+                " join p.keywords k " +
+                " where k.name = :keywordName ";
+
+
+        Query query = session.createQuery(text);
+        query.setParameter("keywordName", keyword);
+
+        return query.list();
+    }
 }

@@ -6,6 +6,8 @@
 @linkcolor: #800;
 @textcolor: #303030;
 
+@dimcolor: #aaa;
+
 @backgroundcolor: #282828;
 
 @programmingcolor: #880060;     /* 318 */
@@ -579,6 +581,46 @@ h1, h2, h3
         }
     }
 }
+
+#postContent.lessons
+{
+    h2
+    {
+        font-weight: bold;
+        font-family: @font2;
+        font-size: 0.9em;
+    }
+    h2.lessonTitle
+    {
+        padding-top: 10px;
+    }
+
+    div.gradeBody
+    {
+        padding-top: 20px;
+        padding-bottom: 30px;
+    }
+    div.lessonBody
+    {
+        padding-top: 5px;
+        padding-bottom: 10px;
+    }
+    div.lessonLinks
+    {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 10px;
+
+        font-size: 0.7em;
+        font-family: @font2;
+
+        span.none
+        {
+            color: @dimcolor;
+        }
+    }
+}
+
 #postContent div.kendo
 {
     font-size: 1.1em;
