@@ -1,0 +1,34 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <h2 class="lessonTitle"><t:outputraw value="lessonTitle" /></h2>
+    <div class="lessonBody">
+
+        <t:outputraw value="lessonYear" /> -
+
+        <t:if test="!yearlyItem">
+            <t:if test="hasLessonPlan">
+                <a href="${post.lessonPlanLink}">${message:lesson-plan}</a>
+            </t:if>
+            <t:if test="!hasLessonPlan">
+                <span class="none">${message:lesson-plan}</span>
+            </t:if>
+
+            /
+        </t:if>
+
+        <t:if test="hasFlashcards">
+            <a href="${post.flashCardsLink}">${downloadMessage}</a>
+        </t:if>
+        <t:if test="!hasFlashcards">
+            <span class="none">${downloadMessage}</span>
+        </t:if>
+
+        <t:if test="hasPost">
+            / <t:eventlink event="selectPost" context="post.uuid">${message:more}</t:eventlink>
+        </t:if>
+    </div>
+
+
+</t:container>

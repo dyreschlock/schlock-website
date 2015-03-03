@@ -22,7 +22,7 @@
             </div>
 
             <t:loop source="grades" value="currentGrade">
-                <l:lessongrade grade="currentGrade" year="selectedYear" />
+                <l:gradedisplay grade="currentGrade" year="selectedYear" />
             </t:loop>
         </div>
     </t:zone>

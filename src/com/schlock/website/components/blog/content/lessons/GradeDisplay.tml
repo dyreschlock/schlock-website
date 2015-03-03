@@ -10,39 +10,13 @@
             <div class="column">
 
                 <t:loop source="lessons" value="currentLesson">
-                    <h2 class="lessonTitle"><t:outputraw value="lessonTitle" /></h2>
-                    <div class="lessonBody">
-                        <t:loop source="years" value="currentYear">
-
-                            <l:lessonlink grade="grade" lesson="lesson" year="year" />
-                        </t:loop>
-                    </div>
+                    <l:lessondisplay grade="grade" lesson="currentLesson" year="year" />
                 </t:loop>
             </div>
             <div class="column twoColumnLast">
 
                 <t:loop source="yearlyItems" value="currentLesson">
-
-                    <h2 class="lessonTitle"><t:outputraw value="lessonTitle" /></h2>
-                    <div class="lessonBody">
-                        <t:loop source="years" value="currentYear">
-                            <div class="lessonLinks">
-                                <t:outputraw value="lessonYear" /> -
-
-                                <t:if test="hasFlashcards">
-                                    <a href="${post.flashCardsLink}">${message:download}</a>
-                                </t:if>
-                                <t:if test="!hasFlashcards">
-                                    <span class="none">${message:download}</span>
-                                </t:if>
-
-                                <t:if test="hasPost">
-                                    / <t:eventlink event="selectPost" context="post.uuid">${message:more}</t:eventlink>
-                                </t:if>
-                            </div>
-                        </t:loop>
-                    </div>
-
+                    <l:lessondisplay grade="grade" lesson="currentLesson" year="year" />
                 </t:loop>
 
 

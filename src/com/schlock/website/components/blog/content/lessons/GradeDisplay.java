@@ -26,9 +26,6 @@ public class GradeDisplay
     @Property
     private String currentLesson;
 
-    @Property
-    private String currentYear;
-
 
     @Inject
     private Messages messages;
@@ -63,22 +60,11 @@ public class GradeDisplay
         return lessonManagement.getSpecialLessons(grade);
     }
 
-    public List<String> getYears()
-    {
-        return lessonManagement.getYears(year, currentLesson);
-    }
-
 
     public String getGradeTitle()
     {
         return getTitle(grade + TITLE_SUFFIX);
     }
-
-    public String getLessonTitle()
-    {
-        return getTitle(currentLesson);
-    }
-
 
 
     private String getTitle(String nlsKey)
