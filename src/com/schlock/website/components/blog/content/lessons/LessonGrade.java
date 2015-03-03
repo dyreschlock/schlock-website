@@ -1,6 +1,7 @@
 package com.schlock.website.components.blog.content.lessons;
 
 import com.schlock.website.entities.blog.LessonPost;
+import com.schlock.website.pages.Index;
 import com.schlock.website.services.blog.LessonsManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
@@ -8,6 +9,7 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.List;
 
@@ -40,6 +42,9 @@ public class LessonGrade
 
     @Inject
     private LessonsManagement lessonManagement;
+
+    @Inject
+    private PageRenderLinkSource linkSource;
 
 
 
@@ -111,6 +116,11 @@ public class LessonGrade
     public LessonPost getPost()
     {
         return lessonManagement.getPost(currentLesson, currentYear);
+    }
+
+    Object onSelectPost(String uuid)
+    {
+        return linkSource.createPageRenderLinkWithContext(Index.class, uuid);
     }
 
 
