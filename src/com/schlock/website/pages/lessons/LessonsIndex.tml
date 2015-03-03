@@ -9,11 +9,11 @@
     <t:zone t:id="postZone" id="postZone" t:update="show">
 
         <div class="postBody">
-            <div class="fourColumns">
+            <div class="fourColumns yearSelection">
                 <t:loop source="totalYears" value="currentYear" index="currentIndex">
-                    <div class="column ${extraCss}">
+                    <div class="column yearTitle ${extraCss}">
 
-                        <t:eventlink event="selectYear" context="${currentYear}" zone="postZone">
+                        <t:eventlink class="${yearCssClass}" event="selectYear" context="${currentYear}" zone="postZone">
                             <t:outputraw value="yearTitle" />
                         </t:eventlink>
                     </div>
@@ -21,11 +21,9 @@
                 <br class="clr" />
             </div>
 
-            <div class="lessonBody">
-                <t:loop source="grades" value="currentGrade">
-                    <l:lessongrade grade="currentGrade" year="selectedYear" />
-                </t:loop>
-            </div>
+            <t:loop source="grades" value="currentGrade">
+                <l:lessongrade grade="currentGrade" year="selectedYear" />
+            </t:loop>
         </div>
     </t:zone>
     </c:postdisplay>

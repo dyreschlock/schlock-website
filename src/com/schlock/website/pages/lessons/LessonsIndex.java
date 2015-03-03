@@ -111,6 +111,16 @@ public class LessonsIndex
         return css;
     }
 
+    public String getYearCssClass()
+    {
+        String css = "h" + currentYear + "year";
+        if (!StringUtils.equalsIgnoreCase(currentYear, selectedYear))
+        {
+            css += "Unselected";
+        }
+        return css;
+    }
+
     Object onSelectYear(String year)
     {
         this.selectedYear = year;
