@@ -1,12 +1,14 @@
 package com.schlock.website.pages.lessons;
 
-import com.schlock.website.entities.blog.LessonPost;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.services.blog.LessonsManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -16,6 +18,8 @@ public class LessonsIndex
 {
     private static final String TITLE_SUFFIX = "-title";
     private static final String YEAR_SUFFIX = "-year";
+
+    private static final String DEFAULT_YEAR = LessonsManagement.HEISEI26;
 
     @Inject
     private PostDAO postDAO;
@@ -29,37 +33,94 @@ public class LessonsIndex
     @Inject
     private Messages messages;
 
+
+    @Persist
     private String selectedGrade;
 
+    @Persist
+    @Property
+    private String selectedYear;
+
 
     @Property
-    private String currentGrade;
-
-    @Property
-    private String currentLesson;
+    private int currentIndex;
 
     @Property
     private String currentYear;
 
+    @Property
+    private String currentGrade;
+
+
+    @InjectComponent
+    private Zone postZone;
+
 
     Object onActivate()
     {
-        lessonManagement.resetPostCache();
-        return true;
-    }
-
-    Object onActivate(String parameter)
-    {
-        this.selectedGrade = parameter;
+        this.selectedGrade = null;
+        this.selectedYear = DEFAULT_YEAR;
 
         lessonManagement.resetPostCache();
         return true;
     }
 
-    public boolean isFifthOrSixth()
+    Object onActivate(String p1)
     {
-        return StringUtils.equalsIgnoreCase(LessonsManagement.SIXTH_GRADE, currentGrade) ||
-                StringUtils.equalsIgnoreCase(LessonsManagement.FIFTH_GRADE, currentGrade);
+        this.selectedGrade = lessonManagement.getGradeFromParameters(p1);
+        this.selectedYear = lessonManagement.getYearFromParameters(p1);
+
+        if (StringUtils.isBlank(this.selectedYear))
+        {
+            this.selectedYear = DEFAULT_YEAR;
+        }
+
+        lessonManagement.resetPostCache();
+        return true;
+    }
+
+    Object onActivate(String p1, String p2)
+    {
+        this.selectedGrade = lessonManagement.getGradeFromParameters(p1, p2);
+        this.selectedYear = lessonManagement.getYearFromParameters(p1, p2);
+
+        if (StringUtils.isBlank(this.selectedYear))
+        {
+            this.selectedYear = DEFAULT_YEAR;
+        }
+
+        lessonManagement.resetPostCache();
+        return true;
+    }
+
+
+    public List<String> getTotalYears()
+    {
+        return lessonManagement.getTotalYears();
+    }
+
+
+
+    public String getExtraCss()
+    {
+        String css = "";
+        if ((currentIndex + 1) % 4 == 0)
+        {
+            css += " fourColumnLast";
+        }
+        return css;
+    }
+
+    Object onSelectYear(String year)
+    {
+        this.selectedYear = year;
+
+        return postZone;
+    }
+
+    public String getYearTitle()
+    {
+        return getTitle(currentYear + TITLE_SUFFIX);
     }
 
 
@@ -68,76 +129,11 @@ public class LessonsIndex
         return lessonManagement.getGrades(selectedGrade);
     }
 
-    public List<String> getLessons()
-    {
-        return lessonManagement.getLessons(currentGrade);
-    }
-
-    public List<String> getYearlyItems()
-    {
-        return lessonManagement.getYearlyItems(currentGrade);
-    }
-
-    public List<String> getSpecialLessons()
-    {
-        return lessonManagement.getSpecialLessons(currentGrade);
-    }
-
-    public List<String> getYears()
-    {
-        return lessonManagement.getYears(currentLesson);
-    }
-
-    public String getGradeTitle()
-    {
-        return getTitle(currentGrade + TITLE_SUFFIX);
-    }
-
-    public String getLessonTitle()
-    {
-        return getTitle(currentLesson);
-    }
-
-    public String getLessonYear()
-    {
-        return getTitle(currentYear + YEAR_SUFFIX);
-    }
-
     private String getTitle(String nlsKey)
     {
         String message = messages.get(nlsKey);
         return postManagement.wrapJapaneseTextInTags(message);
     }
-
-
-
-    public boolean isHasLessonPlan()
-    {
-        LessonPost post = getPost();
-        return post != null &&
-                StringUtils.isNotBlank(post.getLessonPlanLink());
-    }
-
-    public boolean isHasFlashcards()
-    {
-        LessonPost post = getPost();
-        return post != null &&
-                StringUtils.isNotBlank(post.getFlashCardsLink());
-    }
-
-    public boolean isHasPost()
-    {
-        LessonPost post = getPost();
-        return post != null &&
-                post.isVisible();
-    }
-
-    public LessonPost getPost()
-    {
-        return lessonManagement.getPost(currentLesson, currentYear);
-    }
-
-
 
 
 

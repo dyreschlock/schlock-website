@@ -40,9 +40,15 @@ public interface LessonsManagement
 
     public List<String> getSpecialLessons(String grade);
 
-    public List<String> getYears(String lesson);
+    public List<String> getTotalYears();
+
+    public List<String> getYears(String selectedYear, String lesson);
 
     public LessonPost getPost(String lesson, String year);
 
     public void resetPostCache();
+
+    public String getGradeFromParameters(String... parameters);
+
+    public String getYearFromParameters(String... parameters);
 }

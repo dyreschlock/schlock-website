@@ -1,0 +1,82 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:l="tapestry-library:blog/content/lessons"
+    >
+
+    <div class="title"><t:outputraw value="gradeTitle" /></div>
+
+    <t:if test="fifthOrSixth">
+        <div class="columns gradeBody">
+            <div class="column">
+
+                <t:loop source="lessons" value="currentLesson">
+                    <h2 class="lessonTitle"><t:outputraw value="lessonTitle" /></h2>
+                    <div class="lessonBody">
+                        <t:loop source="years" value="currentYear">
+                            <div class="lessonLinks">
+
+                                <t:outputraw value="lessonYear" /> -
+
+                                <t:if test="hasLessonPlan">
+                                    <a href="${post.lessonPlanLink}">${message:lesson-plan}</a>
+                                </t:if>
+                                <t:if test="!hasLessonPlan">
+                                    <span class="none">${message:lesson-plan}</span>
+                                </t:if>
+
+                                /
+
+                                <t:if test="hasFlashcards">
+                                    <a href="${post.flashCardsLink}">${message:flash-cards}</a>
+                                </t:if>
+                                <t:if test="!hasFlashcards">
+                                    <span class="none">${message:flash-cards}</span>
+                                </t:if>
+
+                                <t:if test="hasPost">
+                                    / <t:eventlink event="selectPost" context="post.uuid">${message:more}</t:eventlink>
+                                </t:if>
+                            </div>
+                        </t:loop>
+                    </div>
+                </t:loop>
+            </div>
+            <div class="column twoColumnLast">
+
+                <t:loop source="yearlyItems" value="currentLesson">
+
+                    <h2 class="lessonTitle"><t:outputraw value="lessonTitle" /></h2>
+                    <div class="lessonBody">
+                        <t:loop source="years" value="currentYear">
+                            <div class="lessonLinks">
+                                <t:outputraw value="lessonYear" /> -
+
+                                <t:if test="hasFlashcards">
+                                    <a href="${post.flashCardsLink}">${message:download}</a>
+                                </t:if>
+                                <t:if test="!hasFlashcards">
+                                    <span class="none">${message:download}</span>
+                                </t:if>
+
+                                <t:if test="hasPost">
+                                    / <t:eventlink event="selectPost" context="post.uuid">${message:more}</t:eventlink>
+                                </t:if>
+                            </div>
+                        </t:loop>
+                    </div>
+
+                </t:loop>
+
+
+
+
+
+            </div>
+            <br class="clr" />
+        </div>
+    </t:if>
+    <t:if test="!fifthOrSixth">
+
+    </t:if>
+
+</t:container>

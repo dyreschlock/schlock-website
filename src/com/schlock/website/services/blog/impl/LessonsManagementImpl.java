@@ -27,29 +27,7 @@ public class LessonsManagementImpl implements LessonsManagement
                     SIXTH_GRADE, FIFTH_GRADE //, FOURTH_GRADE, THIRD_GRADE, SECOND_GRADE, FIRST_GRADE
             );
         }
-
-        String param = parameterMap().get(selected);
-
-        List<String> list = new ArrayList<String>();
-        if (StringUtils.isNotBlank(param))
-        {
-            list.add(param);
-        }
-        return list;
-    }
-
-    private Map<String, String> parameterMap()
-    {
-        Map<String, String> map = new HashMap<String, String>();
-
-        map.put(SIXTH_GRADE_PARAM, SIXTH_GRADE);
-        map.put(FIFTH_GRADE_PARAM, FIFTH_GRADE);
-        map.put(FOURTH_GRADE_PARAM, FOURTH_GRADE);
-        map.put(THIRD_GRADE_PARAM, THIRD_GRADE);
-        map.put(SECOND_GRADE_PARAM, SECOND_GRADE);
-        map.put(FIRST_GRADE_PARAM, FIRST_GRADE);
-
-        return map;
+        return Arrays.asList(selected);
     }
 
     public List<String> getLessons(String grade)
@@ -104,7 +82,7 @@ public class LessonsManagementImpl implements LessonsManagement
         return lessons;
     }
 
-    public List<String> getYears(String lessonString)
+    public List<String> getTotalYears()
     {
         List<String> years = new ArrayList<String>();
 //        years.add(HEISEI28);
@@ -112,12 +90,28 @@ public class LessonsManagementImpl implements LessonsManagement
         years.add(HEISEI26);
         years.add(HEISEI25);
 
+        return years;
+    }
+
+    public List<String> getYears(String selectedYear, String lessonString)
+    {
+        List<String> years = null;
+        if (StringUtils.isNotBlank(selectedYear))
+        {
+            years = new ArrayList<String>();
+            years.add(selectedYear);
+        }
+        else
+        {
+            years = getTotalYears();
+        }
+
         if (StringUtils.containsIgnoreCase(lessonString, HI_FRIENDS_PREFIX))
         {
             int year = getHiFriendsNumber(lessonString);
             int lesson = getLessonNumber(lessonString);
 
-            if(lesson < 4)
+            if (lesson < 4)
             {
                 years.remove(HEISEI25);
             }
@@ -168,5 +162,48 @@ public class LessonsManagementImpl implements LessonsManagement
     public void resetPostCache()
     {
         cachedPosts = new HashMap<String, LessonPost>();
+    }
+
+
+    public String getGradeFromParameters(String... parameters)
+    {
+        for (String p : parameters)
+        {
+            String id = gradesMap().get(p);
+            if (StringUtils.isNotBlank(id))
+            {
+                return id;
+            }
+        }
+        return null;
+    }
+
+    private Map<String, String> gradesMap()
+    {
+        Map<String, String> map = new HashMap<String, String>();
+
+        map.put(SIXTH_GRADE_PARAM, SIXTH_GRADE);
+        map.put(FIFTH_GRADE_PARAM, FIFTH_GRADE);
+        map.put(FOURTH_GRADE_PARAM, FOURTH_GRADE);
+        map.put(THIRD_GRADE_PARAM, THIRD_GRADE);
+        map.put(SECOND_GRADE_PARAM, SECOND_GRADE);
+        map.put(FIRST_GRADE_PARAM, FIRST_GRADE);
+
+        return map;
+    }
+
+    public String getYearFromParameters(String... parameters)
+    {
+        for (String p : parameters)
+        {
+            for (String y : getTotalYears())
+            {
+                if (StringUtils.equalsIgnoreCase(p, y))
+                {
+                    return y;
+                }
+            }
+        }
+        return null;
     }
 }
