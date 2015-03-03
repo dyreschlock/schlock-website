@@ -1,7 +1,5 @@
 package com.schlock.website.components.blog.content.lessons;
 
-import com.schlock.website.entities.blog.LessonPost;
-import com.schlock.website.pages.Index;
 import com.schlock.website.services.blog.LessonsManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
@@ -9,11 +7,10 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.List;
 
-public class LessonGrade
+public class GradeDisplay
 {
     private static final String TITLE_SUFFIX = "-title";
 
@@ -41,9 +38,6 @@ public class LessonGrade
 
     @Inject
     private LessonsManagement lessonManagement;
-
-    @Inject
-    private PageRenderLinkSource linkSource;
 
 
 
@@ -84,44 +78,6 @@ public class LessonGrade
     {
         return getTitle(currentLesson);
     }
-
-    public String getLessonYear()
-    {
-        return getTitle(currentYear);
-    }
-
-
-    public boolean isHasLessonPlan()
-    {
-        LessonPost post = getPost();
-        return post != null &&
-                StringUtils.isNotBlank(post.getLessonPlanLink());
-    }
-
-    public boolean isHasFlashcards()
-    {
-        LessonPost post = getPost();
-        return post != null &&
-                StringUtils.isNotBlank(post.getFlashCardsLink());
-    }
-
-    public boolean isHasPost()
-    {
-        LessonPost post = getPost();
-        return post != null &&
-                post.isVisible();
-    }
-
-    public LessonPost getPost()
-    {
-        return lessonManagement.getPost(currentLesson, currentYear);
-    }
-
-    Object onSelectPost(String uuid)
-    {
-        return linkSource.createPageRenderLinkWithContext(Index.class, uuid);
-    }
-
 
 
 
