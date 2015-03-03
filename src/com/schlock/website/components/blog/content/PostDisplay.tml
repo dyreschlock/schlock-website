@@ -41,6 +41,11 @@
                         <t:eventlink class="${categoryCssClass}" event="selectProjectCategory" context="currentCategory.uuid">${currentCategory.name}</t:eventlink>
                     </t:loop>
                 </t:if>
+
+                <t:if test="lesson">
+                    //
+                    <t:eventlink class="${lessonCssClass}" event="selectLessonPage"><t:outputraw value="lessonYearGrade" /></t:eventlink>
+                </t:if>
             </div>
         </t:if>
         <div class="postBody" itemprop="articleBody">

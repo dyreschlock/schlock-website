@@ -3,7 +3,9 @@ package com.schlock.website.components.blog.content;
 import com.schlock.website.entities.blog.*;
 import com.schlock.website.pages.Projects;
 import com.schlock.website.pages.category.CategoryIndex;
+import com.schlock.website.pages.lessons.LessonsIndex;
 import com.schlock.website.services.DateFormatter;
+import com.schlock.website.services.blog.LessonsManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -30,6 +32,9 @@ public class PostDisplay
 
     @Inject
     private PageRenderLinkSource linkSource;
+
+    @Inject
+    private LessonsManagement lessonManagement;
 
     @Inject
     private PostManagement postManagement;
@@ -110,6 +115,38 @@ public class PostDisplay
     {
         return linkSource.createPageRenderLinkWithContext(Projects.class, categoryUuid);
     }
+
+
+    public boolean isLesson()
+    {
+        return post.isLessonPost();
+    }
+
+    public String getLessonCssClass()
+    {
+        String y = lessonManagement.getYear(post);
+        return y;
+    }
+
+    public String getLessonYearGrade()
+    {
+        String g = lessonManagement.getGrade(post);
+        String y = lessonManagement.getYear(post);
+
+        String text = messages.get(y) + " - " + messages.get(g);
+
+        String html = postManagement.wrapJapaneseTextInTags(text);
+        return html;
+    }
+
+    Object onSelectLessonPage()
+    {
+        String g = lessonManagement.getGradeParam(post);
+        String y = lessonManagement.getYear(post);
+
+        return linkSource.createPageRenderLinkWithContext(LessonsIndex.class, g, y);
+    }
+
 
     public String getCreatedDate()
     {

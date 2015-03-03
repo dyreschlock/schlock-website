@@ -1,5 +1,6 @@
 package com.schlock.website.services.blog;
 
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.LessonPost;
 
 import java.util.List;
@@ -27,10 +28,10 @@ public interface LessonsManagement
     public static final String FULL_DOWNLOAD = "year-download";
     public static final String SYLLABUS = "yearly-syllabus";
 
-    public static final String HEISEI25 = "25";
-    public static final String HEISEI26 = "26";
-    public static final String HEISEI27 = "27";
-    public static final String HEISEI28 = "28";
+    public static final String HEISEI25 = "h25";
+    public static final String HEISEI26 = "h26";
+    public static final String HEISEI27 = "h27";
+    public static final String HEISEI28 = "h28";
 
     public List<String> getGrades(String selected);
 
@@ -44,11 +45,20 @@ public interface LessonsManagement
 
     public List<String> getYears(String selectedYear, String lesson);
 
+
     public LessonPost getPost(String lesson, String year);
 
     public void resetPostCache();
 
-    public String getGradeFromParameters(String... parameters);
 
-    public String getYearFromParameters(String... parameters);
+    public String getGrade(String... parameters);
+
+    public String getYear(String... parameters);
+
+
+    public String getGrade(AbstractPost post);
+
+    public String getGradeParam(AbstractPost post);
+
+    public String getYear(AbstractPost post);
 }

@@ -1,5 +1,7 @@
 package com.schlock.website.services.blog.impl;
 
+import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.blog.LessonPost;
 import com.schlock.website.services.blog.LessonsManagement;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -136,6 +138,7 @@ public class LessonsManagementImpl implements LessonsManagement
         return Integer.parseInt(year);
     }
 
+
     public LessonPost getPost(String lesson, String year)
     {
         final String hash = year + lesson;
@@ -144,15 +147,14 @@ public class LessonsManagementImpl implements LessonsManagement
             return cachedPosts.get(hash);
         }
 
-        List<LessonPost> posts = postDAO.getLessonPostByKeyword(lesson);
+        List<String> keywords = Arrays.asList(lesson, year);
+
+        List<LessonPost> posts = postDAO.getLessonPostByKeywords(keywords);
 
         LessonPost post = null;
-        for(LessonPost p : posts)
+        if (!posts.isEmpty())
         {
-            if (StringUtils.containsIgnoreCase(p.getUuid(), year))
-            {
-                post = p;
-            }
+            post = posts.get(0);
         }
 
         cachedPosts.put(hash, post);
@@ -165,7 +167,7 @@ public class LessonsManagementImpl implements LessonsManagement
     }
 
 
-    public String getGradeFromParameters(String... parameters)
+    public String getGrade(String... parameters)
     {
         for (String p : parameters)
         {
@@ -178,21 +180,34 @@ public class LessonsManagementImpl implements LessonsManagement
         return null;
     }
 
+    private String getGradeParam(String gradeId)
+    {
+        for (String param : gradesMap().keySet())
+        {
+            String id = gradesMap().get(param);
+            if (StringUtils.equalsIgnoreCase(gradeId, id))
+            {
+                return param;
+            }
+        }
+        return null;
+    }
+
     private Map<String, String> gradesMap()
     {
         Map<String, String> map = new HashMap<String, String>();
 
         map.put(SIXTH_GRADE_PARAM, SIXTH_GRADE);
         map.put(FIFTH_GRADE_PARAM, FIFTH_GRADE);
-        map.put(FOURTH_GRADE_PARAM, FOURTH_GRADE);
-        map.put(THIRD_GRADE_PARAM, THIRD_GRADE);
-        map.put(SECOND_GRADE_PARAM, SECOND_GRADE);
-        map.put(FIRST_GRADE_PARAM, FIRST_GRADE);
+//        map.put(FOURTH_GRADE_PARAM, FOURTH_GRADE);
+//        map.put(THIRD_GRADE_PARAM, THIRD_GRADE);
+//        map.put(SECOND_GRADE_PARAM, SECOND_GRADE);
+//        map.put(FIRST_GRADE_PARAM, FIRST_GRADE);
 
         return map;
     }
 
-    public String getYearFromParameters(String... parameters)
+    public String getYear(String... parameters)
     {
         for (String p : parameters)
         {
@@ -204,6 +219,43 @@ public class LessonsManagementImpl implements LessonsManagement
                 }
             }
         }
-        return null;
+        return "";
+    }
+
+
+    public String getGrade(AbstractPost post)
+    {
+        for (String grade : getGrades(null))
+        {
+            for (Keyword keyword : post.getKeywords())
+            {
+                if (StringUtils.equalsIgnoreCase(grade, keyword.getName()))
+                {
+                    return grade;
+                }
+            }
+        }
+        return "";
+    }
+
+    public String getGradeParam(AbstractPost post)
+    {
+        String gradeId = getGrade(post);
+        return getGradeParam(gradeId);
+    }
+
+    public String getYear(AbstractPost post)
+    {
+        for (String year : getTotalYears())
+        {
+            for (Keyword keyword : post.getKeywords())
+            {
+                if (StringUtils.equalsIgnoreCase(year, keyword.getName()))
+                {
+                    return year;
+                }
+            }
+        }
+        return "";
     }
 }

@@ -67,8 +67,8 @@ public class LessonsIndex
 
     Object onActivate(String p1)
     {
-        this.selectedGrade = lessonManagement.getGradeFromParameters(p1);
-        this.selectedYear = lessonManagement.getYearFromParameters(p1);
+        this.selectedGrade = lessonManagement.getGrade(p1);
+        this.selectedYear = lessonManagement.getYear(p1);
 
         if (StringUtils.isBlank(this.selectedYear))
         {
@@ -81,8 +81,8 @@ public class LessonsIndex
 
     Object onActivate(String p1, String p2)
     {
-        this.selectedGrade = lessonManagement.getGradeFromParameters(p1, p2);
-        this.selectedYear = lessonManagement.getYearFromParameters(p1, p2);
+        this.selectedGrade = lessonManagement.getGrade(p1, p2);
+        this.selectedYear = lessonManagement.getYear(p1, p2);
 
         if (StringUtils.isBlank(this.selectedYear))
         {
@@ -113,7 +113,7 @@ public class LessonsIndex
 
     public String getYearCssClass()
     {
-        String css = "h" + currentYear + "year";
+        String css = currentYear;
         if (!StringUtils.equalsIgnoreCase(currentYear, selectedYear))
         {
             css += "Unselected";

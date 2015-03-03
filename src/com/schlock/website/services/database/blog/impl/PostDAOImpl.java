@@ -555,17 +555,33 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
     }
 
 
-    public List<LessonPost> getLessonPostByKeyword(String keyword)
+    public List<LessonPost> getLessonPostByKeywords(List<String> keywords)
     {
         String text =
                 "select distinct p " +
-                " from LessonPost p " +
-                " join p.keywords k " +
-                " where k.name = :keywordName ";
+                " from LessonPost p ";
 
+        for (int i = 0; i < keywords.size(); i++)
+        {
+            text += " join p.keywords k" + i + " ";
+        }
+
+
+        text += " where p.publishedLevel >= " + AbstractPost.LEVEL_NOT_VISIBLE + " ";
+
+
+        for (int i = 0; i < keywords.size(); i++)
+        {
+            text += " and k" + i + ".name = :keyword" + i + " ";
+        }
 
         Query query = session.createQuery(text);
-        query.setParameter("keywordName", keyword);
+
+        for (int i = 0; i < keywords.size(); i++)
+        {
+            String k = keywords.get(i);
+            query.setParameter("keyword" + i, k);
+        }
 
         return query.list();
     }

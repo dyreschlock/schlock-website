@@ -72,5 +72,5 @@ public interface PostDAO extends BaseDAO<AbstractPost>
     public List<LessonPost> getAllLessonPosts(boolean withUnpublished);
 
 
-    public List<LessonPost> getLessonPostByKeyword(String keyword);
+    public List<LessonPost> getLessonPostByKeywords(List<String> keywords);
 }

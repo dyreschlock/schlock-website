@@ -16,7 +16,6 @@ import java.util.List;
 public class LessonGrade
 {
     private static final String TITLE_SUFFIX = "-title";
-    private static final String YEAR_SUFFIX = "-year";
 
 
     @Parameter(required = true)
@@ -88,7 +87,7 @@ public class LessonGrade
 
     public String getLessonYear()
     {
-        return getTitle(currentYear + YEAR_SUFFIX);
+        return getTitle(currentYear);
     }
 
 
