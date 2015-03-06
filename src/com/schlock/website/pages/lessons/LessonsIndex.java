@@ -1,6 +1,8 @@
 package com.schlock.website.pages.lessons;
 
+import com.schlock.website.entities.blog.LessonPost;
 import com.schlock.website.entities.blog.Page;
+import com.schlock.website.pages.Index;
 import com.schlock.website.services.blog.LessonsManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -11,6 +13,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +33,9 @@ public class LessonsIndex
 
     @Inject
     private LessonsManagement lessonManagement;
+
+    @Inject
+    private PageRenderLinkSource linkSource;
 
     @Inject
     private Messages messages;
@@ -104,23 +110,32 @@ public class LessonsIndex
 
     Object onActivate(String p1, String p2, String p3)
     {
-        this.selectedGrade = lessonManagement.getGrade(p1, p2, p3);
-        this.selectedYear = lessonManagement.getYear(p1, p2);
+        String grade = lessonManagement.getGrade(p1, p2, p3);
+        String year = lessonManagement.getYear(p1, p2, p3);
 
-        if (StringUtils.isNotBlank(this.selectedYear))
+        this.selectedGrade = grade;
+        this.selectedYear = year;
+
+        lessonManagement.resetPostCache();
+
+        if (StringUtils.isNotBlank(year) &&
+                StringUtils.isNotBlank(grade))
         {
-            //get lesson
-
-            //get post
-
-            //redirect to post
+            String lesson = lessonManagement.getLesson(grade, p1, p2, p3);
+            if (StringUtils.isNotBlank(lesson))
+            {
+                LessonPost post = lessonManagement.getPost(lesson, grade, year);
+                if (post != null)
+                {
+                    return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid());
+                }
+            }
         }
         else
         {
             this.selectedYear = DEFAULT_YEAR;
         }
 
-        lessonManagement.resetPostCache();
         return true;
     }
 
