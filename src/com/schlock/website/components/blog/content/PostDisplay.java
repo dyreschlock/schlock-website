@@ -141,7 +141,7 @@ public class PostDisplay
 
     Object onSelectLessonPage()
     {
-        String g = lessonManagement.getGradeParam(post);
+        String g = lessonManagement.getGrade(post);
         String y = lessonManagement.getYear(post);
 
         return linkSource.createPageRenderLinkWithContext(LessonsIndex.class, g, y);

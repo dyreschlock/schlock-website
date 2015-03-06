@@ -7,23 +7,28 @@ import java.util.List;
 
 public interface LessonsManagement
 {
-    public static final String SIXTH_GRADE_PARAM = "sixth";
-    public static final String FIFTH_GRADE_PARAM = "fifth";
-    public static final String FOURTH_GRADE_PARAM = "fourth";
-    public static final String THIRD_GRADE_PARAM = "third";
-    public static final String SECOND_GRADE_PARAM = "second";
-    public static final String FIRST_GRADE_PARAM = "first";
-
-    public static final String SIXTH_GRADE = "6nen";
-    public static final String FIFTH_GRADE = "5nen";
-    public static final String FOURTH_GRADE = "4nen";
-    public static final String THIRD_GRADE = "3nen";
-    public static final String SECOND_GRADE = "2nen";
-    public static final String FIRST_GRADE = "1nen";
+    public static final String SIXTH_GRADE = "sixth";
+    public static final String FIFTH_GRADE = "fifth";
+    public static final String FOURTH_GRADE = "fourth";
+    public static final String THIRD_GRADE = "third";
+    public static final String SECOND_GRADE = "second";
+    public static final String FIRST_GRADE = "first";
 
     public static final String HI_FRIENDS_PREFIX = "hi-friends-";
-    public static final String LESSONS_PREFIX = "lesson-";
     public static final String CONJUNCTION = "+";
+    public static final String LESSONS_PREFIX = "lesson-";
+
+    public static final String LESSON_1_1 = "lesson-1-1";
+    public static final String LESSON_1_2 = "lesson-1-2";
+    public static final String LESSON_1 = "lesson-1";
+    public static final String LESSON_2 = "lesson-2";
+    public static final String LESSON_3 = "lesson-3";
+    public static final String LESSON_4 = "lesson-4";
+    public static final String LESSON_5 = "lesson-5";
+    public static final String LESSON_6 = "lesson-6";
+    public static final String LESSON_7 = "lesson-7";
+    public static final String LESSON_8 = "lesson-8";
+    public static final String LESSON_9 = "lesson-9";
 
     public static final String FULL_DOWNLOAD = "year-download";
     public static final String SYLLABUS = "yearly-syllabus";
@@ -33,17 +38,15 @@ public interface LessonsManagement
     public static final String HEISEI27 = "h27";
     public static final String HEISEI28 = "h28";
 
-    public List<String> getGrades(String selected);
+    public List<String> getYears();
+
+    public List<String> getGrades();
 
     public List<String> getLessons(String grade);
 
     public List<String> getYearlyItems(String grade);
 
     public List<String> getSpecialLessons(String grade);
-
-    public List<String> getTotalYears();
-
-    public List<String> getYears(String selectedYear, String lesson);
 
 
     public LessonPost getPost(String lesson, String year);
@@ -57,8 +60,6 @@ public interface LessonsManagement
 
 
     public String getGrade(AbstractPost post);
-
-    public String getGradeParam(AbstractPost post);
 
     public String getYear(AbstractPost post);
 }

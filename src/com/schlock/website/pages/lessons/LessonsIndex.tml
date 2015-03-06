@@ -5,16 +5,30 @@
     xmlns:l="tapestry-library:blog/content/lessons"
     >
 
-    <c:postdisplay post="page" cssClass="lessons">
+    <c:postdisplay post="page" cssClass="lessons blogPost">
     <t:zone t:id="postZone" id="postZone" t:update="show">
 
         <div class="postBody">
             <div class="fourColumns yearSelection">
-                <t:loop source="totalYears" value="currentYear" index="currentIndex">
-                    <div class="column yearTitle ${extraCss}">
+                <div class="selectionsTitle">${message:year-selection}</div>
+                <t:loop source="years" value="currentYear" index="currentIndex">
+                    <div class="column selectionTitle ${fourColumnExtraCss}">
 
                         <t:eventlink class="${yearCssClass}" event="selectYear" context="${currentYear}" zone="postZone">
                             <t:outputraw value="yearTitle" />
+                        </t:eventlink>
+                    </div>
+                </t:loop>
+                <br class="clr" />
+            </div>
+
+            <div class="sixColumns gradeSelection">
+                <div class="selectionsTitle">${message:grade-selection}</div>
+                <t:loop source="totalGrades" value="currentGrade" index="currentIndex">
+                    <div class="column selectionTitle ${sixColumnExtraCss}">
+
+                        <t:eventlink class="${gradeCssClass}" event="selectGrade" context="${currentGradeValue}" zone="postZone">
+                            <t:outputraw value="gradeTitle" />
                         </t:eventlink>
                     </div>
                 </t:loop>

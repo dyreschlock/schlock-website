@@ -10,15 +10,19 @@
 
 @backgroundcolor: #282828;
 
-@programmingcolor: #880060;     /* 318 */
-@artworkcolor: #008;            /* 240 */
-@audiovideocolor: #006088;      /* 198 */
-@writingcolor: #080;            /* 120 */
+@rainbow_red: #800;        /* 000 */
+@rainbow_mag: #880060;     /* 318 */
+@rainbow_voi: #008;        /* 240 */
+@rainbow_blu: #006088;     /* 198 */
+@rainbow_gre: #080;        /* 120 */
+@rainbow_oli: #608800;     /* 078 */
 
-@programmingcolorlight: #e3c3d9;
-@artworkcolorlight: #c3c3e3;
-@audiovideocolorlight: #c3d9e3;
-@writingcolorlight: #c3e3c3;
+@rainbow_red_light: #e3c3c3;
+@rainbow_mag_light: #e3c3d9;
+@rainbow_voi_light: #c3c3e3;
+@rainbow_blu_light: #c3d9e3;
+@rainbow_gre_light: #c3e3c3;
+@rainbow_oli_light: #d9e3c3;
 
 
 @app_width: 1024px;
@@ -241,38 +245,54 @@ h1, h2, h3
     {
         color: @linkcolor;
     }
-    a.programming, a.h28
+    a.sixth
     {
-        color: @programmingcolor;
+        color: @rainbow_red;
     }
-    a.artwork, a.h27
+    a.programming, a.h28, a.fifth
     {
-        color: @artworkcolor;
+        color: @rainbow_mag;
     }
-    a.audiovideo, a.h26
+    a.artwork, a.h27, a.fourth
     {
-        color: @audiovideocolor;
+        color: @rainbow_voi;
     }
-    a.writing, a.h25
+    a.audiovideo, a.h26, a.third
     {
-        color: @writingcolor;
+        color: @rainbow_blu;
+    }
+    a.writing, a.h25, a.second
+    {
+        color: @rainbow_gre;
+    }
+    a.first
+    {
+        color: @rainbow_oli;
     }
 
-    a.programmingUnselected, a.h28Unselected
+    a.sixthUnselected
     {
-        color: @programmingcolorlight;
+        color: @rainbow_red_light;
     }
-    a.artworkUnselected, a.h27Unselected
+    a.programmingUnselected, a.h28Unselected, a.fifthUnselected
     {
-        color: @artworkcolorlight;
+        color: @rainbow_mag_light;
     }
-    a.audiovideoUnselected, a.h26Unselected
+    a.artworkUnselected, a.h27Unselected, a.fourthUnselected
     {
-        color: @audiovideocolorlight;
+        color: @rainbow_voi_light;
     }
-    a.writingUnselected, a.h25Unselected
+    a.audiovideoUnselected, a.h26Unselected, a.thirdUnselected
     {
-        color: @writingcolorlight;
+        color: @rainbow_blu_light;
+    }
+    a.writingUnselected, a.h25Unselected, a.secondUnselected
+    {
+        color: @rainbow_gre_light;
+    }
+    a.firstUnselected
+    {
+        color: @rainbow_oli_light;
     }
 
     img
@@ -595,7 +615,16 @@ h1, h2, h3
         padding-top: 10px;
     }
 
-    div.yearTitle
+    div.selectionsTitle
+    {
+        font-family: @font2;
+        font-size: 0.7em;
+
+        text-align: center;
+
+        padding-bottom: 8px;
+    }
+    div.selectionTitle
     {
         font-family: @font2;
         font-weight: bold;
@@ -603,8 +632,13 @@ h1, h2, h3
 
     div.yearSelection
     {
+        padding-bottom: 15px;
+    }
+    div.gradeSelection
+    {
         padding-bottom: 40px;
     }
+
     div.gradeBody
     {
         padding-top: 20px;

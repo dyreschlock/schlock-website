@@ -9,20 +9,17 @@
         <div class="columns gradeBody">
             <div class="column">
 
-                <t:loop source="lessons" value="currentLesson">
-                    <l:lessondisplay grade="grade" lesson="currentLesson" year="year" />
-                </t:loop>
-            </div>
-            <div class="column twoColumnLast">
-
                 <t:loop source="yearlyItems" value="currentLesson">
                     <l:lessondisplay grade="grade" lesson="currentLesson" year="year" />
                 </t:loop>
 
 
+            </div>
+            <div class="column twoColumnLast">
 
-
-
+                <t:loop source="lessons" value="currentLesson">
+                    <l:lessondisplay grade="grade" lesson="currentLesson" year="year" />
+                </t:loop>
             </div>
             <br class="clr" />
         </div>

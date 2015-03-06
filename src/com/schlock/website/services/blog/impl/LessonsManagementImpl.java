@@ -20,17 +20,65 @@ public class LessonsManagementImpl implements LessonsManagement
         this.postDAO = postDAO;
     }
 
-
-    public List<String> getGrades(String selected)
+    public List<String> getYears()
     {
-        if (StringUtils.isBlank(selected))
-        {
-            return Arrays.asList(
-                    SIXTH_GRADE, FIFTH_GRADE //, FOURTH_GRADE, THIRD_GRADE, SECOND_GRADE, FIRST_GRADE
-            );
-        }
-        return Arrays.asList(selected);
+        List<String> years = new ArrayList<String>();
+//        years.add(HEISEI28);
+        years.add(HEISEI27);
+        years.add(HEISEI26);
+        years.add(HEISEI25);
+
+        return years;
     }
+
+    public List<String> getGrades()
+    {
+        List<String> grades = new ArrayList<String>();
+
+        grades.add(SIXTH_GRADE);
+        grades.add(FIFTH_GRADE);
+//        grades.add(FOURTH_GRADE);
+//        grades.add(THIRD_GRADE);
+//        grades.add(SECOND_GRADE);
+//        grades.add(FIRST_GRADE);
+
+        return grades;
+    }
+
+    private List<String> sixthGradeLessons()
+    {
+        List<String> lessons = new ArrayList<String>();
+
+        lessons.add(LESSON_1_1);
+        lessons.add(LESSON_1_2);
+        lessons.add(LESSON_2);
+        lessons.add(LESSON_3);
+        lessons.add(LESSON_4);
+        lessons.add(LESSON_5);
+        lessons.add(LESSON_6);
+        lessons.add(LESSON_7);
+        lessons.add(LESSON_8);
+
+        return lessons;
+    }
+
+    private List<String> fifthGradeLessons()
+    {
+        List<String> lessons = new ArrayList<String>();
+
+        lessons.add(LESSON_1);
+        lessons.add(LESSON_2);
+        lessons.add(LESSON_3);
+        lessons.add(LESSON_4);
+        lessons.add(LESSON_5);
+        lessons.add(LESSON_6);
+        lessons.add(LESSON_7);
+        lessons.add(LESSON_8);
+        lessons.add(LESSON_9);
+
+        return lessons;
+    }
+
 
     public List<String> getLessons(String grade)
     {
@@ -40,27 +88,20 @@ public class LessonsManagementImpl implements LessonsManagement
         {
             int hi_friends = 2;
 
-            String l1 = HI_FRIENDS_PREFIX + hi_friends + CONJUNCTION + LESSONS_PREFIX + 1;
-            lessons.add(l1 + "-1");
-            lessons.add(l1 + "-2");
-
-            for (int i = 2; i <= 8; i++)
+            for (String lesson : sixthGradeLessons())
             {
-                String str = HI_FRIENDS_PREFIX + hi_friends + CONJUNCTION + LESSONS_PREFIX + i;
-                lessons.add(str);
+                lessons.add(HI_FRIENDS_PREFIX + hi_friends + CONJUNCTION + lesson);
             }
         }
         else if (StringUtils.equalsIgnoreCase(grade, FIFTH_GRADE))
         {
             int hi_friends = 1;
 
-            for (int i = 1; i <= 9; i++)
+            for (String lesson : fifthGradeLessons())
             {
-                String str = HI_FRIENDS_PREFIX + hi_friends + CONJUNCTION + LESSONS_PREFIX + i;
-                lessons.add(str);
+                lessons.add(HI_FRIENDS_PREFIX + hi_friends + CONJUNCTION + lesson);
             }
         }
-
         return lessons;
     }
 
@@ -82,43 +123,6 @@ public class LessonsManagementImpl implements LessonsManagement
         List<String> lessons = new ArrayList<String>();
 
         return lessons;
-    }
-
-    public List<String> getTotalYears()
-    {
-        List<String> years = new ArrayList<String>();
-//        years.add(HEISEI28);
-        years.add(HEISEI27);
-        years.add(HEISEI26);
-        years.add(HEISEI25);
-
-        return years;
-    }
-
-    public List<String> getYears(String selectedYear, String lessonString)
-    {
-        List<String> years = null;
-        if (StringUtils.isNotBlank(selectedYear))
-        {
-            years = new ArrayList<String>();
-            years.add(selectedYear);
-        }
-        else
-        {
-            years = getTotalYears();
-        }
-
-        if (StringUtils.containsIgnoreCase(lessonString, HI_FRIENDS_PREFIX))
-        {
-            int year = getHiFriendsNumber(lessonString);
-            int lesson = getLessonNumber(lessonString);
-
-            if (lesson < 4)
-            {
-                years.remove(HEISEI25);
-            }
-        }
-        return years;
     }
 
 
@@ -171,47 +175,22 @@ public class LessonsManagementImpl implements LessonsManagement
     {
         for (String p : parameters)
         {
-            String id = gradesMap().get(p);
-            if (StringUtils.isNotBlank(id))
+            for (String g : getGrades())
             {
-                return id;
+                if (StringUtils.equalsIgnoreCase(p, g))
+                {
+                    return g;
+                }
             }
         }
         return null;
-    }
-
-    private String getGradeParam(String gradeId)
-    {
-        for (String param : gradesMap().keySet())
-        {
-            String id = gradesMap().get(param);
-            if (StringUtils.equalsIgnoreCase(gradeId, id))
-            {
-                return param;
-            }
-        }
-        return null;
-    }
-
-    private Map<String, String> gradesMap()
-    {
-        Map<String, String> map = new HashMap<String, String>();
-
-        map.put(SIXTH_GRADE_PARAM, SIXTH_GRADE);
-        map.put(FIFTH_GRADE_PARAM, FIFTH_GRADE);
-//        map.put(FOURTH_GRADE_PARAM, FOURTH_GRADE);
-//        map.put(THIRD_GRADE_PARAM, THIRD_GRADE);
-//        map.put(SECOND_GRADE_PARAM, SECOND_GRADE);
-//        map.put(FIRST_GRADE_PARAM, FIRST_GRADE);
-
-        return map;
     }
 
     public String getYear(String... parameters)
     {
         for (String p : parameters)
         {
-            for (String y : getTotalYears())
+            for (String y : getYears())
             {
                 if (StringUtils.equalsIgnoreCase(p, y))
                 {
@@ -225,7 +204,7 @@ public class LessonsManagementImpl implements LessonsManagement
 
     public String getGrade(AbstractPost post)
     {
-        for (String grade : getGrades(null))
+        for (String grade : getGrades())
         {
             for (Keyword keyword : post.getKeywords())
             {
@@ -238,15 +217,9 @@ public class LessonsManagementImpl implements LessonsManagement
         return "";
     }
 
-    public String getGradeParam(AbstractPost post)
-    {
-        String gradeId = getGrade(post);
-        return getGradeParam(gradeId);
-    }
-
     public String getYear(AbstractPost post)
     {
-        for (String year : getTotalYears())
+        for (String year : getYears())
         {
             for (Keyword keyword : post.getKeywords())
             {
