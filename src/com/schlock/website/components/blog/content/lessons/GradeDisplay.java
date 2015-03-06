@@ -57,7 +57,7 @@ public class GradeDisplay
 
     public List<String> getSpecialLessons()
     {
-        return lessonManagement.getSpecialLessons(grade);
+        return lessonManagement.getSpecialLessons(grade, year);
     }
 
 

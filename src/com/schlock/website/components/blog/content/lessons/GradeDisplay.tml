@@ -13,7 +13,9 @@
                     <l:lessondisplay grade="grade" lesson="currentLesson" year="year" />
                 </t:loop>
 
-
+                <t:loop source="specialLessons" value="currentLesson">
+                    <l:lessondisplay grade="grade" lesson="currentLesson" year="year" usePostName="true" />
+                </t:loop>
             </div>
             <div class="column twoColumnLast">
 

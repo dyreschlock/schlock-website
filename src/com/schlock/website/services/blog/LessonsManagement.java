@@ -18,6 +18,10 @@ public interface LessonsManagement
     public static final String CONJUNCTION = "+";
     public static final String LESSONS_PREFIX = "lesson-";
 
+    public static final String SPECIAL_TAG = "special";
+    public static final String SELF_INTRO = "self-intro";
+    public static final String CHRISTMAS = "christmas";
+
     public static final String LESSON_1_1 = "lesson-1-1";
     public static final String LESSON_1_2 = "lesson-1-2";
     public static final String LESSON_1 = "lesson-1";
@@ -46,10 +50,10 @@ public interface LessonsManagement
 
     public List<String> getYearlyItems(String grade);
 
-    public List<String> getSpecialLessons(String grade);
+    public List<String> getSpecialLessons(String grade, String year);
 
 
-    public LessonPost getPost(String lesson, String year);
+    public LessonPost getPost(String lesson, String grade, String year);
 
     public void resetPostCache();
 
@@ -57,6 +61,8 @@ public interface LessonsManagement
     public String getGrade(String... parameters);
 
     public String getYear(String... parameters);
+
+    public String getLesson(String grade, String... parameters);
 
 
     public String getGrade(AbstractPost post);

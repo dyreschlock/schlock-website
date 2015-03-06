@@ -24,6 +24,10 @@ public class LessonDisplay
     private String year;
 
 
+    @Parameter
+    private boolean usePostName = false;
+
+
     @Inject
     private PostManagement postManagement;
 
@@ -74,7 +78,7 @@ public class LessonDisplay
 
     public LessonPost getPost()
     {
-        return lessonManagement.getPost(lesson, year);
+        return lessonManagement.getPost(lesson, grade, year);
     }
 
     Object onSelectPost(String uuid)
@@ -85,6 +89,15 @@ public class LessonDisplay
 
     public String getLessonTitle()
     {
+        if (usePostName)
+        {
+            LessonPost post = getPost();
+            if (post != null)
+            {
+                String html = postManagement.wrapJapaneseTextInTags(post.getTitle());
+                return html;
+            }
+        }
         return getTitle(lesson);
     }
 

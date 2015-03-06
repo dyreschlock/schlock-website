@@ -79,6 +79,16 @@ public class LessonsManagementImpl implements LessonsManagement
         return lessons;
     }
 
+    private List<String> standardSpecialLessons()
+    {
+        List<String> lessons = new ArrayList<String>();
+
+        lessons.add(SELF_INTRO);
+        lessons.add(CHRISTMAS);
+
+        return lessons;
+    }
+
 
     public List<String> getLessons(String grade)
     {
@@ -118,9 +128,38 @@ public class LessonsManagementImpl implements LessonsManagement
         return items;
     }
 
-    public List<String> getSpecialLessons(String grade)
+    public List<String> getSpecialLessons(String grade, String year)
     {
         List<String> lessons = new ArrayList<String>();
+
+        List<String> keywords = Arrays.asList(grade, year);
+        List<LessonPost> posts = postDAO.getLessonPostByKeywords(keywords);
+
+        lessons.addAll(standardSpecialLessons());
+
+        for (LessonPost post : posts)
+        {
+            String uuid = post.getUuid();
+            if (StringUtils.containsIgnoreCase(uuid, SPECIAL_TAG))
+            {
+                boolean contains = false;
+                for (String special : standardSpecialLessons())
+                {
+                    if (StringUtils.containsIgnoreCase(uuid, special))
+                    {
+                        contains = true;
+                    }
+                }
+
+                if (!contains)
+                {
+                    int index = uuid.indexOf(SPECIAL_TAG) + SPECIAL_TAG.length() + 1;
+                    String name = uuid.substring(index);
+
+                    lessons.add(name);
+                }
+            }
+        }
 
         return lessons;
     }
@@ -143,15 +182,15 @@ public class LessonsManagementImpl implements LessonsManagement
     }
 
 
-    public LessonPost getPost(String lesson, String year)
+    public LessonPost getPost(String lesson, String grade, String year)
     {
-        final String hash = year + lesson;
+        final String hash = year + grade + lesson;
         if (cachedPosts.containsKey(hash))
         {
             return cachedPosts.get(hash);
         }
 
-        List<String> keywords = Arrays.asList(lesson, year);
+        List<String> keywords = Arrays.asList(lesson, grade, year);
 
         List<LessonPost> posts = postDAO.getLessonPostByKeywords(keywords);
 
@@ -195,6 +234,21 @@ public class LessonsManagementImpl implements LessonsManagement
                 if (StringUtils.equalsIgnoreCase(p, y))
                 {
                     return y;
+                }
+            }
+        }
+        return "";
+    }
+
+    public String getLesson(String grade, String... parameters)
+    {
+        for (String p : parameters)
+        {
+            for (String l : getLessons(grade))
+            {
+                if (StringUtils.containsIgnoreCase(l, p))
+                {
+                    return l;
                 }
             }
         }
