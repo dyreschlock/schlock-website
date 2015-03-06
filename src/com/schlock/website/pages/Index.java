@@ -68,10 +68,6 @@ public class Index
         {
             return AboutMe.class;
         }
-        else if (StringUtils.equalsIgnoreCase(Page.ALT_MATERIALS_UUID, parameter))
-        {
-            return Alt.class;
-        }
         else if (StringUtils.equalsIgnoreCase(Page.LESSON_PLANS_UUID, parameter))
         {
             return LessonsIndex.class;
