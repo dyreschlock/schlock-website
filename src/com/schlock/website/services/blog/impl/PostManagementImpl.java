@@ -158,7 +158,9 @@ public class PostManagementImpl implements PostManagement
         }
 
         cachedUpdateTime.put(page.getUuid(), updatedTime);
-        return updatedTime;
+
+        return null;
+//        return updatedTime;
     }
 
     public void regenerateAllPostHTML()
@@ -267,7 +269,14 @@ public class PostManagementImpl implements PostManagement
             {
                 String p = paragraphs2[j];
 
-                html += "<p>" + p + "</p>";
+                if (StringUtils.containsIgnoreCase(p, "<img src"))
+                {
+                    html += "<p class='img'>" + p + "</p>";
+                }
+                else
+                {
+                    html += "<p>" + p + "</p>";
+                }
             }
         }
 
