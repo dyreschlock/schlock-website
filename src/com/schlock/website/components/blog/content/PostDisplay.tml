@@ -44,7 +44,10 @@
 
                 <t:if test="lesson">
                     //
-                    <t:eventlink class="${lessonCssClass}" event="selectLessonPage"><t:outputraw value="lessonYearGrade" /></t:eventlink>
+                    <t:eventlink class="${lessonCssClass}" event="selectYearPage"><t:outputraw value="lessonYear" /></t:eventlink>
+                    <t:loop source="grades" value="currentGrade">
+                        .<t:eventlink class="${lessonCssClass}" event="selectYearGradePage" context="currentGrade"><t:outputraw value="lessonGrade" /></t:eventlink>
+                    </t:loop>
                 </t:if>
             </div>
         </t:if>

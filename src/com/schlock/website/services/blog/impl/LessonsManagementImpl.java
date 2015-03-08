@@ -270,7 +270,12 @@ public class LessonsManagementImpl implements LessonsManagement
 
     public String getLesson(String grade, String year, String... parameters)
     {
-        for (String l : getLessons(grade, year))
+        List<String> lessons = new ArrayList<String>();
+        lessons.addAll(getLessons(grade, year));
+        lessons.addAll(getSpecialLessons(grade, year));
+        lessons.addAll(getYearlyItems(grade));
+
+        for (String l : lessons)
         {
             for (String p : parameters)
             {
@@ -284,19 +289,21 @@ public class LessonsManagementImpl implements LessonsManagement
     }
 
 
-    public String getGrade(AbstractPost post)
+    public List<String> getGrades(AbstractPost post)
     {
+        List<String> grades = new ArrayList<String>();
+
         for (String grade : getGrades())
         {
             for (Keyword keyword : post.getKeywords())
             {
                 if (StringUtils.equalsIgnoreCase(grade, keyword.getName()))
                 {
-                    return grade;
+                    grades.add(grade);
                 }
             }
         }
-        return "";
+        return grades;
     }
 
     public String getYear(AbstractPost post)

@@ -65,6 +65,9 @@ public class PostDisplay
     @Property
     private AbstractCategory currentSubcategory;
 
+    @Property
+    private String currentGrade;
+
 
     public String getPostTitleHtml()
     {
@@ -128,23 +131,40 @@ public class PostDisplay
         return y;
     }
 
-    public String getLessonYearGrade()
+    public String getLessonYear()
     {
-        String g = lessonManagement.getGrade(post);
         String y = lessonManagement.getYear(post);
 
-        String text = messages.get(y) + " - " + messages.get(g);
-
+        String text = messages.get(y);
         String html = postManagement.wrapJapaneseTextInTags(text);
         return html;
     }
 
-    Object onSelectLessonPage()
+    public List<String> getGrades()
     {
-        String g = lessonManagement.getGrade(post);
+        return lessonManagement.getGrades(post);
+    }
+
+    Object onSelectYearPage()
+    {
         String y = lessonManagement.getYear(post);
 
-        return linkSource.createPageRenderLinkWithContext(LessonsIndex.class, g, y);
+        return linkSource.createPageRenderLinkWithContext(LessonsIndex.class, y);
+    }
+
+
+    public String getLessonGrade()
+    {
+        String text = messages.get(currentGrade);
+        String html = postManagement.wrapJapaneseTextInTags(text);
+        return html;
+    }
+
+    Object onSelectYearGradePage(String grade)
+    {
+        String y = lessonManagement.getYear(post);
+
+        return linkSource.createPageRenderLinkWithContext(LessonsIndex.class, y, grade);
     }
 
 

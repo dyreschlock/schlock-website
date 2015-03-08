@@ -67,7 +67,7 @@ public interface LessonsManagement
     public String getLesson(String grade, String year, String... parameters);
 
 
-    public String getGrade(AbstractPost post);
+    public List<String> getGrades(AbstractPost post);
 
     public String getYear(AbstractPost post);
 }
