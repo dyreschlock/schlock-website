@@ -37,10 +37,22 @@ public class LessonsManagementImpl implements LessonsManagement
 
         grades.add(SIXTH_GRADE);
         grades.add(FIFTH_GRADE);
-//        grades.add(FOURTH_GRADE);
-//        grades.add(THIRD_GRADE);
-//        grades.add(SECOND_GRADE);
-//        grades.add(FIRST_GRADE);
+        grades.add(FOURTH_GRADE);
+        grades.add(THIRD_GRADE);
+        grades.add(SECOND_GRADE);
+        grades.add(FIRST_GRADE);
+
+        return grades;
+    }
+
+    public List<String> getDisplayGrades()
+    {
+        List<String> grades = new ArrayList<String>();
+
+        grades.add(SIXTH_GRADE);
+        grades.add(FIFTH_GRADE);
+        grades.add(THIRD_GRADE + CONJUNCTION + FOURTH_GRADE);
+        grades.add(FIRST_GRADE + CONJUNCTION + SECOND_GRADE);
 
         return grades;
     }
@@ -112,6 +124,10 @@ public class LessonsManagementImpl implements LessonsManagement
                 lessons.add(HI_FRIENDS_PREFIX + hi_friends + CONJUNCTION + lesson);
             }
         }
+        else
+        {
+
+        }
         return lessons;
     }
 
@@ -131,36 +147,36 @@ public class LessonsManagementImpl implements LessonsManagement
     public List<String> getSpecialLessons(String grade, String year)
     {
         List<String> lessons = new ArrayList<String>();
-
-        List<String> keywords = Arrays.asList(grade, year);
-        List<LessonPost> posts = postDAO.getLessonPostByKeywords(keywords);
-
         lessons.addAll(standardSpecialLessons());
 
-        for (LessonPost post : posts)
+        if (StringUtils.equalsIgnoreCase(grade, SIXTH_GRADE) ||
+                StringUtils.equalsIgnoreCase(grade, FIFTH_GRADE))
         {
-            String uuid = post.getUuid();
-            if (StringUtils.containsIgnoreCase(uuid, SPECIAL_TAG))
+            List<LessonPost> posts = postDAO.getByYearGradeLessonKeyword(year, grade, null);
+            for (LessonPost post : posts)
             {
-                boolean contains = false;
-                for (String special : standardSpecialLessons())
+                String uuid = post.getUuid();
+                if (StringUtils.containsIgnoreCase(uuid, SPECIAL_TAG))
                 {
-                    if (StringUtils.containsIgnoreCase(uuid, special))
+                    boolean contains = false;
+                    for (String special : standardSpecialLessons())
                     {
-                        contains = true;
+                        if (StringUtils.containsIgnoreCase(uuid, special))
+                        {
+                            contains = true;
+                        }
                     }
-                }
 
-                if (!contains)
-                {
-                    int index = uuid.indexOf(SPECIAL_TAG) + SPECIAL_TAG.length() + 1;
-                    String name = uuid.substring(index);
+                    if (!contains)
+                    {
+                        int index = uuid.indexOf(SPECIAL_TAG) + SPECIAL_TAG.length() + 1;
+                        String name = uuid.substring(index);
 
-                    lessons.add(name);
+                        lessons.add(name);
+                    }
                 }
             }
         }
-
         return lessons;
     }
 
@@ -190,11 +206,9 @@ public class LessonsManagementImpl implements LessonsManagement
             return cachedPosts.get(hash);
         }
 
-        List<String> keywords = Arrays.asList(lesson, grade, year);
-
-        List<LessonPost> posts = postDAO.getLessonPostByKeywords(keywords);
-
         LessonPost post = null;
+
+        List<LessonPost> posts = postDAO.getByYearGradeLessonKeyword(year, grade, lesson);
         if (!posts.isEmpty())
         {
             post = posts.get(0);

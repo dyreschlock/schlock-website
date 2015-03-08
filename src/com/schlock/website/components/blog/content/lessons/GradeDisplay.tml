@@ -4,30 +4,26 @@
     >
 
     <div class="title"><t:outputraw value="gradeTitle" /></div>
+    <div class="columns gradeBody">
+        <div class="column">
 
-    <t:if test="fifthOrSixth">
-        <div class="columns gradeBody">
-            <div class="column">
-
+            <t:if test="fifthOrSixth">
                 <t:loop source="yearlyItems" value="currentLesson">
                     <l:lessondisplay grade="grade" lesson="currentLesson" year="year" />
                 </t:loop>
+            </t:if>
 
-                <t:loop source="specialLessons" value="currentLesson">
-                    <l:lessondisplay grade="grade" lesson="currentLesson" year="year" usePostName="true" />
-                </t:loop>
-            </div>
-            <div class="column twoColumnLast">
-
-                <t:loop source="lessons" value="currentLesson">
-                    <l:lessondisplay grade="grade" lesson="currentLesson" year="year" />
-                </t:loop>
-            </div>
-            <br class="clr" />
+            <t:loop source="specialLessons" value="currentLesson">
+                <l:lessondisplay grade="grade" lesson="currentLesson" year="year" usePostName="true" />
+            </t:loop>
         </div>
-    </t:if>
-    <t:if test="!fifthOrSixth">
+        <div class="column twoColumnLast">
 
-    </t:if>
+            <t:loop source="lessons" value="currentLesson">
+                <l:lessondisplay grade="grade" lesson="currentLesson" year="year" />
+            </t:loop>
+        </div>
+        <br class="clr" />
+    </div>
 
 </t:container>

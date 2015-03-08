@@ -3,6 +3,7 @@ package com.schlock.website.services.database.blog.impl;
 import com.schlock.website.entities.blog.*;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.blog.PostDAO;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -555,32 +556,60 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
     }
 
 
-    public List<LessonPost> getLessonPostByKeywords(List<String> keywords)
+    public List<LessonPost> getByYearGradeLessonKeyword(String year, String grade, String lesson)
+    {
+        List<String> grades = Arrays.asList(grade);
+        return getByYearGradeLessonKeyword(year, grades, lesson);
+    }
+
+    public List<LessonPost> getByYearGradeLessonKeyword(String year, List<String> grades, String lesson)
     {
         String text =
                 "select distinct p " +
-                " from LessonPost p ";
+                " from LessonPost p " +
+                " join p.keywords y " +
+                " join p.keywords g ";
 
-        for (int i = 0; i < keywords.size(); i++)
+        if (StringUtils.isNotBlank(lesson))
         {
-            text += " join p.keywords k" + i + " ";
+            text += " join p.keywords l ";
         }
-
-
         text += " where p.publishedLevel >= " + AbstractPost.LEVEL_NOT_VISIBLE + " ";
+        text += " and y.name = :year ";
 
+        text += " and (";
 
-        for (int i = 0; i < keywords.size(); i++)
+        boolean first = true;
+        for (int i = 0; i < grades.size(); i++)
         {
-            text += " and k" + i + ".name = :keyword" + i + " ";
+            if (!first)
+            {
+                text += " or ";
+            }
+            first = false;
+
+            text += " g.name = :grade" + i + " ";
         }
+        text += ") ";
+
+        if (StringUtils.isNotBlank(lesson))
+        {
+            text += " and l.name = :lesson ";
+        }
+        text += " order by p.created asc ";
+
 
         Query query = session.createQuery(text);
 
-        for (int i = 0; i < keywords.size(); i++)
+        query.setParameter("year", year);
+        for (int i = 0; i < grades.size(); i++)
         {
-            String k = keywords.get(i);
-            query.setParameter("keyword" + i, k);
+            String grade = grades.get(0);
+            query.setParameter("grade" + i, grade);
+        }
+        if (StringUtils.isNotBlank(lesson))
+        {
+            query.setParameter("lesson", lesson);
         }
 
         return query.list();

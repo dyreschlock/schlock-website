@@ -46,6 +46,8 @@ public interface LessonsManagement
 
     public List<String> getGrades();
 
+    public List<String> getDisplayGrades();
+
     public List<String> getLessons(String grade);
 
     public List<String> getYearlyItems(String grade);

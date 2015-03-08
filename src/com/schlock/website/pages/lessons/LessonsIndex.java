@@ -240,7 +240,7 @@ public class LessonsIndex
         {
             return Arrays.asList(selectedGrade);
         }
-        return lessonManagement.getGrades();
+        return lessonManagement.getDisplayGrades();
     }
 
     private String getTitle(String nlsKey)
