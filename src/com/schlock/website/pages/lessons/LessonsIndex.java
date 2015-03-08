@@ -21,6 +21,7 @@ import java.util.List;
 public class LessonsIndex
 {
     private static final String TITLE_SUFFIX = "-title";
+    private static final String NULL_VALUE = "null";
 
     private static final String DEFAULT_YEAR = LessonsManagement.HEISEI26;
     private static final String DEFAULT_GRADE = null;
@@ -192,17 +193,13 @@ public class LessonsIndex
         return css;
     }
 
-    Object onSelectYear(String year)
+    Object onSelectYearGrade(String year, String grade)
     {
+//        String year = parameters[0];
+//        String grade = parameters[1];
+
         this.selectedYear = year;
 
-        return postZone;
-    }
-
-    private static final String NULL_VALUE = "null";
-
-    Object onSelectGrade(String grade)
-    {
         if (StringUtils.equalsIgnoreCase(grade, NULL_VALUE))
         {
             this.selectedGrade = null;
@@ -212,6 +209,15 @@ public class LessonsIndex
             this.selectedGrade = grade;
         }
         return postZone;
+    }
+
+    public String getSelectedGradeValue()
+    {
+        if (StringUtils.isBlank(selectedGrade))
+        {
+            return NULL_VALUE;
+        }
+        return selectedGrade;
     }
 
     public String getCurrentGradeValue()

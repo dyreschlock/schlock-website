@@ -14,7 +14,7 @@
                 <t:loop source="years" value="currentYear" index="currentIndex">
                     <div class="column selectionTitle ${fourColumnExtraCss}">
 
-                        <t:eventlink class="${yearCssClass}" event="selectYear" context="${currentYear}" zone="postZone">
+                        <t:eventlink class="${yearCssClass}" event="selectYearGrade" context="[currentYear, selectedGradeValue]" zone="postZone">
                             <t:outputraw value="yearTitle" />
                         </t:eventlink>
                     </div>
@@ -27,7 +27,7 @@
                 <t:loop source="totalGrades" value="currentGrade" index="currentIndex">
                     <div class="column selectionTitle ${sixColumnExtraCss}">
 
-                        <t:eventlink class="${gradeCssClass}" event="selectGrade" context="${currentGradeValue}" zone="postZone">
+                        <t:eventlink class="${gradeCssClass}" event="selectYearGrade" context="[selectedYear, currentGradeValue]" zone="postZone">
                             <t:outputraw value="gradeTitle" />
                         </t:eventlink>
                     </div>
