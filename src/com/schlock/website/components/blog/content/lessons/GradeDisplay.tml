@@ -20,7 +20,7 @@
         <div class="column twoColumnLast">
 
             <t:loop source="lessons" value="currentLesson">
-                <l:lessondisplay grade="grade" lesson="currentLesson" year="year" />
+                <l:lessondisplay grade="grade" lesson="currentLesson" year="year" usePostName="notFifthOrSixth" />
             </t:loop>
         </div>
         <br class="clr" />

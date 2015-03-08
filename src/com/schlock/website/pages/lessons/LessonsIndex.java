@@ -121,7 +121,7 @@ public class LessonsIndex
         if (StringUtils.isNotBlank(year) &&
                 StringUtils.isNotBlank(grade))
         {
-            String lesson = lessonManagement.getLesson(grade, p1, p2, p3);
+            String lesson = lessonManagement.getLesson(grade, year, p1, p2, p3);
             if (StringUtils.isNotBlank(lesson))
             {
                 LessonPost post = lessonManagement.getPost(lesson, grade, year);

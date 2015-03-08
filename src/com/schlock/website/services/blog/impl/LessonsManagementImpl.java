@@ -102,7 +102,7 @@ public class LessonsManagementImpl implements LessonsManagement
     }
 
 
-    public List<String> getLessons(String grade)
+    public List<String> getLessons(String grade, String year)
     {
         List<String> lessons = new ArrayList<String>();
 
@@ -126,7 +126,20 @@ public class LessonsManagementImpl implements LessonsManagement
         }
         else
         {
+            List<String> grades = Arrays.asList(StringUtils.split(grade, CONJUNCTION));
+            List<LessonPost> posts = postDAO.getByYearGradeLessonKeyword(year, grades, null);
 
+            for (LessonPost post : posts)
+            {
+                String uuid = post.getUuid();
+                if (StringUtils.containsIgnoreCase(uuid, LESSONS_PREFIX))
+                {
+                    int index = uuid.lastIndexOf(LESSONS_PREFIX) + LESSONS_PREFIX.length();
+                    String name = uuid.substring(index);
+
+                    lessons.add(name);
+                }
+            }
         }
         return lessons;
     }
@@ -206,9 +219,10 @@ public class LessonsManagementImpl implements LessonsManagement
             return cachedPosts.get(hash);
         }
 
-        LessonPost post = null;
+        List<String> grades = Arrays.asList(StringUtils.split(grade, CONJUNCTION));
+        List<LessonPost> posts = postDAO.getByYearGradeLessonKeyword(year, grades, lesson);
 
-        List<LessonPost> posts = postDAO.getByYearGradeLessonKeyword(year, grade, lesson);
+        LessonPost post = null;
         if (!posts.isEmpty())
         {
             post = posts.get(0);
@@ -226,9 +240,9 @@ public class LessonsManagementImpl implements LessonsManagement
 
     public String getGrade(String... parameters)
     {
-        for (String p : parameters)
+        for (String g : getGrades())
         {
-            for (String g : getGrades())
+            for (String p : parameters)
             {
                 if (StringUtils.equalsIgnoreCase(p, g))
                 {
@@ -241,9 +255,9 @@ public class LessonsManagementImpl implements LessonsManagement
 
     public String getYear(String... parameters)
     {
-        for (String p : parameters)
+        for (String y : getYears())
         {
-            for (String y : getYears())
+            for (String p : parameters)
             {
                 if (StringUtils.equalsIgnoreCase(p, y))
                 {
@@ -254,11 +268,11 @@ public class LessonsManagementImpl implements LessonsManagement
         return "";
     }
 
-    public String getLesson(String grade, String... parameters)
+    public String getLesson(String grade, String year, String... parameters)
     {
-        for (String p : parameters)
+        for (String l : getLessons(grade, year))
         {
-            for (String l : getLessons(grade))
+            for (String p : parameters)
             {
                 if (StringUtils.containsIgnoreCase(l, p))
                 {

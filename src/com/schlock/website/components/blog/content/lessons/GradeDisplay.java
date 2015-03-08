@@ -45,9 +45,14 @@ public class GradeDisplay
                 StringUtils.equalsIgnoreCase(LessonsManagement.FIFTH_GRADE, grade);
     }
 
+    public boolean isNotFifthOrSixth()
+    {
+        return !isFifthOrSixth();
+    }
+
     public List<String> getLessons()
     {
-        return lessonManagement.getLessons(grade);
+        return lessonManagement.getLessons(grade, year);
     }
 
     public List<String> getYearlyItems()

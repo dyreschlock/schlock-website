@@ -48,7 +48,7 @@ public interface LessonsManagement
 
     public List<String> getDisplayGrades();
 
-    public List<String> getLessons(String grade);
+    public List<String> getLessons(String grade, String year);
 
     public List<String> getYearlyItems(String grade);
 
@@ -64,7 +64,7 @@ public interface LessonsManagement
 
     public String getYear(String... parameters);
 
-    public String getLesson(String grade, String... parameters);
+    public String getLesson(String grade, String year, String... parameters);
 
 
     public String getGrade(AbstractPost post);
