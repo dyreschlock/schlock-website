@@ -151,8 +151,8 @@ public class LessonsManagementImpl implements LessonsManagement
         if (StringUtils.equalsIgnoreCase(grade, SIXTH_GRADE) ||
                 StringUtils.equalsIgnoreCase(grade, FIFTH_GRADE))
         {
-            items.add(FULL_DOWNLOAD);
             items.add(SYLLABUS);
+            items.add(FULL_DOWNLOAD);
         }
         return items;
     }

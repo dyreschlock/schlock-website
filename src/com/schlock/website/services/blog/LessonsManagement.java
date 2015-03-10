@@ -35,7 +35,7 @@ public interface LessonsManagement
     public static final String LESSON_9 = "lesson-9";
 
     public static final String FULL_DOWNLOAD = "year-download";
-    public static final String SYLLABUS = "yearly-syllabus";
+    public static final String SYLLABUS = "syllabus";
 
     public static final String HEISEI25 = "h25";
     public static final String HEISEI26 = "h26";
