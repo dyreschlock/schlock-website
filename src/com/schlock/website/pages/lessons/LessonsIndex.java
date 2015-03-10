@@ -23,7 +23,7 @@ public class LessonsIndex
     private static final String TITLE_SUFFIX = "-title";
     private static final String NULL_VALUE = "null";
 
-    private static final String DEFAULT_YEAR = LessonsManagement.HEISEI26;
+    private static final String DEFAULT_YEAR = LessonsManagement.HEISEI27;
     private static final String DEFAULT_GRADE = null;
 
     @Inject
