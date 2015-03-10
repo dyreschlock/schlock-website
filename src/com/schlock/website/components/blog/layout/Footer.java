@@ -5,6 +5,7 @@ import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
+import com.schlock.website.pages.AboutMe;
 import com.schlock.website.pages.Feed;
 import com.schlock.website.services.database.blog.PostDAO;
 import com.schlock.website.services.database.blog.impl.PostDAOImpl;
@@ -69,6 +70,11 @@ public class Footer
 
         List<Page> pages = postDAO.getAllPages(unpublished);
         return pages;
+    }
+
+    Object onAboutMe()
+    {
+        return AboutMe.class;
     }
 
     public String getRssUrl()
