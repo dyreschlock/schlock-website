@@ -51,21 +51,39 @@
                 </t:if>
             </div>
         </t:if>
+
+        <t:if test="hasLinks">
+            <div class="lessonMaterials">
+                <t:if test="hasLessonPlan">
+
+                    <div class="material plan" style="background-image: url(${lessonPlanImage})">
+
+                        <a href="${post.lessonPlanLink}" />
+
+                        <span><!-- overlay effect --></span>
+
+                        <div class="title">${message:lesson-plan}</div>
+                    </div>
+                </t:if>
+                <t:if test="hasFlashCards">
+
+                    <div class="material cards" style="background-image: url(${flashCardsImage})">
+
+                        <a href="${post.flashCardsLink}" />
+
+                        <span><!-- overlay effect --></span>
+
+                        <div class="title">${message:flash-cards}</div>
+
+                    </div>
+                </t:if>
+            </div>
+            <br class="clr" />
+        </t:if>
+
         <div class="postBody" itemprop="articleBody">
             <t:outputraw value="post.bodyHTML" />
         </div>
-
-        <t:if test="hasLinks">
-            <div class="links">
-                <t:if test="hasLessonPlan">
-                    <a href="${post.lessonPlanLink}">${message:lesson-plan}</a>
-                </t:if>
-                <t:if test="hasFlashCards">
-                    <t:if test="hasLessonPlan"> / </t:if>
-                    <a href="${post.flashCardsLink}">${message:flash-cards}</a>
-                </t:if>
-            </div>
-        </t:if>
 
         <t:body />
     </div>

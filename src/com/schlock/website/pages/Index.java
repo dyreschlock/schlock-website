@@ -5,7 +5,6 @@ import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.apps.SubtitleFixer;
 import com.schlock.website.pages.apps.kendo.KendoIndex;
-import com.schlock.website.pages.lessons.LessonsIndex;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
@@ -67,14 +66,6 @@ public class Index
         else if (StringUtils.equalsIgnoreCase(Page.ABOUT_ME_UUID, parameter))
         {
             return AboutMe.class;
-        }
-        else if (StringUtils.equalsIgnoreCase(Page.LESSON_PLANS_UUID, parameter))
-        {
-            return LessonsIndex.class;
-        }
-        else if (StringUtils.equalsIgnoreCase(Page.PROJECTS_UUID, parameter))
-        {
-            return Projects.class;
         }
         else if (StringUtils.equalsIgnoreCase(AbstractPost.SUBTITLES_UUID, parameter))
         {

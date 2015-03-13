@@ -3,20 +3,27 @@ package com.schlock.website.services.blog.impl;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.blog.LessonPost;
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.LessonsManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 
+import java.io.File;
 import java.util.*;
 
 public class LessonsManagementImpl implements LessonsManagement
 {
+    private final DeploymentContext deploymentContext;
+
     private final PostDAO postDAO;
 
     private Map<String, LessonPost> cachedPosts;
 
-    public LessonsManagementImpl(PostDAO postDAO)
+    public LessonsManagementImpl(DeploymentContext deploymentContext,
+                                    PostDAO postDAO)
     {
+        this.deploymentContext = deploymentContext;
+
         this.postDAO = postDAO;
     }
 
@@ -317,6 +324,37 @@ public class LessonsManagementImpl implements LessonsManagement
                     return year;
                 }
             }
+        }
+        return "";
+    }
+
+
+    public String getLessonPlanImageLink(AbstractPost post)
+    {
+        String localPath = deploymentContext.imageLocation();
+        localPath += LESSON_PLAN_FOLDER + "/" + post.getUuid() + ".jpg";
+
+        return getLink(localPath);
+    }
+
+    public String getFlashCardImageLink(AbstractPost post)
+    {
+        String localPath = deploymentContext.imageLocation();
+        localPath += FLASH_CARDS_FOLDER + "/" + post.getUuid() + ".jpg";
+
+        return getLink(localPath);
+    }
+
+    public String getLink(String localPath)
+    {
+        File file = new File(localPath);
+        if (file.exists())
+        {
+            String path = file.getAbsolutePath();
+            int i = path.indexOf(DeploymentContext.IMAGE_DIR);
+
+            path = "/" + path.substring(i);
+            return path;
         }
         return "";
     }

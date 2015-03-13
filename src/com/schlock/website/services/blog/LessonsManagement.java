@@ -42,6 +42,10 @@ public interface LessonsManagement
     public static final String HEISEI27 = "h27";
     public static final String HEISEI28 = "h28";
 
+    public static final String LESSON_PLAN_FOLDER = "lesson_plans";
+    public static final String FLASH_CARDS_FOLDER = "flash_cards";
+
+
     public List<String> getYears();
 
     public List<String> getGrades();
@@ -70,4 +74,9 @@ public interface LessonsManagement
     public List<String> getGrades(AbstractPost post);
 
     public String getYear(AbstractPost post);
+
+
+    public String getLessonPlanImageLink(AbstractPost post);
+
+    public String getFlashCardImageLink(AbstractPost post);
 }

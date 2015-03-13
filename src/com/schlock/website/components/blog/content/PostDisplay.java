@@ -189,9 +189,19 @@ public class PostDisplay
         return StringUtils.isNotBlank(post.getLessonPlanLink());
     }
 
+    public String getLessonPlanImage()
+    {
+        return lessonManagement.getLessonPlanImageLink(post);
+    }
+
     public boolean isHasFlashCards()
     {
         return StringUtils.isNotBlank(post.getFlashCardsLink());
+    }
+
+    public String getFlashCardsImage()
+    {
+        return lessonManagement.getFlashCardImageLink(post);
     }
 
     public boolean isHasPreviousNextPosts()

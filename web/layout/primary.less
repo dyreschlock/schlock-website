@@ -358,15 +358,84 @@ h1, h2, h3
             text-decoration: underline;
         }
     }
-    div.links
+    div.lessonMaterials
     {
-        margin-top: 40px;
+        padding-top: 60px;
 
-        font-size: 1.1em;
-
-        a
+        div.material
         {
-            font-family: @font2;
+            position: relative;
+
+            width: 45%;
+
+            height: 180px;
+            max-height: 180px;
+            min-height: 180px;
+
+            border: 1px solid #333;
+
+            background-color: #fff;
+            background-size: 90%;
+
+            a
+            {
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                width: 100%;
+                height: 100%;
+
+                z-index: 10;
+            }
+
+            span
+            {
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                width: 100%;
+                height: 100%;
+
+                background-color: #fff;
+                opacity: 0.5;
+
+                z-index: 0;
+            }
+
+            div.title
+            {
+                position: absolute;
+                bottom: 10px;
+                left: 0;
+                right: 0;
+
+                font-family: @font2;
+                font-weight: bold;
+                font-size: 1.3em;
+
+                z-index: 5;
+            }
+        }
+        div.plan
+        {
+            background-position: top center;
+
+            float: left;
+        }
+        div.cards
+        {
+            background-position: center;
+
+            float: right;
+        }
+        div.material:hover
+        {
+            span
+            {
+                opacity: 0;
+            }
         }
     }
 
