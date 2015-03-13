@@ -53,7 +53,7 @@
         </t:if>
 
         <t:if test="hasLinks">
-            <div class="lessonMaterials">
+            <div id="lessonMaterials">
                 <t:if test="hasLessonPlan">
 
                     <div class="material plan" style="background-image: url(${lessonPlanImage})">
