@@ -49,7 +49,7 @@ public class Index
     {
         viewState.reset();
 
-        AbstractPost post = postDAO.getMostRecentPost(false, null);
+        AbstractPost post = postDAO.getMostRecentFrontPagePost(null);
         return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid());
     }
 

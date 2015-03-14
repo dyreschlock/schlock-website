@@ -23,12 +23,12 @@ public interface PostDAO extends BaseDAO<AbstractPost>
     public Set<String> getAllUuids();
 
 
+    public Post getMostRecentFrontPagePost(Long categoryId);
+
     public Post getMostRecentPost(boolean withUnpublished, Long categoryId);
 
 
     public List<Post> getMostRecentPostsWithGallery(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
-
-    public List<Post> getMostRecentPinnedPostsWithGallery(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
 
 
     public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId);
