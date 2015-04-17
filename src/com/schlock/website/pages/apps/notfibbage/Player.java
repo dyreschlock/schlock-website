@@ -2,18 +2,17 @@ package com.schlock.website.pages.apps.notfibbage;
 
 import com.schlock.website.services.apps.notfibbage.NotfibbageManagement;
 import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 public class Player
 {
-
     @Inject
     private NotfibbageManagement management;
 
-
     @Persist
+    @Property
     private String playerName;
-
 
 
     Object onActivate()
@@ -26,7 +25,6 @@ public class Player
                 this.playerName = null;
             }
         }
-
         return true;
     }
 
@@ -40,5 +38,11 @@ public class Player
 
         this.playerName = parameter;
         return true;
+    }
+
+
+    public boolean hasPlayerName()
+    {
+        return this.playerName != null;
     }
 }

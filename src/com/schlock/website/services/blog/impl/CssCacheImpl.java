@@ -49,6 +49,14 @@ public class CssCacheImpl implements CssCache
         return cachedSecondary;
     }
 
+    public String getAllCss()
+    {
+        String primary = getPrimaryCss();
+        String secondary = getSecondaryCss();
+
+        return primary + secondary;
+    }
+
 
     private String createCss(final List<String> cssFiles)
     {
