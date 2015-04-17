@@ -1,6 +1,6 @@
-package com.schlock.website.services.notfibbage.impl;
+package com.schlock.website.services.apps.notfibbage.impl;
 
-import com.schlock.website.services.notfibbage.NotfibbageManagement;
+import com.schlock.website.services.apps.notfibbage.NotfibbageManagement;
 
 import java.util.HashMap;
 import java.util.Map;

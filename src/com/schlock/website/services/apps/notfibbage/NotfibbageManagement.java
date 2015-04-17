@@ -1,4 +1,4 @@
-package com.schlock.website.services.notfibbage;
+package com.schlock.website.services.apps.notfibbage;
 
 public interface NotfibbageManagement
 {

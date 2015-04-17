@@ -1,6 +1,6 @@
-package com.schlock.website.pages.notfibbage;
+package com.schlock.website.pages.apps.notfibbage;
 
-import com.schlock.website.services.notfibbage.NotfibbageManagement;
+import com.schlock.website.services.apps.notfibbage.NotfibbageManagement;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.ioc.annotations.Inject;
 

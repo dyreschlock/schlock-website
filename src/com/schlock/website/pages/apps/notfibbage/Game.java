@@ -1,4 +1,4 @@
-package com.schlock.website.pages.notfibbage;
+package com.schlock.website.pages.apps.notfibbage;
 
 public class Game
 {
