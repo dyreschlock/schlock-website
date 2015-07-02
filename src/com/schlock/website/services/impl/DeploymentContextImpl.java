@@ -24,6 +24,7 @@ public class DeploymentContextImpl implements DeploymentContext
             Arrays.asList(
                     "theschlock.com",
                     "localhost",
+                    "jhendricks.local",
                     "feedly.com",
                     "facebook.com"
             );
