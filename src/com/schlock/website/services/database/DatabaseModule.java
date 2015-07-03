@@ -3,6 +3,8 @@ package com.schlock.website.services.database;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.database.apps.kendo.ExamQuestionDAO;
 import com.schlock.website.services.database.apps.kendo.impl.ExamQuestionDAOImpl;
+import com.schlock.website.services.database.apps.notfibbage.NotFibbageQuestionDAO;
+import com.schlock.website.services.database.apps.notfibbage.impl.NotFibbageQuestionDAOImpl;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -23,6 +25,8 @@ public class DatabaseModule
         binder.bind(KeywordDAO.class, KeywordDAOImpl.class);
 
         binder.bind(ExamQuestionDAO.class, ExamQuestionDAOImpl.class);
+
+        binder.bind(NotFibbageQuestionDAO.class, NotFibbageQuestionDAOImpl.class);
     }
 
 
