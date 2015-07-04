@@ -1,11 +1,17 @@
 package com.schlock.website.components.apps.notfibbage;
 
 import com.schlock.website.services.blog.CssCache;
+import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-public class GameLayout
+public class NotFibbageLayout
 {
+    @Parameter(required = true)
+    @Property
+    private String title;
+
     @Inject
     private CssCache cssCache;
 
@@ -14,11 +20,6 @@ public class GameLayout
 
 
 
-
-    public String getTitle()
-    {
-        return messages.get("title");
-    }
 
     public String getCss()
     {
