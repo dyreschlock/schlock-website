@@ -1,4 +1,4 @@
-package com.schlock.website.components.apps.notfibbage.layout;
+package com.schlock.website.components.apps.notfibbage;
 
 import com.schlock.website.services.blog.CssCache;
 import org.apache.tapestry5.ioc.Messages;
