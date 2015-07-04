@@ -36,5 +36,6 @@
         <mapping resource="com/schlock/website/entities/apps/kendo/ExamQuestion.hbm.xml" />
 
         <mapping resource="com/schlock/website/entities/apps/notfibbage/NotFibbageQuestion.hbm.xml" />
+        <mapping resource="com/schlock/website/entities/apps/notfibbage/NotFibbageCategory.hbm.xml" />
     </session-factory>
 </hibernate-configuration>

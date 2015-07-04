@@ -2,15 +2,12 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping default-access="field" >
-    <class name="com.schlock.website.entities.apps.notfibbage.NotFibbageQuestion" table="not_fibbage_questions">
+    <class name="com.schlock.website.entities.apps.notfibbage.NotFibbageCategory" table="not_fibbage_category">
         <id name="id" unsaved-value="null">
             <generator class="native" />
         </id>
 
-        <property name="text" not-null="true" />
-        <property name="answer" not-null="true" />
-
-        <many-to-one name="category" class="com.schlock.website.entities.apps.notfibbage.NotFibbageCategory" />
+        <property name="title" not-null="true" />
 
     </class>
 </hibernate-mapping>

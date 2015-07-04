@@ -7,6 +7,8 @@ public class NotFibbageQuestion extends Persisted
     private String text;
     private String answer;
 
+    private NotFibbageCategory category;
+
 
     public NotFibbageQuestion()
     {
@@ -31,5 +33,15 @@ public class NotFibbageQuestion extends Persisted
     public void setText(String text)
     {
         this.text = text;
+    }
+
+    public NotFibbageCategory getCategory()
+    {
+        return category;
+    }
+
+    public void setCategory(NotFibbageCategory category)
+    {
+        this.category = category;
     }
 }
