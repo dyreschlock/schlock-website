@@ -28,4 +28,33 @@ public class Game
     }
 
 
+    public boolean isRegisterPhase()
+    {
+        return controller.isRegisterPhase();
+    }
+
+    public boolean isQuestionPhase()
+    {
+        return controller.isQuestionPhase();
+    }
+
+    public boolean isAnswerPhase()
+    {
+        return controller.isAnswerPhase();
+    }
+
+    public boolean isResultsPhase()
+    {
+        return controller.isResultsPhase();
+    }
+
+    public boolean isStandingsPhase()
+    {
+        return controller.isStandingsPhase();
+    }
+
+    public boolean isFinalPhase()
+    {
+        return controller.isFinalPhase();
+    }
 }

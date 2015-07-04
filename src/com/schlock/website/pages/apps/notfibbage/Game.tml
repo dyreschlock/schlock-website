@@ -1,9 +1,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html t:type="apps/notfibbage/notfibbagelayout" title="title"
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-    xmlns:c="tapestry-library:apps/notfibbage/content"
+    xmlns:g="tapestry-library:apps/notfibbage/content/game"
     >
 
+    <t:delegate to="block:phaseBlock" />
 
+
+    <t:block t:id="phaseBlock">
+        <t:if test="registerPhase">
+            <g:gameRegisterPhase />
+        </t:if>
+        <t:if test="questionPhase">
+            <g:gameQuestionPhase />
+        </t:if>
+        <t:if test="answerPhase">
+            <g:gameAnswerPhase />
+        </t:if>
+        <t:if test="resultsPhase">
+            <g:gameResultsPhase />
+        </t:if>
+        <t:if test="standingsPhase">
+            <g:gameStandingsPhase />
+        </t:if>
+        <t:if test="finalPhase">
+            <g:gameFinalPhase />
+        </t:if>
+
+    </t:block>
 
 </html>
