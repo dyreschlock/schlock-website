@@ -1,6 +1,6 @@
 package com.schlock.website.components.apps.notfibbage.layout;
 
-import com.schlock.website.services.apps.notfibbage.NotfibbageManagement;
+import com.schlock.website.services.apps.notfibbage.NotFibbageManagement;
 import com.schlock.website.services.blog.CssCache;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
@@ -14,7 +14,7 @@ public class PlayerLayout
 
 
     @Inject
-    private NotfibbageManagement management;
+    private NotFibbageManagement management;
 
     @Inject
     private CssCache cssCache;

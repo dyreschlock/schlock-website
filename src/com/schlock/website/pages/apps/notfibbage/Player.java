@@ -1,6 +1,6 @@
 package com.schlock.website.pages.apps.notfibbage;
 
-import com.schlock.website.services.apps.notfibbage.NotfibbageManagement;
+import com.schlock.website.services.apps.notfibbage.NotFibbageManagement;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -8,7 +8,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 public class Player
 {
     @Inject
-    private NotfibbageManagement management;
+    private NotFibbageManagement management;
 
     @Persist
     @Property
