@@ -32,8 +32,19 @@ public class NotFibbageControllerImpl implements NotFibbageController
     }
 
 
+    public String getGameState()
+    {
+        return currentPhase;
+    }
+
+    public String getPlayerState(String playerName)
+    {
+        String state = currentPhase + playerName;
 
 
+
+        return state;
+    }
 
     public boolean isRegisterPhase()
     {

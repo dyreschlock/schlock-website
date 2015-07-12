@@ -1,10 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html t:type="apps/notfibbage/notfibbagelayout" title="title"
-    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-    xmlns:g="tapestry-library:apps/notfibbage/content/game"
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:g="tapestry-library:apps/notfibbage/content/game"
     >
 
     <t:zone t:id="contentZone" id="contentZone">
+
+        HI!
 
         <t:delegate to="block:phaseBlock" />
     </t:zone>
@@ -28,7 +30,6 @@
         <t:if test="finalPhase">
             <g:gameFinalPhase />
         </t:if>
-
     </t:block>
 
 </html>

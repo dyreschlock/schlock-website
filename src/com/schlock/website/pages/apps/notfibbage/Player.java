@@ -45,14 +45,17 @@ public class Player
 
     void afterRender()
     {
-        JSONObject spec = new JSONObject();
-        spec.put("currentState", getCurrentState());
-        spec.put("refreshRate", REFRESH_RATE_SECONDS);
+        if (StringUtils.isNotBlank(this.playerName))
+        {
+            JSONObject spec = new JSONObject();
+            spec.put("currentState", getCurrentState());
+            spec.put("refreshRate", REFRESH_RATE_SECONDS);
 
-        spec.put("contentZoneId", contentZone.getClientId());
-        spec.put("refreshUrl", resources.createEventLink("refreshZone").toURI());
-        spec.put("updateUrl", resources.createEventLink("activateContentZone").toURI());
-        javascript.addInitializerCall("Refresher", spec);
+            spec.put("contentZoneId", contentZone.getClientId());
+            spec.put("refreshUrl", resources.createEventLink("refreshZone").toURI());
+            spec.put("updateUrl", resources.createEventLink("activateContentZone").toURI());
+            javascript.addInitializerCall("Refresher", spec);
+        }
     }
 
     Object onActivate()
@@ -84,7 +87,7 @@ public class Player
     public JSONObject onRefreshZone(@RequestParameter("state") String clientState)
     {
         String serverState = getCurrentState();
-        boolean update = StringUtils.equalsIgnoreCase(clientState, serverState);
+        boolean update = !StringUtils.equalsIgnoreCase(clientState, serverState);
 
         JSONObject reply = new JSONObject();
         reply.put("currentState", serverState);
@@ -109,7 +112,7 @@ public class Player
 
     public String getCurrentState()
     {
-        return "asdf";
+        return controller.getPlayerState(playerName);
     }
 
 

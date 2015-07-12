@@ -6,6 +6,10 @@ public interface NotFibbageController
 
     public void next();
 
+    public String getGameState();
+
+    public String getPlayerState(String playerName);
+
 
 
     public boolean isRegisterPhase();

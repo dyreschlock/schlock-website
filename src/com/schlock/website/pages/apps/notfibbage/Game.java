@@ -60,7 +60,7 @@ public class Game
     public JSONObject onRefreshZone(@RequestParameter("state") String clientState)
     {
         String serverState = getCurrentState();
-        boolean update = StringUtils.equalsIgnoreCase(clientState, serverState);
+        boolean update = !StringUtils.equalsIgnoreCase(clientState, serverState);
 
         JSONObject reply = new JSONObject();
         reply.put("currentState", serverState);
@@ -81,7 +81,7 @@ public class Game
 
     public String getCurrentState()
     {
-        return "asdf";
+        return controller.getGameState();
     }
 
 
