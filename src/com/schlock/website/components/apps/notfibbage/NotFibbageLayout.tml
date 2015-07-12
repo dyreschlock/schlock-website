@@ -12,9 +12,15 @@
         <link rel="icon" href="/icons/favicon.ico" type="image/x-icon"/>
         <style>${css}</style>
     </head>
-    <body>
+    <body class="notBlog">
 
-        <t:body />
+        <div id="blogFullBody"><div id="blogInnerBody"><div id="blogBody">
+            <div id="blogContent">
+
+                <t:body />
+
+            </div>
+        </div></div></div>
 
     </body>
 </html>
