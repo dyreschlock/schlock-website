@@ -12,7 +12,7 @@
         <link rel="icon" href="/icons/favicon.ico" type="image/x-icon"/>
         <style>${css}</style>
     </head>
-    <body class="notBlog">
+    <body class="notFibbage">
 
         <div id="blogFullBody"><div id="blogInnerBody"><div id="blogBody">
             <div id="blogContent">

@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,10 +22,16 @@ public class CssCacheImpl implements CssCache
     private final static List<String> SECONDARY_CSS_FILES =
             Arrays.asList("layout/secondary.less", "layout/layout.css");
 
+    //apps
+    private final static String NOT_FIBBAGE_CSS_FILE = "layout/apps/notfibbage.less";
+
+
     private final Context context;
 
     private String cachedPrimary;
     private String cachedSecondary;
+
+    private String cachedNotFibbage;
 
     public CssCacheImpl(Context context)
     {
@@ -55,6 +62,21 @@ public class CssCacheImpl implements CssCache
         String secondary = getSecondaryCss();
 
         return primary + secondary;
+    }
+
+    public String getCssForNotFibbage()
+    {
+        if (StringUtils.isBlank(cachedNotFibbage))
+        {
+            List<String> files = new ArrayList<String>();
+
+            files.addAll(PRIMARY_CSS_FILES);
+            files.addAll(SECONDARY_CSS_FILES);
+            files.add(NOT_FIBBAGE_CSS_FILE);
+
+            cachedNotFibbage = createCss(files);
+        }
+        return cachedNotFibbage;
     }
 
 

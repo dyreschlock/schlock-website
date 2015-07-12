@@ -23,6 +23,6 @@ public class NotFibbageLayout
 
     public String getCss()
     {
-        return cssCache.getAllCss();
+        return cssCache.getCssForNotFibbage();
     }
 }

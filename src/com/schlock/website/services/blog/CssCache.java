@@ -6,4 +6,6 @@ public interface CssCache
     public String getSecondaryCss();
 
     public String getAllCss();
+
+    public String getCssForNotFibbage();
 }
