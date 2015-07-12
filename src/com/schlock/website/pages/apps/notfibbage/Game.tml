@@ -4,8 +4,10 @@
     xmlns:g="tapestry-library:apps/notfibbage/content/game"
     >
 
-    <t:delegate to="block:phaseBlock" />
+    <t:zone t:id="contentZone" id="contentZone">
 
+        <t:delegate to="block:phaseBlock" />
+    </t:zone>
 
     <t:block t:id="phaseBlock">
         <t:if test="registerPhase">
