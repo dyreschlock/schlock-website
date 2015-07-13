@@ -1,5 +1,32 @@
 <t:container
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
+    <div id="postContent">
 
+        <h1 id="headline">
+            <t:outputraw value="titleHtml" />
+        </h1>
+
+        <div class="postBody">
+
+            <t:if test="playerRegistered">
+
+                Player has been registered: ${playerName}
+
+            </t:if>
+            <t:if test="!playerRegistered">
+                <t:form t:id="playerForm" id="playerForm">
+
+                    <t:label t:for="name">
+                        ${message:instructions}
+                    </t:label>
+                    <t:textfield t:id="name" value="newPlayerName" t:validate="required" />
+
+                    <t:linksubmit t:id="submitButton">${message:enter}</t:linksubmit>
+
+                </t:form>
+            </t:if>
+
+        </div>
+    </div>
 </t:container>

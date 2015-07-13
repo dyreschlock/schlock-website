@@ -44,6 +44,13 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
         return player != null;
     }
 
+    public List<String> getRegisteredPlayers()
+    {
+        List<String> playerList = new ArrayList<String>();
+        playerList.addAll(players.keySet());
+
+        return playerList;
+    }
 
     public int getRoundNumber()
     {

@@ -2,4 +2,22 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
+    <div id="postContent">
+
+        <h1 id="headline">
+            <t:outputraw value="titleHtml" />
+        </h1>
+
+
+        <t:zone t:id="playersZone" id="playersZone">
+
+            <t:loop source="players" value="currentPlayer">
+
+                ${currentPlayer}
+
+            </t:loop>
+
+        </t:zone>
+
+    </div>
 </t:container>

@@ -10,6 +10,8 @@ public interface NotFibbageManagement
 
     public boolean isRegisteredPlayer(String playerName);
 
+    public List<String> getRegisteredPlayers();
+
     //question phase
 
     public int getRoundNumber();
