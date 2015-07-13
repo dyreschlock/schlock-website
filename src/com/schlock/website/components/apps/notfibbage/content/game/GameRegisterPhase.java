@@ -1,6 +1,7 @@
 package com.schlock.website.components.apps.notfibbage.content.game;
 
 import com.schlock.website.pages.apps.notfibbage.Game;
+import com.schlock.website.services.apps.notfibbage.NotFibbageController;
 import com.schlock.website.services.apps.notfibbage.NotFibbageManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
@@ -20,6 +21,9 @@ public class GameRegisterPhase
 {
     @Inject
     private NotFibbageManagement management;
+
+    @Inject
+    private NotFibbageController controller;
 
     @Inject
     private PostManagement postManagement;
@@ -90,5 +94,12 @@ public class GameRegisterPhase
     public List<String> getPlayers()
     {
         return management.getRegisteredPlayers();
+    }
+
+    Object onNext()
+    {
+        controller.next();
+
+        return Game.class;
     }
 }

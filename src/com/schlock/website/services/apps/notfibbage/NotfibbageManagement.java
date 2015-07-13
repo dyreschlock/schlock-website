@@ -14,7 +14,7 @@ public interface NotFibbageManagement
 
     //question phase
 
-    public int getRoundNumber();
+    public boolean setNewQuestion(int roundNumber);
 
     public String getQuestionText();
 

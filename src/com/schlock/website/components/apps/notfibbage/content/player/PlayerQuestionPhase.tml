@@ -2,4 +2,24 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
+    ${currentQuestion}
+    <br />
+
+    <t:if test="playerResponded">
+
+        ${message:please-wait}
+
+    </t:if>
+    <t:if test="!playerResponded">
+
+        <t:form t:id="responseForm" id="responseForm">
+
+            <t:textfield t:id="response" value="playerResponse" t:validate="required" />
+
+            <t:linksubmit t:id="submitButton">${message:enter}</t:linksubmit>
+
+        </t:form>
+
+    </t:if>
+
 </t:container>

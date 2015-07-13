@@ -31,6 +31,7 @@ public class PlayerRegisterPhase
     @Property
     private String playerName;
 
+    @Property
     @Persist
     private String newPlayerName;
 
@@ -42,16 +43,6 @@ public class PlayerRegisterPhase
         return html;
     }
 
-
-    public String getNewPlayerName()
-    {
-        return newPlayerName;
-    }
-
-    public void setNewPlayerName(String newPlayerName)
-    {
-        this.newPlayerName = newPlayerName;
-    }
 
     public boolean isPlayerRegistered()
     {
@@ -66,9 +57,11 @@ public class PlayerRegisterPhase
 
     Object onSuccessFromPlayerForm()
     {
-        String playerName = getNewPlayerName();
+        String playerName = newPlayerName;
 
         management.registerPlayer(playerName);
+
+        newPlayerName = null;
 
         return linkSource.createPageRenderLinkWithContext(Player.class, playerName);
     }

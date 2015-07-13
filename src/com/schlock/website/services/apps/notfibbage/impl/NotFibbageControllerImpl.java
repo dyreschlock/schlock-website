@@ -15,6 +15,8 @@ public class NotFibbageControllerImpl implements NotFibbageController
     private final NotFibbageManagement management;
 
     private String currentPhase = REGISTER_PHASE;
+    private int currentRound = 0;
+
 
     public NotFibbageControllerImpl(NotFibbageManagement management)
     {
@@ -23,12 +25,24 @@ public class NotFibbageControllerImpl implements NotFibbageController
 
 
 
-    public void beginGame()
-    {
-    }
-
     public void next()
     {
+        if (isRegisterPhase())
+        {
+            this.currentRound++;
+
+            boolean nextRoundAvailable = management.setNewQuestion(currentRound);
+            if (nextRoundAvailable)
+            {
+                this.currentPhase = QUESTION_PHASE;
+            }
+            else
+            {
+                this.currentPhase = FINAL_PHASE;
+            }
+        }
+
+
     }
 
 
@@ -41,10 +55,24 @@ public class NotFibbageControllerImpl implements NotFibbageController
     {
         String state = currentPhase + playerName;
 
-
-
+        if (isQuestionPhase())
+        {
+            boolean responded = management.hasPlayerResponded(playerName);
+            state += Boolean.toString(responded);
+        }
+        if (isAnswerPhase())
+        {
+            boolean answered = management.hasPlayerAnswered(playerName);
+            state += Boolean.toString(answered);
+        }
         return state;
     }
+
+    public int getRoundNumber()
+    {
+        return currentRound;
+    }
+
 
     public boolean isRegisterPhase()
     {

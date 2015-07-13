@@ -2,14 +2,13 @@ package com.schlock.website.services.apps.notfibbage;
 
 public interface NotFibbageController
 {
-    public void beginGame();
-
     public void next();
 
     public String getGameState();
 
     public String getPlayerState(String playerName);
 
+    public int getRoundNumber();
 
 
     public boolean isRegisterPhase();

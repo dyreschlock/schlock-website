@@ -10,13 +10,12 @@ import java.util.*;
 
 public class NotFibbageManagementImpl implements NotFibbageManagement
 {
+    private static final long QUESTION_CATEGORY = 1;
+
     private final NotFibbageQuestionDAO questionDAO;
 
     private Map<String, NotFibbagePlayer> players;
 
-    private boolean started = false;
-
-    private int currentNumber = 0;
     private Long currentQuestion;
 
 
@@ -52,9 +51,19 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
         return playerList;
     }
 
-    public int getRoundNumber()
+    public boolean setNewQuestion(int roundNumber)
     {
-        return currentNumber;
+        List<NotFibbageQuestion> questions = questionDAO.getByCategory(QUESTION_CATEGORY);
+
+        if (roundNumber <= questions.size())
+        {
+            int index = roundNumber -1;
+            NotFibbageQuestion question = questions.get(index);
+            this.currentQuestion = question.getId();
+
+            return true;
+        }
+        return false;
     }
 
     private NotFibbageQuestion getCurrentQuestion()
@@ -269,8 +278,6 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
     public void resetGame()
     {
         this.players = new HashMap<String, NotFibbagePlayer>();
-        this.started = false;
-        this.currentNumber = 0;
         this.currentQuestion = null;
     }
 
@@ -280,8 +287,6 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
         {
             player.reset();
         }
-        this.started = false;
-        this.currentNumber = 0;
         this.currentQuestion = null;
     }
 

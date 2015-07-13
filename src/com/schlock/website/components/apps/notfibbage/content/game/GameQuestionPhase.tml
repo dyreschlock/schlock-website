@@ -2,4 +2,26 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
+    ${currentQuestion}
+    <br />
+
+    <t:zone t:id="playersZone" id="playersZone">
+
+        <t:loop source="playersResponded" value="currentPlayer">
+
+            ${currentPlayer}
+
+        </t:loop>
+
+    </t:zone>
+
+    <br/><br/>
+
+    <t:eventlink event="next">
+
+        Next
+    </t:eventlink>
+
+
+
 </t:container>
