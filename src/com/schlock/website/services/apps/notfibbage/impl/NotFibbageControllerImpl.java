@@ -44,6 +44,8 @@ public class NotFibbageControllerImpl implements NotFibbageController
         else if (isResultsPhase())
         {
             this.currentPhase = STANDINGS_PHASE;
+
+            management.tabulatePoints();
         }
         else if (isStandingsPhase())
         {
