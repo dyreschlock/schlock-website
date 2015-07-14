@@ -14,6 +14,8 @@
 
         <t:form t:id="responseForm" id="responseForm">
 
+            <t:errors />
+
             <t:textfield t:id="response" value="playerResponse" t:validate="required" />
 
             <t:linksubmit t:id="submitButton">${message:enter}</t:linksubmit>

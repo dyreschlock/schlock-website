@@ -35,7 +35,12 @@ public class PlayerQuestionPhase
 
     void onValidateFromResponseForm() throws ValidationException
     {
+        boolean correct = management.isResponseCorrect(playerResponse);
 
+        if (correct)
+        {
+            throw new ValidationException("answer is correct");
+        }
     }
 
     void onSuccessFromResponseForm()

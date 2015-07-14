@@ -20,6 +20,8 @@ public interface NotFibbageManagement
 
     public boolean registerResponse(String player, String response);
 
+    public boolean isResponseCorrect(String response);
+
     public List<String> getPlayersResponded();
 
     public boolean hasPlayerResponded(String player);

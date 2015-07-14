@@ -41,6 +41,10 @@ public class NotFibbageControllerImpl implements NotFibbageController
                 this.currentPhase = FINAL_PHASE;
             }
         }
+        else if (isQuestionPhase())
+        {
+            this.currentPhase = ANSWER_PHASE;
+        }
 
 
     }

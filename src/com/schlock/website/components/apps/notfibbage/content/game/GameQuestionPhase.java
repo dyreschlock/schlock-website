@@ -84,4 +84,11 @@ public class GameQuestionPhase
     {
         return management.getQuestionText();
     }
+
+    Object onNext()
+    {
+        controller.next();
+
+        return Game.class;
+    }
 }

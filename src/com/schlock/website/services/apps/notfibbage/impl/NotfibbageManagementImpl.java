@@ -100,7 +100,7 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
         return true;
     }
 
-    private boolean isResponseCorrect(String response)
+    public boolean isResponseCorrect(String response)
     {
         NotFibbageQuestion question = getCurrentQuestion();
         return StringUtils.equalsIgnoreCase(question.getAnswer(), response);
