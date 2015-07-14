@@ -2,4 +2,24 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
+    ${currentQuestion}
+    <br />
+
+    <t:if test="playerAnswered">
+
+        ${message:please-wait}
+
+    </t:if>
+    <t:if test="!playerAnswered">
+
+        <t:loop source="questionResponses" value="currentResponse">
+
+            <t:eventlink event="selectResponse" context="currentResponse">
+                ${currentResponse}
+            </t:eventlink>
+            <br />
+        </t:loop>
+
+    </t:if>
+
 </t:container>

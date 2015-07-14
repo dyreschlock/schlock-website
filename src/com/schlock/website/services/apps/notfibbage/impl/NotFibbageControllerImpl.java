@@ -24,10 +24,28 @@ public class NotFibbageControllerImpl implements NotFibbageController
     }
 
 
-
     public void next()
     {
         if (isRegisterPhase())
+        {
+            this.currentRound = 1;
+
+            management.setNewQuestion(currentRound);
+            this.currentPhase = QUESTION_PHASE;
+        }
+        else if (isQuestionPhase())
+        {
+            this.currentPhase = ANSWER_PHASE;
+        }
+        else if (isAnswerPhase())
+        {
+            this.currentPhase = RESULTS_PHASE;
+        }
+        else if (isResultsPhase())
+        {
+            this.currentPhase = STANDINGS_PHASE;
+        }
+        else if (isStandingsPhase())
         {
             this.currentRound++;
 
@@ -41,12 +59,6 @@ public class NotFibbageControllerImpl implements NotFibbageController
                 this.currentPhase = FINAL_PHASE;
             }
         }
-        else if (isQuestionPhase())
-        {
-            this.currentPhase = ANSWER_PHASE;
-        }
-
-
     }
 
 

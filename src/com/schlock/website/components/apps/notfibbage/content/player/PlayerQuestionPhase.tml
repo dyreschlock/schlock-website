@@ -19,7 +19,6 @@
             <t:textfield t:id="response" value="playerResponse" t:validate="required" />
 
             <t:linksubmit t:id="submitButton">${message:enter}</t:linksubmit>
-
         </t:form>
 
     </t:if>
