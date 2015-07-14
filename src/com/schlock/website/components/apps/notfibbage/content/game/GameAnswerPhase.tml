@@ -2,6 +2,30 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
-    Answer
+    ${currentQuestion}
+    <br />
+
+    <t:loop source="questionResponses" value="currentResponse">
+
+        ${currentResponse}
+
+    </t:loop>
+
+    <t:zone t:id="playersZone" id="playersZone">
+
+        <t:loop source="playersAnswered" value="currentPlayer">
+
+            ${currentPlayer}
+
+        </t:loop>
+
+    </t:zone>
+
+    <br/><br/>
+
+    <t:eventlink event="next">
+
+        Next
+    </t:eventlink>
 
 </t:container>
