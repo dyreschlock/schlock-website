@@ -142,8 +142,39 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
             }
         }
 
+
+        String correct = getCurrentQuestion().getAnswer();
+        responses.add(correct);
+
+
+        int max = getMaximumNumbersOfResponses();
+
+        List<String> fakeAnswers = new ArrayList<String>();
+        fakeAnswers.addAll(getCurrentQuestion().getFakeAnswers());
+
+        for (int i = 0; i < fakeAnswers.size() && responses.size() < max; i++)
+        {
+            String fake = fakeAnswers.get(i);
+            if (!containsString(responses, fake))
+            {
+                responses.add(fake);
+            }
+        }
+
         orderStringList(responses);
         return responses;
+    }
+
+    private int getMaximumNumbersOfResponses()
+    {
+        int count = getRegisteredPlayers().size();
+        count++;
+
+        while (count % 3 != 0)
+        {
+            count++;
+        }
+        return count;
     }
 
     public boolean registerAnswer(String playerName, String answer)
