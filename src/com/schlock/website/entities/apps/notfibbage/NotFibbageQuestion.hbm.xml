@@ -12,5 +12,12 @@
 
         <many-to-one name="category" class="com.schlock.website.entities.apps.notfibbage.NotFibbageCategory" />
 
+        <property name="source" />
+
+        <set name="fakeAnswers" table="not_fibbage_fake_answers">
+            <key column="questionId"/>
+            <element column="answer" type="string" />
+        </set>
+
     </class>
 </hibernate-mapping>
