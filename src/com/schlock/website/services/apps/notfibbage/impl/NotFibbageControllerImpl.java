@@ -43,9 +43,18 @@ public class NotFibbageControllerImpl implements NotFibbageController
         }
         else if (isResultsPhase())
         {
-            this.currentPhase = STANDINGS_PHASE;
+            management.tabulatePointsAndClearResponses();
 
-            management.tabulatePoints();
+            int nextRound = currentRound + 1;
+            boolean nextQuestionAvailable = management.hasNextQuestion(nextRound);
+            if (nextQuestionAvailable)
+            {
+                this.currentPhase = STANDINGS_PHASE;
+            }
+            else
+            {
+                this.currentPhase = FINAL_PHASE;
+            }
         }
         else if (isStandingsPhase())
         {

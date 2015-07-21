@@ -14,6 +14,8 @@ public interface NotFibbageManagement
 
     //question phase
 
+    public boolean hasNextQuestion(int roundNumber);
+
     public boolean setNewQuestion(int roundNumber);
 
     public String getQuestionText();
@@ -44,7 +46,7 @@ public interface NotFibbageManagement
 
     public List<String> getPlayersByResponse(String response);
 
-    public void tabulatePoints();
+    public void tabulatePointsAndClearResponses();
 
     //standings phase
 

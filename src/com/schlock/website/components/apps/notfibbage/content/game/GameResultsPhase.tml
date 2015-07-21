@@ -2,8 +2,39 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
-    Results
+    Results<br/><br/>
 
+
+    <t:loop source="answeredResponses" value="currentAnswer">
+
+        ${currentAnswer}<br/>
+
+        from:<br/>
+
+        <t:if test="correctAnswer">
+            Truth!<br/>
+        </t:if>
+        <t:if test="!correctAnswer">
+
+            <t:if test="!hasPlayersResponded">
+                Our Lie<br/>
+            </t:if>
+
+            <t:if test="hasPlayersResponded">
+
+                <t:loop source="playersResponded" value="currentPlayer">
+                    ${currentPlayer}<br/>
+                </t:loop>
+            </t:if>
+        </t:if>
+
+        fooled:<br/>
+
+        <t:loop source="playersAnswered" value="currentPlayer">
+            ${currentPlayer}<br/>
+        </t:loop>
+        <br/>
+    </t:loop>
 
 
     <t:eventlink event="next">

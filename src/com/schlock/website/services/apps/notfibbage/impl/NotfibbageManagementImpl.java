@@ -12,6 +12,9 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
 {
     private static final long QUESTION_CATEGORY = 1;
 
+    private static final int FULL_POINTS_DEFAULT = 10;
+
+
     private final NotFibbageQuestionDAO questionDAO;
 
     private Map<String, NotFibbagePlayer> players;
@@ -49,6 +52,12 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
         playerList.addAll(players.keySet());
 
         return playerList;
+    }
+
+    public boolean hasNextQuestion(int roundNumber)
+    {
+        List<NotFibbageQuestion> questions = questionDAO.getByCategory(QUESTION_CATEGORY);
+        return roundNumber <= questions.size();
     }
 
     public boolean setNewQuestion(int roundNumber)
@@ -262,13 +271,80 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
         return playerNames;
     }
 
-    public void tabulatePoints()
+    public void tabulatePointsAndClearResponses()
     {
+        tabulatePoints();
+        clearResponses();
+    }
 
+    private void tabulatePoints()
+    {
+        // correct answers - full points
+        // player answer - owner get full points for each player answered
 
+        // fake answer - minus half points
+        // own answer - minus half points
 
+        final int FULL_POINTS = getCurrentPointValue();
+        final int HALF_POINTS = FULL_POINTS / 2;
 
+        for (String answer : getAnsweredResponses())
+        {
+            if (isResponseCorrect(answer))
+            {
+                for (String playerName : getPlayersByAnswer(answer))
+                {
+                    NotFibbagePlayer player = players.get(playerName);
+                    player.incrementScore(FULL_POINTS);
+                }
+            }
+            else
+            {
+                List<String> owners = getPlayersByResponse(answer);
+                if (owners.size() == 0)
+                {
+                    for (String playerName : getPlayersByAnswer(answer))
+                    {
+                        NotFibbagePlayer player = players.get(playerName);
+                        player.incrementScore(0 - HALF_POINTS);
+                    }
+                }
+                else
+                {
+                    int countAnswered = getPlayersByAnswer(answer).size();
+                    int points = FULL_POINTS * countAnswered;
 
+                    for (String playerName : owners)
+                    {
+                        NotFibbagePlayer owner = players.get(playerName);
+                        String response = owner.getCurrentResponse();
+
+                        if (!StringUtils.equalsIgnoreCase(answer, response))
+                        {
+                            owner.incrementScore(points);
+                        }
+                        else
+                        {
+                            owner.incrementScore(0 - HALF_POINTS);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private int getCurrentPointValue()
+    {
+        return FULL_POINTS_DEFAULT;
+    }
+
+    private void clearResponses()
+    {
+        for (NotFibbagePlayer player : players.values())
+        {
+            player.setCurrentResponse(null);
+            player.setCurrentAnswer(null);
+        }
     }
 
     public List<String> getPlayersInOrderByScore()

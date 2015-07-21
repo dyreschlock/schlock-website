@@ -22,6 +22,11 @@ public class NotFibbagePlayer
         this.currentAnswer = null;
     }
 
+    public void incrementScore(int points)
+    {
+        this.score = score + points;
+    }
+
 
     public String getName()
     {

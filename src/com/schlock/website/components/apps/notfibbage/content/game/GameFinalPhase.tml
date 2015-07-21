@@ -2,6 +2,14 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
-    Final
+    Final<br/><br/>
+
+    <t:loop source="players" value="currentPlayer">
+
+        ${currentPlayer} : ${currentScore}<br/>
+
+    </t:loop>
+
+
 
 </t:container>
