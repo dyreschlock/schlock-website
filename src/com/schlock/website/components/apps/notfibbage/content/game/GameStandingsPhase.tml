@@ -2,17 +2,38 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
-    Standings<br/><br/>
+    <div id="postContent">
 
-    <t:loop source="players" value="currentPlayer">
+        <div id="phaseTitle">
+            ${message:standings-phase}
+        </div>
 
-        ${currentPlayer} : ${currentScore}<br/>
+        <div class="postBody">
 
-    </t:loop>
+            <h1 id="headline">
+                ${message:current-standings}
+            </h1>
 
-    <t:eventlink event="next">
+            <div id="results">
+                <t:loop source="players" value="currentPlayer" index="currentIndex">
 
-         Next
-    </t:eventlink>
+                    <t:if test="displayLinebreak">
+                        <hr class="clr" />
+                    </t:if>
+
+                    <div class="player">${currentPlayer}</div>
+                    <div class="score">${currentScore}</div>
+
+                </t:loop>
+            </div>
+            <br class="clr" />
+
+            <t:eventlink event="next">
+                <div class="nextButton">
+                    <span>${message:next}</span>
+                </div>
+            </t:eventlink>
+        </div>
+    </div>
 
 </t:container>

@@ -2,14 +2,33 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
-    Final<br/><br/>
+    <div id="postContent">
 
-    <t:loop source="players" value="currentPlayer">
+        <div id="phaseTitle">
+            ${message:final-phase}
+        </div>
 
-        ${currentPlayer} : ${currentScore}<br/>
+        <div class="postBody">
 
-    </t:loop>
+            <h1 id="headline">
+                ${message:final-score}
+            </h1>
 
+            <div id="results">
+                <t:loop source="players" value="currentPlayer" index="currentIndex">
 
+                    <t:if test="displayLinebreak">
+                        <hr class="clr" />
+                    </t:if>
+
+                    <div class="player">${currentPlayer}</div>
+                    <div class="score">${currentScore}</div>
+
+                </t:loop>
+            </div>
+            <br class="clr" />
+
+        </div>
+    </div>
 
 </t:container>

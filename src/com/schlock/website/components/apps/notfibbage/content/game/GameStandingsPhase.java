@@ -20,10 +20,18 @@ public class GameStandingsPhase
     @Property
     private String currentPlayer;
 
+    @Property
+    private Integer currentIndex;
+
 
     public List<String> getPlayers()
     {
         return management.getPlayersInOrderByScore();
+    }
+
+    public boolean isDisplayLinebreak()
+    {
+        return currentIndex != 0;
     }
 
     public String getCurrentScore()

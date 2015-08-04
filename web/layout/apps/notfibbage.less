@@ -94,7 +94,43 @@ body.notFibbage
                 color: @textcolor;
                 background-color: #fff;
 
-                border: 1px solid #333;
+                border: 1px solid #ccc;
+            }
+        }
+
+        #results
+        {
+            width: 60%;
+
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: 30px;
+
+            hr
+            {
+                color: #ccc;
+                background: #ccc;
+            }
+
+            div.player, div.score
+            {
+                position: relative;
+
+                margin: 15px 0;
+
+                font-size: 1.4em;
+                font-weight: bold;
+                font-family: @font1;
+            }
+            div.player
+            {
+                float: left;
+                text-align: left;
+            }
+            div.score
+            {
+                float: right;
+                text-align: right;
             }
         }
 
