@@ -198,4 +198,43 @@ body.notFibbage
             }
         }
     }
+
+    #buttonCache
+    {
+        z-index: 100;
+        position: fixed;
+
+        right: 30px;
+        top: 30px;
+
+        div.button
+        {
+            background-color: #333;
+
+            height: 60px;
+            width: 80px;
+
+            a
+            {
+                width: 100%;
+                height: 100%;
+                z-index: 10;
+
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            div.next
+            {
+                color: #fff;
+                font-size: 1.4em;
+                font-family: @font2;
+
+                position: absolute;
+                left: 16px;
+                top: 15px;
+            }
+        }
+    }
 }

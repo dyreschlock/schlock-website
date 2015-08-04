@@ -27,12 +27,14 @@
                 </div>
             </t:zone>
             <br class="clr" />
+        </div>
+    </div>
 
-            <t:eventlink event="next">
-                <div class="nextButton">
-                    <span>${message:next}</span>
-                </div>
-            </t:eventlink>
+    <div id="buttonCache">
+
+        <div class="button">
+            <t:eventlink event="next" />
+            <div class="next">${message:next}</div>
         </div>
     </div>
 </t:container>
