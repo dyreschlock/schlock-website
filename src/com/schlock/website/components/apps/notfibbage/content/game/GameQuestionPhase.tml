@@ -2,26 +2,37 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
-    ${currentQuestion}
-    <br />
+    <div id="postContent">
 
-    <t:zone t:id="playersZone" id="playersZone">
+        <div id="phaseTitle">
+            ${message:question-phase}
+        </div>
 
-        <t:loop source="playersResponded" value="currentPlayer">
+        <div class="postBody">
 
-            ${currentPlayer}
+            <h1 id="headline">
+                ${currentQuestion}
+            </h1>
 
-        </t:loop>
+            <t:zone t:id="playersZone" id="playersZone">
 
-    </t:zone>
+                <div class="threeColumns players">
 
-    <br/><br/>
+                    <t:loop source="players" value="currentPlayer" index="currentIndex">
 
-    <t:eventlink event="next">
+                        <div class="${columnCssClass}">
+                            <span>${currentPlayer}</span>
+                        </div>
+                    </t:loop>
+                </div>
+            </t:zone>
+            <br class="clr" />
 
-        Next
-    </t:eventlink>
-
-
-
+            <t:eventlink event="next">
+                <div class="nextButton">
+                    ${message:next}
+                </div>
+            </t:eventlink>
+        </div>
+    </div>
 </t:container>

@@ -1,5 +1,16 @@
 <t:container
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
+    <div id="postContent">
 
+        <div id="phaseTitle">
+            ${message:results-phase}
+        </div>
+
+        <div class="postBody">
+
+            ${message:please-wait}
+
+        </div>
+    </div>
 </t:container>

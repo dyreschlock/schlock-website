@@ -3,27 +3,44 @@
     >
     <div id="postContent">
 
-        <h1 id="headline">
-            <t:outputraw value="titleHtml" />
-        </h1>
+        <div id="phaseTitle">
+            ${message:registration-phase}
+        </div>
 
         <div class="postBody">
-
             <t:if test="playerRegistered">
 
-                Player has been registered: ${playerName}
+                <h1 id="headline">
+                    ${message:registered}
+                </h1>
+
+                <span class="playerName">
+                    ${playerName}
+                </span>
+
+                <p>${message:please-wait}</p>
 
             </t:if>
             <t:if test="!playerRegistered">
                 <t:form t:id="playerForm" id="playerForm">
 
-                    <t:label t:for="name">
-                        ${message:instructions}
-                    </t:label>
-                    <t:textfield t:id="name" value="newPlayerName" t:validate="required" />
+                    <h1 id="headline">
+                        <t:label t:for="name">
+                            ${message:instructions}
+                        </t:label>
+                    </h1>
 
-                    <t:linksubmit t:id="submitButton">${message:enter}</t:linksubmit>
+                    <p>
+                        <t:textfield t:id="name" value="newPlayerName" t:validate="required" />
+                    </p>
 
+                    <div class="buttonRow">
+                        <t:linksubmit t:id="submitButton">
+                            <div class="gameButton">
+                                ${message:enter}
+                            </div>
+                        </t:linksubmit>
+                    </div>
                 </t:form>
             </t:if>
 

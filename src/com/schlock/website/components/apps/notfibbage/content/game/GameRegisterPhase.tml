@@ -4,27 +4,35 @@
 
     <div id="postContent">
 
-        <h1 id="headline">
-            <t:outputraw value="titleHtml" />
-        </h1>
+        <div id="phaseTitle">
+            ${message:registration-phase}
+        </div>
 
+        <div class="postBody">
 
-        <t:zone t:id="playersZone" id="playersZone">
+            <h1 id="headline">
+                <t:outputraw value="titleHtml" />
+            </h1>
 
-            <t:loop source="players" value="currentPlayer">
+            <t:zone t:id="playersZone" id="playersZone">
 
-                ${currentPlayer}
+                <div class="threeColumns players">
 
-            </t:loop>
+                    <t:loop source="players" value="currentPlayer" index="currentIndex">
 
-        </t:zone>
+                        <div class="${columnCssClass}">
+                            <span>${currentPlayer}</span>
+                        </div>
+                    </t:loop>
+                </div>
+            </t:zone>
+            <br class="clr" />
 
-        <br/><br/>
-
-        <t:eventlink event="next">
-
-            Next
-        </t:eventlink>
-
+            <t:eventlink event="next">
+                <div class="nextButton">
+                    <span>${message:next}</span>
+                </div>
+            </t:eventlink>
+        </div>
     </div>
 </t:container>

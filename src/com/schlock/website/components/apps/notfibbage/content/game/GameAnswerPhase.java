@@ -40,6 +40,9 @@ public class GameAnswerPhase
     @Property
     private String currentPlayer;
 
+    @Property
+    private Integer currentIndex;
+
 
     void afterRender()
     {
@@ -72,7 +75,7 @@ public class GameAnswerPhase
 
     public String getCurrentState()
     {
-        List<String> players = getPlayersAnswered();
+        List<String> players = management.getPlayersAnswered();
 
         String state = "players" + StringUtils.join(players, ",");
         return state;
@@ -84,11 +87,42 @@ public class GameAnswerPhase
         return management.getQuestionResponses();
     }
 
-    public List<String> getPlayersAnswered()
+    public List<String> getPlayers()
     {
-        return management.getPlayersAnswered();
+        return management.getRegisteredPlayers();
     }
 
+    public String getResponseColumnCssClass()
+    {
+        String css = "response column filled ";
+
+        if ((currentIndex + 1) % 3 == 0)
+        {
+            css += " threeColumnLast ";
+        }
+        return css;
+    }
+
+    public String getPlayerColumnCssClass()
+    {
+        String css = "playerName column ";
+
+        boolean hasAnswered = management.hasPlayerAnswered(currentPlayer);
+        if (hasAnswered)
+        {
+            css += " filled ";
+        }
+        else
+        {
+            css += " notFilled ";
+        }
+
+        if ((currentIndex + 1) % 3 == 0)
+        {
+            css += " threeColumnLast ";
+        }
+        return css;
+    }
 
     public String getCurrentQuestion()
     {

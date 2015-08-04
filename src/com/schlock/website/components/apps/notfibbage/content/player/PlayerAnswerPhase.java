@@ -18,6 +18,9 @@ public class PlayerAnswerPhase
     @Property
     private String currentResponse;
 
+    @Property
+    private Integer currentIndex;
+
 
     public String getCurrentQuestion()
     {
@@ -33,6 +36,18 @@ public class PlayerAnswerPhase
     {
         return management.getQuestionResponses();
     }
+
+    public String getResponseColumnCssClass()
+    {
+        String css = " column filled response ";
+
+        if ((currentIndex + 1) % 2 == 0)
+        {
+            css += " twoColumnLast ";
+        }
+        return css;
+    }
+
 
     void onSelectResponse(String response)
     {

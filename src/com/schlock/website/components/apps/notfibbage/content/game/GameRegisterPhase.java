@@ -44,6 +44,9 @@ public class GameRegisterPhase
     @Property
     private String currentPlayer;
 
+    @Property
+    private Integer currentIndex;
+
 
     void afterRender()
     {
@@ -94,6 +97,17 @@ public class GameRegisterPhase
     public List<String> getPlayers()
     {
         return management.getRegisteredPlayers();
+    }
+
+    public String getColumnCssClass()
+    {
+        String css = "playerName notFilled column ";
+
+        if ((currentIndex +1) % 3 == 0)
+        {
+            css += " threeColumnLast";
+        }
+        return css;
     }
 
     Object onNext()

@@ -1,26 +1,44 @@
 <t:container
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
+    <div id="postContent">
 
-    ${currentQuestion}
-    <br />
+        <div id="phaseTitle">
+            ${message:question-phase}
+        </div>
 
-    <t:if test="playerResponded">
 
-        ${message:please-wait}
+        <div class="postBody">
 
-    </t:if>
-    <t:if test="!playerResponded">
+            <h1 id="headline">
+                ${currentQuestion}
+            </h1>
 
-        <t:form t:id="responseForm" id="responseForm">
+            <t:if test="playerResponded">
+                <p>${message:please-wait}</p>
+            </t:if>
+            <t:if test="!playerResponded">
 
-            <t:errors />
+                <t:form t:id="responseForm" id="responseForm">
 
-            <t:textfield t:id="response" value="playerResponse" t:validate="required" />
+                    <t:errors />
 
-            <t:linksubmit t:id="submitButton">${message:enter}</t:linksubmit>
-        </t:form>
+                    <p>
+                        <t:textfield t:id="response" value="playerResponse" t:validate="required" />
+                    </p>
 
-    </t:if>
+                    <div class="buttonRow">
+                        <t:linksubmit t:id="submitButton">
+                            <div class="gameButton">
+                                ${message:enter}
+                            </div>
+                        </t:linksubmit>
+                    </div>
 
+                </t:form>
+
+            </t:if>
+
+        </div>
+    </div>
 </t:container>
