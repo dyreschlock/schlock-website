@@ -12,7 +12,7 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
 {
     private static final long QUESTION_CATEGORY = 1;
 
-    private static final int FULL_POINTS_DEFAULT = 10;
+    private static final int FULL_POINTS_DEFAULT = 1000;
 
 
     private final NotFibbageQuestionDAO questionDAO;
@@ -301,7 +301,7 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
     private void tabulatePoints()
     {
         // correct answers - full points
-        // player answer - owner get full points for each player answered
+        // player answer - owner get half points for each player answered
 
         // fake answer - minus half points
         // own answer - minus half points
@@ -333,7 +333,7 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
                 else
                 {
                     int countAnswered = getPlayersByAnswer(answer).size();
-                    int points = FULL_POINTS * countAnswered;
+                    int points = HALF_POINTS * countAnswered;
 
                     for (String playerName : owners)
                     {
