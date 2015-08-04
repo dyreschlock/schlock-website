@@ -32,6 +32,8 @@ public interface NotFibbageManagement
 
     public List<String> getQuestionResponses();
 
+    public List<String> getQuestionResponses(String player);
+
     public boolean registerAnswer(String player, String answer);
 
     public List<String> getPlayersAnswered();

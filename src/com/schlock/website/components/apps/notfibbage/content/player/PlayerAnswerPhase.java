@@ -34,7 +34,7 @@ public class PlayerAnswerPhase
 
     public List<String> getQuestionResponses()
     {
-        return management.getQuestionResponses();
+        return management.getQuestionResponses(playerName);
     }
 
     public String getResponseColumnCssClass()

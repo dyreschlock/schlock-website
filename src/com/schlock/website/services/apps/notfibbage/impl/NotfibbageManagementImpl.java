@@ -138,14 +138,35 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
         return player != null && StringUtils.isNotBlank(player.getCurrentResponse());
     }
 
+    public List<String> getQuestionResponses(String currentPlayer)
+    {
+        NotFibbagePlayer current = players.get(currentPlayer);
+        String currentPlayerResponse = current.getCurrentResponse();
+
+        if (StringUtils.isBlank(currentPlayerResponse))
+        {
+            return getQuestionResponses();
+        }
+
+        List<String> responses = new ArrayList<String>();
+        for (String response : getQuestionResponses())
+        {
+            if (!StringUtils.equalsIgnoreCase(currentPlayerResponse, response))
+            {
+                responses.add(response);
+            }
+        }
+        return responses;
+    }
+
     public List<String> getQuestionResponses()
     {
         List<String> responses = new ArrayList<String>();
-
         for (NotFibbagePlayer player : players.values())
         {
             String response = player.getCurrentResponse();
-            if (!containsString(responses, response))
+            if (StringUtils.isNotBlank(response) &&
+                    !containsString(responses, response))
             {
                 responses.add(response);
             }
