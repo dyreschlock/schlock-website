@@ -14,7 +14,7 @@
                 ${currentQuestion}
             </h1>
 
-            <t:zone t:id="playersZone" id="playersZone">
+            <t:zone t:id="playersZone" id="playersZone" t:update="show">
 
                 <div class="threeColumns responses">
 

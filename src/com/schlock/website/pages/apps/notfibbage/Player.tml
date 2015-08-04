@@ -4,7 +4,7 @@
      xmlns:p="tapestry-library:apps/notfibbage/content/player"
     >
 
-    <t:zone t:id="contentZone" id="contentZone">
+    <t:zone t:id="contentZone" id="contentZone" t:update="show">
 
         <t:delegate to="block:phaseBlock" />
     </t:zone>
