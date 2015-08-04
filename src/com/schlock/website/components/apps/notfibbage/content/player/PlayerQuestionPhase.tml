@@ -27,14 +27,10 @@
                         <t:textfield t:id="response" value="playerResponse" t:validate="required" />
                     </p>
 
-                    <div class="buttonRow">
-                        <t:linksubmit t:id="submitButton">
-                            <div class="gameButton">
-                                ${message:enter}
-                            </div>
-                        </t:linksubmit>
+                    <div class="submit">
+                        <t:linksubmit t:id="submitButton" />
+                        <div class="enter">${message:enter}</div>
                     </div>
-
                 </t:form>
 
             </t:if>
