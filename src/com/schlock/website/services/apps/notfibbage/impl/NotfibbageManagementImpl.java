@@ -338,9 +338,9 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
                     for (String playerName : owners)
                     {
                         NotFibbagePlayer owner = players.get(playerName);
-                        String response = owner.getCurrentResponse();
+                        String ownerAnswer = owner.getCurrentAnswer();
 
-                        if (!StringUtils.equalsIgnoreCase(answer, response))
+                        if (!StringUtils.equalsIgnoreCase(answer, ownerAnswer))
                         {
                             owner.incrementScore(points);
                         }
@@ -377,11 +377,11 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
         {
             public int compare(NotFibbagePlayer p1, NotFibbagePlayer p2)
             {
-                if (p1.getScore() > p2.getScore())
+                if (p1.getScore() < p2.getScore())
                 {
                     return 1;
                 }
-                if (p1.getScore() < p2.getScore())
+                if (p1.getScore() > p2.getScore())
                 {
                     return -1;
                 }
