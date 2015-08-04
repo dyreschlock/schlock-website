@@ -30,13 +30,11 @@
                         </t:label>
                     </h1>
 
+                    <t:errors />
+
                     <p>
                         <t:textfield t:id="name" value="newPlayerName" t:validate="required" />
                     </p>
-
-                    <t:if test="nameInUse">
-                        <p class="error">${message:error-name-in-use}</p>
-                    </t:if>
 
                     <div class="buttonRow">
                         <t:linksubmit t:id="submitButton">
