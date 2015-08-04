@@ -2,43 +2,71 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
-    Results<br/><br/>
+    <div id="postContent">
+
+        <div id="phaseTitle">
+            ${message:results-phase}
+        </div>
+
+        <div class="postBody">
+
+            <h1 id="headline">
+                ${currentQuestion}
+            </h1>
+
+            <div id="results">
+
+                <t:loop source="answeredResponses" value="currentAnswer" index="currentIndex">
+
+                    <div class="${resultCssClass}">
+
+                        <div class="answer">
+                            <div>${currentAnswer}</div>
+                        </div>
 
 
-    <t:loop source="answeredResponses" value="currentAnswer">
+                        <div class="playersAnswered">
 
-        ${currentAnswer}<br/>
+                            <t:loop source="playersAnswered" value="currentPlayer">
 
-        from:<br/>
+                                <div class="player">${currentPlayer}</div>
+                            </t:loop>
+                        </div>
 
-        <t:if test="correctAnswer">
-            Truth!<br/>
-        </t:if>
-        <t:if test="!correctAnswer">
 
-            <t:if test="!hasPlayersResponded">
-                Our Lie<br/>
-            </t:if>
+                        <div class="playersResponded">
 
-            <t:if test="hasPlayersResponded">
+                            <t:if test="correctAnswer">
+                                <div class="player">${message:truth}</div>
+                            </t:if>
+                            <t:if test="!correctAnswer">
+                                <t:if test="!hasPlayersResponded">
+                                    <div class="player">${message:computer}</div>
+                                </t:if>
+                                <t:if test="hasPlayersResponded">
 
-                <t:loop source="playersResponded" value="currentPlayer">
-                    ${currentPlayer}<br/>
+                                    <t:loop source="playersResponded" value="currentPlayer">
+
+                                        <div class="player">${currentPlayer}</div>
+                                    </t:loop>
+                                </t:if>
+                            </t:if>
+
+                        </div>
+                        <br class="clr" />
+                    </div>
                 </t:loop>
-            </t:if>
-        </t:if>
+            </div>
+        </div>
+    </div>
 
-        fooled:<br/>
+    <div id="buttonCache">
 
-        <t:loop source="playersAnswered" value="currentPlayer">
-            ${currentPlayer}<br/>
-        </t:loop>
-        <br/>
-    </t:loop>
+        <div class="button">
+            <t:eventlink event="next" />
+            <div class="next">${message:next}</div>
+        </div>
 
-
-    <t:eventlink event="next">
-        Next
-    </t:eventlink>
+    </div>
 
 </t:container>

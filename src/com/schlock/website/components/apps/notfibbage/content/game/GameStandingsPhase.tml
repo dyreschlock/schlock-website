@@ -14,7 +14,7 @@
                 ${message:current-standings}
             </h1>
 
-            <div id="results">
+            <div id="standings">
                 <t:loop source="players" value="currentPlayer" index="currentIndex">
 
                     <t:if test="displayLinebreak">

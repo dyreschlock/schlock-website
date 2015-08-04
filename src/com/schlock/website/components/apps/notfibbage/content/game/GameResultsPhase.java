@@ -3,6 +3,7 @@ package com.schlock.website.components.apps.notfibbage.content.game;
 import com.schlock.website.pages.apps.notfibbage.Game;
 import com.schlock.website.services.apps.notfibbage.NotFibbageController;
 import com.schlock.website.services.apps.notfibbage.NotFibbageManagement;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -23,12 +24,31 @@ public class GameResultsPhase
     @Property
     private String currentPlayer;
 
+    @Property
+    private Integer currentIndex;
+
+    @Property
+    @Persist
+    private Integer selectedIndex;
+
 
 
     public List<String> getAnsweredResponses()
     {
         return management.getAnsweredResponses();
     }
+
+    public String getResultCssClass()
+    {
+        String css = "result ";
+
+//        if (currentIndex != selectedIndex)
+//        {
+//            css = " inactive ";
+//        }
+        return css;
+    }
+
 
     public boolean isCorrectAnswer()
     {
@@ -52,10 +72,16 @@ public class GameResultsPhase
         return management.getPlayersByAnswer(currentAnswer);
     }
 
+    public String getCurrentQuestion()
+    {
+        return management.getQuestionText();
+    }
 
     Object onNext()
     {
         controller.next();
+
+        selectedIndex = 0;
 
         return Game.class;
     }
