@@ -4,14 +4,13 @@ import com.schlock.website.pages.apps.notfibbage.Player;
 import com.schlock.website.services.apps.notfibbage.NotFibbageManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.ValidationException;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
-
-import javax.xml.bind.ValidationException;
 
 public class PlayerRegisterPhase
 {
@@ -49,10 +48,26 @@ public class PlayerRegisterPhase
         return StringUtils.isNotBlank(playerName);
     }
 
+    public boolean isNameInUse()
+    {
+        if (StringUtils.isNotBlank(newPlayerName))
+        {
+            boolean alreadyRegistered = management.isRegisteredPlayer(newPlayerName);
+            return alreadyRegistered;
+        }
+        return false;
+    }
+
 
     void onValidateFromPlayerForm() throws ValidationException
     {
+        String playerName = newPlayerName;
 
+        boolean alreadyRegistered = management.isRegisteredPlayer(playerName);
+        if (alreadyRegistered)
+        {
+            throw new ValidationException("Player Name is already in use.");
+        }
     }
 
     Object onSuccessFromPlayerForm()
