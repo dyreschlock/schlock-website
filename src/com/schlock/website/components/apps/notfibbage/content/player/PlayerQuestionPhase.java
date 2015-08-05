@@ -5,12 +5,16 @@ import org.apache.tapestry5.ValidationException;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 public class PlayerQuestionPhase
 {
     @Inject
     private NotFibbageManagement management;
+
+    @Inject
+    private Messages messages;
 
 
     @Parameter(required = true)
@@ -39,7 +43,8 @@ public class PlayerQuestionPhase
 
         if (correct)
         {
-            throw new ValidationException("answer is correct");
+            String message = messages.get("error-answer-correct");
+            throw new ValidationException(message);
         }
     }
 

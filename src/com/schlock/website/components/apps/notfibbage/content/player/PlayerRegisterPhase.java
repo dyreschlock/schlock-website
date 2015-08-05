@@ -66,7 +66,8 @@ public class PlayerRegisterPhase
         boolean alreadyRegistered = management.isRegisteredPlayer(playerName);
         if (alreadyRegistered)
         {
-            throw new ValidationException("Player Name is already in use.");
+            String message = messages.get("error-duplicate-name");
+            throw new ValidationException(message);
         }
     }
 
