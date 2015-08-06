@@ -69,6 +69,11 @@ public class Game
         return messages.get(key);
     }
 
+    public boolean isShowNextButton()
+    {
+        return !isFinalPhase();
+    }
+
     Object onNext()
     {
         controller.next();
