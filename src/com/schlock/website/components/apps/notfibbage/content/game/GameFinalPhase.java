@@ -39,4 +39,7 @@ public class GameFinalPhase
         return Integer.toString(score);
     }
 
+    public void reset()
+    {
+    }
 }

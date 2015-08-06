@@ -4,27 +4,44 @@
      xmlns:g="tapestry-library:apps/notfibbage/content/game"
     >
 
-    <t:delegate to="block:phaseBlock" />
+    <div id="postContent">
+
+        <div id="phaseTitle">
+            ${message:results-phase}
+        </div>
+
+        <t:delegate to="block:phaseBlock" />
+    </div>
+
+    <div id="buttonCache">
+
+        <div class="button">
+            <t:eventlink event="next" />
+            <div class="next">${message:next}</div>
+        </div>
+
+    </div>
+
+
 
     <t:block t:id="phaseBlock">
         <t:if test="registerPhase">
-            <g:gameRegisterPhase />
+            <g:gameRegisterPhase t:id="registerComponent" />
         </t:if>
         <t:if test="questionPhase">
-            <g:gameQuestionPhase />
+            <g:gameQuestionPhase t:id="questionComponent" />
         </t:if>
         <t:if test="answerPhase">
-            <g:gameAnswerPhase />
+            <g:gameAnswerPhase t:id="answerComponent" />
         </t:if>
         <t:if test="resultsPhase">
-            <g:gameResultsPhase />
+            <g:gameResultsPhase t:id="resultsComponent" />
         </t:if>
         <t:if test="standingsPhase">
-            <g:gameStandingsPhase />
+            <g:gameStandingsPhase t:id="standingsComponent" />
         </t:if>
         <t:if test="finalPhase">
-            <g:gameFinalPhase />
+            <g:gameFinalPhase t:id="finalComponent" />
         </t:if>
     </t:block>
-
 </html>

@@ -2,102 +2,85 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
-    <div id="postContent">
+    <div class="postBody">
 
-        <div id="phaseTitle">
-            ${message:results-phase}
-        </div>
+        <h1 id="headline">
+            ${currentQuestion}
+        </h1>
 
-        <div class="postBody">
+        <div id="results">
 
-            <h1 id="headline">
-                ${currentQuestion}
-            </h1>
+            <t:loop source="answeredResponses" value="currentAnswer" index="currentIndex">
 
-            <div id="results">
+                <div class="${resultCssClass}">
 
-                <t:loop source="answeredResponses" value="currentAnswer" index="currentIndex">
-
-                    <div class="${resultCssClass}">
-
-                        <div class="answer">
-                            <div>${currentAnswer}</div>
-                        </div>
+                    <div class="answer">
+                        <div>${currentAnswer}</div>
+                    </div>
 
 
-                        <div class="playersAnswered">
-                            <div class="title">${message:players-answered}</div>
+                    <div class="playersAnswered">
+                        <div class="title">${message:players-answered}</div>
 
-                            <t:if test="hasPlayersAnswered">
+                        <t:if test="hasPlayersAnswered">
+                            <div class="columns">
+                                <t:loop source="playersAnswered" value="currentPlayer" index="currentIndex">
 
-                                <div class="columns">
-                                    <t:loop source="playersAnswered" value="currentPlayer" index="currentIndex">
-
-                                        <div class="playerName filled ${columnClass}">
-                                            <span>${currentPlayer}</span>
-                                        </div>
-                                    </t:loop>
-                                </div>
-                            </t:if>
-
-                            <t:if test="!hasPlayersAnswered">
-                                <div class="nobody">${message:nobody}</div>
-                            </t:if>
-                        </div>
-
-
-                        <div class="playersResponded">
-                            <div class="title">${message:owner}</div>
-
-                            <t:if test="computerAnswer">
-
-                                <div class="playerName notFilled">
-                                    <span>${computerResponse}</span>
-                                </div>
-
-                                <t:if test="hasPlayersAnswered">
-                                    <div class="pointResults">
-                                        <div class="receiver">${message:players}</div>
-                                        <div class="points">
-                                            <span class="total">${computerPoints}</span>
-                                        </div>
-                                    </div>
-                                </t:if>
-                            </t:if>
-
-                            <t:if test="!computerAnswer">
-
-                                <t:loop source="playersResponded" value="currentPlayer">
-
-                                    <div class="playerName notFilled">
+                                    <div class="playerName filled ${columnClass}">
                                         <span>${currentPlayer}</span>
                                     </div>
                                 </t:loop>
+                            </div>
+                        </t:if>
 
+                        <t:if test="!hasPlayersAnswered">
+                            <div class="nobody">${message:nobody}</div>
+                        </t:if>
+                    </div>
+
+
+                    <div class="playersResponded">
+                        <div class="title">${message:owner}</div>
+
+                        <t:if test="computerAnswer">
+
+                            <div class="playerName notFilled">
+                                <span>${computerResponse}</span>
+                            </div>
+
+                            <t:if test="hasPlayersAnswered">
                                 <div class="pointResults">
-                                    <div class="receiver">${message:owners}</div>
+                                    <div class="receiver">${message:players}</div>
                                     <div class="points">
-                                        <span class="math">${playerPointMath}</span>
-                                        <span class="total">${playerPointTotal}</span>
+                                        <span class="total">${computerPoints}</span>
                                     </div>
                                 </div>
                             </t:if>
+                        </t:if>
 
-                        </div>
-                        <br class="clr" />
+                        <t:if test="!computerAnswer">
+
+                            <t:loop source="playersResponded" value="currentPlayer">
+
+                                <div class="playerName notFilled">
+                                    <span>${currentPlayer}</span>
+                                </div>
+                            </t:loop>
+
+                            <div class="pointResults">
+                                <div class="receiver">${message:owners}</div>
+                                <div class="points">
+                                    <span class="math">${playerPointMath}</span>
+                                    <span class="total">${playerPointTotal}</span>
+                                </div>
+                            </div>
+                        </t:if>
+
                     </div>
-                </t:loop>
-            </div>
+                    <br class="clr" />
+                </div>
+            </t:loop>
         </div>
-    </div>
-
-    <div id="buttonCache">
-
-        <div class="button">
-            <t:eventlink event="next" />
-            <div class="next">${message:next}</div>
-        </div>
-
     </div>
 
 </t:container>

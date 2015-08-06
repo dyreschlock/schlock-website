@@ -1,6 +1,5 @@
 package com.schlock.website.components.apps.notfibbage.content.game;
 
-import com.schlock.website.pages.apps.notfibbage.Game;
 import com.schlock.website.services.apps.notfibbage.NotFibbageController;
 import com.schlock.website.services.apps.notfibbage.NotFibbageManagement;
 import org.apache.tapestry5.annotations.Persist;
@@ -147,12 +146,8 @@ public class GameResultsPhase
         return management.getQuestionText();
     }
 
-    Object onNext()
+    public void reset()
     {
-        controller.next();
-
         selectedIndex = 0;
-
-        return Game.class;
     }
 }

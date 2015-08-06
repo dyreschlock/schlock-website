@@ -110,10 +110,7 @@ public class GameRegisterPhase
         return css;
     }
 
-    Object onNext()
+    public void reset()
     {
-        controller.next();
-
-        return Game.class;
     }
 }

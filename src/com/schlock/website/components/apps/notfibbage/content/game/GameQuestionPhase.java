@@ -109,10 +109,7 @@ public class GameQuestionPhase
         return management.getQuestionText();
     }
 
-    Object onNext()
+    public void reset()
     {
-        controller.next();
-
-        return Game.class;
     }
 }

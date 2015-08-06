@@ -1,52 +1,36 @@
 <t:container
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
+    <div class="postBody">
 
-    <div id="postContent">
+        <h1 id="headline">
+            ${currentQuestion}
+        </h1>
 
-        <div id="phaseTitle">
-            ${message:answer-phase}
-        </div>
+        <t:zone t:id="playersZone" id="playersZone" t:update="show">
 
-        <div class="postBody">
+            <div class="threeColumns responses">
 
-            <h1 id="headline">
-                ${currentQuestion}
-            </h1>
+                <t:loop source="questionResponses" value="currentResponse" index="currentIndex">
 
-            <t:zone t:id="playersZone" id="playersZone" t:update="show">
+                    <div class="${responseColumnCssClass}">
+                        <span>${currentResponse}</span>
+                    </div>
+                </t:loop>
+            </div>
 
-                <div class="threeColumns responses">
-
-                    <t:loop source="questionResponses" value="currentResponse" index="currentIndex">
-
-                        <div class="${responseColumnCssClass}">
-                            <span>${currentResponse}</span>
-                        </div>
-                    </t:loop>
-                </div>
-
-                <br class="clr" />
-
-                <div class="threeColumns players">
-
-                    <t:loop source="players" value="currentPlayer" index="currentIndex">
-
-                        <div class="${playerColumnCssClass}">
-                            <span>${currentPlayer}</span>
-                        </div>
-                    </t:loop>
-                </div>
-            </t:zone>
             <br class="clr" />
-        </div>
-    </div>
 
-    <div id="buttonCache">
+            <div class="threeColumns players">
 
-        <div class="button">
-            <t:eventlink event="next" />
-            <div class="next">${message:next}</div>
-        </div>
+                <t:loop source="players" value="currentPlayer" index="currentIndex">
+
+                    <div class="${playerColumnCssClass}">
+                        <span>${currentPlayer}</span>
+                    </div>
+                </t:loop>
+            </div>
+        </t:zone>
+        <br class="clr" />
     </div>
 </t:container>
