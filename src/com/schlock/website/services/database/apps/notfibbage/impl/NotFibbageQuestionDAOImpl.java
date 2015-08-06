@@ -21,7 +21,7 @@ public class NotFibbageQuestionDAOImpl extends BaseDAOImpl<NotFibbageQuestion> i
                         " from NotFibbageQuestion q " +
                         " join q.category c " +
                         " where c.id = :categoryId " +
-                        " order by q.id ";
+                        " order by q.order, q.id ";
 
         Query query = session.createQuery(text);
         query.setLong("categoryId", categoryId);
