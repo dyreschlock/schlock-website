@@ -7,7 +7,7 @@
     <div id="postContent">
 
         <div id="phaseTitle">
-            ${message:results-phase}
+            ${phaseTitle}
         </div>
 
         <t:delegate to="block:phaseBlock" />
