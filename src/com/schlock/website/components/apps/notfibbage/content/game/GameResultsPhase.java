@@ -102,6 +102,12 @@ public class GameResultsPhase
         return management.getPlayersByResponse(currentAnswer);
     }
 
+    public boolean isHasPlayersAnswered()
+    {
+        List<String> players = getPlayersAnswered();
+        return players.size() != 0;
+    }
+
     public List<String> getPlayersAnswered()
     {
         return management.getPlayersByAnswer(currentAnswer);

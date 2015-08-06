@@ -28,14 +28,21 @@
                         <div class="playersAnswered">
                             <div class="title">${message:players-answered}</div>
 
-                            <div class="columns">
-                                <t:loop source="playersAnswered" value="currentPlayer" index="currentIndex">
+                            <t:if test="hasPlayersAnswered">
 
-                                    <div class="playerName filled ${columnClass}">
-                                        <span>${currentPlayer}</span>
-                                    </div>
-                                </t:loop>
-                            </div>
+                                <div class="columns">
+                                    <t:loop source="playersAnswered" value="currentPlayer" index="currentIndex">
+
+                                        <div class="playerName filled ${columnClass}">
+                                            <span>${currentPlayer}</span>
+                                        </div>
+                                    </t:loop>
+                                </div>
+                            </t:if>
+
+                            <t:if test="!hasPlayersAnswered">
+                                <div class="nobody">${message:nobody}</div>
+                            </t:if>
                         </div>
 
 
@@ -48,12 +55,14 @@
                                     <span>${computerResponse}</span>
                                 </div>
 
-                                <div class="pointResults">
-                                    <div class="receiver">${message:players}</div>
-                                    <div class="points">
-                                        <span class="total">${computerPoints}</span>
+                                <t:if test="hasPlayersAnswered">
+                                    <div class="pointResults">
+                                        <div class="receiver">${message:players}</div>
+                                        <div class="points">
+                                            <span class="total">${computerPoints}</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </t:if>
                             </t:if>
 
                             <t:if test="!computerAnswer">
