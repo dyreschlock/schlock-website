@@ -8,16 +8,23 @@
             ${currentQuestion}
         </h1>
 
-        <div id="results">
+        <div id="resultTabs">
+            <t:loop source="answeredResponses" index="currentIndex">
+                <div class="tab ${selectedClass}">
+                    <span>${tabNumber}</span>
+                </div>
+            </t:loop>
+            <br class="clr" />
+        </div>
 
+        <div id="results">
             <t:loop source="answeredResponses" value="currentAnswer" index="currentIndex">
 
-                <div class="${resultCssClass}">
+                <div class="result ${selectedClass}">
 
                     <div class="answer">
                         <div>${currentAnswer}</div>
                     </div>
-
 
                     <div class="playersAnswered">
                         <div class="title">${message:players-answered}</div>
@@ -37,7 +44,6 @@
                             <div class="nobody">${message:nobody}</div>
                         </t:if>
                     </div>
-
 
                     <div class="playersResponded">
                         <div class="title">${message:owner}</div>

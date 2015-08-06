@@ -104,8 +104,58 @@ body.notFibbage
             }
         }
 
+        #resultTabs
+        {
+            margin-top: 30px;
+
+            div.tab
+            {
+                margin-right: 20px;
+
+                position: relative;
+                float: left;
+
+                span
+                {
+                    display: block;
+
+                    font-size: 1.1em;
+
+                    margin: 8px 18px;
+                }
+            }
+
+            div.selected
+            {
+                border: 1px solid #333;
+                background-color: #ccc;
+                color: #333;
+            }
+
+            div.notSelected
+            {
+                border: 1px solid #ccc;
+                background-color: #fff;
+                color: #333;
+            }
+        }
+
         #results
         {
+            margin-top: 10px;
+
+            div.selected
+            {
+                display: block;
+                visibility: visible;
+            }
+
+            div.notSelected
+            {
+                display: none;
+                visibility: hidden;
+            }
+
             div.result
             {
                 div.answer
@@ -196,12 +246,6 @@ body.notFibbage
                         }
                     }
                 }
-            }
-
-            div.inactive
-            {
-                display: none;
-                visibility: hidden;
             }
         }
 

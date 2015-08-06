@@ -41,16 +41,20 @@ public class GameResultsPhase
         return management.getAnsweredResponses();
     }
 
-    public String getResultCssClass()
+    public String getSelectedClass()
     {
-        String css = "result ";
-
-//        if (currentIndex != selectedIndex)
-//        {
-//            css = " inactive ";
-//        }
-        return css;
+        if (currentIndex == selectedIndex)
+        {
+            return "selected";
+        }
+        return "notSelected";
     }
+
+    public String getTabNumber()
+    {
+        return Integer.toString(currentIndex + 1);
+    }
+
 
     public String getColumnClass()
     {
