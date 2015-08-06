@@ -4,6 +4,11 @@ public interface NotFibbageController
 {
     public void next();
 
+    public void reset();
+
+    public void restart();
+
+
     public String getGameState();
 
     public String getPlayerState(String playerName);

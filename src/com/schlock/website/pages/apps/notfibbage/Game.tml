@@ -13,13 +13,14 @@
         <t:delegate to="block:phaseBlock" />
     </div>
 
-    <div id="buttonCache">
+    <div id="nextButton" class="button">
+        <t:eventlink event="next" />
+        <div class="label">${message:next}</div>
+    </div>
 
-        <div class="button">
-            <t:eventlink event="next" />
-            <div class="next">${message:next}</div>
-        </div>
-
+    <div id="resetButton" class="button">
+        <t:eventlink event="reset" />
+        <div class="label">${message:reset}</div>
     </div>
 
 

@@ -73,17 +73,38 @@ public class Game
     {
         controller.next();
 
+        resetComponentState();
+
+        return this;
+    }
+
+    Object onReset()
+    {
+        controller.reset();
+
+        resetComponentState();
+
+        return this;
+    }
+
+    Object onRestart()
+    {
+        controller.restart();
+
+        resetComponentState();
+
+        return this;
+    }
+
+    private void resetComponentState()
+    {
         registerComponent.reset();
         questionComponent.reset();
         answerComponent.reset();
         resultsComponent.reset();
         standingsComponent.reset();
         finalComponent.reset();
-
-        return this;
     }
-
-
 
     public boolean isRegisterPhase()
     {

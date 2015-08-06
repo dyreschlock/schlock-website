@@ -72,6 +72,20 @@ public class NotFibbageControllerImpl implements NotFibbageController
         }
     }
 
+    public void reset()
+    {
+        this.currentPhase = REGISTER_PHASE;
+
+        management.resetGame();
+    }
+
+    public void restart()
+    {
+        this.currentPhase = REGISTER_PHASE;
+
+        management.resetScore();
+    }
+
 
     public String getGameState()
     {
