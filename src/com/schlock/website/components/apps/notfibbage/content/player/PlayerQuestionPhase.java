@@ -40,7 +40,6 @@ public class PlayerQuestionPhase
     void onValidateFromResponseForm() throws ValidationException
     {
         boolean correct = management.isResponseCorrect(playerResponse);
-
         if (correct)
         {
             String message = messages.get("error-answer-correct");

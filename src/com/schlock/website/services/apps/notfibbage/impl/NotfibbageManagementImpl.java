@@ -201,6 +201,7 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
             }
         }
 
+        capitalizeStringList(responses);
         orderStringList(responses);
         return responses;
     }
@@ -268,6 +269,8 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
 
         orderStringList(answers);
         answers.add(correctAnswer);
+
+        capitalizeStringList(answers);
 
         return answers;
     }
@@ -436,6 +439,17 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
             }
         }
         return false;
+    }
+
+    private void capitalizeStringList(List<String> list)
+    {
+        for (int i = 0; i < list.size(); i++)
+        {
+            String entry = list.get(i);
+            entry = StringUtils.upperCase(entry);
+
+            list.set(i, entry);
+        }
     }
 
     private void orderStringList(List<String> list)
