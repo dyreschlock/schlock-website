@@ -8,85 +8,90 @@
             ${currentQuestion}
         </h1>
 
-        <div id="resultTabs">
-            <t:loop source="answeredResponses" index="currentIndex">
-                <div class="tab ${selectedClass}">
-                    <span>${tabNumber}</span>
-                </div>
-            </t:loop>
-            <br class="clr" />
-        </div>
+        <t:zone t:id="resultsZone" id="resultsZone" t:update="show">
 
-        <div id="results">
-            <t:loop source="answeredResponses" value="currentAnswer" index="currentIndex">
-
-                <div class="result ${selectedClass}">
-
-                    <div class="answer">
-                        <div>${currentAnswer}</div>
+            <div id="resultTabs">
+                <t:loop source="answeredResponses" index="currentIndex">
+                    <div class="tab ${selectedClass}">
+                        <t:eventlink event="selectTab" context="currentIndex" zone="resultsZone" />
+                        <span>${tabNumber}</span>
                     </div>
+                </t:loop>
+                <br class="clr" />
+            </div>
 
-                    <div class="playersAnswered">
-                        <div class="title">${message:players-answered}</div>
+            <div id="results">
+                <t:loop source="answeredResponses" value="currentAnswer" index="currentIndex">
 
-                        <t:if test="hasPlayersAnswered">
-                            <div class="columns">
-                                <t:loop source="playersAnswered" value="currentPlayer" index="currentIndex">
+                    <div class="result ${selectedClass}">
 
-                                    <div class="playerName filled ${columnClass}">
+                        <div class="answer">
+                            <div>${currentAnswer}</div>
+                        </div>
+
+                        <div class="playersAnswered">
+                            <div class="title">${message:players-answered}</div>
+
+                            <t:if test="hasPlayersAnswered">
+                                <div class="columns">
+                                    <t:loop source="playersAnswered" value="currentPlayer" index="currentIndex">
+
+                                        <div class="playerName filled ${columnClass}">
+                                            <span>${currentPlayer}</span>
+                                        </div>
+                                    </t:loop>
+                                </div>
+                            </t:if>
+
+                            <t:if test="!hasPlayersAnswered">
+                                <div class="nobody">${message:nobody}</div>
+                            </t:if>
+                        </div>
+
+                        <div class="playersResponded">
+                            <div class="title">${message:owner}</div>
+
+                            <t:if test="computerAnswer">
+
+                                <div class="playerName notFilled">
+                                    <span>${computerResponse}</span>
+                                </div>
+
+                                <t:if test="hasPlayersAnswered">
+                                    <div class="pointResults">
+                                        <div class="receiver">${message:players}</div>
+                                        <div class="points">
+                                            <span class="total">${computerPoints}</span>
+                                        </div>
+                                    </div>
+                                </t:if>
+                            </t:if>
+
+                            <t:if test="!computerAnswer">
+
+                                <t:loop source="playersResponded" value="currentPlayer">
+
+                                    <div class="playerName notFilled">
                                         <span>${currentPlayer}</span>
                                     </div>
                                 </t:loop>
-                            </div>
-                        </t:if>
 
-                        <t:if test="!hasPlayersAnswered">
-                            <div class="nobody">${message:nobody}</div>
-                        </t:if>
-                    </div>
-
-                    <div class="playersResponded">
-                        <div class="title">${message:owner}</div>
-
-                        <t:if test="computerAnswer">
-
-                            <div class="playerName notFilled">
-                                <span>${computerResponse}</span>
-                            </div>
-
-                            <t:if test="hasPlayersAnswered">
                                 <div class="pointResults">
-                                    <div class="receiver">${message:players}</div>
+                                    <div class="receiver">${message:owners}</div>
                                     <div class="points">
-                                        <span class="total">${computerPoints}</span>
+                                        <span class="math">${playerPointMath}</span>
+                                        <span class="total">${playerPointTotal}</span>
                                     </div>
                                 </div>
                             </t:if>
-                        </t:if>
 
-                        <t:if test="!computerAnswer">
-
-                            <t:loop source="playersResponded" value="currentPlayer">
-
-                                <div class="playerName notFilled">
-                                    <span>${currentPlayer}</span>
-                                </div>
-                            </t:loop>
-
-                            <div class="pointResults">
-                                <div class="receiver">${message:owners}</div>
-                                <div class="points">
-                                    <span class="math">${playerPointMath}</span>
-                                    <span class="total">${playerPointTotal}</span>
-                                </div>
-                            </div>
-                        </t:if>
-
+                        </div>
+                        <br class="clr" />
                     </div>
-                    <br class="clr" />
-                </div>
-            </t:loop>
-        </div>
+                </t:loop>
+            </div>
+        </t:zone>
+
     </div>
 
 </t:container>

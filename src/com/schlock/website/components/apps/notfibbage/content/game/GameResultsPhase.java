@@ -2,8 +2,10 @@ package com.schlock.website.components.apps.notfibbage.content.game;
 
 import com.schlock.website.services.apps.notfibbage.NotFibbageController;
 import com.schlock.website.services.apps.notfibbage.NotFibbageManagement;
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -19,6 +21,10 @@ public class GameResultsPhase
 
     @Inject
     private Messages messages;
+
+
+    @InjectComponent
+    private Zone resultsZone;
 
 
     @Property
@@ -53,6 +59,13 @@ public class GameResultsPhase
     public String getTabNumber()
     {
         return Integer.toString(currentIndex + 1);
+    }
+
+    Object onSelectTab(Integer index)
+    {
+        this.selectedIndex = index;
+
+        return resultsZone;
     }
 
 
