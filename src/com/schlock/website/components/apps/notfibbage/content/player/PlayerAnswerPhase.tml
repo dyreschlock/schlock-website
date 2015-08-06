@@ -1,36 +1,29 @@
 <t:container
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
-    <div id="postContent">
+    <div class="postBody">
 
-        <div id="phaseTitle">
-            ${message:answer-phase}
-        </div>
+        <h1 id="headLine">
+            ${currentQuestion}
+        </h1>
 
-        <div class="postBody">
+        <t:if test="playerAnswered">
+            <p>${message:please-wait}</p>
+        </t:if>
+        <t:if test="!playerAnswered">
 
-            <h1 id="headLine">
-                ${currentQuestion}
-            </h1>
+            <div id="playersZone"><div class="columns responses">
 
-            <t:if test="playerAnswered">
-                <p>${message:please-wait}</p>
-            </t:if>
-            <t:if test="!playerAnswered">
+                <t:loop source="questionResponses" value="currentResponse" index="currentIndex">
 
-                <div id="playersZone"><div class="columns responses">
-
-                    <t:loop source="questionResponses" value="currentResponse" index="currentIndex">
-
-                        <div class="${responseColumnCssClass}">
-                            <t:eventlink event="selectResponse" context="currentResponse">
-                                <span>${currentResponse}</span>
-                            </t:eventlink>
-                        </div>
-                    </t:loop>
-                </div></div>
-                <br class="clr" />
-            </t:if>
-        </div>
+                    <div class="${responseColumnCssClass}">
+                        <t:eventlink event="selectResponse" context="currentResponse">
+                            <span>${currentResponse}</span>
+                        </t:eventlink>
+                    </div>
+                </t:loop>
+            </div></div>
+            <br class="clr" />
+        </t:if>
     </div>
 </t:container>

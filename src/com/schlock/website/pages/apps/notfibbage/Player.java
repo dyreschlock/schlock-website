@@ -31,6 +31,7 @@ public class Player
     @Inject
     private Messages messages;
 
+
     @InjectComponent
     private Zone contentZone;
 
@@ -111,6 +112,12 @@ public class Player
     public String getCurrentState()
     {
         return controller.getPlayerState(playerName);
+    }
+
+    public String getPhaseTitle()
+    {
+        String key = controller.getGameState() + "-phase";
+        return messages.get(key);
     }
 
 

@@ -1,48 +1,41 @@
 <t:container
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
-    <div id="postContent">
+    <div class="postBody">
+        <t:if test="playerRegistered">
 
-        <div id="phaseTitle">
-            ${message:registration-phase}
-        </div>
+            <h1 id="headline">
+                ${message:registered}
+            </h1>
 
-        <div class="postBody">
-            <t:if test="playerRegistered">
+            <span class="playerName">
+                ${playerName}
+            </span>
+
+            <p>${message:please-wait}</p>
+
+        </t:if>
+        <t:if test="!playerRegistered">
+            <t:form t:id="playerForm" id="playerForm">
 
                 <h1 id="headline">
-                    ${message:registered}
+                    <t:label t:for="name">
+                        ${message:instructions}
+                    </t:label>
                 </h1>
 
-                <span class="playerName">
-                    ${playerName}
-                </span>
+                <t:errors />
 
-                <p>${message:please-wait}</p>
+                <p>
+                    <t:textfield t:id="name" value="newPlayerName" t:validate="required" />
+                </p>
 
-            </t:if>
-            <t:if test="!playerRegistered">
-                <t:form t:id="playerForm" id="playerForm">
+                <div class="submit">
+                    <t:linksubmit t:id="submitButton" />
+                    <div class="enter">${message:enter}</div>
+                </div>
+            </t:form>
+        </t:if>
 
-                    <h1 id="headline">
-                        <t:label t:for="name">
-                            ${message:instructions}
-                        </t:label>
-                    </h1>
-
-                    <t:errors />
-
-                    <p>
-                        <t:textfield t:id="name" value="newPlayerName" t:validate="required" />
-                    </p>
-
-                    <div class="submit">
-                        <t:linksubmit t:id="submitButton" />
-                        <div class="enter">${message:enter}</div>
-                    </div>
-                </t:form>
-            </t:if>
-
-        </div>
     </div>
 </t:container>

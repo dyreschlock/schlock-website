@@ -4,10 +4,16 @@
      xmlns:p="tapestry-library:apps/notfibbage/content/player"
     >
 
-    <t:zone t:id="contentZone" id="contentZone" t:update="show">
+    <div id="postContent">
+        <t:zone t:id="contentZone" id="contentZone" t:update="show">
 
-        <t:delegate to="block:phaseBlock" />
-    </t:zone>
+            <div id="phaseTitle">
+                ${phaseTitle}
+            </div>
+
+            <t:delegate to="block:phaseBlock" />
+        </t:zone>
+    </div>
 
     <t:block t:id="phaseBlock">
         <t:if test="registerPhase">
