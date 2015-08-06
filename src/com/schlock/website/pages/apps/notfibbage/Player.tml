@@ -11,7 +11,23 @@
                 ${phaseTitle}
             </div>
 
-            <t:delegate to="block:phaseBlock" />
+            <t:if test="playerRegistered">
+                <t:delegate to="block:phaseBlock" />
+            </t:if>
+
+            <t:if test="!playerRegistered">
+
+                <t:if test="registerPhase">
+                    <p:playerRegisterPhase playerName="playerName" />
+                </t:if>
+
+                <t:if test="!registerPhase">
+
+                    <div class="postBody">
+                        <p>${message:game-in-progress}</p>
+                    </div>
+                </t:if>
+            </t:if>
         </t:zone>
     </div>
 

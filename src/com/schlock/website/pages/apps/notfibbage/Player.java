@@ -44,17 +44,14 @@ public class Player
 
     void afterRender()
     {
-        if (StringUtils.isNotBlank(this.playerName))
-        {
-            JSONObject spec = new JSONObject();
-            spec.put("currentState", getCurrentState());
-            spec.put("refreshRate", REFRESH_RATE_SECONDS);
+        JSONObject spec = new JSONObject();
+        spec.put("currentState", getCurrentState());
+        spec.put("refreshRate", REFRESH_RATE_SECONDS);
 
-            spec.put("contentZoneId", contentZone.getClientId());
-            spec.put("refreshUrl", resources.createEventLink("refreshZone").toURI());
-            spec.put("updateUrl", resources.createEventLink("activateContentZone").toURI());
-            javascript.addInitializerCall("Refresher", spec);
-        }
+        spec.put("contentZoneId", contentZone.getClientId());
+        spec.put("refreshUrl", resources.createEventLink("refreshZone").toURI());
+        spec.put("updateUrl", resources.createEventLink("activateContentZone").toURI());
+        javascript.addInitializerCall("Refresher", spec);
     }
 
     Object onActivate()
@@ -111,13 +108,20 @@ public class Player
 
     public String getCurrentState()
     {
-        return controller.getPlayerState(playerName);
+        String state = controller.getPlayerState(playerName);
+        return state;
     }
 
     public String getPhaseTitle()
     {
         String key = controller.getGameState() + "-phase";
         return messages.get(key);
+    }
+
+
+    public boolean isPlayerRegistered()
+    {
+        return management.isRegisteredPlayer(playerName);
     }
 
 
