@@ -30,6 +30,16 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
     }
 
 
+    public int getCurrentPointValue()
+    {
+        return FULL_POINTS_DEFAULT;
+    }
+
+    public int getHalfCurrentPointValue()
+    {
+        return getCurrentPointValue() / 2;
+    }
+
     public void registerPlayer(String playerName)
     {
         NotFibbagePlayer player = players.get(playerName);
@@ -307,7 +317,7 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
         // own answer - minus half points
 
         final int FULL_POINTS = getCurrentPointValue();
-        final int HALF_POINTS = FULL_POINTS / 2;
+        final int HALF_POINTS = getHalfCurrentPointValue();
 
         for (String answer : getAnsweredResponses())
         {
@@ -352,11 +362,6 @@ public class NotFibbageManagementImpl implements NotFibbageManagement
                 }
             }
         }
-    }
-
-    private int getCurrentPointValue()
-    {
-        return FULL_POINTS_DEFAULT;
     }
 
     private void clearResponses()

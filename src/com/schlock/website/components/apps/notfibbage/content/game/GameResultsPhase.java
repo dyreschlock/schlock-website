@@ -5,6 +5,7 @@ import com.schlock.website.services.apps.notfibbage.NotFibbageController;
 import com.schlock.website.services.apps.notfibbage.NotFibbageManagement;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public class GameResultsPhase
 
     @Inject
     private NotFibbageManagement management;
+
+    @Inject
+    private Messages messages;
 
 
     @Property
@@ -49,14 +53,45 @@ public class GameResultsPhase
         return css;
     }
 
+    public String getColumnClass()
+    {
+        String css = "column ";
 
-    public boolean isCorrectAnswer()
+        if ((currentIndex + 1) % 2 == 0)
+        {
+            css += " twoColumnLast ";
+        }
+
+        return css;
+    }
+
+    public boolean isComputerAnswer()
+    {
+        boolean correct = isCorrectAnswer();
+        boolean notPlayerAnswer = !isHasPlayersResponded();
+
+        return correct || notPlayerAnswer;
+    }
+
+    public String getComputerResponse()
+    {
+        String truth = messages.get("truth");
+        String lie = messages.get("lie");
+
+        if (isCorrectAnswer())
+        {
+            return truth;
+        }
+        return lie;
+    }
+
+
+    private boolean isCorrectAnswer()
     {
         return management.isResponseCorrect(currentAnswer);
     }
 
-
-    public boolean isHasPlayersResponded()
+    private boolean isHasPlayersResponded()
     {
         List<String> players = getPlayersResponded();
         return players.size() != 0;
@@ -71,6 +106,35 @@ public class GameResultsPhase
     {
         return management.getPlayersByAnswer(currentAnswer);
     }
+
+    public String getComputerPoints()
+    {
+        if (isCorrectAnswer())
+        {
+            return "+" + management.getCurrentPointValue();
+        }
+        else
+        {
+            return "-" + management.getHalfCurrentPointValue();
+        }
+    }
+
+    public String getPlayerPointMath()
+    {
+        int points = management.getHalfCurrentPointValue();
+        int players = getPlayersResponded().size();
+
+        return points + " x " + players + " = ";
+    }
+
+    public String getPlayerPointTotal()
+    {
+        int points = management.getHalfCurrentPointValue();
+        int players = getPlayersResponded().size();
+
+        return "+" + (points * players);
+    }
+
 
     public String getCurrentQuestion()
     {

@@ -4,6 +4,10 @@ import java.util.List;
 
 public interface NotFibbageManagement
 {
+    public int getCurrentPointValue();
+
+    public int getHalfCurrentPointValue();
+
     //register phase
 
     public void registerPlayer(String playerName);

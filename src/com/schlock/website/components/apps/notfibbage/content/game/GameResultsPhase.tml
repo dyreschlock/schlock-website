@@ -26,30 +26,52 @@
 
 
                         <div class="playersAnswered">
+                            <div class="title">${message:players-answered}</div>
 
-                            <t:loop source="playersAnswered" value="currentPlayer">
+                            <div class="columns">
+                                <t:loop source="playersAnswered" value="currentPlayer" index="currentIndex">
 
-                                <div class="player">${currentPlayer}</div>
-                            </t:loop>
+                                    <div class="playerName filled ${columnClass}">
+                                        <span>${currentPlayer}</span>
+                                    </div>
+                                </t:loop>
+                            </div>
                         </div>
 
 
                         <div class="playersResponded">
+                            <div class="title">${message:owner}</div>
 
-                            <t:if test="correctAnswer">
-                                <div class="player">${message:truth}</div>
+                            <t:if test="computerAnswer">
+
+                                <div class="playerName notFilled">
+                                    <span>${computerResponse}</span>
+                                </div>
+
+                                <div class="pointResults">
+                                    <div class="receiver">${message:players}</div>
+                                    <div class="points">
+                                        <span class="total">${computerPoints}</span>
+                                    </div>
+                                </div>
                             </t:if>
-                            <t:if test="!correctAnswer">
-                                <t:if test="!hasPlayersResponded">
-                                    <div class="player">${message:computer}</div>
-                                </t:if>
-                                <t:if test="hasPlayersResponded">
 
-                                    <t:loop source="playersResponded" value="currentPlayer">
+                            <t:if test="!computerAnswer">
 
-                                        <div class="player">${currentPlayer}</div>
-                                    </t:loop>
-                                </t:if>
+                                <t:loop source="playersResponded" value="currentPlayer">
+
+                                    <div class="playerName notFilled">
+                                        <span>${currentPlayer}</span>
+                                    </div>
+                                </t:loop>
+
+                                <div class="pointResults">
+                                    <div class="receiver">${message:owners}</div>
+                                    <div class="points">
+                                        <span class="math">${playerPointMath}</span>
+                                        <span class="total">${playerPointTotal}</span>
+                                    </div>
+                                </div>
                             </t:if>
 
                         </div>
