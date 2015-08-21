@@ -12,12 +12,15 @@ public class NotFibbageQuestion extends Persisted
 
     private NotFibbageCategory category;
 
-    private Integer order;
+    private Integer orderInCat;
 
     private String source;
 
     public NotFibbageQuestion()
     {
+        Double number = 0.0;
+
+
     }
 
 
@@ -69,15 +72,5 @@ public class NotFibbageQuestion extends Persisted
     public void setSource(String source)
     {
         this.source = source;
-    }
-
-    public Integer getOrder()
-    {
-        return order;
-    }
-
-    public void setOrder(Integer order)
-    {
-        this.order = order;
     }
 }
