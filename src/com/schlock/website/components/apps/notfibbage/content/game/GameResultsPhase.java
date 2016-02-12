@@ -144,7 +144,7 @@ public class GameResultsPhase
     public String getPlayerPointMath()
     {
         int points = management.getHalfCurrentPointValue();
-        int players = getPlayersResponded().size();
+        int players = getPlayersAnswered().size();
 
         return points + " x " + players + " = ";
     }
@@ -152,7 +152,7 @@ public class GameResultsPhase
     public String getPlayerPointTotal()
     {
         int points = management.getHalfCurrentPointValue();
-        int players = getPlayersResponded().size();
+        int players = getPlayersAnswered().size();
 
         return "+" + (points * players);
     }
