@@ -16,6 +16,10 @@ public class PhotoFileFilter implements FilenameFilter
 
             return !hasThumb;
         }
+        if (StringUtils.endsWith(s, ".png"))
+        {
+            return true;
+        }
         return false;
     }
 

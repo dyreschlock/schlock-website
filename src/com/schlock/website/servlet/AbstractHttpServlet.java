@@ -45,6 +45,7 @@ public abstract class AbstractHttpServlet extends HttpServlet
         contentTypes.put("jpeg", "image/jpeg");
         contentTypes.put("jpg", "image/jpeg");
         contentTypes.put("psd", "image/psd");
+        contentTypes.put("png", "image/png");
 
         contentTypes.put("htm", "text/html");
         contentTypes.put("html", "text/html");
