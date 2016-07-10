@@ -8,8 +8,14 @@ import java.io.FilenameFilter;
 
 public class RenameTimelapses
 {
-    private final String LOCATION = "/Users/JHendricks/Camera/_timelapse8/";
-    private final String OUTPUT = LOCATION + "output/";
+    private final String LOCATION = "/Users/JHendricks/Camera/_timelapse/_timelapse10/";
+    private final String OUTPUT = LOCATION + "_output/";
+
+    /*
+
+
+    ffmpeg -r 24 -i frame%04d.jpg -b:v 15000k -s hd1080 anoutput.mp4
+     */
 
     public void run() throws Exception
     {
