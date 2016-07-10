@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="layout" title="${message:page-title}"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+    <head>
+        <title>${message:page-title}</title>
+        <style>
+
+            table
+            {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            table, th, td
+            {
+                border: 1px solid black;
+            }
+
+            td
+            {
+                text-align: center;
+                height: 200px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <table>
+            <t:loop source="rows" value="row">
+                <tr>
+                    <t:loop source="row" value="bingoColumn">
+                        <td>
+                            <img src="${image}" />
+                        </td>
+                    </t:loop>
+                </tr>
+            </t:loop>
+        </table>
+    </body>
+</html>

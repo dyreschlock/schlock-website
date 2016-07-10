@@ -1,10 +1,11 @@
 package com.schlock.others;
 
+import com.schlock.website.services.apps.bingo.BingoRandomizer;
+import com.schlock.website.services.apps.bingo.impl.BingoRandomizerImpl;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -16,31 +17,10 @@ public class BingoRandomizing
 
     public static final int ITERATIONS = 34;
 
-//    public static final List<String> jobs = Arrays.asList("Artist",
-//                                                            "Baker",
-//                                                            "Bus Driver",
-//                                                            "Cabin Attendant",
-//                                                            "Comedian",
-//                                                            "Cook",
-//                                                            "Dentist",
-//                                                            "Doctor",
-//                                                            "Farmer",
-//                                                            "Fire Fighter",
-//                                                            "Florist",
-//                                                            "Singer",
-//                                                            "Soccer Player",
-//                                                            "Teacher",
-//                                                            "Vet",
-//                                                            "Zoo Keeper");
-
-    public static final List<String> jobs = Arrays.asList("apples", "bananas", "baseball", "basketball", "birds", "cats", "cherries", "dogs", "grapes", "ice cream", "juice", "kiwi fruits", "lemons", "melons", "milk", "oranges", "peaches", "pineapples", "rabbits", "soccer", "spiders", "strawberries", "swimming");
-
-    private int limit;
+    private BingoRandomizer service = new BingoRandomizerImpl();
 
     public BingoRandomizing()
     {
-//        limit = jobs.size();
-        limit = 16;
     }
 
     public void run()
@@ -66,27 +46,10 @@ public class BingoRandomizing
     private void createBingoOrder(File directory, int iteration) throws Exception
     {
         File file = new File(directory, FILENAME + "." + (iteration +1) + ".txt");
-        String content = createOrder();
+        List<String> content = service.createOrder();
 
-        writeToFile(file, content);
-    }
-
-    private String createOrder()
-    {
-        List<String> order = new ArrayList<String>();
-
-        while(order.size() < limit)
-        {
-            double random = Math.random();
-            int selection = (int) (random * jobs.size());
-            String job = jobs.get(selection);
-
-            if (!order.contains(job))
-            {
-                order.add(job);
-            }
-        }
-        return join(order);
+        String printableContent = join(content);
+        writeToFile(file, printableContent);
     }
 
     private String join(List<String> strings)
@@ -94,7 +57,7 @@ public class BingoRandomizing
         String output = "";
         for(int i = 0; i < strings.size(); i++)
         {
-            if (i % 4 == 0)
+            if (i % BingoRandomizerImpl.BINGO_SIZE == 0)
             {
                 output += "\r\n";
             }
@@ -108,6 +71,7 @@ public class BingoRandomizing
         }
         return output;
     }
+
 
     private void writeToFile(File file, String content) throws Exception
     {
