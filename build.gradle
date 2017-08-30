@@ -5,8 +5,8 @@ apply plugin: 'war'
 
 webAppDirName = 'web'
 
-targetCompatibility = '1.6'
-sourceCompatibility = '1.6'
+targetCompatibility = '1.8'
+sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
@@ -33,7 +33,7 @@ dependencies {
     compile group: 'com.jolbox', name: 'bonecp', version: '0.7.1.RELEASE'
     compile group: 'com.jolbox', name: 'bonecp-provider', version: '0.7.1.RELEASE'
 
-    ext.tapestryVersion = '5.3.7'
+    ext.tapestryVersion = '5.3.8'
     compile group: 'org.apache.tapestry', name: 'tapestry5-annotations', version: tapestryVersion
     compile group: 'org.apache.tapestry', name: 'tapestry-core', version: tapestryVersion
     compile group: 'org.apache.tapestry', name: 'tapestry-func', version: tapestryVersion
