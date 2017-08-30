@@ -7,8 +7,8 @@
         <property name="hibernate.connection.provider_class">com.jolbox.bonecp.provider.BoneCPConnectionProvider</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
 
-        <!--
         <property name="hbm2ddl.auto">update</property>
+        <!--
         -->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
@@ -37,5 +37,8 @@
 
         <mapping resource="com/schlock/website/entities/apps/notfibbage/NotFibbageQuestion.hbm.xml" />
         <mapping resource="com/schlock/website/entities/apps/notfibbage/NotFibbageCategory.hbm.xml" />
+
+        <mapping resource="com/schlock/website/entities/apps/games/VideoGame.hbm.xml" />
+        <mapping resource="com/schlock/website/entities/apps/games/VideoGameConsole.hbm.xml" />
     </session-factory>
 </hibernate-configuration>
