@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="layout" title="${message:page-title}"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+    <head>
+        <title>${message:page-title}</title>
+        <style>
+            body
+            {
+                font-family: Meiryo, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",Osaka, "メイリオ", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+            }
+
+            div.question
+            {
+                clear: both;
+
+                padding-top: 5px;
+            }
+
+            div.number
+            {
+                position: relative;
+                float: left;
+
+                width: 40px;
+            }
+
+            div.text
+            {
+                position: relative;
+                float: left;
+
+
+            }
+
+        </style>
+    </head>
+    <body>
+        <t:loop source="questions" value="question" index="questionIndex">
+
+            <div class="question">
+                <div class="number">${questionNumber}</div> <div class="text">${question}</div>
+            </div>
+
+        </t:loop>
+    </body>
+</html>

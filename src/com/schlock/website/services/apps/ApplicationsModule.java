@@ -2,6 +2,8 @@ package com.schlock.website.services.apps;
 
 import com.schlock.website.services.apps.bingo.BingoRandomizer;
 import com.schlock.website.services.apps.bingo.impl.BingoRandomizerImpl;
+import com.schlock.website.services.apps.japanese.KanjiQuizRandomizer;
+import com.schlock.website.services.apps.japanese.impl.KanjiQuizRandomizerImpl;
 import com.schlock.website.services.apps.notfibbage.NotFibbageController;
 import com.schlock.website.services.apps.notfibbage.NotFibbageManagement;
 import com.schlock.website.services.apps.notfibbage.impl.NotFibbageControllerImpl;
@@ -17,6 +19,7 @@ public class ApplicationsModule
         binder.bind(SubtitleFixerService.class, SubtitleFixerServiceImpl.class);
 
         binder.bind(BingoRandomizer.class, BingoRandomizerImpl.class);
+        binder.bind(KanjiQuizRandomizer.class, KanjiQuizRandomizerImpl.class);
 
         binder.bind(NotFibbageManagement.class, NotFibbageManagementImpl.class);
         binder.bind(NotFibbageController.class, NotFibbageControllerImpl.class);

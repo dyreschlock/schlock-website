@@ -1,6 +1,8 @@
 package com.schlock.website.services.database;
 
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.database.apps.japanese.KanjiDAO;
+import com.schlock.website.services.database.apps.japanese.impl.KanjiDAOImpl;
 import com.schlock.website.services.database.apps.kendo.ExamQuestionDAO;
 import com.schlock.website.services.database.apps.kendo.impl.ExamQuestionDAOImpl;
 import com.schlock.website.services.database.apps.notfibbage.NotFibbageQuestionDAO;
@@ -23,6 +25,8 @@ public class DatabaseModule
         binder.bind(PostDAO.class, PostDAOImpl.class);
         binder.bind(CategoryDAO.class, CategoryDAOImpl.class);
         binder.bind(KeywordDAO.class, KeywordDAOImpl.class);
+
+        binder.bind(KanjiDAO.class, KanjiDAOImpl.class);
 
         binder.bind(ExamQuestionDAO.class, ExamQuestionDAOImpl.class);
 
