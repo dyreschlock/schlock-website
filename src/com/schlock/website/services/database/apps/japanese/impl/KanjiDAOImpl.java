@@ -15,10 +15,18 @@ public class KanjiDAOImpl extends BaseDAOImpl<Kanji> implements KanjiDAO
         super(Kanji.class, session);
     }
 
-    public List<Kanji> getAllFromLesson(int lesson)
+    public List<Kanji> getAllFromLesson(int lesson, boolean only)
     {
-        String text = "from Kanji k " +
-                        " where k.lesson >= :lesson ";
+        String text = "from Kanji k ";
+
+        if (only)
+        {
+            text += " where k.lesson = :lesson ";
+        }
+        else
+        {
+            text += " where k.lesson >= :lesson ";
+        }
 
         Query query = session.createQuery(text);
         query.setInteger("lesson", lesson);

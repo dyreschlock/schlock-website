@@ -4,8 +4,5 @@ import java.util.List;
 
 public interface KanjiQuizRandomizer
 {
-    public List<String> getKanjiList();
-
-    public List<String> getKanjiList(int lesson);
-
+    public List<String> getKanjiList(String lessonFlag, String onlyFlag);
 }
