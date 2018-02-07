@@ -9,11 +9,24 @@
 
     <div id="aboutMe">
 
-        <div class="title">${message:email-title}</div>
-        <div class="details">${message:website-email}</div>
-
-        <div class="title">${message:resume-title}</div>
-        <div class="details">${message:resume}</div>
+        <div id="email">
+            <div class="title">${message:email-title}</div>
+            <div class="details">${message:website-email}</div>
+        </div>
+        <div id="resume1">
+            <div class="title">${message:resume-title}</div>
+            <div class="details">
+                <a href="${message:resume-software-url}" target="_blank">${message:resume-software}</a><br/>
+            </div>
+        </div>
+        <div id="resume2">
+            <div class="title">&nbsp;</div>
+            <div class="details">
+                <a href="${message:resume-teaching-url}" target="_blank">${message:resume-teaching}</a>
+            </div>
+        </div>
+        <br class="clr" />
+        <br class="clr" />
 
         <div id="internetLinks">
             <div class="title">${message:internetTitle}</div>
