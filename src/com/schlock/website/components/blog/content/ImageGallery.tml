@@ -18,7 +18,7 @@
             <t:zone t:id="imageOverlayZone" id="imageOverlayZone" t:update="show">
 
                 <t:if test="hasImageSelected">
-                    <div id="overlayImage" class="overlay">
+                    <div id="overlayImage" class="overlay" style="background-image: url(${imageLink})">
                         <div id="overlayedImage">
 
                             <div class="link">
@@ -29,8 +29,6 @@
                             </div>
 
                             <div class="clr overlayLinks">
-                                <img src="${selectedImage}" />
-
                                 <t:if test="hasPreviousImage">
                                     <t:eventlink class="previous" event="selectImage" context="previousImage" zone="imageOverlayZone"/>
                                 </t:if>
