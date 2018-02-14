@@ -19,40 +19,38 @@
 
                 <t:if test="hasImageSelected">
                     <div id="overlayImage" class="overlay" style="background-image: url(${imageLink})">
-                        <div id="overlayedImage">
 
-                            <div class="link">
-                                <a href="${imageLink}" target="_blank">${imageLink}</a>
-                            </div>
-                            <div class="close">
-                                <t:eventlink event="selectImage" context="[null]" zone="imageOverlayZone">Close</t:eventlink>
-                            </div>
-
-                            <div class="clr overlayLinks">
-                                <t:if test="hasPreviousImage">
-                                    <t:eventlink class="previous" event="selectImage" context="previousImage" zone="imageOverlayZone"/>
-                                </t:if>
-
-
-                                <t:if test="hasNextImage">
-                                    <t:eventlink class="next" event="selectImage" context="nextImage" zone="imageOverlayZone"/>
-                                </t:if>
-                            </div>
-
-                            <div class="previous">
-                                <t:if test="hasPreviousImage">
-                                    <t:eventlink event="selectImage" context="previousImage" zone="imageOverlayZone">Previous</t:eventlink>
-                                </t:if>
-                            </div>
-                            <div class="next">
-                                <t:if test="hasNextImage">
-                                    <t:eventlink event="selectImage" context="nextImage" zone="imageOverlayZone">Next</t:eventlink>
-                                </t:if>
-                            </div>
-
-                            <br class="clr" />
+                        <div class="imageLink textBox">
+                            <a href="${imageLink}" target="_blank">${imageLink}</a>
                         </div>
-                        <t:eventlink class="overlay" event="selectImage" context="[null]" zone="imageOverlayZone" />
+
+                        <div class="close textBox">
+                            <t:eventlink event="selectImage" context="[null]" zone="imageOverlayZone">Close</t:eventlink>
+                        </div>
+
+                        <t:if test="hasPreviousImage">
+                            <div class="previous overlayLink">
+                                <t:eventlink class="link" event="selectImage" context="previousImage" zone="imageOverlayZone"/>
+                                <div class="center">
+                                    <div class="textBox">
+                                        <t:eventlink event="selectImage" context="previousImage" zone="imageOverlayZone">Previous</t:eventlink>
+                                    </div>
+                                </div>
+                            </div>
+                        </t:if>
+
+                        <t:if test="hasNextImage">
+                            <div class="next overlayLink">
+                                <t:eventlink class="link" event="selectImage" context="nextImage" zone="imageOverlayZone"/>
+                                <div class="center">
+                                    <div class="textBox">
+                                        <t:eventlink event="selectImage" context="nextImage" zone="imageOverlayZone">Next</t:eventlink>
+                                    </div>
+                                </div>
+                            </div>
+                        </t:if>
+
+                        <br class="clr" />
                     </div>
                     <div id="overlayBackground" class="overlay"></div>
                 </t:if>

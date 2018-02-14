@@ -320,73 +320,81 @@ span.cyan
     background-position: center center;
     background-size: contain;
 
-    a.overlay
-    {
-        width: 100%;
-        height: 100%;
-        z-index: 110;
-
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-}
-#overlayedImage
-{
-    position: relative;
-    z-index: 120;
-
-    max-width: 1000px;
     color: #fff;
 
     font-family: @font2;
     text-align: center;
 
-    margin-top: 50px;
-    margin-left: auto;
-    margin-right: auto;
-
     a
     {
         color: #fff;
     }
-    div.link, div.previous
+
+    div.textBox
     {
-        padding: 3px 0;
-        width: 68%;
-        text-align: left;
+        z-index: 150;
+
+        margin: 20px;
+        padding: 5px 10px;
+        background-color: rgba(0,0,0,0.4);
         position: relative;
+    }
+
+    div.imageLink
+    {
+        text-align: left;
         float: left;
     }
-    div.close, div.next
+    div.close
     {
-        padding: 3px 0;
-        width: 30%;
         text-align: right;
-        position: relative;
         float: right;
     }
 
-    div.overlayLinks
+    div.overlayLink
     {
-        position: relative;
-    }
-    div.overlayLinks a.previous, div.overlayLinks a.next
-    {
-        width: 35%;
-        height: 100%;
-        z-index: 150;
-
+        display: table;
         position: absolute;
         top: 0;
+        height: 100%;
+        width: 35%;
+
+        a.link
+        {
+            width: 100%;
+            height: 100%;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        div.center
+        {
+            display: table-cell;
+            vertical-align: middle;
+        }
     }
-    div.overlayLinks a.previous
-    {
-        left: 0;
-    }
-    div.overlayLinks a.next
+
+    div.next
     {
         right: 0;
+
+        div.textBox
+        {
+            text-align: right;
+            float: right;
+        }
+    }
+    div.previous
+    {
+        left: 0;
+
+        div.textBox
+        {
+            text-align: left;
+            float: left;
+        }
     }
 }
 
