@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="close textBox">
-                            <t:eventlink event="selectImage" context="[null]" zone="imageOverlayZone">Close</t:eventlink>
+                            <t:eventlink event="selectImage" context="[null]" zone="imageOverlayZone">${message:close}</t:eventlink>
                         </div>
 
                         <t:if test="hasPreviousImage">
@@ -33,7 +33,7 @@
                                 <t:eventlink class="link" event="selectImage" context="previousImage" zone="imageOverlayZone"/>
                                 <div class="center">
                                     <div class="textBox">
-                                        <t:eventlink event="selectImage" context="previousImage" zone="imageOverlayZone">Previous</t:eventlink>
+                                        <t:eventlink event="selectImage" context="previousImage" zone="imageOverlayZone">${message:previous}</t:eventlink>
                                     </div>
                                 </div>
                             </div>
@@ -44,9 +44,15 @@
                                 <t:eventlink class="link" event="selectImage" context="nextImage" zone="imageOverlayZone"/>
                                 <div class="center">
                                     <div class="textBox">
-                                        <t:eventlink event="selectImage" context="nextImage" zone="imageOverlayZone">Next</t:eventlink>
+                                        <t:eventlink event="selectImage" context="nextImage" zone="imageOverlayZone">${message:next}</t:eventlink>
                                     </div>
                                 </div>
+                            </div>
+                        </t:if>
+
+                        <t:if test="hasImageComment">
+                            <div class="comment textBox">
+                                <t:outputraw value="imageCommentHtml" />
                             </div>
                         </t:if>
 

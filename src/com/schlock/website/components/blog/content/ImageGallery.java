@@ -1,6 +1,7 @@
 package com.schlock.website.components.blog.content;
 
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.ImageComment;
 import com.schlock.website.services.blog.LayoutManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
@@ -13,6 +14,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.List;
+import java.util.Set;
 
 public class ImageGallery
 {
@@ -119,6 +121,38 @@ public class ImageGallery
             return null;
         }
         return gallery.get(index + 1);
+    }
+
+    public boolean isHasImageComment()
+    {
+        ImageComment comment = getImageComment();
+        return comment != null;
+    }
+
+    public String getImageCommentHtml()
+    {
+        ImageComment comment = getImageComment();
+        if (comment != null)
+        {
+            return comment.getCommentText();
+        }
+        return "";
+    }
+
+    private ImageComment getImageComment()
+    {
+        Set<ImageComment> comments = post.getImageComments();
+        for (ImageComment comment : comments)
+        {
+            String image = comment.getImageName();
+            String sImage = selectedImage;
+
+            if (StringUtils.endsWith(sImage, image))
+            {
+                return comment;
+            }
+        }
+        return null;
     }
 
 
