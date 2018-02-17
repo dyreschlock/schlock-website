@@ -32,6 +32,7 @@
         <mapping resource="com/schlock/website/entities/blog/AbstractCategory.hbm.xml" />
         <mapping resource="com/schlock/website/entities/blog/AbstractPost.hbm.xml" />
         <mapping resource="com/schlock/website/entities/blog/Keyword.hbm.xml" />
+        <mapping resource="com/schlock/website/entities/blog/ImageComment.hbm.xml" />
 
         <mapping resource="com/schlock/website/entities/apps/japanese/Kanji.hbm.xml" />
 

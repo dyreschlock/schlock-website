@@ -40,6 +40,11 @@
             <many-to-many class="com.schlock.website.entities.blog.Keyword" column="keywordId" />
         </list>
 
+        <set name="imageComments" cascade="none" lazy="true" >
+            <key column="postId" not-null="true" />
+            <one-to-many class="com.schlock.website.entities.blog.ImageComment" />
+        </set>
+
         <subclass name="com.schlock.website.entities.blog.Post">
             <subclass name="com.schlock.website.entities.blog.ClubPost">
                 <property name="eventDate" />
