@@ -51,8 +51,10 @@
                         </t:if>
 
                         <t:if test="hasImageComment">
-                            <div class="comment textBox">
-                                <t:outputraw value="imageCommentHtml" />
+                            <div class="comment">
+                                <div class="textBox">
+                                    <t:outputraw value="imageCommentHtml" />
+                                </div>
                             </div>
                         </t:if>
 
