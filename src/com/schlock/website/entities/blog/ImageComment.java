@@ -7,7 +7,6 @@ public class ImageComment extends Persisted
     private String imageName;
 
     private String commentText;
-    private String commentHTML;
 
 
 
@@ -18,8 +17,4 @@ public class ImageComment extends Persisted
     public String getCommentText() { return commentText; }
 
     public void setCommentText(String commentText) { this.commentText = commentText; }
-
-    public String getCommentHTML() { return commentHTML; }
-
-    public void setCommentHTML(String commentHTML) { this.commentHTML = commentHTML; }
 }

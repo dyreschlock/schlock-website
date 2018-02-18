@@ -134,7 +134,8 @@ public class ImageGallery
         ImageComment comment = getImageComment();
         if (comment != null)
         {
-            return comment.getCommentText();
+            String html = postManagement.wrapJapaneseTextInTags(comment.getCommentText());
+            return html;
         }
         return "";
     }

@@ -10,7 +10,5 @@
         <property name="imageName" not-null="true" />
 
         <property name="commentText" length="1000000" />
-        <property name="commentHTML" length="1000000" />
-
     </class>
 </hibernate-mapping>
