@@ -1,64 +1,69 @@
 package com.schlock.website.pages.apps.bingo;
 
-import com.schlock.website.services.apps.bingo.BingoRandomizer;
-import com.schlock.website.services.apps.bingo.impl.BingoRandomizerImpl;
-import com.schlock.website.services.blog.ImageManagement;
+import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
-
-import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BingoIndex
 {
-    private static final int BINGO_SIZE = BingoRandomizerImpl.BINGO_SIZE;
-    private static final String IMAGE_FOLDER = "/image/bingo/";
+    private static final String FIFTH_GRADE_PARAM = "5th";
+    private static final String VOCAB_PARAM = "vocab";
 
-    @Inject
-    private BingoRandomizer bingoService;
-
-    @Inject
-    private ImageManagement imageManagement;
+    private static final String HIGH_SCHOOL_PARAM = "hs";
+    private static final String SELF_INTRO_PARAM = "self-intro";
 
 
-    private List<String> itemsList;
-
+    @Persist
     @Property
-    private List<String> row;
+    private Boolean displayFifthGradeVocab;
 
+    @Persist
     @Property
-    private String bingoColumn;
+    private Boolean displayHighSchoolSelfIntro;
 
 
-    public List<List<String>> getRows()
+    Object onActivate()
     {
-        List<List<String>> rows = new ArrayList<List<String>>();
-
-        for(int i = 0; i < BINGO_SIZE; i++)
-        {
-            int start = i * BINGO_SIZE;
-            int end = start + BINGO_SIZE;
-
-            List<String> row = getItemsList().subList(start, end);
-            rows.add(row);
-        }
-        return rows;
+        return onActivate(null, null);
     }
 
-
-    private List<String> getItemsList()
+    Object onActivate(String parameter)
     {
-        if (itemsList == null)
-        {
-            itemsList = bingoService.createOrder();
-        }
-        return itemsList;
+        return onActivate(parameter, null);
     }
 
-    public String getImage()
+    Object onActivate(String param1, String param2)
     {
-//        String location = IMAGE_FOLDER + "tiger.jpg";
-        String location = IMAGE_FOLDER + bingoColumn + ".jpg";
-        return location;
+        resetFlags();
+
+        if (StringUtils.isNotEmpty(param1) &&
+                StringUtils.isNotEmpty(param2))
+        {
+            if (StringUtils.equalsIgnoreCase(param1, HIGH_SCHOOL_PARAM) &&
+                StringUtils.equalsIgnoreCase(param2, SELF_INTRO_PARAM))
+            {
+                displayHighSchoolSelfIntro = true;
+            }
+            else if (StringUtils.equalsIgnoreCase(param1, FIFTH_GRADE_PARAM) &&
+                     StringUtils.equalsIgnoreCase(param2, VOCAB_PARAM))
+            {
+                displayFifthGradeVocab = true;
+            }
+            else
+            {
+                displayFifthGradeVocab = true;
+            }
+        }
+        else
+        {
+            displayFifthGradeVocab = true;
+        }
+        return true;
+    }
+
+    private void resetFlags()
+    {
+        displayFifthGradeVocab = false;
+        displayHighSchoolSelfIntro = false;
     }
 }
