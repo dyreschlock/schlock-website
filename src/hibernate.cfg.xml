@@ -41,6 +41,8 @@
         <mapping resource="com/schlock/website/entities/apps/notfibbage/NotFibbageQuestion.hbm.xml" />
         <mapping resource="com/schlock/website/entities/apps/notfibbage/NotFibbageCategory.hbm.xml" />
 
+        <mapping resource="com/schlock/website/entities/apps/bingo/BingoOption.hbm.xml" />
+
         <mapping resource="com/schlock/website/entities/apps/games/VideoGame.hbm.xml" />
         <mapping resource="com/schlock/website/entities/apps/games/VideoGameConsole.hbm.xml" />
     </session-factory>
