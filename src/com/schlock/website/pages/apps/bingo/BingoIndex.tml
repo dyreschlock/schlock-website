@@ -7,6 +7,12 @@
         <title>${message:page-title}</title>
         <style>
 
+            body
+            {
+                text-size: 10px;
+                font-family: Garamond, Baskerville, 'Baskerville Old Face', 'Hoefler Text', 'Times New Roman', serif;
+            }
+
             table
             {
                 width: 100%;
@@ -18,7 +24,7 @@
                 border: 1px solid black;
             }
 
-            td
+            th, td
             {
                 text-align: center;
                 height: 200px;

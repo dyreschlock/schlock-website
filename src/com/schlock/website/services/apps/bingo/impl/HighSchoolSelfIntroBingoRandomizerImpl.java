@@ -33,6 +33,14 @@ public class HighSchoolSelfIntroBingoRandomizerImpl implements BingoRandomizer
 
     public List<String> createOrder()
     {
+        List<String> order = createListInHorizontalOrder();
+        order = reorderListVertically(order);
+
+        return order;
+    }
+
+    private List<String> createListInHorizontalOrder()
+    {
         List<String> order = new ArrayList<String>();
 
         for (final int CATEGORY : CATEGORIES)
@@ -57,5 +65,24 @@ public class HighSchoolSelfIntroBingoRandomizerImpl implements BingoRandomizer
             order.addAll(orderInCategory);
         }
         return order;
+    }
+
+    private List<String> reorderListVertically(List<String> horizontal)
+    {
+        List<String> vertical = new ArrayList<String>(horizontal);
+
+        for (final int CATEGORY : CATEGORIES)
+        {
+            int c = CATEGORY -1;
+            for(int i = 0; i < BINGO_SIZE; i++)
+            {
+                int h_index = c*5 + i;
+                int v_index = c + i*5;
+
+                String h_data = horizontal.get(h_index);
+                vertical.set(v_index, h_data);
+            }
+        }
+        return vertical;
     }
 }

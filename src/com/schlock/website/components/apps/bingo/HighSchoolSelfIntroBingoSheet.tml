@@ -2,10 +2,17 @@
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
     <table>
+        <tr>
+            <th style="height: 100px;"><t:outputraw value="message:club-category" /></th>
+            <th style="height: 100px;"><t:outputraw value="message:hobby-category" /></th>
+            <th style="height: 100px;"><t:outputraw value="message:food-category" /></th>
+            <th style="height: 100px;"><t:outputraw value="message:travel-category" /></th>
+            <th style="height: 100px;"><t:outputraw value="message:job-category" /></th>
+        </tr>
         <t:loop source="rows" value="row">
             <tr>
                 <t:loop source="row" value="bingoColumn">
-                    <td>
+                    <td style="height: 100px; max-width: 20%;">
                         ${bingoColumn}
                     </td>
                 </t:loop>
