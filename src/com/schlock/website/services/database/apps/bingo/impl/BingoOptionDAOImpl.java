@@ -12,6 +12,21 @@ public class BingoOptionDAOImpl extends BaseDAOImpl<BingoOption> implements Bing
 {
     public BingoOptionDAOImpl(Session session) { super(BingoOption.class, session); }
 
+    public List<BingoOption> getBySheetAndCategory(String sheet, int category)
+    {
+        String text = " from BingoOption b " +
+                        " where b.sheet = :sheet " +
+                        " and b.category = :category " +
+                        " and b.skip = false ";
+
+        Query query = session.createQuery(text);
+        query.setString("sheet", sheet);
+        query.setInteger("category", category);
+
+        List<BingoOption> options = query.list();
+        return options;
+    }
+
     public List<BingoOption> getAllBySheet(String sheet)
     {
         String text = " from BingoOption b " +

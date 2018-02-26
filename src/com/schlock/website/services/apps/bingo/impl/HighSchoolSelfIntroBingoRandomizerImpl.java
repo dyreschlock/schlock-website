@@ -5,11 +5,19 @@ import com.schlock.website.services.apps.bingo.BingoRandomizer;
 import com.schlock.website.services.database.apps.bingo.BingoOptionDAO;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HighSchoolSelfIntroBingoRandomizerImpl implements BingoRandomizer
 {
     private static final String BINGO_SHEET = "high-school-self-intro";
+
+    private static final int CLUB_CATEGORY = 1;
+    private static final int HOBBY_CATEGORY = 2;
+    private static final int FOOD_CATEGORY = 3;
+    private static final int TRAVEL_CATEGORY = 4;
+    private static final int JOB_CATEGORY = 5;
+    private static final List<Integer> CATEGORIES = Arrays.asList(CLUB_CATEGORY, HOBBY_CATEGORY, FOOD_CATEGORY, TRAVEL_CATEGORY, JOB_CATEGORY);
 
     private static final int FIVE_BY_FIVE = 5;
 
@@ -17,33 +25,36 @@ public class HighSchoolSelfIntroBingoRandomizerImpl implements BingoRandomizer
 
     private final BingoOptionDAO bingoDAO;
 
-    private int limit;
-
     public HighSchoolSelfIntroBingoRandomizerImpl(BingoOptionDAO bingoDAO)
     {
         this.bingoDAO = bingoDAO;
-
-        limit = BINGO_SIZE * BINGO_SIZE;
     }
 
 
     public List<String> createOrder()
     {
-        List<BingoOption> options = bingoDAO.getAllBySheet(BINGO_SHEET);
-
         List<String> order = new ArrayList<String>();
-        while (order.size() < limit)
+
+        for (final int CATEGORY : CATEGORIES)
         {
-            double random = Math.random();
-            int selection = (int) (random * options.size());
+            List<BingoOption> options = bingoDAO.getBySheetAndCategory(BINGO_SHEET, CATEGORY);
 
-            BingoOption option = options.get(selection);
-            String text = option.getEntry();
-
-            if (!order.contains(text))
+            List<String> orderInCategory = new ArrayList<String>();
+            while (orderInCategory.size() < BINGO_SIZE)
             {
-                order.add(text);
+                double random = Math.random();
+                int selection = (int) (random * options.size());
+
+                BingoOption option = options.get(selection);
+                String text = option.getEntry();
+
+                if (!orderInCategory.contains(text))
+                {
+                    orderInCategory.add(text);
+                }
             }
+
+            order.addAll(orderInCategory);
         }
         return order;
     }
