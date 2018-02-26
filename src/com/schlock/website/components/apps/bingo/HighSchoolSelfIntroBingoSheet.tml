@@ -1,0 +1,15 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+    <table>
+        <t:loop source="rows" value="row">
+            <tr>
+                <t:loop source="row" value="bingoColumn">
+                    <td>
+                        ${bingoColumn}
+                    </td>
+                </t:loop>
+            </tr>
+        </t:loop>
+    </table>
+</t:container>

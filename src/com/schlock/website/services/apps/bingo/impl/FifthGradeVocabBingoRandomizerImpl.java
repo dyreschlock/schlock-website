@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BingoRandomizerImpl implements BingoRandomizer
+public class FifthGradeVocabBingoRandomizerImpl implements BingoRandomizer
 {
     public static final int FOUR_BY_FOUR = 4;
     public static final int FIVE_BY_FIVE = 5;
@@ -47,7 +47,7 @@ public class BingoRandomizerImpl implements BingoRandomizer
     private int limit;
 
 
-    public BingoRandomizerImpl()
+    public FifthGradeVocabBingoRandomizerImpl()
     {
         limit = BINGO_SIZE * BINGO_SIZE;
 

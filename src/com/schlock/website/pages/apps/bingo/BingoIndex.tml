@@ -28,10 +28,10 @@
     </head>
     <body>
         <t:if test="displayHighSchoolSelfIntro">
-            <b:highschoolselfintro />
+            <b:highschoolselfintrobingosheet />
         </t:if>
         <t:if test="displayFifthGradeVocab">
-            <b:fifthgradevocab />
+            <b:fifthgradevocabbingosheet />
         </t:if>
     </body>
 </html>

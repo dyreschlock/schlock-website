@@ -1,7 +1,7 @@
 package com.schlock.others;
 
 import com.schlock.website.services.apps.bingo.BingoRandomizer;
-import com.schlock.website.services.apps.bingo.impl.BingoRandomizerImpl;
+import com.schlock.website.services.apps.bingo.impl.FifthGradeVocabBingoRandomizerImpl;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -17,7 +17,7 @@ public class BingoRandomizing
 
     public static final int ITERATIONS = 34;
 
-    private BingoRandomizer service = new BingoRandomizerImpl();
+    private BingoRandomizer service = new FifthGradeVocabBingoRandomizerImpl();
 
     public BingoRandomizing()
     {
@@ -57,7 +57,7 @@ public class BingoRandomizing
         String output = "";
         for(int i = 0; i < strings.size(); i++)
         {
-            if (i % BingoRandomizerImpl.BINGO_SIZE == 0)
+            if (i % FifthGradeVocabBingoRandomizerImpl.BINGO_SIZE == 0)
             {
                 output += "\r\n";
             }

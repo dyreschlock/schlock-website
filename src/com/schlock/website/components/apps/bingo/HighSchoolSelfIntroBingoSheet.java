@@ -1,24 +1,22 @@
 package com.schlock.website.components.apps.bingo;
 
 import com.schlock.website.services.apps.bingo.BingoRandomizer;
-import com.schlock.website.services.apps.bingo.impl.BingoRandomizerImpl;
-import com.schlock.website.services.blog.ImageManagement;
+import com.schlock.website.services.apps.bingo.impl.HighSchoolSelfIntroBingoRandomizerImpl;
+import com.schlock.website.services.apps.bingo.impl.HighSchoolSelfIntroBingoService;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FifthGradeVocab
+public class HighSchoolSelfIntroBingoSheet
 {
-    private static final int BINGO_SIZE = BingoRandomizerImpl.BINGO_SIZE;
-    private static final String IMAGE_FOLDER = "/image/bingo/";
+    private static final int BINGO_SIZE = HighSchoolSelfIntroBingoRandomizerImpl.BINGO_SIZE;
 
     @Inject
+    @HighSchoolSelfIntroBingoService
     private BingoRandomizer bingoService;
 
-    @Inject
-    private ImageManagement imageManagement;
 
 
     private List<String> itemsList;
@@ -45,7 +43,6 @@ public class FifthGradeVocab
         return rows;
     }
 
-
     private List<String> getItemsList()
     {
         if (itemsList == null)
@@ -53,12 +50,5 @@ public class FifthGradeVocab
             itemsList = bingoService.createOrder();
         }
         return itemsList;
-    }
-
-    public String getImage()
-    {
-//        String location = IMAGE_FOLDER + "tiger.jpg";
-        String location = IMAGE_FOLDER + bingoColumn + ".jpg";
-        return location;
     }
 }
