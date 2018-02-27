@@ -12,7 +12,7 @@ import java.util.List;
 public class HighSchoolSelfIntroBingoRandomizerImpl implements BingoRandomizer
 {
     private static final String BINGO_SHEET = "high-school-self-intro";
-    private static final String DEFAULT_COURSE = "2ABb";
+    private static final String DEFAULT_COURSE = "2ab-b";
 
     private static final int CLUB_CATEGORY = 1;
     private static final int HOBBY_CATEGORY = 2;
