@@ -8,6 +8,7 @@
         </id>
 
         <property name="sheet"/>
+        <property name="course" />
         <property name="category"/>
         <property name="skip" />
 

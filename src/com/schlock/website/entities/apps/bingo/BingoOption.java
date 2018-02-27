@@ -5,6 +5,7 @@ import com.schlock.website.entities.Persisted;
 public class BingoOption extends Persisted
 {
     private String sheet;
+    private String course;
     private String category;
     private boolean skip;
 
@@ -14,6 +15,10 @@ public class BingoOption extends Persisted
     public String getSheet() { return sheet; }
 
     public void setSheet(String sheet) { this.sheet = sheet; }
+
+    public String getCourse() { return course; }
+
+    public void setCourse(String course) { this.course = course; }
 
     public String getCategory() { return category; }
 

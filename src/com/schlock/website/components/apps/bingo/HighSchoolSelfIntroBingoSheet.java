@@ -3,6 +3,7 @@ package com.schlock.website.components.apps.bingo;
 import com.schlock.website.services.apps.bingo.BingoRandomizer;
 import com.schlock.website.services.apps.bingo.impl.HighSchoolSelfIntroBingoRandomizerImpl;
 import com.schlock.website.services.apps.bingo.impl.HighSchoolSelfIntroBingoService;
+import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -13,11 +14,12 @@ public class HighSchoolSelfIntroBingoSheet
 {
     private static final int BINGO_SIZE = HighSchoolSelfIntroBingoRandomizerImpl.BINGO_SIZE;
 
+    @Parameter(required = true)
+    private String courseName;
+
     @Inject
     @HighSchoolSelfIntroBingoService
     private BingoRandomizer bingoService;
-
-
 
     private List<String> itemsList;
 
@@ -47,7 +49,7 @@ public class HighSchoolSelfIntroBingoSheet
     {
         if (itemsList == null)
         {
-            itemsList = bingoService.createOrder();
+            itemsList = bingoService.createOrder(courseName);
         }
         return itemsList;
     }

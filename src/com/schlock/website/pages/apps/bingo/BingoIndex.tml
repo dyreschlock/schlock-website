@@ -34,7 +34,7 @@
     </head>
     <body>
         <t:if test="displayHighSchoolSelfIntro">
-            <b:highschoolselfintrobingosheet />
+            <b:highschoolselfintrobingosheet courseName="courseParameter" />
         </t:if>
         <t:if test="displayFifthGradeVocab">
             <b:fifthgradevocabbingosheet />

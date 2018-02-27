@@ -22,17 +22,27 @@ public class BingoIndex
     private Boolean displayHighSchoolSelfIntro;
 
 
+    @Persist
+    @Property
+    private String courseParameter;
+
+
     Object onActivate()
     {
-        return onActivate(null, null);
+        return onActivate(null, null, null);
     }
 
-    Object onActivate(String parameter)
+    Object onActivate(String param)
     {
-        return onActivate(parameter, null);
+        return onActivate(param, null, null);
     }
 
     Object onActivate(String param1, String param2)
+    {
+        return onActivate(param1, param2, null);
+    }
+
+    Object onActivate(String param1, String param2, String param3)
     {
         resetFlags();
 
@@ -58,6 +68,9 @@ public class BingoIndex
         {
             displayFifthGradeVocab = true;
         }
+
+        this.courseParameter = param3;
+
         return true;
     }
 

@@ -3,6 +3,7 @@ package com.schlock.website.services.apps.bingo.impl;
 import com.schlock.website.entities.apps.bingo.BingoOption;
 import com.schlock.website.services.apps.bingo.BingoRandomizer;
 import com.schlock.website.services.database.apps.bingo.BingoOptionDAO;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +12,7 @@ import java.util.List;
 public class HighSchoolSelfIntroBingoRandomizerImpl implements BingoRandomizer
 {
     private static final String BINGO_SHEET = "high-school-self-intro";
+    private static final String DEFAULT_COURSE = "2ABb";
 
     private static final int CLUB_CATEGORY = 1;
     private static final int HOBBY_CATEGORY = 2;
@@ -33,19 +35,30 @@ public class HighSchoolSelfIntroBingoRandomizerImpl implements BingoRandomizer
 
     public List<String> createOrder()
     {
-        List<String> order = createListInHorizontalOrder();
+        return createOrder(null);
+    }
+
+    public List<String> createOrder(String parameter)
+    {
+        String course = parameter;
+        if (StringUtils.isEmpty(course))
+        {
+            course = DEFAULT_COURSE;
+        }
+
+        List<String> order = createListInHorizontalOrder(course);
         order = reorderListVertically(order);
 
         return order;
     }
 
-    private List<String> createListInHorizontalOrder()
+    private List<String> createListInHorizontalOrder(String course)
     {
         List<String> order = new ArrayList<String>();
 
         for (final int CATEGORY : CATEGORIES)
         {
-            List<BingoOption> options = bingoDAO.getBySheetAndCategory(BINGO_SHEET, CATEGORY);
+            List<BingoOption> options = bingoDAO.getBySheetAndCategory(BINGO_SHEET, course, CATEGORY);
 
             List<String> orderInCategory = new ArrayList<String>();
             while (orderInCategory.size() < BINGO_SIZE)

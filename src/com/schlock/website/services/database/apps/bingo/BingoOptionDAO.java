@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BingoOptionDAO extends BaseDAO<BingoOption>
 {
-    public List<BingoOption> getBySheetAndCategory(String sheet, int category);
+    public List<BingoOption> getBySheetAndCategory(String sheet, String course, int category);
 
     public List<BingoOption> getAllBySheet(String sheet);
 }

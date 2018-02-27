@@ -60,6 +60,11 @@ public class FifthGradeVocabBingoRandomizerImpl implements BingoRandomizer
         System.out.println("Number of items: " + items.size());
     }
 
+    public List<String> createOrder(String parameter)
+    {
+        return createOrder();
+    }
+
     public List<String> createOrder()
     {
         List<String> order = new ArrayList<String>();

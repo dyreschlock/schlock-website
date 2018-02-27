@@ -6,4 +6,5 @@ public interface BingoRandomizer
 {
     public List<String> createOrder();
 
+    public List<String> createOrder(String parameter);
 }
