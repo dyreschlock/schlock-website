@@ -11,6 +11,8 @@ import com.schlock.website.services.apps.notfibbage.NotFibbageController;
 import com.schlock.website.services.apps.notfibbage.NotFibbageManagement;
 import com.schlock.website.services.apps.notfibbage.impl.NotFibbageControllerImpl;
 import com.schlock.website.services.apps.notfibbage.impl.NotFibbageManagementImpl;
+import com.schlock.website.services.apps.ranking.RankingService;
+import com.schlock.website.services.apps.ranking.impl.RankingServiceImpl;
 import com.schlock.website.services.apps.subtitles.SubtitleFixerService;
 import com.schlock.website.services.apps.subtitles.impl.SubtitleFixerServiceImpl;
 import org.apache.tapestry5.ioc.ServiceBinder;
@@ -33,5 +35,7 @@ public class ApplicationsModule
 
         binder.bind(NotFibbageManagement.class, NotFibbageManagementImpl.class);
         binder.bind(NotFibbageController.class, NotFibbageControllerImpl.class);
+
+        binder.bind(RankingService.class, RankingServiceImpl.class);
     }
 }
