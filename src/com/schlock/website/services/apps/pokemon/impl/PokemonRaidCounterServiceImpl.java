@@ -1,19 +1,19 @@
 package com.schlock.website.services.apps.pokemon.impl;
 
-import com.schlock.website.entities.apps.pokemon.CounterPokemon;
+import com.schlock.website.entities.apps.pokemon.RaidCounterPokemon;
 import com.schlock.website.entities.apps.pokemon.LegendaryPokemon;
 import com.schlock.website.services.DeploymentContext;
-import com.schlock.website.services.apps.pokemon.PokemonCounterService;
+import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
 
 import java.io.*;
 import java.util.*;
 
-public class PokemonCounterServiceImpl implements PokemonCounterService
+public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 {
     private static final int NUMBER_OF_LINES_TO_READ_FROM_FILE = 50;
     private static final int NUMBER_OF_TOP_UNIQUE_COUNTERS_PER_POKEMON = 10;
 
-    private static final String POKEMON_DIR = "pokemon/";
+    private static final String POKEMON_DIR = "pokemon/raid/";
     private static final String CSV = ".csv";
 
     private List<String> gen1 = Arrays.asList("mewtwo",
@@ -77,13 +77,13 @@ public class PokemonCounterServiceImpl implements PokemonCounterService
 
 
     private List<LegendaryPokemon> legendaryPokemon = new ArrayList<LegendaryPokemon>();
-    private HashMap<String, List<CounterPokemon>> counterPokemon = new HashMap<String, List<CounterPokemon>>();
+    private HashMap<String, List<RaidCounterPokemon>> counterPokemon = new HashMap<String, List<RaidCounterPokemon>>();
 
 
     private final DeploymentContext deploymentContext;
 
 
-    public PokemonCounterServiceImpl(DeploymentContext deploymentContext)
+    public PokemonRaidCounterServiceImpl(DeploymentContext deploymentContext)
     {
         this.deploymentContext = deploymentContext;
 
@@ -105,12 +105,12 @@ public class PokemonCounterServiceImpl implements PokemonCounterService
             LegendaryPokemon pokemon = new LegendaryPokemon(pokemonName);
             legendaryPokemon.add(pokemon);
 
-            List<CounterPokemon> counterList = loadCounterList(pokemonName);
+            List<RaidCounterPokemon> counterList = loadCounterList(pokemonName);
             counterPokemon.put(pokemonName, counterList);
         }
     }
 
-    private List<CounterPokemon> loadCounterList(String pokemonName)
+    private List<RaidCounterPokemon> loadCounterList(String pokemonName)
     {
         List<String> linesFromFile = new ArrayList<String>();
         try
@@ -122,7 +122,7 @@ public class PokemonCounterServiceImpl implements PokemonCounterService
             e.printStackTrace();
         }
 
-        List<CounterPokemon> counterList = parseStringsIntoList(linesFromFile);
+        List<RaidCounterPokemon> counterList = parseStringsIntoList(linesFromFile);
         return counterList;
     }
 
@@ -143,16 +143,16 @@ public class PokemonCounterServiceImpl implements PokemonCounterService
         return lines;
     }
 
-    private List<CounterPokemon> parseStringsIntoList(List<String> pokemonStrings)
+    private List<RaidCounterPokemon> parseStringsIntoList(List<String> pokemonStrings)
     {
-        List<CounterPokemon> counterPokemonList = new ArrayList<CounterPokemon>();
+        List<RaidCounterPokemon> counterPokemonList = new ArrayList<RaidCounterPokemon>();
 
         for (String pokemonString : pokemonStrings)
         {
             pokemonString = pokemonString.replaceAll("\"", "");
 
             String[] strings = pokemonString.split(",");
-            CounterPokemon pokemon = createPokemonFromString(strings);
+            RaidCounterPokemon pokemon = createPokemonFromString(strings);
 
             if (isAcceptablePokemon(pokemon, counterPokemonList))
             {
@@ -167,7 +167,7 @@ public class PokemonCounterServiceImpl implements PokemonCounterService
     }
 
 
-    private CounterPokemon createPokemonFromString(String[] data)
+    private RaidCounterPokemon createPokemonFromString(String[] data)
     {
         //Gengar,Lick,Shadow Ball,28.761,301.6,7175.4,2878
 
@@ -181,11 +181,11 @@ public class PokemonCounterServiceImpl implements PokemonCounterService
 
         int cp = Integer.parseInt(data[6]);
 
-        CounterPokemon pokemon = new CounterPokemon(name, fastMove, chargeMove, dps, tdo, dps3tdo, cp);
+        RaidCounterPokemon pokemon = new RaidCounterPokemon(name, fastMove, chargeMove, dps, tdo, dps3tdo, cp);
         return pokemon;
     }
 
-    private boolean isAcceptablePokemon(CounterPokemon newPokemon, List<CounterPokemon> counterPokemonList)
+    private boolean isAcceptablePokemon(RaidCounterPokemon newPokemon, List<RaidCounterPokemon> counterPokemonList)
     {
         boolean isUnique = isUniquePokemon(newPokemon, counterPokemonList);
         boolean isReleased = isReleased(newPokemon);
@@ -201,9 +201,9 @@ public class PokemonCounterServiceImpl implements PokemonCounterService
     private static final String PSYSTRIKE = "Psystrike";
     private static final String PSYCHIC = "Psychic";
 
-    private boolean isUniquePokemon(CounterPokemon newPokemon, List<CounterPokemon> counterPokemonList)
+    private boolean isUniquePokemon(RaidCounterPokemon newPokemon, List<RaidCounterPokemon> counterPokemonList)
     {
-        for (CounterPokemon pokemon : counterPokemonList)
+        for (RaidCounterPokemon pokemon : counterPokemonList)
         {
             String newName = newPokemon.getName();
             String pokemonName = pokemon.getName();
@@ -248,7 +248,7 @@ public class PokemonCounterServiceImpl implements PokemonCounterService
             "Vanilluxe");
 
 
-    private boolean isReleased(CounterPokemon pokemon)
+    private boolean isReleased(RaidCounterPokemon pokemon)
     {
 //        if (UNRELEASED_POKEMON.contains(pokemon.getName()))
 //        {
@@ -267,7 +267,7 @@ public class PokemonCounterServiceImpl implements PokemonCounterService
         return legendaryPokemon;
     }
 
-    public List<CounterPokemon> getCounterPokemon(LegendaryPokemon legendary)
+    public List<RaidCounterPokemon> getCounterPokemon(LegendaryPokemon legendary)
     {
         String legendaryName = legendary.getName();
         if (counterPokemon.isEmpty())

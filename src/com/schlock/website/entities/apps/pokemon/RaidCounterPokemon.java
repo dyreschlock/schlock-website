@@ -1,6 +1,6 @@
 package com.schlock.website.entities.apps.pokemon;
 
-public class CounterPokemon
+public class RaidCounterPokemon
 {
     private String name;
     private String fastMove;
@@ -12,7 +12,7 @@ public class CounterPokemon
 
     private int cp;
 
-    public CounterPokemon(String name, String fastMove, String chargeMove, double dps, double tdo, double dps3tdo, int cp)
+    public RaidCounterPokemon(String name, String fastMove, String chargeMove, double dps, double tdo, double dps3tdo, int cp)
     {
         this.name = name;
         this.fastMove = fastMove;
