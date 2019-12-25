@@ -57,7 +57,7 @@ public class FifthGradeVocabBingoRandomizerImpl implements BingoRandomizer
         items.addAll(animals);
         items.addAll(sports);
 
-        System.out.println("Number of items: " + items.size());
+        //System.out.println("Number of items: " + items.size());
     }
 
     public List<String> createOrder(String parameter)
