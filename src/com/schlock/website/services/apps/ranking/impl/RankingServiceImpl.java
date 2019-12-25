@@ -41,7 +41,6 @@ public class RankingServiceImpl implements RankingService
                                                 "Super Mario Maker",
                                                 "Xenoblade",
                                                 "Actraiser",
-                                                "Dance Dance Revolution Series",
                                                 "Mass Effect Series");
 
     private Map<String, Integer> values = new HashMap<String, Integer>();
