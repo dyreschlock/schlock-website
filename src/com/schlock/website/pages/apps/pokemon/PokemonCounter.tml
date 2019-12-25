@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="layout" title="${message:page-title}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:b="tapestry-library:apps/bingo"
+>
+<head>
+    <title>${message:page-title}</title>
+    <style>
+
+        td
+        {
+            padding: 2px;
+            border-bottom: 1px solid #ddd;
+
+            width: 200px;
+        }
+        td.Gengar {         background-color: #e6e6ff; }
+        td.Chandelure {     background-color: #f2e6ff; }
+
+        td.Darkrai {        background-color: #e0e0eb; }
+
+        td.Blaziken {       background-color: #ffccb3; }
+
+        td.Rampardos {      background-color: #f2e6d9; }
+        td.Tyranitar {      background-color: #e0e0d1; }
+
+        td.Groudon {        background-color: #ffd9b3; }
+        td.Excadrill {      background-color: #ffe6b3; }
+
+        td.Kyogre {         background-color: #b3e6ff; }
+        td.Swampert {       background-color: #cce6ff; }
+
+        td.Mewtwo {         background-color: #ffddff; }
+
+        td.Machamp {        background-color: #ffb3b3; }
+        td.Lucario {        background-color: #ecc6d9; }
+
+        td.Electivire {     background-color: #ffffcc; }
+
+        td.Mamoswine {      background-color: #e6ffff; }
+
+        td.Rayquaza {       background-color: #adadeb; }
+        td.Salamence {      background-color: #b3b3ff; }
+
+        td.Metagross {      background-color: #f0f0f5; }
+
+        td.Sceptile {       background-color: #c6ecd9; }
+
+        td.Honchkrow {      background-color: #c2d1f0; }
+    </style>
+</head>
+<body>
+
+    <table>
+        <t:loop source="legendaryPokemon" value="currentLegendaryPokemon">
+            <tr>
+                <td>${currentLegendaryPokemon.name}</td>
+                <t:loop source="counterPokemon" value="currentCounterPokemon">
+                    <td class="${currentCounterPokemon.name}">
+                        ${currentCounterPokemon.name}<br/>
+                        ${currentCounterPokemon.fastMove}<br/>
+                        ${currentCounterPokemon.chargeMove}<br/>
+                        ${currentCounterPokemon.dps}
+                    </td>
+                </t:loop>
+            </tr>
+        </t:loop>
+
+    </table>
+</body>
+</html>
