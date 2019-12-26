@@ -52,6 +52,7 @@ dependencies {
         exclude group: 'com.yahoo.platform.yui', module: 'yuicompressor'
     }
 
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.12.1'
 }
 
 tasks.idea {

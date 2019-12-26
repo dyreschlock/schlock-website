@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="layout" title="${message:page-title}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:b="tapestry-library:apps/bingo"
+>
+<head>
+    <title>${message:page-title}</title>
+    <style>
+
+        td
+        {
+            padding: 2px;
+            border-bottom: 1px solid #ddd;
+        }
+        td.rocket
+        {
+            mid-width: 100px;
+        }
+        td.counter
+        {
+            min-width: 170px;
+        }
+
+        td.Blaziken {       background-color: #ffccb3; }
+        td.Tyranitar {      background-color: #e0e0d1; }
+        td.Swampert {       background-color: #cce6ff; }
+
+        td.Melmetal {       background-color: #fff9e6; }
+        td.Metagross {      background-color: #f0f0f5; }
+
+        td.Mewtwo {         background-color: #ffddff; }
+        td.Lucario {        background-color: #ffb3b3; }
+        td.Torterra {       background-color: #c6ecd9; }
+
+
+    </style>
+</head>
+<body>
+
+<table>
+    <t:loop source="rocketLeaders" value="currentRocketLeader">
+        <tr><td class="rocket">${currentRocketLeader.name}</td></tr>
+
+        <t:loop source="currentRocketLeader.pokemon" value="currentRocketPokemon">
+            <tr>
+                <td class="rocket">${currentRocketPokemon.name}</td>
+                <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
+                    <td class="counter ${currentCounterPokemon.name}">
+                        ${currentIndexPlusOne}. <b>${currentCounterPokemon.name}</b> (${currentCounterPokemon.overall})<br/>
+                        ${currentCounterPokemon.fastMove} / <br/>
+                        ${currentCounterPokemon.chargeMove}
+                    </td>
+                </t:loop>
+            </tr>
+        </t:loop>
+        <tr><td>&nbsp;</td></tr>
+    </t:loop>
+</table>
+
+
+
+
+</body>
+</html>

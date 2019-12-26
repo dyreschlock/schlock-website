@@ -12,7 +12,9 @@ import com.schlock.website.services.apps.notfibbage.NotFibbageManagement;
 import com.schlock.website.services.apps.notfibbage.impl.NotFibbageControllerImpl;
 import com.schlock.website.services.apps.notfibbage.impl.NotFibbageManagementImpl;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
+import com.schlock.website.services.apps.pokemon.PokemonRocketCounterService;
 import com.schlock.website.services.apps.pokemon.impl.PokemonRaidCounterServiceImpl;
+import com.schlock.website.services.apps.pokemon.impl.PokemonRocketCounterServiceImpl;
 import com.schlock.website.services.apps.ranking.RankingService;
 import com.schlock.website.services.apps.ranking.impl.RankingServiceImpl;
 import com.schlock.website.services.apps.subtitles.SubtitleFixerService;
@@ -41,5 +43,6 @@ public class ApplicationsModule
         binder.bind(RankingService.class, RankingServiceImpl.class);
 
         binder.bind(PokemonRaidCounterService.class, PokemonRaidCounterServiceImpl.class);
+        binder.bind(PokemonRocketCounterService.class, PokemonRocketCounterServiceImpl.class);
     }
 }
