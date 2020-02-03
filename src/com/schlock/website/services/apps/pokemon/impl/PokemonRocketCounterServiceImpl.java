@@ -19,25 +19,28 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
     private static final String POKEMON_DIR = "pokemon/rocket/";
     private static final String HTML = ".html";
 
-    private static final String[] ARLO2 = {"Arlo #2", "bagon", "blastoise", "charizard", "steelix", "dragonite", "salamence", "scizor"};
-    private static final String[] ARLO1 = {"Arlo #1", "scyther", "crobat", "gyarados", "magnezone", "charizard", "dragonite", "scizor"};
+    private static final String[] ARLO2 = {"arlo2", "dec2019", "bagon", "blastoise", "charizard", "steelix", "dragonite", "salamence", "scizor"};
+    private static final String[] ARLO1 = {"arlo1", "oct2019", "scyther", "crobat", "gyarados", "magnezone", "charizard", "dragonite", "scizor"};
 
-    private static final String[] CLIFF2 = {"Cliff #2", "stantler", "electivire", "marowak", "onix", "swampert", "torterra", "tyranitar"};
-    private static final String[] CLIFF1 = {"Cliff #1", "meowth", "flygon", "sandslash", "snorlax", "infernape", "torterra", "tyranitar"};
+    private static final String[] CLIFF2 = {"cliff2", "dec2019", "stantler", "electivire", "marowak", "onix", "swampert", "torterra", "tyranitar"};
+    private static final String[] CLIFF1 = {"cliff1", "oct2019", "meowth", "flygon", "sandslash", "snorlax", "infernape", "torterra", "tyranitar"};
 
-    private static final String[] SIERRA2 = {"Sierra #2", "absol", "alakazam", "cacturne", "lapras", "gallade", "houndoom", "shiftry"};
-    private static final String[] SIERRA1 = {"Sierra #1", "sneasel", "hypno", "lapras", "sableye", "alakazam", "gardevoir", "houndoom"};
+    private static final String[] SIERRA2 = {"sierra2", "dec2019", "absol", "alakazam", "cacturne", "lapras", "gallade", "houndoom", "shiftry"};
+    private static final String[] SIERRA1 = {"sierra1", "oct2019", "sneasel", "hypno", "lapras", "sableye", "alakazam", "gardevoir", "houndoom"};
 
-    private static final String[] GIOVANNI2 = {"Giovanni #2", "persian", "cloyster", "garchomp", "kangaskhan", "moltres"};
-    private static final String[] GIOVANNI1 = {"Giovanni #1", "persian", "dugtrio", "hippowdon", "rhydon", "articuno", "zapdos"};
+    //    private static final String[] GIOVANNI3 = {"giovanni3", "feb2020", "persian", "cloyster", "hippowdon", "steelix", "raikou"};
+    private static final String[] GIOVANNI2 = {"giovanni2", "dec2019", "persian", "cloyster", "garchomp", "kangaskhan", "moltres"};
+    private static final String[] GIOVANNI1 = {"giovanni1", "oct2019", "persian", "dugtrio", "hippowdon", "rhydon", "articuno", "zapdos"};
 
-    private static final String[] EXTRA = {"others", "lapras", "poliwrath", "snorlax", "gyarados", "gardevoir", "dragonite", "venusaur"};
-
-
-    private static final List<String[]> ROCKET_LEADERS = Arrays.asList(ARLO1, CLIFF1, SIERRA1, GIOVANNI1, ARLO2, CLIFF2, SIERRA2, GIOVANNI2, EXTRA);
+    private static final String[] EXTRA = {"others", "extra", "lapras", "poliwrath", "snorlax", "gyarados", "gardevoir", "dragonite", "venusaur"};
 
 
-    private List<RocketLeader> rocketLeaders = new ArrayList<RocketLeader>();
+    private static final List<String[]> ROCKET_LEADERS = Arrays.asList(ARLO2, CLIFF2, SIERRA2, GIOVANNI2, EXTRA, ARLO1, CLIFF1, SIERRA1, GIOVANNI1);
+
+
+    private List<String> leaderGroups = new ArrayList<String>();
+
+    private Map<String, List<RocketLeader>> rocketLeaders = new HashMap<String, List<RocketLeader>>();
     private Map<String, List<RocketCounterPokemon>> counterPokemon = new HashMap<String, List<RocketCounterPokemon>>();
 
 
@@ -53,13 +56,16 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
 
     private void createLeaders()
     {
+        leaderGroups.clear();
         rocketLeaders.clear();
         for (String[] leaderData : ROCKET_LEADERS)
         {
             String name = leaderData[0];
             RocketLeader leader = new RocketLeader(name);
 
-            for(int i = 1; i < leaderData.length; i++)
+            String group = leaderData[1];
+
+            for (int i = 2; i < leaderData.length; i++)
             {
                 String pokemonName = leaderData[i];
 
@@ -67,22 +73,37 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
                 leader.addPokemon(pokemon);
             }
 
-            rocketLeaders.add(leader);
+            if (!leaderGroups.contains(group))
+            {
+                leaderGroups.add(group);
+
+                List<RocketLeader> leaders = new ArrayList<RocketLeader>();
+                leaders.add(leader);
+
+                rocketLeaders.put(group, leaders);
+            }
+            else
+            {
+                rocketLeaders.get(group).add(leader);
+            }
         }
     }
 
     private void loadAndCreateCounters()
     {
         counterPokemon.clear();
-        for (RocketLeader leader : rocketLeaders)
+        for (String group : leaderGroups)
         {
-            for (RocketPokemon rocketPokemon : leader.getPokemon())
+            for (RocketLeader leader : rocketLeaders.get(group))
             {
-                String name = rocketPokemon.getName();
-                if (!counterPokemon.containsKey(name))
+                for (RocketPokemon rocketPokemon : leader.getPokemon())
                 {
-                    List<RocketCounterPokemon> list = createCounters(name);
-                    counterPokemon.put(name, list);
+                    String name = rocketPokemon.getName();
+                    if (!counterPokemon.containsKey(name))
+                    {
+                        List<RocketCounterPokemon> list = createCounters(name);
+                        counterPokemon.put(name, list);
+                    }
                 }
             }
         }
@@ -96,8 +117,7 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
         try
         {
             htmlFile = Jsoup.parse(new File(fileLocation), "ISO-8859-1");
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             e.printStackTrace();
         }
@@ -105,9 +125,9 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
 
         List<RocketCounterPokemon> counters = new ArrayList<RocketCounterPokemon>();
 
-        for(int i = 0; i < 30; i++)
+        for (int i = 0; i < 30; i++)
         {
-            String rocketId = "ROCKET" + (i+1);
+            String rocketId = "ROCKET" + (i + 1);
 
             Element counterBody = htmlFile.getElementById(rocketId);
 
@@ -170,7 +190,12 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
 
     public List<RocketLeader> getRocketLeaders()
     {
-        return rocketLeaders;
+        List<RocketLeader> leaders = new ArrayList<RocketLeader>();
+        for (String group : leaderGroups)
+        {
+            leaders.addAll(rocketLeaders.get(group));
+        }
+        return leaders;
     }
 
     public List<RocketCounterPokemon> getCounterPokemon(String rocketPokemonName)
