@@ -19,21 +19,22 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
     private static final String POKEMON_DIR = "pokemon/rocket/";
     private static final String HTML = ".html";
 
-    private static final String[] ARLO1 = {"Arlo #1", "scyther", "crobat", "gyarados", "magnezone", "charizard", "dragonite", "scizor"};
     private static final String[] ARLO2 = {"Arlo #2", "bagon", "blastoise", "charizard", "steelix", "dragonite", "salamence", "scizor"};
+    private static final String[] ARLO1 = {"Arlo #1", "scyther", "crobat", "gyarados", "magnezone", "charizard", "dragonite", "scizor"};
 
-    private static final String[] CLIFF1 = {"Cliff #1", "meowth", "flygon", "sandslash", "snorlax", "infernape", "torterra", "tyranitar"};
     private static final String[] CLIFF2 = {"Cliff #2", "stantler", "electivire", "marowak", "onix", "swampert", "torterra", "tyranitar"};
+    private static final String[] CLIFF1 = {"Cliff #1", "meowth", "flygon", "sandslash", "snorlax", "infernape", "torterra", "tyranitar"};
 
+    private static final String[] SIERRA2 = {"Sierra #2", "absol", "alakazam", "cacturne", "lapras", "gallade", "houndoom", "shiftry"};
     private static final String[] SIERRA1 = {"Sierra #1", "sneasel", "hypno", "lapras", "sableye", "alakazam", "gardevoir", "houndoom"};
-    private static final String[] SIERRA2 = {"Sierra #1", "absol", "alakazam", "cacturne", "lapras", "gallade", "houndoom", "shiftry"};
 
-    private static final String[] GIOVANNI1 = {"Giovanni", "persian", "dugtrio", "hippowdon", "rhydon", "articuno", "moltres", "zapdos"};
+    private static final String[] GIOVANNI2 = {"Giovanni #2", "persian", "cloyster", "garchomp", "kangaskhan", "moltres"};
+    private static final String[] GIOVANNI1 = {"Giovanni #1", "persian", "dugtrio", "hippowdon", "rhydon", "articuno", "zapdos"};
 
     private static final String[] EXTRA = {"others", "lapras", "poliwrath", "snorlax", "gyarados", "gardevoir", "dragonite", "venusaur"};
 
 
-    private static final List<String[]> ROCKET_LEADERS = Arrays.asList(ARLO1, CLIFF1, SIERRA1, ARLO2, CLIFF2, SIERRA2, GIOVANNI1, EXTRA);
+    private static final List<String[]> ROCKET_LEADERS = Arrays.asList(ARLO1, CLIFF1, SIERRA1, GIOVANNI1, ARLO2, CLIFF2, SIERRA2, GIOVANNI2, EXTRA);
 
 
     private List<RocketLeader> rocketLeaders = new ArrayList<RocketLeader>();
