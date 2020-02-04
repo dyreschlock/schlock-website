@@ -6,6 +6,7 @@ import com.schlock.website.entities.apps.pokemon.RocketLeader;
 import com.schlock.website.entities.apps.pokemon.RocketPokemon;
 import com.schlock.website.services.apps.pokemon.PokemonRocketCounterService;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.List;
@@ -14,6 +15,13 @@ public class PokemonRocketCounter
 {
     @Inject
     private PokemonRocketCounterService counterService;
+
+    @Inject
+    private Messages messages;
+
+
+    @Property
+    private String currentRocketLeaderGroup;
 
     @Property
     private RocketLeader currentRocketLeader;
@@ -28,8 +36,26 @@ public class PokemonRocketCounter
     private Integer currentIndex;
 
 
+    public List<String> getRocketLeaderGroups()
+    {
+        return counterService.getRocketLeaderGroups();
+    }
 
-    public List<RocketLeader> getRocketLeaders() { return counterService.getRocketLeaders(); }
+
+    public String getCurrentRocketLeaderGroupName()
+    {
+        return messages.get(currentRocketLeaderGroup);
+    }
+
+    public String getCurrentRocketLeaderName()
+    {
+        return messages.get(currentRocketLeader.getName());
+    }
+
+    public List<RocketLeader> getRocketLeaders()
+    {
+        return counterService.getRocketLeaders(currentRocketLeaderGroup);
+    }
 
     public List<RocketCounterPokemon> getCounterPokemon()
     {

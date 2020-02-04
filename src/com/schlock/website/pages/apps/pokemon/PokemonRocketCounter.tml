@@ -38,10 +38,13 @@
 </head>
 <body>
 
-<table>
-    <t:loop source="rocketLeaders" value="currentRocketLeader">
-        <tr><td class="rocket">${currentRocketLeader.name}</td></tr>
+<t:loop source="rocketLeaderGroups" value="currentRocketLeaderGroup">
+    <div class="group">${currentRocketLeaderGroupName}</div>
 
+    <t:loop source="rocketLeaders" value="currentRocketLeader">
+        <div class="leader">${currentRocketLeaderName}</div>
+
+        <table>
         <t:loop source="currentRocketLeader.pokemon" value="currentRocketPokemon">
             <tr>
                 <td class="rocket">${currentRocketPokemon.name}</td>
@@ -54,11 +57,10 @@
                 </t:loop>
             </tr>
         </t:loop>
-        <tr><td>&nbsp;</td></tr>
+        </table>
+
     </t:loop>
-</table>
-
-
+</t:loop>
 
 
 </body>

@@ -188,14 +188,14 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
     }
 
 
-    public List<RocketLeader> getRocketLeaders()
+    public List<String> getRocketLeaderGroups()
     {
-        List<RocketLeader> leaders = new ArrayList<RocketLeader>();
-        for (String group : leaderGroups)
-        {
-            leaders.addAll(rocketLeaders.get(group));
-        }
-        return leaders;
+        return leaderGroups;
+    }
+
+    public List<RocketLeader> getRocketLeaders(String group)
+    {
+        return rocketLeaders.get(group);
     }
 
     public List<RocketCounterPokemon> getCounterPokemon(String rocketPokemonName)

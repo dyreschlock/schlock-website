@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface PokemonRocketCounterService
 {
-    public List<RocketLeader> getRocketLeaders();
+    public List<String> getRocketLeaderGroups();
+
+    public List<RocketLeader> getRocketLeaders(String groupName);
 
     public List<RocketCounterPokemon> getCounterPokemon(String rocketPokemonName);
 }
