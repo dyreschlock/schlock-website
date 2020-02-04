@@ -19,23 +19,29 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
     private static final String POKEMON_DIR = "pokemon/rocket/";
     private static final String HTML = ".html";
 
+    private static final String[] ARLO3 = {"arlo3", "feb2020", "pinsir"};
+    private static final String[] CLIFF3 = {"cliff3", "feb2020", "omanyte"};
+    private static final String[] SIERRA3 = {"sierra3", "feb2020", "beldum"};
+    private static final String[] GIOVANNI3 = {"giovanni3", "feb2020", "persian", "cloyster", "hippowdon", "steelix"};//, "raikou"};
+
     private static final String[] ARLO2 = {"arlo2", "dec2019", "bagon", "blastoise", "charizard", "steelix", "dragonite", "salamence", "scizor"};
-    private static final String[] ARLO1 = {"arlo1", "oct2019", "scyther", "crobat", "gyarados", "magnezone", "charizard", "dragonite", "scizor"};
-
     private static final String[] CLIFF2 = {"cliff2", "dec2019", "stantler", "electivire", "marowak", "onix", "swampert", "torterra", "tyranitar"};
-    private static final String[] CLIFF1 = {"cliff1", "oct2019", "meowth", "flygon", "sandslash", "snorlax", "infernape", "torterra", "tyranitar"};
-
     private static final String[] SIERRA2 = {"sierra2", "dec2019", "absol", "alakazam", "cacturne", "lapras", "gallade", "houndoom", "shiftry"};
-    private static final String[] SIERRA1 = {"sierra1", "oct2019", "sneasel", "hypno", "lapras", "sableye", "alakazam", "gardevoir", "houndoom"};
-
-    //    private static final String[] GIOVANNI3 = {"giovanni3", "feb2020", "persian", "cloyster", "hippowdon", "steelix", "raikou"};
     private static final String[] GIOVANNI2 = {"giovanni2", "dec2019", "persian", "cloyster", "garchomp", "kangaskhan", "moltres"};
+
+    private static final String[] ARLO1 = {"arlo1", "oct2019", "scyther", "crobat", "gyarados", "magnezone", "charizard", "dragonite", "scizor"};
+    private static final String[] CLIFF1 = {"cliff1", "oct2019", "meowth", "flygon", "sandslash", "snorlax", "infernape", "torterra", "tyranitar"};
+    private static final String[] SIERRA1 = {"sierra1", "oct2019", "sneasel", "hypno", "lapras", "sableye", "alakazam", "gardevoir", "houndoom"};
     private static final String[] GIOVANNI1 = {"giovanni1", "oct2019", "persian", "dugtrio", "hippowdon", "rhydon", "articuno", "zapdos"};
 
-    private static final String[] EXTRA = {"others", "extra", "lapras", "poliwrath", "snorlax", "gyarados", "gardevoir", "dragonite", "venusaur"};
+    private static final String[] EXTRA = {"others", "extra", "charizard", "blastoise", "venusaur", "snorlax", "gyarados", "lapras", "dragonite", "poliwrath", "gardevoir", "garchomp", "salamence"};
 
 
-    private static final List<String[]> ROCKET_LEADERS = Arrays.asList(ARLO2, CLIFF2, SIERRA2, GIOVANNI2, EXTRA, ARLO1, CLIFF1, SIERRA1, GIOVANNI1);
+    private static final List<String[]> ROCKET_LEADERS = Arrays.asList(
+            ARLO3, CLIFF3, SIERRA3, GIOVANNI3,
+            EXTRA,
+            ARLO2, CLIFF2, SIERRA2, GIOVANNI2,
+            ARLO1, CLIFF1, SIERRA1, GIOVANNI1);
 
 
     private List<String> leaderGroups = new ArrayList<String>();
