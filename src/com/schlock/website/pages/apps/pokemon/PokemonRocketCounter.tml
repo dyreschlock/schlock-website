@@ -7,11 +7,38 @@
     <title>${message:page-title}</title>
     <style>
 
+        html
+        {
+            text-align: left;
+        }
+
+        div.groupHeader, th
+        {
+            font-size: 20px;
+            font-weight: bold;
+            font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+        }
+
+        div.group
+        {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+        }
+        table
+        {
+            margin-top: 10px;
+        }
+
+        th, td
+        {
+            border-bottom: 1px solid #ddd;
+        }
+
         td
         {
             padding: 2px;
-            border-bottom: 1px solid #ddd;
         }
+
         td.rocket
         {
             mid-width: 100px;
@@ -39,29 +66,31 @@
 <body>
 
 <t:loop source="rocketLeaderGroups" value="currentRocketLeaderGroup">
-    <div class="group">${currentRocketLeaderGroupName}</div>
+    <div class="group">
+        <div class="groupHeader">${currentRocketLeaderGroupName}</div>
 
-    <t:loop source="rocketLeaders" value="currentRocketLeader">
-        <div class="leader">${currentRocketLeaderName}</div>
+        <t:loop source="rocketLeaders" value="currentRocketLeader">
 
-        <table>
-        <t:loop source="currentRocketLeader.pokemon" value="currentRocketPokemon">
-            <tr>
-                <td class="rocket">${currentRocketPokemon.name}</td>
-                <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
-                    <td class="counter ${currentCounterPokemon.name}">
-                        ${currentIndexPlusOne}. <b>${currentCounterPokemon.name}</b> (${currentCounterPokemon.overall})<br/>
-                        ${currentCounterPokemon.fastMove} / <br/>
-                        ${currentCounterPokemon.chargeMove}
-                    </td>
+            <table>
+                <tr><th colspan="31">${currentRocketLeaderName}</th></tr>
+
+                <t:loop source="currentRocketLeader.pokemon" value="currentRocketPokemon">
+                    <tr>
+                        <td class="rocket">${currentRocketPokemon.name}</td>
+                        <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
+                            <td class="counter ${currentCounterPokemon.name}">
+                                ${currentIndexPlusOne}. <b>${currentCounterPokemon.name}</b> (${currentCounterPokemon.overall})<br/>
+                                ${currentCounterPokemon.fastMove} / <br/>
+                                ${currentCounterPokemon.chargeMove}
+                            </td>
+                        </t:loop>
+                    </tr>
                 </t:loop>
-            </tr>
+            </table>
+
         </t:loop>
-        </table>
-
-    </t:loop>
+    </div>
 </t:loop>
-
 
 </body>
 </html>
