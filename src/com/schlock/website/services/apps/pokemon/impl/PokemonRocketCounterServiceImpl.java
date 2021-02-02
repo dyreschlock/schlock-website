@@ -14,15 +14,30 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Find the information at : https://www.pokebattler.com/rocket
+ *
+ * Change the parameter :
+ * https://www.pokebattler.com/rocket/defenders/MOLTRES_SHADOW_FORM/levels/RAID_LEVEL_3/attackers/levels/40?sort=POWER&view=GROUPED&shieldStrategy=SHIELD_0&defenderShieldStrategy=SHIELD_0&meta=DUAL_MOVE
+ */
 public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterService
 {
     private static final String POKEMON_DIR = "pokemon/rocket/";
     private static final String HTML = ".html";
 
-    private static final String[] ARLO3 = {"arlo3", "feb2020", "pinsir"};
-    private static final String[] CLIFF3 = {"cliff3", "feb2020", "omanyte"};
-    private static final String[] SIERRA3 = {"sierra3", "feb2020", "beldum"};
-    private static final String[] GIOVANNI3 = {"giovanni3", "feb2020", "persian", "cloyster", "hippowdon", "steelix"};//, "raikou"};
+//    private static final String[] TEST = {"test", "feb2021", "porygon-z"};
+
+    private static final String[] ARLO4 = {"arlo4", "feb2021", "beldum", "gardevoir", "infernape", "aggron", "armaldo", "salamence", "scizor"};
+    private static final String[] CLIFF4 = {"cliff4", "feb2021", "aerodactyl", "gallade", "cradily", "slowking", "dusknoir", "mamoswine", "tyranitar"};
+    private static final String[] SIERRA4 = {"sierra4", "feb2021", "carvanha", "hippowdon", "porygon-z", "mismagius", "flygon", "houndoom", "walrein"};
+
+
+    private static final String[] GIOVANNI4 = {"giovanni4", "mar2020", "persian", "kingler", "steelix", "rhyperior", "entei"};
+
+    private static final String[] ARLO3 = {"arlo3", "feb2020", "mawile", "charizard", "blastoise", "steelix", "dragonite", "scizor", "salamence"};
+    private static final String[] CLIFF3 = {"cliff3", "feb2020", "pinsir", "marowak", "omastar", "electivire", "tyranitar", "swampert", "torterra"};
+    private static final String[] SIERRA3 = {"sierra3", "feb2020", "beldum", "exeggutor", "lapras", "sharpedo", "alakazam", "shiftry", "houndoom"};
+    private static final String[] GIOVANNI3 = {"giovanni3", "feb2020", "persian", "cloyster", "hippowdon", "steelix", "raikou", "suicune"};
 
     private static final String[] ARLO2 = {"arlo2", "dec2019", "bagon", "blastoise", "charizard", "steelix", "dragonite", "salamence", "scizor"};
     private static final String[] CLIFF2 = {"cliff2", "dec2019", "stantler", "electivire", "marowak", "onix", "swampert", "torterra", "tyranitar"};
@@ -38,6 +53,9 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
 
 
     private static final List<String[]> ROCKET_LEADERS = Arrays.asList(
+            //TEST,
+            ARLO4, CLIFF4, SIERRA4,
+            GIOVANNI4,
             ARLO3, CLIFF3, SIERRA3, GIOVANNI3,
             EXTRA,
             ARLO2, CLIFF2, SIERRA2, GIOVANNI2,
@@ -126,6 +144,7 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
         } catch (IOException e)
         {
             e.printStackTrace();
+            System.out.println(fileLocation);
         }
 
 
@@ -136,6 +155,10 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
             String rocketId = "ROCKET" + (i + 1);
 
             Element counterBody = htmlFile.getElementById(rocketId);
+            if(counterBody == null)
+            {
+                String stop = "";
+            }
 
             /*  data element structure
             <div (data)>

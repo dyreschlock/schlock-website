@@ -54,6 +54,7 @@
 
         td.Melmetal {       background-color: #fff9e6; }
         td.Metagross {      background-color: #f0f0f5; }
+        td.Dialga {         background-color: #d9e6f2; }
 
         td.Mewtwo {         background-color: #ffddff; }
         td.Lucario {        background-color: #ffb3b3; }
