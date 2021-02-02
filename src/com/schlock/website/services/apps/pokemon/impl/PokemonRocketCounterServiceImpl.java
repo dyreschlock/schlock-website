@@ -49,17 +49,17 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
     private static final String[] SIERRA1 = {"sierra1", "oct2019", "sneasel", "hypno", "lapras", "sableye", "alakazam", "gardevoir", "houndoom"};
     private static final String[] GIOVANNI1 = {"giovanni1", "oct2019", "persian", "dugtrio", "hippowdon", "rhydon", "articuno", "zapdos"};
 
-    private static final String[] EXTRA = {"others", "extra", "charizard", "blastoise", "venusaur", "snorlax", "gyarados", "lapras", "dragonite", "poliwrath", "gardevoir", "garchomp", "salamence"};
+    private static final String[] EXTRA = {"others", "extra", "charizard", "blastoise", "venusaur", "snorlax", "gyarados", "lapras", "dragonite", "poliwrath", "gardevoir", "gliscor", "garchomp", "salamence"};
 
 
     private static final List<String[]> ROCKET_LEADERS = Arrays.asList(
             //TEST,
             ARLO4, CLIFF4, SIERRA4,
-            GIOVANNI4,
-            ARLO3, CLIFF3, SIERRA3, GIOVANNI3,
-            EXTRA,
-            ARLO2, CLIFF2, SIERRA2, GIOVANNI2,
-            ARLO1, CLIFF1, SIERRA1, GIOVANNI1);
+//            GIOVANNI4,
+//            ARLO3, CLIFF3, SIERRA3, GIOVANNI3,
+//            ARLO2, CLIFF2, SIERRA2, GIOVANNI2,
+//            ARLO1, CLIFF1, SIERRA1, GIOVANNI1,
+            EXTRA);
 
 
     private List<String> leaderGroups = new ArrayList<String>();

@@ -8,10 +8,14 @@ import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Data Taken from : https://gamepress.gg/pokemongo/comprehensive-dps-spreadsheet
+ *
+ */
 public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 {
-    private static final int NUMBER_OF_LINES_TO_READ_FROM_FILE = 50;
-    private static final int NUMBER_OF_TOP_UNIQUE_COUNTERS_PER_POKEMON = 10;
+    private static final int NUMBER_OF_LINES_TO_READ_FROM_FILE = 70;
+    private static final int NUMBER_OF_TOP_UNIQUE_COUNTERS_PER_POKEMON = 20;
 
     private static final String POKEMON_DIR = "pokemon/raid/";
     private static final String CSV = ".csv";
@@ -73,6 +77,64 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
                                                     "meloetta_pirouette",
                                                     "genesect");
 
+    private final List<String> gen6 = Arrays.asList("xerneas",
+                                                    "yveltal",
+                                                    "zygarde",
+                                                    "diancie",
+                                                    "hoopa_unbound",
+                                                    "volcanion");
+
+    private final List<String> mega = Arrays.asList("venusaur_mega",
+                                                    "charizard_mega_x",
+                                                    "charizard_mega_y",
+                                                    "blastoise_mega",
+                                                    "alakazam_mega",
+                                                    "gengar_mega",
+                                                    "kangaskhan_mega",
+                                                    "pinsir_mega",
+                                                    "gyarados_mega",
+                                                    "aerodactyl_mega",
+                                                    "mewtwo_mega_x",
+                                                    "mewtwo_mega_y",
+                                                    "ampharos_mega",
+                                                    "scizor_mega",
+                                                    "heracross_mega",
+                                                    "houndoom_mega",
+                                                    "tyranitar_mega",
+                                                    "blaziken_mega",
+                                                    "gardevoir_mega",
+                                                    "mawile_mega",
+                                                    "aggron_mega",
+                                                    "medicham_mega",
+                                                    "manectric_mega",
+                                                    "banette_mega",
+                                                    "absol_mega",
+                                                    "latias_mega",
+                                                    "latios_mega",
+                                                    "garchomp_mega",
+                                                    "lucario_mega",
+                                                    "abomasnow_mega",
+                                                    "beedrill_mega",
+                                                    "pidgeot_mega",
+                                                    "slowbro_mega",
+                                                    "steelix_mega",
+                                                    "sceptile_mega",
+                                                    "swampert_mega",
+                                                    "sableye_mega",
+                                                    "sharpedo_mega",
+                                                    "camerupt_mega",
+                                                    "altaria_mega",
+                                                    "glalie_mega",
+                                                    "salamence_mega",
+                                                    "metagross_mega",
+                                                    "groudon_primal",
+                                                    "kyogre_primal",
+                                                    "rayquaza_mega",
+                                                    "lopunny_mega",
+                                                    "gallade_mega",
+                                                    "audino_mega",
+                                                    "diancie_mega");
+
     private List<String> legendaryPokemonFilenames = new ArrayList<String>();
 
 
@@ -93,6 +155,8 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         legendaryPokemonFilenames.addAll(gen3);
         legendaryPokemonFilenames.addAll(gen4);
         legendaryPokemonFilenames.addAll(gen5);
+        legendaryPokemonFilenames.addAll(gen6);
+        legendaryPokemonFilenames.addAll(mega);
 
         loadPokemonData();
     }

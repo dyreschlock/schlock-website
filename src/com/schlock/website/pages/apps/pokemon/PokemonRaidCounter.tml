@@ -6,14 +6,28 @@
 <head>
     <title>${message:page-title}</title>
     <style>
+        body
+        {
+            font-family: noto sans,sans-serif;
+            font-size: 14px;
+        }
 
         td
         {
             padding: 2px;
             border-bottom: 1px solid #ddd;
 
+            font-weight: bold;
+
             width: 200px;
         }
+
+        td.Mega, td.Shadow, td.Ash, td.Primal
+        {
+            font-weight: normal;
+            color: #595959;
+        }
+
         td.Gengar {         background-color: #e6e6ff; }
         td.Chandelure {     background-color: #f2e6ff; }
 
@@ -23,6 +37,7 @@
 
         td.Rampardos {      background-color: #f2e6d9; }
         td.Tyranitar {      background-color: #e0e0d1; }
+        td.Rhyperior {      background-color: #ffe699; }
 
         td.Groudon {        background-color: #ffd9b3; }
         td.Excadrill {      background-color: #ffe6b3; }
@@ -36,6 +51,7 @@
         td.Lucario {        background-color: #ecc6d9; }
 
         td.Electivire {     background-color: #ffffcc; }
+        td.Ampharos {       background-color: #f2ffcc; }
 
         td.Mamoswine {      background-color: #e6ffff; }
 
@@ -54,7 +70,7 @@
     <table>
         <t:loop source="legendaryPokemon" value="currentLegendaryPokemon">
             <tr>
-                <td>${currentLegendaryPokemon.name}</td>
+                <td class="name">${currentLegendaryPokemon.name}</td>
                 <t:loop source="counterPokemon" value="currentCounterPokemon">
                     <td class="${currentCounterPokemon.name}">
                         ${currentCounterPokemon.name}<br/>
