@@ -14,11 +14,36 @@ import java.util.*;
  */
 public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 {
-    private static final int NUMBER_OF_LINES_TO_READ_FROM_FILE = 70;
+    private static final int NUMBER_OF_LINES_TO_READ_FROM_FILE = 100;
     private static final int NUMBER_OF_TOP_UNIQUE_COUNTERS_PER_POKEMON = 20;
 
     private static final String POKEMON_DIR = "pokemon/raid/";
     private static final String CSV = ".csv";
+
+    private final static boolean IGNORE_THESE = true;
+
+    private final static List<String> IGNORE_POKEMON = Arrays.asList(
+            "Shaymin (Sky Forme)",
+            "White Kyurem",
+            "Ash Greninja",
+            "Mega Garchomp",
+            "Mega Mewtwo X",
+            "Mega Charizard X",
+            "Mega Salamence",
+            "Mega Lucario",
+            "Mega Gardevoir",
+            "Mega Alakazam",
+            "Mega Heracross",
+            "Mega Banette",
+            "Mega Pinsir",
+            "Mega Gallade");
+
+
+
+
+
+    private final List<String> current = Arrays.asList(
+            "raikou", "suicune", "latias", "latios", "gyarados_mega", "ampharos_mega");
 
     private final List<String> gen1 = Arrays.asList("mewtwo",
                                                     "mewtwo_armored",
@@ -150,6 +175,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         this.deploymentContext = deploymentContext;
 
         legendaryPokemonFilenames.clear();
+        legendaryPokemonFilenames.addAll(current);
         legendaryPokemonFilenames.addAll(gen1);
         legendaryPokemonFilenames.addAll(gen2);
         legendaryPokemonFilenames.addAll(gen3);
@@ -252,9 +278,9 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     private boolean isAcceptablePokemon(RaidCounterPokemon newPokemon, List<RaidCounterPokemon> counterPokemonList)
     {
         boolean isUnique = isUniquePokemon(newPokemon, counterPokemonList);
-        boolean isReleased = isReleased(newPokemon);
+        boolean isIgnore = isIgnore(newPokemon);
 
-        return isUnique & isReleased;
+        return isUnique & !isIgnore;
     }
 
     private static final String GENGAR = "Gengar";
@@ -306,19 +332,13 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     }
 
 
-    private final static List<String> UNRELEASED_POKEMON = Arrays.asList("Black Kyurem",
-            "White Kyurem",
-            "Landorus (Therian Forme)",
-            "Vanilluxe");
-
-
-    private boolean isReleased(RaidCounterPokemon pokemon)
+    private boolean isIgnore(RaidCounterPokemon pokemon)
     {
-//        if (UNRELEASED_POKEMON.contains(pokemon.getName()))
-//        {
-//            return false;
-//        }
-        return true;
+        if (IGNORE_THESE && IGNORE_POKEMON.contains(pokemon.getName()))
+        {
+            return true;
+        }
+        return false;
     }
 
 
