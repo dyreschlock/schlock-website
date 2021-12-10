@@ -9,7 +9,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.widen" level="debug" >
+    <logger name="com.schlock" level="debug" >
         <appender-ref ref="stdout" />
     </logger>
 
