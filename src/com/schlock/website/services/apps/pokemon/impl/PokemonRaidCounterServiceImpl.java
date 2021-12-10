@@ -14,21 +14,23 @@ import java.util.*;
  */
 public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 {
-    private static final int NUMBER_OF_LINES_TO_READ_FROM_FILE = 100;
+    private static final int NUMBER_OF_LINES_TO_READ_FROM_FILE = 150;
     private static final int NUMBER_OF_TOP_UNIQUE_COUNTERS_PER_POKEMON = 20;
 
     private static final String POKEMON_DIR = "pokemon/raid/";
     private static final String CSV = ".csv";
 
     private final static boolean IGNORE_THESE = true;
+//    private final static boolean IGNORE_THESE = false;
 
     private final static List<String> IGNORE_POKEMON = Arrays.asList(
             "Shaymin (Sky Forme)",
             "White Kyurem",
             "Ash Greninja",
+            "Mega Latios",
+            "Mega Latias",
             "Mega Garchomp",
             "Mega Mewtwo X",
-            "Mega Charizard X",
             "Mega Salamence",
             "Mega Lucario",
             "Mega Gardevoir",
@@ -42,14 +44,14 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 
 
 
-    private final List<String> current = Arrays.asList(
-            "raikou", "suicune", "latias", "latios", "gyarados_mega", "ampharos_mega");
-
     private final List<String> gen1 = Arrays.asList("mewtwo",
                                                     "mewtwo_armored",
                                                     "articuno",
                                                     "zapdos",
-                                                    "moltres");
+                                                    "moltres",
+                                                    "articuno_galarian",
+                                                    "zapdos_galarian",
+                                                    "moltres_galarian");
 
     private final List<String> gen2 = Arrays.asList("raikou",
                                                     "entei",
@@ -98,14 +100,12 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
                                                     "kyurem_white",
                                                     "kyurem_black",
                                                     "keldeo",
-                                                    "meloetta_aria",
-                                                    "meloetta_pirouette",
                                                     "genesect");
 
     private final List<String> gen6 = Arrays.asList("xerneas",
                                                     "yveltal",
                                                     "zygarde",
-                                                    "diancie",
+                                                    "zygarde_complete",
                                                     "hoopa_unbound",
                                                     "volcanion");
 
@@ -175,14 +175,13 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         this.deploymentContext = deploymentContext;
 
         legendaryPokemonFilenames.clear();
-        legendaryPokemonFilenames.addAll(current);
         legendaryPokemonFilenames.addAll(gen1);
         legendaryPokemonFilenames.addAll(gen2);
         legendaryPokemonFilenames.addAll(gen3);
         legendaryPokemonFilenames.addAll(gen4);
         legendaryPokemonFilenames.addAll(gen5);
         legendaryPokemonFilenames.addAll(gen6);
-        legendaryPokemonFilenames.addAll(mega);
+//        legendaryPokemonFilenames.addAll(mega);
 
         loadPokemonData();
     }
@@ -213,6 +212,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         }
 
         List<RaidCounterPokemon> counterList = parseStringsIntoList(linesFromFile);
+        Collections.sort(counterList);
         return counterList;
     }
 

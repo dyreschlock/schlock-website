@@ -76,7 +76,8 @@
                         ${currentCounterPokemon.name}<br/>
                         ${currentCounterPokemon.fastMove}<br/>
                         ${currentCounterPokemon.chargeMove}<br/>
-                        ${currentCounterPokemon.dps}
+                        ${currentCounterPokemon.dps}<br/>
+                        ${currentCounterPokemon.dps4tdoFormat}
                     </td>
                 </t:loop>
             </tr>

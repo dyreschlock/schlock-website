@@ -14,7 +14,7 @@ public class AppRunner
 
 		WebAppContext context = new WebAppContext();
 		context.setContextPath("/");
-		context.setWar("web");	
+		context.setWar("web");
 
 		server.setHandler(context);
 		server.start();

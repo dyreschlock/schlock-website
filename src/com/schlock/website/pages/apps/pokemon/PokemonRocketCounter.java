@@ -1,6 +1,5 @@
 package com.schlock.website.pages.apps.pokemon;
 
-import com.oracle.webservices.internal.api.message.PropertySet;
 import com.schlock.website.entities.apps.pokemon.RocketCounterPokemon;
 import com.schlock.website.entities.apps.pokemon.RocketLeader;
 import com.schlock.website.entities.apps.pokemon.RocketPokemon;

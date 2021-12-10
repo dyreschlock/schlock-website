@@ -27,11 +27,21 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
 
 //    private static final String[] TEST = {"test", "feb2021", "porygon-z"};
 
+    private static final String[] ARLO6 = {"arlo6", "nov2021", "gligar", "mawile", "lapras", "cradily", "snorlax", "scizor"};
+    private static final String[] CLIFF6 = {"cliff6", "nov2021", "grimer", "venusaur", "charizard", "tyranitar"};
+    private static final String[] SIERRA6 = {"sierra6", "nov2021", "nidoranf", "beedrill", "vileplume", "slowbro", "houndoom", "marowak"};
+    private static final String[] GIOVANNI6 = {"giovanni6", "nov2021", "persian", "kingler", "nidoking", "rhyperior", "lugia"};
+
+
+    private static final String[] ARLO5 = {"arlo5", "jun2021", "venonat", "manetric", "ursaring", "crobat", "scizor", "vileplume", "magnezone"};
+    private static final String[] CLIFF5 = {"cliff5", "jun2021", "seedot", "hariyama", "poliwrath", "kingler", "tyranitar", "sharpedo", "torterra"};
+    private static final String[] SIERRA5 = {"sierra5", "jun2021", "sneasel", "gliscor", "granbull", "ampharos", "houndoom", "kingdra", "drapion"};
+    private static final String[] GIOVANNI5 = {"giovanni5", "jun2021", "persian", "golem", "machamp", "cloyster", "garchomp", "kangaskhan", "nidoking", "ho-oh"};
+
+
     private static final String[] ARLO4 = {"arlo4", "feb2021", "beldum", "gardevoir", "infernape", "aggron", "armaldo", "salamence", "scizor"};
     private static final String[] CLIFF4 = {"cliff4", "feb2021", "aerodactyl", "gallade", "cradily", "slowking", "dusknoir", "mamoswine", "tyranitar"};
     private static final String[] SIERRA4 = {"sierra4", "feb2021", "carvanha", "hippowdon", "porygon-z", "mismagius", "flygon", "houndoom", "walrein"};
-
-
     private static final String[] GIOVANNI4 = {"giovanni4", "mar2020", "persian", "kingler", "steelix", "rhyperior", "entei"};
 
     private static final String[] ARLO3 = {"arlo3", "feb2020", "mawile", "charizard", "blastoise", "steelix", "dragonite", "scizor", "salamence"};
@@ -54,7 +64,9 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
 
     private static final List<String[]> ROCKET_LEADERS = Arrays.asList(
             //TEST,
-            ARLO4, CLIFF4, SIERRA4,
+            ARLO6, CLIFF6, SIERRA6, GIOVANNI6,
+//            ARLO5, CLIFF5, SIERRA5, GIOVANNI5,
+//            ARLO4, CLIFF4, SIERRA4,
 //            GIOVANNI4,
 //            ARLO3, CLIFF3, SIERRA3, GIOVANNI3,
 //            ARLO2, CLIFF2, SIERRA2, GIOVANNI2,
@@ -125,8 +137,15 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
                     String name = rocketPokemon.getName();
                     if (!counterPokemon.containsKey(name))
                     {
-                        List<RocketCounterPokemon> list = createCounters(name);
-                        counterPokemon.put(name, list);
+                        try
+                        {
+                            List<RocketCounterPokemon> list = createCounters(name);
+                            counterPokemon.put(name, list);
+                        }
+                        catch(Exception e)
+                        {
+                            System.out.println(name);
+                        }
                     }
                 }
             }

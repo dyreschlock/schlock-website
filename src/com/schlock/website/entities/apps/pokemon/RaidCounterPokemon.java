@@ -1,6 +1,8 @@
 package com.schlock.website.entities.apps.pokemon;
 
-public class RaidCounterPokemon
+import java.util.Comparator;
+
+public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
 {
     private String name;
     private String fastMove;
@@ -21,6 +23,18 @@ public class RaidCounterPokemon
         this.tdo = tdo;
         this.dps3tdo = dps3tdo;
         this.cp = cp;
+    }
+
+    public double getDps4tdo()
+    {
+        double dps4 = dps * dps * dps * dps;
+
+        return dps4 * tdo / 100000;
+    }
+
+    public String getDps4tdoFormat()
+    {
+        return String.format("%.2f", getDps4tdo());
     }
 
     public String getName() { return name; }
@@ -50,4 +64,18 @@ public class RaidCounterPokemon
     public int getCp() { return cp; }
 
     public void setCp(int cp) { this.cp = cp; }
+
+
+    public int compareTo(RaidCounterPokemon p)
+    {
+        if(getDps4tdo() < p.getDps4tdo())
+        {
+            return 1;
+        }
+        if (getDps4tdo() > p.getDps4tdo())
+        {
+            return -1;
+        }
+        return 0;
+    }
 }
