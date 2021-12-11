@@ -8,6 +8,13 @@
         <tr>
             <th>${message:count}</th>
             <th>${message:letter}</th>
+
+            <t:loop source="years" value="currentYear">
+
+                <th>${currentYear}</th>
+
+            </t:loop>
+
         </tr>
 
         <t:loop source="unown" value="currentUnown">
@@ -15,6 +22,12 @@
             <tr>
                 <td>${currentUnown.eventCount}</td>
                 <td>${currentUnown.letter}</td>
+
+                <t:loop source="years" value="currentYear">
+
+                    <td>${eventsByCurrentYear}</td>
+
+                </t:loop>
             </tr>
 
         </t:loop>

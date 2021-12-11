@@ -24,4 +24,9 @@ public class PokemonUnownByLetterList
     {
         return unownService.getListOfUnownByLetter();
     }
+
+    public String getEventNamesForCurrentUnown()
+    {
+        return unownService.getEventNamesForUnown(currentUnown);
+    }
 }

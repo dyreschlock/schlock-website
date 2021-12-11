@@ -5,6 +5,7 @@ import com.schlock.website.entities.apps.pokemon.UnownPokemon;
 import com.schlock.website.entities.apps.pokemon.WorldRegion;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.PokemonUnownService;
+import org.apache.commons.lang.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -88,7 +89,8 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
             Arrays.asList("Safari Zone Liverpool", "LIVERPO", "10/15/2021", "10/17/2021", "Global", WorldRegion.GLOBAL),
             Arrays.asList("Safari Zone Philadelphia", "PHILADE", "10/29/2021", "10/31/2021", "Global", WorldRegion.GLOBAL),
             Arrays.asList("Safari Zone St Louis", "STLOUI", "11/12/2021", "11/14/2021", "Global", WorldRegion.GLOBAL),
-            Arrays.asList("Pokemon Go Special Weekend", "IRFMSPETL", "12/10/2021", "12/12/2021", "Japan", WorldRegion.JAPAN)
+            Arrays.asList("Pokemon Go Special Weekend", "IRFMSPETL", "12/10/2021", "12/12/2021", "Japan", WorldRegion.JAPAN),
+            Arrays.asList("Johto Tour", "GOTURJ", "2/26/2022", "2/27/2022", "Global", WorldRegion.GLOBAL)
     };
 
     private List<UnownPokemon> listOfUnown = new ArrayList<UnownPokemon>();
@@ -211,5 +213,42 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
         });
 
         return listOfUnown;
+    }
+
+    private static final String COMMA = ", ";
+
+    @Override
+    public String getEventNamesForUnown(UnownPokemon pokemon)
+    {
+        List<String> names = new ArrayList<String>();
+        for (UnownEvent event : pokemon.getEvents())
+        {
+            String html = getEventNameHTML(event);
+            names.add(html);
+        }
+
+        return StringUtils.join(names, COMMA);
+    }
+
+    @Override
+    public String getEventNamesForUnownByYear(UnownPokemon pokemon, String year)
+    {
+        List<String> names = new ArrayList<String>();
+        for (UnownEvent event : pokemon.getEvents())
+        {
+            String eventYear = new SimpleDateFormat("yyyy").format(event.getStartDate());
+            if (year.equals(eventYear))
+            {
+                String html = getEventNameHTML(event);
+                names.add(html);
+            }
+        }
+
+        return StringUtils.join(names, COMMA);
+    }
+
+    private String getEventNameHTML(UnownEvent event)
+    {
+        return event.getEventName();
     }
 }

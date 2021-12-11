@@ -24,18 +24,6 @@ public class UnownPokemon implements Comparable<UnownPokemon>
         return events.size();
     }
 
-    public String getEventNames()
-    {
-        List<String> names = new ArrayList<String>();
-        for(UnownEvent event : events)
-        {
-            names.add(event.getEventName());
-        }
-
-        return StringUtils.join(names, ", ");
-    }
-
-
     public String getLetter()
     {
         return letter;
