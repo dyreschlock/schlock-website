@@ -13,6 +13,15 @@ import java.util.*;
 
 public class PokemonUnownServiceImpl implements PokemonUnownService
 {
+    /** References
+     * http://ark42.com/pogo/unown.php
+     * https://www.serebii.net/pokemongo/unownevents.shtml
+     */
+
+    private final static String CURRENT_UNOWN_POKEDEX = "AEFGIKMNOPRSTUVWY!";
+    private final static String HAVE_TO_TRADE =         "AEFGIKMNPRSTUVWY!";
+    private final static String HAVE_SHINY =            "U";
+
     private final static List[] UNOWN_EVENTS = {
             Arrays.asList("Chicago Go Fest", "CHIAGO", "7/22/2017", "7/24/2017", "Chicago, IL, USA", WorldRegion.NORTH_AMERICA),
             Arrays.asList("Europe Delayed Safari Zone", "EUROP", "8/4/2017", "8/21/2017", "Europe (various)", WorldRegion.EUROPE),
@@ -83,7 +92,9 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
             Arrays.asList("Mexico Special Weekend", "SE", "11/7/2020", "11/8/2020", "Mexico", WorldRegion.NORTH_AMERICA),
             Arrays.asList("City Explorer", "C", "11/22/2020", "11/22/2020", "Auckland, New Zealand", WorldRegion.AUSTRAILIA),
             Arrays.asList("City Explorer", "C", "11/22/2020", "11/22/2020", "Busan / Tainan", WorldRegion.ASIA),
-            Arrays.asList("Pokemon Go Special Weekend", "VSY", "5/29/2021", "5/29/2021", "Japan / Mexico / US", WorldRegion.GLOBAL),
+            Arrays.asList("Pokemon Go Special Weekend", "V", "5/29/2021", "5/29/2021", "US", WorldRegion.NORTH_AMERICA),
+            Arrays.asList("Pokemon Go Special Weekend", "S", "5/29/2021", "5/29/2021", "Mexico", WorldRegion.NORTH_AMERICA),
+            Arrays.asList("Pokemon Go Special Weekend", "Y", "5/29/2021", "5/29/2021", "Japan", WorldRegion.JAPAN),
             Arrays.asList("Pokmeon Go Fest", "FG", "7/17/2021", "7/18/2021", "Global", WorldRegion.GLOBAL),
             Arrays.asList("Ultra Unlock", "U", "7/23/2021", "8/31/2021", "Global", WorldRegion.GLOBAL),
             Arrays.asList("Safari Zone Liverpool", "LIVERPO", "10/15/2021", "10/17/2021", "Global", WorldRegion.GLOBAL),
@@ -215,6 +226,23 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
         return listOfUnown;
     }
 
+    public List<UnownPokemon> getListOfUnownByRarityAndNotOwned()
+    {
+        List<UnownPokemon> unown = getListOfUnownByRarity();
+
+        List<UnownPokemon> unowned = new ArrayList<UnownPokemon>();
+
+        for (UnownPokemon pokemon : unown)
+        {
+            String letter = pokemon.getLetter();
+            if (!CURRENT_UNOWN_POKEDEX.contains(letter))
+            {
+                unowned.add(pokemon);
+            }
+        }
+        return unowned;
+    }
+
     private static final String COMMA = ", ";
 
     @Override
@@ -249,6 +277,9 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
 
     private String getEventNameHTML(UnownEvent event)
     {
-        return event.getEventName();
+        String spanStart = "<span class="+ event.getRegion().name() +" >";
+        String spanEnd = "</span>";
+
+        return spanStart + event.getEventName() + spanEnd;
     }
 }

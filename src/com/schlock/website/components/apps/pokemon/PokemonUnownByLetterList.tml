@@ -16,7 +16,7 @@
             <tr>
                 <td>${currentUnown.letter}</td>
                 <td>${currentUnown.eventCount}</td>
-                <td>${eventNamesForCurrentUnown}</td>
+                <td><t:outputraw value="eventNamesForCurrentUnown" /></td>
             </tr>
 
         </t:loop>

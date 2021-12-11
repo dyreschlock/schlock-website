@@ -10,6 +10,7 @@
         {
             font-family: Helvetica, Arial, sans-serif;
             font-size: 14px;
+            background-color: #ffffff;
         }
 
         th
@@ -20,6 +21,7 @@
         td
         {
             padding: 4px 8px;
+            vertical-align: top;
         }
 
         p.title
@@ -28,9 +30,21 @@
             font-size: 18px;
         }
 
+        span.NORTH_AMERICA  { background-color: #e4edfd; } /* blue */
+        span.SOUTH_AMERICA  { background-color: #e4f9fd; } /* light blue */
+        span.EUROPE         { background-color: #fde4e6; } /* redish */
+        span.MIDDLE_EAST    { background-color: #fdf3e4; } /* orange */
+        span.AFRICA         { background-color: #fdf3e4; } /* orange */
+        span.AUSTRAILIA     { background-color: #fcfde4; } /* yellow */
+        span.ASIA           { background-color: #f3fde4; } /* green-yellow */
+        span.JAPAN          { background-color: #e8fde4; } /* green */
+        span.GLOBAL         { background-color: #fefefe; }
+
     </style>
 </head>
 <body>
+
+    <p:PokemonUnownCustomList />
 
     <p:PokemonUnownRarityList />
 

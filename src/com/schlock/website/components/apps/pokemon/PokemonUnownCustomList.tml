@@ -2,7 +2,7 @@
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 >
 
-    <p class="title">${message:title}</p>
+    <p class="title">${title}</p>
 
     <table>
         <tr>
