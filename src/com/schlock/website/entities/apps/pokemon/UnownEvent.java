@@ -1,5 +1,6 @@
 package com.schlock.website.entities.apps.pokemon;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class UnownEvent
@@ -15,6 +16,11 @@ public class UnownEvent
 
     public UnownEvent()
     {
+    }
+
+    public String getStartDateOutput()
+    {
+        return new SimpleDateFormat("yyyy MMMM d").format(startDate);
     }
 
     public Date getStartDate()

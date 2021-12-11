@@ -1,0 +1,25 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+
+    <p class="title">${message:title}</p>
+
+    <table>
+        <tr>
+            <th>${message:letter}</th>
+            <th>${message:count}</th>
+            <th>${message:eventNames}</th>
+        </tr>
+
+        <t:loop source="unown" value="currentUnown">
+
+            <tr>
+                <td>${currentUnown.letter}</td>
+                <td>${currentUnown.eventCount}</td>
+                <td>${currentUnown.eventNames}</td>
+            </tr>
+
+        </t:loop>
+    </table>
+
+</t:container>

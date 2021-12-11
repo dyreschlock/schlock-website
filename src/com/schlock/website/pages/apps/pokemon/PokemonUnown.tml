@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="layout" title="${message:page-title}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry-library:apps/pokemon"
+>
+<head>
+    <title>${message:page-title}</title>
+    <style>
+        html
+        {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        th
+        {
+            padding: 4px 8px;
+            background-color: #e0e0ff;
+        }
+        td
+        {
+            padding: 4px 8px;
+        }
+
+        p.title
+        {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <p:PokemonUnownRarityList />
+
+    <p:PokemonUnownByLetterList />
+
+    <p:PokemonUnownEventsList />
+
+</body>
+</html>

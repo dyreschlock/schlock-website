@@ -1,0 +1,26 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+
+    <p class="title">${message:title}</p>
+
+    <table>
+        <tr>
+            <th>${message:date}</th>
+            <th>${message:event}</th>
+            <th>${message:location}</th>
+            <th>${message:unown}</th>
+        </tr>
+        <t:loop source="unownEvents" value="currentEvent">
+
+            <tr>
+                <td>${currentEvent.startDateOutput}</td>
+                <td>${currentEvent.eventName}</td>
+                <td>${currentEvent.location}</td>
+                <td>${currentEvent.unownAvailable}</td>
+            </tr>
+
+        </t:loop>
+    </table>
+
+</t:container>

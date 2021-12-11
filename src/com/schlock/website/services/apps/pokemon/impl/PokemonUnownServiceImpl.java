@@ -8,10 +8,7 @@ import com.schlock.website.services.apps.pokemon.PokemonUnownService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class PokemonUnownServiceImpl implements PokemonUnownService
 {
@@ -186,6 +183,33 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
         }
 
         UnownPokemon newUnown = new UnownPokemon(letter);
+        listOfUnown.add(newUnown);
+
         return newUnown;
+    }
+
+    public List<UnownEvent> getListOfEvents()
+    {
+        return listOfEvents;
+    }
+
+    public List<UnownPokemon> getListOfUnownByLetter()
+    {
+        Collections.sort(listOfUnown);
+        return listOfUnown;
+    }
+
+    public List<UnownPokemon> getListOfUnownByRarity()
+    {
+        Collections.sort(listOfUnown, new Comparator<UnownPokemon>()
+        {
+            @Override
+            public int compare(UnownPokemon o1, UnownPokemon o2)
+            {
+                return o1.getEventCount() - o2.getEventCount();
+            }
+        });
+
+        return listOfUnown;
     }
 }
