@@ -11,8 +11,6 @@ import java.util.List;
 
 public class PokemonUnownCustomList
 {
-    private static final List<String> YEARS = Arrays.asList("2022", "2021", "2020", "2019");
-
     @Inject
     private PokemonUnownService unownService;
 
@@ -41,7 +39,7 @@ public class PokemonUnownCustomList
 
     public List<String> getYears()
     {
-        return YEARS;
+        return unownService.getEventYears();
     }
 
     public String getEventsByCurrentYear()

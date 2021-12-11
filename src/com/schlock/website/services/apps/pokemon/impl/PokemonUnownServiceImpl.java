@@ -7,6 +7,7 @@ import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.PokemonUnownService;
 import org.apache.commons.lang.StringUtils;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -18,29 +19,29 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
      * https://www.serebii.net/pokemongo/unownevents.shtml
      */
 
-    private final static String CURRENT_UNOWN_POKEDEX = "AEFGIKMNOPRSTUVWY!";
-    private final static String HAVE_TO_TRADE =         "AEFGIKMNPRSTUVWY!";
+    private final static String CURRENT_UNOWN_POKEDEX = "AEFGIKLMNOPRSTUVWY!";
+    private final static String HAVE_TO_TRADE =         "AEFGIKLMNPRSTUVWY!";
     private final static String HAVE_SHINY =            "U";
 
     private final static List[] UNOWN_EVENTS = {
-            Arrays.asList("Chicago Go Fest", "CHIAGO", "7/22/2017", "7/24/2017", "Chicago, IL, USA", WorldRegion.NORTH_AMERICA),
-            Arrays.asList("Europe Delayed Safari Zone", "EUROP", "8/4/2017", "8/21/2017", "Europe (various)", WorldRegion.EUROPE),
+            Arrays.asList("Chicago Go Fest 2017", "CHIAGO", "7/22/2017", "7/24/2017", "Chicago, IL, USA", WorldRegion.NORTH_AMERICA),
+            Arrays.asList("Europe Safari Zones 2017", "EUROP", "8/4/2017", "8/21/2017", "Europe (various)", WorldRegion.EUROPE),
             Arrays.asList("Yokohama Pokemon Park", "YOKHAM", "8/9/2017", "8/15/2017", "Yokohama, Japan", WorldRegion.JAPAN),
             Arrays.asList("World Championships Anaheim", "WOLRDS", "8/18/2017", "8/20/2017", "Anaheim, CA, USA", WorldRegion.NORTH_AMERICA),
-            Arrays.asList("Europe Safari Zones", "SAFRI", "9/16/2017", "10/14/2017", "Europe (various)", WorldRegion.EUROPE),
-            Arrays.asList("TwitchCon", "TWICH", "10/20/2017", "10/20/2017", "Long Beach, CA, USA", WorldRegion.NORTH_AMERICA),
+            Arrays.asList("Europe Safari Zones 2017", "SAFRI", "9/16/2017", "10/14/2017", "Europe (various)", WorldRegion.EUROPE),
+            Arrays.asList("TwitchCon 2017", "TWICH", "10/20/2017", "10/20/2017", "Long Beach, CA, USA", WorldRegion.NORTH_AMERICA),
             Arrays.asList("Pokemon Go Week Korea", "SEOUL", "11/10/2017", "11/12/2017", "Souel, South Korea", WorldRegion.ASIA),
-            Arrays.asList("Pokemon Go Safari Zone", "SAKYU", "11/24/2017", "11/26/2017", "Tottori Sand Dunes, Japan", WorldRegion.JAPAN),
+            Arrays.asList("Tottori Safari Zone 2017", "SAKYU", "11/24/2017", "11/26/2017", "Tottori Sand Dunes, Japan", WorldRegion.JAPAN),
             Arrays.asList("Syndey RTX", "RTX", "2/3/2018", "2/3/2018", "Sydney, Australia", WorldRegion.AUSTRAILIA),
-            Arrays.asList("Pokemon Go Safari Zone", "CHIAYGXF", "2/26/2018", "3/3/2018", "Chiayi, Taiwan", WorldRegion.ASIA),
-            Arrays.asList("South x South West", "SXW", "3/8/2018", "3/15/2018", "Austin, TX, USA", WorldRegion.NORTH_AMERICA),
+            Arrays.asList("Taiwan Safari Zone 2018", "CHIAYGXF", "2/26/2018", "3/3/2018", "Chiayi, Taiwan", WorldRegion.ASIA),
+            Arrays.asList("South x South West 2018", "SXW", "3/8/2018", "3/15/2018", "Austin, TX, USA", WorldRegion.NORTH_AMERICA),
             Arrays.asList("Games Developer Conference", "GDC", "3/21/2018", "4/1/2018", "San Francisco, CA, USA", WorldRegion.NORTH_AMERICA),
             Arrays.asList("Armageddon Expo NZ", "ARMGEDON", "3/30/2018", "4/1/2018", "Wellington, New Zealand", WorldRegion.AUSTRAILIA),
             Arrays.asList("Dutch Comic Con", "COMIN", "3/31/2018", "4/2/2018", "Utretch, Netherlands", WorldRegion.EUROPE),
-            Arrays.asList("PAX East", "PAX", "4/6/2018", "4/8/2018", "Boston, MA, USA", WorldRegion.NORTH_AMERICA),
+            Arrays.asList("PAX East 2018", "PAX", "4/6/2018", "4/8/2018", "Boston, MA, USA", WorldRegion.NORTH_AMERICA),
             Arrays.asList("Rio Creative Conference", "RIOTC", "4/7/2018", "4/8/2018", "Rio de Janiero, Brazil", WorldRegion.SOUTH_AMERICA),
             Arrays.asList("London Games Festival", "LOND", "4/14/2018", "4/14/2018", "London, England", WorldRegion.EUROPE),
-            Arrays.asList("E3", "LETSGO!", "6/12/2018", "6/14/2018", "San Francisco, CA, USA", WorldRegion.NORTH_AMERICA),
+            Arrays.asList("E3 2018", "LETSGO!", "6/12/2018", "6/14/2018", "San Francisco, CA, USA", WorldRegion.NORTH_AMERICA),
             Arrays.asList("FIFA World Cup Argentina", "VAMOSRG", "6/16/2018", "6/17/2018", "Argentina", WorldRegion.SOUTH_AMERICA),
             Arrays.asList("FIFA World Cup Brazil", "VAMOSBR", "6/16/2018", "6/17/2018", "Brazil", WorldRegion.SOUTH_AMERICA),
             Arrays.asList("FIFA World Cup Peru", "VAMOSPER", "6/16/2018", "6/17/2018", "Peru", WorldRegion.SOUTH_AMERICA),
@@ -85,22 +86,22 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
             Arrays.asList("St. Louis Safari Zone", "STLOUI", "3/27/2020", "3/29/2020", "St. Louis, MO, USA", WorldRegion.NORTH_AMERICA),
             Arrays.asList("Liverpool Safari Zone", "LIVERPO", "4/17/2020", "4/19/2020", "Liverpool, Englash", WorldRegion.EUROPE),
             Arrays.asList("Philadelphia Safari Zone", "PHILADE", "5/8/2020", "5/10/2020", "Philadelphia, PA, USA", WorldRegion.NORTH_AMERICA),
-            Arrays.asList("Pokemon Go Fest 2020", "GO", "7/25/2020", "7/26/2020", "Global", WorldRegion.GLOBAL),
+            Arrays.asList("Go Fest 2020", "GO", "7/25/2020", "7/26/2020", "Global", WorldRegion.GLOBAL),
             Arrays.asList("Enigma Week", "ULTRA", "8/7/2020", "8/14/2020", "Global (in Raids)", WorldRegion.GLOBAL),
             Arrays.asList("US Special Weekend", "VZGH", "11/7/2020", "11/8/2020", "United States", WorldRegion.NORTH_AMERICA),
             Arrays.asList("Japan Special Weekend", "SBMK", "11/7/2020", "11/8/2020", "Japan", WorldRegion.JAPAN),
             Arrays.asList("Mexico Special Weekend", "SE", "11/7/2020", "11/8/2020", "Mexico", WorldRegion.NORTH_AMERICA),
-            Arrays.asList("City Explorer", "C", "11/22/2020", "11/22/2020", "Auckland, New Zealand", WorldRegion.AUSTRAILIA),
-            Arrays.asList("City Explorer", "C", "11/22/2020", "11/22/2020", "Busan / Tainan", WorldRegion.ASIA),
-            Arrays.asList("Pokemon Go Special Weekend", "V", "5/29/2021", "5/29/2021", "US", WorldRegion.NORTH_AMERICA),
-            Arrays.asList("Pokemon Go Special Weekend", "S", "5/29/2021", "5/29/2021", "Mexico", WorldRegion.NORTH_AMERICA),
-            Arrays.asList("Pokemon Go Special Weekend", "Y", "5/29/2021", "5/29/2021", "Japan", WorldRegion.JAPAN),
-            Arrays.asList("Pokmeon Go Fest", "FG", "7/17/2021", "7/18/2021", "Global", WorldRegion.GLOBAL),
-            Arrays.asList("Ultra Unlock", "U", "7/23/2021", "8/31/2021", "Global", WorldRegion.GLOBAL),
+            Arrays.asList("City Explorer NZ", "C", "11/22/2020", "11/22/2020", "Auckland, New Zealand", WorldRegion.AUSTRAILIA),
+            Arrays.asList("City Explorer Tainan", "C", "11/22/2020", "11/22/2020", "Busan / Tainan", WorldRegion.ASIA),
+            Arrays.asList("America Special Weekend", "V", "5/29/2021", "5/29/2021", "US", WorldRegion.NORTH_AMERICA),
+            Arrays.asList("Mexico Special Weekend", "S", "5/29/2021", "5/29/2021", "Mexico", WorldRegion.NORTH_AMERICA),
+            Arrays.asList("Japan Special Weekend", "Y", "5/29/2021", "5/29/2021", "Japan", WorldRegion.JAPAN),
+            Arrays.asList("Go Fest 2021", "FG", "7/17/2021", "7/18/2021", "Global", WorldRegion.GLOBAL),
+            Arrays.asList("Go Fest Unlock", "U", "7/23/2021", "8/31/2021", "Global", WorldRegion.GLOBAL),
             Arrays.asList("Safari Zone Liverpool", "LIVERPO", "10/15/2021", "10/17/2021", "Global", WorldRegion.GLOBAL),
             Arrays.asList("Safari Zone Philadelphia", "PHILADE", "10/29/2021", "10/31/2021", "Global", WorldRegion.GLOBAL),
             Arrays.asList("Safari Zone St Louis", "STLOUI", "11/12/2021", "11/14/2021", "Global", WorldRegion.GLOBAL),
-            Arrays.asList("Pokemon Go Special Weekend", "IRFMSPETL", "12/10/2021", "12/12/2021", "Japan", WorldRegion.JAPAN),
+            Arrays.asList("Japan Special Weekend", "IRFMSPETL", "12/10/2021", "12/12/2021", "Japan", WorldRegion.JAPAN),
             Arrays.asList("Johto Tour", "GOTURJ", "2/26/2022", "2/27/2022", "Global", WorldRegion.GLOBAL)
     };
 
@@ -201,6 +202,37 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
         return newUnown;
     }
 
+
+    private static final String YEAR_ONLY_DATE_FORMAT = "yyyy";
+
+    private static final List<String> IGNORE_YEARS = Arrays.asList("2018", "2017");
+
+    public List<String> getEventYears()
+    {
+        List<String> years = new ArrayList<String>();
+
+        for (UnownEvent event : listOfEvents)
+        {
+            String year = new SimpleDateFormat(YEAR_ONLY_DATE_FORMAT).format(event.getStartDate());
+            if (!years.contains(year) && !IGNORE_YEARS.contains(year))
+            {
+                years.add(year);
+            }
+        }
+
+        Collections.sort(years, new Comparator<String>()
+        {
+            @Override
+            public int compare(String o1, String o2)
+            {
+                //reverse order
+                return o2.compareTo(o1);
+            }
+        });
+
+        return years;
+    }
+
     public List<UnownEvent> getListOfEvents()
     {
         return listOfEvents;
@@ -264,7 +296,7 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
         List<String> names = new ArrayList<String>();
         for (UnownEvent event : pokemon.getEvents())
         {
-            String eventYear = new SimpleDateFormat("yyyy").format(event.getStartDate());
+            String eventYear = new SimpleDateFormat(YEAR_ONLY_DATE_FORMAT).format(event.getStartDate());
             if (year.equals(eventYear))
             {
                 String html = getEventNameHTML(event);
