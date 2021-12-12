@@ -14,6 +14,8 @@ public class UnownEvent
     private String location;
     private WorldRegion region;
 
+    private boolean attended;
+
     public UnownEvent()
     {
     }
@@ -81,5 +83,15 @@ public class UnownEvent
     public void setRegion(WorldRegion region)
     {
         this.region = region;
+    }
+
+    public boolean isAttended()
+    {
+        return attended;
+    }
+
+    public void setAttended(boolean attended)
+    {
+        this.attended = attended;
     }
 }

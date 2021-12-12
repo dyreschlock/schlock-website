@@ -24,4 +24,13 @@ public class PokemonUnownEventsList
     {
         return unownService.getListOfEvents();
     }
+
+    public String getEventCSS()
+    {
+        if (currentEvent.isAttended())
+        {
+            return "attended";
+        }
+        return "";
+    }
 }

@@ -13,7 +13,7 @@
         </tr>
         <t:loop source="unownEvents" value="currentEvent">
 
-            <tr>
+            <tr class="${eventCSS}">
                 <td>${currentEvent.startDateOutput}</td>
                 <td>${currentEvent.eventName}</td>
                 <td>${currentEvent.location}</td>

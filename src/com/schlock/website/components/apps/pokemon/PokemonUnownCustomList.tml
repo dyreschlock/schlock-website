@@ -25,7 +25,7 @@
 
                 <t:loop source="years" value="currentYear">
 
-                    <td><t:outputraw value="eventsByCurrentYear" /></td>
+                    <td class="years"><t:outputraw value="eventsByCurrentYear" /></td>
 
                 </t:loop>
             </tr>

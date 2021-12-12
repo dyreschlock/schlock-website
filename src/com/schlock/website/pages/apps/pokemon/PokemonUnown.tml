@@ -23,11 +23,20 @@
             padding: 4px 8px;
             vertical-align: top;
         }
+        td.years
+        {
+            min-width: 90px;
+        }
 
         p.title
         {
             font-weight: bold;
             font-size: 18px;
+        }
+
+        .attended
+        {
+            font-weight: bold;
         }
 
         span.NORTH_AMERICA  { background-color: #e4edfd; } /* blue */
@@ -41,6 +50,7 @@
         span.GLOBAL         { background-color: #fefefe; }
 
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 
