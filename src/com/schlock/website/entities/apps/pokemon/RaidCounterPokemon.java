@@ -4,6 +4,9 @@ import java.util.Comparator;
 
 public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
 {
+    private static final String MEGA_STRING = "Mega";
+    private static final String SHADOW_STRING = "Shadow";
+
     private String name;
     private String fastMove;
     private String chargeMove;
@@ -36,6 +39,22 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
     {
         return String.format("%.2f", getDps4tdo());
     }
+
+    public boolean isMega()
+    {
+        return name.contains(MEGA_STRING);
+    }
+
+    public boolean isShadow()
+    {
+        return name.contains(SHADOW_STRING);
+    }
+
+    public boolean isRegular()
+    {
+        return !isMega() && !isShadow();
+    }
+
 
     public String getName() { return name; }
 

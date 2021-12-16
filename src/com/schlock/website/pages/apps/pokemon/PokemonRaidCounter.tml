@@ -10,6 +10,8 @@
         {
             font-family: noto sans,sans-serif;
             font-size: 14px;
+
+            color: #464646;
         }
 
         td
@@ -17,19 +19,17 @@
             padding: 2px;
             border-bottom: 1px solid #ddd;
 
-            font-weight: bold;
-
             width: 200px;
         }
 
-        td.Mega, td.Shadow, td.Ash, td.Primal
+        td.column2, td.column6
         {
-            font-weight: normal;
-            color: #595959;
+            border-right: 25px solid #fff;
         }
 
         td.Gengar {         background-color: #e6e6ff; }
         td.Chandelure {     background-color: #f2e6ff; }
+        td.Giratina {       background-color: #f2e6ff; }
 
         td.Darkrai {        background-color: #e0e0eb; }
 
@@ -48,15 +48,20 @@
         td.Mewtwo {         background-color: #ffddff; }
 
         td.Machamp {        background-color: #ffb3b3; }
+        td.Conkeldurr {     background-color: #ffb3b3; }
         td.Lucario {        background-color: #ecc6d9; }
 
+        td.Zekrom {         background-color: #ffffbc; }
         td.Electivire {     background-color: #ffffcc; }
         td.Ampharos {       background-color: #f2ffcc; }
 
         td.Mamoswine {      background-color: #e6ffff; }
+        td.Darmanitan {     background-color: #e6ffff; }
 
         td.Rayquaza {       background-color: #adadeb; }
         td.Salamence {      background-color: #b3b3ff; }
+        td.Dragonite {      background-color: #b3b3ff; }
+        td.Garchomp {       background-color: #b3b3ff; }
 
         td.Metagross {      background-color: #f0f0f5; }
 
@@ -71,8 +76,8 @@
         <t:loop source="legendaryPokemon" value="currentLegendaryPokemon">
             <tr>
                 <td class="name">${currentLegendaryPokemon.name}</td>
-                <t:loop source="counterPokemon" value="currentCounterPokemon">
-                    <td class="${currentCounterPokemon.name}">
+                <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
+                    <td class="${currentCounterPokemon.name} ${columnIndex}">
                         ${currentCounterPokemon.name}<br/>
                         ${currentCounterPokemon.fastMove}<br/>
                         ${currentCounterPokemon.chargeMove}<br/>

@@ -19,6 +19,9 @@ public class PokemonRaidCounter
     @Property
     private RaidCounterPokemon currentCounterPokemon;
 
+    @Property
+    private Integer currentIndex;
+
 
     public List<LegendaryPokemon> getLegendaryPokemon()
     {
@@ -28,5 +31,10 @@ public class PokemonRaidCounter
     public List<RaidCounterPokemon> getCounterPokemon()
     {
         return counterService.getCounterPokemon(currentLegendaryPokemon);
+    }
+
+    public String getColumnIndex()
+    {
+        return "column" + (currentIndex +1);
     }
 }

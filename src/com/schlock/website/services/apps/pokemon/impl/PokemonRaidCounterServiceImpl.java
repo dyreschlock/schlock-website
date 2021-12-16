@@ -14,8 +14,14 @@ import java.util.*;
  */
 public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 {
-    private static final int NUMBER_OF_LINES_TO_READ_FROM_FILE = 150;
-    private static final int NUMBER_OF_TOP_UNIQUE_COUNTERS_PER_POKEMON = 20;
+    private static final int NUMBER_OF_LINES_TO_READ_FROM_FILE = 200;
+
+    private static final int NUMBER_OF_MEGA_COUNTERS_PER_POKEMON = 2;
+    private static final int NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON = 4;
+    private static final int NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON = 14;
+
+//    private static final int NUMBER_OF_TOP_UNIQUE_COUNTERS_PER_POKEMON = 20;
+
 
     private static final String POKEMON_DIR = "pokemon/raid/";
     private static final String CSV = ".csv";
@@ -24,21 +30,66 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 //    private final static boolean IGNORE_THESE = false;
 
     private final static List<String> IGNORE_POKEMON = Arrays.asList(
-            "Shaymin (Sky Forme)",
-            "White Kyurem",
-            "Ash Greninja",
-            "Mega Latios",
-            "Mega Latias",
-            "Mega Garchomp",
-            "Mega Mewtwo X",
-            "Mega Salamence",
-            "Mega Lucario",
-            "Mega Gardevoir",
             "Mega Alakazam",
-            "Mega Heracross",
-            "Mega Banette",
             "Mega Pinsir",
-            "Mega Gallade");
+            "Mega Kangaskhan",
+            "Mega Aerodactyl",
+
+            "Mega Scizor",
+            "Mega Heracross",
+
+            "Mega Banette",
+            "Mega Glalie",
+            "Mega Gardevoir",
+            "Mega Gallade",
+            "Mega Sableye",
+            "Mega Mawile",
+            "Mega Aggron",
+            "Mega Medicham",
+            "Mega Shapedo",
+            "Mega Camerupt",
+            "Mega Audino",
+
+            "Mega Swampert",
+            "Mega Blaziken",
+            "Mega Sceptile",
+
+            "Mega Tyranitar",
+            "Mega Metagross",
+            "Mega Salamence",
+            "Mega Garchomp",
+            "Mega Lucario",
+
+            "Mega Mewtwo X",
+            "Mega Mewtwo Y",
+            "Mega Latias",
+            "Mega Latios",
+            "Mega Rayquaza",
+            "Mega Diancie",
+
+            "Primal Kyogre",
+            "Primal Groudon",
+
+            "White Kyurem",
+            "Black Kyurem",
+
+            "Genesect - Burn Drive",
+            "Genesect - Douse Drive",
+            "Genesect - Chill Drive",
+            "Genesect - Shock Drive",
+
+            "Shaymin (Sky Forme)",
+            "Ash Greninja",
+
+            "Galarian Darmanitan (Zen Mode)",
+
+            "Zacian - Crowned Sword",
+            "Zamazenta - Crowned Shield",
+            "Eternamax Eternatus",
+            "Urshifu (Rapid Strike Style)",
+            "Urshifu (Single Strike Style)",
+            "Calyrex - Shadow Rider",
+            "Calyrex - Ice Rider");
 
 
 
@@ -106,8 +157,12 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
                                                     "yveltal",
                                                     "zygarde",
                                                     "zygarde_complete",
-                                                    "hoopa_unbound",
                                                     "volcanion");
+
+    private final List<String> gen8 = Arrays.asList("zacian",
+                                                    "zamazenta",
+                                                    "regieleki",
+                                                    "regidrago");
 
     private final List<String> mega = Arrays.asList("venusaur_mega",
                                                     "charizard_mega_x",
@@ -181,6 +236,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         legendaryPokemonFilenames.addAll(gen4);
         legendaryPokemonFilenames.addAll(gen5);
         legendaryPokemonFilenames.addAll(gen6);
+        legendaryPokemonFilenames.addAll(gen8);
 //        legendaryPokemonFilenames.addAll(mega);
 
         loadPokemonData();
@@ -212,7 +268,6 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         }
 
         List<RaidCounterPokemon> counterList = parseStringsIntoList(linesFromFile);
-        Collections.sort(counterList);
         return counterList;
     }
 
@@ -235,7 +290,10 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 
     private List<RaidCounterPokemon> parseStringsIntoList(List<String> pokemonStrings)
     {
-        List<RaidCounterPokemon> counterPokemonList = new ArrayList<RaidCounterPokemon>();
+        List<RaidCounterPokemon> megaCounters = new ArrayList<RaidCounterPokemon>();
+        List<RaidCounterPokemon> shadowCounters = new ArrayList<RaidCounterPokemon>();
+
+        List<RaidCounterPokemon> regularCounters = new ArrayList<RaidCounterPokemon>();
 
         for (String pokemonString : pokemonStrings)
         {
@@ -244,18 +302,47 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             String[] strings = pokemonString.split(",");
             RaidCounterPokemon pokemon = createPokemonFromString(strings);
 
-            if (isAcceptablePokemon(pokemon, counterPokemonList))
+            if (pokemon.isMega())
             {
-                counterPokemonList.add(pokemon);
+                if (megaCounters.size() < NUMBER_OF_MEGA_COUNTERS_PER_POKEMON && isAcceptablePokemon(pokemon, megaCounters))
+                {
+                    megaCounters.add(pokemon);
+                }
             }
-            if (counterPokemonList.size() > NUMBER_OF_TOP_UNIQUE_COUNTERS_PER_POKEMON)
+            if (pokemon.isShadow())
             {
-                return counterPokemonList;
+                if(shadowCounters.size() < NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON && isAcceptablePokemon(pokemon, shadowCounters))
+                {
+                    shadowCounters.add(pokemon);
+                }
+            }
+            if (pokemon.isRegular())
+            {
+                if (regularCounters.size() < NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON && isAcceptablePokemon(pokemon, regularCounters))
+                {
+                    regularCounters.add(pokemon);
+                }
+            }
+
+            if (megaCounters.size() >= NUMBER_OF_MEGA_COUNTERS_PER_POKEMON &&
+                    shadowCounters.size() >= NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON &&
+                    regularCounters.size() >= NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON)
+            {
+                break;
             }
         }
+
+        Collections.sort(megaCounters);
+        Collections.sort(shadowCounters);
+        Collections.sort(regularCounters);
+
+        List<RaidCounterPokemon> counterPokemonList = new ArrayList<RaidCounterPokemon>();
+        counterPokemonList.addAll(megaCounters);
+        counterPokemonList.addAll(shadowCounters);
+        counterPokemonList.addAll(regularCounters);
+
         return counterPokemonList;
     }
-
 
     private RaidCounterPokemon createPokemonFromString(String[] data)
     {
@@ -279,8 +366,9 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     {
         boolean isUnique = isUniquePokemon(newPokemon, counterPokemonList);
         boolean isIgnore = isIgnore(newPokemon);
+        boolean hasHiddenPower = hasHiddenPower(newPokemon);
 
-        return isUnique & !isIgnore;
+        return isUnique & !isIgnore & !hasHiddenPower;
     }
 
     private static final String GENGAR = "Gengar";
@@ -339,6 +427,14 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             return true;
         }
         return false;
+    }
+
+    private static final String HIDDEN_POWER = "Hidden Power";
+
+
+    private boolean hasHiddenPower(RaidCounterPokemon pokemon)
+    {
+        return pokemon.getFastMove().contains(HIDDEN_POWER);
     }
 
 
