@@ -10,4 +10,8 @@ public interface PokemonRaidCounterService
     public List<LegendaryPokemon> getLegendaryPokemon();
 
     public List<RaidCounterPokemon> getCounterPokemon(LegendaryPokemon legendary);
+
+    public List<RaidCounterPokemon> getTopMegaCounterPokemon();
+    public List<RaidCounterPokemon> getTopShadowCounterPokemon();
+    public List<RaidCounterPokemon> getTopRegularCounterPokemon();
 }

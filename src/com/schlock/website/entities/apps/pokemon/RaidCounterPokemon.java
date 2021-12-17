@@ -17,6 +17,8 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
 
     private int cp;
 
+    private int count = 1;
+
     public RaidCounterPokemon(String name, String fastMove, String chargeMove, double dps, double tdo, double dps3tdo, int cp)
     {
         this.name = name;
@@ -42,12 +44,12 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
 
     public boolean isMega()
     {
-        return name.contains(MEGA_STRING);
+        return name.startsWith(MEGA_STRING);
     }
 
     public boolean isShadow()
     {
-        return name.contains(SHADOW_STRING);
+        return name.startsWith(SHADOW_STRING);
     }
 
     public boolean isRegular()
@@ -55,6 +57,10 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
         return !isMega() && !isShadow();
     }
 
+    public void incrementCount()
+    {
+        this.count++;
+    }
 
     public String getName() { return name; }
 
@@ -84,6 +90,15 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
 
     public void setCp(int cp) { this.cp = cp; }
 
+    public int getCount()
+    {
+        return count;
+    }
+
+    public void setCount(int count)
+    {
+        this.count = count;
+    }
 
     public int compareTo(RaidCounterPokemon p)
     {
@@ -96,5 +111,22 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
             return -1;
         }
         return 0;
+    }
+
+    public String getUniqueID()
+    {
+        return this.getName() +
+                this.getFastMove() +
+                this.getChargeMove();
+    }
+
+    public boolean equals(Object o)
+    {
+        RaidCounterPokemon that = (RaidCounterPokemon) o;
+
+        String thisUniqueId = this.getUniqueID();
+        String thatUniqueId = that.getUniqueID();
+
+        return thisUniqueId.equals(thatUniqueId);
     }
 }

@@ -16,11 +16,13 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 {
     private static final int NUMBER_OF_LINES_TO_READ_FROM_FILE = 200;
 
-    private static final int NUMBER_OF_MEGA_COUNTERS_PER_POKEMON = 2;
-    private static final int NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON = 4;
-    private static final int NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON = 14;
+    private static final int NUMBER_OF_TOP_MEGA_COUNTERS_PER_POKEMON = 5;
+    private static final int NUMBER_OF_TOP_SHADOW_COUNTERS_PER_POKEMON = 15;
+    private static final int NUMBER_OF_TOP_REGULAR_COUNTERS_PER_POKEMON = 20;
 
-//    private static final int NUMBER_OF_TOP_UNIQUE_COUNTERS_PER_POKEMON = 20;
+    private static final int NUMBER_OF_MEGA_COUNTERS_PER_POKEMON = 2;
+    private static final int NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON = 5;
+    private static final int NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON = 13;
 
 
     private static final String POKEMON_DIR = "pokemon/raid/";
@@ -33,7 +35,6 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             "Mega Alakazam",
             "Mega Pinsir",
             "Mega Kangaskhan",
-            "Mega Aerodactyl",
 
             "Mega Scizor",
             "Mega Heracross",
@@ -168,51 +169,58 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
                                                     "charizard_mega_x",
                                                     "charizard_mega_y",
                                                     "blastoise_mega",
-                                                    "alakazam_mega",
+
+                                                    "beedrill_mega",
+                                                    "pidgeot_mega",
                                                     "gengar_mega",
-                                                    "kangaskhan_mega",
-                                                    "pinsir_mega",
+                                                    "slowbro_mega",
                                                     "gyarados_mega",
                                                     "aerodactyl_mega",
-                                                    "mewtwo_mega_x",
-                                                    "mewtwo_mega_y",
+
                                                     "ampharos_mega",
-                                                    "scizor_mega",
-                                                    "heracross_mega",
                                                     "houndoom_mega",
-                                                    "tyranitar_mega",
+                                                    "steelix_mega",
+                                                    "manectric_mega",
+                                                    "altaria_mega",
+                                                    "absol_mega",
+                                                    "abomasnow_mega",
+                                                    "lopunny_mega",
+
+                                                    "alakazam_mega",
+                                                    "kangaskhan_mega",
+                                                    "pinsir_mega",
+                                                    "heracross_mega",
+                                                    "scizor_mega",
+
                                                     "blaziken_mega",
+                                                    "sceptile_mega",
+                                                    "swampert_mega",
+
                                                     "gardevoir_mega",
+                                                    "gallade_mega",
+                                                    "audino_mega",
                                                     "mawile_mega",
                                                     "aggron_mega",
                                                     "medicham_mega",
-                                                    "manectric_mega",
                                                     "banette_mega",
-                                                    "absol_mega",
-                                                    "latias_mega",
-                                                    "latios_mega",
-                                                    "garchomp_mega",
-                                                    "lucario_mega",
-                                                    "abomasnow_mega",
-                                                    "beedrill_mega",
-                                                    "pidgeot_mega",
-                                                    "slowbro_mega",
-                                                    "steelix_mega",
-                                                    "sceptile_mega",
-                                                    "swampert_mega",
                                                     "sableye_mega",
                                                     "sharpedo_mega",
                                                     "camerupt_mega",
-                                                    "altaria_mega",
                                                     "glalie_mega",
+
+                                                    "tyranitar_mega",
                                                     "salamence_mega",
                                                     "metagross_mega",
+                                                    "garchomp_mega",
+                                                    "lucario_mega",
+
                                                     "groudon_primal",
                                                     "kyogre_primal",
+                                                    "mewtwo_mega_x",
+                                                    "mewtwo_mega_y",
+                                                    "latias_mega",
+                                                    "latios_mega",
                                                     "rayquaza_mega",
-                                                    "lopunny_mega",
-                                                    "gallade_mega",
-                                                    "audino_mega",
                                                     "diancie_mega");
 
     private List<String> legendaryPokemonFilenames = new ArrayList<String>();
@@ -221,6 +229,9 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     private List<LegendaryPokemon> legendaryPokemon = new ArrayList<LegendaryPokemon>();
     private HashMap<String, List<RaidCounterPokemon>> counterPokemon = new HashMap<String, List<RaidCounterPokemon>>();
 
+    private List<RaidCounterPokemon> topMegaCounterPokemon = new ArrayList<RaidCounterPokemon>();
+    private List<RaidCounterPokemon> topShadowCounterPokemon = new ArrayList<RaidCounterPokemon>();
+    private List<RaidCounterPokemon> topRegularCounterPokemon = new ArrayList<RaidCounterPokemon>();
 
     private final DeploymentContext deploymentContext;
 
@@ -237,7 +248,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         legendaryPokemonFilenames.addAll(gen5);
         legendaryPokemonFilenames.addAll(gen6);
         legendaryPokemonFilenames.addAll(gen8);
-//        legendaryPokemonFilenames.addAll(mega);
+        legendaryPokemonFilenames.addAll(mega);
 
         loadPokemonData();
     }
@@ -438,6 +449,71 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     }
 
 
+    private void createTopCounterPokemon()
+    {
+        Map<String, RaidCounterPokemon> counters = new HashMap<String, RaidCounterPokemon>();
+
+        for (LegendaryPokemon legendary : getLegendaryPokemon())
+        {
+            for (RaidCounterPokemon newPokemon : getCounterPokemon(legendary))
+            {
+                String uniqueId = newPokemon.getUniqueID();
+
+                RaidCounterPokemon pokemon = counters.get(uniqueId);
+                if(pokemon == null)
+                {
+                    counters.put(uniqueId, newPokemon);
+                }
+                else
+                {
+                    pokemon.incrementCount();
+                }
+            }
+        }
+
+        List<RaidCounterPokemon> counterPokemon = new ArrayList<RaidCounterPokemon>();
+        counterPokemon.addAll(counters.values());
+        Collections.sort(counterPokemon, new Comparator<RaidCounterPokemon>()
+        {
+            @Override
+            public int compare(RaidCounterPokemon o1, RaidCounterPokemon o2)
+            {
+                return o2.getCount() - o1.getCount();
+            }
+        });
+
+
+        topMegaCounterPokemon.clear();
+        topShadowCounterPokemon.clear();
+        topRegularCounterPokemon.clear();
+
+        for (RaidCounterPokemon pokemon : counterPokemon)
+        {
+            if (pokemon.isMega())
+            {
+                if (topMegaCounterPokemon.size() < NUMBER_OF_TOP_MEGA_COUNTERS_PER_POKEMON)
+                {
+                    topMegaCounterPokemon.add(pokemon);
+                }
+            }
+            if (pokemon.isShadow())
+            {
+                if (topShadowCounterPokemon.size() < NUMBER_OF_TOP_SHADOW_COUNTERS_PER_POKEMON)
+                {
+                    topShadowCounterPokemon.add(pokemon);
+                }
+            }
+            if (pokemon.isRegular())
+            {
+                if (topRegularCounterPokemon.size() < NUMBER_OF_TOP_REGULAR_COUNTERS_PER_POKEMON)
+                {
+                    topRegularCounterPokemon.add(pokemon);
+                }
+            }
+        }
+    }
+
+
     public List<LegendaryPokemon> getLegendaryPokemon()
     {
         if (legendaryPokemon.isEmpty())
@@ -455,5 +531,32 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             loadPokemonData();
         }
         return counterPokemon.get(legendaryName);
+    }
+
+    public List<RaidCounterPokemon> getTopMegaCounterPokemon()
+    {
+        if (topMegaCounterPokemon.isEmpty())
+        {
+            createTopCounterPokemon();
+        }
+        return topMegaCounterPokemon;
+    }
+
+    public List<RaidCounterPokemon> getTopShadowCounterPokemon()
+    {
+        if (topShadowCounterPokemon.isEmpty())
+        {
+            createTopCounterPokemon();
+        }
+        return topShadowCounterPokemon;
+    }
+
+    public List<RaidCounterPokemon> getTopRegularCounterPokemon()
+    {
+        if (topRegularCounterPokemon.isEmpty())
+        {
+            createTopCounterPokemon();
+        }
+        return topRegularCounterPokemon;
     }
 }

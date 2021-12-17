@@ -22,7 +22,7 @@
             width: 200px;
         }
 
-        td.column2, td.column6
+        td.column2, td.column7
         {
             border-right: 25px solid #fff;
         }
@@ -71,6 +71,44 @@
     </style>
 </head>
 <body>
+
+    <table>
+        <tr>
+            <td class="name">Top Megas</td>
+            <t:loop source="topMegaPokemon" value="currentCounterPokemon">
+                <td class="${currentCounterPokemon.name}">
+                    ${currentCounterPokemon.name}<br/>
+                    ${currentCounterPokemon.fastMove}<br/>
+                    ${currentCounterPokemon.chargeMove}<br/>
+                    <b>${currentCounterPokemon.count}</b>
+                </td>
+            </t:loop>
+        </tr>
+        <tr>
+            <td class="name">Top Shadow</td>
+            <t:loop source="topShadowPokemon" value="currentCounterPokemon">
+                <td class="${currentCounterPokemon.name}">
+                    ${currentCounterPokemon.name}<br/>
+                    ${currentCounterPokemon.fastMove}<br/>
+                    ${currentCounterPokemon.chargeMove}<br/>
+                    <b>${currentCounterPokemon.count}</b>
+                </td>
+            </t:loop>
+        </tr>
+        <tr>
+            <td class="name">Top Regular</td>
+            <t:loop source="topRegularPokemon" value="currentCounterPokemon">
+                <td class="${currentCounterPokemon.name}">
+                    ${currentCounterPokemon.name}<br/>
+                    ${currentCounterPokemon.fastMove}<br/>
+                    ${currentCounterPokemon.chargeMove}<br/>
+                    <b>${currentCounterPokemon.count}</b>
+                </td>
+            </t:loop>
+        </tr>
+    </table>
+
+    <br/><br/><br/>
 
     <table>
         <t:loop source="legendaryPokemon" value="currentLegendaryPokemon">

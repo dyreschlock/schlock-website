@@ -33,6 +33,21 @@ public class PokemonRaidCounter
         return counterService.getCounterPokemon(currentLegendaryPokemon);
     }
 
+    public List<RaidCounterPokemon> getTopMegaPokemon()
+    {
+        return counterService.getTopMegaCounterPokemon();
+    }
+
+    public List<RaidCounterPokemon> getTopShadowPokemon()
+    {
+        return counterService.getTopShadowCounterPokemon();
+    }
+
+    public List<RaidCounterPokemon> getTopRegularPokemon()
+    {
+        return counterService.getTopRegularCounterPokemon();
+    }
+
     public String getColumnIndex()
     {
         return "column" + (currentIndex +1);
