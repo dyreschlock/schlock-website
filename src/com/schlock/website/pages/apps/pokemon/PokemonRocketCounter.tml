@@ -48,6 +48,8 @@
         }
 
         td.Blaziken {       background-color: #ffccb3; }
+        td.Charizard {      background-color: #ffccb3; }
+
         td.Tyranitar {      background-color: #e0e0d1; }
         td.Swampert {       background-color: #cce6ff; }
 
@@ -58,8 +60,10 @@
         td.Mewtwo {         background-color: #ffddff; }
         td.Lucario {        background-color: #ffb3b3; }
         td.Torterra {       background-color: #c6ecd9; }
+        td.Venusaur {       background-color: #c6ecd2; }
 
         td.Togekiss {       background-color: #ffe6f2; }
+        td.Garchomp {       background-color: #b3b3ff; }
 
     </style>
 </head>
