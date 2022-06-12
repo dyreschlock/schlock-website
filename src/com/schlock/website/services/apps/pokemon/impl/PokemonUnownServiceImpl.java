@@ -19,8 +19,8 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
      * https://www.serebii.net/pokemongo/unownevents.shtml
      */
 
-    private final static String CURRENT_UNOWN_POKEDEX = "ABEFGIKLMNOPRSTUVWY!";
-    private final static String HAVE_TO_TRADE =         "AEFGIKLMNPRSTUVWY!";
+    private final static String CURRENT_UNOWN_POKEDEX = "ABEFGIJKLMNOPRSTUVWY!";
+    private final static String HAVE_TO_TRADE =         "AEFGIJKLMNOPRSTUVWY!";
     private final static String HAVE_SHINY =            "U";
 
     private final static List[] UNOWN_EVENTS = {
@@ -126,7 +126,11 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
             Arrays.asList("Japan Special Weekend (Softbank)", "SPB", "12/11/2021", "12/11/2021", "Japan", WorldRegion.JAPAN),
             Arrays.asList("Japan Special Weekend (Itoen)", "IETL", "12/12/2021", "12/12/2021", "Japan", WorldRegion.JAPAN, Boolean.TRUE),
 
-            Arrays.asList("Johto Tour", "GOTURJ", "2/26/2022", "2/27/2022", "Global", WorldRegion.GLOBAL, Boolean.TRUE)
+            Arrays.asList("Johto Tour", "GOTURJ", "2/26/2022", "2/27/2022", "Global", WorldRegion.GLOBAL, Boolean.TRUE),
+
+            Arrays.asList("Safari Zone Seville, Spain", "E", "5/13/2022", "5/15/2022", "Europe", WorldRegion.EUROPE),
+
+            Arrays.asList("Go Fest 2022", "BGOU", "6/4/2022", "6/5/2022", "Global", WorldRegion.GLOBAL, Boolean.TRUE)
     };
 
     private List<UnownPokemon> listOfUnown = new ArrayList<UnownPokemon>();

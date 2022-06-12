@@ -34,9 +34,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     private final static List<String> IGNORE_POKEMON = Arrays.asList(
             "Mega Alakazam",
             "Mega Pinsir",
-            "Mega Kangaskhan",
 
-            "Mega Scizor",
             "Mega Heracross",
 
             "Mega Banette",
@@ -63,8 +61,6 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 
             "Mega Mewtwo X",
             "Mega Mewtwo Y",
-            "Mega Latias",
-            "Mega Latios",
             "Mega Rayquaza",
             "Mega Diancie",
 
@@ -160,6 +156,24 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
                                                     "zygarde_complete",
                                                     "volcanion");
 
+    private final List<String> gen7 = Arrays.asList("tapu_koko",
+                                                    "tapu_lele",
+                                                    "tapu_bulu",
+                                                    "tapu_fini",
+                                                    "solgaleo",
+                                                    "lunala",
+                                                    "nihilego",
+                                                    "buzzwole",
+                                                    "pheromosa",
+                                                    "xurkitree",
+                                                    "celesteela",
+                                                    "kartana",
+                                                    "guzzlord",
+                                                    "necrozma",
+                                                    "stakataka",
+                                                    "blacephalon",
+                                                    "zeraora");
+
     private final List<String> gen8 = Arrays.asList("zacian",
                                                     "zamazenta",
                                                     "regieleki",
@@ -247,6 +261,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         legendaryPokemonFilenames.addAll(gen4);
         legendaryPokemonFilenames.addAll(gen5);
         legendaryPokemonFilenames.addAll(gen6);
+        legendaryPokemonFilenames.addAll(gen7);
         legendaryPokemonFilenames.addAll(gen8);
         legendaryPokemonFilenames.addAll(mega);
 
