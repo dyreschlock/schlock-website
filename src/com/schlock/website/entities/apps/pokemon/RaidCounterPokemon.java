@@ -11,6 +11,8 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
     private String fastMove;
     private String chargeMove;
 
+    private int level;
+
     private double dps;
     private double tdo;
     private double dps3tdo;
@@ -19,11 +21,12 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
 
     private int count = 1;
 
-    public RaidCounterPokemon(String name, String fastMove, String chargeMove, double dps, double tdo, double dps3tdo, int cp)
+    public RaidCounterPokemon(String name, String fastMove, String chargeMove, int level, double dps, double tdo, double dps3tdo, int cp)
     {
         this.name = name;
         this.fastMove = fastMove;
         this.chargeMove = chargeMove;
+        this.level = level;
         this.dps = dps;
         this.tdo = tdo;
         this.dps3tdo = dps3tdo;
@@ -74,6 +77,16 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
 
     public void setChargeMove(String chargeMove) { this.chargeMove = chargeMove; }
 
+    public int getLevel()
+    {
+        return level;
+    }
+
+    public void setLevel(int level)
+    {
+        this.level = level;
+    }
+
     public double getDps() { return dps; }
 
     public void setDsp(double dps) { this.dps = dps; }
@@ -117,7 +130,8 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
     {
         return this.getName() +
                 this.getFastMove() +
-                this.getChargeMove();
+                this.getChargeMove() +
+                this.getLevel();
     }
 
     public boolean equals(Object o)

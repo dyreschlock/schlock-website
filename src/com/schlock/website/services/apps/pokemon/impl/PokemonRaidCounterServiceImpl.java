@@ -16,17 +16,20 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 {
     private static final int NUMBER_OF_LINES_TO_READ_FROM_FILE = 200;
 
-    private static final int NUMBER_OF_TOP_MEGA_COUNTERS_PER_POKEMON = 5;
-    private static final int NUMBER_OF_TOP_SHADOW_COUNTERS_PER_POKEMON = 15;
-    private static final int NUMBER_OF_TOP_REGULAR_COUNTERS_PER_POKEMON = 20;
+    private static final int NUMBER_OF_TOP_MEGA_COUNTERS_PER_POKEMON = 10;
+    private static final int NUMBER_OF_TOP_SHADOW_COUNTERS_PER_POKEMON = 20;
+    private static final int NUMBER_OF_TOP_REGULAR_COUNTERS_PER_POKEMON = 32;
 
-    private static final int NUMBER_OF_MEGA_COUNTERS_PER_POKEMON = 2;
-    private static final int NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON = 5;
-    private static final int NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON = 13;
+    private static final int NUMBER_OF_MEGA_COUNTERS_PER_POKEMON = 4;
+    private static final int NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON = 8;
+    private static final int NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON = 20;
 
 
     private static final String POKEMON_DIR = "pokemon/raid/";
     private static final String CSV = ".csv";
+
+    private static final int LEVEL40 = 40;
+    private static final int LEVEL50 = 50;
 
     private final static boolean IGNORE_THESE = true;
 //    private final static boolean IGNORE_THESE = false;
@@ -283,23 +286,30 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 
     private List<RaidCounterPokemon> loadCounterList(String pokemonName)
     {
-        List<String> linesFromFile = new ArrayList<String>();
+        List<String> linesFrom40File = new ArrayList<String>();
+        List<String> linesFrom50File = new ArrayList<String>();
         try
         {
-            linesFromFile = readLinesFromFile(pokemonName);
+            linesFrom40File = readLinesFromFile(pokemonName, LEVEL40);
+            linesFrom50File = readLinesFromFile(pokemonName, LEVEL50);
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
 
-        List<RaidCounterPokemon> counterList = parseStringsIntoList(linesFromFile);
+        if (linesFrom40File.isEmpty() || linesFrom50File.isEmpty())
+        {
+            return Collections.emptyList();
+        }
+
+        List<RaidCounterPokemon> counterList = parseStringsIntoList(linesFrom40File, linesFrom50File);
         return counterList;
     }
 
-    private List<String> readLinesFromFile(String pokemonFile) throws IOException
+    private List<String> readLinesFromFile(String pokemonFile, int level) throws IOException
     {
-        String fileLocation = deploymentContext.webDirectory() + POKEMON_DIR + pokemonFile + CSV;
+        String fileLocation = deploymentContext.webDirectory() + POKEMON_DIR + pokemonFile + "." + level + CSV;
         InputStream in = new FileInputStream(fileLocation);
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
@@ -314,64 +324,119 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         return lines;
     }
 
-    private List<RaidCounterPokemon> parseStringsIntoList(List<String> pokemonStrings)
+    private List<RaidCounterPokemon> parseStringsIntoList(List<String> pokemonStrings40, List<String> pokemonStrings50)
     {
         List<RaidCounterPokemon> megaCounters = new ArrayList<RaidCounterPokemon>();
         List<RaidCounterPokemon> shadowCounters = new ArrayList<RaidCounterPokemon>();
 
         List<RaidCounterPokemon> regularCounters = new ArrayList<RaidCounterPokemon>();
 
-        for (String pokemonString : pokemonStrings)
-        {
-            pokemonString = pokemonString.replaceAll("\"", "");
+        megaCounters.addAll(getTopMegasFromList(pokemonStrings50, NUMBER_OF_TOP_MEGA_COUNTERS_PER_POKEMON, LEVEL50));
+        megaCounters.addAll(getTopMegasFromList(pokemonStrings40, NUMBER_OF_TOP_MEGA_COUNTERS_PER_POKEMON, LEVEL40));
 
-            String[] strings = pokemonString.split(",");
-            RaidCounterPokemon pokemon = createPokemonFromString(strings);
+        shadowCounters.addAll(getTopShadowsFromList(pokemonStrings50, NUMBER_OF_TOP_SHADOW_COUNTERS_PER_POKEMON, LEVEL50));
+        shadowCounters.addAll(getTopShadowsFromList(pokemonStrings40, NUMBER_OF_TOP_SHADOW_COUNTERS_PER_POKEMON, LEVEL40));
 
-            if (pokemon.isMega())
-            {
-                if (megaCounters.size() < NUMBER_OF_MEGA_COUNTERS_PER_POKEMON && isAcceptablePokemon(pokemon, megaCounters))
-                {
-                    megaCounters.add(pokemon);
-                }
-            }
-            if (pokemon.isShadow())
-            {
-                if(shadowCounters.size() < NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON && isAcceptablePokemon(pokemon, shadowCounters))
-                {
-                    shadowCounters.add(pokemon);
-                }
-            }
-            if (pokemon.isRegular())
-            {
-                if (regularCounters.size() < NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON && isAcceptablePokemon(pokemon, regularCounters))
-                {
-                    regularCounters.add(pokemon);
-                }
-            }
-
-            if (megaCounters.size() >= NUMBER_OF_MEGA_COUNTERS_PER_POKEMON &&
-                    shadowCounters.size() >= NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON &&
-                    regularCounters.size() >= NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON)
-            {
-                break;
-            }
-        }
+        regularCounters.addAll(getTopRegularsFromList(pokemonStrings50, NUMBER_OF_TOP_REGULAR_COUNTERS_PER_POKEMON, LEVEL50));
+        regularCounters.addAll(getTopRegularsFromList(pokemonStrings40, NUMBER_OF_TOP_REGULAR_COUNTERS_PER_POKEMON, LEVEL40));
 
         Collections.sort(megaCounters);
         Collections.sort(shadowCounters);
         Collections.sort(regularCounters);
 
         List<RaidCounterPokemon> counterPokemonList = new ArrayList<RaidCounterPokemon>();
-        counterPokemonList.addAll(megaCounters);
-        counterPokemonList.addAll(shadowCounters);
-        counterPokemonList.addAll(regularCounters);
+        counterPokemonList.addAll(getTopNumberPerList(megaCounters, NUMBER_OF_MEGA_COUNTERS_PER_POKEMON));
+        counterPokemonList.addAll(getTopNumberPerList(shadowCounters, NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON));
+        counterPokemonList.addAll(getTopNumberPerList(regularCounters, NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON));
 
         return counterPokemonList;
     }
 
-    private RaidCounterPokemon createPokemonFromString(String[] data)
+    private List<RaidCounterPokemon> getTopNumberPerList(List<RaidCounterPokemon> pokemon, int topNumber)
     {
+        if (pokemon.size() > topNumber)
+        {
+            List<RaidCounterPokemon> counters = new ArrayList<RaidCounterPokemon>();
+            for(int i = 0; i < topNumber; i++)
+            {
+                RaidCounterPokemon poke = pokemon.get(i);
+                counters.add(poke);
+            }
+            return counters;
+        }
+        return pokemon;
+    }
+
+    private List<RaidCounterPokemon> getTopMegasFromList(List<String> pokemonStrings, final int MAX, final int LEVEL)
+    {
+        List<RaidCounterPokemon> topMegas = new ArrayList<RaidCounterPokemon>();
+
+        for (String pokemonString : pokemonStrings)
+        {
+            RaidCounterPokemon pokemon = createPokemonFromString(pokemonString, LEVEL);
+            if (pokemon.isMega())
+            {
+                if (topMegas.size() < MAX && isAcceptablePokemon(pokemon, topMegas))
+                {
+                    topMegas.add(pokemon);
+                }
+            }
+            if (topMegas.size() >= MAX)
+            {
+                break;
+            }
+        }
+        return topMegas;
+    }
+
+    private List<RaidCounterPokemon> getTopShadowsFromList(List<String> pokemonStrings, final int MAX, final int LEVEL)
+    {
+        List<RaidCounterPokemon> topShadows = new ArrayList<RaidCounterPokemon>();
+
+        for (String pokemonString : pokemonStrings)
+        {
+            RaidCounterPokemon pokemon = createPokemonFromString(pokemonString, LEVEL);
+            if (pokemon.isShadow())
+            {
+                if (topShadows.size() < MAX && isAcceptablePokemon(pokemon, topShadows))
+                {
+                    topShadows.add(pokemon);
+                }
+            }
+            if (topShadows.size() >= MAX)
+            {
+                break;
+            }
+        }
+        return topShadows;
+    }
+
+    private List<RaidCounterPokemon> getTopRegularsFromList(List<String> pokemonStrings, final int MAX, final int LEVEL)
+    {
+        List<RaidCounterPokemon> topCounters = new ArrayList<RaidCounterPokemon>();
+
+        for (String pokemonString : pokemonStrings)
+        {
+            RaidCounterPokemon pokemon = createPokemonFromString(pokemonString, LEVEL);
+            if (pokemon.isRegular())
+            {
+                if (topCounters.size() < MAX && isAcceptablePokemon(pokemon, topCounters))
+                {
+                    topCounters.add(pokemon);
+                }
+            }
+            if (topCounters.size() >= MAX)
+            {
+                break;
+            }
+        }
+        return topCounters;
+    }
+
+    private RaidCounterPokemon createPokemonFromString(String pokemonString, int level)
+    {
+        String[] data = pokemonString.replaceAll("\"", "").split(",");
+
         //Gengar,Lick,Shadow Ball,28.761,301.6,7175.4,2878
 
         String name = data[0];
@@ -384,7 +449,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 
         int cp = Integer.parseInt(data[6]);
 
-        RaidCounterPokemon pokemon = new RaidCounterPokemon(name, fastMove, chargeMove, dps, tdo, dps3tdo, cp);
+        RaidCounterPokemon pokemon = new RaidCounterPokemon(name, fastMove, chargeMove, level, dps, tdo, dps3tdo, cp);
         return pokemon;
     }
 
@@ -472,7 +537,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         {
             for (RaidCounterPokemon newPokemon : getCounterPokemon(legendary))
             {
-                String uniqueId = newPokemon.getUniqueID();
+                String uniqueId = newPokemon.getUniqueID() ;
 
                 RaidCounterPokemon pokemon = counters.get(uniqueId);
                 if(pokemon == null)

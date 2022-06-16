@@ -22,7 +22,7 @@
             width: 200px;
         }
 
-        td.column2, td.column7
+        td.column4, td.column12
         {
             border-right: 25px solid #fff;
         }
@@ -34,6 +34,7 @@
         td.Darkrai {        background-color: #e0e0eb; }
 
         td.Blaziken {       background-color: #ffccb3; }
+        td.Charizard {      background-color: #ffccb3; }
 
         td.Rampardos {      background-color: #f2e6d9; }
         td.Tyranitar {      background-color: #e0e0d1; }
@@ -65,6 +66,7 @@
 
         td.Metagross {      background-color: #f0f0f5; }
 
+        td.Venusaur {       background-color: #c6ecd9; }
         td.Sceptile {       background-color: #c6ecd9; }
 
         td.Honchkrow {      background-color: #c2d1f0; }
@@ -78,6 +80,7 @@
             <t:loop source="topMegaPokemon" value="currentCounterPokemon">
                 <td class="${currentCounterPokemon.name}">
                     ${currentCounterPokemon.name}<br/>
+                    <b>${currentCounterPokemon.level}</b><br/>
                     ${currentCounterPokemon.fastMove}<br/>
                     ${currentCounterPokemon.chargeMove}<br/>
                     <b>${currentCounterPokemon.count}</b>
@@ -89,6 +92,7 @@
             <t:loop source="topShadowPokemon" value="currentCounterPokemon">
                 <td class="${currentCounterPokemon.name}">
                     ${currentCounterPokemon.name}<br/>
+                    <b>${currentCounterPokemon.level}</b><br/>
                     ${currentCounterPokemon.fastMove}<br/>
                     ${currentCounterPokemon.chargeMove}<br/>
                     <b>${currentCounterPokemon.count}</b>
@@ -100,6 +104,7 @@
             <t:loop source="topRegularPokemon" value="currentCounterPokemon">
                 <td class="${currentCounterPokemon.name}">
                     ${currentCounterPokemon.name}<br/>
+                    <b>${currentCounterPokemon.level}</b><br/>
                     ${currentCounterPokemon.fastMove}<br/>
                     ${currentCounterPokemon.chargeMove}<br/>
                     <b>${currentCounterPokemon.count}</b>
@@ -117,6 +122,7 @@
                 <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
                     <td class="${currentCounterPokemon.name} ${columnIndex}">
                         ${currentCounterPokemon.name}<br/>
+                        <b>${currentCounterPokemon.level}</b><br/>
                         ${currentCounterPokemon.fastMove}<br/>
                         ${currentCounterPokemon.chargeMove}<br/>
                         ${currentCounterPokemon.dps}<br/>
