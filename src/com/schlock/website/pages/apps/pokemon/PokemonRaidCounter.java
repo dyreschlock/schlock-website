@@ -1,7 +1,7 @@
 package com.schlock.website.pages.apps.pokemon;
 
 import com.schlock.website.entities.apps.pokemon.RaidCounterPokemon;
-import com.schlock.website.entities.apps.pokemon.LegendaryPokemon;
+import com.schlock.website.entities.apps.pokemon.RaidBoss;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -14,7 +14,7 @@ public class PokemonRaidCounter
     private PokemonRaidCounterService counterService;
 
     @Property
-    private LegendaryPokemon currentLegendaryPokemon;
+    private RaidBoss currentRaidBoss;
 
     @Property
     private RaidCounterPokemon currentCounterPokemon;
@@ -23,14 +23,14 @@ public class PokemonRaidCounter
     private Integer currentIndex;
 
 
-    public List<LegendaryPokemon> getLegendaryPokemon()
+    public List<RaidBoss> getLegendaryPokemon()
     {
         return counterService.getLegendaryPokemon();
     }
 
     public List<RaidCounterPokemon> getCounterPokemon()
     {
-        return counterService.getCounterPokemon(currentLegendaryPokemon);
+        return counterService.getCounterPokemon(currentRaidBoss);
     }
 
     public List<RaidCounterPokemon> getTopMegaPokemon()

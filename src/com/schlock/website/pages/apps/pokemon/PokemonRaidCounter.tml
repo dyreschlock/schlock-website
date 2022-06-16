@@ -116,9 +116,9 @@
     <br/><br/><br/>
 
     <table>
-        <t:loop source="legendaryPokemon" value="currentLegendaryPokemon">
+        <t:loop source="legendaryPokemon" value="currentRaidBoss">
             <tr>
-                <td class="name">${currentLegendaryPokemon.name}</td>
+                <td class="name">${currentRaidBoss.name}</td>
                 <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
                     <td class="${currentCounterPokemon.name} ${columnIndex}">
                         ${currentCounterPokemon.name}<br/>

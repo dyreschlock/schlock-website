@@ -1,9 +1,13 @@
 package com.schlock.website.services.apps.pokemon.impl;
 
 import com.schlock.website.entities.apps.pokemon.RaidCounterPokemon;
-import com.schlock.website.entities.apps.pokemon.LegendaryPokemon;
+import com.schlock.website.entities.apps.pokemon.RaidBoss;
+import com.schlock.website.entities.apps.pokemon.RaidMove;
+import com.schlock.website.entities.apps.pokemon.RaidPokemonData;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
+import org.apache.tapestry5.json.JSONArray;
+import org.apache.tapestry5.json.JSONObject;
 
 import java.io.*;
 import java.util.*;
@@ -14,6 +18,11 @@ import java.util.*;
  */
 public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 {
+    private static final String MOVE_FILE = "move-data-full-PoGO.json";
+    private static final String BOSS_FILE = "raid-boss-list-PoGO.json";
+    private static final String POKEMON_FILE = "pokemon-data-full-en-PoGO.json";
+
+
     private static final int NUMBER_OF_LINES_TO_READ_FROM_FILE = 200;
 
     private static final int NUMBER_OF_TOP_MEGA_COUNTERS_PER_POKEMON = 10;
@@ -35,65 +44,96 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 //    private final static boolean IGNORE_THESE = false;
 
     private final static List<String> IGNORE_POKEMON = Arrays.asList(
-            "Mega Alakazam",
-            "Mega Pinsir",
+                                    "Mega Alakazam",
+                                    "Mega Pinsir",
 
-            "Mega Heracross",
+                                    "Mega Heracross",
 
-            "Mega Banette",
-            "Mega Glalie",
-            "Mega Gardevoir",
-            "Mega Gallade",
-            "Mega Sableye",
-            "Mega Mawile",
-            "Mega Aggron",
-            "Mega Medicham",
-            "Mega Shapedo",
-            "Mega Camerupt",
-            "Mega Audino",
+                                    "Mega Banette",
+                                    "Mega Glalie",
+                                    "Mega Gardevoir",
+                                    "Mega Gallade",
+                                    "Mega Sableye",
+                                    "Mega Mawile",
+                                    "Mega Aggron",
+                                    "Mega Medicham",
+                                    "Mega Shapedo",
+                                    "Mega Camerupt",
+                                    "Mega Audino",
 
-            "Mega Swampert",
-            "Mega Blaziken",
-            "Mega Sceptile",
+                                    "Mega Swampert",
+                                    "Mega Blaziken",
+                                    "Mega Sceptile",
 
-            "Mega Tyranitar",
-            "Mega Metagross",
-            "Mega Salamence",
-            "Mega Garchomp",
-            "Mega Lucario",
+                                    "Mega Tyranitar",
+                                    "Mega Metagross",
+                                    "Mega Salamence",
+                                    "Mega Garchomp",
+                                    "Mega Lucario",
 
-            "Mega Mewtwo X",
-            "Mega Mewtwo Y",
-            "Mega Rayquaza",
-            "Mega Diancie",
+                                    "Mega Mewtwo X",
+                                    "Mega Mewtwo Y",
+                                    "Mega Rayquaza",
+                                    "Mega Diancie",
 
-            "Primal Kyogre",
-            "Primal Groudon",
+                                    "Primal Kyogre",
+                                    "Primal Groudon",
 
-            "White Kyurem",
-            "Black Kyurem",
+                                    "White Kyurem",
+                                    "Black Kyurem",
 
-            "Genesect - Burn Drive",
-            "Genesect - Douse Drive",
-            "Genesect - Chill Drive",
-            "Genesect - Shock Drive",
+                                    "Genesect - Burn Drive",
+                                    "Genesect - Douse Drive",
+                                    "Genesect - Chill Drive",
+                                    "Genesect - Shock Drive",
 
-            "Shaymin (Sky Forme)",
-            "Ash Greninja",
+                                    "Shaymin (Sky Forme)",
+                                    "Ash Greninja",
 
-            "Galarian Darmanitan (Zen Mode)",
+                                    "Galarian Darmanitan (Zen Mode)",
 
-            "Zacian - Crowned Sword",
-            "Zamazenta - Crowned Shield",
-            "Eternamax Eternatus",
-            "Urshifu (Rapid Strike Style)",
-            "Urshifu (Single Strike Style)",
-            "Calyrex - Shadow Rider",
-            "Calyrex - Ice Rider");
-
-
+                                    "Zacian - Crowned Sword",
+                                    "Zamazenta - Crowned Shield",
+                                    "Eternamax Eternatus",
+                                    "Urshifu (Rapid Strike Style)",
+                                    "Urshifu (Single Strike Style)",
+                                    "Calyrex - Shadow Rider",
+                                    "Calyrex - Ice Rider");
 
 
+    private static final List<String> GEN1_BOSSES = Arrays.asList(
+//            "Armored Mewtwo",
+            "Mewtwo",
+            "Articuno",
+            "Zapdos",
+            "Moltres"//,
+//            "Galarian Articuno",
+//            "Galarian Zapdos",
+//            "Galarian Moltres"
+    );
+
+    private static final List<String> GEN2_BOSSES = Arrays.asList(
+            "Raikou",
+            "Entei",
+            "Suicune",
+            "Lugia",
+            "Ho-oh"
+    );
+
+    private static final List<String> GEN3_BOSSES = Arrays.asList(
+            "Regirock",
+            "Regice",
+            "Registeel",
+            "Latias",
+            "Latios",
+            "Kyogre",
+            "Groudon",
+            "Rayquaza",
+            "Deoxys (Normal Forme)",
+            "Deoxys (Attack Forme)",
+            "Deoxys (Defense Forme)",
+            "Deoxys (Speed Forme)"
+    );
 
     private final List<String> gen1 = Arrays.asList("mewtwo",
                                                     "mewtwo_armored",
@@ -242,13 +282,22 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 
     private List<String> legendaryPokemonFilenames = new ArrayList<String>();
 
-
-    private List<LegendaryPokemon> legendaryPokemon = new ArrayList<LegendaryPokemon>();
+    private List<RaidBoss> raidBoss = new ArrayList<RaidBoss>();
     private HashMap<String, List<RaidCounterPokemon>> counterPokemon = new HashMap<String, List<RaidCounterPokemon>>();
 
     private List<RaidCounterPokemon> topMegaCounterPokemon = new ArrayList<RaidCounterPokemon>();
     private List<RaidCounterPokemon> topShadowCounterPokemon = new ArrayList<RaidCounterPokemon>();
     private List<RaidCounterPokemon> topRegularCounterPokemon = new ArrayList<RaidCounterPokemon>();
+
+
+
+    private List<String> raidBossPokemon = new ArrayList<String>();
+
+
+
+    private HashMap<String, RaidBoss> raidBossData = new HashMap<String, RaidBoss>();
+    private HashMap<String, RaidMove> raidMoveData = new HashMap<String, RaidMove>();
+    private Set<RaidPokemonData> raidPokemonData = new HashSet<RaidPokemonData>();
 
     private final DeploymentContext deploymentContext;
 
@@ -268,16 +317,108 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         legendaryPokemonFilenames.addAll(gen8);
         legendaryPokemonFilenames.addAll(mega);
 
-        loadPokemonData();
+        raidBossPokemon.clear();
+        raidBossPokemon.addAll(GEN1_BOSSES);
+//        raidBossPokemon.addAll(GEN2_BOSSES);
+//        raidBossPokemon.addAll(GEN3_BOSSES);
+
+        loadRaidBossJSON();
+        loadRaidMoveJSON();
+        loadRaidPokemonDataJSON();
+
+        loadCounterData();
     }
 
+    private void loadRaidBossJSON()
+    {
+        if (!raidBossData.isEmpty())
+        {
+            return;
+        }
 
-    private void loadPokemonData()
+        JSONArray objects = readJSONArrayFromFile(BOSS_FILE);
+
+        Iterator iter = objects.iterator();
+        while(iter.hasNext())
+        {
+            Object obj = iter.next();
+
+            try
+            {
+                JSONObject json = (JSONObject) obj;
+
+                RaidBoss boss = RaidBoss.createFromJSON(json);
+                raidBossData.put(boss.getName(), boss);
+            }
+            catch(ClassCastException e)
+            {
+            }
+        }
+    }
+
+    private void loadRaidMoveJSON()
+    {
+        if (!raidMoveData.isEmpty())
+        {
+            return;
+        }
+
+        JSONArray objects = readJSONArrayFromFile(MOVE_FILE);
+
+        Iterator iter = objects.iterator();
+        while (iter.hasNext())
+        {
+            Object obj = iter.next();
+            try
+            {
+                JSONObject json = (JSONObject) obj;
+
+                RaidMove move = RaidMove.createFromJSON(json);
+                raidMoveData.put(move.getName(), move);
+            }
+            catch (ClassCastException e)
+            {
+            }
+        }
+    }
+
+    private void loadRaidPokemonDataJSON()
+    {
+        if (!raidPokemonData.isEmpty())
+        {
+            return;
+        }
+
+        JSONArray objects = readJSONArrayFromFile(POKEMON_FILE);
+
+        Iterator iter = objects.iterator();
+        while (iter.hasNext())
+        {
+            Object obj = iter.next();
+            try
+            {
+                JSONObject json = (JSONObject) obj;
+
+                RaidPokemonData pokemon = RaidPokemonData.createFromJSON(json);
+                raidPokemonData.add(pokemon);
+            }
+            catch (ClassCastException e)
+            {
+            }
+        }
+    }
+
+    private void generateRaidCounterData()
+    {
+
+    }
+
+    private void loadCounterData()
     {
         for (String pokemonName : legendaryPokemonFilenames)
         {
-            LegendaryPokemon pokemon = new LegendaryPokemon(pokemonName);
-            legendaryPokemon.add(pokemon);
+            RaidBoss pokemon = new RaidBoss(pokemonName);
+            raidBoss.add(pokemon);
 
             List<RaidCounterPokemon> counterList = loadCounterList(pokemonName);
             counterPokemon.put(pokemonName, counterList);
@@ -307,9 +448,31 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         return counterList;
     }
 
+    private JSONArray readJSONArrayFromFile(String filename)
+    {
+        String content = "";
+        try
+        {
+            String fileLocation = deploymentContext.webDirectory() + POKEMON_DIR + filename;
+
+            InputStream in = new FileInputStream(fileLocation);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+            content = reader.readLine();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return new JSONArray(content);
+    }
+
     private List<String> readLinesFromFile(String pokemonFile, int level) throws IOException
     {
-        String fileLocation = deploymentContext.webDirectory() + POKEMON_DIR + pokemonFile + "." + level + CSV;
+        String filename = pokemonFile + "." + level + CSV;
+        String fileLocation = deploymentContext.webDirectory() + POKEMON_DIR + filename;
+
         InputStream in = new FileInputStream(fileLocation);
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
@@ -533,7 +696,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     {
         Map<String, RaidCounterPokemon> counters = new HashMap<String, RaidCounterPokemon>();
 
-        for (LegendaryPokemon legendary : getLegendaryPokemon())
+        for (RaidBoss legendary : getLegendaryPokemon())
         {
             for (RaidCounterPokemon newPokemon : getCounterPokemon(legendary))
             {
@@ -594,21 +757,21 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     }
 
 
-    public List<LegendaryPokemon> getLegendaryPokemon()
+    public List<RaidBoss> getLegendaryPokemon()
     {
-        if (legendaryPokemon.isEmpty())
+        if (raidBoss.isEmpty())
         {
-            loadPokemonData();
+            loadCounterData();
         }
-        return legendaryPokemon;
+        return raidBoss;
     }
 
-    public List<RaidCounterPokemon> getCounterPokemon(LegendaryPokemon legendary)
+    public List<RaidCounterPokemon> getCounterPokemon(RaidBoss legendary)
     {
-        String legendaryName = legendary.getName();
+        String legendaryName = legendary.getId();
         if (counterPokemon.isEmpty())
         {
-            loadPokemonData();
+            loadCounterData();
         }
         return counterPokemon.get(legendaryName);
     }
