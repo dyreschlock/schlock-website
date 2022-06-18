@@ -1,88 +1,76 @@
 package com.schlock.website.entities.apps.pokemon;
 
-import org.apache.tapestry5.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-public class RaidBoss
+public class RaidBoss extends AbstractRaidPokemon
 {
-    private String id;
-    private String name;
-
-    private String type;
-
-    private int attack;
-    private int defense;
-    private int stamina;
-
-    private int cp;
-
-    private int weatherMax;
-    private int weatherMin;
-
+    private final RaidPokemonData data;
 
     private List<RaidCounterPokemon> megaCounters = new ArrayList<RaidCounterPokemon>();
     private List<RaidCounterPokemon> shadowCounters = new ArrayList<RaidCounterPokemon>();
     private List<RaidCounterPokemon> regularCounters = new ArrayList<RaidCounterPokemon>();
 
-    private RaidBoss()
+    private RaidBoss(RaidPokemonData data)
     {
-    }
-
-    public RaidBoss(String id)
-    {
-        this.id = id;
+        this.data = data;
     }
 
 
-    public String getId() { return id; }
+    public boolean isCountersGenerated()
+    {
+        return !megaCounters.isEmpty() && !shadowCounters.isEmpty() && !regularCounters.isEmpty();
+    }
 
     public String getName()
     {
-        return name;
+        return data.getName();
     }
 
-    public String getType()
+    public String getType1()
     {
-        return type;
+        return data.getType1();
     }
 
-
-    public int getAttack()
+    public String getType2()
     {
-        return attack;
+        return data.getType2();
     }
 
-    public int getDefense()
+    public int getBaseAttack()
     {
-        return defense;
+        return data.getBaseAttack();
     }
 
-    public int getStamina()
+    public int getBaseDefense()
     {
-        return stamina;
+        return data.getBaseDefense();
     }
 
-    public int getCp()
+    public int getBaseStamina()
     {
-        return cp;
+        return data.getBaseStamina();
     }
 
-    public int getWeatherMax()
+    public Set<RaidMove> getStandardFastMoves()
     {
-        return weatherMax;
+        return data.getStandardFastMoves();
     }
 
-    public int getWeatherMin()
+    public Set<RaidMove> getStandardChargeMoves()
     {
-        return weatherMin;
+        return data.getStandardChargeMoves();
     }
-
 
     public List<RaidCounterPokemon> getMegaCounters()
     {
         return megaCounters;
+    }
+
+    public void setMegaCounters(List<RaidCounterPokemon> megaCounters)
+    {
+        this.megaCounters = megaCounters;
     }
 
     public List<RaidCounterPokemon> getShadowCounters()
@@ -90,12 +78,30 @@ public class RaidBoss
         return shadowCounters;
     }
 
+    public void setShadowCounters(List<RaidCounterPokemon> shadowCounters)
+    {
+        this.shadowCounters = shadowCounters;
+    }
+
     public List<RaidCounterPokemon> getRegularCounters()
     {
         return regularCounters;
     }
 
+    public void setRegularCounters(List<RaidCounterPokemon> regularCounters)
+    {
+        this.regularCounters = regularCounters;
+    }
 
+    public boolean isShadow()
+    {
+        return false;
+    }
+
+    public boolean isMega()
+    {
+        return data.isMega();
+    }
 
     private static final String TITLE = "title_plain";
     private static final String TYPE = "type";
@@ -107,23 +113,10 @@ public class RaidBoss
     private static final String WEATHER_MAX = "weather_max";
     private static final String WEATHER_MIN = "weather_min";
 
-    public static RaidBoss createFromJSON(JSONObject object)
+    private static final String TYPE_DELIM = ",";
+
+    public static RaidBoss createFromData(RaidPokemonData data)
     {
-        RaidBoss boss = new RaidBoss();
-
-        boss.name = object.getString(TITLE);
-        boss.id = boss.name;
-
-        boss.type = object.getString(TYPE);
-
-        boss.attack = object.getInt(ATTACK);
-        boss.defense = object.getInt(DEFENSE);
-        boss.stamina = object.getInt(STAMINA);
-        boss.cp = object.getInt(CP);
-
-        boss.weatherMax = object.getInt(WEATHER_MAX);
-        boss.weatherMin = object.getInt(WEATHER_MIN);
-
-        return boss;
+        return new RaidBoss(data);
     }
 }

@@ -17,11 +17,9 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
     private double tdo;
     private double dps3tdo;
 
-    private int cp;
-
     private int count = 1;
 
-    public RaidCounterPokemon(String name, String fastMove, String chargeMove, int level, double dps, double tdo, double dps3tdo, int cp)
+    public RaidCounterPokemon(String name, String fastMove, String chargeMove, int level, double dps, double tdo, double dps3tdo)
     {
         this.name = name;
         this.fastMove = fastMove;
@@ -30,7 +28,16 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
         this.dps = dps;
         this.tdo = tdo;
         this.dps3tdo = dps3tdo;
-        this.cp = cp;
+
+        this.dps = formatDouble("%.3f", dps);
+        this.tdo = formatDouble("%.1f", tdo);
+        this.dps3tdo = formatDouble("%.1f", dps3tdo);
+    }
+
+    private double formatDouble(String format, double value)
+    {
+        String sValue = (String) String.format(format, value);
+        return Double.parseDouble(sValue);
     }
 
     public double getDps4tdo()
@@ -98,10 +105,6 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
     public double getDps3tdo() { return dps3tdo; }
 
     public void setDps3tdo(double dps3tdo) { this.dps3tdo = dps3tdo; }
-
-    public int getCp() { return cp; }
-
-    public void setCp(int cp) { this.cp = cp; }
 
     public int getCount()
     {
