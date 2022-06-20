@@ -11,14 +11,8 @@ import com.schlock.website.services.apps.notfibbage.NotFibbageController;
 import com.schlock.website.services.apps.notfibbage.NotFibbageManagement;
 import com.schlock.website.services.apps.notfibbage.impl.NotFibbageControllerImpl;
 import com.schlock.website.services.apps.notfibbage.impl.NotFibbageManagementImpl;
-import com.schlock.website.services.apps.pokemon.PokemonRaidCounterCalculationService;
-import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
-import com.schlock.website.services.apps.pokemon.PokemonRocketCounterService;
-import com.schlock.website.services.apps.pokemon.PokemonUnownService;
-import com.schlock.website.services.apps.pokemon.impl.PokemonRaidCounterCalculationServiceImpl;
-import com.schlock.website.services.apps.pokemon.impl.PokemonRaidCounterServiceImpl;
-import com.schlock.website.services.apps.pokemon.impl.PokemonRocketCounterServiceImpl;
-import com.schlock.website.services.apps.pokemon.impl.PokemonUnownServiceImpl;
+import com.schlock.website.services.apps.pokemon.*;
+import com.schlock.website.services.apps.pokemon.impl.*;
 import com.schlock.website.services.apps.ranking.RankingService;
 import com.schlock.website.services.apps.ranking.impl.RankingServiceImpl;
 import com.schlock.website.services.apps.subtitles.SubtitleFixerService;
@@ -48,6 +42,7 @@ public class ApplicationsModule
 
         binder.bind(PokemonRaidCounterService.class, PokemonRaidCounterServiceImpl.class);
         binder.bind(PokemonRaidCounterCalculationService.class, PokemonRaidCounterCalculationServiceImpl.class);
+        binder.bind(PokemonRaidDataService.class, PokemonRaidDataServiceImpl.class);
         binder.bind(PokemonRocketCounterService.class, PokemonRocketCounterServiceImpl.class);
         binder.bind(PokemonUnownService.class, PokemonUnownServiceImpl.class);
     }

@@ -1,16 +1,11 @@
 package com.schlock.website.services.apps.pokemon.impl;
 
-import com.schlock.website.entities.apps.pokemon.RaidCounterPokemon;
-import com.schlock.website.entities.apps.pokemon.RaidBoss;
-import com.schlock.website.entities.apps.pokemon.RaidMove;
-import com.schlock.website.entities.apps.pokemon.RaidPokemonData;
+import com.schlock.website.entities.apps.pokemon.*;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterCalculationService;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
-import org.apache.tapestry5.json.JSONArray;
-import org.apache.tapestry5.json.JSONObject;
+import com.schlock.website.services.apps.pokemon.PokemonRaidDataService;
 
-import java.io.*;
 import java.util.*;
 
 /**
@@ -19,11 +14,6 @@ import java.util.*;
  */
 public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 {
-    private static final String MOVE_FILE = "move-data-full-PoGO.json";
-    private static final String BOSS_FILE = "raid-boss-list-PoGO.json";
-    private static final String POKEMON_FILE = "pokemon-data-full-en-PoGO.json";
-
-
     private static final int NUMBER_OF_TOP_MEGA_COUNTERS_PER_POKEMON = 10;
     private static final int NUMBER_OF_TOP_SHADOW_COUNTERS_PER_POKEMON = 20;
     private static final int NUMBER_OF_TOP_REGULAR_COUNTERS_PER_POKEMON = 32;
@@ -33,383 +23,34 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     private static final int NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON = 20;
 
 
-    private static final String POKEMON_DIR = "pokemon/raid/";
-
-    private final static boolean IGNORE_THESE = true;
-//    private final static boolean IGNORE_THESE = false;
-
-    private final static List<String> IGNORE_MOVE = Arrays.asList(
-            "Hidden Power"
-    );
-
-    private final static List<String> IGNORE_POKEMON = Arrays.asList(
-            "Mega Alakazam",
-            "Mega Pinsir",
-
-            "Mega Heracross",
-
-            "Mega Banette",
-            "Mega Glalie",
-            "Mega Gardevoir",
-            "Mega Gallade",
-            "Mega Sableye",
-            "Mega Mawile",
-            "Mega Aggron",
-            "Mega Medicham",
-            "Mega Shapedo",
-            "Mega Camerupt",
-            "Mega Audino",
-
-            "Mega Swampert",
-            "Mega Blaziken",
-            "Mega Sceptile",
-
-            "Mega Tyranitar",
-            "Mega Metagross",
-            "Mega Salamence",
-            "Mega Garchomp",
-            "Mega Lucario",
-
-            "Mega Mewtwo X",
-            "Mega Mewtwo Y",
-            "Mega Rayquaza",
-            "Mega Diancie",
-
-            "Primal Kyogre",
-            "Primal Groudon",
-
-            "White Kyurem",
-            "Black Kyurem",
-
-            "Genesect - Burn Drive",
-            "Genesect - Douse Drive",
-            "Genesect - Chill Drive",
-            "Genesect - Shock Drive",
-
-            "Shaymin (Sky Forme)",
-            "Ash Greninja",
-
-            "Galarian Darmanitan (Zen Mode)",
-
-            "Zacian - Crowned Sword",
-            "Zamazenta - Crowned Shield",
-            "Eternamax Eternatus",
-            "Urshifu (Rapid Strike Style)",
-            "Urshifu (Single Strike Style)",
-            "Calyrex - Shadow Rider",
-            "Calyrex - Ice Rider"
-    );
-
-
-    private static final List<String> GEN1_BOSSES = Arrays.asList(
-            "Mewtwo",
-            "Armored Mewtwo",
-            "Articuno",
-            "Zapdos",
-            "Moltres",
-            "Galarian Articuno",
-            "Galarian Zapdos",
-            "Galarian Moltres"
-    );
-
-    private static final List<String> GEN2_BOSSES = Arrays.asList(
-            "Raikou",
-            "Entei",
-            "Suicune",
-            "Lugia",
-            "Ho-Oh"
-    );
-
-    private static final List<String> GEN3_BOSSES = Arrays.asList(
-            "Regirock",
-            "Regice",
-            "Registeel",
-            "Latias",
-            "Latios",
-            "Kyogre",
-            "Groudon",
-            "Rayquaza",
-            "Deoxys (Normal Forme)",
-            "Deoxys (Attack Forme)",
-            "Deoxys (Defense Forme)",
-            "Deoxys (Speed Forme)"
-    );
-
-    private static final List<String> GEN4_BOSSES = Arrays.asList(
-            "Uxie",
-            "Mesprit",
-            "Azelf",
-            "Dialga",
-            "Palkia",
-            "Heatran",
-            "Regigigas",
-            "Giratina (Altered Forme)",
-            "Giratina (Origin Forme)",
-            "Cresselia",
-            "Darkrai",
-            "Arceus"
-    );
-
-    private static final List<String> GEN5_BOSSES = Arrays.asList(
-            "Cobalion",
-            "Terrakion",
-            "Virizion",
-            "Tornadus (Incarnate Forme)",
-            "Tornadus (Therian Forme)",
-            "Thundurus  (Incarnate Forme)",
-            "Thundurus (Therian Forme)",
-            "Reshiram",
-            "Zekrom",
-            "Landorus (Incarnate Forme)",
-            "Landorus (Therian Forme)",
-            "Kyurem",
-            "White Kyurem",
-            "Black Kyurem",
-            "Keldeo",
-            "Genesect"
-    );
-
-    private static final List<String> GEN6_BOSSES = Arrays.asList(
-            "Xerneas",
-            "Yveltal",
-            "Zygarde (50% Forme)",
-            "Zygarde (Complete Forme)",
-            "Volcanion"
-    );
-
-    private static final List<String> GEN7_BOSSES = Arrays.asList(
-            "Tapu Koko",
-            "Tapu Lele",
-            "Tapu Bulu",
-            "Tapu Fini",
-            "Solgaleo",
-            "Lunala",
-            "Nihilego",
-            "Buzzwole",
-            "Pheromosa",
-            "Xurkitree",
-            "Celesteela",
-            "Kartana",
-            "Guzzlord",
-            "Necrozma",
-            "Stakataka",
-            "Blacephalon",
-            "Zeraora"
-    );
-
-    private static final List<String> GEN8_BOSSES = Arrays.asList(
-            "Zacian - Hero of Many Battles",
-            "Zamazenta - Hero of Many Battles",
-            "Regieleki",
-            "Regidrago"
-    );
-
-    private static final List<String> MEGA_BOSSES = Arrays.asList(
-            "Mega Venusaur",
-            "Mega Charizard X",
-            "Mega Charizard Y",
-            "Mega Blastoise",
-
-            "Mega Beedrill",
-            "Mega Pidgeot",
-            "Mega Gengar",
-            "Mega Slowbro",
-            "Mega Gyarados",
-            "Mega Aerodactyl",
-
-            "Mega Ampharos",
-            "Mega Houndoom",
-            "Mega Steelix",
-            "Mega Manectric",
-            "Mega Altaria",
-            "Mega Absol",
-            "Mega Abomasnow",
-            "Mega Lopunny",
-
-            "Mega Alakazam",
-            "Mega Kangaskhan",
-            "Mega Pinsir",
-            "Mega Heracross",
-            "Mega Scizor",
-
-            "Mega Blaziken",
-            "Mega Sceptile",
-            "Mega Swampert",
-
-            "Mega Gardevoir",
-            "Mega Gallade",
-            "Mega Audino",
-            "Mega Mawile",
-            "Mega Aggron",
-            "Mega Medicham",
-            "Mega Banette",
-            "Mega Sableye",
-            "Mega Sharpedo",
-            "Mega Camerupt",
-            "Mega Glalie",
-
-            "Mega Tyranitar",
-            "Mega Salamence",
-            "Mega Metagross",
-            "Mega Garchomp",
-            "Mega Lucario",
-
-            "Primal Groudon",
-            "Primal Kyogre",
-            "Mega Mewtwo X",
-            "Mega Mewtwo Y",
-            "Mega Latias",
-            "Mega Latios",
-            "Mega Rayquaza",
-            "Mega Diancie"
-    );
-
-    private List<String> raidBossNames = new ArrayList<String>();
-
     private HashMap<String, RaidBoss> raidBossData = new HashMap<String, RaidBoss>();
-    private HashMap<String, RaidMove> raidMoveData = new HashMap<String, RaidMove>();
-    private HashMap<String, RaidPokemonData> raidPokemonData = new HashMap<String, RaidPokemonData>();
 
     private List<RaidCounterPokemon> topMegaCounterPokemon = new ArrayList<RaidCounterPokemon>();
     private List<RaidCounterPokemon> topShadowCounterPokemon = new ArrayList<RaidCounterPokemon>();
     private List<RaidCounterPokemon> topRegularCounterPokemon = new ArrayList<RaidCounterPokemon>();
 
     private final PokemonRaidCounterCalculationService calculationService;
-
-    private final DeploymentContext deploymentContext;
+    private final PokemonRaidDataService dataService;
 
 
     public PokemonRaidCounterServiceImpl(PokemonRaidCounterCalculationService calculationService,
-                                            DeploymentContext deploymentContext)
+                                            PokemonRaidDataService dataService)
     {
         this.calculationService = calculationService;
-        this.deploymentContext = deploymentContext;
-
-        raidBossNames.clear();
-        raidBossNames.addAll(GEN1_BOSSES);
-        raidBossNames.addAll(GEN2_BOSSES);
-        raidBossNames.addAll(GEN3_BOSSES);
-        raidBossNames.addAll(GEN4_BOSSES);
-        raidBossNames.addAll(GEN5_BOSSES);
-        raidBossNames.addAll(GEN6_BOSSES);
-        raidBossNames.addAll(GEN7_BOSSES);
-        raidBossNames.addAll(GEN8_BOSSES);
-        raidBossNames.addAll(MEGA_BOSSES);
-
-        loadRaidMoveJSON();
-        loadRaidPokemonDataJSON();
+        this.dataService = dataService;
 
         generateRaidCounterData();
     }
 
-    private void loadRaidMoveJSON()
-    {
-        if (!raidMoveData.isEmpty())
-        {
-            return;
-        }
-
-        JSONArray objects = readJSONArrayFromFile(MOVE_FILE);
-
-        Iterator iter = objects.iterator();
-        while (iter.hasNext())
-        {
-            Object obj = iter.next();
-            try
-            {
-                JSONObject json = (JSONObject) obj;
-
-                RaidMove move = RaidMove.createFromJSON(json);
-                raidMoveData.put(move.getName(), move);
-            }
-            catch (ClassCastException e)
-            {
-            }
-        }
-    }
-
-    private void loadRaidPokemonDataJSON()
-    {
-        if (!raidPokemonData.isEmpty())
-        {
-            return;
-        }
-
-        JSONArray objects = readJSONArrayFromFile(POKEMON_FILE);
-
-        Iterator iter = objects.iterator();
-        while (iter.hasNext())
-        {
-            Object obj = iter.next();
-            try
-            {
-                JSONObject json = (JSONObject) obj;
-
-                RaidPokemonData pokemon = RaidPokemonData.createFromJSON(json);
-                raidPokemonData.put(pokemon.getName(), pokemon);
-
-                Set<RaidMove> fastMoves = getRaidMovesFromNames(pokemon.getAllFastMoveNames());
-                Set<RaidMove> chargeMoves = getRaidMovesFromNames(pokemon.getAllChargeMoveNames());
-
-                pokemon.setAllFastMoves(fastMoves);
-                pokemon.setAllChargeMoves(chargeMoves);
-
-                fastMoves = getRaidMovesFromNames(pokemon.getStandardFastMoveNames());
-                chargeMoves = getRaidMovesFromNames(pokemon.getStandardChargeMoveNames());
-
-                pokemon.setStandardFastMoves(fastMoves);
-                pokemon.setStandardChargeMoves(chargeMoves);
-            }
-            catch (ClassCastException e)
-            {
-            }
-        }
-    }
-
-    private Set<RaidMove> getRaidMovesFromNames(Set<String> names)
-    {
-        Set<RaidMove> moves = new HashSet<RaidMove>();
-        for (String name : names)
-        {
-            if (!isIgnoreMove(name))
-            {
-                RaidMove move = raidMoveData.get(name);
-                moves.add(move);
-            }
-        }
-        return moves;
-    }
-
-    private JSONArray readJSONArrayFromFile(String filename)
-    {
-        String content = "";
-        try
-        {
-            String fileLocation = deploymentContext.webDirectory() + POKEMON_DIR + filename;
-
-            InputStream in = new FileInputStream(fileLocation);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-            content = reader.readLine();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-        return new JSONArray(content);
-    }
-
-
 
     private void generateRaidCounterData()
     {
-        for (String name : raidBossNames)
+        for (String name : dataService.getRaidBossNames())
         {
             RaidBoss raidBoss = raidBossData.get(name);
             if (raidBoss == null)
             {
-                RaidPokemonData data = raidPokemonData.get(name);
+                RaidPokemonData data = dataService.getPokemonDataByName(name);
                 if (data == null)
                 {
                     throw new RuntimeException("Pokemon Not Found: " + name);
@@ -418,69 +59,45 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
                 raidBoss = RaidBoss.createFromData(data);
                 raidBossData.put(raidBoss.getName(), raidBoss);
             }
+        }
+    }
 
-            if (!raidBoss.isCountersGenerated())
+    private void generateRaidCounters(RaidBoss raidBoss, RaidCounterType counterType)
+    {
+        List<RaidCounterPokemon> megaCounters = new ArrayList<RaidCounterPokemon>();
+        List<RaidCounterPokemon> shadowCounters = new ArrayList<RaidCounterPokemon>();
+        List<RaidCounterPokemon> regularCounters = new ArrayList<RaidCounterPokemon>();
+
+        for (RaidPokemonData pokemonData : dataService.getSuitableCounterPokemon(counterType))
+        {
+            List<RaidCounterPokemon> counters = new ArrayList<RaidCounterPokemon>();
+
+            counters.addAll(generateRaidCounters(raidBoss, pokemonData, 40));
+            counters.addAll(generateRaidCounters(raidBoss, pokemonData, 50));
+
+            if (pokemonData.isMega())
             {
-                generateRaidCounters(raidBoss);
+                megaCounters.addAll(counters);
+            }
+            else if (pokemonData.isShadow())
+            {
+                shadowCounters.addAll(counters);
+            }
+            else
+            {
+                regularCounters.addAll(counters);
             }
         }
 
-        generateTopCounters();
-    }
+        Collections.sort(megaCounters, new RaidCounterComparator());
+        Collections.sort(shadowCounters, new RaidCounterComparator());
+        Collections.sort(regularCounters, new RaidCounterComparator());
 
-    private void generateRaidCounters(RaidBoss raidBoss)
-    {
-        for (RaidPokemonData pokemonData : raidPokemonData.values())
-        {
-            if (!isIgnorePokemon(pokemonData.getName()))
-            {
-                List<RaidCounterPokemon> counters = new ArrayList<RaidCounterPokemon>();
+        raidBoss.setMegaCounters(megaCounters.subList(0, NUMBER_OF_MEGA_COUNTERS_PER_POKEMON));
+        raidBoss.setShadowCounters(shadowCounters.subList(0, NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON));
+        raidBoss.setRegularCounters(regularCounters.subList(0, NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON));
 
-                counters.addAll(generateRaidCounters(raidBoss, pokemonData, 40));
-                counters.addAll(generateRaidCounters(raidBoss, pokemonData, 50));
-
-                if (pokemonData.isMega())
-                {
-                    raidBoss.getMegaCounters().addAll(counters);
-                }
-                else if (pokemonData.isShadow())
-                {
-                    raidBoss.getShadowCounters().addAll(counters);
-                }
-                else
-                {
-                    raidBoss.getRegularCounters().addAll(counters);
-                }
-            }
-        }
-
-        List<RaidCounterPokemon> megaCounters;
-        megaCounters = filterListForTopCounters(NUMBER_OF_MEGA_COUNTERS_PER_POKEMON, raidBoss.getMegaCounters());
-        raidBoss.setMegaCounters(megaCounters);
-
-        List<RaidCounterPokemon> shadowCounters;
-        shadowCounters = filterListForTopCounters(NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON, raidBoss.getShadowCounters());
-        raidBoss.setShadowCounters(shadowCounters);
-
-        List<RaidCounterPokemon> regularCounters;
-        regularCounters = filterListForTopCounters(NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON, raidBoss.getRegularCounters());
-        raidBoss.setRegularCounters(regularCounters);
-    }
-
-    private List<RaidCounterPokemon> filterListForTopCounters(int numberOfCounters, List<RaidCounterPokemon> counterList)
-    {
-        List<RaidCounterPokemon> allCounters = new ArrayList<RaidCounterPokemon>();
-        allCounters.addAll(counterList);
-
-        Collections.sort(allCounters, new RaidCounterComparator());
-
-        List<RaidCounterPokemon> topCounters = new ArrayList<RaidCounterPokemon>();
-        for(int i = 0; i < numberOfCounters; i++)
-        {
-            RaidCounterPokemon pokemon = allCounters.get(i);
-            topCounters.add(pokemon);
-        }
-        return topCounters;
+        raidBoss.setCounterType(counterType);
     }
 
     private List<RaidCounterPokemon> generateRaidCounters(RaidBoss raidBoss, RaidPokemonData pokemonData, int level)
@@ -562,61 +179,39 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         return uniqueCounters;
     }
 
-    private boolean isIgnorePokemon(String name)
+    interface ReturnCounters
     {
-        if (IGNORE_THESE && IGNORE_POKEMON.contains(name))
-        {
-            return true;
-        }
-        return false;
+        List<RaidCounterPokemon> getCounters(RaidBoss pokemon);
     }
 
-    private boolean isIgnoreMove(String name)
+    private List<RaidCounterPokemon> generateTopCounters(ReturnCounters filter, RaidCounterType counterType, int count)
     {
-        return IGNORE_MOVE.contains(name);
-    }
-
-    private void generateTopCounters()
-    {
-        if (!topRegularCounterPokemon.isEmpty() &&
-                !topMegaCounterPokemon.isEmpty() &&
-                !topShadowCounterPokemon.isEmpty())
-        {
-            return;
-        }
-
         Map<String, RaidCounterPokemon> counters = new HashMap<String, RaidCounterPokemon>();
 
-        for (RaidBoss boss : getLegendaryPokemon())
+        for (RaidBoss boss : getRaidBosses())
         {
-            if (!boss.isCountersGenerated())
+            if (!boss.isCountersGenerated(counterType))
             {
-                generateRaidCounters(boss);
+                generateRaidCounters(boss, counterType);
             }
 
-            List<RaidCounterPokemon> allCounters = new ArrayList<RaidCounterPokemon>();
-            allCounters.addAll(boss.getRegularCounters());
-            allCounters.addAll(boss.getMegaCounters());
-            allCounters.addAll(boss.getShadowCounters());
-
-            for (RaidCounterPokemon currentCounter : allCounters)
+            for (RaidCounterPokemon counter : filter.getCounters(boss))
             {
-                String uniqueId = currentCounter.getUniqueID();
+                String uniqueId = counter.getUniqueID();
 
-                RaidCounterPokemon pokemon = counters.get(uniqueId);
-                if(pokemon == null)
+                RaidCounterPokemon currentCounter = counters.get(uniqueId);
+                if (currentCounter == null)
                 {
-                    counters.put(uniqueId, currentCounter);
+                    counters.put(uniqueId, counter);
                 }
                 else
                 {
-                    pokemon.incrementCount();
+                    currentCounter.incrementCount();
                 }
             }
         }
 
-        List<RaidCounterPokemon> counterPokemon = new ArrayList<RaidCounterPokemon>();
-        counterPokemon.addAll(counters.values());
+        List<RaidCounterPokemon> counterPokemon = new ArrayList<RaidCounterPokemon>(counters.values());
         Collections.sort(counterPokemon, new Comparator<RaidCounterPokemon>()
         {
             @Override
@@ -626,39 +221,15 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             }
         });
 
-
-        topMegaCounterPokemon.clear();
-        topShadowCounterPokemon.clear();
-        topRegularCounterPokemon.clear();
-
-        for (RaidCounterPokemon pokemon : counterPokemon)
+        if (counterPokemon.size() < count)
         {
-            if (pokemon.isMega())
-            {
-                if (topMegaCounterPokemon.size() < NUMBER_OF_TOP_MEGA_COUNTERS_PER_POKEMON)
-                {
-                    topMegaCounterPokemon.add(pokemon);
-                }
-            }
-            if (pokemon.isShadow())
-            {
-                if (topShadowCounterPokemon.size() < NUMBER_OF_TOP_SHADOW_COUNTERS_PER_POKEMON)
-                {
-                    topShadowCounterPokemon.add(pokemon);
-                }
-            }
-            if (pokemon.isRegular())
-            {
-                if (topRegularCounterPokemon.size() < NUMBER_OF_TOP_REGULAR_COUNTERS_PER_POKEMON)
-                {
-                    topRegularCounterPokemon.add(pokemon);
-                }
-            }
+            return counterPokemon;
         }
+        return counterPokemon.subList(0, count);
     }
 
 
-    public List<RaidBoss> getLegendaryPokemon()
+    public List<RaidBoss> getRaidBosses()
     {
         if (raidBossData.isEmpty())
         {
@@ -666,18 +237,18 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         }
 
         List<RaidBoss> bosses = new ArrayList<RaidBoss>();
-        for (String bossName : raidBossNames)
+        for (String bossName : dataService.getRaidBossNames())
         {
             bosses.add(raidBossData.get(bossName));
         }
         return bosses;
     }
 
-    public List<RaidCounterPokemon> getCounterPokemon(RaidBoss boss)
+    public List<RaidCounterPokemon> getCounterPokemon(RaidBoss boss, RaidCounterType counterType)
     {
-        if (!boss.isCountersGenerated())
+        if (!boss.isCountersGenerated(counterType))
         {
-            generateRaidCounters(boss);
+            generateRaidCounters(boss, counterType);
         }
 
         List<RaidCounterPokemon> counters = new ArrayList<RaidCounterPokemon>();
@@ -689,29 +260,50 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         return counters;
     }
 
-    public List<RaidCounterPokemon> getTopMegaCounterPokemon()
+    public List<RaidCounterPokemon> getTopMegaCounterPokemon(RaidCounterType counterType)
     {
         if (topMegaCounterPokemon.isEmpty())
         {
-            generateTopCounters();
+            ReturnCounters megaCounters = new ReturnCounters()
+            {
+                public List<RaidCounterPokemon> getCounters(RaidBoss pokemon)
+                {
+                    return pokemon.getMegaCounters();
+                }
+            };
+            topMegaCounterPokemon = generateTopCounters(megaCounters, counterType, NUMBER_OF_TOP_MEGA_COUNTERS_PER_POKEMON);
         }
         return topMegaCounterPokemon;
     }
 
-    public List<RaidCounterPokemon> getTopShadowCounterPokemon()
+    public List<RaidCounterPokemon> getTopShadowCounterPokemon(RaidCounterType counterType)
     {
         if (topShadowCounterPokemon.isEmpty())
         {
-            generateTopCounters();
+            ReturnCounters shadowCounters = new ReturnCounters()
+            {
+                public List<RaidCounterPokemon> getCounters(RaidBoss pokemon)
+                {
+                    return pokemon.getShadowCounters();
+                }
+            };
+            topShadowCounterPokemon = generateTopCounters(shadowCounters, counterType, NUMBER_OF_TOP_SHADOW_COUNTERS_PER_POKEMON);
         }
         return topShadowCounterPokemon;
     }
 
-    public List<RaidCounterPokemon> getTopRegularCounterPokemon()
+    public List<RaidCounterPokemon> getTopRegularCounterPokemon(RaidCounterType counterType)
     {
         if (topRegularCounterPokemon.isEmpty())
         {
-            generateTopCounters();
+            ReturnCounters regularCounters = new ReturnCounters()
+            {
+                public List<RaidCounterPokemon> getCounters(RaidBoss pokemon)
+                {
+                    return pokemon.getRegularCounters();
+                }
+            };
+            topRegularCounterPokemon = generateTopCounters(regularCounters, counterType, NUMBER_OF_TOP_REGULAR_COUNTERS_PER_POKEMON);
         }
         return topRegularCounterPokemon;
     }

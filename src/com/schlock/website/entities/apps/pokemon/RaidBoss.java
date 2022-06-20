@@ -8,6 +8,8 @@ public class RaidBoss extends AbstractRaidPokemon
 {
     private final RaidPokemonData data;
 
+    private RaidCounterType counterType;
+
     private List<RaidCounterPokemon> megaCounters = new ArrayList<RaidCounterPokemon>();
     private List<RaidCounterPokemon> shadowCounters = new ArrayList<RaidCounterPokemon>();
     private List<RaidCounterPokemon> regularCounters = new ArrayList<RaidCounterPokemon>();
@@ -18,9 +20,18 @@ public class RaidBoss extends AbstractRaidPokemon
     }
 
 
-    public boolean isCountersGenerated()
+    public boolean isCountersGenerated(RaidCounterType type)
     {
-        return !megaCounters.isEmpty() && !shadowCounters.isEmpty() && !regularCounters.isEmpty();
+        if (counterType != null && counterType.equals(type))
+        {
+            return !megaCounters.isEmpty() && !shadowCounters.isEmpty() && !regularCounters.isEmpty();
+        }
+        return false;
+    }
+
+    public void setCounterType(RaidCounterType counterType)
+    {
+        this.counterType = counterType;
     }
 
     public String getName()

@@ -59,13 +59,23 @@ public class RaidMove
         return dodgeWindow;
     }
 
+    public boolean isChargeMove()
+    {
+        return CHARGE_MOVE.equalsIgnoreCase(category);
+    }
+
+    public boolean isFastMove()
+    {
+        return FAST_MOVE.equalsIgnoreCase(category);
+    }
+
     public double getEnergyDelta()
     {
-        if (FAST_MOVE.equalsIgnoreCase(category))
+        if (isFastMove())
         {
             return getEnergyGain();
         }
-        if (CHARGE_MOVE.equalsIgnoreCase(category))
+        if (isChargeMove())
         {
             return getEnergyCost();
         }
@@ -88,18 +98,18 @@ public class RaidMove
 
 
 
-    private static final String TITLE = "title";
-    private static final String TYPE = "move_type";
-    private static final String CATEGORY = "move_category";
+    public static final String TITLE = "title";
+    public static final String TYPE = "move_type";
+    public static final String CATEGORY = "move_category";
 
-    private static final String POWER = "power";
-    private static final String COOLDOWN = "cooldown";
+    public static final String POWER = "power";
+    public static final String COOLDOWN = "cooldown";
 
-    private static final String ENERGY_GAIN = "energy_gain";
-    private static final String ENERGY_COST = "energy_cost";
+    public static final String ENERGY_GAIN = "energy_gain";
+    public static final String ENERGY_COST = "energy_cost";
 
-    private static final String DODGE_WINDOW = "dodge_window";
-    private static final String DAMAGE_WINDOW = "damage_window";
+    public static final String DODGE_WINDOW = "dodge_window";
+    public static final String DAMAGE_WINDOW = "damage_window";
 
     public static RaidMove createFromJSON(JSONObject object)
     {

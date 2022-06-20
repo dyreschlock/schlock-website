@@ -24,6 +24,8 @@ public class RaidPokemonData extends AbstractRaidPokemon
 
     private int cp;
 
+    private boolean hasEvolution;
+
     private Set<String> allFastMoveNames;
     private Set<String> allChargeMoveNames;
 
@@ -120,6 +122,11 @@ public class RaidPokemonData extends AbstractRaidPokemon
     public int getCp()
     {
         return cp;
+    }
+
+    public boolean isHasEvolution()
+    {
+        return hasEvolution;
     }
 
     public Set<String> getAllFastMoveNames()
@@ -231,6 +238,8 @@ public class RaidPokemonData extends AbstractRaidPokemon
     private static final String LEVEL_35 = "lvl35";
     private static final String LEVEL_40 = "lvl40";
 
+    private static final String FIELD_EVOLUTION = "field_evolutions";
+
     private static final String DELIM = ",";
 
     public static RaidPokemonData createFromJSON(JSONObject object)
@@ -265,6 +274,8 @@ public class RaidPokemonData extends AbstractRaidPokemon
         pokemon.lvl35 = object.getInt(LEVEL_35);
         pokemon.lvl40 = object.getInt(LEVEL_40);
 
+        pokemon.hasEvolution = isHasEvolution(object);
+
         return pokemon;
     }
 
@@ -295,5 +306,12 @@ public class RaidPokemonData extends AbstractRaidPokemon
             }
         }
         return set;
+    }
+
+    private static boolean isHasEvolution(JSONObject object)
+    {
+        String evoReqs = object.getString(FIELD_EVOLUTION);
+
+        return evoReqs != null && !evoReqs.isEmpty();
     }
 }
