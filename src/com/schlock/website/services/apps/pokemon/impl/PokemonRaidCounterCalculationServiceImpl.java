@@ -537,11 +537,6 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
     {
         double CPM = getCPMfromLevel(level);
 
-        if (pokemonData.getName().equals("Mega Aerodactyl"))
-        {
-            String temp = "";
-        }
-
         double damageIntakeX = generateDamageIntakeX(raidBoss, pokemonData, fastMove, chargeMove, level);
         double damageIntakeY = generateDamageIntakeY(raidBoss, pokemonData, level);
 
