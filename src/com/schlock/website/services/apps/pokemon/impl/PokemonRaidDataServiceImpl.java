@@ -99,6 +99,10 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
             "Calyrex - Ice Rider"
     );
 
+    private static final String SHAODW = "Shadow";
+    private static final String MEGA = "Mega";
+
+
 
     private List<RaidBoss> raidBosses = new ArrayList<RaidBoss>();
 
@@ -333,7 +337,17 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
     private boolean isIgnoreMove(String name)
     {
-        return IGNORE_MOVES_POKEMON && IGNORE_MOVES.contains(name);
+        if (IGNORE_MOVES_POKEMON)
+        {
+            for (String ignoreMove : IGNORE_MOVES)
+            {
+                if (name.contains(ignoreMove))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private boolean isIgnorePokemon(RaidPokemonData pokemon)
@@ -375,12 +389,12 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
         for (RaidPokemonData data : raidPokemonData.values())
         {
-            if (IGNORE_MOVES_POKEMON && !IGNORE_POKEMON.contains(data.getName()))
+            if(!isIgnorePokemon(data))
             {
                 RaidCounter fullCounter = RaidCounter.createFromData(data, LEVEL_40);
 
                 int highLevel = LEVEL_50;
-                if (isLegendary(data.getName()))
+                if (isLegendary(data))
                 {
                     highLevel = LEVEL_45;
                 }
@@ -394,8 +408,18 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         return pokemon;
     }
 
-    private boolean isLegendary(String pokemonName)
+    private boolean isLegendary(RaidPokemonData pokemon)
     {
+        String pokemonName = pokemon.getName();
+        if (pokemon.isShadow())
+        {
+            pokemonName = pokemonName.substring(SHAODW.length()).trim();
+        }
+        if (pokemon.isMega())
+        {
+            pokemonName = pokemonName.substring(MEGA.length()).trim();
+        }
+
         return getLegendaryBosses().contains(pokemonName);
     }
 
