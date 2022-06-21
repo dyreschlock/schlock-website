@@ -1,16 +1,12 @@
 package com.schlock.website.entities.apps.pokemon;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class RaidBoss extends AbstractRaidPokemon
 {
-    private RaidCounterType counterType;
-
-    private List<RaidCounterInstance> megaCounters = new ArrayList<RaidCounterInstance>();
-    private List<RaidCounterInstance> shadowCounters = new ArrayList<RaidCounterInstance>();
-    private List<RaidCounterInstance> regularCounters = new ArrayList<RaidCounterInstance>();
+    private Map<RaidCounterType, List<RaidCounterInstance>> megaCounters = new HashMap<RaidCounterType, List<RaidCounterInstance>>();
+    private Map<RaidCounterType, List<RaidCounterInstance>> shadowCounters = new HashMap<RaidCounterType, List<RaidCounterInstance>>();
+    private Map<RaidCounterType, List<RaidCounterInstance>> regularCounters = new HashMap<RaidCounterType, List<RaidCounterInstance>>();
 
     private RaidBoss(RaidPokemonData data)
     {
@@ -22,48 +18,41 @@ public class RaidBoss extends AbstractRaidPokemon
         return false;
     }
 
-    public boolean isCountersGenerated(RaidCounterType type)
+    public boolean isCountersGenerated(RaidCounterType counterType)
     {
-        if (counterType != null && counterType.equals(type))
-        {
-            return !megaCounters.isEmpty() && !shadowCounters.isEmpty() && !regularCounters.isEmpty();
-        }
-        return false;
+        return megaCounters.get(counterType) != null &&
+                shadowCounters.get(counterType) != null &&
+                regularCounters.get(counterType) != null;
     }
 
-    public void setCounterType(RaidCounterType counterType)
+    public List<RaidCounterInstance> getMegaCounters(RaidCounterType type)
     {
-        this.counterType = counterType;
+        return megaCounters.get(type);
     }
 
-    public List<RaidCounterInstance> getMegaCounters()
+    public List<RaidCounterInstance> getShadowCounters(RaidCounterType type)
     {
-        return megaCounters;
+        return shadowCounters.get(type);
     }
 
-    public void setMegaCounters(List<RaidCounterInstance> megaCounters)
+    public List<RaidCounterInstance> getRegularCounters(RaidCounterType type)
     {
-        this.megaCounters = megaCounters;
+        return regularCounters.get(type);
     }
 
-    public List<RaidCounterInstance> getShadowCounters()
+    public void setMegaCounters(RaidCounterType type, List<RaidCounterInstance> counters)
     {
-        return shadowCounters;
+        this.megaCounters.put(type, counters);
     }
 
-    public void setShadowCounters(List<RaidCounterInstance> shadowCounters)
+    public void setShadowCounters(RaidCounterType type, List<RaidCounterInstance> counters)
     {
-        this.shadowCounters = shadowCounters;
+        this.shadowCounters.put(type, counters);
     }
 
-    public List<RaidCounterInstance> getRegularCounters()
+    public void setRegularCounters(RaidCounterType type, List<RaidCounterInstance> counters)
     {
-        return regularCounters;
-    }
-
-    public void setRegularCounters(List<RaidCounterInstance> regularCounters)
-    {
-        this.regularCounters = regularCounters;
+        this.regularCounters.put(type, counters);
     }
 
     public static RaidBoss createFromData(RaidPokemonData data)

@@ -63,11 +63,9 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         Collections.sort(shadowCounters, new CounterTDOComparator());
         Collections.sort(regularCounters, new CounterTDOComparator());
 
-        raidBoss.setMegaCounters(megaCounters.subList(0, NUMBER_OF_MEGA_COUNTERS_PER_POKEMON));
-        raidBoss.setShadowCounters(shadowCounters.subList(0, NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON));
-        raidBoss.setRegularCounters(regularCounters.subList(0, NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON));
-
-        raidBoss.setCounterType(counterType);
+        raidBoss.setMegaCounters(counterType, megaCounters.subList(0, NUMBER_OF_MEGA_COUNTERS_PER_POKEMON));
+        raidBoss.setShadowCounters(counterType, shadowCounters.subList(0, NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON));
+        raidBoss.setRegularCounters(counterType, regularCounters.subList(0, NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON));
     }
 
     private List<RaidCounterInstance> generateRaidCounters(RaidBoss raidBoss, RaidCounter raidCounter)
@@ -225,14 +223,14 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 
         List<RaidCounterInstance> counters = new ArrayList<RaidCounterInstance>();
 
-        counters.addAll(boss.getMegaCounters());
-        counters.addAll(boss.getShadowCounters());
-        counters.addAll(boss.getRegularCounters());
+        counters.addAll(boss.getMegaCounters(counterType));
+        counters.addAll(boss.getShadowCounters(counterType));
+        counters.addAll(boss.getRegularCounters(counterType));
 
         return counters;
     }
 
-    public List<RaidCounterInstance> getTopMegaCounterPokemon(RaidCounterType counterType)
+    public List<RaidCounterInstance> getTopMegaCounterPokemon(final RaidCounterType counterType)
     {
         if (topMegaCounterPokemon.isEmpty())
         {
@@ -240,7 +238,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             {
                 public List<RaidCounterInstance> getCounters(RaidBoss pokemon)
                 {
-                    return pokemon.getMegaCounters();
+                    return pokemon.getMegaCounters(counterType);
                 }
             };
             topMegaCounterPokemon = generateTopCounters(megaCounters, counterType, NUMBER_OF_TOP_MEGA_COUNTERS_PER_POKEMON);
@@ -248,7 +246,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         return topMegaCounterPokemon;
     }
 
-    public List<RaidCounterInstance> getTopShadowCounterPokemon(RaidCounterType counterType)
+    public List<RaidCounterInstance> getTopShadowCounterPokemon(final RaidCounterType counterType)
     {
         if (topShadowCounterPokemon.isEmpty())
         {
@@ -256,7 +254,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             {
                 public List<RaidCounterInstance> getCounters(RaidBoss pokemon)
                 {
-                    return pokemon.getShadowCounters();
+                    return pokemon.getShadowCounters(counterType);
                 }
             };
             topShadowCounterPokemon = generateTopCounters(shadowCounters, counterType, NUMBER_OF_TOP_SHADOW_COUNTERS_PER_POKEMON);
@@ -264,7 +262,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         return topShadowCounterPokemon;
     }
 
-    public List<RaidCounterInstance> getTopRegularCounterPokemon(RaidCounterType counterType)
+    public List<RaidCounterInstance> getTopRegularCounterPokemon(final RaidCounterType counterType)
     {
         if (topRegularCounterPokemon.isEmpty())
         {
@@ -272,7 +270,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             {
                 public List<RaidCounterInstance> getCounters(RaidBoss pokemon)
                 {
-                    return pokemon.getRegularCounters();
+                    return pokemon.getRegularCounters(counterType);
                 }
             };
             topRegularCounterPokemon = generateTopCounters(regularCounters, counterType, NUMBER_OF_TOP_REGULAR_COUNTERS_PER_POKEMON);
