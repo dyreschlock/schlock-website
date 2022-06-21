@@ -10,9 +10,9 @@ public class RaidBoss extends AbstractRaidPokemon
 
     private RaidCounterType counterType;
 
-    private List<RaidCounterPokemon> megaCounters = new ArrayList<RaidCounterPokemon>();
-    private List<RaidCounterPokemon> shadowCounters = new ArrayList<RaidCounterPokemon>();
-    private List<RaidCounterPokemon> regularCounters = new ArrayList<RaidCounterPokemon>();
+    private List<RaidCounterInstance> megaCounters = new ArrayList<RaidCounterInstance>();
+    private List<RaidCounterInstance> shadowCounters = new ArrayList<RaidCounterInstance>();
+    private List<RaidCounterInstance> regularCounters = new ArrayList<RaidCounterInstance>();
 
     private RaidBoss(RaidPokemonData data)
     {
@@ -74,32 +74,32 @@ public class RaidBoss extends AbstractRaidPokemon
         return data.getStandardChargeMoves();
     }
 
-    public List<RaidCounterPokemon> getMegaCounters()
+    public List<RaidCounterInstance> getMegaCounters()
     {
         return megaCounters;
     }
 
-    public void setMegaCounters(List<RaidCounterPokemon> megaCounters)
+    public void setMegaCounters(List<RaidCounterInstance> megaCounters)
     {
         this.megaCounters = megaCounters;
     }
 
-    public List<RaidCounterPokemon> getShadowCounters()
+    public List<RaidCounterInstance> getShadowCounters()
     {
         return shadowCounters;
     }
 
-    public void setShadowCounters(List<RaidCounterPokemon> shadowCounters)
+    public void setShadowCounters(List<RaidCounterInstance> shadowCounters)
     {
         this.shadowCounters = shadowCounters;
     }
 
-    public List<RaidCounterPokemon> getRegularCounters()
+    public List<RaidCounterInstance> getRegularCounters()
     {
         return regularCounters;
     }
 
-    public void setRegularCounters(List<RaidCounterPokemon> regularCounters)
+    public void setRegularCounters(List<RaidCounterInstance> regularCounters)
     {
         this.regularCounters = regularCounters;
     }
@@ -114,17 +114,6 @@ public class RaidBoss extends AbstractRaidPokemon
         return data.isMega();
     }
 
-    private static final String TITLE = "title_plain";
-    private static final String TYPE = "type";
-
-    private static final String ATTACK = "atk";
-    private static final String DEFENSE = "def";
-    private static final String STAMINA = "sta";
-    private static final String CP = "cp";
-    private static final String WEATHER_MAX = "weather_max";
-    private static final String WEATHER_MIN = "weather_min";
-
-    private static final String TYPE_DELIM = ",";
 
     public static RaidBoss createFromData(RaidPokemonData data)
     {

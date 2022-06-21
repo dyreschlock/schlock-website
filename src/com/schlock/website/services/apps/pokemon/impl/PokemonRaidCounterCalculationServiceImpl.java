@@ -529,11 +529,11 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
      *
      * function calculateDPS(pokemon, kwargs)
      */
-    public RaidCounterPokemon generateRaidCounter(RaidBoss raidBoss,
-                                                  RaidPokemonData pokemonData,
-                                                  RaidMove fastMove,
-                                                  RaidMove chargeMove,
-                                                  int level)
+    public RaidCounterInstance generateRaidCounter(RaidBoss raidBoss,
+                                                   RaidPokemonData pokemonData,
+                                                   RaidMove fastMove,
+                                                   RaidMove chargeMove,
+                                                   int level)
     {
         double CPM = getCPMfromLevel(level);
 
@@ -592,7 +592,7 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
 
 
 
-        RaidCounterPokemon counter = new RaidCounterPokemon(name, fastName, chargeName, level, dps, tdo, dps3tdo);
+        RaidCounterInstance counter = new RaidCounterInstance(name, fastName, chargeName, level, dps, tdo, dps3tdo);
         return counter;
     }
 

@@ -1,8 +1,6 @@
 package com.schlock.website.entities.apps.pokemon;
 
-import java.util.Comparator;
-
-public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
+public class RaidCounterInstance implements Comparable<RaidCounterInstance>
 {
     private static final String MEGA_STRING = "Mega";
     private static final String SHADOW_STRING = "Shadow";
@@ -19,7 +17,7 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
 
     private int count = 1;
 
-    public RaidCounterPokemon(String name, String fastMove, String chargeMove, int level, double dps, double tdo, double dps3tdo)
+    public RaidCounterInstance(String name, String fastMove, String chargeMove, int level, double dps, double tdo, double dps3tdo)
     {
         this.name = name;
         this.fastMove = fastMove;
@@ -116,7 +114,7 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
         this.count = count;
     }
 
-    public int compareTo(RaidCounterPokemon p)
+    public int compareTo(RaidCounterInstance p)
     {
         if(getDps4tdo() < p.getDps4tdo())
         {
@@ -139,7 +137,7 @@ public class RaidCounterPokemon implements Comparable<RaidCounterPokemon>
 
     public boolean equals(Object o)
     {
-        RaidCounterPokemon that = (RaidCounterPokemon) o;
+        RaidCounterInstance that = (RaidCounterInstance) o;
 
         String thisUniqueId = this.getUniqueID();
         String thatUniqueId = that.getUniqueID();

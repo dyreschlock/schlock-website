@@ -1,10 +1,9 @@
 package com.schlock.website.pages.apps.pokemon;
 
-import com.schlock.website.entities.apps.pokemon.RaidCounterPokemon;
+import com.schlock.website.entities.apps.pokemon.RaidCounterInstance;
 import com.schlock.website.entities.apps.pokemon.RaidBoss;
 import com.schlock.website.entities.apps.pokemon.RaidCounterType;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
-import com.schlock.website.services.apps.pokemon.PokemonRaidDataService;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -20,7 +19,7 @@ public class PokemonRaidCounter
     private RaidBoss currentRaidBoss;
 
     @Property
-    private RaidCounterPokemon currentCounterPokemon;
+    private RaidCounterInstance currentCounterPokemon;
 
     @Property
     private Integer currentIndex;
@@ -61,22 +60,22 @@ public class PokemonRaidCounter
         return counterService.getRaidBosses();
     }
 
-    public List<RaidCounterPokemon> getCounterPokemon()
+    public List<RaidCounterInstance> getCounterPokemon()
     {
         return counterService.getCounterPokemon(currentRaidBoss, counterType);
     }
 
-    public List<RaidCounterPokemon> getTopMegaPokemon()
+    public List<RaidCounterInstance> getTopMegaPokemon()
     {
         return counterService.getTopMegaCounterPokemon(counterType);
     }
 
-    public List<RaidCounterPokemon> getTopShadowPokemon()
+    public List<RaidCounterInstance> getTopShadowPokemon()
     {
         return counterService.getTopShadowCounterPokemon(counterType);
     }
 
-    public List<RaidCounterPokemon> getTopRegularPokemon()
+    public List<RaidCounterInstance> getTopRegularPokemon()
     {
         return counterService.getTopRegularCounterPokemon(counterType);
     }

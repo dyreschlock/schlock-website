@@ -1,5 +1,6 @@
 package com.schlock.website.services.apps.pokemon.impl;
 
+import com.schlock.website.entities.apps.pokemon.RaidBoss;
 import com.schlock.website.entities.apps.pokemon.RaidCounterType;
 import com.schlock.website.entities.apps.pokemon.RaidMove;
 import com.schlock.website.entities.apps.pokemon.RaidPokemonData;
@@ -11,6 +12,9 @@ import org.apache.tapestry5.json.JSONObject;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Data Taken from : https://gamepress.gg/pokemongo/comprehensive-dps-spreadsheet
+ */
 public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 {
     private static final boolean IGNORE_MOVES_POKEMON = true;
@@ -96,7 +100,7 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
     );
 
 
-    private List<String> raidBossNames = new ArrayList<String>();
+    private List<RaidBoss> raidBosses = new ArrayList<RaidBoss>();
 
     private HashMap<String, RaidMove> raidMoveData = new HashMap<String, RaidMove>();
     private HashMap<String, RaidPokemonData> raidPokemonData = new HashMap<String, RaidPokemonData>();
@@ -106,17 +110,6 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
     public PokemonRaidDataServiceImpl(DeploymentContext deploymentContext)
     {
         this.deploymentContext = deploymentContext;
-
-        raidBossNames.clear();
-        raidBossNames.addAll(GEN1_BOSSES);
-        raidBossNames.addAll(GEN2_BOSSES);
-        raidBossNames.addAll(GEN3_BOSSES);
-        raidBossNames.addAll(GEN4_BOSSES);
-        raidBossNames.addAll(GEN5_BOSSES);
-        raidBossNames.addAll(GEN6_BOSSES);
-        raidBossNames.addAll(GEN7_BOSSES);
-        raidBossNames.addAll(GEN8_BOSSES);
-        raidBossNames.addAll(MEGA_BOSSES);
 
         loadRaidMoveJSON();
         loadRaidPokemonDataJSON();
@@ -317,16 +310,6 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         return raidPokemonData.get(name);
     }
 
-    public Collection<RaidPokemonData> getAllPokemon()
-    {
-        if (raidPokemonData.isEmpty())
-        {
-            loadRaidPokemonDataJSON();
-        }
-
-        return raidPokemonData.values();
-    }
-
     public Collection<RaidPokemonData> getSuitableCounterPokemon(RaidCounterType counterType)
     {
         return getAllGeneralPokemon();
@@ -334,9 +317,14 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
     private Collection<RaidPokemonData> getAllGeneralPokemon()
     {
+        if (raidPokemonData.isEmpty())
+        {
+            loadRaidPokemonDataJSON();
+        }
+
         List<RaidPokemonData> pokemon = new ArrayList<RaidPokemonData>();
 
-        for (RaidPokemonData data : getAllPokemon())
+        for (RaidPokemonData data : raidPokemonData.values())
         {
             if (IGNORE_MOVES_POKEMON && !IGNORE_POKEMON.contains(data.getName()))
             {
@@ -346,9 +334,64 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         return pokemon;
     }
 
-    public List<String> getRaidBossNames()
+
+    public List<RaidBoss> getRaidBosses()
     {
-        return raidBossNames;
+        if (raidBosses.isEmpty())
+        {
+            generateRaidBosses();
+        }
+        return raidBosses;
+    }
+
+    private void generateRaidBosses()
+    {
+        if (!raidBosses.isEmpty())
+        {
+            return;
+        }
+
+        for (String name : getRaidBossNames())
+        {
+            RaidPokemonData data = raidPokemonData.get(name);
+            if (data == null)
+            {
+                throw new RuntimeException("Pokemon Not Found: " + name);
+            }
+            RaidBoss raidBoss = RaidBoss.createFromData(data);
+
+            raidBosses.add(raidBoss);
+        }
+    }
+
+    private List<String> getRaidBossNames()
+    {
+        List<String> names = new ArrayList<String>();
+        names.addAll(getLegendaryBosses());
+        names.addAll(getMegaBosses());
+
+        return names;
+    }
+
+    private List<String> getLegendaryBosses()
+    {
+        List<String> legendary = new ArrayList<String>();
+        legendary.addAll(GEN1_BOSSES);
+        legendary.addAll(GEN2_BOSSES);
+        legendary.addAll(GEN3_BOSSES);
+        legendary.addAll(GEN4_BOSSES);
+        legendary.addAll(GEN5_BOSSES);
+        legendary.addAll(GEN6_BOSSES);
+        legendary.addAll(GEN7_BOSSES);
+        legendary.addAll(GEN8_BOSSES);
+        legendary.addAll(GEN9_BOSSES);
+
+        return legendary;
+    }
+
+    private List<String> getMegaBosses()
+    {
+        return MEGA_BOSSES;
     }
 
     private static final List<String> GEN1_BOSSES = Arrays.asList(
@@ -452,6 +495,10 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
             "Zamazenta - Hero of Many Battles",
             "Regieleki",
             "Regidrago"
+    );
+
+    private static final List<String> GEN9_BOSSES = Arrays.asList(
+
     );
 
     private static final List<String> MEGA_BOSSES = Arrays.asList(
