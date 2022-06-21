@@ -488,7 +488,14 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
     private static final List<String> NONRAID_LEGENDARIES = Arrays.asList(
             "Hoopa (Confined)",
-            "Hoopa (Unbound)"
+            "Hoopa (Unbound)",
+            "Mew",
+            "Jirachu",
+            "Celebi",
+            "Shaymin (Land Forme)",
+            "Shaymin (Sky Forme)",
+            "Meloetta (Pirouette Forme)",
+            "Meloetta (Aria Forme)"
     );
 
 
