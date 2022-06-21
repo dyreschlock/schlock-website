@@ -19,10 +19,6 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
 
     private static final double DEFAULT_BOSS_DPS = 900;
 
-    private static final int DEFAULT_ATTACK_IV = 15;
-    private static final int DEFAULT_DEFENSE_IV = 15;
-    private static final int DEFAULT_STAMINA_IV = 15;
-
 
     private static final String BUG = "Bug";
     private static final String DARK = "Dark";
@@ -718,12 +714,12 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
 
     private double getAttack(AbstractRaidPokemon pokemon, final double CPM)
     {
-        return (pokemon.getBaseAttack() + DEFAULT_ATTACK_IV) * CPM;
+        return (pokemon.getBaseAttack() + pokemon.getAttackIV()) * CPM;
     }
 
     private double getDefense(AbstractRaidPokemon pokemon, final double CPM)
     {
-        double defense = (pokemon.getBaseDefense() + DEFAULT_DEFENSE_IV) * CPM;
+        double defense = (pokemon.getBaseDefense() + pokemon.getDefenseIV()) * CPM;
 
         if (!RaidBoss.class.isAssignableFrom(pokemon.getClass()))
         {
@@ -742,6 +738,6 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
 
     private double getStamina(AbstractRaidPokemon pokemon, final double CPM)
     {
-        return (pokemon.getBaseStamina() + DEFAULT_STAMINA_IV) * CPM;
+        return (pokemon.getBaseStamina() + pokemon.getStaminaIV()) * CPM;
     }
 }

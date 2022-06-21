@@ -6,6 +6,10 @@ public abstract class AbstractRaidPokemon
 {
     private final static Integer DEFAULT_LEVEL = 40;
 
+    private final static Integer DEFAULT_ATTACK_IV = 15;
+    private final static Integer DEFAULT_DEFENSE_IV = 15;
+    private final static Integer DEFAULT_STAMINA_IV = 15;
+
     private final RaidPokemonData data;
 
     protected AbstractRaidPokemon(RaidPokemonData data)
@@ -61,6 +65,21 @@ public abstract class AbstractRaidPokemon
     public int getBaseStamina()
     {
         return data.getBaseStamina();
+    }
+
+    public int getAttackIV()
+    {
+        return DEFAULT_ATTACK_IV;
+    }
+
+    public int getDefenseIV()
+    {
+        return DEFAULT_DEFENSE_IV;
+    }
+
+    public int getStaminaIV()
+    {
+        return DEFAULT_STAMINA_IV;
     }
 
     public Set<RaidMove> getStandardFastMoves()
