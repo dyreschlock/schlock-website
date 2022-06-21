@@ -1,9 +1,6 @@
 package com.schlock.website.services.apps.pokemon.impl;
 
-import com.schlock.website.entities.apps.pokemon.RaidBoss;
-import com.schlock.website.entities.apps.pokemon.RaidCounterType;
-import com.schlock.website.entities.apps.pokemon.RaidMove;
-import com.schlock.website.entities.apps.pokemon.RaidPokemonData;
+import com.schlock.website.entities.apps.pokemon.*;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.PokemonRaidDataService;
 import org.apache.tapestry5.json.JSONArray;
@@ -36,6 +33,9 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
     // https://gamepress.gg/pokemongo/assets/data/cpm.json
     private static final String CPM_FILE = "cpm.json";
 
+    private static final int LEVEL_40 = 40;
+    private static final int LEVEL_45 = 45;
+    private static final int LEVEL_50 = 50;
 
     private final static List<String> IGNORE_MOVES = Arrays.asList(
             "Hidden Power"
@@ -105,12 +105,15 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
     private HashMap<String, RaidMove> raidMoveData = new HashMap<String, RaidMove>();
     private HashMap<String, RaidPokemonData> raidPokemonData = new HashMap<String, RaidPokemonData>();
 
+    private HashMap<Integer, Double> cpmData = new HashMap<Integer, Double>();
+
     private final DeploymentContext deploymentContext;
 
     public PokemonRaidDataServiceImpl(DeploymentContext deploymentContext)
     {
         this.deploymentContext = deploymentContext;
 
+        loadCpmJSON();
         loadRaidMoveJSON();
         loadRaidPokemonDataJSON();
 
@@ -188,7 +191,13 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
             InputStream in = new FileInputStream(fileLocation);
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-            content = reader.readLine();
+            String line = reader.readLine();
+            while (line != null)
+            {
+                content += line;
+
+                line = reader.readLine();
+            }
         }
         catch (IOException e)
         {
@@ -198,6 +207,47 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         return new JSONArray(content);
     }
 
+
+    private static final String LEVEL_FIELD = "name";
+    private static final String CPM_FIELD = "field_cp_multiplier";
+
+    private void loadCpmJSON()
+    {
+        if (!cpmData.isEmpty())
+        {
+            return;
+        }
+
+        JSONArray objects = readJSONArrayFromFile(CPM_FILE);
+
+        Iterator iter = objects.iterator();
+        while (iter.hasNext())
+        {
+            Object obj = iter.next();
+            try
+            {
+                JSONObject json = (JSONObject) obj;
+
+                Double level = json.getDouble(LEVEL_FIELD);
+                Double cpm = json.getDouble(CPM_FIELD);
+
+                if (isInteger(level))
+                {
+                    cpmData.put(level.intValue(), cpm);
+                }
+            }
+            catch (ClassCastException e)
+            {
+            }
+        }
+    }
+
+    private boolean isInteger(Double number)
+    {
+        Integer intValue = number.intValue();
+
+        return number == intValue.doubleValue();
+    }
 
     private void loadRaidMoveJSON()
     {
@@ -300,40 +350,54 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
     }
 
 
-    public RaidPokemonData getPokemonDataByName(String name)
+    public Double getCpmFromLevel(Integer level)
     {
-        if (raidPokemonData.isEmpty())
+        if (!cpmData.isEmpty())
         {
-            loadRaidPokemonDataJSON();
+            loadCpmJSON();
         }
-
-        return raidPokemonData.get(name);
+        return cpmData.get(level);
     }
 
-    public Collection<RaidPokemonData> getSuitableCounterPokemon(RaidCounterType counterType)
+    public Collection<RaidCounter> getSuitableCounterPokemon(RaidCounterType counterType)
     {
         return getAllGeneralPokemon();
     }
 
-    private Collection<RaidPokemonData> getAllGeneralPokemon()
+    private Collection<RaidCounter> getAllGeneralPokemon()
     {
         if (raidPokemonData.isEmpty())
         {
             loadRaidPokemonDataJSON();
         }
 
-        List<RaidPokemonData> pokemon = new ArrayList<RaidPokemonData>();
+        List<RaidCounter> pokemon = new ArrayList<RaidCounter>();
 
         for (RaidPokemonData data : raidPokemonData.values())
         {
             if (IGNORE_MOVES_POKEMON && !IGNORE_POKEMON.contains(data.getName()))
             {
-                pokemon.add(data);
+                RaidCounter fullCounter = RaidCounter.createFromData(data, LEVEL_40);
+
+                int highLevel = LEVEL_50;
+                if (isLegendary(data.getName()))
+                {
+                    highLevel = LEVEL_45;
+                }
+
+                RaidCounter highCounter = RaidCounter.createFromData(data, highLevel);
+
+                pokemon.add(fullCounter);
+                pokemon.add(highCounter);
             }
         }
         return pokemon;
     }
 
+    private boolean isLegendary(String pokemonName)
+    {
+        return getLegendaryBosses().contains(pokemonName);
+    }
 
     public List<RaidBoss> getRaidBosses()
     {
@@ -367,8 +431,16 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
     private List<String> getRaidBossNames()
     {
         List<String> names = new ArrayList<String>();
-        names.addAll(getLegendaryBosses());
-        names.addAll(getMegaBosses());
+        names.addAll(GEN1_BOSSES);
+        names.addAll(GEN2_BOSSES);
+        names.addAll(GEN3_BOSSES);
+        names.addAll(GEN4_BOSSES);
+        names.addAll(GEN5_BOSSES);
+        names.addAll(GEN6_BOSSES);
+        names.addAll(GEN7_BOSSES);
+        names.addAll(GEN8_BOSSES);
+        names.addAll(GEN9_BOSSES);
+        names.addAll(MEGA_BOSSES);
 
         return names;
     }
@@ -385,14 +457,16 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         legendary.addAll(GEN7_BOSSES);
         legendary.addAll(GEN8_BOSSES);
         legendary.addAll(GEN9_BOSSES);
+        legendary.addAll(NONRAID_LEGENDARIES);
 
         return legendary;
     }
 
-    private List<String> getMegaBosses()
-    {
-        return MEGA_BOSSES;
-    }
+    private static final List<String> NONRAID_LEGENDARIES = Arrays.asList(
+            "Hoopa (Confined)",
+            "Hoopa (Unbound)"
+    );
+
 
     private static final List<String> GEN1_BOSSES = Arrays.asList(
             "Mewtwo",

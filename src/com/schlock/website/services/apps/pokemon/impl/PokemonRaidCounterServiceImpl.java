@@ -39,24 +39,23 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         List<RaidCounterInstance> shadowCounters = new ArrayList<RaidCounterInstance>();
         List<RaidCounterInstance> regularCounters = new ArrayList<RaidCounterInstance>();
 
-        for (RaidPokemonData pokemonData : dataService.getSuitableCounterPokemon(counterType))
+        for (RaidCounter counterPoke : dataService.getSuitableCounterPokemon(counterType))
         {
-            List<RaidCounterInstance> counters = new ArrayList<RaidCounterInstance>();
+            List<RaidCounterInstance> counterInstances = new ArrayList<RaidCounterInstance>();
 
-            counters.addAll(generateRaidCounters(raidBoss, pokemonData, 40));
-            counters.addAll(generateRaidCounters(raidBoss, pokemonData, 50));
+            counterInstances.addAll(generateRaidCounters(raidBoss, counterPoke));
 
-            if (pokemonData.isMega())
+            if (counterPoke.isMega())
             {
-                megaCounters.addAll(counters);
+                megaCounters.addAll(counterInstances);
             }
-            else if (pokemonData.isShadow())
+            else if (counterPoke.isShadow())
             {
-                shadowCounters.addAll(counters);
+                shadowCounters.addAll(counterInstances);
             }
             else
             {
-                regularCounters.addAll(counters);
+                regularCounters.addAll(counterInstances);
             }
         }
 
@@ -71,15 +70,15 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         raidBoss.setCounterType(counterType);
     }
 
-    private List<RaidCounterInstance> generateRaidCounters(RaidBoss raidBoss, RaidPokemonData pokemonData, int level)
+    private List<RaidCounterInstance> generateRaidCounters(RaidBoss raidBoss, RaidCounter raidCounter)
     {
         List<RaidCounterInstance> counters = new ArrayList<RaidCounterInstance>();
 
-        for (RaidMove fastMove : pokemonData.getAllFastMoves())
+        for (RaidMove fastMove : raidCounter.getAllFastMoves())
         {
-            for (RaidMove chargeMove : pokemonData.getAllChargeMoves())
+            for (RaidMove chargeMove : raidCounter.getAllChargeMoves())
             {
-                RaidCounterInstance counter = calculationService.generateRaidCounter(raidBoss, pokemonData, fastMove, chargeMove, level);
+                RaidCounterInstance counter = calculationService.generateRaidCounter(raidBoss, raidCounter, fastMove, chargeMove);
                 if (counter != null)
                 {
                     counters.add(counter);

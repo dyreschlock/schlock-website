@@ -4,60 +4,33 @@ import java.util.Set;
 
 public class RaidCounter extends AbstractRaidPokemon
 {
-    private RaidPokemonData data;
+    private int level;
 
     private RaidCounter(RaidPokemonData data)
     {
-        this.data = data;
+        super(data);
     }
 
-    public boolean isShadow()
+    public int getLevel()
     {
-        return data.isShadow();
+        return level;
     }
 
-    public boolean isMega()
+    public Set<RaidMove> getAllFastMoves()
     {
-        return data.isMega();
+        return getData().getAllFastMoves();
     }
 
-    public String getType1()
+    public Set<RaidMove> getAllChargeMoves()
     {
-        return data.getType1();
+        return getData().getAllChargeMoves();
     }
 
-    public String getType2()
+    public static RaidCounter createFromData(RaidPokemonData data, int level)
     {
-        return data.getType2();
-    }
+        RaidCounter counter = new RaidCounter(data);
+        counter.level = level;
 
-    public int getBaseAttack()
-    {
-        return data.getBaseAttack();
-    }
-
-    public int getBaseDefense()
-    {
-        return data.getBaseDefense();
-    }
-
-    public int getBaseStamina()
-    {
-        return data.getBaseStamina();
-    }
-
-    public Set<RaidMove> getStandardFastMoves()
-    {
-        return data.getStandardFastMoves();
-    }
-
-    public Set<RaidMove> getStandardChargeMoves()
-    {
-        return data.getStandardChargeMoves();
-    }
-
-    public static RaidCounter createFromData(RaidPokemonData data)
-    {
-        return new RaidCounter(data);
+        return counter;
     }
 }

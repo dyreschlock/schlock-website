@@ -2,6 +2,7 @@ package com.schlock.website.services.apps.pokemon.impl;
 
 import com.schlock.website.entities.apps.pokemon.*;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterCalculationService;
+import com.schlock.website.services.apps.pokemon.PokemonRaidDataService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,14 +18,6 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
     private static final double SAME_TYPE_ATTACK_BONUS_MEGA = 1.3;
 
     private static final double DEFAULT_BOSS_DPS = 900;
-
-    private static final int LEVEL40 = 40;
-    private static final int LEVEL50 = 50;
-
-    private static final double LEVEL40_CPM = 0.7903;
-    private static final double LEVEL50_CPM = 0.84029999;
-
-    private static final double ENEMY_CPM = LEVEL40_CPM;
 
     private static final int DEFAULT_ATTACK_IV = 15;
     private static final int DEFAULT_DEFENSE_IV = 15;
@@ -510,18 +503,18 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
         TYPE_EFFECTIVENESS.put(WATER, water);
     }
 
-    public PokemonRaidCounterCalculationServiceImpl()
+    private final PokemonRaidDataService dataService;
+
+    public PokemonRaidCounterCalculationServiceImpl(PokemonRaidDataService dataService)
     {
+        this.dataService = dataService;
     }
 
-    private double getCPMfromLevel(int level)
+    private double getCPM(AbstractRaidPokemon pokemon)
     {
-        double CPM = LEVEL40_CPM;
-        if (LEVEL50 == level)
-        {
-            CPM = LEVEL50_CPM;
-        }
-        return CPM;
+        Integer level = pokemon.getLevel();
+
+        return dataService.getCpmFromLevel(level);
     }
 
     /**
@@ -530,23 +523,22 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
      * function calculateDPS(pokemon, kwargs)
      */
     public RaidCounterInstance generateRaidCounter(RaidBoss raidBoss,
-                                                   RaidPokemonData pokemonData,
+                                                   RaidCounter raidCounter,
                                                    RaidMove fastMove,
-                                                   RaidMove chargeMove,
-                                                   int level)
+                                                   RaidMove chargeMove)
     {
-        double CPM = getCPMfromLevel(level);
+        double CPM = getCPM(raidCounter);
 
-        double damageIntakeX = generateDamageIntakeX(raidBoss, pokemonData, fastMove, chargeMove, level);
-        double damageIntakeY = generateDamageIntakeY(raidBoss, pokemonData, level);
+        double damageIntakeX = generateDamageIntakeX(raidBoss, raidCounter, fastMove, chargeMove);
+        double damageIntakeY = generateDamageIntakeY(raidBoss, raidCounter);
 
 
-        double attack = getAttack(pokemonData, CPM);
-        double defense = getDefense(pokemonData, CPM);
-        double stamina = getStamina(pokemonData, CPM);
+        double attack = getAttack(raidCounter, CPM);
+        double defense = getDefense(raidCounter, CPM);
+        double stamina = getStamina(raidCounter, CPM);
 
-        double fastDamage = generateDamage(pokemonData, CPM, fastMove, raidBoss, ENEMY_CPM);
-        double chargeDamage = generateDamage(pokemonData, CPM, chargeMove, raidBoss, ENEMY_CPM);
+        double fastDamage = generateDamage(raidCounter, fastMove, raidBoss);
+        double chargeDamage = generateDamage(raidCounter, chargeMove, raidBoss);
 
         double fastEnergyDelta = fastMove.getEnergyDelta();
         double chargeEnergyDelta = - chargeMove.getEnergyDelta();
@@ -586,13 +578,13 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
         double tdo = dps * stamina / damageIntakeY;
         double dps3tdo = dps * dps * dps * tdo / 1000;
 
-        String name = pokemonData.getName();
+        String name = raidCounter.getName();
         String fastName = fastMove.getName();
         String chargeName = chargeMove.getName();
 
 
 
-        RaidCounterInstance counter = new RaidCounterInstance(name, fastName, chargeName, level, dps, tdo, dps3tdo);
+        RaidCounterInstance counter = new RaidCounterInstance(name, fastName, chargeName, raidCounter.getLevel(), dps, tdo, dps3tdo);
         return counter;
     }
 
@@ -600,10 +592,8 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
      * x: -pokemon.cmove.energyDelta * 0.5 + pokemon.fmove.energyDelta * 0.5,
      * y: DEFAULT_ENEMY_DPS1 / pokemon.Def
      */
-    public double generateDamageIntakeX(RaidBoss boss, RaidPokemonData pokemon, RaidMove pFastMove, RaidMove pChargeMove, int level)
+    public double generateDamageIntakeX(RaidBoss boss, RaidCounter counter, RaidMove pFastMove, RaidMove pChargeMove)
     {
-        double POKEMON_CPM = getCPMfromLevel(level);
-
         if (boss.getStandardFastMoves().isEmpty() || boss.getStandardChargeMoves().isEmpty())
         {
             return pFastMove.getEnergyDelta() * 0.5 - pChargeMove.getEnergyDelta() * 0.5;
@@ -613,13 +603,13 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
         int count = 0;
         for (RaidMove fastMove : boss.getStandardFastMoves())
         {
-            double fastDamage = generateDamage(boss, ENEMY_CPM, fastMove, pokemon, POKEMON_CPM);
+            double fastDamage = generateDamage(boss, fastMove, counter);
             double fastDuration = fastMove.getDuration() /1000.0 +2;
             double fastEnergyDelta = fastMove.getEnergyDelta();
 
             for (RaidMove chargeMove : boss.getStandardChargeMoves())
             {
-                double chargeDamage = generateDamage(boss, ENEMY_CPM, chargeMove, pokemon, POKEMON_CPM);
+                double chargeDamage = generateDamage(boss, chargeMove, counter);
                 double chargeDuration = chargeMove.getDuration() /1000.0 +2;
                 double chargeEnergyDelta = -chargeMove.getEnergyDelta();
 
@@ -654,26 +644,26 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
 
      */
 
-    public double generateDamageIntakeY(RaidBoss boss, RaidPokemonData pokemon, int level)
+    public double generateDamageIntakeY(RaidBoss boss, RaidCounter counter)
     {
-        double POKEMON_CPM = getCPMfromLevel(level);
+        double POKEMON_CPM = getCPM(counter);
 
         if (boss.getStandardFastMoves().isEmpty() || boss.getStandardChargeMoves().isEmpty())
         {
-            return DEFAULT_BOSS_DPS / getDefense(pokemon, POKEMON_CPM);
+            return DEFAULT_BOSS_DPS / getDefense(counter, POKEMON_CPM);
         }
 
         double sum = 0.0;
         int count = 0;
         for (RaidMove fastMove : boss.getStandardFastMoves())
         {
-            double fastDamage = generateDamage(boss, ENEMY_CPM, fastMove, pokemon, POKEMON_CPM);
+            double fastDamage = generateDamage(boss, fastMove, counter);
             double fastDuration = fastMove.getDuration() /1000 +2;
             double fastEnergyDelta = fastMove.getEnergyDelta();
 
             for (RaidMove chargeMove : boss.getStandardChargeMoves())
             {
-                double chargeDamage = generateDamage(boss, ENEMY_CPM, chargeMove, pokemon, POKEMON_CPM);
+                double chargeDamage = generateDamage(boss, chargeMove, counter);
                 double chargeDuration = chargeMove.getDuration() /1000 +2;
                 double chargeEnergyDelta = -chargeMove.getEnergyDelta();
 
@@ -689,37 +679,38 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
         return (sum / count);
     }
 
-    private double generateDamage(AbstractRaidPokemon attacker, double attackerCpm, RaidMove move, AbstractRaidPokemon defender, double defenderCpm)
-//    private double generateDamage(AbstractRaidPokemon defender, AbstractRaidPokemon attacker, RaidMove move, final double defenderCpm, final double attackCpm)
+    private double generateDamage(AbstractRaidPokemon attacker, RaidMove move, AbstractRaidPokemon defender)
     {
         final String MOVE_TYPE = move.getType();
 
-        final String POKEMON_TYPE1 = attacker.getType1();
-        final String POKEMON_TYPE2 = attacker.getType2();
+        final String ATTACKER_TYPE1 = attacker.getType1();
+        final String ATTACKER_TYPE2 = attacker.getType2();
+        final Double ATTACKER_CPM = getCPM(attacker);
 
-        final String BOSS_TYPE1 = defender.getType1();
-        final String BOSS_TYPE2 = defender.getType2();
+        final String DEFENDER_TYPE1 = defender.getType1();
+        final String DEFENDER_TYPE2 = defender.getType2();
+        final Double DEFENDER_CPM = getCPM(defender);
 
         double multipliers = 1;
 
-        if (MOVE_TYPE.equalsIgnoreCase(POKEMON_TYPE1) || MOVE_TYPE.equalsIgnoreCase(POKEMON_TYPE2))
+        if (MOVE_TYPE.equalsIgnoreCase(ATTACKER_TYPE1) || MOVE_TYPE.equalsIgnoreCase(ATTACKER_TYPE2))
         {
             multipliers *= SAME_TYPE_ATTACK_BONUS;
         }
 
-        multipliers *= TYPE_EFFECTIVENESS.get(MOVE_TYPE).get(BOSS_TYPE1);
-        if (BOSS_TYPE2 != null)
+        multipliers *= TYPE_EFFECTIVENESS.get(MOVE_TYPE).get(DEFENDER_TYPE1);
+        if (DEFENDER_TYPE2 != null)
         {
-            multipliers *= TYPE_EFFECTIVENESS.get(MOVE_TYPE).get(BOSS_TYPE2);
+            multipliers *= TYPE_EFFECTIVENESS.get(MOVE_TYPE).get(DEFENDER_TYPE2);
         }
 
-        double attack = getAttack(attacker, attackerCpm);
+        double attack = getAttack(attacker, ATTACKER_CPM);
         if (attacker.isShadow())
         {
             attack *= SHADOW_ATTACK_MULTIPLIER;
         }
 
-        double defense = getDefense(defender, defenderCpm);
+        double defense = getDefense(defender, DEFENDER_CPM);
 
         //return 0.5 * atk / dmg_taker.Def * move.power * multipliers + 0.5;
         return 0.5 * attack / defense * move.getPower() * multipliers + 0.5;

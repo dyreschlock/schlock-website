@@ -6,8 +6,6 @@ import java.util.Set;
 
 public class RaidBoss extends AbstractRaidPokemon
 {
-    private final RaidPokemonData data;
-
     private RaidCounterType counterType;
 
     private List<RaidCounterInstance> megaCounters = new ArrayList<RaidCounterInstance>();
@@ -16,9 +14,13 @@ public class RaidBoss extends AbstractRaidPokemon
 
     private RaidBoss(RaidPokemonData data)
     {
-        this.data = data;
+        super(data);
     }
 
+    public boolean isShadow()
+    {
+        return false;
+    }
 
     public boolean isCountersGenerated(RaidCounterType type)
     {
@@ -32,46 +34,6 @@ public class RaidBoss extends AbstractRaidPokemon
     public void setCounterType(RaidCounterType counterType)
     {
         this.counterType = counterType;
-    }
-
-    public String getName()
-    {
-        return data.getName();
-    }
-
-    public String getType1()
-    {
-        return data.getType1();
-    }
-
-    public String getType2()
-    {
-        return data.getType2();
-    }
-
-    public int getBaseAttack()
-    {
-        return data.getBaseAttack();
-    }
-
-    public int getBaseDefense()
-    {
-        return data.getBaseDefense();
-    }
-
-    public int getBaseStamina()
-    {
-        return data.getBaseStamina();
-    }
-
-    public Set<RaidMove> getStandardFastMoves()
-    {
-        return data.getStandardFastMoves();
-    }
-
-    public Set<RaidMove> getStandardChargeMoves()
-    {
-        return data.getStandardChargeMoves();
     }
 
     public List<RaidCounterInstance> getMegaCounters()
@@ -103,17 +65,6 @@ public class RaidBoss extends AbstractRaidPokemon
     {
         this.regularCounters = regularCounters;
     }
-
-    public boolean isShadow()
-    {
-        return false;
-    }
-
-    public boolean isMega()
-    {
-        return data.isMega();
-    }
-
 
     public static RaidBoss createFromData(RaidPokemonData data)
     {

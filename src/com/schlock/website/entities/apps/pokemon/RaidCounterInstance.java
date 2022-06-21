@@ -23,9 +23,6 @@ public class RaidCounterInstance implements Comparable<RaidCounterInstance>
         this.fastMove = fastMove;
         this.chargeMove = chargeMove;
         this.level = level;
-        this.dps = dps;
-        this.tdo = tdo;
-        this.dps3tdo = dps3tdo;
 
         this.dps = formatDouble("%.3f", dps);
         this.tdo = formatDouble("%.1f", tdo);

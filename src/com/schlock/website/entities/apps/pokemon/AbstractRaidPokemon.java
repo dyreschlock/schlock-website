@@ -4,21 +4,72 @@ import java.util.Set;
 
 public abstract class AbstractRaidPokemon
 {
-    public abstract boolean isShadow();
+    private final static Integer DEFAULT_LEVEL = 40;
 
-    public abstract boolean isMega();
+    private final RaidPokemonData data;
 
-    public abstract String getType1();
+    protected AbstractRaidPokemon(RaidPokemonData data)
+    {
+        this.data = data;
+    }
 
-    public abstract String getType2();
+    protected RaidPokemonData getData()
+    {
+        return data;
+    }
 
-    public abstract int getBaseAttack();
+    public String getName()
+    {
+        return data.getName();
+    }
 
-    public abstract int getBaseDefense();
+    public int getLevel()
+    {
+        return DEFAULT_LEVEL;
+    }
 
-    public abstract int getBaseStamina();
+    public boolean isShadow()
+    {
+        return data.isShadow();
+    }
 
-    public abstract Set<RaidMove> getStandardFastMoves();
+    public boolean isMega()
+    {
+        return data.isMega();
+    }
 
-    public abstract Set<RaidMove> getStandardChargeMoves();
+    public String getType1()
+    {
+        return data.getType1();
+    }
+
+    public String getType2()
+    {
+        return data.getType2();
+    }
+
+    public int getBaseAttack()
+    {
+        return data.getBaseAttack();
+    }
+
+    public int getBaseDefense()
+    {
+        return data.getBaseDefense();
+    }
+
+    public int getBaseStamina()
+    {
+        return data.getBaseStamina();
+    }
+
+    public Set<RaidMove> getStandardFastMoves()
+    {
+        return data.getStandardFastMoves();
+    }
+
+    public Set<RaidMove> getStandardChargeMoves()
+    {
+        return data.getStandardChargeMoves();
+    }
 }

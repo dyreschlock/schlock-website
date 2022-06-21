@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface PokemonRaidDataService
 {
-    public RaidPokemonData getPokemonDataByName(String name);
-
     public List<RaidBoss> getRaidBosses();
 
-    public Collection<RaidPokemonData> getSuitableCounterPokemon(RaidCounterType type);
+    public Collection<RaidCounter> getSuitableCounterPokemon(RaidCounterType type);
+
+    public Double getCpmFromLevel(Integer level);
 }

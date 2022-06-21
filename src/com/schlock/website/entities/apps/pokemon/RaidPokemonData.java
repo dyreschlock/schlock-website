@@ -5,7 +5,7 @@ import org.apache.tapestry5.json.JSONObject;
 import java.util.HashSet;
 import java.util.Set;
 
-public class RaidPokemonData extends AbstractRaidPokemon
+public class RaidPokemonData
 {
     private String name;
     private String type1;
