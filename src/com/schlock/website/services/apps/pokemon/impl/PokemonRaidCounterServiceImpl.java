@@ -59,9 +59,9 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             }
         }
 
-        Collections.sort(megaCounters, new RaidCounterComparator());
-        Collections.sort(shadowCounters, new RaidCounterComparator());
-        Collections.sort(regularCounters, new RaidCounterComparator());
+        Collections.sort(megaCounters, new CounterTDOComparator());
+        Collections.sort(shadowCounters, new CounterTDOComparator());
+        Collections.sort(regularCounters, new CounterTDOComparator());
 
         raidBoss.setMegaCounters(megaCounters.subList(0, NUMBER_OF_MEGA_COUNTERS_PER_POKEMON));
         raidBoss.setShadowCounters(shadowCounters.subList(0, NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON));
@@ -102,7 +102,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         List<RaidCounterInstance> allCounters = new ArrayList<RaidCounterInstance>();
         allCounters.addAll(counterList);
 
-        Collections.sort(allCounters, new RaidCounterComparator());
+        Collections.sort(allCounters, new CounterTDOComparator());
 
         List<RaidCounterInstance> uniqueCounters = new ArrayList<RaidCounterInstance>();
 
@@ -187,7 +187,19 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             @Override
             public int compare(RaidCounterInstance o1, RaidCounterInstance o2)
             {
-                return o2.getCount() - o1.getCount();
+                //higher count better
+                int compare = o2.getCount() - o1.getCount();
+                if (compare == 0)
+                {
+                    //lower level better
+                    compare = o1.getLevel() - o2.getLevel();
+                    if (compare == 0)
+                    {
+                        //alphabetical
+                        compare = o1.getName().compareTo(o2.getName());
+                    }
+                }
+                return compare;
             }
         });
 
@@ -269,15 +281,28 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     }
 
 
-    private class RaidCounterComparator implements Comparator<RaidCounterInstance>
+    private class CounterTDOComparator implements Comparator<RaidCounterInstance>
     {
         public int compare(RaidCounterInstance o1, RaidCounterInstance o2)
         {
-            if (o2.getDps4tdo() > o1.getDps4tdo())
+            //higher tdo better
+            double compare = o2.getDps4tdo() - o1.getDps4tdo();
+            if (compare == 0.0)
+            {
+                //lower level better
+                compare = o1.getLevel() - o2.getLevel();
+                if (compare == 0.0)
+                {
+                    //alphabetical
+                    compare = o1.getName().compareTo(o2.getName());
+                }
+            }
+
+            if (compare > 0.0)
             {
                 return 1;
             }
-            if (o2.getDps4tdo() < o1.getDps4tdo())
+            if (compare < 0.0)
             {
                 return -1;
             }
