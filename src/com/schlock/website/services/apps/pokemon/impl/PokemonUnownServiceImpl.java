@@ -130,7 +130,11 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
 
             Arrays.asList("Safari Zone Seville, Spain", "E", "5/13/2022", "5/15/2022", "Europe", WorldRegion.EUROPE),
 
-            Arrays.asList("Go Fest 2022", "BGOU", "6/4/2022", "6/5/2022", "Global", WorldRegion.GLOBAL, Boolean.TRUE)
+            Arrays.asList("Go Fest 2022", "BGOU", "6/4/2022", "6/5/2022", "Global", WorldRegion.GLOBAL, Boolean.TRUE),
+
+            Arrays.asList("Go Fest 2022 Berlin", "ABELRSTU", "7/1/2022", "7/3/2022", "Europe", WorldRegion.EUROPE),
+            Arrays.asList("Go Fest 2022 Seattle", "ABELRSTU", "7/22/2022", "7/24/2022", "US", WorldRegion.NORTH_AMERICA),
+            Arrays.asList("Go Fest 2022 Sapporo", "ABELRSTU", "8/5/2022", "8/7/2022", "Japan", WorldRegion.JAPAN)
     };
 
     private List<UnownPokemon> listOfUnown = new ArrayList<UnownPokemon>();
