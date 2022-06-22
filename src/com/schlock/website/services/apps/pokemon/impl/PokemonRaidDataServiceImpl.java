@@ -111,6 +111,8 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
     private HashMap<Integer, Double> cpmData = new HashMap<Integer, Double>();
 
+    private Set<RaidCounter> customCounters = new HashSet<RaidCounter>();
+
     private final DeploymentContext deploymentContext;
 
     public PokemonRaidDataServiceImpl(DeploymentContext deploymentContext)
@@ -125,6 +127,8 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         {
             addOverwrites();
         }
+
+        createCustomCounters();
     }
 
 
@@ -182,6 +186,73 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
         RaidMove brutalSwing = RaidMove.createFromJSON(object);
         raidMoveData.put(brutalSwing.getName(), brutalSwing);
+    }
+
+    private void createCustomCounters()
+    {
+        addCustom("Shadow Machamp", 50, 14, 13, 15, "Counter", "Dynamic Punch");
+        addCustom("Shadow Mamoswine", 40, 8, 14, 14, "Powder Snow", "Avalanche");
+        addCustom("Shadow Metagross", 30, 14, 8, 12, "Bullet Punch", "Meteor Mash");
+        addCustom("Shadow Weavile", 30, 14, 14, 1, "Ice Shard", "Avalanche");
+        addCustom("Shadow Metagross", 25, 10, 14, 13, "Bullet Punch", "Meteor Mash");
+        addCustom("Shadow Machamp", 29, 14, 10, 11, "Counter", "Dynamic Punch");
+        addCustom("Shadow Lugia", 15, 13, 10, 15, "Extrasensory", "Aeroblast+");
+        addCustom("Shadow Dragonite", 40, 15, 14, 10, "Dragon Tail", "Outrage");
+
+        addCustom("Mega Gengar", 50, 15, 15, 15, "Shadow Claw", "Shadow Ball, Shadow Punch");
+
+        addCustom("Swampert", 50, 15, 15, 15, "Water Gun", "Hydro Cannon, Muddy Water");
+
+        addCustom("Tyranitar", 40, 15, 15, 12, "Smack Down", "Stone Edge");
+
+        addCustom("Melmetal", 50, 13, 15, 15, "Thunder Shock", "Rock Slide, Thunderbolt");
+
+        addCustom("Dialga", 45, 14, 15, 15, "Dragon Breath", "Iron Head, Draco Meteor");
+        addCustom("Garchomp", 50, 15, 14, 15, "Dragon Tail", "Earth Power, Outrage");
+
+        addCustom("Garchomp", 50, 14, 13, 15, "Mud Shot", "Earth Power");
+
+        addCustom("Mewtwo", 40, 13, 13, 15, "Confusion", "Psystrike, Ice Beam");
+
+        addCustom("Tyranitar", 40, 14, 8, 12, "Smack Down", "Stone Edge, Crunch");
+        addCustom("Torterra", 40, 15, 15, 12, "Razor Leaf", "Frenzy Plant, Sand Tomb");
+        addCustom("Lucario", 35, 13, 14, 13, "Counter", "Aura Sphere, Power-Up Punch");
+        addCustom("Swampert", 41, 13, 15, 15, "Mud Shot", "Hydro Cannon, Muddy Water");
+        addCustom("Metagross", 40, 13, 12, 10, "Bullet Punch", "Meteor Mash, Psychic");
+        addCustom("Togekiss", 40, 13, 14, 14, "Charm", "Dazzling Gleam, Ancient Power");
+        addCustom("Tyranitar", 40, 12, 13, 15, "Bite", "Crunch");
+        addCustom("Gyarados", 40, 15, 15, 15, "Bite", "Crunch");
+
+        addCustom("Emboar", 50, 15, 15, 14, "Ember", "Blast Burn");
+        addCustom("Chandelure", 40, 14, 12, 12);
+        addCustom("Mega Charizard Y", 44, 12, 14, 15, "Fire Spin", "Blast Burn, Dragon Claw");
+        addCustom("Mega Charizard X", 44, 12, 14, 15, "Fire Spin", "Blast Burn, Dragon Claw");
+        addCustom("Blaziken", 40, 13, 13, 15, null, "Blast Burn, Blaze Kick");
+        addCustom("Chandelure", 32, 13, 14, 7, "Fire Spin", "Overheat");
+        addCustom("Typhlosion", 35, 15, 14, 6, "Incinerate", "Blast Burn");
+        addCustom("Typhlosion", 33, 15, 10, 12, "Incinerate", "Blast Burn");
+        addCustom("Blaziken", 33, 10, 15, 14, "Fire Spin", "Blast Burn, Focus Blast");
+        addCustom("Charizard", 30, 10, 4, 11, "Fire Spin", "Blast Burn");
+        addCustom("Reshiram", 20, 15, 11, 14);
+
+        addCustom("Mega Abomasnow", 45, 14, 14, 15, "Powder Snow", "Weather Ball Ice, Energy Ball");
+    }
+
+    private void addCustom(String name, int level, int attackIV, int defenseIV, int staminaIV)
+    {
+        addCustom(name, level, attackIV , defenseIV, staminaIV, null, null);
+    }
+
+    private void addCustom(String name, int level, int attackIV, int defenseIV, int staminaIV, String fastMoves, String chargeMoves)
+    {
+        RaidPokemonData data = raidPokemonData.get(name);
+        if (data == null)
+        {
+            throw new RuntimeException("Pokemon not found: " + name);
+        }
+
+        RaidCounter counter = RaidCounter.createCustom(data, level, attackIV, defenseIV, staminaIV, fastMoves, chargeMoves);
+        customCounters.add(counter);
     }
 
 
@@ -375,6 +446,10 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
     public Collection<RaidCounter> getSuitableCounterPokemon(RaidCounterType counterType)
     {
+        if(RaidCounterType.CUSTOM.equals(counterType))
+        {
+            return getCustomPokemon();
+        }
         return getAllGeneralPokemon();
     }
 
@@ -423,6 +498,15 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         return getLegendaryBosses().contains(pokemonName);
     }
 
+    private Collection<RaidCounter> getCustomPokemon()
+    {
+        if (customCounters.isEmpty())
+        {
+            createCustomCounters();
+        }
+        return customCounters;
+    }
+
     public List<RaidBoss> getRaidBosses()
     {
         if (raidBosses.isEmpty())
@@ -455,6 +539,7 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
     private List<String> getRaidBossNames()
     {
         List<String> names = new ArrayList<String>();
+        names.add("Zweilous");
         names.addAll(GEN1_BOSSES);
         names.addAll(GEN2_BOSSES);
         names.addAll(GEN3_BOSSES);
