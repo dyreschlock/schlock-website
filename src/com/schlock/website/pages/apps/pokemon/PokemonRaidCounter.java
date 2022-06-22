@@ -39,9 +39,9 @@ public class PokemonRaidCounter
 
     Object onActivate(String parameter)
     {
-        if(RaidCounterType.PERSONAL.toString().equalsIgnoreCase(parameter))
+        if(RaidCounterType.CUSTOM.toString().equalsIgnoreCase(parameter))
         {
-            this.counterType = RaidCounterType.PERSONAL;
+            this.counterType = RaidCounterType.CUSTOM;
         }
         else if(RaidCounterType.GENERAL.toString().equalsIgnoreCase(parameter))
         {

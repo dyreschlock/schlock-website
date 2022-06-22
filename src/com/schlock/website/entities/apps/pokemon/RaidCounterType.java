@@ -2,7 +2,7 @@ package com.schlock.website.entities.apps.pokemon;
 
 public enum RaidCounterType
 {
-    GENERAL, PERSONAL;
+    GENERAL, CUSTOM;
 
     public static RaidCounterType defaultType()
     {
