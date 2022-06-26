@@ -2,6 +2,8 @@ package com.schlock.website.services.apps.pokemon.impl;
 
 import com.schlock.website.entities.apps.pokemon.*;
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.apps.pokemon.PokemonRaidCustomCounterPrimeService;
+import com.schlock.website.services.apps.pokemon.PokemonRaidCustomCounterSecondService;
 import com.schlock.website.services.apps.pokemon.PokemonRaidDataService;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
@@ -111,12 +113,19 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
     private HashMap<Integer, Double> cpmData = new HashMap<Integer, Double>();
 
-    private Set<RaidCounter> customCounters = new HashSet<RaidCounter>();
+
+    private final PokemonRaidCustomCounterPrimeService customPrimeService;
+    private final PokemonRaidCustomCounterSecondService customSecondService;
 
     private final DeploymentContext deploymentContext;
 
-    public PokemonRaidDataServiceImpl(DeploymentContext deploymentContext)
+    public PokemonRaidDataServiceImpl(PokemonRaidCustomCounterPrimeService customPrimeService,
+                                        PokemonRaidCustomCounterSecondService customSecondService,
+                                        DeploymentContext deploymentContext)
     {
+        this.customPrimeService = customPrimeService;
+        this.customSecondService = customSecondService;
+
         this.deploymentContext = deploymentContext;
 
         loadCpmJSON();
@@ -127,8 +136,6 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         {
             addOverwrites();
         }
-
-        createCustomCounters();
     }
 
 
@@ -136,7 +143,24 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
     {
         createBrutalSwing();
 
+        //Possible Dark Void stats
+//        copyStatsCreateNewMove("Dark Void (DD)", "Dark", "Doom Desire");
+//        addMoveToPokemon("Darkrai", "Dark Void (DD)");
+//
+//        copyStatsCreateNewMove("Dark Void (Cr)", "Dark", "Crabhammer");
+//        addMoveToPokemon("Darkrai", "Dark Void (Cr)");
+//
+//        copyStatsCreateNewMove("Dark Void (MM)", "Dark", "Meteor Mash");
+//        addMoveToPokemon("Darkrai", "Dark Void (MM)");
+//
+//        copyStatsCreateNewMove("Dark Void (Psy)", "Dark", "Psystrike");
+//        addMoveToPokemon("Darkrai", "Dark Void (Psy)");
+//
+//        copyStatsCreateNewMove("Dark Void (OP)", "Dark", "Origin Pulse");
+//        addMoveToPokemon("Darkrai", "Dark Void (OP)");
+
         addMoveToPokemon("Hydreigon", "Brutal Swing");
+        addMoveToPokemon("Rhyhorn", "Earthquake");
 
         addMoveToPokemon("Xurkitree", "Thunder Shock", "Discharge");
 
@@ -171,6 +195,33 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         }
     }
 
+    private void copyStatsCreateNewMove(String newMoveName, String type, String oldMoveName)
+    {
+        RaidMove oldMove = raidMoveData.get(oldMoveName);
+        if (oldMove == null)
+        {
+            throw new RuntimeException("Move not found: " + oldMoveName);
+        }
+
+        JSONObject object = new JSONObject();
+        object.put(RaidMove.TITLE, newMoveName);
+        object.put(RaidMove.TYPE, type);
+        object.put(RaidMove.CATEGORY, oldMove.getCategory());
+        object.put(RaidMove.POWER, oldMove.getPower());
+        object.put(RaidMove.COOLDOWN, oldMove.getCooldown());
+        object.put(RaidMove.ENERGY_GAIN, oldMove.getEnergyGain());
+        object.put(RaidMove.ENERGY_COST, oldMove.getEnergyCost());
+        object.put(RaidMove.DODGE_WINDOW, oldMove.getDodgeWindow());
+        object.put(RaidMove.DAMAGE_WINDOW, oldMove.getDamageWindow());
+
+        RaidMove newMove = RaidMove.createFromJSON(object);
+        if (raidMoveData.get(newMove.getName()) != null)
+        {
+            throw new RuntimeException(newMoveName + " already exists.");
+        }
+        raidMoveData.put(newMoveName, newMove);
+    }
+
     private void createBrutalSwing()
     {
         JSONObject object = new JSONObject();
@@ -178,81 +229,19 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         object.put(RaidMove.TYPE, "Dark");
         object.put(RaidMove.CATEGORY, "Charge Move");
         object.put(RaidMove.POWER, "65");
-        object.put(RaidMove.COOLDOWN, "1.70");
+        object.put(RaidMove.COOLDOWN, "1.90");
         object.put(RaidMove.ENERGY_GAIN, "");
-        object.put(RaidMove.ENERGY_COST, "-50");
-        object.put(RaidMove.DODGE_WINDOW, "0.20 seconds");
-        object.put(RaidMove.DAMAGE_WINDOW, "1.40 seconds");
+        object.put(RaidMove.ENERGY_COST, "-33");
+        object.put(RaidMove.DODGE_WINDOW, "0.40 seconds");
+        object.put(RaidMove.DAMAGE_WINDOW, "1.20 seconds");
 
         RaidMove brutalSwing = RaidMove.createFromJSON(object);
-        raidMoveData.put(brutalSwing.getName(), brutalSwing);
-    }
 
-    private void createCustomCounters()
-    {
-        addCustom("Shadow Machamp", 50, 14, 13, 15, "Counter", "Dynamic Punch");
-        addCustom("Shadow Mamoswine", 40, 8, 14, 14, "Powder Snow", "Avalanche");
-        addCustom("Shadow Metagross", 30, 14, 8, 12, "Bullet Punch", "Meteor Mash");
-        addCustom("Shadow Weavile", 30, 14, 14, 1, "Ice Shard", "Avalanche");
-        addCustom("Shadow Metagross", 25, 10, 14, 13, "Bullet Punch", "Meteor Mash");
-        addCustom("Shadow Machamp", 29, 14, 10, 11, "Counter", "Dynamic Punch");
-        addCustom("Shadow Lugia", 15, 13, 10, 15, "Extrasensory", "Aeroblast+");
-        addCustom("Shadow Dragonite", 40, 15, 14, 10, "Dragon Tail", "Outrage");
-
-        addCustom("Mega Gengar", 50, 15, 15, 15, "Shadow Claw", "Shadow Ball, Shadow Punch");
-
-        addCustom("Swampert", 50, 15, 15, 15, "Water Gun", "Hydro Cannon, Muddy Water");
-
-        addCustom("Tyranitar", 40, 15, 15, 12, "Smack Down", "Stone Edge");
-
-        addCustom("Melmetal", 50, 13, 15, 15, "Thunder Shock", "Rock Slide, Thunderbolt");
-
-        addCustom("Dialga", 45, 14, 15, 15, "Dragon Breath", "Iron Head, Draco Meteor");
-        addCustom("Garchomp", 50, 15, 14, 15, "Dragon Tail", "Earth Power, Outrage");
-
-        addCustom("Garchomp", 50, 14, 13, 15, "Mud Shot", "Earth Power");
-
-        addCustom("Mewtwo", 40, 13, 13, 15, "Confusion", "Psystrike, Ice Beam");
-
-        addCustom("Tyranitar", 40, 14, 8, 12, "Smack Down", "Stone Edge, Crunch");
-        addCustom("Torterra", 40, 15, 15, 12, "Razor Leaf", "Frenzy Plant, Sand Tomb");
-        addCustom("Lucario", 35, 13, 14, 13, "Counter", "Aura Sphere, Power-Up Punch");
-        addCustom("Swampert", 41, 13, 15, 15, "Mud Shot", "Hydro Cannon, Muddy Water");
-        addCustom("Metagross", 40, 13, 12, 10, "Bullet Punch", "Meteor Mash, Psychic");
-        addCustom("Togekiss", 40, 13, 14, 14, "Charm", "Dazzling Gleam, Ancient Power");
-        addCustom("Tyranitar", 40, 12, 13, 15, "Bite", "Crunch");
-        addCustom("Gyarados", 40, 15, 15, 15, "Bite", "Crunch");
-
-        addCustom("Emboar", 50, 15, 15, 14, "Ember", "Blast Burn");
-        addCustom("Chandelure", 40, 14, 12, 12);
-        addCustom("Mega Charizard Y", 44, 12, 14, 15, "Fire Spin", "Blast Burn, Dragon Claw");
-        addCustom("Mega Charizard X", 44, 12, 14, 15, "Fire Spin", "Blast Burn, Dragon Claw");
-        addCustom("Blaziken", 40, 13, 13, 15, null, "Blast Burn, Blaze Kick");
-        addCustom("Chandelure", 32, 13, 14, 7, "Fire Spin", "Overheat");
-        addCustom("Typhlosion", 35, 15, 14, 6, "Incinerate", "Blast Burn");
-        addCustom("Typhlosion", 33, 15, 10, 12, "Incinerate", "Blast Burn");
-        addCustom("Blaziken", 33, 10, 15, 14, "Fire Spin", "Blast Burn, Focus Blast");
-        addCustom("Charizard", 30, 10, 4, 11, "Fire Spin", "Blast Burn");
-        addCustom("Reshiram", 20, 15, 11, 14);
-
-        addCustom("Mega Abomasnow", 45, 14, 14, 15, "Powder Snow", "Weather Ball Ice, Energy Ball");
-    }
-
-    private void addCustom(String name, int level, int attackIV, int defenseIV, int staminaIV)
-    {
-        addCustom(name, level, attackIV , defenseIV, staminaIV, null, null);
-    }
-
-    private void addCustom(String name, int level, int attackIV, int defenseIV, int staminaIV, String fastMoves, String chargeMoves)
-    {
-        RaidPokemonData data = raidPokemonData.get(name);
-        if (data == null)
+        if (raidMoveData.get(brutalSwing.getName()) != null)
         {
-            throw new RuntimeException("Pokemon not found: " + name);
+            throw new RuntimeException(brutalSwing.getName() + " already exists.");
         }
-
-        RaidCounter counter = RaidCounter.createCustom(data, level, attackIV, defenseIV, staminaIV, fastMoves, chargeMoves);
-        customCounters.add(counter);
+        raidMoveData.put(brutalSwing.getName(), brutalSwing);
     }
 
 
@@ -444,11 +433,16 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         return cpmData.get(level);
     }
 
+    public RaidMove getMoveByName(String name)
+    {
+        return raidMoveData.get(name);
+    }
+
     public Collection<RaidCounter> getSuitableCounterPokemon(RaidCounterType counterType)
     {
         if(RaidCounterType.CUSTOM.equals(counterType))
         {
-            return getCustomPokemon();
+            return customPrimeService.getCustomPokemon();
         }
         return getAllGeneralPokemon();
     }
@@ -498,15 +492,6 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         return getLegendaryBosses().contains(pokemonName);
     }
 
-    private Collection<RaidCounter> getCustomPokemon()
-    {
-        if (customCounters.isEmpty())
-        {
-            createCustomCounters();
-        }
-        return customCounters;
-    }
-
     public List<RaidBoss> getRaidBosses()
     {
         if (raidBosses.isEmpty())
@@ -514,6 +499,20 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
             generateRaidBosses();
         }
         return raidBosses;
+    }
+
+    public RaidPokemonData getDataByName(String name)
+    {
+        if (raidPokemonData.isEmpty())
+        {
+            loadRaidPokemonDataJSON();
+        }
+        RaidPokemonData data = raidPokemonData.get(name);
+        if (data == null)
+        {
+            throw new RuntimeException("Pokemon Not Found: " + name);
+        }
+        return data;
     }
 
     private void generateRaidBosses()
@@ -539,7 +538,6 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
     private List<String> getRaidBossNames()
     {
         List<String> names = new ArrayList<String>();
-        names.add("Zweilous");
         names.addAll(GEN1_BOSSES);
         names.addAll(GEN2_BOSSES);
         names.addAll(GEN3_BOSSES);

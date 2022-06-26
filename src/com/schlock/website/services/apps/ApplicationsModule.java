@@ -43,6 +43,10 @@ public class ApplicationsModule
         binder.bind(PokemonRaidCounterService.class, PokemonRaidCounterServiceImpl.class);
         binder.bind(PokemonRaidCounterCalculationService.class, PokemonRaidCounterCalculationServiceImpl.class);
         binder.bind(PokemonRaidDataService.class, PokemonRaidDataServiceImpl.class);
+
+        binder.bind(PokemonRaidCustomCounterPrimeService.class, PokemonRaidCustomCounterPrimeServiceImpl.class);
+        binder.bind(PokemonRaidCustomCounterSecondService.class, PokemonRaidCustomCounterSecondServiceImpl.class);
+
         binder.bind(PokemonRocketCounterService.class, PokemonRocketCounterServiceImpl.class);
         binder.bind(PokemonUnownService.class, PokemonUnownServiceImpl.class);
     }

@@ -6,6 +6,7 @@ import com.schlock.website.entities.apps.pokemon.RaidCounterType;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.List;
@@ -14,6 +15,9 @@ public class PokemonRaidCounter
 {
     @Inject
     private PokemonRaidCounterService counterService;
+
+    @Inject
+    private Messages messages;
 
     @Property
     private RaidBoss currentRaidBoss;
@@ -52,6 +56,21 @@ public class PokemonRaidCounter
             this.counterType = RaidCounterType.defaultType();
         }
         return true;
+    }
+
+    public String getCurrentCounterPokemonLevel()
+    {
+        Integer level = currentCounterPokemon.getLevel();
+        if (RaidCounterType.CUSTOM.equals(counterType))
+        {
+            Integer attackIV = currentCounterPokemon.getAttackIV();
+            Integer defenseIV = currentCounterPokemon.getDefenseIV();
+            Integer staminaIV = currentCounterPokemon.getStaminaIV();
+
+            String msg = messages.format("custom-level", level, attackIV, defenseIV, staminaIV);
+            return msg;
+        }
+        return level.toString();
     }
 
 

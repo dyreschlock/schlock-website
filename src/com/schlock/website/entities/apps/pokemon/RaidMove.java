@@ -59,6 +59,11 @@ public class RaidMove
         return dodgeWindow;
     }
 
+    public String getCategory()
+    {
+        return category;
+    }
+
     public boolean isChargeMove()
     {
         return CHARGE_MOVE.equalsIgnoreCase(category);
@@ -102,14 +107,14 @@ public class RaidMove
     public static final String TYPE = "move_type";
     public static final String CATEGORY = "move_category";
 
-    public static final String POWER = "power";
-    public static final String COOLDOWN = "cooldown";
+    public static final String POWER = "power"; // Power is the same as Damage
+    public static final String COOLDOWN = "cooldown"; // Cooldown is the same as Duration
 
     public static final String ENERGY_GAIN = "energy_gain";
     public static final String ENERGY_COST = "energy_cost";
 
-    public static final String DODGE_WINDOW = "dodge_window";
-    public static final String DAMAGE_WINDOW = "damage_window";
+    public static final String DODGE_WINDOW = "dodge_window"; // this is Damage End - Damage Start
+    public static final String DAMAGE_WINDOW = "damage_window"; // this is the same as Damage Start
 
     public static RaidMove createFromJSON(JSONObject object)
     {

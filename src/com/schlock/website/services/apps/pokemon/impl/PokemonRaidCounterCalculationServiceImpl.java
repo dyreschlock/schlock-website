@@ -568,7 +568,7 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
         String chargeName = chargeMove.getName();
 
 
-        RaidCounterInstance counter = new RaidCounterInstance(name, fastName, chargeName, raidCounter.getLevel(), dps, tdo, dps3tdo);
+        RaidCounterInstance counter = new RaidCounterInstance(raidCounter, fastName, chargeName, dps, tdo, dps3tdo);
         return counter;
     }
 

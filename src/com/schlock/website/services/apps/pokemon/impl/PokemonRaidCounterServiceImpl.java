@@ -95,6 +95,9 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     private static final String PSYSTRIKE = "Psystrike";
     private static final String PSYCHIC = "Psychic";
 
+    private static final String DARKRAI = "Darkrai";
+    private static final String DARK_TYPE = "Dark";
+
     private List<RaidCounterInstance> filterListForBest(List<RaidCounterInstance> counterList)
     {
         List<RaidCounterInstance> allCounters = new ArrayList<RaidCounterInstance>();
@@ -119,6 +122,15 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             }
             else
             {
+                if (DARKRAI.equalsIgnoreCase(counter.getName()))
+                {
+                    RaidMove move = dataService.getMoveByName(counter.getChargeMove());
+                    if (topFast.equals(counter.getFastMove()) && DARK_TYPE.equalsIgnoreCase(move.getType()))
+                    {
+                        uniqueCounters.add(counter);
+                    }
+                }
+
                 if (GENGAR.equalsIgnoreCase(counter.getName()))
                 {
                     if (LICK.equalsIgnoreCase(topFast) && SHADOW_CLAW.equalsIgnoreCase(counter.getFastMove()))

@@ -11,18 +11,26 @@ public class RaidCounterInstance implements Comparable<RaidCounterInstance>
 
     private int level;
 
+    private int attackIV;
+    private int defenseIV;
+    private int staminaIV;
+
     private double dps;
     private double tdo;
     private double dps3tdo;
 
     private int count = 1;
 
-    public RaidCounterInstance(String name, String fastMove, String chargeMove, int level, double dps, double tdo, double dps3tdo)
+    public RaidCounterInstance(RaidCounter counter, String fastMove, String chargeMove, double dps, double tdo, double dps3tdo)
     {
-        this.name = name;
+        this.name = counter.getName();
+        this.level = counter.getLevel();
+        this.attackIV = counter.getAttackIV();
+        this.defenseIV = counter.getDefenseIV();
+        this.staminaIV = counter.getStaminaIV();
+
         this.fastMove = fastMove;
         this.chargeMove = chargeMove;
-        this.level = level;
 
         this.dps = formatDouble("%.3f", dps);
         this.tdo = formatDouble("%.1f", tdo);
@@ -87,6 +95,36 @@ public class RaidCounterInstance implements Comparable<RaidCounterInstance>
     public void setLevel(int level)
     {
         this.level = level;
+    }
+
+    public int getAttackIV()
+    {
+        return attackIV;
+    }
+
+    public void setAttackIV(int attackIV)
+    {
+        this.attackIV = attackIV;
+    }
+
+    public int getDefenseIV()
+    {
+        return defenseIV;
+    }
+
+    public void setDefenseIV(int defenseIV)
+    {
+        this.defenseIV = defenseIV;
+    }
+
+    public int getStaminaIV()
+    {
+        return staminaIV;
+    }
+
+    public void setStaminaIV(int staminaIV)
+    {
+        this.staminaIV = staminaIV;
     }
 
     public double getDps() { return dps; }

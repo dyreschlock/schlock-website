@@ -32,6 +32,7 @@
         td.Giratina {       background-color: #f2e6ff; }
 
         td.Darkrai {        background-color: #e0e0eb; }
+        td.Hydreigon {      background-color: #d1d7ee; }
 
         td.Blaziken {       background-color: #ffccb3; }
         td.Charizard {      background-color: #ffccb3; }
@@ -80,7 +81,7 @@
             <t:loop source="topMegaPokemon" value="currentCounterPokemon">
                 <td class="${currentCounterPokemon.name}">
                     ${currentCounterPokemon.name}<br/>
-                    <b>${currentCounterPokemon.level}</b><br/>
+                    <b>${currentCounterPokemonLevel}</b><br/>
                     ${currentCounterPokemon.fastMove}<br/>
                     ${currentCounterPokemon.chargeMove}<br/>
                     <b>${currentCounterPokemon.count}</b>
@@ -92,7 +93,7 @@
             <t:loop source="topShadowPokemon" value="currentCounterPokemon">
                 <td class="${currentCounterPokemon.name}">
                     ${currentCounterPokemon.name}<br/>
-                    <b>${currentCounterPokemon.level}</b><br/>
+                    <b>${currentCounterPokemonLevel}</b><br/>
                     ${currentCounterPokemon.fastMove}<br/>
                     ${currentCounterPokemon.chargeMove}<br/>
                     <b>${currentCounterPokemon.count}</b>
@@ -104,7 +105,7 @@
             <t:loop source="topRegularPokemon" value="currentCounterPokemon">
                 <td class="${currentCounterPokemon.name}">
                     ${currentCounterPokemon.name}<br/>
-                    <b>${currentCounterPokemon.level}</b><br/>
+                    <b>${currentCounterPokemonLevel}</b><br/>
                     ${currentCounterPokemon.fastMove}<br/>
                     ${currentCounterPokemon.chargeMove}<br/>
                     <b>${currentCounterPokemon.count}</b>
@@ -122,7 +123,7 @@
                 <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
                     <td class="${currentCounterPokemon.name} ${columnIndex}">
                         ${currentCounterPokemon.name}<br/>
-                        <b>${currentCounterPokemon.level}</b><br/>
+                        <b>${currentCounterPokemonLevel}</b><br/>
                         ${currentCounterPokemon.fastMove}<br/>
                         ${currentCounterPokemon.chargeMove}<br/>
                         ${currentCounterPokemon.dps}<br/>
