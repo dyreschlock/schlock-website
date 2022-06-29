@@ -14,6 +14,7 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
 
     private static final double MEGA_POKEMON_STAT_MULTIPLIER = 1.1;
 
+    private static final double BEST_FRIEND_ATTACK_BONUS = 1.1;
     private static final double SAME_TYPE_ATTACK_BONUS = 1.2;
     private static final double SAME_TYPE_ATTACK_BONUS_MEGA = 1.3;
 
@@ -522,8 +523,8 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
 
         double stamina = getStamina(raidCounter);
 
-        double fastDamage = generateDamage(raidCounter, fastMove, raidBoss);
-        double chargeDamage = generateDamage(raidCounter, chargeMove, raidBoss);
+        double fastDamage = generateDamage(raidCounter, fastMove, raidBoss, true);
+        double chargeDamage = generateDamage(raidCounter, chargeMove, raidBoss, true);
 
         double fastEnergyDelta = fastMove.getEnergyDelta();
         double chargeEnergyDelta = -chargeMove.getEnergyDelta();
@@ -661,6 +662,12 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
 
     private double generateDamage(AbstractRaidPokemon attacker, RaidMove move, AbstractRaidPokemon defender)
     {
+        return generateDamage(attacker, move, defender, false);
+    }
+
+
+    private double generateDamage(AbstractRaidPokemon attacker, RaidMove move, AbstractRaidPokemon defender, boolean bestFriendBonus)
+    {
         final String MOVE_TYPE = move.getType();
 
         final String ATTACKER_TYPE1 = attacker.getType1();
@@ -686,6 +693,11 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
         if (attacker.isShadow())
         {
             attack *= SHADOW_ATTACK_MULTIPLIER;
+        }
+
+        if (bestFriendBonus)
+        {
+            attack *= BEST_FRIEND_ATTACK_BONUS;
         }
 
         double defense = getDefense(defender);
