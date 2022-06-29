@@ -162,6 +162,9 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         addMoveToPokemon("Hydreigon", "Brutal Swing");
         addMoveToPokemon("Rhyhorn", "Earthquake");
 
+        addMoveToPokemon("Staraptor", "Gust");
+        addMoveToPokemon("Shadow Staraptor", "Gust");
+
         addMoveToPokemon("Xurkitree", "Thunder Shock", "Discharge");
 
         addMoveToPokemon("Buzzwole", "Counter", "Poison Jab", "Power-Up Punch", "Fell Stinger", "Lunge", "Superpower");
