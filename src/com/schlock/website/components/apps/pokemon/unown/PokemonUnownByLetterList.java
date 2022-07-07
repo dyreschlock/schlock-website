@@ -1,4 +1,4 @@
-package com.schlock.website.components.apps.pokemon;
+package com.schlock.website.components.apps.pokemon.unown;
 
 import com.schlock.website.entities.apps.pokemon.UnownPokemon;
 import com.schlock.website.services.apps.pokemon.PokemonUnownService;
@@ -6,10 +6,9 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class PokemonUnownRarityList
+public class PokemonUnownByLetterList
 {
     @Inject
     private PokemonUnownService unownService;
@@ -21,21 +20,13 @@ public class PokemonUnownRarityList
     @Property
     private UnownPokemon currentUnown;
 
-    @Property
-    private String currentYear;
-
     public List<UnownPokemon> getUnown()
     {
-        return unownService.getListOfUnownByRarity();
+        return unownService.getListOfUnownByLetter();
     }
 
-    public List<String> getYears()
+    public String getEventNamesForCurrentUnown()
     {
-        return unownService.getEventYears();
-    }
-
-    public String getEventsByCurrentYear()
-    {
-        return unownService.getEventNamesForUnownByYear(currentUnown, currentYear);
+        return unownService.getEventNamesForUnown(currentUnown);
     }
 }

@@ -1,4 +1,4 @@
-package com.schlock.website.components.apps.pokemon;
+package com.schlock.website.components.apps.pokemon.unown;
 
 import com.schlock.website.entities.apps.pokemon.UnownEvent;
 import com.schlock.website.services.apps.pokemon.PokemonUnownService;

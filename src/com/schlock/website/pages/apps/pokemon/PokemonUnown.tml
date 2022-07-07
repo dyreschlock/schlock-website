@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html t:type="layout" title="${message:page-title}"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-      xmlns:p="tapestry-library:apps/pokemon"
+      xmlns:u="tapestry-library:apps/pokemon/unown"
 >
 <head>
     <title>${message:page-title}</title>
@@ -54,13 +54,13 @@
 </head>
 <body>
 
-    <p:PokemonUnownCustomList />
+    <u:PokemonUnownCustomList />
 
-    <p:PokemonUnownRarityList />
+    <u:PokemonUnownRarityList />
 
-    <p:PokemonUnownByLetterList />
+    <u:PokemonUnownByLetterList />
 
-    <p:PokemonUnownEventsList />
+    <u:PokemonUnownEventsList />
 
 </body>
 </html>
