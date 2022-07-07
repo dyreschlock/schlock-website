@@ -32,7 +32,7 @@ public class PokemonRaidCustomCounterPrimeServiceImpl extends AbstractRaidCustom
         addCustom("Mega Gyarados", 50, 15, 14, 14, "Waterfall", "Aqua Tail, Hydro Pump");
         addCustom("Mega Gyarados", 40, 15, 15, 15, "Bite", "Crunch");
 
-        addCustom("Mega Aerodactyl", 40, 15, 13, 14, "Rock Throw", "Rock Slide");
+        addCustom("Mega Aerodactyl", 45, 15, 13, 14, "Rock Throw", "Rock Slide");
         addCustom("Mega Ampharos", 39, 15, 15, 15, null, "Dragon Pulse, Zap Cannon");
         addCustom("Mega Steelix", 30, 13, 13, 12, "Iron Tail", "Heavy Slam");
         addCustom("Mega Houndoom", 30, 14, 15, 14, "Snarl", "Foul Play");
@@ -59,6 +59,7 @@ public class PokemonRaidCustomCounterPrimeServiceImpl extends AbstractRaidCustom
         addCustom("Shadow Machamp", 29, 14, 10, 11, "Counter", "Dynamic Punch");
         addCustom("Shadow Lugia", 15, 13, 10, 15, "Extrasensory", "Aeroblast+");
         addCustom("Shadow Dragonite", 40, 15, 14, 10, "Dragon Tail", "Outrage");
+
         addCustom("Shadow Tyranitar", 15, 14, 8, 14, "Smack Down", "Stone Edge");
     }
 
@@ -140,17 +141,17 @@ public class PokemonRaidCustomCounterPrimeServiceImpl extends AbstractRaidCustom
         addCustom("Tyranitar", 40, 15, 15, 12, "Smack Down", "Stone Edge");
 
         addCustom("Rampardos", 50, 15, 14, 15, "Smack Down", "Rock Slide");
-        addCustom("Rampardos", 35, 15, 15, 14, "Smack Down", "Rock Slide");
-        addCustom("Rampardos", 35, 11, 14, 8, "Smack Down", "Rock Slide");
+        addCustom("Rampardos", 50, 15, 15, 14, "Smack Down", "Rock Slide");
+        addCustom("Rampardos", 40, 11, 14, 8, "Smack Down", "Rock Slide");
         addCustom("Rampardos", 30, 15, 15, 13, "Smack Down", "Rock Slide");
 
+        addCustom("Rhyperior", 48, 14, 15, 14, "Smack Down", "Rock Wrecker");
+        addCustom("Rhyperior", 40, 15, 15, 11, "Smack Down", "Rock Wrecker");
         addCustom("Rhyperior", 34, 14, 9, 14, "Smack Down", "Rock Wrecker");
-        addCustom("Rhyperior", 32, 15, 15, 11, "Smack Down", "Rock Wrecker");
         addCustom("Rhyperior", 30, 15, 13, 5, "Smack Down", "Rock Wrecker");
         addCustom("Rhyperior", 30, 15, 10, 8, "Smack Down", "Rock Wrecker");
         addCustom("Rhyperior", 30, 10, 12, 8, "Smack Down", "Rock Wrecker");
         addCustom("Rhyperior", 30, 8, 15, 7, "Smack Down", "Rock Wrecker");
-        addCustom("Rhyperior", 28, 14, 15, 14, "Smack Down", "Rock Wrecker");
 
         addCustom("Gigalith", 20, 13, 14, 14, "Smack Down", "Rock Slide");
 
