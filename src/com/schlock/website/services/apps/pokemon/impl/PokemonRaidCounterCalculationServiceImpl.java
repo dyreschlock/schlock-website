@@ -5,6 +5,7 @@ import com.schlock.website.services.apps.pokemon.PokemonRaidCounterCalculationSe
 import com.schlock.website.services.apps.pokemon.PokemonRaidDataService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCounterCalculationService
@@ -745,5 +746,31 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
         Integer level = pokemon.getLevel();
 
         return dataService.getCpmFromLevel(level);
+    }
+
+
+    public Integer getTotalDamageForParty(List<RaidCounterInstance> party)
+    {
+        Integer totalDamage = 0;
+
+        for (RaidCounterInstance pokemon : party)
+        {
+            totalDamage += (int) pokemon.getTdo();
+        }
+        return totalDamage;
+    }
+
+    public Integer getTotalTimeForParty(List<RaidCounterInstance> party)
+    {
+        Integer totalTime = 0;
+
+        for (RaidCounterInstance pokemon : party)
+        {
+            Double damage = pokemon.getTdo();
+            Double dps = pokemon.getDps();
+
+            totalTime += (int) (damage / dps);
+        }
+        return totalTime;
     }
 }

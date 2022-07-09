@@ -17,6 +17,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     private static final int NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON = 8;
     private static final int NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON = 20;
 
+    private static final int PARTY_LIMIT = 6;
 
     private List<RaidCounterInstance> topMegaCounterPokemon = new ArrayList<RaidCounterInstance>();
     private List<RaidCounterInstance> topShadowCounterPokemon = new ArrayList<RaidCounterInstance>();
@@ -231,6 +232,19 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         if (!boss.isCountersGenerated(counterType))
         {
             generateRaidCounters(boss, counterType);
+        }
+
+        if(counterType.isCustom())
+        {
+            List<RaidCounterInstance> counters = new ArrayList<RaidCounterInstance>();
+
+            counters.add(boss.getMegaCounters(counterType).get(0));
+            counters.addAll(boss.getShadowCounters(counterType));
+            counters.addAll(boss.getRegularCounters(counterType));
+
+            Collections.sort(counters, new CounterTDOComparator());
+
+            return counters.subList(0, PARTY_LIMIT);
         }
 
         List<RaidCounterInstance> counters = new ArrayList<RaidCounterInstance>();

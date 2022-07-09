@@ -8,8 +8,13 @@
             <tr>
                 <td class="name">${currentRaidBoss.name}</td>
                 <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
-                    <r:raidCounterDisplay pokemon="currentCounterPokemon" displayDpsDetails="true" extraClass="columnIndex" />
+                    <r:raidCounterDisplay pokemon="currentCounterPokemon" displayDpsDetails="true" />
                 </t:loop>
+
+                <td>
+                    ${totalDamageMessage}<br/>
+                    ${totalTimeMessage}
+                </td>
             </tr>
         </t:loop>
 
