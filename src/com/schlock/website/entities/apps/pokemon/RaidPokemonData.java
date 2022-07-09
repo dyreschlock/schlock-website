@@ -18,10 +18,6 @@ public class RaidPokemonData
     private int baseDefense;
     private int baseStamina;
 
-    private double attack = 0.0;
-    private double defense = 0.0;
-    private double stamina = 0.0;
-
     private int cp;
 
     private boolean hasEvolution;
@@ -85,37 +81,6 @@ public class RaidPokemonData
     public int getBaseStamina()
     {
         return baseStamina;
-    }
-
-
-    public double getAttack()
-    {
-        return attack;
-    }
-
-    public void setAttack(double attack)
-    {
-        this.attack = attack;
-    }
-
-    public double getDefense()
-    {
-        return defense;
-    }
-
-    public void setDefense(double defense)
-    {
-        this.defense = defense;
-    }
-
-    public double getStamina()
-    {
-        return stamina;
-    }
-
-    public void setStamina(double stamina)
-    {
-        this.stamina = stamina;
     }
 
 
@@ -313,5 +278,43 @@ public class RaidPokemonData
         String evoReqs = object.getString(FIELD_EVOLUTION);
 
         return evoReqs != null && !evoReqs.isEmpty();
+    }
+
+    private static final String SHADOW_PRETEXT = "Shadow ";
+
+    public static RaidPokemonData createShadowPokemonFromData(RaidPokemonData oldData)
+    {
+        RaidPokemonData newData = new RaidPokemonData();
+
+        newData.name = SHADOW_PRETEXT + oldData.name;
+        newData.type1 = oldData.type1;
+        newData.type2 = oldData.type2;
+
+        newData.mega = false;
+        newData.shadow = true;
+
+        newData.baseAttack = oldData.baseAttack;
+        newData.baseDefense = oldData.baseDefense;
+        newData.baseStamina = oldData.baseStamina;
+        newData.cp = oldData.cp;
+
+        newData.allChargeMoveNames = oldData.allChargeMoveNames;
+        newData.allFastMoveNames = oldData.allFastMoveNames;
+
+        newData.allChargeMoves = oldData.allChargeMoves;
+        newData.allFastMoves = oldData.allFastMoves;
+
+        newData.standardChargeMoveNames = oldData.standardChargeMoveNames;
+        newData.standardFastMoveNames = oldData.standardFastMoveNames;
+
+        newData.standardChargeMoves = oldData.standardChargeMoves;
+        newData.standardFastMoves = oldData.standardFastMoves;
+
+        newData.lvl20 = oldData.lvl20;
+        newData.lvl30 = oldData.lvl30;
+        newData.lvl35 = oldData.lvl35;
+        newData.lvl40 = oldData.lvl40;
+
+        return newData;
     }
 }

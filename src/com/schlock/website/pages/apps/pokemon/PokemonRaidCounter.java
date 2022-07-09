@@ -1,33 +1,10 @@
 package com.schlock.website.pages.apps.pokemon;
 
-import com.schlock.website.entities.apps.pokemon.RaidCounterInstance;
-import com.schlock.website.entities.apps.pokemon.RaidBoss;
 import com.schlock.website.entities.apps.pokemon.RaidCounterType;
-import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
 import org.apache.tapestry5.annotations.Persist;
-import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.ioc.Messages;
-import org.apache.tapestry5.ioc.annotations.Inject;
-
-import java.util.List;
 
 public class PokemonRaidCounter
 {
-    @Inject
-    private PokemonRaidCounterService counterService;
-
-    @Inject
-    private Messages messages;
-
-    @Property
-    private RaidBoss currentRaidBoss;
-
-    @Property
-    private RaidCounterInstance currentCounterPokemon;
-
-    @Property
-    private Integer currentIndex;
-
     @Persist
     private RaidCounterType counterType;
 
@@ -58,49 +35,8 @@ public class PokemonRaidCounter
         return true;
     }
 
-    public String getCurrentCounterPokemonLevel()
+    public RaidCounterType getCounterType()
     {
-        Integer level = currentCounterPokemon.getLevel();
-        if (RaidCounterType.CUSTOM.equals(counterType))
-        {
-            Integer attackIV = currentCounterPokemon.getAttackIV();
-            Integer defenseIV = currentCounterPokemon.getDefenseIV();
-            Integer staminaIV = currentCounterPokemon.getStaminaIV();
-
-            String msg = messages.format("custom-level", level, attackIV, defenseIV, staminaIV);
-            return msg;
-        }
-        return level.toString();
-    }
-
-
-    public List<RaidBoss> getLegendaryPokemon()
-    {
-        return counterService.getRaidBosses();
-    }
-
-    public List<RaidCounterInstance> getCounterPokemon()
-    {
-        return counterService.getCounterPokemon(currentRaidBoss, counterType);
-    }
-
-    public List<RaidCounterInstance> getTopMegaPokemon()
-    {
-        return counterService.getTopMegaCounterPokemon(counterType);
-    }
-
-    public List<RaidCounterInstance> getTopShadowPokemon()
-    {
-        return counterService.getTopShadowCounterPokemon(counterType);
-    }
-
-    public List<RaidCounterInstance> getTopRegularPokemon()
-    {
-        return counterService.getTopRegularCounterPokemon(counterType);
-    }
-
-    public String getColumnIndex()
-    {
-        return "column" + (currentIndex +1);
+        return counterType;
     }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html t:type="layout" title="${message:page-title}"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-      xmlns:b="tapestry-library:apps/bingo"
+      xmlns:r="tapestry-library:apps/pokemon/raid"
 >
 <head>
     <title>${message:page-title}</title>
@@ -75,64 +75,12 @@
 </head>
 <body>
 
-    <table>
-        <tr>
-            <td class="name">Top Megas</td>
-            <t:loop source="topMegaPokemon" value="currentCounterPokemon">
-                <td class="${currentCounterPokemon.name}">
-                    ${currentCounterPokemon.name}<br/>
-                    <b>${currentCounterPokemonLevel}</b><br/>
-                    ${currentCounterPokemon.fastMove}<br/>
-                    ${currentCounterPokemon.chargeMove}<br/>
-                    <b>${currentCounterPokemon.count}</b>
-                </td>
-            </t:loop>
-        </tr>
-        <tr>
-            <td class="name">Top Shadow</td>
-            <t:loop source="topShadowPokemon" value="currentCounterPokemon">
-                <td class="${currentCounterPokemon.name}">
-                    ${currentCounterPokemon.name}<br/>
-                    <b>${currentCounterPokemonLevel}</b><br/>
-                    ${currentCounterPokemon.fastMove}<br/>
-                    ${currentCounterPokemon.chargeMove}<br/>
-                    <b>${currentCounterPokemon.count}</b>
-                </td>
-            </t:loop>
-        </tr>
-        <tr>
-            <td class="name">Top Regular</td>
-            <t:loop source="topRegularPokemon" value="currentCounterPokemon">
-                <td class="${currentCounterPokemon.name}">
-                    ${currentCounterPokemon.name}<br/>
-                    <b>${currentCounterPokemonLevel}</b><br/>
-                    ${currentCounterPokemon.fastMove}<br/>
-                    ${currentCounterPokemon.chargeMove}<br/>
-                    <b>${currentCounterPokemon.count}</b>
-                </td>
-            </t:loop>
-        </tr>
-    </table>
+    <t:if test="counterType.general">
+        <r:raidcountersgeneral />
+    </t:if>
+    <t:if test="counterType.custom">
+        <r:raidcounterscustom />
+    </t:if>
 
-    <br/><br/><br/>
-
-    <table>
-        <t:loop source="legendaryPokemon" value="currentRaidBoss">
-            <tr>
-                <td class="name">${currentRaidBoss.name}</td>
-                <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
-                    <td class="${currentCounterPokemon.name} ${columnIndex}">
-                        ${currentCounterPokemon.name}<br/>
-                        <b>${currentCounterPokemonLevel}</b><br/>
-                        ${currentCounterPokemon.fastMove}<br/>
-                        ${currentCounterPokemon.chargeMove}<br/>
-                        ${currentCounterPokemon.dps}<br/>
-                        ${currentCounterPokemon.dps4tdoFormat}
-                    </td>
-                </t:loop>
-            </tr>
-        </t:loop>
-
-    </table>
 </body>
 </html>

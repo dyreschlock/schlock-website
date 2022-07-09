@@ -1,0 +1,23 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <td class="${pokemon.name} ${extraClass}">
+
+        ${pokemon.name}<br/>
+        <b>${pokemonLevel}</b><br/>
+        ${pokemon.fastMove}<br/>
+        ${pokemon.chargeMove}
+
+        <t:if test="displayCount">
+            <br/><b>${pokemon.count}</b>
+        </t:if>
+
+        <t:if test="displayDpsDetails">
+            <br/>${pokemon.dps}
+            <br/>${pokemon.tdo}
+            <br/>${pokemon.dps4tdoFormat}
+        </t:if>
+
+    </td>
+
+</t:container>

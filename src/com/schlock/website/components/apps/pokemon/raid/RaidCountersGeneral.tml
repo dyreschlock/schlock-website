@@ -1,0 +1,41 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:r="tapestry-library:apps/pokemon/raid"
+>
+
+    <table>
+        <tr>
+            <td class="name">${message:top-mega}</td>
+            <t:loop source="topMegaPokemon" value="currentCounterPokemon">
+                <r:raidCounterDisplay pokemon="currentCounterPokemon" displayCount="true" />
+            </t:loop>
+        </tr>
+        <tr>
+            <td class="name">${message:top-shadow}</td>
+            <t:loop source="topShadowPokemon" value="currentCounterPokemon">
+                <r:raidCounterDisplay pokemon="currentCounterPokemon" displayCount="true" />
+            </t:loop>
+        </tr>
+        <tr>
+            <td class="name">${message:top-regular}</td>
+            <t:loop source="topRegularPokemon" value="currentCounterPokemon">
+                <r:raidCounterDisplay pokemon="currentCounterPokemon" displayCount="true" />
+            </t:loop>
+        </tr>
+    </table>
+
+    <br/><br/><br/>
+
+    <table>
+        <t:loop source="legendaryPokemon" value="currentRaidBoss">
+            <tr>
+                <td class="name">${currentRaidBoss.name}</td>
+                <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
+                    <r:raidCounterDisplay pokemon="currentCounterPokemon" displayDpsDetails="true" extraClass="columnIndex" />
+                </t:loop>
+            </tr>
+        </t:loop>
+
+    </table>
+
+</t:container>

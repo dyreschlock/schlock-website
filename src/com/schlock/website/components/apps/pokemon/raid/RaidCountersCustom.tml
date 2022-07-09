@@ -1,0 +1,19 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:r="tapestry-library:apps/pokemon/raid"
+>
+
+    <table>
+        <t:loop source="legendaryPokemon" value="currentRaidBoss">
+            <tr>
+                <td class="name">${currentRaidBoss.name}</td>
+                <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
+                    <r:raidCounterDisplay pokemon="currentCounterPokemon" displayDpsDetails="true" extraClass="columnIndex" />
+                </t:loop>
+            </tr>
+        </t:loop>
+
+    </table>
+
+
+</t:container>
