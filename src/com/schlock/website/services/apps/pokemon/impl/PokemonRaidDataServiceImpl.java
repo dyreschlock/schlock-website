@@ -159,6 +159,14 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 //        copyStatsCreateNewMove("Dark Void (OP)", "Dark", "Origin Pulse");
 //        addMoveToPokemon("Darkrai", "Dark Void (OP)");
 
+//        addMoveToPokemon("Greninja", "Hydro Cannon");
+//        addMoveToPokemon("Delphox", "Blast Burn");
+//        addMoveToPokemon("Chesnaught", "Frenzy Plant");
+//
+//        addMoveToPokemon("Decidueye", "Frenzy Plant");
+//        addMoveToPokemon("Incineroar", "Blast Burn");
+//        addMoveToPokemon("Primarina", "Hydro Cannon");
+
         addMoveToPokemon("Hydreigon", "Brutal Swing");
         addMoveToPokemon("Rhyhorn", "Earthquake");
 
@@ -169,6 +177,9 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
         addMoveToPokemon("Buzzwole", "Counter", "Poison Jab", "Power-Up Punch", "Fell Stinger", "Lunge", "Superpower");
         addMoveToPokemon("Pheromosa", "Bug Bite", "Low Kick", "Focus Blast", "Bug Buzz", "Lunge", "Close Combat");
+
+        createShadowPokemon("Luxray");
+        createShadowPokemon("Latios");
     }
 
     private void addMoveToPokemon(String pokemonName, String... moveNames)
@@ -245,6 +256,19 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
             throw new RuntimeException(brutalSwing.getName() + " already exists.");
         }
         raidMoveData.put(brutalSwing.getName(), brutalSwing);
+    }
+
+    private void createShadowPokemon(String pokemonName)
+    {
+        RaidPokemonData pokemon = raidPokemonData.get(pokemonName);
+        if (pokemon == null)
+        {
+            throw new RuntimeException("Pokemon not found: " + pokemonName);
+        }
+
+        RaidPokemonData shadow = RaidPokemonData.createShadowPokemonFromData(pokemon);
+
+        raidPokemonData.put(shadow.getName(), shadow);
     }
 
 
