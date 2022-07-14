@@ -7,14 +7,22 @@
         <t:loop source="legendaryPokemon" value="currentRaidBoss">
             <tr>
                 <td class="name">${currentRaidBoss.name}</td>
-                <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
+                <t:loop source="primeCounterPokemon" value="currentCounterPokemon" index="currentIndex">
                     <r:raidCounterDisplay pokemon="currentCounterPokemon" displayDpsDetails="true" />
                 </t:loop>
 
                 <td>
-                    ${totalDamageMessage}<br/>
-                    ${totalTimeMessage}
+                    ${primeTotalDamageMessage}<br/>
+                    ${primeTotalTimeMessage}<br/><br/>
+
+                    ${secondTotalDamageMessage}<br/>
+                    ${secondTotalTimeMessage}
                 </td>
+
+                <t:loop source="secondCounterPokemon" value="currentCounterPokemon" index="currentIndex">
+                    <r:raidCounterDisplay pokemon="currentCounterPokemon" displayDpsDetails="true" />
+                </t:loop>
+
             </tr>
         </t:loop>
 

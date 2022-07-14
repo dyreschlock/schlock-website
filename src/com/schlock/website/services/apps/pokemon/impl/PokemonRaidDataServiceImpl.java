@@ -469,9 +469,13 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
     public Collection<RaidCounter> getSuitableCounterPokemon(RaidCounterType counterType)
     {
-        if(RaidCounterType.CUSTOM.equals(counterType))
+        if (RaidCounterType.CUSTOM1.equals(counterType))
         {
             return customPrimeService.getCustomPokemon();
+        }
+        if(RaidCounterType.CUSTOM2.equals(counterType))
+        {
+            return customSecondService.getCustomPokemon();
         }
         return getAllGeneralPokemon();
     }

@@ -36,9 +36,14 @@ public class RaidCountersCustom
         return counterService.getRaidBosses();
     }
 
-    public List<RaidCounterInstance> getCounterPokemon()
+    public List<RaidCounterInstance> getPrimeCounterPokemon()
     {
-        return counterService.getCounterPokemon(currentRaidBoss, RaidCounterType.CUSTOM);
+        return counterService.getCounterPokemon(currentRaidBoss, RaidCounterType.CUSTOM1);
+    }
+
+    public List<RaidCounterInstance> getSecondCounterPokemon()
+    {
+        return counterService.getCounterPokemon(currentRaidBoss, RaidCounterType.CUSTOM2);
     }
 
     public String getColumnIndex()
@@ -46,19 +51,39 @@ public class RaidCountersCustom
         return "column" + (currentIndex +1);
     }
 
-    public String getTotalDamageMessage()
+    public String getPrimeTotalDamageMessage()
     {
-        List<RaidCounterInstance> party = getCounterPokemon();
+        List<RaidCounterInstance> party = getPrimeCounterPokemon();
+        return getTotalDamageMessage(party);
+    }
 
+    public String getSecondTotalDamageMessage()
+    {
+        List<RaidCounterInstance> party = getSecondCounterPokemon();
+        return getTotalDamageMessage(party);
+    }
+
+    private String getTotalDamageMessage(List<RaidCounterInstance> party)
+    {
         Integer totalDamage = calculationService.getTotalDamageForParty(party);
 
         return messages.format("total-damage", totalDamage.toString());
     }
 
-    public String getTotalTimeMessage()
+    public String getPrimeTotalTimeMessage()
     {
-        List<RaidCounterInstance> party = getCounterPokemon();
+        List<RaidCounterInstance> party = getPrimeCounterPokemon();
+        return getTotalTimeMessage(party);
+    }
 
+    public String getSecondTotalTimeMessage()
+    {
+        List<RaidCounterInstance> party = getSecondCounterPokemon();
+        return getTotalTimeMessage(party);
+    }
+
+    private String getTotalTimeMessage(List<RaidCounterInstance> party)
+    {
         Integer totalTime = calculationService.getTotalTimeForParty(party);
 
         return messages.format("total-time", totalTime.toString());
