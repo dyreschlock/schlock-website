@@ -87,4 +87,5 @@ public abstract class AbstractRaidCustomCounterServiceImpl implements PokemonRai
     abstract protected void fightSquad();
 
     abstract protected void metalPoisonSquad();
+    abstract protected void flightSquad();
 }

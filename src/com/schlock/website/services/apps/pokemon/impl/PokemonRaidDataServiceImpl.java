@@ -167,6 +167,8 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 //        addMoveToPokemon("Incineroar", "Blast Burn");
 //        addMoveToPokemon("Primarina", "Hydro Cannon");
 
+        addMoveToPokemon("Umbreon", "Psychic");
+
         addMoveToPokemon("Hydreigon", "Brutal Swing");
         addMoveToPokemon("Rhyhorn", "Earthquake");
 

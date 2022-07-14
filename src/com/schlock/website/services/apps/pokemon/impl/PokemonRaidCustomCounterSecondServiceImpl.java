@@ -84,4 +84,9 @@ public class PokemonRaidCustomCounterSecondServiceImpl extends AbstractRaidCusto
     {
 
     }
+
+    protected void flightSquad()
+    {
+
+    }
 }
