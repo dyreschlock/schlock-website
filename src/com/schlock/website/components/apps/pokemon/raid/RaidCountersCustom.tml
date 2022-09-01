@@ -13,10 +13,13 @@
 
                 <td>
                     ${primeTotalDamageMessage}<br/>
-                    ${primeTotalTimeMessage}<br/><br/>
+                    ${primeTotalTimeMessage}
 
+                </td>
+                <td>
                     ${secondTotalDamageMessage}<br/>
                     ${secondTotalTimeMessage}
+
                 </td>
 
                 <t:loop source="secondCounterPokemon" value="currentCounterPokemon" index="currentIndex">

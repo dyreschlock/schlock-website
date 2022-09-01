@@ -1,10 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html t:type="layout" title="${message:page-title}"
+<html t:type="layout" title="${pageTitle}"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:r="tapestry-library:apps/pokemon/raid"
 >
 <head>
-    <title>${message:page-title}</title>
+    <title>${pageTitle}</title>
     <style>
         body
         {
