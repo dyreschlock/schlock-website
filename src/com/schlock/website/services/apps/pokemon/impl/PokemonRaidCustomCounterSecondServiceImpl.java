@@ -53,7 +53,31 @@ public class PokemonRaidCustomCounterSecondServiceImpl extends AbstractRaidCusto
 
     protected void fireSquad()
     {
+        addCustom("Charizard", 20, 15, 15, 13, "Fire Spin", "Blast Burn");
 
+        addCustom("Shadow Typhlosion", 10, 2, 6, 7, "Incinerate", "Blast Burn");
+
+        addCustom("Blaziken", 40, 15, 14, 13, null, "Blast Burn, Blaze Kick");
+        addCustom("Blaziken", 40, 14, 15, 15, null, "Blast Burn");
+        addCustom("Blaziken", 30, 14, 12, 14, null, "Blast Burn");
+        addCustom("Blaziken", 30, 15, 13, 7, null, "Blast Burn");
+        addCustom("Blaziken", 30, 13, 11, 12, null, "Blast Burn");
+        addCustom("Blaziken", 30, 11, 6, 15, null, "Blast Burn");
+        addCustom("Blaziken", 27, 12, 13, 13, null, "Blast Burn");
+        addCustom("Blaziken", 26, 0, 12, 13, null, "Blast Burn");
+
+        addCustom("Infernape", 30, 3, 6, 6, "Fire Spin", "Blast Burn");
+        addCustom("Infernape", 27, 13, 7, 11, "Fire Spin", "Blast Burn");
+
+        addCustom("Emboar", 50, 14, 15, 14, "Ember", "Blast Burn");
+        addCustom("Emboar", 30, 14, 13, 14, "Ember", "Blast Burn");
+        addCustom("Emboar", 24, 15, 13, 14, "Ember", "Blast Burn");
+
+        addCustom("Chandelure", 40, 15, 14, 15);
+        addCustom("Chandelure", 40, 15, 12, 13);
+        addCustom("Chandelure", 29, 14, 14, 13);
+
+        addCustom("Reshiram", 40, 10, 13, 14, "Fire Fang", "Overheat");
     }
 
     protected void waterSquad()
@@ -84,7 +108,13 @@ public class PokemonRaidCustomCounterSecondServiceImpl extends AbstractRaidCusto
 
     protected void groundSquad()
     {
+        addCustom("Garchomp", 50, 14, 14, 15, null, "Earth Power, Outrage");
+        addCustom("Garchomp", 50, 15, 12, 13, "Mud Shot", "Earth Power");
+        addCustom("Garchomp", 40, 15, 15, 14, "Mud Shot", "Earth Power");
 
+        addCustom("Excadrill", 40, 15, 15, 15, "Mud Slap", "Drill Run");
+        addCustom("Excadrill", 40, 15, 15, 14, "Mud Slap", "Drill Run");
+        addCustom("Excadrill", 40, 14, 14, 15, "Mud Slap", "Drill Run");
     }
 
     protected void dragonSquad()
@@ -94,7 +124,11 @@ public class PokemonRaidCustomCounterSecondServiceImpl extends AbstractRaidCusto
 
     protected void psychicSquad()
     {
-
+        addCustom("Mewtwo", 37, 14, 14, 15, null, "Psystrike, Ice Beam");
+        addCustom("Mewtwo", 36, 15, 15, 14, null, "Psystrike, Ice Beam");
+        addCustom("Mewtwo", 35, 14, 15, 14, null, "Psystrike");
+        addCustom("Mewtwo", 35, 14, 14, 15, null, "Psystrike");
+        addCustom("Mewtwo", 25, 11, 15, 15, null, "Psystrike");
     }
 
     protected void ghostDarkSquad()
