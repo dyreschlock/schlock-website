@@ -44,18 +44,15 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
     );
 
     private final static List<String> IGNORE_POKEMON = Arrays.asList(
-            "Mega Alakazam",
             "Mega Pinsir",
 
             "Mega Heracross",
 
-            "Mega Banette",
             "Mega Glalie",
             "Mega Gardevoir",
             "Mega Gallade",
             "Mega Sableye",
             "Mega Mawile",
-            "Mega Aggron",
             "Mega Medicham",
             "Mega Shapedo",
             "Mega Camerupt",
@@ -130,61 +127,141 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
         loadCpmJSON();
         loadRaidMoveJSON();
+
+        if (USE_OVERWRITES)
+        {
+            addMoveOverwrites();
+        }
+
         loadRaidPokemonDataJSON();
 
         if (USE_OVERWRITES)
         {
-            addOverwrites();
+            addPokemonOverwrites();
         }
     }
 
-
-    private void addOverwrites()
+    private void addMoveOverwrites()
     {
-        createBrutalSwing();
-
-        //Possible Dark Void stats
-//        copyStatsCreateNewMove("Dark Void (DD)", "Dark", "Doom Desire");
-//        addMoveToPokemon("Darkrai", "Dark Void (DD)");
-//
-//        copyStatsCreateNewMove("Dark Void (Cr)", "Dark", "Crabhammer");
-//        addMoveToPokemon("Darkrai", "Dark Void (Cr)");
-//
-//        copyStatsCreateNewMove("Dark Void (MM)", "Dark", "Meteor Mash");
-//        addMoveToPokemon("Darkrai", "Dark Void (MM)");
-//
-//        copyStatsCreateNewMove("Dark Void (Psy)", "Dark", "Psystrike");
-//        addMoveToPokemon("Darkrai", "Dark Void (Psy)");
-//
-//        copyStatsCreateNewMove("Dark Void (OP)", "Dark", "Origin Pulse");
-//        addMoveToPokemon("Darkrai", "Dark Void (OP)");
-
-//        addMoveToPokemon("Greninja", "Hydro Cannon");
-//        addMoveToPokemon("Delphox", "Blast Burn");
-//        addMoveToPokemon("Chesnaught", "Frenzy Plant");
-//
-//        addMoveToPokemon("Decidueye", "Frenzy Plant");
-//        addMoveToPokemon("Incineroar", "Blast Burn");
-//        addMoveToPokemon("Primarina", "Hydro Cannon");
-
-        addMoveToPokemon("Umbreon", "Psychic");
-
-        addMoveToPokemon("Hydreigon", "Brutal Swing");
-        addMoveToPokemon("Rhyhorn", "Earthquake");
-
-        addMoveToPokemon("Staraptor", "Gust");
-        addMoveToPokemon("Shadow Staraptor", "Gust");
-
-        addMoveToPokemon("Xurkitree", "Thunder Shock", "Discharge");
-
-        addMoveToPokemon("Buzzwole", "Counter", "Poison Jab", "Power-Up Punch", "Fell Stinger", "Lunge", "Superpower");
-        addMoveToPokemon("Pheromosa", "Bug Bite", "Low Kick", "Focus Blast", "Bug Buzz", "Lunge", "Close Combat");
-
-        createShadowPokemon("Luxray");
-        createShadowPokemon("Latios");
+        //move updates september 2022
+        createFairyWind();
+        createDoubleKick();
     }
 
-    private void addMoveToPokemon(String pokemonName, String... moveNames)
+    private void addPokemonOverwrites()
+    {
+        //Possible Dark Void stats
+//        copyStatsCreateNewMove("Dark Void (DD)", "Dark", "Doom Desire");
+//        addEliteMoveToPokemon("Darkrai", "Dark Void (DD)");
+//
+//        copyStatsCreateNewMove("Dark Void (Cr)", "Dark", "Crabhammer");
+//        addEliteMoveToPokemon("Darkrai", "Dark Void (Cr)");
+//
+//        copyStatsCreateNewMove("Dark Void (MM)", "Dark", "Meteor Mash");
+//        addEliteMoveToPokemon("Darkrai", "Dark Void (MM)");
+//
+//        copyStatsCreateNewMove("Dark Void (Psy)", "Dark", "Psystrike");
+//        addEliteMoveToPokemon("Darkrai", "Dark Void (Psy)");
+//
+//        copyStatsCreateNewMove("Dark Void (OP)", "Dark", "Origin Pulse");
+//        addEliteMoveToPokemon("Darkrai", "Dark Void (OP)");
+
+//        addEliteMoveToPokemon("Greninja", "Hydro Cannon");
+//        addEliteMoveToPokemon("Delphox", "Blast Burn");
+//        addEliteMoveToPokemon("Chesnaught", "Frenzy Plant");
+//
+//        addEliteMoveToPokemon("Decidueye", "Frenzy Plant");
+//        addEliteMoveToPokemon("Incineroar", "Blast Burn");
+//        addEliteMoveToPokemon("Primarina", "Hydro Cannon");
+
+        //new shadow in august 2022
+        createShadowPokemon("Latios");
+
+        //move updates september 2022
+        addStandardMoveToPokemon("Cosmog", "Splash", "Struggle");
+        addStandardMoveToPokemon("Cosmoem", "Splash", "Struggle");
+        addStandardMoveToPokemon("Solgaleo", "Zen Headbutt", "Fire Spin", "Iron Head", "Psychic Fangs", "Solar Beam", "Flamethrower");
+        addStandardMoveToPokemon("Lunala", "Confusion", "Air Slash", "Shadow Ball", "Psychic", "Moonblast", "Future Sight");
+
+        addStandardMoveToPokemon("Nidorina", "Thunderbolt");
+        addStandardMoveToPokemon("Nidorino", "Ice Beam");
+        addStandardMoveToPokemon("Nidoking", "Double Kick");
+        addStandardMoveToPokemon("Arcanine", "Psychic Fangs");
+        addStandardMoveToPokemon("Tentacruel", "Scald");
+        addStandardMoveToPokemon("Galarian Rapidash", "Fairy Wind");
+        addStandardMoveToPokemon("Haunter", "Ice Punch");
+        addStandardMoveToPokemon("Marowak", "Rock Slide");
+        addStandardMoveToPokemon("Hitmonlee", "Double Kick");
+        addStandardMoveToPokemon("Galarian Weezing", "Fairy Wind");
+        addStandardMoveToPokemon("Dragonair", "Body Slam");
+        addStandardMoveToPokemon("Dragonite", "Superpower");
+        addStandardMoveToPokemon("Ledian", "Dynamic Punch");
+        addStandardMoveToPokemon("Lanturn", "Surf");
+        addStandardMoveToPokemon("Jumpluff", "Fairy Wind");
+        addStandardMoveToPokemon("Espeon", "Psychic Fangs");
+        addStandardMoveToPokemon("Girafarig", "Psychic Fangs", "Double Kick");
+        addStandardMoveToPokemon("Dunsparce", "Rollout");
+        addStandardMoveToPokemon("Steelix", "Psychic Fangs");
+        addStandardMoveToPokemon("Miltank", "Rollout");
+        addStandardMoveToPokemon("Mawile", "Fairy Wind");
+        addStandardMoveToPokemon("Manectric", "Psychic Fangs");
+        addStandardMoveToPokemon("Camerupt", "Incinerate");
+        addStandardMoveToPokemon("Lopunny", "Double Kick");
+        addStandardMoveToPokemon("Swoobat", "Psychic Fangs");
+        addStandardMoveToPokemon("Florges", "Fairy Wind");
+        addStandardMoveToPokemon("Slurpuff", "Fairy Wind");
+        addStandardMoveToPokemon("Incineroar", "Double Kick");
+        addStandardMoveToPokemon("Golisopod", "Shadow Claw");
+        addStandardMoveToPokemon("Nihilego", "Poison Jab");
+        addStandardMoveToPokemon("Dubwool", "Double Kick");
+        addStandardMoveToPokemon("Runerigus", "Shadow Claw");
+        addStandardMoveToPokemon("Cobalion", "Double Kick");
+        addStandardMoveToPokemon("Terrakion", "Double Kick");
+        addStandardMoveToPokemon("Virizion", "Double Kick");
+
+        //missing in json
+        addEliteMoveToPokemon("Umbreon", "Psychic");
+        addEliteMoveToPokemon("Rhyhorn", "Earthquake");
+    }
+
+    private void addStandardMoveToPokemon(String pokemonName, String... moveNames)
+    {
+        addMoveToPokemon(pokemonName, true, moveNames);
+
+        String mega = MEGA_PREFIX + pokemonName;
+        if (raidPokemonData.get(mega) != null)
+        {
+            addMoveToPokemon(mega, true, moveNames);
+        }
+
+        String shadow = SHADOW_PREFIX + pokemonName;
+        if (raidPokemonData.get(shadow) != null)
+        {
+            addMoveToPokemon(shadow, true, moveNames);
+        }
+    }
+
+    private void addEliteMoveToPokemon(String pokemonName, String... moveNames)
+    {
+        addMoveToPokemon(pokemonName, false, moveNames);
+
+        String mega = MEGA_PREFIX + pokemonName;
+        if (raidPokemonData.get(mega) != null)
+        {
+            addMoveToPokemon(mega, false, moveNames);
+        }
+
+        String shadow = SHADOW_PREFIX + pokemonName;
+        if (raidPokemonData.get(shadow) != null)
+        {
+            addMoveToPokemon(shadow, false, moveNames);
+        }
+    }
+
+    private static final String MEGA_PREFIX = "Mega ";
+    private static final String SHADOW_PREFIX = "Shadow ";
+
+    private void addMoveToPokemon(String pokemonName, boolean standard, String... moveNames)
     {
         RaidPokemonData pokemon = raidPokemonData.get(pokemonName);
         if (pokemon == null)
@@ -203,10 +280,18 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
             if (move.isFastMove())
             {
                 pokemon.getAllFastMoves().add(move);
+                if (standard)
+                {
+                    pokemon.getStandardFastMoves().add(move);
+                }
             }
             if (move.isChargeMove())
             {
                 pokemon.getAllChargeMoves().add(move);
+                if (standard)
+                {
+                    pokemon.getStandardChargeMoves().add(move);
+                }
             }
         }
     }
@@ -258,6 +343,50 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
             throw new RuntimeException(brutalSwing.getName() + " already exists.");
         }
         raidMoveData.put(brutalSwing.getName(), brutalSwing);
+    }
+
+    private void createFairyWind()
+    {
+        JSONObject object = new JSONObject();
+        object.put(RaidMove.TITLE, "Fairy Wind");
+        object.put(RaidMove.TYPE, "Fairy");
+        object.put(RaidMove.CATEGORY, "Fast Move");
+        object.put(RaidMove.POWER, "9");
+        object.put(RaidMove.COOLDOWN, "0.97");
+        object.put(RaidMove.ENERGY_GAIN, "13");
+        object.put(RaidMove.ENERGY_COST, "0");
+        object.put(RaidMove.DODGE_WINDOW, "0.37 seconds");
+        object.put(RaidMove.DAMAGE_WINDOW, "0.60 seconds");
+
+        RaidMove fairyWind = RaidMove.createFromJSON(object);
+
+        if (raidMoveData.get(fairyWind.getName()) != null)
+        {
+            throw new RuntimeException(fairyWind.getName() + " already exists.");
+        }
+        raidMoveData.put(fairyWind.getName(), fairyWind);
+    }
+
+    private void createDoubleKick()
+    {
+        JSONObject object = new JSONObject();
+        object.put(RaidMove.TITLE, "Double Kick");
+        object.put(RaidMove.TYPE, "Fighting");
+        object.put(RaidMove.CATEGORY, "Fast Move");
+        object.put(RaidMove.POWER, "8");
+        object.put(RaidMove.COOLDOWN, "1.00");
+        object.put(RaidMove.ENERGY_GAIN, "13");
+        object.put(RaidMove.ENERGY_COST, "0");
+        object.put(RaidMove.DODGE_WINDOW, "0.50 seconds");
+        object.put(RaidMove.DAMAGE_WINDOW, "0.30 seconds");
+
+        RaidMove doubleKick = RaidMove.createFromJSON(object);
+
+        if (raidMoveData.get(doubleKick.getName()) != null)
+        {
+            throw new RuntimeException(doubleKick.getName() + " already exists.");
+        }
+        raidMoveData.put(doubleKick.getName(), doubleKick);
     }
 
     private void createShadowPokemon(String pokemonName)
@@ -571,6 +700,7 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
     private List<String> getRaidBossNames()
     {
         List<String> names = new ArrayList<String>();
+
         names.addAll(GEN1_BOSSES);
         names.addAll(GEN2_BOSSES);
         names.addAll(GEN3_BOSSES);
@@ -680,7 +810,10 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
             "White Kyurem",
             "Black Kyurem",
             "Keldeo",
-            "Genesect"
+            "Genesect - Burn Drive",
+            "Genesect - Shock Drive",
+            "Genesect - Douse Drive",
+            "Genesect - Chill Drive"
     );
 
     private static final List<String> GEN6_BOSSES = Arrays.asList(
