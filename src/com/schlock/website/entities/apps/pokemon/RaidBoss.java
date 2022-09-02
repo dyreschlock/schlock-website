@@ -4,9 +4,9 @@ import java.util.*;
 
 public class RaidBoss extends AbstractRaidPokemon
 {
-    private Map<RaidCounterType, List<RaidCounterInstance>> megaCounters = new HashMap<RaidCounterType, List<RaidCounterInstance>>();
-    private Map<RaidCounterType, List<RaidCounterInstance>> shadowCounters = new HashMap<RaidCounterType, List<RaidCounterInstance>>();
-    private Map<RaidCounterType, List<RaidCounterInstance>> regularCounters = new HashMap<RaidCounterType, List<RaidCounterInstance>>();
+    private Map<CounterType, List<RaidCounterInstance>> megaCounters = new HashMap<CounterType, List<RaidCounterInstance>>();
+    private Map<CounterType, List<RaidCounterInstance>> shadowCounters = new HashMap<CounterType, List<RaidCounterInstance>>();
+    private Map<CounterType, List<RaidCounterInstance>> regularCounters = new HashMap<CounterType, List<RaidCounterInstance>>();
 
     private RaidBoss(RaidPokemonData data)
     {
@@ -18,39 +18,39 @@ public class RaidBoss extends AbstractRaidPokemon
         return false;
     }
 
-    public boolean isCountersGenerated(RaidCounterType counterType)
+    public boolean isCountersGenerated(CounterType counterType)
     {
         return megaCounters.get(counterType) != null &&
                 shadowCounters.get(counterType) != null &&
                 regularCounters.get(counterType) != null;
     }
 
-    public List<RaidCounterInstance> getMegaCounters(RaidCounterType type)
+    public List<RaidCounterInstance> getMegaCounters(CounterType type)
     {
         return megaCounters.get(type);
     }
 
-    public List<RaidCounterInstance> getShadowCounters(RaidCounterType type)
+    public List<RaidCounterInstance> getShadowCounters(CounterType type)
     {
         return shadowCounters.get(type);
     }
 
-    public List<RaidCounterInstance> getRegularCounters(RaidCounterType type)
+    public List<RaidCounterInstance> getRegularCounters(CounterType type)
     {
         return regularCounters.get(type);
     }
 
-    public void setMegaCounters(RaidCounterType type, List<RaidCounterInstance> counters)
+    public void setMegaCounters(CounterType type, List<RaidCounterInstance> counters)
     {
         this.megaCounters.put(type, counters);
     }
 
-    public void setShadowCounters(RaidCounterType type, List<RaidCounterInstance> counters)
+    public void setShadowCounters(CounterType type, List<RaidCounterInstance> counters)
     {
         this.shadowCounters.put(type, counters);
     }
 
-    public void setRegularCounters(RaidCounterType type, List<RaidCounterInstance> counters)
+    public void setRegularCounters(CounterType type, List<RaidCounterInstance> counters)
     {
         this.regularCounters.put(type, counters);
     }

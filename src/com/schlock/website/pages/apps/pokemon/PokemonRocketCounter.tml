@@ -1,18 +1,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html t:type="layout" title="${message:page-title}"
+<html t:type="layout" title="${pageTitle}"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 >
 <head>
-    <title>${message:page-title}</title>
+    <title>${pageTitle}</title>
     <style>
 
-        html
+        body
         {
-            text-align: left;
+            font-family: noto sans,sans-serif;
+            font-size: 14px;
+
+            color: #464646;
         }
 
         div.groupHeader, th
         {
+            text-align: left;
+
             font-size: 20px;
             font-weight: bold;
             font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
@@ -36,15 +41,8 @@
         td
         {
             padding: 2px;
-        }
 
-        td.rocket
-        {
-            mid-width: 100px;
-        }
-        td.counter
-        {
-            min-width: 170px;
+            min-width: 110px;
         }
 
         td.Blaziken {       background-color: #ffccb3; }
@@ -83,9 +81,12 @@
                         <td class="rocket">${currentRocketPokemon.name}</td>
                         <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
                             <td class="counter ${currentCounterPokemon.name}">
-                                ${currentIndexPlusOne}. <b>${currentCounterPokemon.name}</b> (${currentCounterPokemon.overall})<br/>
-                                ${currentCounterPokemon.fastMove} / <br/>
-                                ${currentCounterPokemon.chargeMove}
+                                <b>${currentIndexPlusOne}.</b><br/>
+                                ${currentCounterPokemon.name}<br/>
+                                <b>40</b><br/>
+                                ${currentCounterPokemon.fastMove}<br/>
+                                ${currentCounterPokemon.chargeMove}<br/>
+                                (${currentCounterPokemon.overall})<br/>
                             </td>
                         </t:loop>
                     </tr>

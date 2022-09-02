@@ -2,7 +2,7 @@ package com.schlock.website.components.apps.pokemon.raid;
 
 import com.schlock.website.entities.apps.pokemon.RaidBoss;
 import com.schlock.website.entities.apps.pokemon.RaidCounterInstance;
-import com.schlock.website.entities.apps.pokemon.RaidCounterType;
+import com.schlock.website.entities.apps.pokemon.CounterType;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
@@ -37,22 +37,22 @@ public class RaidCountersGeneral
 
     public List<RaidCounterInstance> getCounterPokemon()
     {
-        return counterService.getCounterPokemon(currentRaidBoss, RaidCounterType.GENERAL);
+        return counterService.getCounterPokemon(currentRaidBoss, CounterType.GENERAL);
     }
 
     public List<RaidCounterInstance> getTopMegaPokemon()
     {
-        return counterService.getTopMegaCounterPokemon(RaidCounterType.GENERAL);
+        return counterService.getTopMegaCounterPokemon(CounterType.GENERAL);
     }
 
     public List<RaidCounterInstance> getTopShadowPokemon()
     {
-        return counterService.getTopShadowCounterPokemon(RaidCounterType.GENERAL);
+        return counterService.getTopShadowCounterPokemon(CounterType.GENERAL);
     }
 
     public List<RaidCounterInstance> getTopRegularPokemon()
     {
-        return counterService.getTopRegularCounterPokemon(RaidCounterType.GENERAL);
+        return counterService.getTopRegularCounterPokemon(CounterType.GENERAL);
     }
 
     public String getColumnIndex()

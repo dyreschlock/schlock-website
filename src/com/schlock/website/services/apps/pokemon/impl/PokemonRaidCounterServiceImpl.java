@@ -34,7 +34,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         this.dataService = dataService;
     }
 
-    private void generateRaidCounters(RaidBoss raidBoss, RaidCounterType counterType)
+    private void generateRaidCounters(RaidBoss raidBoss, CounterType counterType)
     {
         List<RaidCounterInstance> megaCounters = new ArrayList<RaidCounterInstance>();
         List<RaidCounterInstance> shadowCounters = new ArrayList<RaidCounterInstance>();
@@ -165,7 +165,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         List<RaidCounterInstance> getCounters(RaidBoss pokemon);
     }
 
-    private List<RaidCounterInstance> generateTopCounters(ReturnCounters filter, RaidCounterType counterType, int count)
+    private List<RaidCounterInstance> generateTopCounters(ReturnCounters filter, CounterType counterType, int count)
     {
         Map<String, RaidCounterInstance> counters = new HashMap<String, RaidCounterInstance>();
 
@@ -227,7 +227,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         return dataService.getRaidBosses();
     }
 
-    public List<RaidCounterInstance> getCounterPokemon(RaidBoss boss, RaidCounterType counterType)
+    public List<RaidCounterInstance> getCounterPokemon(RaidBoss boss, CounterType counterType)
     {
         if (!boss.isCountersGenerated(counterType))
         {
@@ -256,7 +256,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         return counters;
     }
 
-    public List<RaidCounterInstance> getTopMegaCounterPokemon(final RaidCounterType counterType)
+    public List<RaidCounterInstance> getTopMegaCounterPokemon(final CounterType counterType)
     {
         if (topMegaCounterPokemon.isEmpty())
         {
@@ -272,7 +272,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         return topMegaCounterPokemon;
     }
 
-    public List<RaidCounterInstance> getTopShadowCounterPokemon(final RaidCounterType counterType)
+    public List<RaidCounterInstance> getTopShadowCounterPokemon(final CounterType counterType)
     {
         if (topShadowCounterPokemon.isEmpty())
         {
@@ -288,7 +288,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         return topShadowCounterPokemon;
     }
 
-    public List<RaidCounterInstance> getTopRegularCounterPokemon(final RaidCounterType counterType)
+    public List<RaidCounterInstance> getTopRegularCounterPokemon(final CounterType counterType)
     {
         if (topRegularCounterPokemon.isEmpty())
         {

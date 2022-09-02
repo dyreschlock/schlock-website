@@ -1,6 +1,6 @@
 package com.schlock.website.pages.apps.pokemon;
 
-import com.schlock.website.entities.apps.pokemon.RaidCounterType;
+import com.schlock.website.entities.apps.pokemon.CounterType;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -11,31 +11,31 @@ public class PokemonRaidCounter
     private Messages messages;
 
     @Persist
-    private RaidCounterType counterType;
+    private CounterType counterType;
 
 
     Object onActivate()
     {
         if (counterType == null)
         {
-            this.counterType = RaidCounterType.defaultType();
+            this.counterType = CounterType.defaultType();
         }
         return true;
     }
 
     Object onActivate(String parameter)
     {
-        if(RaidCounterType.CUSTOM.toString().equalsIgnoreCase(parameter))
+        if(CounterType.CUSTOM.toString().equalsIgnoreCase(parameter))
         {
-            this.counterType = RaidCounterType.CUSTOM;
+            this.counterType = CounterType.CUSTOM;
         }
-        else if(RaidCounterType.GENERAL.toString().equalsIgnoreCase(parameter))
+        else if(CounterType.GENERAL.toString().equalsIgnoreCase(parameter))
         {
-            this.counterType = RaidCounterType.GENERAL;
+            this.counterType = CounterType.GENERAL;
         }
         else
         {
-            this.counterType = RaidCounterType.defaultType();
+            this.counterType = CounterType.defaultType();
         }
         return true;
     }
@@ -45,7 +45,7 @@ public class PokemonRaidCounter
         return messages.format("page-title", counterType.name().toLowerCase());
     }
 
-    public RaidCounterType getCounterType()
+    public CounterType getCounterType()
     {
         return counterType;
     }

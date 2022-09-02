@@ -1,6 +1,6 @@
 package com.schlock.website.entities.apps.pokemon;
 
-public enum RaidCounterType
+public enum CounterType
 {
     GENERAL, CUSTOM, CUSTOM1, CUSTOM2;
 
@@ -14,8 +14,8 @@ public enum RaidCounterType
         return CUSTOM.equals(this) || CUSTOM1.equals(this) || CUSTOM2.equals(this);
     }
 
-    public static RaidCounterType defaultType()
+    public static CounterType defaultType()
     {
-        return RaidCounterType.GENERAL;
+        return CounterType.GENERAL;
     }
 }

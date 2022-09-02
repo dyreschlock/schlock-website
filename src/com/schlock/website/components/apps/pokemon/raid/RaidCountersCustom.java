@@ -2,7 +2,7 @@ package com.schlock.website.components.apps.pokemon.raid;
 
 import com.schlock.website.entities.apps.pokemon.RaidBoss;
 import com.schlock.website.entities.apps.pokemon.RaidCounterInstance;
-import com.schlock.website.entities.apps.pokemon.RaidCounterType;
+import com.schlock.website.entities.apps.pokemon.CounterType;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterCalculationService;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
 import org.apache.tapestry5.annotations.Property;
@@ -38,12 +38,12 @@ public class RaidCountersCustom
 
     public List<RaidCounterInstance> getPrimeCounterPokemon()
     {
-        return counterService.getCounterPokemon(currentRaidBoss, RaidCounterType.CUSTOM1);
+        return counterService.getCounterPokemon(currentRaidBoss, CounterType.CUSTOM1);
     }
 
     public List<RaidCounterInstance> getSecondCounterPokemon()
     {
-        return counterService.getCounterPokemon(currentRaidBoss, RaidCounterType.CUSTOM2);
+        return counterService.getCounterPokemon(currentRaidBoss, CounterType.CUSTOM2);
     }
 
     public String getColumnIndex()

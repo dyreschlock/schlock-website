@@ -9,7 +9,7 @@ public interface PokemonRaidDataService
 {
     public List<RaidBoss> getRaidBosses();
 
-    public Collection<RaidCounter> getSuitableCounterPokemon(RaidCounterType type);
+    public Collection<RaidCounter> getSuitableCounterPokemon(CounterType type);
 
     public Double getCpmFromLevel(Integer level);
 

@@ -596,13 +596,13 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         return raidMoveData.get(name);
     }
 
-    public Collection<RaidCounter> getSuitableCounterPokemon(RaidCounterType counterType)
+    public Collection<RaidCounter> getSuitableCounterPokemon(CounterType counterType)
     {
-        if (RaidCounterType.CUSTOM1.equals(counterType))
+        if (CounterType.CUSTOM1.equals(counterType))
         {
             return customPrimeService.getCustomPokemon();
         }
-        if(RaidCounterType.CUSTOM2.equals(counterType))
+        if(CounterType.CUSTOM2.equals(counterType))
         {
             return customSecondService.getCustomPokemon();
         }
