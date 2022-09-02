@@ -2,6 +2,7 @@ package com.schlock.website.services.apps.pokemon.impl;
 
 import com.schlock.website.entities.apps.pokemon.*;
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.apps.pokemon.PokemonCounterCalculationService;
 import com.schlock.website.services.apps.pokemon.PokemonDataService;
 import com.schlock.website.services.apps.pokemon.PokemonRocketCounterService;
 import org.jsoup.Jsoup;
@@ -26,13 +27,18 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
 
     private Map<String, List<RocketCounterInstance>> counterPokemon = new HashMap<String, List<RocketCounterInstance>>();
 
+    private final PokemonCounterCalculationService calculationService;
     private final PokemonDataService dataService;
+
     private final DeploymentContext deploymentContext;
 
-    public PokemonRocketCounterServiceImpl(PokemonDataService dataService,
+    public PokemonRocketCounterServiceImpl(PokemonCounterCalculationService calculationService,
+                                           PokemonDataService dataService,
                                            DeploymentContext deploymentContext)
     {
+        this.calculationService = calculationService;
         this.dataService = dataService;
+
         this.deploymentContext = deploymentContext;
     }
 
@@ -73,6 +79,41 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
             }
         }
         pokemon.setCounters(counterType, counterPokemon.get(key));
+    }
+
+    private List<RocketCounterInstance> createCounters2(CounterType counterType, RocketBossPokemon pokemon)
+    {
+        List<RocketCounterInstance> counters = new ArrayList<RocketCounterInstance>();
+        for(CounterPokemon counter : dataService.getCounterPokemon(counterType))
+        {
+            counters.add(generateRaidCounter(pokemon, counter));
+        }
+
+        Collections.sort(counters, new CounterTDOComparator());
+
+        pokemon.setCounters(counterType, counters.subList(0, counterType.counterListSize()));
+
+        return pokemon.getCounters(counterType);
+    }
+
+    private RocketCounterInstance generateRaidCounter(RocketBossPokemon rocketBoss, CounterPokemon counterPokemon)
+    {
+        List<RocketCounterInstance> counters = new ArrayList<RocketCounterInstance>();
+
+        for (PokemonMove fastMove : counterPokemon.getAllFastMoves())
+        {
+            for (PokemonMove chargeMove : counterPokemon.getAllChargeMoves())
+            {
+                RocketCounterInstance counter = calculationService.generateRocketCounter(rocketBoss, counterPokemon, fastMove, chargeMove);
+                if (counter != null)
+                {
+                    counters.add(counter);
+                }
+            }
+        }
+        Collections.sort(counters, new CounterTDOComparator());
+
+        return counters.get(0);
     }
 
     private List<RocketCounterInstance> createCounters(CounterType counterType, RocketBossPokemon pokemon)
@@ -152,10 +193,27 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
             String fastMove = moves.child(0).textNodes().get(0).text();
             String chargeMove = moves.child(1).textNodes().get(0).text();
 
-
             RocketCounterInstance counter = new RocketCounterInstance(name, fastMove, chargeMove, overall, cp, time, power);
             counters.add(counter);
         }
         return counters;
+    }
+
+    private class CounterTDOComparator implements Comparator<RocketCounterInstance>
+    {
+        public int compare(RocketCounterInstance o1, RocketCounterInstance o2)
+        {
+            double compare = o2.getTdo() - o1.getTdo();
+
+            if (compare > 0.0)
+            {
+                return 1;
+            }
+            if (compare < 0.0)
+            {
+                return -1;
+            }
+            return 0;
+        }
     }
 }

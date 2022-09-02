@@ -1,11 +1,10 @@
 package com.schlock.website.entities.apps.pokemon;
 
-public class RocketCounterInstance
+public class RocketCounterInstance extends AbstractCounterInstance
 {
     private String name;
 
-    private String fastMove;
-    private String chargeMove;
+    private double tdo;
 
     private String overall;
     private String cp;
@@ -15,9 +14,18 @@ public class RocketCounterInstance
     public RocketCounterInstance(String name, String fastMove, String chargeMove, String overall, String cp, String time, String power)
     {
         this.name = name;
-
         this.fastMove = fastMove;
         this.chargeMove = chargeMove;
+
+        this.overall = overall;
+        this.cp = cp;
+        this.time = time;
+        this.power = power;
+    }
+
+    public RocketCounterInstance(CounterPokemon counter, String fastMove, String chargeMove, String overall, String cp, String time, String power)
+    {
+        super(counter, fastMove, chargeMove);
 
         this.overall = overall;
         this.cp = cp;
@@ -30,29 +38,19 @@ public class RocketCounterInstance
         return name;
     }
 
-    public void setName(String name)
+    public int getLevel()
     {
-        this.name = name;
+        return 40;
     }
 
-    public String getFastMove()
+    public double getTdo()
     {
-        return fastMove;
+        return tdo;
     }
 
-    public void setFastMove(String fastMove)
+    public void setTdo(double tdo)
     {
-        this.fastMove = fastMove;
-    }
-
-    public String getChargeMove()
-    {
-        return chargeMove;
-    }
-
-    public void setChargeMove(String chargeMove)
-    {
-        this.chargeMove = chargeMove;
+        this.tdo = tdo;
     }
 
     public String getOverall()

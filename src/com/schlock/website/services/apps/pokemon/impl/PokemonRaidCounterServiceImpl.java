@@ -1,7 +1,7 @@
 package com.schlock.website.services.apps.pokemon.impl;
 
 import com.schlock.website.entities.apps.pokemon.*;
-import com.schlock.website.services.apps.pokemon.PokemonRaidCounterCalculationService;
+import com.schlock.website.services.apps.pokemon.PokemonCounterCalculationService;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
 import com.schlock.website.services.apps.pokemon.PokemonDataService;
 
@@ -23,12 +23,12 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     private List<RaidCounterInstance> topShadowCounterPokemon = new ArrayList<RaidCounterInstance>();
     private List<RaidCounterInstance> topRegularCounterPokemon = new ArrayList<RaidCounterInstance>();
 
-    private final PokemonRaidCounterCalculationService calculationService;
+    private final PokemonCounterCalculationService calculationService;
     private final PokemonDataService dataService;
 
 
-    public PokemonRaidCounterServiceImpl(PokemonRaidCounterCalculationService calculationService,
-                                            PokemonDataService dataService)
+    public PokemonRaidCounterServiceImpl(PokemonCounterCalculationService calculationService,
+                                         PokemonDataService dataService)
     {
         this.calculationService = calculationService;
         this.dataService = dataService;

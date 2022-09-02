@@ -41,7 +41,7 @@ public class ApplicationsModule
         binder.bind(RankingService.class, RankingServiceImpl.class);
 
         binder.bind(PokemonRaidCounterService.class, PokemonRaidCounterServiceImpl.class);
-        binder.bind(PokemonRaidCounterCalculationService.class, PokemonRaidCounterCalculationServiceImpl.class);
+        binder.bind(PokemonCounterCalculationService.class, PokemonCounterCalculationServiceImpl.class);
         binder.bind(PokemonDataService.class, PokemonDataServiceImpl.class);
 
         binder.bind(PokemonCustomCounterPrimeService.class, PokemonCustomCounterPrimeServiceImpl.class);

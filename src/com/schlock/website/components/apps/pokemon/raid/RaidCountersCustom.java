@@ -3,7 +3,7 @@ package com.schlock.website.components.apps.pokemon.raid;
 import com.schlock.website.entities.apps.pokemon.RaidBossPokemon;
 import com.schlock.website.entities.apps.pokemon.RaidCounterInstance;
 import com.schlock.website.entities.apps.pokemon.CounterType;
-import com.schlock.website.services.apps.pokemon.PokemonRaidCounterCalculationService;
+import com.schlock.website.services.apps.pokemon.PokemonCounterCalculationService;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
@@ -17,7 +17,7 @@ public class RaidCountersCustom
     private PokemonRaidCounterService counterService;
 
     @Inject
-    private PokemonRaidCounterCalculationService calculationService;
+    private PokemonCounterCalculationService calculationService;
 
     @Inject
     private Messages messages;

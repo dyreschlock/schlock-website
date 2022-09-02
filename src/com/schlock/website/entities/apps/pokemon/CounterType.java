@@ -14,6 +14,15 @@ public enum CounterType
         return CUSTOM.equals(this) || CUSTOM1.equals(this) || CUSTOM2.equals(this);
     }
 
+    public int counterListSize()
+    {
+        if (GENERAL.equals(this))
+        {
+            return 30;
+        }
+        return 6;
+    }
+
     public static CounterType defaultType()
     {
         return CounterType.GENERAL;

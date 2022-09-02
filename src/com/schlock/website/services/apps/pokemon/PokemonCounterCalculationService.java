@@ -4,9 +4,11 @@ import com.schlock.website.entities.apps.pokemon.*;
 
 import java.util.List;
 
-public interface PokemonRaidCounterCalculationService
+public interface PokemonCounterCalculationService
 {
     RaidCounterInstance generateRaidCounter(RaidBossPokemon raidBoss, CounterPokemon counterPokemon, PokemonMove fastMove, PokemonMove chargeMove);
+
+    RocketCounterInstance generateRocketCounter(RocketBossPokemon rocketBoss, CounterPokemon counterPokemon, PokemonMove fastMove, PokemonMove chargeMove);
 
     Integer getTotalDamageForParty(List<RaidCounterInstance> party);
 

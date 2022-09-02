@@ -1,14 +1,14 @@
 package com.schlock.website.services.apps.pokemon.impl;
 
 import com.schlock.website.entities.apps.pokemon.*;
-import com.schlock.website.services.apps.pokemon.PokemonRaidCounterCalculationService;
+import com.schlock.website.services.apps.pokemon.PokemonCounterCalculationService;
 import com.schlock.website.services.apps.pokemon.PokemonDataService;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCounterCalculationService
+public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalculationService
 {
     private static final double SHADOW_DEFENSE_MULTIPLIER = 0.8333333;
     private static final double SHADOW_ATTACK_MULTIPLIER = 1.2;
@@ -504,19 +504,30 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
 
     private final PokemonDataService dataService;
 
-    public PokemonRaidCounterCalculationServiceImpl(PokemonDataService dataService)
+    public PokemonCounterCalculationServiceImpl(PokemonDataService dataService)
     {
         this.dataService = dataService;
     }
 
-    public RaidCounterInstance generateRaidCounter(RaidBossPokemon raidBoss,
+    public RaidCounterInstance generateRaidCounter(RaidBossPokemon raidBoss, CounterPokemon counter, PokemonMove fastMove, PokemonMove chargeMove)
+    {
+        return (RaidCounterInstance) generateCounter(raidBoss, counter, fastMove, chargeMove, BattleMode.PVE);
+    }
+
+    public RocketCounterInstance generateRocketCounter(RocketBossPokemon rocketBoss, CounterPokemon counter, PokemonMove fastMove, PokemonMove chargeMove)
+    {
+        return (RocketCounterInstance) generateCounter(rocketBoss, counter, fastMove, chargeMove, BattleMode.PVP);
+    }
+
+    public AbstractCounterInstance generateCounter(AbstractPokemon raidBoss,
                                                    CounterPokemon counter,
                                                    PokemonMove fastMove,
-                                                   PokemonMove chargeMove)
+                                                   PokemonMove chargeMove,
+                                                   BattleMode battleMode)
     {
         try
         {
-            return doCalculations(raidBoss, counter, fastMove, chargeMove);
+            return calculateCounter(raidBoss, counter, fastMove, chargeMove, battleMode);
         }
         catch(Exception e)
         {
@@ -531,24 +542,24 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
         }
     }
 
-
     /**
      * view-source:https://gamepress.gg/pokemongo/comprehensive-dps-spreadsheet
      * <p>
      * function calculateDPS(pokemon, kwargs)
      */
-    private RaidCounterInstance doCalculations(RaidBossPokemon raidBoss,
-                                               CounterPokemon counter,
-                                               PokemonMove fastMove,
-                                               PokemonMove chargeMove)
+    private AbstractCounterInstance calculateCounter(AbstractPokemon boss,
+                                                     CounterPokemon counter,
+                                                     PokemonMove fastMove,
+                                                     PokemonMove chargeMove,
+                                                     BattleMode battleMode)
     {
-        double damageIntakeX = generateDamageIntakeX(raidBoss, counter, fastMove, chargeMove);
-        double damageIntakeY = generateDamageIntakeY(raidBoss, counter);
+        double damageIntakeX = generateDamageIntakeX(boss, counter, fastMove, chargeMove);
+        double damageIntakeY = generateDamageIntakeY(boss, counter);
 
         double stamina = getStamina(counter);
 
-        double fastDamage = generateDamage(counter, fastMove, raidBoss, true);
-        double chargeDamage = generateDamage(counter, chargeMove, raidBoss, true);
+        double fastDamage = generateDamage(counter, fastMove, boss, true);
+        double chargeDamage = generateDamage(counter, chargeMove, boss, true);
 
         double fastEnergyDelta = fastMove.getEnergyDelta();
         double chargeEnergyDelta = -chargeMove.getEnergyDelta();
@@ -601,7 +612,7 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
      * x: -pokemon.cmove.energyDelta * 0.5 + pokemon.fmove.energyDelta * 0.5,
      * y: DEFAULT_ENEMY_DPS1 / pokemon.Def
      */
-    private double generateDamageIntakeX(RaidBossPokemon boss, CounterPokemon counter, PokemonMove pFastMove, PokemonMove pChargeMove)
+    private double generateDamageIntakeX(AbstractPokemon boss, CounterPokemon counter, PokemonMove pFastMove, PokemonMove pChargeMove)
     {
         if (boss.getStandardFastMoves().isEmpty() || boss.getStandardChargeMoves().isEmpty())
         {
@@ -650,7 +661,7 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
      * y: (n * FDmg + CDmg) / (n * FDur + CDur)
      * };
      */
-    private double generateDamageIntakeY(RaidBossPokemon boss, CounterPokemon counter)
+    private double generateDamageIntakeY(AbstractPokemon boss, CounterPokemon counter)
     {
         if (boss.getStandardFastMoves().isEmpty() || boss.getStandardChargeMoves().isEmpty())
         {
@@ -794,5 +805,15 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
             totalTime += (int) (damage / dps);
         }
         return totalTime;
+    }
+
+    private enum BattleMode
+    {
+        PVE, PVP;
+
+        public boolean isPvp()
+        {
+            return PVP.equals(this);
+        }
     }
 }

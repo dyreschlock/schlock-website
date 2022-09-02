@@ -1,19 +1,9 @@
 package com.schlock.website.entities.apps.pokemon;
 
-public class RaidCounterInstance implements Comparable<RaidCounterInstance>
+public class RaidCounterInstance extends AbstractCounterInstance implements Comparable<RaidCounterInstance>
 {
     private static final String MEGA_STRING = "Mega";
     private static final String SHADOW_STRING = "Shadow";
-
-    private String name;
-    private String fastMove;
-    private String chargeMove;
-
-    private int level;
-
-    private int attackIV;
-    private int defenseIV;
-    private int staminaIV;
 
     private double dps;
     private double tdo;
@@ -23,14 +13,7 @@ public class RaidCounterInstance implements Comparable<RaidCounterInstance>
 
     public RaidCounterInstance(CounterPokemon counter, String fastMove, String chargeMove, double dps, double tdo, double dps3tdo)
     {
-        this.name = counter.getName();
-        this.level = counter.getLevel();
-        this.attackIV = counter.getAttackIV();
-        this.defenseIV = counter.getDefenseIV();
-        this.staminaIV = counter.getStaminaIV();
-
-        this.fastMove = fastMove;
-        this.chargeMove = chargeMove;
+        super(counter, fastMove, chargeMove);
 
         this.dps = formatDouble("%.3f", dps);
         this.tdo = formatDouble("%.1f", tdo);
@@ -57,12 +40,12 @@ public class RaidCounterInstance implements Comparable<RaidCounterInstance>
 
     public boolean isMega()
     {
-        return name.startsWith(MEGA_STRING);
+        return getName().startsWith(MEGA_STRING);
     }
 
     public boolean isShadow()
     {
-        return name.startsWith(SHADOW_STRING);
+        return getName().startsWith(SHADOW_STRING);
     }
 
     public boolean isRegular()
@@ -73,58 +56,6 @@ public class RaidCounterInstance implements Comparable<RaidCounterInstance>
     public void incrementCount()
     {
         this.count++;
-    }
-
-    public String getName() { return name; }
-
-    public void setName(String name) { this.name = name; }
-
-    public String getFastMove() { return fastMove; }
-
-    public void setFastMove(String fastMove) { this.fastMove = fastMove; }
-
-    public String getChargeMove() { return chargeMove; }
-
-    public void setChargeMove(String chargeMove) { this.chargeMove = chargeMove; }
-
-    public int getLevel()
-    {
-        return level;
-    }
-
-    public void setLevel(int level)
-    {
-        this.level = level;
-    }
-
-    public int getAttackIV()
-    {
-        return attackIV;
-    }
-
-    public void setAttackIV(int attackIV)
-    {
-        this.attackIV = attackIV;
-    }
-
-    public int getDefenseIV()
-    {
-        return defenseIV;
-    }
-
-    public void setDefenseIV(int defenseIV)
-    {
-        this.defenseIV = defenseIV;
-    }
-
-    public int getStaminaIV()
-    {
-        return staminaIV;
-    }
-
-    public void setStaminaIV(int staminaIV)
-    {
-        this.staminaIV = staminaIV;
     }
 
     public double getDps() { return dps; }
