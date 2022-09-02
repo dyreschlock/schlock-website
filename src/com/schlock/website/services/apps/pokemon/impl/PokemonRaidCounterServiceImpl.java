@@ -3,7 +3,7 @@ package com.schlock.website.services.apps.pokemon.impl;
 import com.schlock.website.entities.apps.pokemon.*;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterCalculationService;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
-import com.schlock.website.services.apps.pokemon.PokemonRaidDataService;
+import com.schlock.website.services.apps.pokemon.PokemonDataService;
 
 import java.util.*;
 
@@ -24,11 +24,11 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     private List<RaidCounterInstance> topRegularCounterPokemon = new ArrayList<RaidCounterInstance>();
 
     private final PokemonRaidCounterCalculationService calculationService;
-    private final PokemonRaidDataService dataService;
+    private final PokemonDataService dataService;
 
 
     public PokemonRaidCounterServiceImpl(PokemonRaidCounterCalculationService calculationService,
-                                            PokemonRaidDataService dataService)
+                                            PokemonDataService dataService)
     {
         this.calculationService = calculationService;
         this.dataService = dataService;
@@ -40,7 +40,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         List<RaidCounterInstance> shadowCounters = new ArrayList<RaidCounterInstance>();
         List<RaidCounterInstance> regularCounters = new ArrayList<RaidCounterInstance>();
 
-        for (RaidCounter counterPoke : dataService.getSuitableCounterPokemon(counterType))
+        for (CounterPokemon counterPoke : dataService.getCounterPokemon(counterType))
         {
             List<RaidCounterInstance> counterInstances = new ArrayList<RaidCounterInstance>();
 
@@ -69,15 +69,15 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         raidBoss.setRegularCounters(counterType, regularCounters.subList(0, NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON));
     }
 
-    private List<RaidCounterInstance> generateRaidCounters(RaidBoss raidBoss, RaidCounter raidCounter)
+    private List<RaidCounterInstance> generateRaidCounters(RaidBoss raidBoss, CounterPokemon counterPokemon)
     {
         List<RaidCounterInstance> counters = new ArrayList<RaidCounterInstance>();
 
-        for (RaidMove fastMove : raidCounter.getAllFastMoves())
+        for (PokemonMove fastMove : counterPokemon.getAllFastMoves())
         {
-            for (RaidMove chargeMove : raidCounter.getAllChargeMoves())
+            for (PokemonMove chargeMove : counterPokemon.getAllChargeMoves())
             {
-                RaidCounterInstance counter = calculationService.generateRaidCounter(raidBoss, raidCounter, fastMove, chargeMove);
+                RaidCounterInstance counter = calculationService.generateRaidCounter(raidBoss, counterPokemon, fastMove, chargeMove);
                 if (counter != null)
                 {
                     counters.add(counter);
@@ -125,7 +125,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             {
                 if (DARKRAI.equalsIgnoreCase(counter.getName()))
                 {
-                    RaidMove move = dataService.getMoveByName(counter.getChargeMove());
+                    PokemonMove move = dataService.getMoveByName(counter.getChargeMove());
                     if (topFast.equals(counter.getFastMove()) && DARK_TYPE.equalsIgnoreCase(move.getType()))
                     {
                         uniqueCounters.add(counter);

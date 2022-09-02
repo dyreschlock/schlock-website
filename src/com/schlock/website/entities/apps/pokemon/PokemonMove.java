@@ -2,7 +2,7 @@ package com.schlock.website.entities.apps.pokemon;
 
 import org.apache.tapestry5.json.JSONObject;
 
-public class RaidMove
+public class PokemonMove
 {
     private static final String FAST_MOVE = "Fast Move";
     private static final String CHARGE_MOVE = "Charge Move";
@@ -20,7 +20,7 @@ public class RaidMove
     private String dodgeWindow;
     private String damageWindow;
 
-    private RaidMove()
+    private PokemonMove()
     {
     }
 
@@ -116,9 +116,9 @@ public class RaidMove
     public static final String DODGE_WINDOW = "dodge_window"; // this is Damage End - Damage Start
     public static final String DAMAGE_WINDOW = "damage_window"; // this is the same as Damage Start
 
-    public static RaidMove createFromJSON(JSONObject object)
+    public static PokemonMove createFromJSON(JSONObject object)
     {
-        RaidMove move = new RaidMove();
+        PokemonMove move = new PokemonMove();
 
         move.name = object.getString(TITLE);
         move.type = object.getString(TYPE);

@@ -1,20 +1,20 @@
 package com.schlock.website.services.apps.pokemon.impl;
 
-import com.schlock.website.entities.apps.pokemon.RaidCounter;
-import com.schlock.website.entities.apps.pokemon.RaidPokemonData;
-import com.schlock.website.services.apps.pokemon.PokemonRaidCustomCounterService;
-import com.schlock.website.services.apps.pokemon.PokemonRaidDataService;
+import com.schlock.website.entities.apps.pokemon.CounterPokemon;
+import com.schlock.website.entities.apps.pokemon.PokemonData;
+import com.schlock.website.services.apps.pokemon.PokemonCustomCounterService;
+import com.schlock.website.services.apps.pokemon.PokemonDataService;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class AbstractRaidCustomCounterServiceImpl implements PokemonRaidCustomCounterService
+public abstract class AbstractCustomCounterServiceImpl implements PokemonCustomCounterService
 {
-    private final PokemonRaidDataService dataService;
+    private final PokemonDataService dataService;
 
-    private Set<RaidCounter> customCounters = new HashSet<RaidCounter>();
+    private Set<CounterPokemon> customCounters = new HashSet<CounterPokemon>();
 
-    public AbstractRaidCustomCounterServiceImpl(PokemonRaidDataService dataService)
+    public AbstractCustomCounterServiceImpl(PokemonDataService dataService)
     {
         this.dataService = dataService;
 
@@ -53,12 +53,12 @@ public abstract class AbstractRaidCustomCounterServiceImpl implements PokemonRai
 
     protected void addCustom(String name, int level, int attackIV, int defenseIV, int staminaIV, String fastMoves, String chargeMoves)
     {
-        RaidPokemonData data = dataService.getDataByName(name);
-        RaidCounter counter = RaidCounter.createCustom(data, level, attackIV, defenseIV, staminaIV, fastMoves, chargeMoves);
+        PokemonData data = dataService.getDataByName(name);
+        CounterPokemon counter = CounterPokemon.createCustom(data, level, attackIV, defenseIV, staminaIV, fastMoves, chargeMoves);
         customCounters.add(counter);
     }
 
-    public Set<RaidCounter> getCustomPokemon()
+    public Set<CounterPokemon> getCounterPokemon()
     {
         if (customCounters.isEmpty())
         {

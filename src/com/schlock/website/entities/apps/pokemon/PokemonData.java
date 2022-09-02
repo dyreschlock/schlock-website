@@ -5,7 +5,7 @@ import org.apache.tapestry5.json.JSONObject;
 import java.util.HashSet;
 import java.util.Set;
 
-public class RaidPokemonData
+public class PokemonData
 {
     private String name;
     private String type1;
@@ -25,21 +25,21 @@ public class RaidPokemonData
     private Set<String> allFastMoveNames;
     private Set<String> allChargeMoveNames;
 
-    private Set<RaidMove> allFastMoves;
-    private Set<RaidMove> allChargeMoves;
+    private Set<PokemonMove> allFastMoves;
+    private Set<PokemonMove> allChargeMoves;
 
     private Set<String> standardFastMoveNames;
     private Set<String> standardChargeMoveNames;
 
-    private Set<RaidMove> standardFastMoves;
-    private Set<RaidMove> standardChargeMoves;
+    private Set<PokemonMove> standardFastMoves;
+    private Set<PokemonMove> standardChargeMoves;
 
     private int lvl20;
     private int lvl30;
     private int lvl35;
     private int lvl40;
 
-    private RaidPokemonData()
+    private PokemonData()
     {
     }
 
@@ -104,22 +104,22 @@ public class RaidPokemonData
         return allChargeMoveNames;
     }
 
-    public Set<RaidMove> getAllChargeMoves()
+    public Set<PokemonMove> getAllChargeMoves()
     {
         return allChargeMoves;
     }
 
-    public Set<RaidMove> getAllFastMoves()
+    public Set<PokemonMove> getAllFastMoves()
     {
         return allFastMoves;
     }
 
-    public void setAllFastMoves(Set<RaidMove> allFastMoves)
+    public void setAllFastMoves(Set<PokemonMove> allFastMoves)
     {
         this.allFastMoves = allFastMoves;
     }
 
-    public void setAllChargeMoves(Set<RaidMove> allChargeMoves)
+    public void setAllChargeMoves(Set<PokemonMove> allChargeMoves)
     {
         this.allChargeMoves = allChargeMoves;
     }
@@ -135,22 +135,22 @@ public class RaidPokemonData
         return standardChargeMoveNames;
     }
 
-    public Set<RaidMove> getStandardFastMoves()
+    public Set<PokemonMove> getStandardFastMoves()
     {
         return standardFastMoves;
     }
 
-    public Set<RaidMove> getStandardChargeMoves()
+    public Set<PokemonMove> getStandardChargeMoves()
     {
         return standardChargeMoves;
     }
 
-    public void setStandardFastMoves(Set<RaidMove> standardFastMoves)
+    public void setStandardFastMoves(Set<PokemonMove> standardFastMoves)
     {
         this.standardFastMoves = standardFastMoves;
     }
 
-    public void setStandardChargeMoves(Set<RaidMove> standardChargeMoves)
+    public void setStandardChargeMoves(Set<PokemonMove> standardChargeMoves)
     {
         this.standardChargeMoves = standardChargeMoves;
     }
@@ -207,9 +207,9 @@ public class RaidPokemonData
 
     private static final String DELIM = ",";
 
-    public static RaidPokemonData createFromJSON(JSONObject object)
+    public static PokemonData createFromJSON(JSONObject object)
     {
-        RaidPokemonData pokemon = new RaidPokemonData();
+        PokemonData pokemon = new PokemonData();
 
         pokemon.name = object.getString(TITLE);
 
@@ -282,9 +282,9 @@ public class RaidPokemonData
 
     private static final String SHADOW_PRETEXT = "Shadow ";
 
-    public static RaidPokemonData createShadowPokemonFromData(RaidPokemonData oldData)
+    public static PokemonData createShadowPokemonFromData(PokemonData oldData)
     {
-        RaidPokemonData newData = new RaidPokemonData();
+        PokemonData newData = new PokemonData();
 
         newData.name = SHADOW_PRETEXT + oldData.name;
         newData.type1 = oldData.type1;

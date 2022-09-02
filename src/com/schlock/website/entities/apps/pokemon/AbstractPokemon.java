@@ -2,7 +2,7 @@ package com.schlock.website.entities.apps.pokemon;
 
 import java.util.Set;
 
-public abstract class AbstractRaidPokemon
+public abstract class AbstractPokemon
 {
     private final static Integer DEFAULT_LEVEL = 40;
 
@@ -10,14 +10,14 @@ public abstract class AbstractRaidPokemon
     private final static Integer DEFAULT_DEFENSE_IV = 15;
     private final static Integer DEFAULT_STAMINA_IV = 15;
 
-    private final RaidPokemonData data;
+    private final PokemonData data;
 
-    protected AbstractRaidPokemon(RaidPokemonData data)
+    protected AbstractPokemon(PokemonData data)
     {
         this.data = data;
     }
 
-    protected RaidPokemonData getData()
+    protected PokemonData getData()
     {
         return data;
     }
@@ -82,12 +82,12 @@ public abstract class AbstractRaidPokemon
         return DEFAULT_STAMINA_IV;
     }
 
-    public Set<RaidMove> getStandardFastMoves()
+    public Set<PokemonMove> getStandardFastMoves()
     {
         return data.getStandardFastMoves();
     }
 
-    public Set<RaidMove> getStandardChargeMoves()
+    public Set<PokemonMove> getStandardChargeMoves()
     {
         return data.getStandardChargeMoves();
     }

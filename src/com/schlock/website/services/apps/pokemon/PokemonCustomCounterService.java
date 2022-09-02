@@ -1,0 +1,10 @@
+package com.schlock.website.services.apps.pokemon;
+
+import com.schlock.website.entities.apps.pokemon.CounterPokemon;
+
+import java.util.Set;
+
+public interface PokemonCustomCounterService
+{
+    public Set<CounterPokemon> getCounterPokemon();
+}

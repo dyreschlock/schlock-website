@@ -2,13 +2,13 @@ package com.schlock.website.entities.apps.pokemon;
 
 import java.util.*;
 
-public class RaidBoss extends AbstractRaidPokemon
+public class RaidBoss extends AbstractPokemon
 {
     private Map<CounterType, List<RaidCounterInstance>> megaCounters = new HashMap<CounterType, List<RaidCounterInstance>>();
     private Map<CounterType, List<RaidCounterInstance>> shadowCounters = new HashMap<CounterType, List<RaidCounterInstance>>();
     private Map<CounterType, List<RaidCounterInstance>> regularCounters = new HashMap<CounterType, List<RaidCounterInstance>>();
 
-    private RaidBoss(RaidPokemonData data)
+    private RaidBoss(PokemonData data)
     {
         super(data);
     }
@@ -55,7 +55,7 @@ public class RaidBoss extends AbstractRaidPokemon
         this.regularCounters.put(type, counters);
     }
 
-    public static RaidBoss createFromData(RaidPokemonData data)
+    public static RaidBoss createFromData(PokemonData data)
     {
         return new RaidBoss(data);
     }

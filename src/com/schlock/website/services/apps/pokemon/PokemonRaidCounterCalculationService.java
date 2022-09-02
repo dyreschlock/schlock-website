@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PokemonRaidCounterCalculationService
 {
-    RaidCounterInstance generateRaidCounter(RaidBoss raidBoss, RaidCounter raidCounter, RaidMove fastMove, RaidMove chargeMove);
+    RaidCounterInstance generateRaidCounter(RaidBoss raidBoss, CounterPokemon counterPokemon, PokemonMove fastMove, PokemonMove chargeMove);
 
     Integer getTotalDamageForParty(List<RaidCounterInstance> party);
 

@@ -5,15 +5,15 @@ import com.schlock.website.entities.apps.pokemon.*;
 import java.util.Collection;
 import java.util.List;
 
-public interface PokemonRaidDataService
+public interface PokemonDataService
 {
     public List<RaidBoss> getRaidBosses();
 
-    public Collection<RaidCounter> getSuitableCounterPokemon(CounterType type);
+    public Collection<CounterPokemon> getCounterPokemon(CounterType type);
 
     public Double getCpmFromLevel(Integer level);
 
-    public RaidPokemonData getDataByName(String name);
+    public PokemonData getDataByName(String name);
 
-    public RaidMove getMoveByName(String name);
+    public PokemonMove getMoveByName(String name);
 }

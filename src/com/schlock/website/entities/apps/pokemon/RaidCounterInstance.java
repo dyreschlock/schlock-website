@@ -21,7 +21,7 @@ public class RaidCounterInstance implements Comparable<RaidCounterInstance>
 
     private int count = 1;
 
-    public RaidCounterInstance(RaidCounter counter, String fastMove, String chargeMove, double dps, double tdo, double dps3tdo)
+    public RaidCounterInstance(CounterPokemon counter, String fastMove, String chargeMove, double dps, double tdo, double dps3tdo)
     {
         this.name = counter.getName();
         this.level = counter.getLevel();

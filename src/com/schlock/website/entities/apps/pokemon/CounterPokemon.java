@@ -1,10 +1,9 @@
 package com.schlock.website.entities.apps.pokemon;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-public class RaidCounter extends AbstractRaidPokemon
+public class CounterPokemon extends AbstractPokemon
 {
     private int level;
 
@@ -12,10 +11,10 @@ public class RaidCounter extends AbstractRaidPokemon
     private Integer defenseIv;
     private Integer staminaIv;
 
-    private Set<RaidMove> fastMoves = new HashSet<RaidMove>();
-    private Set<RaidMove> chargeMoves = new HashSet<RaidMove>();
+    private Set<PokemonMove> fastMoves = new HashSet<PokemonMove>();
+    private Set<PokemonMove> chargeMoves = new HashSet<PokemonMove>();
 
-    private RaidCounter(RaidPokemonData data)
+    private CounterPokemon(PokemonData data)
     {
         super(data);
     }
@@ -52,7 +51,7 @@ public class RaidCounter extends AbstractRaidPokemon
         return staminaIv;
     }
 
-    public Set<RaidMove> getAllFastMoves()
+    public Set<PokemonMove> getAllFastMoves()
     {
         if (fastMoves.isEmpty())
         {
@@ -61,7 +60,7 @@ public class RaidCounter extends AbstractRaidPokemon
         return fastMoves;
     }
 
-    public Set<RaidMove> getAllChargeMoves()
+    public Set<PokemonMove> getAllChargeMoves()
     {
         if (chargeMoves.isEmpty())
         {
@@ -70,7 +69,7 @@ public class RaidCounter extends AbstractRaidPokemon
         return chargeMoves;
     }
 
-    public Set<RaidMove> getStandardFastMoves()
+    public Set<PokemonMove> getStandardFastMoves()
     {
         if (fastMoves.isEmpty())
         {
@@ -79,7 +78,7 @@ public class RaidCounter extends AbstractRaidPokemon
         return fastMoves;
     }
 
-    public Set<RaidMove> getStandardChargeMoves()
+    public Set<PokemonMove> getStandardChargeMoves()
     {
         if (chargeMoves.isEmpty())
         {
@@ -88,21 +87,21 @@ public class RaidCounter extends AbstractRaidPokemon
         return chargeMoves;
     }
 
-    public static RaidCounter createFromData(RaidPokemonData data, int level)
+    public static CounterPokemon createFromData(PokemonData data, int level)
     {
-        RaidCounter counter = new RaidCounter(data);
+        CounterPokemon counter = new CounterPokemon(data);
         counter.level = level;
 
         return counter;
     }
 
-    public static RaidCounter createCustom(RaidPokemonData data,
-                                           int level,
-                                           int attackIV,
-                                           int defenseIV,
-                                           int staminaIV)
+    public static CounterPokemon createCustom(PokemonData data,
+                                              int level,
+                                              int attackIV,
+                                              int defenseIV,
+                                              int staminaIV)
     {
-        RaidCounter counter = createFromData(data, level);
+        CounterPokemon counter = createFromData(data, level);
 
         counter.attackIv = attackIV;
         counter.defenseIv = defenseIV;
@@ -112,25 +111,25 @@ public class RaidCounter extends AbstractRaidPokemon
     }
 
 
-    public static RaidCounter createCustom(RaidPokemonData data,
-                                           int level,
-                                           int attackIV,
-                                           int defenseIV,
-                                           int staminaIV,
-                                           String fastMoveNames,
-                                           String chargeMoveNames)
+    public static CounterPokemon createCustom(PokemonData data,
+                                              int level,
+                                              int attackIV,
+                                              int defenseIV,
+                                              int staminaIV,
+                                              String fastMoveNames,
+                                              String chargeMoveNames)
     {
-        RaidCounter counter = createCustom(data, level, attackIV, defenseIV, staminaIV);
+        CounterPokemon counter = createCustom(data, level, attackIV, defenseIV, staminaIV);
 
         if (fastMoveNames != null && !fastMoveNames.isEmpty())
         {
-            Set<RaidMove> fastMoves = getMoves(counter.getAllFastMoves(), fastMoveNames);
+            Set<PokemonMove> fastMoves = getMoves(counter.getAllFastMoves(), fastMoveNames);
             counter.fastMoves.addAll(fastMoves);
         }
 
         if (chargeMoveNames != null && !chargeMoveNames.isEmpty())
         {
-            Set<RaidMove> chargeMoves = getMoves(counter.getAllChargeMoves(), chargeMoveNames);
+            Set<PokemonMove> chargeMoves = getMoves(counter.getAllChargeMoves(), chargeMoveNames);
             counter.chargeMoves.addAll(chargeMoves);
         }
 
@@ -139,22 +138,22 @@ public class RaidCounter extends AbstractRaidPokemon
 
     private static final String DELIM = ",";
 
-    private static Set<RaidMove> getMoves(Set<RaidMove> allMoves, String moveNames)
+    private static Set<PokemonMove> getMoves(Set<PokemonMove> allMoves, String moveNames)
     {
-        Set<RaidMove> moves = new HashSet<RaidMove>();
+        Set<PokemonMove> moves = new HashSet<PokemonMove>();
 
         String[] names = moveNames.split(DELIM);
         for (String moveName : names)
         {
-            RaidMove move = getMove(allMoves, moveName.trim());
+            PokemonMove move = getMove(allMoves, moveName.trim());
             moves.add(move);
         }
         return moves;
     }
 
-    private static RaidMove getMove(Set<RaidMove> allMoves, String moveName)
+    private static PokemonMove getMove(Set<PokemonMove> allMoves, String moveName)
     {
-        for (RaidMove move : allMoves)
+        for (PokemonMove move : allMoves)
         {
             if (move.getName().equalsIgnoreCase(moveName))
             {

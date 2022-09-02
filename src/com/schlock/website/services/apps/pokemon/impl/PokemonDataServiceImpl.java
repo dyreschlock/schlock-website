@@ -2,9 +2,9 @@ package com.schlock.website.services.apps.pokemon.impl;
 
 import com.schlock.website.entities.apps.pokemon.*;
 import com.schlock.website.services.DeploymentContext;
-import com.schlock.website.services.apps.pokemon.PokemonRaidCustomCounterPrimeService;
-import com.schlock.website.services.apps.pokemon.PokemonRaidCustomCounterSecondService;
-import com.schlock.website.services.apps.pokemon.PokemonRaidDataService;
+import com.schlock.website.services.apps.pokemon.PokemonCustomCounterPrimeService;
+import com.schlock.website.services.apps.pokemon.PokemonCustomCounterSecondService;
+import com.schlock.website.services.apps.pokemon.PokemonDataService;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 
@@ -14,7 +14,7 @@ import java.util.*;
 /**
  * Data Taken from : https://gamepress.gg/pokemongo/comprehensive-dps-spreadsheet
  */
-public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
+public class PokemonDataServiceImpl implements PokemonDataService
 {
     private static final boolean IGNORE_MOVES_POKEMON = true;
 //    private static final boolean IGNORE_MOVES_POKEMON = false;
@@ -105,20 +105,20 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
     private List<RaidBoss> raidBosses = new ArrayList<RaidBoss>();
 
-    private HashMap<String, RaidMove> raidMoveData = new HashMap<String, RaidMove>();
-    private HashMap<String, RaidPokemonData> raidPokemonData = new HashMap<String, RaidPokemonData>();
+    private HashMap<String, PokemonMove> moveData = new HashMap<String, PokemonMove>();
+    private HashMap<String, PokemonData> pokemonData = new HashMap<String, PokemonData>();
 
     private HashMap<Integer, Double> cpmData = new HashMap<Integer, Double>();
 
 
-    private final PokemonRaidCustomCounterPrimeService customPrimeService;
-    private final PokemonRaidCustomCounterSecondService customSecondService;
+    private final PokemonCustomCounterPrimeService customPrimeService;
+    private final PokemonCustomCounterSecondService customSecondService;
 
     private final DeploymentContext deploymentContext;
 
-    public PokemonRaidDataServiceImpl(PokemonRaidCustomCounterPrimeService customPrimeService,
-                                        PokemonRaidCustomCounterSecondService customSecondService,
-                                        DeploymentContext deploymentContext)
+    public PokemonDataServiceImpl(PokemonCustomCounterPrimeService customPrimeService,
+                                  PokemonCustomCounterSecondService customSecondService,
+                                  DeploymentContext deploymentContext)
     {
         this.customPrimeService = customPrimeService;
         this.customSecondService = customSecondService;
@@ -126,14 +126,14 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         this.deploymentContext = deploymentContext;
 
         loadCpmJSON();
-        loadRaidMoveJSON();
+        loadMovesJSON();
 
         if (USE_OVERWRITES)
         {
             addMoveOverwrites();
         }
 
-        loadRaidPokemonDataJSON();
+        loadPokemonDataJSON();
 
         if (USE_OVERWRITES)
         {
@@ -229,13 +229,13 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         addMoveToPokemon(pokemonName, true, moveNames);
 
         String mega = MEGA_PREFIX + pokemonName;
-        if (raidPokemonData.get(mega) != null)
+        if (pokemonData.get(mega) != null)
         {
             addMoveToPokemon(mega, true, moveNames);
         }
 
         String shadow = SHADOW_PREFIX + pokemonName;
-        if (raidPokemonData.get(shadow) != null)
+        if (pokemonData.get(shadow) != null)
         {
             addMoveToPokemon(shadow, true, moveNames);
         }
@@ -246,13 +246,13 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         addMoveToPokemon(pokemonName, false, moveNames);
 
         String mega = MEGA_PREFIX + pokemonName;
-        if (raidPokemonData.get(mega) != null)
+        if (pokemonData.get(mega) != null)
         {
             addMoveToPokemon(mega, false, moveNames);
         }
 
         String shadow = SHADOW_PREFIX + pokemonName;
-        if (raidPokemonData.get(shadow) != null)
+        if (pokemonData.get(shadow) != null)
         {
             addMoveToPokemon(shadow, false, moveNames);
         }
@@ -263,7 +263,7 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
     private void addMoveToPokemon(String pokemonName, boolean standard, String... moveNames)
     {
-        RaidPokemonData pokemon = raidPokemonData.get(pokemonName);
+        PokemonData pokemon = pokemonData.get(pokemonName);
         if (pokemon == null)
         {
             throw new RuntimeException("Pokemon not found: " + pokemonName);
@@ -271,7 +271,7 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
         for (String moveName : moveNames)
         {
-            RaidMove move = raidMoveData.get(moveName);
+            PokemonMove move = moveData.get(moveName);
             if (move == null)
             {
                 throw new RuntimeException("Move not found: " + moveName);
@@ -298,108 +298,108 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
     private void copyStatsCreateNewMove(String newMoveName, String type, String oldMoveName)
     {
-        RaidMove oldMove = raidMoveData.get(oldMoveName);
+        PokemonMove oldMove = moveData.get(oldMoveName);
         if (oldMove == null)
         {
             throw new RuntimeException("Move not found: " + oldMoveName);
         }
 
         JSONObject object = new JSONObject();
-        object.put(RaidMove.TITLE, newMoveName);
-        object.put(RaidMove.TYPE, type);
-        object.put(RaidMove.CATEGORY, oldMove.getCategory());
-        object.put(RaidMove.POWER, oldMove.getPower());
-        object.put(RaidMove.COOLDOWN, oldMove.getCooldown());
-        object.put(RaidMove.ENERGY_GAIN, oldMove.getEnergyGain());
-        object.put(RaidMove.ENERGY_COST, oldMove.getEnergyCost());
-        object.put(RaidMove.DODGE_WINDOW, oldMove.getDodgeWindow());
-        object.put(RaidMove.DAMAGE_WINDOW, oldMove.getDamageWindow());
+        object.put(PokemonMove.TITLE, newMoveName);
+        object.put(PokemonMove.TYPE, type);
+        object.put(PokemonMove.CATEGORY, oldMove.getCategory());
+        object.put(PokemonMove.POWER, oldMove.getPower());
+        object.put(PokemonMove.COOLDOWN, oldMove.getCooldown());
+        object.put(PokemonMove.ENERGY_GAIN, oldMove.getEnergyGain());
+        object.put(PokemonMove.ENERGY_COST, oldMove.getEnergyCost());
+        object.put(PokemonMove.DODGE_WINDOW, oldMove.getDodgeWindow());
+        object.put(PokemonMove.DAMAGE_WINDOW, oldMove.getDamageWindow());
 
-        RaidMove newMove = RaidMove.createFromJSON(object);
-        if (raidMoveData.get(newMove.getName()) != null)
+        PokemonMove newMove = PokemonMove.createFromJSON(object);
+        if (moveData.get(newMove.getName()) != null)
         {
             throw new RuntimeException(newMoveName + " already exists.");
         }
-        raidMoveData.put(newMoveName, newMove);
+        moveData.put(newMoveName, newMove);
     }
 
     private void createBrutalSwing()
     {
         JSONObject object = new JSONObject();
-        object.put(RaidMove.TITLE, "Brutal Swing");
-        object.put(RaidMove.TYPE, "Dark");
-        object.put(RaidMove.CATEGORY, "Charge Move");
-        object.put(RaidMove.POWER, "65");
-        object.put(RaidMove.COOLDOWN, "1.90");
-        object.put(RaidMove.ENERGY_GAIN, "");
-        object.put(RaidMove.ENERGY_COST, "-33");
-        object.put(RaidMove.DODGE_WINDOW, "0.40 seconds");
-        object.put(RaidMove.DAMAGE_WINDOW, "1.20 seconds");
+        object.put(PokemonMove.TITLE, "Brutal Swing");
+        object.put(PokemonMove.TYPE, "Dark");
+        object.put(PokemonMove.CATEGORY, "Charge Move");
+        object.put(PokemonMove.POWER, "65");
+        object.put(PokemonMove.COOLDOWN, "1.90");
+        object.put(PokemonMove.ENERGY_GAIN, "");
+        object.put(PokemonMove.ENERGY_COST, "-33");
+        object.put(PokemonMove.DODGE_WINDOW, "0.40 seconds");
+        object.put(PokemonMove.DAMAGE_WINDOW, "1.20 seconds");
 
-        RaidMove brutalSwing = RaidMove.createFromJSON(object);
+        PokemonMove brutalSwing = PokemonMove.createFromJSON(object);
 
-        if (raidMoveData.get(brutalSwing.getName()) != null)
+        if (moveData.get(brutalSwing.getName()) != null)
         {
             throw new RuntimeException(brutalSwing.getName() + " already exists.");
         }
-        raidMoveData.put(brutalSwing.getName(), brutalSwing);
+        moveData.put(brutalSwing.getName(), brutalSwing);
     }
 
     private void createFairyWind()
     {
         JSONObject object = new JSONObject();
-        object.put(RaidMove.TITLE, "Fairy Wind");
-        object.put(RaidMove.TYPE, "Fairy");
-        object.put(RaidMove.CATEGORY, "Fast Move");
-        object.put(RaidMove.POWER, "9");
-        object.put(RaidMove.COOLDOWN, "0.97");
-        object.put(RaidMove.ENERGY_GAIN, "13");
-        object.put(RaidMove.ENERGY_COST, "0");
-        object.put(RaidMove.DODGE_WINDOW, "0.37 seconds");
-        object.put(RaidMove.DAMAGE_WINDOW, "0.60 seconds");
+        object.put(PokemonMove.TITLE, "Fairy Wind");
+        object.put(PokemonMove.TYPE, "Fairy");
+        object.put(PokemonMove.CATEGORY, "Fast Move");
+        object.put(PokemonMove.POWER, "9");
+        object.put(PokemonMove.COOLDOWN, "0.97");
+        object.put(PokemonMove.ENERGY_GAIN, "13");
+        object.put(PokemonMove.ENERGY_COST, "0");
+        object.put(PokemonMove.DODGE_WINDOW, "0.37 seconds");
+        object.put(PokemonMove.DAMAGE_WINDOW, "0.60 seconds");
 
-        RaidMove fairyWind = RaidMove.createFromJSON(object);
+        PokemonMove fairyWind = PokemonMove.createFromJSON(object);
 
-        if (raidMoveData.get(fairyWind.getName()) != null)
+        if (moveData.get(fairyWind.getName()) != null)
         {
             throw new RuntimeException(fairyWind.getName() + " already exists.");
         }
-        raidMoveData.put(fairyWind.getName(), fairyWind);
+        moveData.put(fairyWind.getName(), fairyWind);
     }
 
     private void createDoubleKick()
     {
         JSONObject object = new JSONObject();
-        object.put(RaidMove.TITLE, "Double Kick");
-        object.put(RaidMove.TYPE, "Fighting");
-        object.put(RaidMove.CATEGORY, "Fast Move");
-        object.put(RaidMove.POWER, "8");
-        object.put(RaidMove.COOLDOWN, "1.00");
-        object.put(RaidMove.ENERGY_GAIN, "13");
-        object.put(RaidMove.ENERGY_COST, "0");
-        object.put(RaidMove.DODGE_WINDOW, "0.50 seconds");
-        object.put(RaidMove.DAMAGE_WINDOW, "0.30 seconds");
+        object.put(PokemonMove.TITLE, "Double Kick");
+        object.put(PokemonMove.TYPE, "Fighting");
+        object.put(PokemonMove.CATEGORY, "Fast Move");
+        object.put(PokemonMove.POWER, "8");
+        object.put(PokemonMove.COOLDOWN, "1.00");
+        object.put(PokemonMove.ENERGY_GAIN, "13");
+        object.put(PokemonMove.ENERGY_COST, "0");
+        object.put(PokemonMove.DODGE_WINDOW, "0.50 seconds");
+        object.put(PokemonMove.DAMAGE_WINDOW, "0.30 seconds");
 
-        RaidMove doubleKick = RaidMove.createFromJSON(object);
+        PokemonMove doubleKick = PokemonMove.createFromJSON(object);
 
-        if (raidMoveData.get(doubleKick.getName()) != null)
+        if (moveData.get(doubleKick.getName()) != null)
         {
             throw new RuntimeException(doubleKick.getName() + " already exists.");
         }
-        raidMoveData.put(doubleKick.getName(), doubleKick);
+        moveData.put(doubleKick.getName(), doubleKick);
     }
 
     private void createShadowPokemon(String pokemonName)
     {
-        RaidPokemonData pokemon = raidPokemonData.get(pokemonName);
+        PokemonData pokemon = pokemonData.get(pokemonName);
         if (pokemon == null)
         {
             throw new RuntimeException("Pokemon not found: " + pokemonName);
         }
 
-        RaidPokemonData shadow = RaidPokemonData.createShadowPokemonFromData(pokemon);
+        PokemonData shadow = PokemonData.createShadowPokemonFromData(pokemon);
 
-        raidPokemonData.put(shadow.getName(), shadow);
+        pokemonData.put(shadow.getName(), shadow);
     }
 
 
@@ -471,9 +471,9 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         return number == intValue.doubleValue();
     }
 
-    private void loadRaidMoveJSON()
+    private void loadMovesJSON()
     {
-        if (!raidMoveData.isEmpty())
+        if (!moveData.isEmpty())
         {
             return;
         }
@@ -488,8 +488,8 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
             {
                 JSONObject json = (JSONObject) obj;
 
-                RaidMove move = RaidMove.createFromJSON(json);
-                raidMoveData.put(move.getName(), move);
+                PokemonMove move = PokemonMove.createFromJSON(json);
+                moveData.put(move.getName(), move);
             }
             catch (ClassCastException e)
             {
@@ -497,15 +497,15 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         }
     }
 
-    private void loadRaidPokemonDataJSON()
+    private void loadPokemonDataJSON()
     {
-        if (!raidPokemonData.isEmpty())
+        if (!pokemonData.isEmpty())
         {
             return;
         }
-        if (raidMoveData.isEmpty())
+        if (moveData.isEmpty())
         {
-            loadRaidMoveJSON();
+            loadMovesJSON();
         }
 
         JSONArray objects = readJSONArrayFromFile(POKEMON_FILE);
@@ -518,17 +518,17 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
             {
                 JSONObject json = (JSONObject) obj;
 
-                RaidPokemonData pokemon = RaidPokemonData.createFromJSON(json);
-                raidPokemonData.put(pokemon.getName(), pokemon);
+                PokemonData pokemon = PokemonData.createFromJSON(json);
+                pokemonData.put(pokemon.getName(), pokemon);
 
-                Set<RaidMove> fastMoves = getRaidMovesFromNames(pokemon.getAllFastMoveNames());
-                Set<RaidMove> chargeMoves = getRaidMovesFromNames(pokemon.getAllChargeMoveNames());
+                Set<PokemonMove> fastMoves = getMovesFromNames(pokemon.getAllFastMoveNames());
+                Set<PokemonMove> chargeMoves = getMovesFromNames(pokemon.getAllChargeMoveNames());
 
                 pokemon.setAllFastMoves(fastMoves);
                 pokemon.setAllChargeMoves(chargeMoves);
 
-                fastMoves = getRaidMovesFromNames(pokemon.getStandardFastMoveNames());
-                chargeMoves = getRaidMovesFromNames(pokemon.getStandardChargeMoveNames());
+                fastMoves = getMovesFromNames(pokemon.getStandardFastMoveNames());
+                chargeMoves = getMovesFromNames(pokemon.getStandardChargeMoveNames());
 
                 pokemon.setStandardFastMoves(fastMoves);
                 pokemon.setStandardChargeMoves(chargeMoves);
@@ -539,14 +539,14 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         }
     }
 
-    private Set<RaidMove> getRaidMovesFromNames(Set<String> names)
+    private Set<PokemonMove> getMovesFromNames(Set<String> names)
     {
-        Set<RaidMove> moves = new HashSet<RaidMove>();
+        Set<PokemonMove> moves = new HashSet<PokemonMove>();
         for (String name : names)
         {
             if (!isIgnoreMove(name))
             {
-                RaidMove move = raidMoveData.get(name);
+                PokemonMove move = moveData.get(name);
                 moves.add(move);
             }
         }
@@ -568,7 +568,7 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         return false;
     }
 
-    private boolean isIgnorePokemon(RaidPokemonData pokemon)
+    private boolean isIgnorePokemon(PokemonData pokemon)
     {
         if (IGNORE_MOVES_POKEMON && IGNORE_POKEMON.contains(pokemon.getName()))
         {
@@ -591,38 +591,39 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         return cpmData.get(level);
     }
 
-    public RaidMove getMoveByName(String name)
+    public PokemonMove getMoveByName(String name)
     {
-        return raidMoveData.get(name);
+        return moveData.get(name);
     }
 
-    public Collection<RaidCounter> getSuitableCounterPokemon(CounterType counterType)
+    public Collection<CounterPokemon> getCounterPokemon(CounterType counterType)
     {
         if (CounterType.CUSTOM1.equals(counterType))
         {
-            return customPrimeService.getCustomPokemon();
+            return customPrimeService.getCounterPokemon();
         }
         if(CounterType.CUSTOM2.equals(counterType))
         {
-            return customSecondService.getCustomPokemon();
+            return customSecondService.getCounterPokemon();
         }
-        return getAllGeneralPokemon();
+        return getAllGeneralCounters();
     }
 
-    private Collection<RaidCounter> getAllGeneralPokemon()
+    private Collection<CounterPokemon> getAllGeneralCounters()
     {
-        if (raidPokemonData.isEmpty())
+        if (pokemonData.isEmpty())
         {
-            loadRaidPokemonDataJSON();
+            loadPokemonDataJSON();
         }
 
-        List<RaidCounter> pokemon = new ArrayList<RaidCounter>();
 
-        for (RaidPokemonData data : raidPokemonData.values())
+        List<CounterPokemon> pokemon = new ArrayList<CounterPokemon>();
+
+        for (PokemonData data : pokemonData.values())
         {
             if(!isIgnorePokemon(data))
             {
-                RaidCounter fullCounter = RaidCounter.createFromData(data, LEVEL_40);
+                CounterPokemon fullCounter = CounterPokemon.createFromData(data, LEVEL_40);
 
                 int highLevel = LEVEL_50;
                 if (isLegendary(data))
@@ -630,7 +631,7 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
                     highLevel = LEVEL_45;
                 }
 
-                RaidCounter highCounter = RaidCounter.createFromData(data, highLevel);
+                CounterPokemon highCounter = CounterPokemon.createFromData(data, highLevel);
 
                 pokemon.add(fullCounter);
                 pokemon.add(highCounter);
@@ -639,7 +640,7 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         return pokemon;
     }
 
-    private boolean isLegendary(RaidPokemonData pokemon)
+    private boolean isLegendary(PokemonData pokemon)
     {
         String pokemonName = pokemon.getName();
         if (pokemon.isShadow())
@@ -663,13 +664,13 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
         return raidBosses;
     }
 
-    public RaidPokemonData getDataByName(String name)
+    public PokemonData getDataByName(String name)
     {
-        if (raidPokemonData.isEmpty())
+        if (pokemonData.isEmpty())
         {
-            loadRaidPokemonDataJSON();
+            loadPokemonDataJSON();
         }
-        RaidPokemonData data = raidPokemonData.get(name);
+        PokemonData data = pokemonData.get(name);
         if (data == null)
         {
             throw new RuntimeException("Pokemon Not Found: " + name);
@@ -686,7 +687,7 @@ public class PokemonRaidDataServiceImpl implements PokemonRaidDataService
 
         for (String name : getRaidBossNames())
         {
-            RaidPokemonData data = raidPokemonData.get(name);
+            PokemonData data = pokemonData.get(name);
             if (data == null)
             {
                 throw new RuntimeException("Pokemon Not Found: " + name);

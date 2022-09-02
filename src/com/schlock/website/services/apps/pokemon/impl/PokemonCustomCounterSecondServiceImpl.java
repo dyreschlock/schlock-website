@@ -1,11 +1,11 @@
 package com.schlock.website.services.apps.pokemon.impl;
 
-import com.schlock.website.services.apps.pokemon.PokemonRaidCustomCounterSecondService;
-import com.schlock.website.services.apps.pokemon.PokemonRaidDataService;
+import com.schlock.website.services.apps.pokemon.PokemonCustomCounterSecondService;
+import com.schlock.website.services.apps.pokemon.PokemonDataService;
 
-public class PokemonRaidCustomCounterSecondServiceImpl extends AbstractRaidCustomCounterServiceImpl implements PokemonRaidCustomCounterSecondService
+public class PokemonCustomCounterSecondServiceImpl extends AbstractCustomCounterServiceImpl implements PokemonCustomCounterSecondService
 {
-    public PokemonRaidCustomCounterSecondServiceImpl(PokemonRaidDataService dataService)
+    public PokemonCustomCounterSecondServiceImpl(PokemonDataService dataService)
     {
         super(dataService);
     }
