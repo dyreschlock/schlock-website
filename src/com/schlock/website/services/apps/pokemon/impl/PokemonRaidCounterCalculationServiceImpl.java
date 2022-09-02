@@ -509,7 +509,7 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
         this.dataService = dataService;
     }
 
-    public RaidCounterInstance generateRaidCounter(RaidBoss raidBoss,
+    public RaidCounterInstance generateRaidCounter(RaidBossPokemon raidBoss,
                                                    CounterPokemon counter,
                                                    PokemonMove fastMove,
                                                    PokemonMove chargeMove)
@@ -537,10 +537,10 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
      * <p>
      * function calculateDPS(pokemon, kwargs)
      */
-    private RaidCounterInstance doCalculations(RaidBoss raidBoss,
-                                                   CounterPokemon counter,
-                                                   PokemonMove fastMove,
-                                                   PokemonMove chargeMove)
+    private RaidCounterInstance doCalculations(RaidBossPokemon raidBoss,
+                                               CounterPokemon counter,
+                                               PokemonMove fastMove,
+                                               PokemonMove chargeMove)
     {
         double damageIntakeX = generateDamageIntakeX(raidBoss, counter, fastMove, chargeMove);
         double damageIntakeY = generateDamageIntakeY(raidBoss, counter);
@@ -601,7 +601,7 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
      * x: -pokemon.cmove.energyDelta * 0.5 + pokemon.fmove.energyDelta * 0.5,
      * y: DEFAULT_ENEMY_DPS1 / pokemon.Def
      */
-    private double generateDamageIntakeX(RaidBoss boss, CounterPokemon counter, PokemonMove pFastMove, PokemonMove pChargeMove)
+    private double generateDamageIntakeX(RaidBossPokemon boss, CounterPokemon counter, PokemonMove pFastMove, PokemonMove pChargeMove)
     {
         if (boss.getStandardFastMoves().isEmpty() || boss.getStandardChargeMoves().isEmpty())
         {
@@ -650,7 +650,7 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
      * y: (n * FDmg + CDmg) / (n * FDur + CDur)
      * };
      */
-    private double generateDamageIntakeY(RaidBoss boss, CounterPokemon counter)
+    private double generateDamageIntakeY(RaidBossPokemon boss, CounterPokemon counter)
     {
         if (boss.getStandardFastMoves().isEmpty() || boss.getStandardChargeMoves().isEmpty())
         {
@@ -742,7 +742,7 @@ public class PokemonRaidCounterCalculationServiceImpl implements PokemonRaidCoun
 
         double defense = (pokemon.getBaseDefense() + pokemon.getDefenseIV()) * CPM;
 
-        if (!RaidBoss.class.isAssignableFrom(pokemon.getClass()))
+        if (!RaidBossPokemon.class.isAssignableFrom(pokemon.getClass()))
         {
             if (pokemon.isMega())
             {

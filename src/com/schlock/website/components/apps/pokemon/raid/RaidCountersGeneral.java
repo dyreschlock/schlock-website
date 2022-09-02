@@ -1,6 +1,6 @@
 package com.schlock.website.components.apps.pokemon.raid;
 
-import com.schlock.website.entities.apps.pokemon.RaidBoss;
+import com.schlock.website.entities.apps.pokemon.RaidBossPokemon;
 import com.schlock.website.entities.apps.pokemon.RaidCounterInstance;
 import com.schlock.website.entities.apps.pokemon.CounterType;
 import com.schlock.website.services.apps.pokemon.PokemonRaidCounterService;
@@ -19,7 +19,7 @@ public class RaidCountersGeneral
     private Messages messages;
 
     @Property
-    private RaidBoss currentRaidBoss;
+    private RaidBossPokemon currentRaidBoss;
 
     @Property
     private RaidCounterInstance currentCounterPokemon;
@@ -30,7 +30,7 @@ public class RaidCountersGeneral
 
 
 
-    public List<RaidBoss> getLegendaryPokemon()
+    public List<RaidBossPokemon> getLegendaryPokemon()
     {
         return counterService.getRaidBosses();
     }

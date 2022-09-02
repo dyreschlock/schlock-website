@@ -1,6 +1,6 @@
 package com.schlock.website.entities.apps.pokemon;
 
-public class RocketCounterPokemon
+public class RocketCounterInstance
 {
     private String name;
 
@@ -12,7 +12,7 @@ public class RocketCounterPokemon
     private String time;
     private String power;
 
-    public RocketCounterPokemon(String name, String fastMove, String chargeMove, String overall, String cp, String time, String power)
+    public RocketCounterInstance(String name, String fastMove, String chargeMove, String overall, String cp, String time, String power)
     {
         this.name = name;
 

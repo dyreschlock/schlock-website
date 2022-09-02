@@ -1,15 +1,14 @@
 package com.schlock.website.pages.apps.pokemon;
 
 import com.schlock.website.entities.apps.pokemon.CounterType;
-import com.schlock.website.entities.apps.pokemon.RocketCounterPokemon;
+import com.schlock.website.entities.apps.pokemon.RocketCounterInstance;
 import com.schlock.website.entities.apps.pokemon.RocketLeader;
-import com.schlock.website.entities.apps.pokemon.RocketPokemon;
+import com.schlock.website.entities.apps.pokemon.RocketBossPokemon;
 import com.schlock.website.services.apps.pokemon.PokemonRocketCounterService;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.w3c.dom.css.Counter;
 
 import java.util.List;
 
@@ -32,10 +31,10 @@ public class PokemonRocketCounter
     private RocketLeader currentRocketLeader;
 
     @Property
-    private RocketPokemon currentRocketPokemon;
+    private RocketBossPokemon currentRocketBossPokemon;
 
     @Property
-    private RocketCounterPokemon currentCounterPokemon;
+    private RocketCounterInstance currentCounterPokemon;
 
     @Property
     private Integer currentIndex;
@@ -73,16 +72,6 @@ public class PokemonRocketCounter
     }
 
 
-    public List<String> getRocketLeaderGroups()
-    {
-        return counterService.getRocketLeaderGroups();
-    }
-
-    public String getCurrentRocketLeaderGroupName()
-    {
-        return messages.get(currentRocketLeaderGroup);
-    }
-
     public String getCurrentRocketLeaderName()
     {
         return messages.get(currentRocketLeader.getName());
@@ -90,13 +79,12 @@ public class PokemonRocketCounter
 
     public List<RocketLeader> getRocketLeaders()
     {
-        return counterService.getRocketLeaders(currentRocketLeaderGroup);
+        return counterService.getRocketLeaders();
     }
 
-    public List<RocketCounterPokemon> getCounterPokemon()
+    public List<RocketCounterInstance> getCounterPokemon()
     {
-        String rocketPokemonName = currentRocketPokemon.getName();
-        return counterService.getCounterPokemon(rocketPokemonName);
+        return counterService.getCounterPokemon(counterType, currentRocketBossPokemon);
     }
 
     public String getCurrentIndexPlusOne()

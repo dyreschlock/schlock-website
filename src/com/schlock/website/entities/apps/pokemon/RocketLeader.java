@@ -5,18 +5,16 @@ import java.util.List;
 
 public class RocketLeader
 {
-    private String name;
+    private RocketLeaderName name;
 
-    List<RocketPokemon> pokemon;
+    List<RocketBossPokemon> pokemon = new ArrayList<RocketBossPokemon>();
 
-
-    public RocketLeader(String name)
+    public RocketLeader(RocketLeaderName name)
     {
         this.name = name;
-        this.pokemon = new ArrayList<RocketPokemon>();
     }
 
-    public void addPokemon(RocketPokemon pokemon)
+    public void addPokemon(RocketBossPokemon pokemon)
     {
         this.pokemon.add(pokemon);
     }
@@ -24,20 +22,15 @@ public class RocketLeader
 
     public String getName()
     {
-        return name;
+        return name.name();
     }
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public List<RocketPokemon> getPokemon()
+    public List<RocketBossPokemon> getPokemon()
     {
         return pokemon;
     }
 
-    public void setPokemon(List<RocketPokemon> pokemon)
+    public void setPokemon(List<RocketBossPokemon> pokemon)
     {
         this.pokemon = pokemon;
     }

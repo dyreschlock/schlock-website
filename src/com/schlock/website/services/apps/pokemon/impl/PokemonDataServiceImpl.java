@@ -103,7 +103,10 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
 
 
-    private List<RaidBoss> raidBosses = new ArrayList<RaidBoss>();
+    private List<RaidBossPokemon> raidBosses = new ArrayList<RaidBossPokemon>();
+
+    private List<RocketLeader> rocketLeaders = new ArrayList<RocketLeader>();
+    private Map<String, RocketBossPokemon> rocketBosses = new HashMap<String, RocketBossPokemon>();
 
     private HashMap<String, PokemonMove> moveData = new HashMap<String, PokemonMove>();
     private HashMap<String, PokemonData> pokemonData = new HashMap<String, PokemonData>();
@@ -655,13 +658,22 @@ public class PokemonDataServiceImpl implements PokemonDataService
         return getLegendaryBosses().contains(pokemonName);
     }
 
-    public List<RaidBoss> getRaidBosses()
+    public List<RaidBossPokemon> getRaidBosses()
     {
         if (raidBosses.isEmpty())
         {
             generateRaidBosses();
         }
         return raidBosses;
+    }
+
+    public List<RocketLeader> getRocketLeaders()
+    {
+        if (rocketLeaders.isEmpty())
+        {
+            generateRocketLeaders();
+        }
+        return rocketLeaders;
     }
 
     public PokemonData getDataByName(String name)
@@ -678,6 +690,41 @@ public class PokemonDataServiceImpl implements PokemonDataService
         return data;
     }
 
+    private void generateRocketLeaders()
+    {
+        if (!rocketLeaders.isEmpty())
+        {
+            return;
+        }
+
+        if (pokemonData.isEmpty())
+        {
+            loadPokemonDataJSON();
+        }
+
+        for (RocketLeaderName leaderName : RocketLeaderName.values())
+        {
+            RocketLeader leader = new RocketLeader(leaderName);
+
+            for (String pokemonName : leaderName.pokemonNames())
+            {
+                RocketBossPokemon pokemon = rocketBosses.get(pokemonName);
+                if (pokemon == null)
+                {
+                    PokemonData data = getDataByName(pokemonName);
+
+                    pokemon = RocketBossPokemon.createFromData(data);
+
+                    rocketBosses.put(pokemonName, pokemon);
+                }
+
+                leader.addPokemon(pokemon);
+            }
+
+            rocketLeaders.add(leader);
+        }
+    }
+
     private void generateRaidBosses()
     {
         if (!raidBosses.isEmpty())
@@ -692,7 +739,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
             {
                 throw new RuntimeException("Pokemon Not Found: " + name);
             }
-            RaidBoss raidBoss = RaidBoss.createFromData(data);
+            RaidBossPokemon raidBoss = RaidBossPokemon.createFromData(data);
 
             raidBosses.add(raidBoss);
         }
@@ -915,4 +962,5 @@ public class PokemonDataServiceImpl implements PokemonDataService
             "Mega Rayquaza",
             "Mega Diancie"
     );
+
 }

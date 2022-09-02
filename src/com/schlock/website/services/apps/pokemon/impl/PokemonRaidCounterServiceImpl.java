@@ -34,7 +34,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         this.dataService = dataService;
     }
 
-    private void generateRaidCounters(RaidBoss raidBoss, CounterType counterType)
+    private void generateRaidCounters(RaidBossPokemon raidBoss, CounterType counterType)
     {
         List<RaidCounterInstance> megaCounters = new ArrayList<RaidCounterInstance>();
         List<RaidCounterInstance> shadowCounters = new ArrayList<RaidCounterInstance>();
@@ -69,7 +69,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         raidBoss.setRegularCounters(counterType, regularCounters.subList(0, NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON));
     }
 
-    private List<RaidCounterInstance> generateRaidCounters(RaidBoss raidBoss, CounterPokemon counterPokemon)
+    private List<RaidCounterInstance> generateRaidCounters(RaidBossPokemon raidBoss, CounterPokemon counterPokemon)
     {
         List<RaidCounterInstance> counters = new ArrayList<RaidCounterInstance>();
 
@@ -162,14 +162,14 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 
     interface ReturnCounters
     {
-        List<RaidCounterInstance> getCounters(RaidBoss pokemon);
+        List<RaidCounterInstance> getCounters(RaidBossPokemon pokemon);
     }
 
     private List<RaidCounterInstance> generateTopCounters(ReturnCounters filter, CounterType counterType, int count)
     {
         Map<String, RaidCounterInstance> counters = new HashMap<String, RaidCounterInstance>();
 
-        for (RaidBoss boss : getRaidBosses())
+        for (RaidBossPokemon boss : getRaidBosses())
         {
             if (!boss.isCountersGenerated(counterType))
             {
@@ -222,12 +222,12 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     }
 
 
-    public List<RaidBoss> getRaidBosses()
+    public List<RaidBossPokemon> getRaidBosses()
     {
         return dataService.getRaidBosses();
     }
 
-    public List<RaidCounterInstance> getCounterPokemon(RaidBoss boss, CounterType counterType)
+    public List<RaidCounterInstance> getCounterPokemon(RaidBossPokemon boss, CounterType counterType)
     {
         if (!boss.isCountersGenerated(counterType))
         {
@@ -262,7 +262,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         {
             ReturnCounters megaCounters = new ReturnCounters()
             {
-                public List<RaidCounterInstance> getCounters(RaidBoss pokemon)
+                public List<RaidCounterInstance> getCounters(RaidBossPokemon pokemon)
                 {
                     return pokemon.getMegaCounters(counterType);
                 }
@@ -278,7 +278,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         {
             ReturnCounters shadowCounters = new ReturnCounters()
             {
-                public List<RaidCounterInstance> getCounters(RaidBoss pokemon)
+                public List<RaidCounterInstance> getCounters(RaidBossPokemon pokemon)
                 {
                     return pokemon.getShadowCounters(counterType);
                 }
@@ -294,7 +294,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         {
             ReturnCounters regularCounters = new ReturnCounters()
             {
-                public List<RaidCounterInstance> getCounters(RaidBoss pokemon)
+                public List<RaidCounterInstance> getCounters(RaidBossPokemon pokemon)
                 {
                     return pokemon.getRegularCounters(counterType);
                 }

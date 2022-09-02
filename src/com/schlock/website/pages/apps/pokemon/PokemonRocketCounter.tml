@@ -67,35 +67,29 @@
 </head>
 <body>
 
-<t:loop source="rocketLeaderGroups" value="currentRocketLeaderGroup">
-    <div class="group">
-        <div class="groupHeader">${currentRocketLeaderGroupName}</div>
+    <t:loop source="rocketLeaders" value="currentRocketLeader">
 
-        <t:loop source="rocketLeaders" value="currentRocketLeader">
+        <table>
+            <tr><th colspan="31">${currentRocketLeaderName}</th></tr>
 
-            <table>
-                <tr><th colspan="31">${currentRocketLeaderName}</th></tr>
+            <t:loop source="currentRocketLeader.pokemon" value="currentRocketBossPokemon">
+                <tr>
+                    <td class="rocket">${currentRocketBossPokemon.name}</td>
+                    <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
+                        <td class="counter ${currentCounterPokemon.name}">
+                            <b>${currentIndexPlusOne}.</b><br/>
+                            ${currentCounterPokemon.name}<br/>
+                            <b>40</b><br/>
+                            ${currentCounterPokemon.fastMove}<br/>
+                            ${currentCounterPokemon.chargeMove}<br/>
+                            (${currentCounterPokemon.overall})<br/>
+                        </td>
+                    </t:loop>
+                </tr>
+            </t:loop>
+        </table>
 
-                <t:loop source="currentRocketLeader.pokemon" value="currentRocketPokemon">
-                    <tr>
-                        <td class="rocket">${currentRocketPokemon.name}</td>
-                        <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
-                            <td class="counter ${currentCounterPokemon.name}">
-                                <b>${currentIndexPlusOne}.</b><br/>
-                                ${currentCounterPokemon.name}<br/>
-                                <b>40</b><br/>
-                                ${currentCounterPokemon.fastMove}<br/>
-                                ${currentCounterPokemon.chargeMove}<br/>
-                                (${currentCounterPokemon.overall})<br/>
-                            </td>
-                        </t:loop>
-                    </tr>
-                </t:loop>
-            </table>
-
-        </t:loop>
-    </div>
-</t:loop>
+    </t:loop>
 
 </body>
 </html>

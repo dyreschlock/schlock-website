@@ -1,14 +1,12 @@
 package com.schlock.website.services.apps.pokemon.impl;
 
-import com.schlock.website.entities.apps.pokemon.RocketCounterPokemon;
-import com.schlock.website.entities.apps.pokemon.RocketLeader;
-import com.schlock.website.entities.apps.pokemon.RocketPokemon;
+import com.schlock.website.entities.apps.pokemon.*;
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.apps.pokemon.PokemonDataService;
 import com.schlock.website.services.apps.pokemon.PokemonRocketCounterService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,141 +23,61 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
     private static final String POKEMON_DIR = "pokemon/rocket/";
     private static final String HTML = ".html";
 
-//    private static final String[] TEST = {"test", "feb2021", "porygon-z"};
 
+    private Map<String, List<RocketCounterInstance>> counterPokemon = new HashMap<String, List<RocketCounterInstance>>();
 
-    private static final String[] ARLO7 = {"arlo7", "jan2022", "bagon", "blastoise", "charizard", "steelix", "scizor", "dragonite", "salamence"};
-    private static final String[] CLIFF7 = {"cliff7", "jan2022", "teddiursa", "electivire", "omastar", "marowak", "tyranitar", "swampert", "torterra"};
-    private static final String[] SIERRA7 = {"sierra7", "jan2022", "poliwag", "exeggutor", "lapras", "sharpedo", "houndoom", "swampert", "shiftry"};
-
-    private static final String[] ARLO6 = {"arlo6", "nov2021", "gligar", "mawile", "lapras", "cradily", "snorlax", "scizor"};
-    private static final String[] CLIFF6 = {"cliff6", "nov2021", "grimer", "venusaur", "charizard", "tyranitar"};
-    private static final String[] SIERRA6 = {"sierra6", "nov2021", "nidoranf", "beedrill", "vileplume", "slowbro", "houndoom", "marowak"};
-    private static final String[] GIOVANNI6 = {"giovanni6", "nov2021", "persian", "kingler", "nidoking", "rhyperior", "lugia"};
-
-
-    private static final String[] ARLO5 = {"arlo5", "jun2021", "venonat", "manetric", "ursaring", "crobat", "scizor", "vileplume", "magnezone"};
-    private static final String[] CLIFF5 = {"cliff5", "jun2021", "seedot", "hariyama", "poliwrath", "kingler", "tyranitar", "sharpedo", "torterra"};
-    private static final String[] SIERRA5 = {"sierra5", "jun2021", "sneasel", "gliscor", "granbull", "ampharos", "houndoom", "kingdra", "drapion"};
-    private static final String[] GIOVANNI5 = {"giovanni5", "jun2021", "persian", "golem", "machamp", "cloyster", "garchomp", "kangaskhan", "nidoking", "ho-oh"};
-
-
-    private static final String[] ARLO4 = {"arlo4", "feb2021", "beldum", "gardevoir", "infernape", "aggron", "armaldo", "salamence", "scizor"};
-    private static final String[] CLIFF4 = {"cliff4", "feb2021", "aerodactyl", "gallade", "cradily", "slowking", "dusknoir", "mamoswine", "tyranitar"};
-    private static final String[] SIERRA4 = {"sierra4", "feb2021", "carvanha", "hippowdon", "porygon-z", "mismagius", "flygon", "houndoom", "walrein"};
-    private static final String[] GIOVANNI4 = {"giovanni4", "mar2020", "persian", "kingler", "steelix", "rhyperior", "entei"};
-
-    private static final String[] ARLO3 = {"arlo3", "feb2020", "mawile", "charizard", "blastoise", "steelix", "dragonite", "scizor", "salamence"};
-    private static final String[] CLIFF3 = {"cliff3", "feb2020", "pinsir", "marowak", "omastar", "electivire", "tyranitar", "swampert", "torterra"};
-    private static final String[] SIERRA3 = {"sierra3", "feb2020", "beldum", "exeggutor", "lapras", "sharpedo", "alakazam", "shiftry", "houndoom"};
-    private static final String[] GIOVANNI3 = {"giovanni3", "feb2020", "persian", "cloyster", "hippowdon", "steelix", "raikou", "suicune"};
-
-    private static final String[] ARLO2 = {"arlo2", "dec2019", "bagon", "blastoise", "charizard", "steelix", "dragonite", "salamence", "scizor"};
-    private static final String[] CLIFF2 = {"cliff2", "dec2019", "stantler", "electivire", "marowak", "onix", "swampert", "torterra", "tyranitar"};
-    private static final String[] SIERRA2 = {"sierra2", "dec2019", "absol", "alakazam", "cacturne", "lapras", "gallade", "houndoom", "shiftry"};
-    private static final String[] GIOVANNI2 = {"giovanni2", "dec2019", "persian", "cloyster", "garchomp", "kangaskhan", "moltres"};
-
-    private static final String[] ARLO1 = {"arlo1", "oct2019", "scyther", "crobat", "gyarados", "magnezone", "charizard", "dragonite", "scizor"};
-    private static final String[] CLIFF1 = {"cliff1", "oct2019", "meowth", "flygon", "sandslash", "snorlax", "infernape", "torterra", "tyranitar"};
-    private static final String[] SIERRA1 = {"sierra1", "oct2019", "sneasel", "hypno", "lapras", "sableye", "alakazam", "gardevoir", "houndoom"};
-    private static final String[] GIOVANNI1 = {"giovanni1", "oct2019", "persian", "dugtrio", "hippowdon", "rhydon", "articuno", "zapdos"};
-
-    private static final String[] EXTRA = {"others", "extra", "charizard", "blastoise", "venusaur", "snorlax", "gyarados", "lapras", "dragonite", "poliwrath", "gardevoir", "gliscor", "garchomp", "salamence"};
-
-
-    private static final List<String[]> ROCKET_LEADERS = Arrays.asList(
-            //TEST,
-            ARLO7, CLIFF7, SIERRA7,
-//            ARLO6, CLIFF6, SIERRA6, GIOVANNI6,
-//            ARLO5, CLIFF5, SIERRA5, GIOVANNI5,
-//            ARLO4, CLIFF4, SIERRA4,
-//            GIOVANNI4,
-//            ARLO3, CLIFF3, SIERRA3, GIOVANNI3,
-//            ARLO2, CLIFF2, SIERRA2, GIOVANNI2,
-//            ARLO1, CLIFF1, SIERRA1, GIOVANNI1,
-            EXTRA);
-
-
-    private List<String> leaderGroups = new ArrayList<String>();
-
-    private Map<String, List<RocketLeader>> rocketLeaders = new HashMap<String, List<RocketLeader>>();
-    private Map<String, List<RocketCounterPokemon>> counterPokemon = new HashMap<String, List<RocketCounterPokemon>>();
-
-
+    private final PokemonDataService dataService;
     private final DeploymentContext deploymentContext;
 
-    public PokemonRocketCounterServiceImpl(DeploymentContext deploymentContext)
+    public PokemonRocketCounterServiceImpl(PokemonDataService dataService,
+                                           DeploymentContext deploymentContext)
     {
+        this.dataService = dataService;
         this.deploymentContext = deploymentContext;
-
-        createLeaders();
-        loadAndCreateCounters();
     }
 
-    private void createLeaders()
+
+    public List<RocketLeader> getRocketLeaders()
     {
-        leaderGroups.clear();
-        rocketLeaders.clear();
-        for (String[] leaderData : ROCKET_LEADERS)
+        return dataService.getRocketLeaders();
+    }
+
+    public List<RocketCounterInstance> getCounterPokemon(CounterType counterType, RocketBossPokemon pokemon)
+    {
+        if (pokemon.getCounters(counterType) == null || pokemon.getCounters(counterType).isEmpty())
         {
-            String name = leaderData[0];
-            RocketLeader leader = new RocketLeader(name);
+            generateCounters(counterType, pokemon);
+        }
+        return pokemon.getCounters(counterType);
+    }
 
-            String group = leaderData[1];
 
-            for (int i = 2; i < leaderData.length; i++)
+    private String mapKey(CounterType counterType, RocketBossPokemon pokemon)
+    {
+        return counterType.name() + pokemon.getName();
+    }
+
+    private void generateCounters(CounterType counterType, RocketBossPokemon pokemon)
+    {
+        String key = mapKey(counterType, pokemon);
+        if (!counterPokemon.containsKey(key))
+        {
+            try
             {
-                String pokemonName = leaderData[i];
-
-                RocketPokemon pokemon = new RocketPokemon(pokemonName);
-                leader.addPokemon(pokemon);
+                List<RocketCounterInstance> list = createCounters(counterType, pokemon);
+                counterPokemon.put(key, list);
             }
-
-            if (!leaderGroups.contains(group))
+            catch(Exception e)
             {
-                leaderGroups.add(group);
-
-                List<RocketLeader> leaders = new ArrayList<RocketLeader>();
-                leaders.add(leader);
-
-                rocketLeaders.put(group, leaders);
-            }
-            else
-            {
-                rocketLeaders.get(group).add(leader);
+                System.out.println(pokemon.getName());
             }
         }
+        pokemon.setCounters(counterType, counterPokemon.get(key));
     }
 
-    private void loadAndCreateCounters()
+    private List<RocketCounterInstance> createCounters(CounterType counterType, RocketBossPokemon pokemon)
     {
-        counterPokemon.clear();
-        for (String group : leaderGroups)
-        {
-            for (RocketLeader leader : rocketLeaders.get(group))
-            {
-                for (RocketPokemon rocketPokemon : leader.getPokemon())
-                {
-                    String name = rocketPokemon.getName();
-                    if (!counterPokemon.containsKey(name))
-                    {
-                        try
-                        {
-                            List<RocketCounterPokemon> list = createCounters(name);
-                            counterPokemon.put(name, list);
-                        }
-                        catch(Exception e)
-                        {
-                            System.out.println(name);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private List<RocketCounterPokemon> createCounters(String rocketPokemonName)
-    {
+        String rocketPokemonName = pokemon.getName().toLowerCase();
         String fileLocation = deploymentContext.webDirectory() + POKEMON_DIR + rocketPokemonName + HTML;
 
         Document htmlFile = null;
@@ -173,7 +91,7 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
         }
 
 
-        List<RocketCounterPokemon> counters = new ArrayList<RocketCounterPokemon>();
+        List<RocketCounterInstance> counters = new ArrayList<RocketCounterInstance>();
 
         for (int i = 0; i < 30; i++)
         {
@@ -235,25 +153,9 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
             String chargeMove = moves.child(1).textNodes().get(0).text();
 
 
-            RocketCounterPokemon counter = new RocketCounterPokemon(name, fastMove, chargeMove, overall, cp, time, power);
+            RocketCounterInstance counter = new RocketCounterInstance(name, fastMove, chargeMove, overall, cp, time, power);
             counters.add(counter);
         }
         return counters;
-    }
-
-
-    public List<String> getRocketLeaderGroups()
-    {
-        return leaderGroups;
-    }
-
-    public List<RocketLeader> getRocketLeaders(String group)
-    {
-        return rocketLeaders.get(group);
-    }
-
-    public List<RocketCounterPokemon> getCounterPokemon(String rocketPokemonName)
-    {
-        return counterPokemon.get(rocketPokemonName);
     }
 }

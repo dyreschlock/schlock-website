@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface PokemonDataService
 {
-    public List<RaidBoss> getRaidBosses();
+    public List<RaidBossPokemon> getRaidBosses();
+
+    public List<RocketLeader> getRocketLeaders();
 
     public Collection<CounterPokemon> getCounterPokemon(CounterType type);
 
