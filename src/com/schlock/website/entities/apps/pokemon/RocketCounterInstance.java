@@ -5,6 +5,7 @@ public class RocketCounterInstance extends AbstractCounterInstance
     private String name;
 
     private double tdo;
+    private double activation;
 
     private String overall;
     private String cp;
@@ -23,24 +24,23 @@ public class RocketCounterInstance extends AbstractCounterInstance
         this.power = power;
     }
 
-    public RocketCounterInstance(CounterPokemon counter, String fastMove, String chargeMove, String overall, String cp, String time, String power)
+    public RocketCounterInstance(CounterPokemon counter, String fastMove, String chargeMove, double tdo, double activation)
     {
         super(counter, fastMove, chargeMove);
 
-        this.overall = overall;
-        this.cp = cp;
-        this.time = time;
-        this.power = power;
+        this.tdo = tdo;
+        this.overall = String.format("%.3f", tdo);
+
+        this.activation = activation;
     }
 
     public String getName()
     {
+        if (name == null)
+        {
+            return super.getName();
+        }
         return name;
-    }
-
-    public int getLevel()
-    {
-        return 40;
     }
 
     public double getTdo()
@@ -48,9 +48,9 @@ public class RocketCounterInstance extends AbstractCounterInstance
         return tdo;
     }
 
-    public void setTdo(double tdo)
+    public double getActivation()
     {
-        this.tdo = tdo;
+        return activation;
     }
 
     public String getOverall()
@@ -58,19 +58,9 @@ public class RocketCounterInstance extends AbstractCounterInstance
         return overall;
     }
 
-    public void setOverall(String overall)
-    {
-        this.overall = overall;
-    }
-
     public String getCp()
     {
         return cp;
-    }
-
-    public void setCp(String cp)
-    {
-        this.cp = cp;
     }
 
     public String getTime()
@@ -78,18 +68,37 @@ public class RocketCounterInstance extends AbstractCounterInstance
         return time;
     }
 
-    public void setTime(String time)
-    {
-        this.time = time;
-    }
-
     public String getPower()
     {
         return power;
     }
 
-    public void setPower(String power)
+    public int compareTo(AbstractCounterInstance o)
     {
-        this.power = power;
+        RocketCounterInstance that = (RocketCounterInstance) o;
+
+        //higher negative tdo better
+        double compare = this.getTdo() - that.getTdo();
+        if (compare == 0.0)
+        {
+            //lower level better
+            compare = this.getActivation() - that.getActivation();
+            if (compare == 0.0)
+            {
+                //alphabetical
+                compare = this.getName().compareTo(that.getName());
+            }
+        }
+
+        if (compare > 0.0)
+        {
+            return 1;
+        }
+        if (compare < 0.0)
+        {
+            return -1;
+        }
+        return 0;
+
     }
 }

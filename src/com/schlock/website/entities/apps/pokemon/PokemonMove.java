@@ -20,6 +20,13 @@ public class PokemonMove
     private String dodgeWindow;
     private String damageWindow;
 
+    private int pvpChargeEnergy;
+    private int pvpChargeDamage;
+
+    private int pvpFastEnergy;
+    private int pvpFastPower;
+    private int pvpFastDuration;
+
     private PokemonMove()
     {
     }
@@ -34,14 +41,9 @@ public class PokemonMove
         return type;
     }
 
-    public int getPower()
+    public String getCategory()
     {
-        return power;
-    }
-
-    public double getCooldown()
-    {
-        return cooldown;
+        return category;
     }
 
     public int getEnergyCost()
@@ -59,9 +61,34 @@ public class PokemonMove
         return dodgeWindow;
     }
 
-    public String getCategory()
+    protected double getCooldown()
     {
-        return category;
+        return cooldown;
+    }
+
+    protected int getPvpFastPower()
+    {
+        return pvpFastPower;
+    }
+
+    protected int getPvpFastEnergy()
+    {
+        return pvpFastEnergy;
+    }
+
+    protected int getPvpFastDuration()
+    {
+        return pvpFastDuration;
+    }
+
+    protected int getPvpChargeDamage()
+    {
+        return pvpChargeDamage;
+    }
+
+    protected int getPvpChargeEnergy()
+    {
+        return pvpChargeEnergy;
     }
 
     public boolean isChargeMove()
@@ -74,31 +101,87 @@ public class PokemonMove
         return FAST_MOVE.equalsIgnoreCase(category);
     }
 
-    public double getEnergyDelta()
+    public int getPower(BattleMode battleMode)
     {
-        if (isFastMove())
+        int power = 0;
+        if(battleMode.isRaid())
         {
-            return getEnergyGain();
+            power = this.power;
         }
-        if (isChargeMove())
+        if(battleMode.isRocket())
         {
-            return getEnergyCost();
+            if (isFastMove())
+            {
+                power = this.pvpFastPower;
+            }
+            if (isChargeMove())
+            {
+                power = this.pvpChargeDamage;
+            }
+        }
+        return power;
+    }
+
+    public double getEnergyDelta(BattleMode battleMode)
+    {
+        if (battleMode.isRaid())
+        {
+            if (isFastMove())
+            {
+                return getEnergyGain();
+            }
+            if (isChargeMove())
+            {
+                return getEnergyCost();
+            }
+        }
+        if (battleMode.isRocket())
+        {
+            if (isFastMove())
+            {
+                return getPvpFastEnergy();
+            }
+            if (isChargeMove())
+            {
+                return getPvpChargeEnergy();
+            }
         }
         return 0.0;
     }
 
-    public double getDuration()
+    public double getDuration(BattleMode battleMode)
     {
-        return cooldown * 1000;
+        double duration = 0.0;
+        if(battleMode.isRaid())
+        {
+            duration = getCooldown() * 1000;
+        }
+        if(battleMode.isRocket())
+        {
+            if (isFastMove())
+            {
+                duration = getPvpFastDuration() + 1.0;
+            }
+            if (isChargeMove())
+            {
+                duration = 0.0;
+            }
+        }
+        return duration;
     }
 
     private static final String DAMAGE_WINDOW_DELIM = " ";
 
-    public double getDamageWindow()
+    public double getDamageWindow(BattleMode battleMode)
     {
-        String dw = damageWindow.split(DAMAGE_WINDOW_DELIM)[0];
+        double damageWindow = 0.0;
+        if(battleMode.isRaid())
+        {
+            String dw = this.damageWindow.split(DAMAGE_WINDOW_DELIM)[0];
 
-        return Double.parseDouble(dw) * 1000;
+            damageWindow = Double.parseDouble(dw) * 1000;
+        }
+        return damageWindow;
     }
 
 
@@ -115,6 +198,14 @@ public class PokemonMove
 
     public static final String DODGE_WINDOW = "dodge_window"; // this is Damage End - Damage Start
     public static final String DAMAGE_WINDOW = "damage_window"; // this is the same as Damage Start
+
+    public static final String PVP_FAST_POWER = "pvp_fast_power";
+    public static final String PVP_FAST_ENERGY = "pvp_fast_energy";
+    public static final String PVP_FAST_DURATION = "pvp_fast_duration";
+
+    public static final String PVP_CHARGE_DAMAGE = "pvp_charge_damage";
+    public static final String PVP_CHARGE_ENERGY = "pvp_charge_energy";
+
 
     public static PokemonMove createFromJSON(JSONObject object)
     {
@@ -136,6 +227,17 @@ public class PokemonMove
         move.dodgeWindow = object.getString(DODGE_WINDOW);
         move.damageWindow = object.getString(DAMAGE_WINDOW);
 
+        move.pvpFastPower = getInt(object, PVP_FAST_POWER);
+        move.pvpFastEnergy = getInt(object, PVP_FAST_ENERGY);
+        move.pvpFastDuration = getInt(object, PVP_FAST_DURATION);
+
+        move.pvpChargeDamage = getInt(object, PVP_CHARGE_DAMAGE);
+        move.pvpChargeEnergy = getInt(object, PVP_CHARGE_ENERGY);
+        if (move.pvpChargeEnergy > 0)
+        {
+            move.pvpChargeEnergy = -move.pvpChargeEnergy;
+        }
+
         return move;
     }
 
@@ -155,5 +257,23 @@ public class PokemonMove
             return 0 - Integer.parseInt(value.substring(1));
         }
         return Integer.parseInt(value);
+    }
+
+    public static PokemonMove copyMove(PokemonMove oldMove, String newName, String newType)
+    {
+        PokemonMove move = new PokemonMove();
+
+        move.name = newName;
+        move.type = newType;
+
+        move.category = oldMove.category;
+        move.power = oldMove.power;
+        move.cooldown = oldMove.cooldown;
+        move.energyGain = oldMove.energyGain;
+        move.energyCost = oldMove.energyCost;
+        move.dodgeWindow = oldMove.dodgeWindow;
+        move.damageWindow = oldMove.damageWindow;
+
+        return move;
     }
 }

@@ -70,7 +70,7 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
         {
             try
             {
-                List<RocketCounterInstance> list = createCounters(counterType, pokemon);
+                List<RocketCounterInstance> list = createCounters2(counterType, pokemon);
                 counterPokemon.put(key, list);
             }
             catch(Exception e)
@@ -86,10 +86,14 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
         List<RocketCounterInstance> counters = new ArrayList<RocketCounterInstance>();
         for(CounterPokemon counter : dataService.getCounterPokemon(counterType))
         {
-            counters.add(generateRaidCounter(pokemon, counter));
+            RocketCounterInstance counterInst = generateRaidCounter(pokemon, counter);
+            if (counterInst != null)
+            {
+                counters.add(counterInst);
+            }
         }
 
-        Collections.sort(counters, new CounterTDOComparator());
+        Collections.sort(counters);
 
         pokemon.setCounters(counterType, counters.subList(0, counterType.counterListSize()));
 
@@ -111,9 +115,13 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
                 }
             }
         }
-        Collections.sort(counters, new CounterTDOComparator());
+        Collections.sort(counters);
 
-        return counters.get(0);
+        if (!counters.isEmpty())
+        {
+            return counters.get(0);
+        }
+        return null;
     }
 
     private List<RocketCounterInstance> createCounters(CounterType counterType, RocketBossPokemon pokemon)
@@ -197,23 +205,5 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
             counters.add(counter);
         }
         return counters;
-    }
-
-    private class CounterTDOComparator implements Comparator<RocketCounterInstance>
-    {
-        public int compare(RocketCounterInstance o1, RocketCounterInstance o2)
-        {
-            double compare = o2.getTdo() - o1.getTdo();
-
-            if (compare > 0.0)
-            {
-                return 1;
-            }
-            if (compare < 0.0)
-            {
-                return -1;
-            }
-            return 0;
-        }
     }
 }

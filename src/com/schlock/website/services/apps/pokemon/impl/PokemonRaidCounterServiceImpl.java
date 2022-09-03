@@ -60,9 +60,9 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             }
         }
 
-        Collections.sort(megaCounters, new CounterTDOComparator());
-        Collections.sort(shadowCounters, new CounterTDOComparator());
-        Collections.sort(regularCounters, new CounterTDOComparator());
+        Collections.sort(megaCounters);
+        Collections.sort(shadowCounters);
+        Collections.sort(regularCounters);
 
         raidBoss.setMegaCounters(counterType, megaCounters.subList(0, NUMBER_OF_MEGA_COUNTERS_PER_POKEMON));
         raidBoss.setShadowCounters(counterType, shadowCounters.subList(0, NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON));
@@ -104,7 +104,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         List<RaidCounterInstance> allCounters = new ArrayList<RaidCounterInstance>();
         allCounters.addAll(counterList);
 
-        Collections.sort(allCounters, new CounterTDOComparator());
+        Collections.sort(allCounters);
 
         List<RaidCounterInstance> uniqueCounters = new ArrayList<RaidCounterInstance>();
 
@@ -242,7 +242,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             counters.addAll(boss.getShadowCounters(counterType));
             counters.addAll(boss.getRegularCounters(counterType));
 
-            Collections.sort(counters, new CounterTDOComparator());
+            Collections.sort(counters);
 
             return counters.subList(0, PARTY_LIMIT);
         }
@@ -302,35 +302,5 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             topRegularCounterPokemon = generateTopCounters(regularCounters, counterType, NUMBER_OF_TOP_REGULAR_COUNTERS_PER_POKEMON);
         }
         return topRegularCounterPokemon;
-    }
-
-
-    private class CounterTDOComparator implements Comparator<RaidCounterInstance>
-    {
-        public int compare(RaidCounterInstance o1, RaidCounterInstance o2)
-        {
-            //higher tdo better
-            double compare = o2.getDps4tdo() - o1.getDps4tdo();
-            if (compare == 0.0)
-            {
-                //lower level better
-                compare = o1.getLevel() - o2.getLevel();
-                if (compare == 0.0)
-                {
-                    //alphabetical
-                    compare = o1.getName().compareTo(o2.getName());
-                }
-            }
-
-            if (compare > 0.0)
-            {
-                return 1;
-            }
-            if (compare < 0.0)
-            {
-                return -1;
-            }
-            return 0;
-        }
     }
 }

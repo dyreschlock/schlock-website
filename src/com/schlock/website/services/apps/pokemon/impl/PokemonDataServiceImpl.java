@@ -307,18 +307,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
             throw new RuntimeException("Move not found: " + oldMoveName);
         }
 
-        JSONObject object = new JSONObject();
-        object.put(PokemonMove.TITLE, newMoveName);
-        object.put(PokemonMove.TYPE, type);
-        object.put(PokemonMove.CATEGORY, oldMove.getCategory());
-        object.put(PokemonMove.POWER, oldMove.getPower());
-        object.put(PokemonMove.COOLDOWN, oldMove.getCooldown());
-        object.put(PokemonMove.ENERGY_GAIN, oldMove.getEnergyGain());
-        object.put(PokemonMove.ENERGY_COST, oldMove.getEnergyCost());
-        object.put(PokemonMove.DODGE_WINDOW, oldMove.getDodgeWindow());
-        object.put(PokemonMove.DAMAGE_WINDOW, oldMove.getDamageWindow());
-
-        PokemonMove newMove = PokemonMove.createFromJSON(object);
+        PokemonMove newMove = PokemonMove.copyMove(oldMove, newMoveName, type);
         if (moveData.get(newMove.getName()) != null)
         {
             throw new RuntimeException(newMoveName + " already exists.");
@@ -361,6 +350,13 @@ public class PokemonDataServiceImpl implements PokemonDataService
         object.put(PokemonMove.DODGE_WINDOW, "0.37 seconds");
         object.put(PokemonMove.DAMAGE_WINDOW, "0.60 seconds");
 
+        object.put(PokemonMove.PVP_FAST_POWER, "3");
+        object.put(PokemonMove.PVP_FAST_ENERGY, "9");
+        object.put(PokemonMove.PVP_FAST_DURATION, "1");
+
+        object.put(PokemonMove.PVP_CHARGE_DAMAGE, "");
+        object.put(PokemonMove.PVP_CHARGE_ENERGY, "");
+
         PokemonMove fairyWind = PokemonMove.createFromJSON(object);
 
         if (moveData.get(fairyWind.getName()) != null)
@@ -382,6 +378,13 @@ public class PokemonDataServiceImpl implements PokemonDataService
         object.put(PokemonMove.ENERGY_COST, "0");
         object.put(PokemonMove.DODGE_WINDOW, "0.50 seconds");
         object.put(PokemonMove.DAMAGE_WINDOW, "0.30 seconds");
+
+        object.put(PokemonMove.PVP_FAST_POWER, "8");
+        object.put(PokemonMove.PVP_FAST_ENERGY, "12");
+        object.put(PokemonMove.PVP_FAST_DURATION, "2");
+
+        object.put(PokemonMove.PVP_CHARGE_DAMAGE, "");
+        object.put(PokemonMove.PVP_CHARGE_ENERGY, "");
 
         PokemonMove doubleKick = PokemonMove.createFromJSON(object);
 
@@ -524,17 +527,43 @@ public class PokemonDataServiceImpl implements PokemonDataService
                 PokemonData pokemon = PokemonData.createFromJSON(json);
                 pokemonData.put(pokemon.getName(), pokemon);
 
-                Set<PokemonMove> fastMoves = getMovesFromNames(pokemon.getAllFastMoveNames());
-                Set<PokemonMove> chargeMoves = getMovesFromNames(pokemon.getAllChargeMoveNames());
+                Set<PokemonMove> allMoves = new HashSet<PokemonMove>();
+                allMoves.addAll(getMovesFromNames(pokemon.getAllFastMoveNames()));
+                allMoves.addAll(getMovesFromNames(pokemon.getAllChargeMoveNames()));
 
-                pokemon.setAllFastMoves(fastMoves);
-                pokemon.setAllChargeMoves(chargeMoves);
+                pokemon.setAllChargeMoves(new HashSet<PokemonMove>());
+                pokemon.setAllFastMoves(new HashSet<PokemonMove>());
 
-                fastMoves = getMovesFromNames(pokemon.getStandardFastMoveNames());
-                chargeMoves = getMovesFromNames(pokemon.getStandardChargeMoveNames());
+                for (PokemonMove move : allMoves)
+                {
+                    if (move.isFastMove())
+                    {
+                        pokemon.getAllFastMoves().add(move);
+                    }
+                    if (move.isChargeMove())
+                    {
+                        pokemon.getAllChargeMoves().add(move);
+                    }
+                }
 
-                pokemon.setStandardFastMoves(fastMoves);
-                pokemon.setStandardChargeMoves(chargeMoves);
+                allMoves = new HashSet<PokemonMove>();
+                allMoves.addAll(getMovesFromNames(pokemon.getStandardFastMoveNames()));
+                allMoves.addAll(getMovesFromNames(pokemon.getStandardChargeMoveNames()));
+
+                pokemon.setStandardFastMoves(new HashSet<PokemonMove>());
+                pokemon.setStandardChargeMoves(new HashSet<PokemonMove>());
+
+                for (PokemonMove move : allMoves)
+                {
+                    if (move.isFastMove())
+                    {
+                        pokemon.getStandardFastMoves().add(move);
+                    }
+                    if (move.isChargeMove())
+                    {
+                        pokemon.getStandardChargeMoves().add(move);
+                    }
+                }
             }
             catch (ClassCastException e)
             {

@@ -21,6 +21,9 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
 
     private static final double DEFAULT_BOSS_DPS = 900;
 
+    private static final boolean BEST_FRIEND_BONUS_YES = true;
+    private static final boolean BEST_FRIEND_BONUS_NO = false;
+
 
     private static final String BUG = "Bug";
     private static final String DARK = "Dark";
@@ -511,12 +514,12 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
 
     public RaidCounterInstance generateRaidCounter(RaidBossPokemon raidBoss, CounterPokemon counter, PokemonMove fastMove, PokemonMove chargeMove)
     {
-        return (RaidCounterInstance) generateCounter(raidBoss, counter, fastMove, chargeMove, BattleMode.PVE);
+        return (RaidCounterInstance) generateCounter(raidBoss, counter, fastMove, chargeMove, BattleMode.RAID);
     }
 
     public RocketCounterInstance generateRocketCounter(RocketBossPokemon rocketBoss, CounterPokemon counter, PokemonMove fastMove, PokemonMove chargeMove)
     {
-        return (RocketCounterInstance) generateCounter(rocketBoss, counter, fastMove, chargeMove, BattleMode.PVP);
+        return (RocketCounterInstance) generateCounter(rocketBoss, counter, fastMove, chargeMove, BattleMode.ROCKET);
     }
 
     public AbstractCounterInstance generateCounter(AbstractPokemon raidBoss,
@@ -553,58 +556,126 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
                                                      PokemonMove chargeMove,
                                                      BattleMode battleMode)
     {
-        double damageIntakeX = generateDamageIntakeX(boss, counter, fastMove, chargeMove);
-        double damageIntakeY = generateDamageIntakeY(boss, counter);
+        double damageIntakeX = generateDamageIntakeX(boss, counter, fastMove, chargeMove, battleMode);
+        double damageIntakeY = generateDamageIntakeY(boss, counter, battleMode);
 
         double stamina = getStamina(counter);
 
-        double fastDamage = generateDamage(counter, fastMove, boss, true);
-        double chargeDamage = generateDamage(counter, chargeMove, boss, true);
-
-        double fastEnergyDelta = fastMove.getEnergyDelta();
-        double chargeEnergyDelta = -chargeMove.getEnergyDelta();
-
-        double fastDuration = fastMove.getDuration() / 1000;
-        double chargeDuration = chargeMove.getDuration() / 1000;
-        double chargeDamageWindow = chargeMove.getDamageWindow() / 1000;
-
-        if (chargeEnergyDelta >= 100)
+        boolean BEST_FRIEND_BONUS = BEST_FRIEND_BONUS_YES;
+        if (battleMode.isRocket())
         {
-            chargeEnergyDelta = chargeEnergyDelta + 0.5 * fastEnergyDelta + 0.5 * damageIntakeY * chargeDamageWindow;
+            BEST_FRIEND_BONUS = BEST_FRIEND_BONUS_NO;
         }
 
-        double fastDPS = fastDamage / fastDuration;
-        double fastEPS = fastEnergyDelta / fastDuration;
-        double chargeDPS = chargeDamage / chargeDuration;
-        double chargeEPS = chargeEnergyDelta / chargeDuration;
+        double fastDamage = generateDamage(counter, fastMove, boss, BEST_FRIEND_BONUS, battleMode);
+        double chargeDamage = generateDamage(counter, chargeMove, boss, BEST_FRIEND_BONUS, battleMode);
 
-        /**
-         * pokemon.dps = (FDPS * CEPS + CDPS * FEPS) / (CEPS + FEPS) + (CDPS - FDPS) / (CEPS + FEPS) * (1 / 2 - x / pokemon.Stm) * y;
-         * pokemon.st = pokemon.Stm / y;
-         * pokemon.tdo = pokemon.dps * pokemon.st;
-         */
+        double fastEnergyDelta = fastMove.getEnergyDelta(battleMode);
+        double chargeEnergyDelta = -chargeMove.getEnergyDelta(battleMode);
 
-        double dps = ((fastDPS * chargeEPS) + (chargeDPS * fastEPS)) / (chargeEPS + fastEPS)
-                + ((chargeDPS - fastDPS) / (chargeEPS + fastEPS)) * (0.5 - damageIntakeX / stamina) * damageIntakeY;
+        double dps = 0.0;
+        double tdo = 0.0;
 
-        if (dps > chargeDPS)
+        if(battleMode.isRaid())
         {
-            dps = chargeDPS;
+            double fastDuration = fastMove.getDuration(battleMode) / 1000;
+            double chargeDuration = chargeMove.getDuration(battleMode) / 1000;
+            double chargeDamageWindow = chargeMove.getDamageWindow(battleMode) / 1000;
+
+            if(battleMode.isRocket())
+            {
+                fastDuration = fastMove.getDuration(battleMode) * 0.5;
+            }
+
+            if (chargeEnergyDelta >= 100)
+            {
+                chargeEnergyDelta = chargeEnergyDelta + 0.5 * fastEnergyDelta + 0.5 * damageIntakeY * chargeDamageWindow;
+            }
+
+            double fastDPS = fastDamage / fastDuration;
+            double fastEPS = fastEnergyDelta / fastDuration;
+            double chargeDPS = chargeDamage / chargeDuration;
+            double chargeEPS = chargeEnergyDelta / chargeDuration;
+
+            /**
+             * pokemon.dps = (FDPS * CEPS + CDPS * FEPS) / (CEPS + FEPS) + (CDPS - FDPS) / (CEPS + FEPS) * (1 / 2 - x / pokemon.Stm) * y;
+             * pokemon.st = pokemon.Stm / y;
+             * pokemon.tdo = pokemon.dps * pokemon.st;
+             */
+
+            dps = ((fastDPS * chargeEPS) + (chargeDPS * fastEPS)) / (chargeEPS + fastEPS)
+                    + ((chargeDPS - fastDPS) / (chargeEPS + fastEPS)) * (0.5 - damageIntakeX / stamina) * damageIntakeY;
+
+            if (dps > chargeDPS)
+            {
+                dps = chargeDPS;
+            }
+            if (dps < fastDPS)
+            {
+                dps = fastDPS;
+            }
+
+            tdo = dps * stamina / damageIntakeY;
         }
-        if (dps < fastDPS)
+
+        if (battleMode.isRocket())
         {
-            dps = fastDPS;
+            double fastDuration = fastMove.getDuration(battleMode) * 0.5;
+
+            double fastDPS = fastDamage / fastDuration;
+            double fastEPS = fastEnergyDelta / fastDuration;
+
+            /**
+             * 		let modFEPS = Math.max(0, FEPS - x / pokemon.st);
+             * 		let totalEnergyGained = 3 * pokemon.st * modFEPS;
+             * 		let discountFactor = (totalEnergyGained - 2 * CE) / totalEnergyGained;
+             * 		if (discountFactor < 0 || discountFactor > 1) {
+             * 			discountFactor = 0;
+             *                }
+             * 		CDmg = CDmg * discountFactor;
+             * 		pokemon.dps = FDPS + modFEPS * CDmg / CE;
+             */
+
+            stamina = stamina / damageIntakeY;
+
+            double fastEPSmod = fastEPS - damageIntakeX / stamina;
+            if (fastEPSmod < 0.0)
+            {
+                fastEPSmod = 0.0;
+            }
+
+            double energyGained = 3.0 * stamina * fastEPSmod;
+            double discountFactor = (energyGained - 2.0 * chargeEnergyDelta) / energyGained;
+            if (discountFactor < 0.0 || discountFactor > 1.0)
+            {
+                discountFactor = 0.0;
+            }
+            chargeDamage = chargeDamage * discountFactor;
+
+            dps = fastDPS + fastEPSmod * chargeDamage / chargeEnergyDelta;
+            tdo = dps * stamina;
         }
 
-        double tdo = dps * stamina / damageIntakeY;
-        double dps3tdo = dps * dps * dps * tdo / 1000;
 
-        String name = counter.getName();
         String fastName = fastMove.getName();
         String chargeName = chargeMove.getName();
 
+        AbstractCounterInstance counterInstance = null;
+        if(battleMode.isRaid())
+        {
+            counterInstance = new RaidCounterInstance(counter, fastName, chargeName, dps, tdo);
+        }
 
-        RaidCounterInstance counterInstance = new RaidCounterInstance(counter, fastName, chargeName, dps, tdo, dps3tdo);
+        if(battleMode.isRocket())
+        {
+            /**
+             * pkmInstance.ui_overall = Math.ceil(-pkmInstance.cmove.energyDelta / (pkmInstance.fmove.energyDelta || 1)) * pkmInstance.fmove.duration;
+             */
+            double activation = Math.ceil(-chargeMove.getEnergyDelta(battleMode) / (fastMove.getEnergyDelta(battleMode))) * fastMove.getDuration(battleMode);
+
+            counterInstance = new RocketCounterInstance(counter, fastName, chargeName, tdo, activation);
+        }
+
         return counterInstance;
     }
 
@@ -612,31 +683,39 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
      * x: -pokemon.cmove.energyDelta * 0.5 + pokemon.fmove.energyDelta * 0.5,
      * y: DEFAULT_ENEMY_DPS1 / pokemon.Def
      */
-    private double generateDamageIntakeX(AbstractPokemon boss, CounterPokemon counter, PokemonMove pFastMove, PokemonMove pChargeMove)
+    private double generateDamageIntakeX(AbstractPokemon boss, CounterPokemon counter, PokemonMove pFastMove, PokemonMove pChargeMove, BattleMode battleMode)
     {
         if (boss.getStandardFastMoves().isEmpty() || boss.getStandardChargeMoves().isEmpty())
         {
-            return pFastMove.getEnergyDelta() * 0.5 - pChargeMove.getEnergyDelta() * 0.5;
+            if(battleMode.isRocket())
+            {
+                return - pChargeMove.getEnergyDelta(battleMode) * 0.5;
+            }
+            return pFastMove.getEnergyDelta(battleMode) * 0.5 - pChargeMove.getEnergyDelta(battleMode) * 0.5;
         }
 
         double sum = 0.0;
         int count = 0;
         for (PokemonMove fastMove : boss.getStandardFastMoves())
         {
-            double fastDamage = generateDamage(boss, fastMove, counter);
-            double fastDuration = fastMove.getDuration() / 1000.0 + 2;
-            double fastEnergyDelta = fastMove.getEnergyDelta();
+            double fastDamage = generateDamage(boss, fastMove, counter, battleMode);
+            double fastDuration = fastMove.getDuration(battleMode) / 1000.0 + 2;
+            double fastEnergyDelta = fastMove.getEnergyDelta(battleMode);
 
             for (PokemonMove chargeMove : boss.getStandardChargeMoves())
             {
-                double chargeDamage = generateDamage(boss, chargeMove, counter);
-                double chargeDuration = chargeMove.getDuration() / 1000.0 + 2;
-                double chargeEnergyDelta = -chargeMove.getEnergyDelta();
+                double chargeDamage = generateDamage(boss, chargeMove, counter, battleMode);
+                double chargeDuration = chargeMove.getDuration(battleMode) / 1000.0 + 2;
+                double chargeEnergyDelta = -chargeMove.getEnergyDelta(battleMode);
 
                 double factor = Math.max(1.0, 3.0 * chargeEnergyDelta / 100.0);
 
-                double x = pFastMove.getEnergyDelta() * 0.5 - pChargeMove.getEnergyDelta() * 0.5 +
-                        0.5 * (factor * fastDamage + chargeDamage) / (factor + 1.0);
+                double x = 0.0;
+                if(battleMode.isRaid())
+                {
+                    x = pFastMove.getEnergyDelta(battleMode) * 0.5 - pChargeMove.getEnergyDelta(battleMode) * 0.5 +
+                            0.5 * (factor * fastDamage + chargeDamage) / (factor + 1.0);
+                }
 
                 sum += x;
                 count++;
@@ -661,10 +740,14 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
      * y: (n * FDmg + CDmg) / (n * FDur + CDur)
      * };
      */
-    private double generateDamageIntakeY(AbstractPokemon boss, CounterPokemon counter)
+    private double generateDamageIntakeY(AbstractPokemon boss, CounterPokemon counter, BattleMode battleMode)
     {
         if (boss.getStandardFastMoves().isEmpty() || boss.getStandardChargeMoves().isEmpty())
         {
+            if(battleMode.isRocket())
+            {
+                return DEFAULT_BOSS_DPS * 1.5 / getDefense(counter);
+            }
             return DEFAULT_BOSS_DPS / getDefense(counter);
         }
 
@@ -672,19 +755,28 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
         int count = 0;
         for (PokemonMove fastMove : boss.getStandardFastMoves())
         {
-            double fastDamage = generateDamage(boss, fastMove, counter);
-            double fastDuration = fastMove.getDuration() / 1000 + 2;
-            double fastEnergyDelta = fastMove.getEnergyDelta();
+            double fastDamage = generateDamage(boss, fastMove, counter, battleMode);
+            double fastDuration = fastMove.getDuration(battleMode) / 1000 + 2;
+            double fastEnergyDelta = fastMove.getEnergyDelta(battleMode);
+
+            if(battleMode.isRocket())
+            {
+                fastDuration = fastMove.getDuration(battleMode) * 0.5;
+            }
 
             for (PokemonMove chargeMove : boss.getStandardChargeMoves())
             {
-                double chargeDamage = generateDamage(boss, chargeMove, counter);
-                double chargeDuration = chargeMove.getDuration() / 1000 + 2;
-                double chargeEnergyDelta = -chargeMove.getEnergyDelta();
+                double chargeDamage = generateDamage(boss, chargeMove, counter, battleMode);
+                double chargeDuration = chargeMove.getDuration(battleMode) / 1000 + 2;
+                double chargeEnergyDelta = -chargeMove.getEnergyDelta(battleMode);
 
                 double factor = Math.max(1, 3 * chargeEnergyDelta / 100);
 
                 double y = (factor * fastDamage + chargeDamage) / (factor * fastDuration + chargeDuration);
+                if(battleMode.isRocket())
+                {
+                    y = fastDamage / (fastDuration - 2.0) + fastEnergyDelta / (fastDuration - 2.0) * (chargeDamage / chargeEnergyDelta);
+                }
 
                 sum += y;
                 count++;
@@ -694,13 +786,13 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
         return (sum / count);
     }
 
-    private double generateDamage(AbstractPokemon attacker, PokemonMove move, AbstractPokemon defender)
+    private double generateDamage(AbstractPokemon attacker, PokemonMove move, AbstractPokemon defender, BattleMode battleMode)
     {
-        return generateDamage(attacker, move, defender, false);
+        return generateDamage(attacker, move, defender, BEST_FRIEND_BONUS_NO, battleMode);
     }
 
 
-    private double generateDamage(AbstractPokemon attacker, PokemonMove move, AbstractPokemon defender, boolean bestFriendBonus)
+    private double generateDamage(AbstractPokemon attacker, PokemonMove move, AbstractPokemon defender, boolean bestFriendBonus, BattleMode battleMode)
     {
         final String MOVE_TYPE = move.getType();
 
@@ -737,7 +829,7 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
         double defense = getDefense(defender);
 
         //return 0.5 * atk / dmg_taker.Def * move.power * multipliers + 0.5;
-        return 0.5 * attack / defense * move.getPower() * multipliers + 0.5;
+        return 0.5 * attack / defense * move.getPower(battleMode) * multipliers + 0.5;
     }
 
     private double getAttack(AbstractPokemon pokemon)
@@ -805,15 +897,5 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
             totalTime += (int) (damage / dps);
         }
         return totalTime;
-    }
-
-    private enum BattleMode
-    {
-        PVE, PVP;
-
-        public boolean isPvp()
-        {
-            return PVP.equals(this);
-        }
     }
 }

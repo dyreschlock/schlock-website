@@ -1,6 +1,6 @@
 package com.schlock.website.entities.apps.pokemon;
 
-public abstract class AbstractCounterInstance
+public abstract class AbstractCounterInstance implements Comparable<AbstractCounterInstance>
 {
     private String name;
     protected String fastMove;

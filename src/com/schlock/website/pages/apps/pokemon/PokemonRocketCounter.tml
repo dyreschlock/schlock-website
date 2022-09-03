@@ -79,7 +79,7 @@
                         <td class="counter ${currentCounterPokemon.name}">
                             <b>${currentIndexPlusOne}.</b><br/>
                             ${currentCounterPokemon.name}<br/>
-                            <b>40</b><br/>
+                            <b>${currentCounterPokemon.level}</b><br/>
                             ${currentCounterPokemon.fastMove}<br/>
                             ${currentCounterPokemon.chargeMove}<br/>
                             (${currentCounterPokemon.overall})<br/>

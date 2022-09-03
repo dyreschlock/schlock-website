@@ -1,23 +1,21 @@
 package com.schlock.website.entities.apps.pokemon;
 
-public class RaidCounterInstance extends AbstractCounterInstance implements Comparable<RaidCounterInstance>
+public class RaidCounterInstance extends AbstractCounterInstance
 {
     private static final String MEGA_STRING = "Mega";
     private static final String SHADOW_STRING = "Shadow";
 
     private double dps;
     private double tdo;
-    private double dps3tdo;
 
     private int count = 1;
 
-    public RaidCounterInstance(CounterPokemon counter, String fastMove, String chargeMove, double dps, double tdo, double dps3tdo)
+    public RaidCounterInstance(CounterPokemon counter, String fastMove, String chargeMove, double dps, double tdo)
     {
         super(counter, fastMove, chargeMove);
 
         this.dps = formatDouble("%.3f", dps);
         this.tdo = formatDouble("%.1f", tdo);
-        this.dps3tdo = formatDouble("%.1f", dps3tdo);
     }
 
     private double formatDouble(String format, double value)
@@ -60,15 +58,7 @@ public class RaidCounterInstance extends AbstractCounterInstance implements Comp
 
     public double getDps() { return dps; }
 
-    public void setDsp(double dps) { this.dps = dps; }
-
     public double getTdo() { return tdo; }
-
-    public void setTdo(double tdo) { this.tdo = tdo; }
-
-    public double getDps3tdo() { return dps3tdo; }
-
-    public void setDps3tdo(double dps3tdo) { this.dps3tdo = dps3tdo; }
 
     public int getCount()
     {
@@ -80,13 +70,28 @@ public class RaidCounterInstance extends AbstractCounterInstance implements Comp
         this.count = count;
     }
 
-    public int compareTo(RaidCounterInstance p)
+    public int compareTo(AbstractCounterInstance o)
     {
-        if(getDps4tdo() < p.getDps4tdo())
+        RaidCounterInstance that = (RaidCounterInstance) o;
+
+        //higher tdo better
+        double compare = that.getDps4tdo() - this.getDps4tdo();
+        if (compare == 0.0)
+        {
+            //lower level better
+            compare = this.getLevel() - that.getLevel();
+            if (compare == 0.0)
+            {
+                //alphabetical
+                compare = this.getName().compareTo(that.getName());
+            }
+        }
+
+        if (compare > 0.0)
         {
             return 1;
         }
-        if (getDps4tdo() > p.getDps4tdo())
+        if (compare < 0.0)
         {
             return -1;
         }
