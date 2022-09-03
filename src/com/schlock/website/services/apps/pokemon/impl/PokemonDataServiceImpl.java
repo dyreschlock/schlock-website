@@ -655,7 +655,8 @@ public class PokemonDataServiceImpl implements PokemonDataService
         {
             if(!isIgnorePokemon(data))
             {
-                CounterPokemon fullCounter = CounterPokemon.createFromData(data, LEVEL_40);
+                double cpm = getCpmFromLevel(LEVEL_40);
+                CounterPokemon fullCounter = CounterPokemon.createFromData(data, LEVEL_40, cpm);
 
                 int highLevel = LEVEL_50;
                 if (isLegendary(data))
@@ -663,7 +664,8 @@ public class PokemonDataServiceImpl implements PokemonDataService
                     highLevel = LEVEL_45;
                 }
 
-                CounterPokemon highCounter = CounterPokemon.createFromData(data, highLevel);
+                cpm = getCpmFromLevel(highLevel);
+                CounterPokemon highCounter = CounterPokemon.createFromData(data, highLevel, cpm);
 
                 pokemon.add(fullCounter);
                 pokemon.add(highCounter);

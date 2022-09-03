@@ -6,6 +6,7 @@ import java.util.Set;
 public class CounterPokemon extends AbstractPokemon
 {
     private int level;
+    private double cpm;
 
     private Integer attackIv;
     private Integer defenseIv;
@@ -22,6 +23,11 @@ public class CounterPokemon extends AbstractPokemon
     public int getLevel()
     {
         return level;
+    }
+
+    public double getCPM()
+    {
+        return cpm;
     }
 
     public int getAttackIV()
@@ -49,6 +55,23 @@ public class CounterPokemon extends AbstractPokemon
             return super.getStaminaIV();
         }
         return staminaIv;
+    }
+
+    private static final double MEGA_POKEMON_STAT_MULTIPLIER = 1.1;
+    private static final double SHADOW_DEFENSE_MULTIPLIER = 0.8333333;
+
+    public double getDefense()
+    {
+        double defense = super.getDefense();
+        if (isMega())
+        {
+            return defense * MEGA_POKEMON_STAT_MULTIPLIER;
+        }
+        if (isShadow())
+        {
+            return defense * SHADOW_DEFENSE_MULTIPLIER;
+        }
+        return defense;
     }
 
     public Set<PokemonMove> getAllFastMoves()
@@ -87,21 +110,23 @@ public class CounterPokemon extends AbstractPokemon
         return chargeMoves;
     }
 
-    public static CounterPokemon createFromData(PokemonData data, int level)
+    public static CounterPokemon createFromData(PokemonData data, int level, double cpm)
     {
         CounterPokemon counter = new CounterPokemon(data);
         counter.level = level;
+        counter.cpm = cpm;
 
         return counter;
     }
 
     public static CounterPokemon createCustom(PokemonData data,
                                               int level,
+                                              double cpm,
                                               int attackIV,
                                               int defenseIV,
                                               int staminaIV)
     {
-        CounterPokemon counter = createFromData(data, level);
+        CounterPokemon counter = createFromData(data, level, cpm);
 
         counter.attackIv = attackIV;
         counter.defenseIv = defenseIV;
@@ -113,13 +138,14 @@ public class CounterPokemon extends AbstractPokemon
 
     public static CounterPokemon createCustom(PokemonData data,
                                               int level,
+                                              double cpm,
                                               int attackIV,
                                               int defenseIV,
                                               int staminaIV,
                                               String fastMoveNames,
                                               String chargeMoveNames)
     {
-        CounterPokemon counter = createCustom(data, level, attackIV, defenseIV, staminaIV);
+        CounterPokemon counter = createCustom(data, level, cpm, attackIV, defenseIV, staminaIV);
 
         if (fastMoveNames != null && !fastMoveNames.isEmpty())
         {

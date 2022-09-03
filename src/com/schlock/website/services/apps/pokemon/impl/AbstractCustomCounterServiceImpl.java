@@ -54,7 +54,9 @@ public abstract class AbstractCustomCounterServiceImpl implements PokemonCustomC
     protected void addCustom(String name, int level, int attackIV, int defenseIV, int staminaIV, String fastMoves, String chargeMoves)
     {
         PokemonData data = dataService.getDataByName(name);
-        CounterPokemon counter = CounterPokemon.createCustom(data, level, attackIV, defenseIV, staminaIV, fastMoves, chargeMoves);
+        double cpm = dataService.getCpmFromLevel(level);
+
+        CounterPokemon counter = CounterPokemon.createCustom(data, level, cpm, attackIV, defenseIV, staminaIV, fastMoves, chargeMoves);
         customCounters.add(counter);
     }
 

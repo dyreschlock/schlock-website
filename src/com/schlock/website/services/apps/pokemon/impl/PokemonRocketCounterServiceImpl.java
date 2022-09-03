@@ -68,15 +68,8 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
         String key = mapKey(counterType, pokemon);
         if (!counterPokemon.containsKey(key))
         {
-            try
-            {
-                List<RocketCounterInstance> list = createCounters2(counterType, pokemon);
-                counterPokemon.put(key, list);
-            }
-            catch(Exception e)
-            {
-                System.out.println(pokemon.getName());
-            }
+            List<RocketCounterInstance> list = createCounters2(counterType, pokemon);
+            counterPokemon.put(key, list);
         }
         pokemon.setCounters(counterType, counterPokemon.get(key));
     }

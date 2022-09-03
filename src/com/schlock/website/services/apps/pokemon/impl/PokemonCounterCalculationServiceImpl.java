@@ -10,10 +10,7 @@ import java.util.Map;
 
 public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalculationService
 {
-    private static final double SHADOW_DEFENSE_MULTIPLIER = 0.8333333;
     private static final double SHADOW_ATTACK_MULTIPLIER = 1.2;
-
-    private static final double MEGA_POKEMON_STAT_MULTIPLIER = 1.1;
 
     private static final double BEST_FRIEND_ATTACK_BONUS = 1.1;
     private static final double SAME_TYPE_ATTACK_BONUS = 1.2;
@@ -559,7 +556,7 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
         double damageIntakeX = generateDamageIntakeX(boss, counter, fastMove, chargeMove, battleMode);
         double damageIntakeY = generateDamageIntakeY(boss, counter, battleMode);
 
-        double stamina = getStamina(counter);
+        double stamina = counter.getStamina();
 
         boolean BEST_FRIEND_BONUS = BEST_FRIEND_BONUS_YES;
         if (battleMode.isRocket())
@@ -746,9 +743,9 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
         {
             if(battleMode.isRocket())
             {
-                return DEFAULT_BOSS_DPS * 1.5 / getDefense(counter);
+                return DEFAULT_BOSS_DPS * 1.5 / counter.getDefense();
             }
-            return DEFAULT_BOSS_DPS / getDefense(counter);
+            return DEFAULT_BOSS_DPS / counter.getDefense();
         }
 
         double sum = 0.0;
@@ -815,7 +812,7 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
             multipliers *= TYPE_EFFECTIVENESS.get(MOVE_TYPE).get(DEFENDER_TYPE2);
         }
 
-        double attack = getAttack(attacker);
+        double attack = attacker.getAttack();
         if (attacker.isShadow())
         {
             attack *= SHADOW_ATTACK_MULTIPLIER;
@@ -826,53 +823,11 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
             attack *= BEST_FRIEND_ATTACK_BONUS;
         }
 
-        double defense = getDefense(defender);
+        double defense = defender.getDefense();
 
         //return 0.5 * atk / dmg_taker.Def * move.power * multipliers + 0.5;
         return 0.5 * attack / defense * move.getPower(battleMode) * multipliers + 0.5;
     }
-
-    private double getAttack(AbstractPokemon pokemon)
-    {
-        final double CPM = getCPM(pokemon);
-
-        return (pokemon.getBaseAttack() + pokemon.getAttackIV()) * CPM;
-    }
-
-    private double getDefense(AbstractPokemon pokemon)
-    {
-        final double CPM = getCPM(pokemon);
-
-        double defense = (pokemon.getBaseDefense() + pokemon.getDefenseIV()) * CPM;
-
-        if (!RaidBossPokemon.class.isAssignableFrom(pokemon.getClass()))
-        {
-            if (pokemon.isMega())
-            {
-                defense *= MEGA_POKEMON_STAT_MULTIPLIER;
-            }
-            if (pokemon.isShadow())
-            {
-                defense *= SHADOW_DEFENSE_MULTIPLIER;
-            }
-        }
-        return defense;
-    }
-
-    private double getStamina(AbstractPokemon pokemon)
-    {
-        final double CPM = getCPM(pokemon);
-
-        return (pokemon.getBaseStamina() + pokemon.getStaminaIV()) * CPM;
-    }
-
-    private double getCPM(AbstractPokemon pokemon)
-    {
-        Integer level = pokemon.getLevel();
-
-        return dataService.getCpmFromLevel(level);
-    }
-
 
     public Integer getTotalDamageForParty(List<RaidCounterInstance> party)
     {

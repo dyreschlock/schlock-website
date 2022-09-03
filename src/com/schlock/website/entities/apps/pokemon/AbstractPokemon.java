@@ -5,6 +5,7 @@ import java.util.Set;
 public abstract class AbstractPokemon
 {
     private final static Integer DEFAULT_LEVEL = 40;
+    private final static Double LEVEL_40_CPM = 0.7903;
 
     private final static Integer DEFAULT_ATTACK_IV = 15;
     private final static Integer DEFAULT_DEFENSE_IV = 15;
@@ -22,6 +23,22 @@ public abstract class AbstractPokemon
         return data;
     }
 
+    public double getAttack()
+    {
+        return (getBaseAttack() + getAttackIV()) * getCPM();
+    }
+
+    public double getDefense()
+    {
+        return (getBaseDefense() + getDefenseIV()) * getCPM();
+    }
+
+    public double getStamina()
+    {
+        return (getBaseStamina() + getStaminaIV()) * getCPM();
+    }
+
+
     public String getName()
     {
         return data.getName();
@@ -30,6 +47,11 @@ public abstract class AbstractPokemon
     public int getLevel()
     {
         return DEFAULT_LEVEL;
+    }
+
+    public double getCPM()
+    {
+        return LEVEL_40_CPM;
     }
 
     public boolean isShadow()
