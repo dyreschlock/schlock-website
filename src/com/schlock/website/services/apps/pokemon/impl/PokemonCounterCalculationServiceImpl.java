@@ -7,6 +7,7 @@ import com.schlock.website.services.apps.pokemon.PokemonDataService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalculationService
 {
@@ -22,24 +23,24 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
     private static final boolean BEST_FRIEND_BONUS_NO = false;
 
 
-    private static final String BUG = "Bug";
-    private static final String DARK = "Dark";
-    private static final String DRAGON = "Dragon";
-    private static final String ELECTRIC = "Electric";
-    private static final String FAIRY = "Fairy";
-    private static final String FIGHTING = "Fighting";
-    private static final String FIRE = "Fire";
-    private static final String FLYING = "Flying";
-    private static final String GHOST = "Ghost";
-    private static final String GRASS = "Grass";
-    private static final String GROUND = "Ground";
-    private static final String ICE = "Ice";
-    private static final String NORMAL = "Normal";
-    private static final String POISON = "Poison";
-    private static final String PSYCHIC = "Psychic";
-    private static final String ROCK = "Rock";
-    private static final String STEEL = "Steel";
-    private static final String WATER = "Water";
+    public static final String BUG = "Bug";
+    public static final String DARK = "Dark";
+    public static final String DRAGON = "Dragon";
+    public static final String ELECTRIC = "Electric";
+    public static final String FAIRY = "Fairy";
+    public static final String FIGHTING = "Fighting";
+    public static final String FIRE = "Fire";
+    public static final String FLYING = "Flying";
+    public static final String GHOST = "Ghost";
+    public static final String GRASS = "Grass";
+    public static final String GROUND = "Ground";
+    public static final String ICE = "Ice";
+    public static final String NORMAL = "Normal";
+    public static final String POISON = "Poison";
+    public static final String PSYCHIC = "Psychic";
+    public static final String ROCK = "Rock";
+    public static final String STEEL = "Steel";
+    public static final String WATER = "Water";
 
     private static final Double STRONG = 1.6;
     private static final Double NEUTRAL = 1.0;
@@ -502,11 +503,34 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
         TYPE_EFFECTIVENESS.put(WATER, water);
     }
 
-    private final PokemonDataService dataService;
-
-    public PokemonCounterCalculationServiceImpl(PokemonDataService dataService)
+    public PokemonCounterCalculationServiceImpl()
     {
-        this.dataService = dataService;
+    }
+
+    public Map<String, String> getMapOfAttackingTypeToWeakType()
+    {
+        Map<String, String> types = new HashMap<String, String>();
+        for (String attackingType : TYPE_EFFECTIVENESS.keySet())
+        {
+            String defendingType = null;
+            for(String type : TYPE_EFFECTIVENESS.get(attackingType).keySet())
+            {
+                double attackingEffectiveness = TYPE_EFFECTIVENESS.get(attackingType).get(type);
+                double defendingEffectiveness = TYPE_EFFECTIVENESS.get(type).get(attackingType);
+                if (NEUTRAL.equals(attackingEffectiveness) && NEUTRAL.equals(defendingEffectiveness))
+                {
+                    defendingType = type;
+                }
+            }
+
+            if(defendingType == null)
+            {
+                defendingType = "Normal";
+            }
+
+            types.put(attackingType, defendingType);
+        }
+        return types;
     }
 
     public RaidCounterInstance generateRaidCounter(RaidBossPokemon raidBoss, CounterPokemon counter, PokemonMove fastMove, PokemonMove chargeMove)
@@ -636,10 +660,6 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
             stamina = stamina / damageIntakeY;
 
             double fastEPSmod = fastEPS - damageIntakeX / stamina;
-            if (fastEPSmod < 0.0)
-            {
-                fastEPSmod = 0.0;
-            }
 
             double energyGained = 3.0 * stamina * fastEPSmod;
             double discountFactor = (energyGained - 2.0 * chargeEnergyDelta) / energyGained;
@@ -647,7 +667,7 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
             {
                 discountFactor = 0.0;
             }
-            chargeDamage = chargeDamage * discountFactor;
+//            chargeDamage = chargeDamage * discountFactor;
 
             dps = fastDPS + fastEPSmod * chargeDamage / chargeEnergyDelta;
             tdo = dps * stamina;

@@ -33,6 +33,10 @@ public class PokemonRaidCounter
         {
             this.counterType = CounterType.GENERAL;
         }
+        else if (CounterType.TOP.toString().equalsIgnoreCase(parameter))
+        {
+            this.counterType = CounterType.TOP;
+        }
         else
         {
             this.counterType = CounterType.defaultType();

@@ -2,7 +2,7 @@ package com.schlock.website.entities.apps.pokemon;
 
 public enum CounterType
 {
-    GENERAL, CUSTOM, CUSTOM1, CUSTOM2;
+    GENERAL, CUSTOM, CUSTOM1, CUSTOM2, TOP;
 
     public boolean isGeneral()
     {
@@ -12,6 +12,11 @@ public enum CounterType
     public boolean isCustom()
     {
         return CUSTOM.equals(this) || CUSTOM1.equals(this) || CUSTOM2.equals(this);
+    }
+
+    public boolean isTop()
+    {
+        return TOP.equals(this);
     }
 
     public int counterListSize()

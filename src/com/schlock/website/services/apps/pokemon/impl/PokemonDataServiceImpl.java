@@ -2,6 +2,7 @@ package com.schlock.website.services.apps.pokemon.impl;
 
 import com.schlock.website.entities.apps.pokemon.*;
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.apps.pokemon.PokemonCounterCalculationService;
 import com.schlock.website.services.apps.pokemon.PokemonCustomCounterPrimeService;
 import com.schlock.website.services.apps.pokemon.PokemonCustomCounterSecondService;
 import com.schlock.website.services.apps.pokemon.PokemonDataService;
@@ -101,12 +102,15 @@ public class PokemonDataServiceImpl implements PokemonDataService
     private static final String SHAODW = "Shadow";
     private static final String MEGA = "Mega";
 
+    private static final String ARCEUS = "Arceus";
 
 
     private List<RaidBossPokemon> raidBosses = new ArrayList<RaidBossPokemon>();
 
     private List<RocketLeader> rocketLeaders = new ArrayList<RocketLeader>();
     private Map<String, RocketBossPokemon> rocketBosses = new HashMap<String, RocketBossPokemon>();
+
+    private List<RaidBossWithAttackingType> raidBossesWithAttackingTypes = new ArrayList<RaidBossWithAttackingType>();
 
     private HashMap<String, PokemonMove> moveData = new HashMap<String, PokemonMove>();
     private HashMap<String, PokemonData> pokemonData = new HashMap<String, PokemonData>();
@@ -116,15 +120,18 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
     private final PokemonCustomCounterPrimeService customPrimeService;
     private final PokemonCustomCounterSecondService customSecondService;
+    private final PokemonCounterCalculationService calculationService;
 
     private final DeploymentContext deploymentContext;
 
     public PokemonDataServiceImpl(PokemonCustomCounterPrimeService customPrimeService,
                                   PokemonCustomCounterSecondService customSecondService,
+                                  PokemonCounterCalculationService calculationService,
                                   DeploymentContext deploymentContext)
     {
         this.customPrimeService = customPrimeService;
         this.customSecondService = customSecondService;
+        this.calculationService = calculationService;
 
         this.deploymentContext = deploymentContext;
 
@@ -313,28 +320,6 @@ public class PokemonDataServiceImpl implements PokemonDataService
             throw new RuntimeException(newMoveName + " already exists.");
         }
         moveData.put(newMoveName, newMove);
-    }
-
-    private void createBrutalSwing()
-    {
-        JSONObject object = new JSONObject();
-        object.put(PokemonMove.TITLE, "Brutal Swing");
-        object.put(PokemonMove.TYPE, "Dark");
-        object.put(PokemonMove.CATEGORY, "Charge Move");
-        object.put(PokemonMove.POWER, "65");
-        object.put(PokemonMove.COOLDOWN, "1.90");
-        object.put(PokemonMove.ENERGY_GAIN, "");
-        object.put(PokemonMove.ENERGY_COST, "-33");
-        object.put(PokemonMove.DODGE_WINDOW, "0.40 seconds");
-        object.put(PokemonMove.DAMAGE_WINDOW, "1.20 seconds");
-
-        PokemonMove brutalSwing = PokemonMove.createFromJSON(object);
-
-        if (moveData.get(brutalSwing.getName()) != null)
-        {
-            throw new RuntimeException(brutalSwing.getName() + " already exists.");
-        }
-        moveData.put(brutalSwing.getName(), brutalSwing);
     }
 
     private void createFairyWind()
@@ -638,10 +623,10 @@ public class PokemonDataServiceImpl implements PokemonDataService
         {
             return customSecondService.getCounterPokemon();
         }
-        return getAllGeneralCounters();
+        return getAllGeneralCounters(counterType);
     }
 
-    private Collection<CounterPokemon> getAllGeneralCounters()
+    private Collection<CounterPokemon> getAllGeneralCounters(CounterType counterType)
     {
         if (pokemonData.isEmpty())
         {
@@ -658,17 +643,21 @@ public class PokemonDataServiceImpl implements PokemonDataService
                 double cpm = getCpmFromLevel(LEVEL_40);
                 CounterPokemon fullCounter = CounterPokemon.createFromData(data, LEVEL_40, cpm);
 
-                int highLevel = LEVEL_50;
-                if (isLegendary(data))
-                {
-                    highLevel = LEVEL_45;
-                }
-
-                cpm = getCpmFromLevel(highLevel);
-                CounterPokemon highCounter = CounterPokemon.createFromData(data, highLevel, cpm);
-
                 pokemon.add(fullCounter);
-                pokemon.add(highCounter);
+
+                if(counterType.isGeneral())
+                {
+                    int highLevel = LEVEL_50;
+                    if (isLegendary(data))
+                    {
+                        highLevel = LEVEL_45;
+                    }
+
+                    cpm = getCpmFromLevel(highLevel);
+                    CounterPokemon highCounter = CounterPokemon.createFromData(data, highLevel, cpm);
+
+                    pokemon.add(highCounter);
+                }
             }
         }
         return pokemon;
@@ -689,13 +678,13 @@ public class PokemonDataServiceImpl implements PokemonDataService
         return getLegendaryBosses().contains(pokemonName);
     }
 
-    public List<RaidBossPokemon> getRaidBosses()
+    public List<RaidBossWithAttackingType> getRaidBossForEachAttackingType()
     {
-        if (raidBosses.isEmpty())
+        if (raidBossesWithAttackingTypes.isEmpty())
         {
-            generateRaidBosses();
+            generateRaidBossWithAttackingType();
         }
-        return raidBosses;
+        return raidBossesWithAttackingTypes;
     }
 
     public List<RocketLeader> getRocketLeaders()
@@ -705,6 +694,15 @@ public class PokemonDataServiceImpl implements PokemonDataService
             generateRocketLeaders();
         }
         return rocketLeaders;
+    }
+
+    public List<RaidBossPokemon> getRaidBosses()
+    {
+        if (raidBosses.isEmpty())
+        {
+            generateRaidBosses();
+        }
+        return raidBosses;
     }
 
     public PokemonData getDataByName(String name)
@@ -719,6 +717,52 @@ public class PokemonDataServiceImpl implements PokemonDataService
             throw new RuntimeException("Pokemon Not Found: " + name);
         }
         return data;
+    }
+
+    private static final List<String> PREFERRED_TYPE_ORDER = Arrays.asList(
+            PokemonCounterCalculationServiceImpl.FIRE,
+            PokemonCounterCalculationServiceImpl.WATER,
+            PokemonCounterCalculationServiceImpl.ELECTRIC,
+            PokemonCounterCalculationServiceImpl.GRASS,
+            PokemonCounterCalculationServiceImpl.ICE,
+            PokemonCounterCalculationServiceImpl.FIGHTING,
+            PokemonCounterCalculationServiceImpl.POISON,
+            PokemonCounterCalculationServiceImpl.GROUND,
+            PokemonCounterCalculationServiceImpl.FLYING,
+            PokemonCounterCalculationServiceImpl.PSYCHIC,
+            PokemonCounterCalculationServiceImpl.BUG,
+            PokemonCounterCalculationServiceImpl.ROCK,
+            PokemonCounterCalculationServiceImpl.GHOST,
+            PokemonCounterCalculationServiceImpl.DRAGON,
+            PokemonCounterCalculationServiceImpl.DARK,
+            PokemonCounterCalculationServiceImpl.STEEL,
+            PokemonCounterCalculationServiceImpl.FAIRY,
+            PokemonCounterCalculationServiceImpl.NORMAL
+            );
+
+    private void generateRaidBossWithAttackingType()
+    {
+        if (!raidBossesWithAttackingTypes.isEmpty())
+        {
+            return;
+        }
+
+        if (pokemonData.isEmpty())
+        {
+            loadPokemonDataJSON();
+        }
+
+        PokemonData arceus = getDataByName(ARCEUS);
+
+        Map<String, String> attackingToDefendingTypes = calculationService.getMapOfAttackingTypeToWeakType();
+        for (String attackingType : PREFERRED_TYPE_ORDER)
+        {
+            String defendingType = attackingToDefendingTypes.get(attackingType);
+
+            RaidBossWithAttackingType typedArceus = RaidBossWithAttackingType.createFromData(arceus, defendingType, attackingType);
+
+            raidBossesWithAttackingTypes.add(typedArceus);
+        }
     }
 
     private void generateRocketLeaders()

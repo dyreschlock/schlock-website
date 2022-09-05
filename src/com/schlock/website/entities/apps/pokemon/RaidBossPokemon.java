@@ -8,7 +8,7 @@ public class RaidBossPokemon extends AbstractPokemon
     private Map<CounterType, List<RaidCounterInstance>> shadowCounters = new HashMap<CounterType, List<RaidCounterInstance>>();
     private Map<CounterType, List<RaidCounterInstance>> regularCounters = new HashMap<CounterType, List<RaidCounterInstance>>();
 
-    private RaidBossPokemon(PokemonData data)
+    protected RaidBossPokemon(PokemonData data)
     {
         super(data);
     }

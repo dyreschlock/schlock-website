@@ -75,6 +75,9 @@
 </head>
 <body>
 
+    <t:if test="counterType.top">
+        <r:raidcounterstop />
+    </t:if>
     <t:if test="counterType.general">
         <r:raidcountersgeneral />
     </t:if>

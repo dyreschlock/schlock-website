@@ -19,6 +19,8 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 
     private static final int PARTY_LIMIT = 6;
 
+    private static final int TOP_TYPE_COUNTER_LIMIT = 10;
+
     private List<RaidCounterInstance> topMegaCounterPokemon = new ArrayList<RaidCounterInstance>();
     private List<RaidCounterInstance> topShadowCounterPokemon = new ArrayList<RaidCounterInstance>();
     private List<RaidCounterInstance> topRegularCounterPokemon = new ArrayList<RaidCounterInstance>();
@@ -64,9 +66,18 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         Collections.sort(shadowCounters);
         Collections.sort(regularCounters);
 
-        raidBoss.setMegaCounters(counterType, megaCounters.subList(0, NUMBER_OF_MEGA_COUNTERS_PER_POKEMON));
-        raidBoss.setShadowCounters(counterType, shadowCounters.subList(0, NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON));
-        raidBoss.setRegularCounters(counterType, regularCounters.subList(0, NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON));
+        raidBoss.setMegaCounters(counterType, subList(megaCounters, NUMBER_OF_MEGA_COUNTERS_PER_POKEMON));
+        raidBoss.setShadowCounters(counterType, subList(shadowCounters, NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON));
+        raidBoss.setRegularCounters(counterType, subList(regularCounters, NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON));
+    }
+
+    private List<RaidCounterInstance> subList(List<RaidCounterInstance> counters, int length)
+    {
+        if (counters.size() < length)
+        {
+            return counters;
+        }
+        return counters.subList(0, length);
     }
 
     private List<RaidCounterInstance> generateRaidCounters(RaidBossPokemon raidBoss, CounterPokemon counterPokemon)
@@ -77,6 +88,19 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         {
             for (PokemonMove chargeMove : counterPokemon.getAllChargeMoves())
             {
+                if(RaidBossWithAttackingType.class.isAssignableFrom(raidBoss.getClass()))
+                {
+                    String type = ((RaidBossWithAttackingType) raidBoss).getAttackingType();
+
+                    String fastType = fastMove.getType();
+                    String chargeType = chargeMove.getType();
+
+                    if (!type.equalsIgnoreCase(fastType) || !type.equalsIgnoreCase(chargeType))
+                    {
+                        continue;
+                    }
+                }
+
                 RaidCounterInstance counter = calculationService.generateRaidCounter(raidBoss, counterPokemon, fastMove, chargeMove);
                 if (counter != null)
                 {
@@ -84,7 +108,15 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
                 }
             }
         }
-        return filterListForBest(counters);
+        counters = filterListForBest(counters);
+        if (RaidBossWithAttackingType.class.isAssignableFrom(raidBoss.getClass()))
+        {
+            if (!counters.isEmpty())
+            {
+                return counters.subList(0, 1);
+            }
+        }
+        return counters;
     }
 
 
@@ -227,6 +259,11 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         return dataService.getRaidBosses();
     }
 
+    public List<RaidBossWithAttackingType> getRaidBossForEachAttackingType()
+    {
+        return dataService.getRaidBossForEachAttackingType();
+    }
+
     public List<RaidCounterInstance> getCounterPokemon(RaidBossPokemon boss, CounterType counterType)
     {
         if (!boss.isCountersGenerated(counterType))
@@ -254,6 +291,24 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         counters.addAll(boss.getRegularCounters(counterType));
 
         return counters;
+    }
+
+    public List<RaidCounterInstance> getCounterPokemonByAttackingType(RaidBossWithAttackingType boss, CounterType type)
+    {
+        if (!boss.isCountersGenerated(type))
+        {
+            generateRaidCounters(boss, type);
+        }
+
+        List<RaidCounterInstance> counters = new ArrayList<RaidCounterInstance>();
+
+        counters.addAll(boss.getRegularCounters(type));
+        counters.addAll(boss.getMegaCounters(type));
+        counters.addAll(boss.getShadowCounters(type));
+
+        Collections.sort(counters);
+
+        return counters.subList(0, TOP_TYPE_COUNTER_LIMIT);
     }
 
     public List<RaidCounterInstance> getTopMegaCounterPokemon(final CounterType counterType)

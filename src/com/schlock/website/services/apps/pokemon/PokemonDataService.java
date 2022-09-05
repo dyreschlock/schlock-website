@@ -9,6 +9,8 @@ public interface PokemonDataService
 {
     public List<RaidBossPokemon> getRaidBosses();
 
+    public List<RaidBossWithAttackingType> getRaidBossForEachAttackingType();
+
     public List<RocketLeader> getRocketLeaders();
 
     public Collection<CounterPokemon> getCounterPokemon(CounterType type);
