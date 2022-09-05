@@ -68,13 +68,13 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
         String key = mapKey(counterType, pokemon);
         if (!counterPokemon.containsKey(key))
         {
-            List<RocketCounterInstance> list = createCounters2(counterType, pokemon);
+            List<RocketCounterInstance> list = createCounters(counterType, pokemon);
             counterPokemon.put(key, list);
         }
         pokemon.setCounters(counterType, counterPokemon.get(key));
     }
 
-    private List<RocketCounterInstance> createCounters2(CounterType counterType, RocketBossPokemon pokemon)
+    private List<RocketCounterInstance> createCounters(CounterType counterType, RocketBossPokemon pokemon)
     {
         List<RocketCounterInstance> counters = new ArrayList<RocketCounterInstance>();
         for(CounterPokemon counter : dataService.getCounterPokemon(counterType))
@@ -115,88 +115,5 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
             return counters.get(0);
         }
         return null;
-    }
-
-    private List<RocketCounterInstance> createCounters(CounterType counterType, RocketBossPokemon pokemon)
-    {
-        String rocketPokemonName = pokemon.getName().toLowerCase();
-        String fileLocation = deploymentContext.webDirectory() + POKEMON_DIR + rocketPokemonName + HTML;
-
-        Document htmlFile = null;
-        try
-        {
-            htmlFile = Jsoup.parse(new File(fileLocation), "ISO-8859-1");
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-            System.out.println(fileLocation);
-        }
-
-
-        List<RocketCounterInstance> counters = new ArrayList<RocketCounterInstance>();
-
-        for (int i = 0; i < 30; i++)
-        {
-            String rocketId = "ROCKET" + (i + 1);
-
-            Element counterBody = htmlFile.getElementById(rocketId);
-            if(counterBody == null)
-            {
-                String stop = "";
-            }
-
-            /*  data element structure
-            <div (data)>
-                <div>
-                    <div><label>Overall</label> XX </div>
-                    <div><label>CP</label> XX </div>
-                </div>
-                <div>
-                    <div><label>Time</label> XX </div>
-                    <div>
-                        <div><label>Power</label> XX </div>
-                    </div>
-                </div>
-            </div>
-             */
-            Element dataElement = counterBody.child(1);
-
-            Element overallAndCP = dataElement.child(0);
-            String overall = overallAndCP.child(0).textNodes().get(0).text();
-            String cp = overallAndCP.child(1).textNodes().get(0).text();
-
-            Element timePower = dataElement.child(1);
-            String time = timePower.child(0).textNodes().get(0).text();
-            String power = timePower.child(1).child(0).textNodes().get(0).text();
-
-
-            /* details element structure
-            <div (details)>
-                <div>
-                    <div>
-                        <div> XX <img><img></div>
-                    </div>
-
-                    <div>
-                        <div>
-                            <div><img> XX </div>
-                            <div><img> XX </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-             */
-            Element detailsElement = counterBody.child(3);
-            String name = detailsElement.child(0).child(0).child(0).textNodes().get(0).text();
-
-            Element moves = detailsElement.child(0).child(1).child(0);
-
-            String fastMove = moves.child(0).textNodes().get(0).text();
-            String chargeMove = moves.child(1).textNodes().get(0).text();
-
-            RocketCounterInstance counter = new RocketCounterInstance(name, fastMove, chargeMove, overall, cp, time, power);
-            counters.add(counter);
-        }
-        return counters;
     }
 }
