@@ -13,10 +13,10 @@ public interface PokemonRaidCounterService
     public List<RaidBossWithAttackingType> getRaidBossForEachAttackingType();
 
     public List<RaidCounterInstance> getCounterPokemon(RaidBossPokemon legendary, CounterType type);
-
-    public List<RaidCounterInstance> getCounterPokemonByAttackingType(RaidBossWithAttackingType legendary, CounterType type);
-
     public List<RaidCounterInstance> getTopMegaCounterPokemon(CounterType type);
     public List<RaidCounterInstance> getTopShadowCounterPokemon(CounterType type);
     public List<RaidCounterInstance> getTopRegularCounterPokemon(CounterType type);
+
+    public List<RaidCounterInstance> getCounterPokemonByAttackingType(RaidBossWithAttackingType legendary, CounterType type);
+    public List<RaidCounterInstance> getTopCounterPokemonByAttackingType(CounterType type);
 }

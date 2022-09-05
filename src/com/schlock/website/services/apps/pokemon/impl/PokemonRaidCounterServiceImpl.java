@@ -19,7 +19,8 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 
     private static final int PARTY_LIMIT = 6;
 
-    private static final int TOP_TYPE_COUNTER_LIMIT = 10;
+    private static final int TOP_OVERALL_BEST_COUNTERS = 15;
+    private static final int TOP_TYPE_COUNTER_LIMIT = 7;
 
     private List<RaidCounterInstance> topMegaCounterPokemon = new ArrayList<RaidCounterInstance>();
     private List<RaidCounterInstance> topShadowCounterPokemon = new ArrayList<RaidCounterInstance>();
@@ -357,5 +358,18 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
             topRegularCounterPokemon = generateTopCounters(regularCounters, counterType, NUMBER_OF_TOP_REGULAR_COUNTERS_PER_POKEMON);
         }
         return topRegularCounterPokemon;
+    }
+
+    public List<RaidCounterInstance> getTopCounterPokemonByAttackingType(CounterType type)
+    {
+        List<RaidCounterInstance> counters = new ArrayList<RaidCounterInstance>();
+        for (RaidBossWithAttackingType boss : getRaidBossForEachAttackingType())
+        {
+            counters.addAll(getCounterPokemonByAttackingType(boss, type));
+        }
+
+        Collections.sort(counters);
+
+        return counters.subList(0, TOP_OVERALL_BEST_COUNTERS);
     }
 }

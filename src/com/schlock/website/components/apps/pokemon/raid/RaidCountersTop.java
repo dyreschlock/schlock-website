@@ -22,6 +22,9 @@ public class RaidCountersTop
     private RaidCounterInstance currentCounterPokemon;
 
     @Property
+    private Integer currentBossIndex;
+
+    @Property
     private Integer currentIndex;
 
 
@@ -35,9 +38,24 @@ public class RaidCountersTop
         return counterService.getCounterPokemonByAttackingType(currentBoss, CounterType.TOP);
     }
 
+    public List<RaidCounterInstance> getOverallTopCounterPokemon()
+    {
+        return counterService.getTopCounterPokemonByAttackingType(CounterType.TOP);
+    }
+
     public String getColumnIndex()
     {
         return "column0";
 //        return "column" + (currentIndex +1);
+    }
+
+    public boolean isCloseRow()
+    {
+        return currentBossIndex % 2 == 1;
+    }
+
+    public String getCloseRowHTML()
+    {
+        return "</tr><tr>";
     }
 }

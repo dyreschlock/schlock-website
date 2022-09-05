@@ -4,14 +4,24 @@
 >
 
     <table>
-        <t:loop source="raidBossForEachAttackingType" value="currentBoss">
-            <tr>
+        <tr>
+            <td class="name">${message:overall}</td>
+            <t:loop source="overallTopCounterPokemon" value="currentCounterPokemon" index="currentIndex">
+                <r:raidCounterDisplay pokemon="currentCounterPokemon" displayDpsDetails="true" extraClass="columnIndex" />
+            </t:loop>
+        </tr>
+        <tr>
+            <t:loop source="raidBossForEachAttackingType" value="currentBoss" index="currentBossIndex">
                 <td class="name">${currentBoss.attackingType}</td>
                 <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
                     <r:raidCounterDisplay pokemon="currentCounterPokemon" displayDpsDetails="true" extraClass="columnIndex" />
                 </t:loop>
-            </tr>
-        </t:loop>
+
+                <t:if test="closeRow">
+                    <t:outputraw value="closeRowHTML" />
+                </t:if>
+            </t:loop>
+        </tr>
     </table>
 
 </t:container>
