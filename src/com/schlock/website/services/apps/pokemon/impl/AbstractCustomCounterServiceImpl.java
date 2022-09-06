@@ -1,6 +1,8 @@
 package com.schlock.website.services.apps.pokemon.impl;
 
+import com.schlock.website.entities.apps.pokemon.BattleMode;
 import com.schlock.website.entities.apps.pokemon.CounterPokemon;
+import com.schlock.website.entities.apps.pokemon.CounterType;
 import com.schlock.website.entities.apps.pokemon.PokemonData;
 import com.schlock.website.services.apps.pokemon.PokemonCustomCounterService;
 import com.schlock.website.services.apps.pokemon.PokemonDataService;
@@ -60,11 +62,24 @@ public abstract class AbstractCustomCounterServiceImpl implements PokemonCustomC
         customCounters.add(counter);
     }
 
-    public Set<CounterPokemon> getCounterPokemon()
+    public Set<CounterPokemon> getCounterPokemon(BattleMode battleMode)
     {
         if (customCounters.isEmpty())
         {
             createCustomCounters();
+        }
+
+        if(battleMode.isRocket())
+        {
+            Set<CounterPokemon> counters = new HashSet<CounterPokemon>();
+            for (CounterPokemon counter : customCounters)
+            {
+                if (!counter.isMega())
+                {
+                    counters.add(counter);
+                }
+            }
+            return counters;
         }
         return customCounters;
     }

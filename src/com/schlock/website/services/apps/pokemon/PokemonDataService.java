@@ -13,7 +13,7 @@ public interface PokemonDataService
 
     public List<RocketLeader> getRocketLeaders();
 
-    public Collection<CounterPokemon> getCounterPokemon(CounterType type);
+    public Collection<CounterPokemon> getCounterPokemon(CounterType type, BattleMode battleMode);
 
     public Double getCpmFromLevel(Integer level);
 

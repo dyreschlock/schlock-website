@@ -21,6 +21,7 @@ public class PokemonRocketCounter
     private Messages messages;
 
     @Persist
+    @Property
     private CounterType counterType;
 
 
@@ -32,12 +33,6 @@ public class PokemonRocketCounter
 
     @Property
     private RocketBossPokemon currentRocketBossPokemon;
-
-    @Property
-    private RocketCounterInstance currentCounterPokemon;
-
-    @Property
-    private Integer currentIndex;
 
 
     Object onActivate()
@@ -80,15 +75,5 @@ public class PokemonRocketCounter
     public List<RocketLeader> getRocketLeaders()
     {
         return counterService.getRocketLeaders();
-    }
-
-    public List<RocketCounterInstance> getCounterPokemon()
-    {
-        return counterService.getCounterPokemon(counterType, currentRocketBossPokemon);
-    }
-
-    public String getCurrentIndexPlusOne()
-    {
-        return Integer.toString(currentIndex + 1);
     }
 }

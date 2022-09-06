@@ -613,20 +613,20 @@ public class PokemonDataServiceImpl implements PokemonDataService
         return moveData.get(name);
     }
 
-    public Collection<CounterPokemon> getCounterPokemon(CounterType counterType)
+    public Collection<CounterPokemon> getCounterPokemon(CounterType counterType, BattleMode battleMode)
     {
         if (CounterType.CUSTOM1.equals(counterType))
         {
-            return customPrimeService.getCounterPokemon();
+            return customPrimeService.getCounterPokemon(battleMode);
         }
         if(CounterType.CUSTOM2.equals(counterType))
         {
-            return customSecondService.getCounterPokemon();
+            return customSecondService.getCounterPokemon(battleMode);
         }
-        return getAllGeneralCounters(counterType);
+        return getAllGeneralCounters(counterType, battleMode);
     }
 
-    private Collection<CounterPokemon> getAllGeneralCounters(CounterType counterType)
+    private Collection<CounterPokemon> getAllGeneralCounters(CounterType counterType, BattleMode battleMode)
     {
         if (pokemonData.isEmpty())
         {
@@ -643,9 +643,14 @@ public class PokemonDataServiceImpl implements PokemonDataService
                 double cpm = getCpmFromLevel(LEVEL_40);
                 CounterPokemon fullCounter = CounterPokemon.createFromData(data, LEVEL_40, cpm);
 
+                if (battleMode.isRocket() && fullCounter.isMega())
+                {
+                    continue;
+                }
+
                 pokemon.add(fullCounter);
 
-                if(counterType.isGeneral())
+                if(battleMode.isRaid())
                 {
                     int highLevel = LEVEL_50;
                     if (isLegendary(data))

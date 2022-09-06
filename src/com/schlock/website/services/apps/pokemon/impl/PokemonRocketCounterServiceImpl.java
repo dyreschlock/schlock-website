@@ -5,12 +5,7 @@ import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.PokemonCounterCalculationService;
 import com.schlock.website.services.apps.pokemon.PokemonDataService;
 import com.schlock.website.services.apps.pokemon.PokemonRocketCounterService;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -68,22 +63,27 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
         String key = mapKey(counterType, pokemon);
         if (!counterPokemon.containsKey(key))
         {
-            List<RocketCounterInstance> list = createCounters(counterType, pokemon);
+            List<RocketCounterInstance> list = createCounters(pokemon, counterType);
             counterPokemon.put(key, list);
         }
         pokemon.setCounters(counterType, counterPokemon.get(key));
     }
 
-    private List<RocketCounterInstance> createCounters(CounterType counterType, RocketBossPokemon pokemon)
+    private List<RocketCounterInstance> createCounters(RocketBossPokemon pokemon, CounterType counterType)
     {
         List<RocketCounterInstance> counters = new ArrayList<RocketCounterInstance>();
-        for(CounterPokemon counter : dataService.getCounterPokemon(counterType))
+        for(CounterPokemon counter : dataService.getCounterPokemon(counterType, BattleMode.ROCKET))
         {
-            RocketCounterInstance counterInst = generateRaidCounter(pokemon, counter);
+            RocketCounterInstance counterInst = generateCounter(pokemon, counter);
             if (counterInst != null)
             {
                 counters.add(counterInst);
             }
+        }
+
+        if(counterType.isCustom())
+        {
+            counters = filterUniques(counters);
         }
 
         Collections.sort(counters);
@@ -93,7 +93,24 @@ public class PokemonRocketCounterServiceImpl implements PokemonRocketCounterServ
         return pokemon.getCounters(counterType);
     }
 
-    private RocketCounterInstance generateRaidCounter(RocketBossPokemon rocketBoss, CounterPokemon counterPokemon)
+    private List<RocketCounterInstance> filterUniques(List<RocketCounterInstance> totalCounters)
+    {
+        List<RocketCounterInstance> counters = new ArrayList<RocketCounterInstance>();
+        List<String> counterNames = new ArrayList<String>();
+
+        for (RocketCounterInstance counter : totalCounters)
+        {
+            String name = counter.getName();
+            if (!counterNames.contains(name))
+            {
+                counters.add(counter);
+                counterNames.add(name);
+            }
+        }
+        return counters;
+    }
+
+    private RocketCounterInstance generateCounter(RocketBossPokemon rocketBoss, CounterPokemon counterPokemon)
     {
         List<RocketCounterInstance> counters = new ArrayList<RocketCounterInstance>();
 

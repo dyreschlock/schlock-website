@@ -1,0 +1,12 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <td class="counter ${counterPokemon.name}">
+        <b>${number}.</b><br/>
+        ${counterPokemon.name}<br/>
+        <b>${counterPokemon.level}</b><br/>
+        ${counterPokemon.fastMove}<br/>
+        ${counterPokemon.chargeMove}<br/>
+        (${counterPokemon.overall})<br/>
+    </td>
+</t:container>

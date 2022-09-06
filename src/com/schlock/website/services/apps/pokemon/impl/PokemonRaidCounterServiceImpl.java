@@ -43,7 +43,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         List<RaidCounterInstance> shadowCounters = new ArrayList<RaidCounterInstance>();
         List<RaidCounterInstance> regularCounters = new ArrayList<RaidCounterInstance>();
 
-        for (CounterPokemon counterPoke : dataService.getCounterPokemon(counterType))
+        for (CounterPokemon counterPoke : dataService.getCounterPokemon(counterType, BattleMode.RAID))
         {
             List<RaidCounterInstance> counterInstances = new ArrayList<RaidCounterInstance>();
 

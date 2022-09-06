@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html t:type="layout" title="${pageTitle}"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry-library:apps/pokemon/rocket"
 >
 <head>
     <title>${pageTitle}</title>
@@ -73,23 +74,16 @@
             <tr><th colspan="31">${currentRocketLeaderName}</th></tr>
 
             <t:loop source="currentRocketLeader.pokemon" value="currentRocketBossPokemon">
-                <tr>
-                    <td class="rocket">${currentRocketBossPokemon.name}</td>
-                    <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
-                        <td class="counter ${currentCounterPokemon.name}">
-                            <b>${currentIndexPlusOne}.</b><br/>
-                            ${currentCounterPokemon.name}<br/>
-                            <b>${currentCounterPokemon.level}</b><br/>
-                            ${currentCounterPokemon.fastMove}<br/>
-                            ${currentCounterPokemon.chargeMove}<br/>
-                            (${currentCounterPokemon.overall})<br/>
-                        </td>
-                    </t:loop>
-                </tr>
+
+                <t:if test="counterType.general">
+                    <p:rocketCountersGeneralDisplay rocketBossPokemon="currentRocketBossPokemon" />
+                </t:if>
+                <t:if test="counterType.custom">
+                    <p:rocketCountersCustomDisplay rocketBossPokemon="currentRocketBossPokemon" />
+                </t:if>
+
             </t:loop>
         </table>
-
     </t:loop>
-
 </body>
 </html>

@@ -21,7 +21,7 @@ public enum CounterType
 
     public int counterListSize()
     {
-        if (GENERAL.equals(this))
+        if (isGeneral())
         {
             return 30;
         }
