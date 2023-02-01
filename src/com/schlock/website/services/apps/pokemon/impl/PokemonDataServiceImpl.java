@@ -59,10 +59,6 @@ public class PokemonDataServiceImpl implements PokemonDataService
             "Mega Camerupt",
             "Mega Audino",
 
-            "Mega Swampert",
-            "Mega Blaziken",
-            "Mega Sceptile",
-
             "Mega Tyranitar",
             "Mega Metagross",
             "Mega Salamence",
@@ -154,8 +150,10 @@ public class PokemonDataServiceImpl implements PokemonDataService
     private void addMoveOverwrites()
     {
         //move updates september 2022
-        createFairyWind();
-        createDoubleKick();
+//        createFairyWind();
+//        createDoubleKick();
+//        createShadowForce();
+//        createHighHorsepower();
     }
 
     private void addPokemonOverwrites()
@@ -176,62 +174,19 @@ public class PokemonDataServiceImpl implements PokemonDataService
 //        copyStatsCreateNewMove("Dark Void (OP)", "Dark", "Origin Pulse");
 //        addEliteMoveToPokemon("Darkrai", "Dark Void (OP)");
 
-//        addEliteMoveToPokemon("Greninja", "Hydro Cannon");
-//        addEliteMoveToPokemon("Delphox", "Blast Burn");
-//        addEliteMoveToPokemon("Chesnaught", "Frenzy Plant");
+        addEliteMoveToPokemon("Greninja", "Hydro Cannon");
+        addEliteMoveToPokemon("Delphox", "Blast Burn");
+        addEliteMoveToPokemon("Chesnaught", "Frenzy Plant");
 //
 //        addEliteMoveToPokemon("Decidueye", "Frenzy Plant");
 //        addEliteMoveToPokemon("Incineroar", "Blast Burn");
 //        addEliteMoveToPokemon("Primarina", "Hydro Cannon");
 
-        //new shadow in august 2022
-        createShadowPokemon("Latios");
-
-        //move updates september 2022
-        addStandardMoveToPokemon("Cosmog", "Splash", "Struggle");
-        addStandardMoveToPokemon("Cosmoem", "Splash", "Struggle");
-        addStandardMoveToPokemon("Solgaleo", "Zen Headbutt", "Fire Spin", "Iron Head", "Psychic Fangs", "Solar Beam", "Flamethrower");
-        addStandardMoveToPokemon("Lunala", "Confusion", "Air Slash", "Shadow Ball", "Psychic", "Moonblast", "Future Sight");
-
-        addStandardMoveToPokemon("Nidorina", "Thunderbolt");
-        addStandardMoveToPokemon("Nidorino", "Ice Beam");
-        addStandardMoveToPokemon("Nidoking", "Double Kick");
-        addStandardMoveToPokemon("Arcanine", "Psychic Fangs");
-        addStandardMoveToPokemon("Tentacruel", "Scald");
-        addStandardMoveToPokemon("Galarian Rapidash", "Fairy Wind");
-        addStandardMoveToPokemon("Haunter", "Ice Punch");
-        addStandardMoveToPokemon("Marowak", "Rock Slide");
-        addStandardMoveToPokemon("Hitmonlee", "Double Kick");
-        addStandardMoveToPokemon("Galarian Weezing", "Fairy Wind");
-        addStandardMoveToPokemon("Dragonair", "Body Slam");
-        addStandardMoveToPokemon("Dragonite", "Superpower");
-        addStandardMoveToPokemon("Ledian", "Dynamic Punch");
-        addStandardMoveToPokemon("Lanturn", "Surf");
-        addStandardMoveToPokemon("Jumpluff", "Fairy Wind");
-        addStandardMoveToPokemon("Espeon", "Psychic Fangs");
-        addStandardMoveToPokemon("Girafarig", "Psychic Fangs", "Double Kick");
-        addStandardMoveToPokemon("Dunsparce", "Rollout");
-        addStandardMoveToPokemon("Steelix", "Psychic Fangs");
-        addStandardMoveToPokemon("Miltank", "Rollout");
-        addStandardMoveToPokemon("Mawile", "Fairy Wind");
-        addStandardMoveToPokemon("Manectric", "Psychic Fangs");
-        addStandardMoveToPokemon("Camerupt", "Incinerate");
-        addStandardMoveToPokemon("Lopunny", "Double Kick");
-        addStandardMoveToPokemon("Swoobat", "Psychic Fangs");
-        addStandardMoveToPokemon("Florges", "Fairy Wind");
-        addStandardMoveToPokemon("Slurpuff", "Fairy Wind");
-        addStandardMoveToPokemon("Incineroar", "Double Kick");
-        addStandardMoveToPokemon("Golisopod", "Shadow Claw");
-        addStandardMoveToPokemon("Nihilego", "Poison Jab");
-        addStandardMoveToPokemon("Dubwool", "Double Kick");
-        addStandardMoveToPokemon("Runerigus", "Shadow Claw");
-        addStandardMoveToPokemon("Cobalion", "Double Kick");
-        addStandardMoveToPokemon("Terrakion", "Double Kick");
-        addStandardMoveToPokemon("Virizion", "Double Kick");
-
         //missing in json
         addEliteMoveToPokemon("Umbreon", "Psychic");
         addEliteMoveToPokemon("Rhyhorn", "Earthquake");
+
+        addEliteMoveToPokemon("Kyogre", "Origin Pulse");
     }
 
     private void addStandardMoveToPokemon(String pokemonName, String... moveNames)
@@ -320,6 +275,64 @@ public class PokemonDataServiceImpl implements PokemonDataService
             throw new RuntimeException(newMoveName + " already exists.");
         }
         moveData.put(newMoveName, newMove);
+    }
+
+    private void createHighHorsepower()
+    {
+        JSONObject object = new JSONObject();
+        object.put(PokemonMove.TITLE, "High Horsepower");
+        object.put(PokemonMove.TYPE, "Ground");
+        object.put(PokemonMove.CATEGORY, "Charge Move");
+        object.put(PokemonMove.POWER, 110);
+        object.put(PokemonMove.COOLDOWN, "1.6");
+        object.put(PokemonMove.ENERGY_GAIN, "0");
+        object.put(PokemonMove.ENERGY_COST, "-100");
+        object.put(PokemonMove.DODGE_WINDOW, "1.0 seconds");
+        object.put(PokemonMove.DAMAGE_WINDOW, "0.2 seconds");
+
+        object.put(PokemonMove.PVP_FAST_POWER, "");
+        object.put(PokemonMove.PVP_FAST_ENERGY, "");
+        object.put(PokemonMove.PVP_FAST_DURATION, "");
+
+        object.put(PokemonMove.PVP_CHARGE_DAMAGE, "100");
+        object.put(PokemonMove.PVP_CHARGE_ENERGY, "-60");
+
+        PokemonMove highHorsepower = PokemonMove.createFromJSON(object);
+
+        if (moveData.get(highHorsepower.getName()) != null)
+        {
+            throw new RuntimeException(highHorsepower.getName() + " already exists.");
+        }
+        moveData.put(highHorsepower.getName(), highHorsepower);
+    }
+
+    private void createShadowForce()
+    {
+        JSONObject object = new JSONObject();
+        object.put(PokemonMove.TITLE, "Shadow Force");
+        object.put(PokemonMove.TYPE, "Ghost");
+        object.put(PokemonMove.CATEGORY, "Charge Move");
+        object.put(PokemonMove.POWER, 140);
+        object.put(PokemonMove.COOLDOWN, "1.9");
+        object.put(PokemonMove.ENERGY_GAIN, "0");
+        object.put(PokemonMove.ENERGY_COST, "-100");
+        object.put(PokemonMove.DODGE_WINDOW, "1.7 seconds");
+        object.put(PokemonMove.DAMAGE_WINDOW, "0.2 seconds");
+
+        object.put(PokemonMove.PVP_FAST_POWER, "");
+        object.put(PokemonMove.PVP_FAST_ENERGY, "");
+        object.put(PokemonMove.PVP_FAST_DURATION, "");
+
+        object.put(PokemonMove.PVP_CHARGE_DAMAGE, "120");
+        object.put(PokemonMove.PVP_CHARGE_ENERGY, "-100");
+
+        PokemonMove shadowForce = PokemonMove.createFromJSON(object);
+
+        if (moveData.get(shadowForce.getName()) != null)
+        {
+            throw new RuntimeException(shadowForce.getName() + " already exists.");
+        }
+        moveData.put(shadowForce.getName(), shadowForce);
     }
 
     private void createFairyWind()
@@ -829,6 +842,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
     {
         List<String> names = new ArrayList<String>();
 
+        //TODO: Add random bosses here
         names.addAll(GEN1_BOSSES);
         names.addAll(GEN2_BOSSES);
         names.addAll(GEN3_BOSSES);
@@ -949,7 +963,8 @@ public class PokemonDataServiceImpl implements PokemonDataService
             "Yveltal",
             "Zygarde (50% Forme)",
             "Zygarde (Complete Forme)",
-            "Volcanion"
+            "Volcanion",
+            "Hoopa (Unbound)"
     );
 
     private static final List<String> GEN7_BOSSES = Arrays.asList(

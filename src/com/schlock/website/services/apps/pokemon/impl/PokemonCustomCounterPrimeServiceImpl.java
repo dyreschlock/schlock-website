@@ -23,6 +23,7 @@ public class PokemonCustomCounterPrimeServiceImpl extends AbstractCustomCounterS
         addCustom("Mega Slowbro", 40, 15, 14, 15, "Confusion", "Psychic");
 
         addCustom("Mega Beedrill", 47, 15, 12, 11, null, "Sludge Bomb, X-Scissor");
+        addCustom("Mega Scizor", 45, 15, 14, 15);
 
         addCustom("Mega Gengar", 50, 15, 14, 15, "Shadow Claw", "Shadow Ball");
 
@@ -48,7 +49,14 @@ public class PokemonCustomCounterPrimeServiceImpl extends AbstractCustomCounterS
         addCustom("Mega Lopunny", 40, 14, 15, 13, "Low Kick", "Focus Blast");
         addCustom("Mega Abomasnow", 45, 14, 14, 15, "Powder Snow", "Weather Ball Ice, Energy Ball");
 
+        addCustom("Mega Sceptile", 40, 15, 14, 15);
+        addCustom("Mega Blaziken", 40, 15, 13, 14);
+        addCustom("Mega Swampert", 50, 15, 15, 15);
+        addCustom("Mega Swampert", 41, 13, 15, 15);
 
+
+
+        addCustom("Mega Alakazam", 40, 14, 15, 14, "Confusion", "Psychic");
 
         addCustom("Scizor", 12, 15, 14, 15, "Bullet Punch", "Iron Head");
         addCustom("Aggron", 32, 15, 15, 13, "Iron Tail", "Heavy Slam");
@@ -63,26 +71,34 @@ public class PokemonCustomCounterPrimeServiceImpl extends AbstractCustomCounterS
 
         addCustom("Shadow Mamoswine", 40, 8, 14, 14, "Powder Snow", "Avalanche");
 
-        addCustom("Shadow Metagross", 30, 14, 8, 12, "Bullet Punch", "Meteor Mash");
+        addCustom("Shadow Metagross", 40, 14, 13, 12, "Bullet Punch", "Meteor Mash");
+        addCustom("Shadow Metagross", 40, 14, 8, 12, "Bullet Punch", "Meteor Mash");
         addCustom("Shadow Metagross", 25, 10, 14, 13, "Bullet Punch", "Meteor Mash");
 
         addCustom("Shadow Weavile", 30, 14, 14, 1, "Ice Shard", "Avalanche");
 
         addCustom("Shadow Lugia", 15, 13, 10, 15, "Extrasensory", "Aeroblast+");
 
-        addCustom("Shadow Dragonite", 40, 15, 14, 10, "Dragon Tail", "Outrage");
+        addCustom("Shadow Dragonite", 50, 15, 14, 10, "Dragon Tail", "Outrage");
 
         addCustom("Shadow Tyranitar", 15, 14, 8, 14, "Smack Down", "Stone Edge");
+
+        addCustom("Shadow Mewtwo", 35, 14, 7, 10, "Confusion", "Psystrike");
     }
 
     protected void rocketCounters()
     {
         addCustom("Togekiss", 40, 13, 14, 14, "Charm", "Dazzling Gleam, Ancient Power");
+        addCustom("Togekiss", 27, 7, 15, 15);
         addCustom("Sylveon", 50, 15, 15, 13, "Charm", "Psyshock, Moonblast");
 
 
         addCustom("Melmetal", 50, 13, 15, 15, "Thunder Shock", "Rock Slide, Thunderbolt");
 
+        addCustom("Gardevoir", 35, 12, 15, 12);
+
+        addCustom("Vikavolt", 40, 14, 15, 13, "Bug Bite", "X-Scissor");
+        addCustom("Yanmega", 40, 14, 15, 15, "Bug Bite", "Bug Buzz");
     }
 
     protected void fireSquad()
@@ -105,10 +121,11 @@ public class PokemonCustomCounterPrimeServiceImpl extends AbstractCustomCounterS
         addCustom("Emboar", 50, 15, 15, 14, "Ember", "Blast Burn");
         addCustom("Emboar", 30, 14, 13, 15, "Ember", "Blast Burn");
 
+        addCustom("Chandelure", 50, 15, 13, 15);
         addCustom("Chandelure", 40, 14, 12, 12);
-        addCustom("Chandelure", 32, 13, 14, 7, "Fire Spin", "Overheat");
+        addCustom("Chandelure", 32, 13, 14, 7);
 
-        addCustom("Reshiram", 40, 15, 11, 14);
+        addCustom("Reshiram", 40, 15, 11, 14, "Fire Fang", "Overheat, Fusion Flare");
 
         addCustom("Talonflame", 50, 15, 14, 14, "Incinerate", "Flame Charge, Brave Bird");
 
@@ -136,6 +153,7 @@ public class PokemonCustomCounterPrimeServiceImpl extends AbstractCustomCounterS
         addCustom("Swampert", 12, 15, 15, 15, null, "Hydro Cannon");
 
         addCustom("Kyogre", 30, 13, 12, 14, "Waterfall", "Surf");
+        addCustom("Kyogre", 40, 15, 15, 13, "Waterfall", "Origin Pulse");
 
 
         addCustom("Samurott", 14, 14, 14, 14, "Waterfall", "Hydro Cannon");
@@ -245,7 +263,7 @@ public class PokemonCustomCounterPrimeServiceImpl extends AbstractCustomCounterS
         addCustom("Groudon", 15, 14, 14, 12, "Mud Shot", "Earthquake");
 
         addCustom("Garchomp", 50, 15, 14, 15, null, "Earth Power, Outrage");
-        addCustom("Garchomp", 50, 14, 13, 15, null, "Earth Power");
+        addCustom("Garchomp", 50, 14, 13, 15, null, "Earth Power, Outrage");
         addCustom("Garchomp", 40, 15, 14, 13, "Mud Shot", "Earth Power");
         addCustom("Garchomp", 20, 14, 12, 13, "Mud Shot", "Earth Power");
         addCustom("Garchomp", 20, 12, 14, 13, "Mud Shot", "Earth Power");
@@ -306,7 +324,7 @@ public class PokemonCustomCounterPrimeServiceImpl extends AbstractCustomCounterS
         addCustom("Mewtwo", 25, 14, 15, 14, null, "Psystrike");
         addCustom("Mewtwo", 25, 13, 11, 11, null, "Psystrike");
 
-        addCustom("Gardevoir", 35, 12, 15, 12);
+        addCustom("Alakazam", 40, 12, 14, 12, null, "Psychic");
     }
 
     protected void ghostDarkSquad()
@@ -319,7 +337,7 @@ public class PokemonCustomCounterPrimeServiceImpl extends AbstractCustomCounterS
         addCustom("Umbreon", 50, 14, 15, 15, "Snarl", "Last Resort, Foul Play");
         addCustom("Umbreon", 20, 14, 15, 14, "Snarl", "Psychic");
 
-        addCustom("Giratina (Origin Forme)", 40, 15, 14, 13, "Shadow Claw", "Shadow Ball");
+        addCustom("Giratina (Origin Forme)", 40, 15, 14, 13, "Shadow Claw", "Shadow Ball, Shadow Force");
 
         addCustom("Darkrai", 40, 15, 15, 15, "Snarl", "Shadow Ball");
 
@@ -347,6 +365,9 @@ public class PokemonCustomCounterPrimeServiceImpl extends AbstractCustomCounterS
 
     protected void metalPoisonSquad()
     {
+        addCustom("Metagross", 40, 15, 13, 15, "Bullet Punch", "Meteor Mash, Psychic");
+        addCustom("Metagross", 40, 15, 14, 14, "Bullet Punch", "Meteor Mash, Psychic");
+
         addCustom("Metagross", 40, 13, 12, 10, "Bullet Punch", "Meteor Mash, Psychic");
         addCustom("Metagross", 33, 14, 15, 10, "Bullet Punch", "Meteor Mash");
         addCustom("Metagross", 31, 15, 14, 13, "Bullet Punch", "Meteor Mash");

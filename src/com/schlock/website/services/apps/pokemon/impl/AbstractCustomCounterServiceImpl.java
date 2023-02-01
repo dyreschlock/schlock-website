@@ -46,6 +46,7 @@ public abstract class AbstractCustomCounterServiceImpl implements PokemonCustomC
         fightSquad();
 
         metalPoisonSquad();
+        flightSquad();
     }
 
     protected void addCustom(String name, int level, int attackIV, int defenseIV, int staminaIV)

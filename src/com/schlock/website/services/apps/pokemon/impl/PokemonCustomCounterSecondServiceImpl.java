@@ -21,10 +21,19 @@ public class PokemonCustomCounterSecondServiceImpl extends AbstractCustomCounter
         addCustom("Mega Blastoise", 25, 14, 15, 14, "Water Gun", "Hydro Cannon, Ice Beam");
 
         addCustom("Mega Beedrill", 40, 11, 12, 7, "Poison Jab", "X-Scissor, Sludge Bomb");
+        addCustom("Mega Scizor", 45, 15, 15, 14);
+
+        addCustom("Mega Gengar", 50, 15, 15, 14);
 
         addCustom("Mega Pidgeot", 50, 15, 15, 14, "Gust", "Brave Bird, Feather Dance");
 
         addCustom("Mega Slowbro", 40, 15, 13, 15, "Confusion", "Psychic");
+
+
+        addCustom("Mega Sceptile", 40, 15, 15, 13);
+        addCustom("Mega Blaziken", 40, 15, 14, 13);
+        addCustom("Mega Swampert", 50, 15, 15, 15);
+        addCustom("Mega Swampert", 41, 14, 15, 14);
     }
 
     protected void shadows()
@@ -33,7 +42,7 @@ public class PokemonCustomCounterSecondServiceImpl extends AbstractCustomCounter
 
         addCustom("Shadow Mamoswine", 40, 10, 13, 0, "Powder Snow", "Avalanche");
 
-        addCustom("Shadow Metagross", 30, 15, 10, 3, "Bullet Punch", "Meteor Mash");
+        addCustom("Shadow Metagross", 40, 15, 10, 3, "Bullet Punch", "Meteor Mash");
         addCustom("Shadow Metagross", 25, 1, 4, 2, "Bullet Punch", "Meteor Mash");
         addCustom("Shadow Metagross", 15, 7, 13, 15, "Bullet Punch", "Meteor Mash");
 
@@ -48,6 +57,10 @@ public class PokemonCustomCounterSecondServiceImpl extends AbstractCustomCounter
 
     protected void rocketCounters()
     {
+        addCustom("Vikavolt", 40, 13, 15, 15, "Bug Bite", "X-Scissor");
+        addCustom("Yanmega", 27, 13, 4, 7, "Bug Bite", "Bug Buzz");
+
+        addCustom("Togekiss", 40, 13, 15, 13, "Charm", "Dazzling Gleam, Ancient Power");
 
     }
 
@@ -73,11 +86,11 @@ public class PokemonCustomCounterSecondServiceImpl extends AbstractCustomCounter
         addCustom("Emboar", 30, 14, 13, 14, "Ember", "Blast Burn");
         addCustom("Emboar", 24, 15, 13, 14, "Ember", "Blast Burn");
 
-        addCustom("Chandelure", 40, 15, 14, 15);
+        addCustom("Chandelure", 50, 15, 14, 15);
         addCustom("Chandelure", 40, 15, 12, 13);
         addCustom("Chandelure", 29, 14, 14, 13);
 
-        addCustom("Reshiram", 40, 10, 13, 14, "Fire Fang", "Overheat");
+        addCustom("Reshiram", 40, 10, 13, 14, "Fire Fang", "Fusion Flare");
     }
 
     protected void waterSquad()
@@ -109,8 +122,8 @@ public class PokemonCustomCounterSecondServiceImpl extends AbstractCustomCounter
     protected void groundSquad()
     {
         addCustom("Garchomp", 50, 14, 14, 15, null, "Earth Power, Outrage");
-        addCustom("Garchomp", 50, 15, 12, 13, "Mud Shot", "Earth Power");
-        addCustom("Garchomp", 40, 15, 15, 14, "Mud Shot", "Earth Power");
+        addCustom("Garchomp", 50, 15, 12, 13, null, "Earth Power, Outrage");
+        addCustom("Garchomp", 40, 15, 15, 14, null, "Earth Power, Outrage");
 
         addCustom("Excadrill", 40, 15, 15, 15, "Mud Slap", "Drill Run");
         addCustom("Excadrill", 40, 15, 15, 14, "Mud Slap", "Drill Run");
@@ -119,7 +132,7 @@ public class PokemonCustomCounterSecondServiceImpl extends AbstractCustomCounter
 
     protected void dragonSquad()
     {
-
+        addCustom("Dialga", 46, 15, 15, 15);
     }
 
     protected void psychicSquad()
@@ -144,6 +157,9 @@ public class PokemonCustomCounterSecondServiceImpl extends AbstractCustomCounter
         addCustom("Giratina (Origin Forme)", 30, 15, 15, 11, "Shadow Claw", "Shadow Ball");
         addCustom("Giratina (Origin Forme)", 25, 10, 13, 14, "Shadow Claw", "Shadow Ball");
         addCustom("Giratina (Origin Forme)", 25, 11, 10, 11, "Shadow Claw", "Shadow Ball");
+
+        addCustom("Hydreigon", 50, 14, 15, 15, "Bite", "Brutal Swing");
+        addCustom("Hydreigon", 50, 15, 10, 1, "Bite", "Brutal Swing");
     }
 
     protected void fightSquad()
@@ -158,18 +174,17 @@ public class PokemonCustomCounterSecondServiceImpl extends AbstractCustomCounter
         addCustom("Lucario", 40, 14, 13, 13, "Counter", "Power-Up Punch, Aura Sphere");
         addCustom("Lucario", 32, 15, 11, 13, "Counter", "Power-Up Punch, Aura Sphere");
 
-        addCustom("Togekiss", 40, 13, 15, 13, "Charm", "Dazzling Gleam, Ancient Power");
-
         addCustom("Conkeldurr", 30, 15, 14, 14, "Counter", "Dynamic Punch");
     }
 
     protected void metalPoisonSquad()
     {
+        addCustom("Metagross", 40, 15, 15, 13, "Bullet Punch", "Meteor Mash, Psychic");
+        addCustom("Metagross", 40, 15, 12, 15, "Bullet Punch", "Meteor Mash, Psychic");
 
     }
 
     protected void flightSquad()
     {
-
     }
 }
