@@ -61,11 +61,11 @@ public class DeploymentContextImpl implements DeploymentContext
     private String getContext()
     {
         String location = System.getProperty(LOCATION);
-        if (StringUtils.equalsIgnoreCase(location, LOCAL))
+        if (StringUtils.equalsIgnoreCase(location, HOSTED))
         {
-            return LOCAL;
+            return HOSTED;
         }
-        return HOSTED;
+        return LOCAL;
     }
 
     public boolean isLocal()
