@@ -1,0 +1,16 @@
+hibernate.connection.url.local=
+hibernate.connection.username.local=
+hibernate.connection.password.local=
+
+webdirectory.location.local=
+
+hibernate.connection.url.hosted=
+hibernate.connection.username.hosted=
+hibernate.connection.password.hosted=
+
+webdirectory.location.hosted=
+
+new.connection.username.hosted=
+new.connection.password.hosted=
+
+generation.output.directory=
