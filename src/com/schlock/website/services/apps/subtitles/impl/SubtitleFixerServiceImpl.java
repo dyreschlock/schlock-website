@@ -3,6 +3,10 @@ package com.schlock.website.services.apps.subtitles.impl;
 import com.schlock.website.services.apps.subtitles.SubtitleFixerService;
 import org.apache.commons.lang.StringUtils;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class SubtitleFixerServiceImpl implements SubtitleFixerService
 {
     //time lines in the form of xx:xx:xx,xxx --> xx:xx:xx,xxx
@@ -114,5 +118,128 @@ public class SubtitleFixerServiceImpl implements SubtitleFixerService
         }
 
         return hour + ":" + minute + ":" + second + "," + millis;
+    }
+
+    private static final String OLD_SUBTITLES_FILEPATH = "old_subtitles.srt";
+    private static final String NEW_SUBTITLES_FILEPATH = "new_subtitles.srt";
+
+    private static double INITIAL_OFFSET = 1.2;
+    private static double RATIO_OFFSET = 1.0442;
+
+    public void process() throws Exception
+    {
+        List<String> originalSubtitles = readOriginalSubtitles();
+
+        List<String> alteredSubtitles = offsetSubtitles(originalSubtitles);
+
+        writeLinesToFiles(alteredSubtitles);
+    }
+
+    private List<String> offsetSubtitles(List<String> baseSubtitles)
+    {
+        List<String> newSubtitles = new ArrayList<String>();
+
+        for(String line : baseSubtitles)
+        {
+            if (isTimeLine(line))
+            {
+                String alteredLine = alterTimeLine(line);
+
+                newSubtitles.add(alteredLine);
+            }
+            else
+            {
+                newSubtitles.add(line);
+            }
+        }
+        return newSubtitles;
+    }
+
+    private String alterTimeLine(String line)
+    {
+        String[] times = line.split(" ");
+
+        if (times.length != 3)
+        {
+            throw new RuntimeException("Time code is malformed. [" + line + "]");
+        }
+
+        try
+        {
+            String time1 = alterTime(times[0]);
+            String time2 = alterTime(times[2]);
+
+            return time1 + " " + times[1] + " " + time2;
+        }
+        catch(Exception e)
+        {
+            throw new RuntimeException("Time code is malformed on. [" + line + "]");
+        }
+    }
+
+    private String alterTime(String timeCode)
+    {
+        Double totalSeconds = convertTimeCodeToSeconds(timeCode);
+
+        Double alteredSeconds = (totalSeconds / RATIO_OFFSET) - INITIAL_OFFSET;
+
+        int offset = -(totalSeconds.intValue() - alteredSeconds.intValue());
+
+        return offsetTime(timeCode, offset);
+    }
+
+    private double convertTimeCodeToSeconds(String timeCode)
+    {
+        String[] time = timeCode.split(":");
+
+        Integer hr = Integer.parseInt(time[0]);
+        Integer min = Integer.parseInt(time[1]);
+
+        String[] seconds = time[2].split(",");
+
+        Integer sec = Integer.parseInt(seconds[0]);
+
+        double totalSeconds = (hr.doubleValue() * 60.0 * 60.0) + (min.doubleValue() * 60.0) + sec.doubleValue();
+        return totalSeconds;
+    }
+
+    private List<String> readOriginalSubtitles() throws Exception
+    {
+        List<String> lines = new ArrayList<String>();
+
+        BufferedReader reader = new BufferedReader(new FileReader(OLD_SUBTITLES_FILEPATH));
+
+        String line = reader.readLine();
+        while(line != null)
+        {
+            lines.add(line);
+
+            line = reader.readLine();
+        }
+        reader.close();
+
+        return lines;
+    }
+
+    private void writeLinesToFiles(List<String> lines) throws Exception
+    {
+        File file = new File(NEW_SUBTITLES_FILEPATH);
+        if (!file.exists())
+        {
+            file.createNewFile();
+        }
+
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        for(String line : lines)
+        {
+            writer.write(line);
+            writer.newLine();
+        }
+        writer.close();
+    }
+
+    public static void main(String[] args) throws Exception
+    {
+        new SubtitleFixerServiceImpl().process();
     }
 }
