@@ -22,9 +22,6 @@ public class MiniPostDisplay
     private AbstractPost post;
 
     @Inject
-    private PageRenderLinkSource linkSource;
-
-    @Inject
     private DateFormatter dateFormat;
 
     @Inject
@@ -34,11 +31,6 @@ public class MiniPostDisplay
     @Property
     private AbstractCategory currentCategory;
 
-
-    Object onSelectPost(String uuid)
-    {
-        return linkSource.createPageRenderLinkWithContext(Index.class, uuid);
-    }
 
     public boolean isShowDateLinks()
     {
@@ -82,11 +74,6 @@ public class MiniPostDisplay
             css = parent.getUuid();
         }
         return css;
-    }
-
-    Object onSelectProjectCategory(String categoryUuid)
-    {
-        return linkSource.createPageRenderLinkWithContext(Projects.class, categoryUuid);
     }
 
 

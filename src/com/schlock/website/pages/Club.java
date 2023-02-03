@@ -133,11 +133,6 @@ public class Club
         return dateFormat.dayFormat(currentPost.getEventDate());
     }
 
-    Object onSelectPost(String uuid)
-    {
-        return linkSource.createPageRenderLinkWithContext(Index.class, uuid);
-    }
-
 
     private List<ClubPost> cachedClubGalleries;
 

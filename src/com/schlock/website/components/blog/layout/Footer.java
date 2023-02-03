@@ -72,11 +72,6 @@ public class Footer
         return pages;
     }
 
-    Object onAboutMe()
-    {
-        return AboutMe.class;
-    }
-
     public String getRssUrl()
     {
         String url = linkSource.createPageRenderLink(Feed.class).toURI();

@@ -22,9 +22,6 @@ public class PostPreviewLink
 
 
     @Inject
-    private PageRenderLinkSource linkSource;
-
-    @Inject
     private PostManagement postManagement;
 
     @Inject
@@ -37,11 +34,6 @@ public class PostPreviewLink
         String html = postManagement.wrapJapaneseTextInTags(title);
 
         return html;
-    }
-
-    Object onSelectPost(String uuid)
-    {
-        return linkSource.createPageRenderLinkWithContext(Index.class, uuid);
     }
 
     public boolean isHasImage()

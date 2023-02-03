@@ -25,9 +25,6 @@ public class CategoryIndex
 
 
     @Inject
-    private PageRenderLinkSource linkSource;
-
-    @Inject
     private Messages messages;
 
     @Inject
@@ -101,12 +98,6 @@ public class CategoryIndex
             return messages.get("most-recent");
         }
         return currentCategory.getName();
-    }
-
-
-    Object onSelectCategory(String categoryUuid)
-    {
-        return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, categoryUuid);
     }
 
 

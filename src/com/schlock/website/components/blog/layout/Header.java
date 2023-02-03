@@ -13,34 +13,11 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 public class Header
 {
     @Inject
-    private PageRenderLinkSource linkSource;
-
-    @Inject
     private DeploymentContext deploymentContext;
 
     @Inject
     private PostManagement postManagement;
 
-
-    Object onHome()
-    {
-        return linkSource.createPageRenderLinkWithContext(Index.class);
-    }
-
-    Object onArchive()
-    {
-        return ArchiveIndex.class;
-    }
-
-    Object onProjects()
-    {
-        return Projects.class;
-    }
-
-    Object onAboutMe()
-    {
-        return AboutMe.class;
-    }
 
     public boolean isLocal()
     {
@@ -51,10 +28,5 @@ public class Header
     void onRegeneratePostHTML()
     {
         postManagement.regenerateAllPostHTML();
-    }
-
-    Object onCodejamLink()
-    {
-        return linkSource.createPageRenderLink(com.schlock.website.pages.codejam.may2012.Index.class);
     }
 }

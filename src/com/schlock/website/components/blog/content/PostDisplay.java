@@ -31,9 +31,6 @@ public class PostDisplay
     private String cssClass;
 
     @Inject
-    private PageRenderLinkSource linkSource;
-
-    @Inject
     private LessonsManagement lessonManagement;
 
     @Inject
@@ -109,17 +106,6 @@ public class PostDisplay
         return css;
     }
 
-    Object onSelectCategory(String categoryUuid)
-    {
-        return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, categoryUuid);
-    }
-
-    Object onSelectProjectCategory(String categoryUuid)
-    {
-        return linkSource.createPageRenderLinkWithContext(Projects.class, categoryUuid);
-    }
-
-
     public boolean isLesson()
     {
         return post.isLessonPost();
@@ -151,26 +137,12 @@ public class PostDisplay
         return lessonManagement.getGrades(post);
     }
 
-    Object onSelectYearPage()
-    {
-        String y = lessonManagement.getYear(post);
-
-        return linkSource.createPageRenderLinkWithContext(LessonsIndex.class, y);
-    }
-
 
     public String getLessonGrade()
     {
         String text = messages.get(currentGrade);
         String html = postManagement.wrapJapaneseTextInTags(text);
         return html;
-    }
-
-    Object onSelectYearGradePage(String grade)
-    {
-        String y = lessonManagement.getYear(post);
-
-        return linkSource.createPageRenderLinkWithContext(LessonsIndex.class, y, grade);
     }
 
 

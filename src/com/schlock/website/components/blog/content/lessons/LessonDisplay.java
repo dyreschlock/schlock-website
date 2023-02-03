@@ -35,9 +35,6 @@ public class LessonDisplay
     private LessonsManagement lessonManagement;
 
     @Inject
-    private PageRenderLinkSource linkSource;
-
-    @Inject
     private Messages messages;
 
 
@@ -79,11 +76,6 @@ public class LessonDisplay
     public LessonPost getPost()
     {
         return lessonManagement.getPost(lesson, grade, year);
-    }
-
-    Object onSelectPost(String uuid)
-    {
-        return linkSource.createPageRenderLinkWithContext(Index.class, uuid);
     }
 
 

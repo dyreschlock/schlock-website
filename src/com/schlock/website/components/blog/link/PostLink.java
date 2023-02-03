@@ -23,9 +23,6 @@ public class PostLink
     private String cssClass;
 
     @Inject
-    private PageRenderLinkSource linkSource;
-
-    @Inject
     private DateFormatter dateFormat;
 
     @Inject
@@ -38,11 +35,6 @@ public class PostLink
         String html = postManagement.wrapJapaneseTextInTags(title);
 
         return html;
-    }
-
-    Object onSelectPost(String postUuid)
-    {
-        return linkSource.createPageRenderLinkWithContext(Index.class, postUuid);
     }
 
     public String getCreatedDate()

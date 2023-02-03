@@ -120,19 +120,6 @@ public class Projects
         return uuid;
     }
 
-    Object onSelectCategory(String categoryUuid)
-    {
-        if (StringUtils.equalsIgnoreCase(NULL, categoryUuid))
-        {
-            category = null;
-        }
-        else
-        {
-            category = (ProjectCategory) categoryDAO.getByUuid(ProjectCategory.class, categoryUuid);
-        }
-        return postZone;
-    }
-
 
 
     public String getExtraPostCss()

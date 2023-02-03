@@ -21,9 +21,6 @@ public class Subheader
 
 
     @Inject
-    private PageRenderLinkSource linkSource;
-
-    @Inject
     private PostManagement postManagement;
 
     @Inject
@@ -106,11 +103,6 @@ public class Subheader
         return html;
     }
 
-    Object onSelectPost(String postUuid)
-    {
-        return linkSource.createPageRenderLinkWithContext(Index.class, postUuid);
-    }
-
 
 
     public List<PostCategory> getCategories()
@@ -121,10 +113,5 @@ public class Subheader
     public boolean isNotFirst()
     {
         return currentIndex != 0;
-    }
-
-    Object onSelectCategory(String categoryUuid)
-    {
-        return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, categoryUuid);
     }
 }
