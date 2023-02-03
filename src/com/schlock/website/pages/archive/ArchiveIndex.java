@@ -191,6 +191,17 @@ public class ArchiveIndex
     }
 
 
+    public String getCurrentIterationUrlChain()
+    {
+        return archiveManagement.getIterationUrlChain(currentIteration);
+    }
+
+    public String getParentIterationUrlChain()
+    {
+        String parentIteration = getParentIteration();
+        return archiveManagement.getIterationUrlChain(parentIteration);
+    }
+
     public String getParentIteration()
     {
         return archiveManagement.getParentIteration(year, month);

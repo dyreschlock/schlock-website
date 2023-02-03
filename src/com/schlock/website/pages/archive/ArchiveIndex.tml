@@ -14,9 +14,9 @@
 
             <t:loop source="iterations" value="currentIteration">
 
-                <t:eventlink event="selectIteration" context="currentIteration">
+                <a href="${currentIterationUrlChain}">
                     <div class="title clr">${iterationTitle}</div>
-                </t:eventlink>
+                </a>
 
 
                 <div class="categoryPosts">
@@ -39,9 +39,9 @@
             <t:if test="subiteration">
                 <div class="returnLink">
                     //
-                    <t:eventlink event="selectIteration" context="parentIteration">
+                    <a href="${parentIterationUrlChain}">
                         ${returnToPrevious}
-                    </t:eventlink>
+                    </a>
                 </div>
             </t:if>
         </div>

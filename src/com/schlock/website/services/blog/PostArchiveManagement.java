@@ -27,6 +27,8 @@ public interface PostArchiveManagement
 
     public String getIterationTitle(Integer year, Integer month);
 
+    public String getIterationUrlChain(String iterationCode);
+
     public Integer parseYear(String iteration);
 
     public Integer parseMonth(String iteration);

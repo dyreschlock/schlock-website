@@ -153,6 +153,23 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         return createIteration(null, null);
     }
 
+    public String getIterationUrlChain(String iterationCode)
+    {
+        Integer year = parseYear(iterationCode);
+        Integer month = parseMonth(iterationCode);
+
+        String urlChain = "/archive";
+        if (year != null)
+        {
+            urlChain += "/" + year.toString();
+            if (month != null)
+            {
+                urlChain += "/" + month.toString();
+            }
+        }
+        return urlChain;
+    }
+
     public String getIterationTitle(String iteration)
     {
         Integer year = parseYear(iteration);
@@ -179,8 +196,7 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
     public Integer parseYear(String iteration)
     {
         String[] parts = StringUtils.split(iteration, ITERATION_DELIM);
-
-        if (parts.length > 0)
+        if (parts != null && parts.length > 0)
         {
             String year = parts[0];
             return Integer.parseInt(year);
@@ -191,7 +207,7 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
     public Integer parseMonth(String iteration)
     {
         String[] parts = StringUtils.split(iteration, ITERATION_DELIM);
-        if (parts.length > 1)
+        if (parts != null && parts.length > 1)
         {
             String month = parts[1];
             return Integer.parseInt(month);
