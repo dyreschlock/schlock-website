@@ -44,9 +44,9 @@
 
                 <t:if test="lesson">
                     //
-                    <a class="${lessonCssClass}" href="/lessons"><t:outputraw value="lessonYear" /></a>
+                    <a class="${lessonCssClass}" href="/lessons/${lessonYearKeyword}"><t:outputraw value="lessonYearText" /></a>
                     <t:loop source="grades" value="currentGrade">
-                        .<a class="${lessonCssClass}" href="/lessons"><t:outputraw value="lessonGrade" /></a>
+                        .<a class="${lessonCssClass}" href="/lessons/${lessonYearKeyword}/${currentGrade}"><t:outputraw value="lessonGrade" /></a>
                     </t:loop>
                 </t:if>
             </div>

@@ -193,40 +193,24 @@ public class LessonsIndex
         return css;
     }
 
-    Object onSelectYearGrade(String year, String grade)
+    public String getYearSelectionUrlChain()
     {
-//        String year = parameters[0];
-//        String grade = parameters[1];
-
-        this.selectedYear = year;
-
-        if (StringUtils.equalsIgnoreCase(grade, NULL_VALUE))
+        String urlChain = "/lessons/" + currentYear;
+        if (selectedGrade != null)
         {
-            this.selectedGrade = null;
+            urlChain += "/" + selectedGrade;
         }
-        else
-        {
-            this.selectedGrade = grade;
-        }
-        return postZone;
+        return urlChain;
     }
 
-    public String getSelectedGradeValue()
+    public String getGradeSelectionUrlChain()
     {
-        if (StringUtils.isBlank(selectedGrade))
+        String urlChain = "/lessons/" + selectedYear;
+        if (selectedGrade != currentGrade)
         {
-            return NULL_VALUE;
+            urlChain += "/" + currentGrade;
         }
-        return selectedGrade;
-    }
-
-    public String getCurrentGradeValue()
-    {
-        if (StringUtils.equalsIgnoreCase(selectedGrade, currentGrade))
-        {
-            return NULL_VALUE;
-        }
-        return currentGrade;
+        return urlChain;
     }
 
     public String getYearTitle()

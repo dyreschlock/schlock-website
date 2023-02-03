@@ -131,7 +131,13 @@ public class PostDisplay
         return y;
     }
 
-    public String getLessonYear()
+    public String getLessonYearKeyword()
+    {
+        String keyword = lessonManagement.getYear(post);
+        return keyword;
+    }
+
+    public String getLessonYearText()
     {
         String y = lessonManagement.getYear(post);
 
