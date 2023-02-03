@@ -17,8 +17,26 @@ wget \
   --recursive \
   --no-host-directories \
   --html-extension \
-  --reject jpg,jpeg,png,gif \
+  --reject jpg,jpeg,png,gif,mpg \
   http://localhost:8084/
+
+
+# find = finds all directories excluding .dot directories
+for dir in $(find . -mindepth 1 -type d -not \( -path "./.*" -prune \)) ; do
+
+    filename="${dir}.html"
+
+    #if an HTML file has the same name as a directory in the same directory
+    if test -f "$filename"; then
+
+        #move that file into that directory and rename it to index.html
+        indexname="${dir}/index.html"
+
+        mv "$filename" "${indexname}"
+
+        echo "Moved ${filename} to ${indexname}"
+    fi
+done
 
 echo "update complete"
 
