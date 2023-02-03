@@ -3,9 +3,9 @@
     >
     <div class="miniPost">
 
-        <t:eventlink event="selectPost" context="post.uuid">
+        <a href="/${post.uuid}">
             <h1><t:outputraw value="postTitleHtml" /></h1>
-        </t:eventlink>
+        </a>
         <t:if test="showDateLinks">
             <div class="postDate">
                 ${createdDate}
@@ -13,7 +13,7 @@
                 <t:if test="project">
                     <t:loop source="projectCategories" value="currentCategory">
                         //
-                        <t:eventlink class="${categoryCssClass}" event="selectProjectCategory" context="currentCategory.uuid">${currentCategory.name}</t:eventlink>
+                        <a class="${categoryCssClass}" href="/projects/${currentCategory.uuid}">${currentCategory.name}</a>
                     </t:loop>
                 </t:if>
             </div>

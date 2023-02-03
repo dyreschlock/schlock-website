@@ -3,24 +3,18 @@
     >
 
     <div class="title">
-        <t:eventlink event="home">
+        <a href="/">
             <h1>${message:website-title}</h1>
-        </t:eventlink>
+        </a>
     </div>
     <div class="links">
-        <t:eventlink event="home">${message:home}</t:eventlink>
+        <a href="/">${message:home}</a>
         /
-        <t:eventlink event="archive">${message:archive}</t:eventlink>
+        <a href="/archive">${message:archive}</a>
         /
-        <t:eventlink event="projects">${message:projects}</t:eventlink>
+        <a href="/projects">${message:projects}</a>
         /
-        <t:eventlink event="aboutMe">${message:about-me}</t:eventlink>
-        <t:remove>
-            <t:eventlink t:id="codejamLink">${message:codejam}</t:eventlink>
-        </t:remove>
-        <t:if test="local">
-            / <t:eventlink t:id="regeneratePostHTML">Regen</t:eventlink>
-        </t:if>
+        <a href="/aboutme">${message:about-me}</a>
     </div>
     <br class="clr" />
 

@@ -26,7 +26,7 @@
         </t:if>
 
         <t:if test="hasPost">
-            / <t:eventlink event="selectPost" context="post.uuid">${message:more}</t:eventlink>
+            / <a href="/${post.uuid}">${message:more}</a>
         </t:if>
     </div>
 

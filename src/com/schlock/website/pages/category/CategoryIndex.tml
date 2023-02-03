@@ -15,9 +15,9 @@
             <t:loop source="categories" value="currentCategory">
 
                 <t:if test="!pageCategory">
-                    <t:eventlink event="selectCategory" context="currentCategory.uuid">
+                    <a href="/category/${currentCategory.uuid}">
                         <div class="title clr">${categoryTitle}</div>
-                    </t:eventlink>
+                    </a>
                 </t:if>
                 <t:if test="pageCategory">
                     <div class="title clr">${categoryTitle}</div>
@@ -66,9 +66,9 @@
 
                 <div class="returnLink">
                     //
-                    <t:eventlink event="selectCategory" context="parent.uuid">
+                    <a href="/category/${parent.uuid}">
                         ${returnToCategory}
-                    </t:eventlink>
+                    </a>
                 </div>
             </t:if>
         </div>

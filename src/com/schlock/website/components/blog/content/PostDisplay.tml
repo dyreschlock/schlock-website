@@ -29,24 +29,24 @@
 
                 <t:loop source="topCategories" value="currentCategory">
                     //
-                    <t:eventlink event="selectCategory" context="currentCategory.uuid">${currentCategory.name}</t:eventlink>
+                    <a href="/category/${currentCategory.uuid}">${currentCategory.name}</a>
                     <t:loop source="subcategories" value="currentSubcategory">
-                        .<t:eventlink event="selectCategory" context="currentSubcategory.uuid">${currentSubcategory.name}</t:eventlink>
+                        .<a href="/category/${currentSubcategory.uuid}">${currentSubcategory.name}</a>
                     </t:loop>
                 </t:loop>
 
                 <t:if test="project">
                     <t:loop source="projectCategories" value="currentCategory">
                         //
-                        <t:eventlink class="${categoryCssClass}" event="selectProjectCategory" context="currentCategory.uuid">${currentCategory.name}</t:eventlink>
+                        <a class="${categoryCssClass}" href="/projects/${currentCategory.uuid}">${currentCategory.name}</a>
                     </t:loop>
                 </t:if>
 
                 <t:if test="lesson">
                     //
-                    <t:eventlink class="${lessonCssClass}" event="selectYearPage"><t:outputraw value="lessonYear" /></t:eventlink>
+                    <a class="${lessonCssClass}" href="/lessons"><t:outputraw value="lessonYear" /></a>
                     <t:loop source="grades" value="currentGrade">
-                        .<t:eventlink class="${lessonCssClass}" event="selectYearGradePage" context="currentGrade"><t:outputraw value="lessonGrade" /></t:eventlink>
+                        .<a class="${lessonCssClass}" href="/lessons"><t:outputraw value="lessonGrade" /></a>
                     </t:loop>
                 </t:if>
             </div>

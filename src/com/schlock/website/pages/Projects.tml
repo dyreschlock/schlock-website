@@ -13,16 +13,16 @@
                     <div class="column ${extraCategoryCss}">
 
                         <div class="categoryCategory">
-                        <t:eventlink event="selectCategory" context="${categoryUuid}" zone="postZone">
-                            ${currentCategory.name}
-                        </t:eventlink>
+                            <a href="/projects/${categoryUuid}">
+                                ${currentCategory.name}
+                            </a>
                         </div>
 
                         <t:loop source="subcategories" value="currentSubcategory">
                             <div class="categoryTitle">
-                            <t:eventlink class="${categoryCssClass}" event="selectCategory" context="${subcategoryUuid}" zone="postZone">
-                                ${currentSubcategory.name}
-                            </t:eventlink>
+                                <a class="${categoryCssClass}" href="/projects/${subcategoryUuid}">
+                                    ${currentSubcategory.name}
+                                </a>
                             </div>
                         </t:loop>
                         <br class="clr" />

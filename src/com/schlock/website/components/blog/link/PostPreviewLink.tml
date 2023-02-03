@@ -2,7 +2,7 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
     <div class="${cssClass}">
-        <t:eventlink t:id="selectPost" context="post.uuid" />
+        <a href="/${post.uuid}" />
 
         <t:if test="hasImage">
             <div class="postImage" style="background-image: url(${currentImage})" />

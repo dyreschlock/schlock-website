@@ -16,7 +16,7 @@
 
             <div class="gallery ${columnClass}" style="background-image: url(${currentImage})">
 
-                <t:eventlink event="selectPost" context="currentPost.uuid" />
+                <a href="/${currentPost.uuid}" />
 
                 <span><!-- overlay effect --></span>
 

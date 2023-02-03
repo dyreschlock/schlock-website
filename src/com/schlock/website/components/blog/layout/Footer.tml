@@ -27,7 +27,7 @@
         <div id="aboutMessage">
             <t:outputraw value="message:website-about" />
             &nbsp;
-            <t:eventlink event="aboutMe">${message:read-more}</t:eventlink>
+            <a href="/aboutme">${message:read-more}</a>
             <br/><br/>
             <div class="title">Email</div>
             ${message:website-email}
