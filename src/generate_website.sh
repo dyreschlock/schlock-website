@@ -11,6 +11,7 @@ cd ${generation_output_directory}
 # --no-host-directories : output pages directly into the directory rather than a 'localhost/8084' folder
 # --html-extension : write html files as html files
 # --reject : do not download any images
+# --domains : restrict download to localhost only
 ## http://localhost:8084/ <-- this is the website (this website) to fetch
 
 wget \
@@ -18,6 +19,7 @@ wget \
   --no-host-directories \
   --html-extension \
   --reject jpg,jpeg,png,gif,mpg \
+  --domains localhost \
   http://localhost:8084/
 
 
