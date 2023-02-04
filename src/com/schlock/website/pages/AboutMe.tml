@@ -32,24 +32,25 @@
             <div class="title">${message:internetTitle}</div>
             <l:iconlink icon="rss" redirectUrl="rssRedirect" altTitleText="${message:rssTitle}" />
             <l:iconlink icon="twitter" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
-            <l:iconlink icon="facebook" redirectUrl="${message:facebookUrl}" altTitleText="${message:facebookTitle}" />
-            <l:iconlink icon="google" redirectUrl="${message:googleUrl}" altTitleText="${message:googleTitle}" />
-            <l:iconlink icon="youtube" redirectUrl="${message:youtubeUrl}" altTitleText="${message:youtubeTitle}" />
+            <l:iconlink icon="discord" redirectUrl="${message:dicordUrl}" altTitleText="${message:discordTitle}" />
+            <l:iconlink icon="twitch" redirectUrl="${message:twitchUrl}" altTitleText="${message:twitchUrl}" />
+            <l:iconlink icon="youtube" redirectUrl="${message:youtube1Url}" altTitleText="${message:youtube1Title}" />
+            <l:iconlink icon="youtube" redirectUrl="${message:youtube2Url}" altTitleText="${message:youtube2Title}" />
         </div>
-        <div id="gameLinks">
+        <!--div id="gameLinks">
             <div class="title">${message:gamesTitle}</div>
             <l:iconlink icon="psn" redirectUrl="${message:psnUrl}" altTitleText="${message:psnTitle}" />
             <l:iconlink icon="xbox" redirectUrl="${message:xboxUrl}" altTitleText="${message:xboxTitle}" />
             <l:iconlink icon="steam" redirectUrl="${message:steamUrl}" altTitleText="${message:steamTitle}" />
-        </div>
-        <div id="buyLinks">
-            <div class="title">${message:buyTitle}</div>
-            <l:iconlink icon="ebay" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
-        </div>
+        </div-->
         <div id="codeLinks">
             <div class="title">${message:codeTitle}</div>
             <l:iconlink icon="stack" redirectUrl="${message:stackUrl}" altTitleText="${message:stackTitle}" />
             <l:iconlink icon="github" redirectUrl="${message:githubUrl}" altTitleText="${message:githubTitle}" />
+        </div>
+        <div id="buyLinks">
+            <div class="title">${message:buyTitle}</div>
+            <l:iconlink icon="ebay" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
         </div>
 
         <br class="clr" />

@@ -35,16 +35,6 @@ public class AboutMe
         return Icon.TWITTER_DARK;
     }
 
-    public Icon getFacebook()
-    {
-        return Icon.FACEBOOK_DARK;
-    }
-
-    public Icon getGoogle()
-    {
-        return Icon.GOOGLE_DARK;
-    }
-
     public Icon getYoutube()
     {
         return Icon.YOUTUBE_DARK;
@@ -79,6 +69,10 @@ public class AboutMe
     {
         return Icon.EBAY_DARK;
     }
+
+    public Icon getDiscord() { return Icon.DISCORD_DARK; }
+
+    public Icon getTwitch() { return Icon.TWITCH_DARK; }
 
 
     private Page cachedPage;

@@ -4,8 +4,6 @@ public enum Icon
 {
     RSS_DARK,
     TWITTER_DARK,
-    FACEBOOK_DARK,
-    GOOGLE_DARK,
     YOUTUBE_DARK,
     STACK_DARK,
     GITHUB_DARK,
@@ -13,13 +11,16 @@ public enum Icon
     XBOX_DARK,
     STEAM_DARK,
     EBAY_DARK,
+    DISCORD_DARK,
+    TWITCH_DARK,
 
     RSS_LIGHT,
     TWITTER_LIGHT,
-    FACEBOOK_LIGHT,
-    GOOGLE_LIGHT,
     YOUTUBE_LIGHT,
-    EBAY_LIGHT;
+    GITHUB_LIGHT,
+    EBAY_LIGHT,
+    DISCORD_LIGHT,
+    TWITCH_LIGHT;
 
 
     public String getIconPath()

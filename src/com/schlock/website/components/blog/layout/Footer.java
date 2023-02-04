@@ -88,23 +88,19 @@ public class Footer
         return Icon.TWITTER_LIGHT;
     }
 
-    public Icon getFacebook()
-    {
-        return Icon.FACEBOOK_LIGHT;
-    }
-
-    public Icon getGoogle()
-    {
-        return Icon.GOOGLE_LIGHT;
-    }
-
     public Icon getYoutube()
     {
         return Icon.YOUTUBE_LIGHT;
     }
 
+    public Icon getGithub() { return Icon.GITHUB_LIGHT; }
+
     public Icon getEbay()
     {
         return Icon.EBAY_LIGHT;
     }
+
+    public Icon getDiscord() { return Icon.DISCORD_LIGHT; }
+
+    public Icon getTwitch() { return Icon.TWITCH_LIGHT; }
 }
