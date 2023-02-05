@@ -52,7 +52,9 @@ public class ImageManagementImpl implements ImageManagement
             else
             {
                 //if doesn't have thumbnail -> yes
-                String thumbnailName = filename.replace(".jpg", "_t.jpg");
+                int index = filename.lastIndexOf(".");
+
+                String thumbnailName = filename.substring(0, index) + "_t" + filename.substring(index);
                 if(!images.containsKey(thumbnailName))
                 {
                     galleryImages.add(image);
