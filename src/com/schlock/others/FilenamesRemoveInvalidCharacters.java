@@ -1,8 +1,9 @@
 package com.schlock.others;
 
-import com.schlock.website.services.blog.PhotoFileFilter;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
+import java.io.FilenameFilter;
 
 public class FilenamesRemoveInvalidCharacters
 {
@@ -13,7 +14,17 @@ public class FilenamesRemoveInvalidCharacters
     public void run()
     {
         File directory = new File(FOLDER_LOCATION);
-        for (File file : directory.listFiles(new PhotoFileFilter()))
+
+        File[] files = directory.listFiles(new FilenameFilter()
+        {
+            @Override
+            public boolean accept(File dir, String name)
+            {
+                return StringUtils.endsWith(name, ".png");
+            }
+        });
+
+        for (File file : files)
         {
             String name = file.getName();
 

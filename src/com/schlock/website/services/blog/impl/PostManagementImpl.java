@@ -3,13 +3,14 @@ package com.schlock.website.services.blog.impl;
 import com.schlock.website.entities.blog.*;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.KeywordManagement;
-import com.schlock.website.services.blog.PhotoFileFilter;
 import com.schlock.website.services.blog.PostManagement;
+import com.schlock.website.services.database.blog.ImageDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.services.ApplicationStateManager;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.*;
 
 public class PostManagementImpl implements PostManagement
@@ -40,6 +41,7 @@ public class PostManagementImpl implements PostManagement
 
     private final KeywordManagement keywordManagement;
     private final PostDAO postDAO;
+    private final ImageDAO imageDAO;
 
     private Map<String, Date> cachedUpdateTime;
     private Set<String> cachedUuids;
@@ -47,7 +49,8 @@ public class PostManagementImpl implements PostManagement
     public PostManagementImpl(ApplicationStateManager asoManager,
                                 DeploymentContext deploymentContext,
                                 KeywordManagement keywordManagement,
-                                PostDAO postDAO)
+                                PostDAO postDAO,
+                                ImageDAO imageDAO)
     {
         this.asoManager = asoManager;
 
@@ -55,6 +58,7 @@ public class PostManagementImpl implements PostManagement
 
         this.keywordManagement = keywordManagement;
         this.postDAO = postDAO;
+        this.imageDAO = imageDAO;
     }
 
 
@@ -443,7 +447,7 @@ public class PostManagementImpl implements PostManagement
     }
 
 
-    public List<String> getGalleryImages(AbstractPost post)
+    public List<Image> getGalleryImages(AbstractPost post)
     {
         String galleryName = post.getGalleryName();
         if (StringUtils.isBlank(galleryName))
@@ -451,47 +455,134 @@ public class PostManagementImpl implements PostManagement
             return Collections.EMPTY_LIST;
         }
 
-        String photoLocation = deploymentContext.photoLocation();
-        File gallery = new File(photoLocation + galleryName);
-        if (!gallery.exists())
+        List<Image> galleryImages = new ArrayList<Image>();
+
+        Map<String, Image> images = generateImagesByGallery(galleryName);
+        for(String filename : images.keySet())
         {
-             return Collections.EMPTY_LIST;
-        }
-
-        File[] files = gallery.listFiles(new PhotoFileFilter());
-
-        List<String> images = new ArrayList<String>();
-        for (File file : files)
-        {
-            String path = file.getAbsolutePath();
-            int i = path.indexOf(DeploymentContext.PHOTO_DIR);
-
-            path = "/" + path.substring(i);
-            images.add(path);
-        }
-
-        Collections.sort(images, new Comparator<String>()
-        {
-            public int compare(String s1, String s2)
+            Image image = images.get(filename);
+            if (image.isThumbnail())
             {
-                return s1.compareToIgnoreCase(s2);
+                galleryImages.add(image);
+            }
+            else
+            {
+                //if doesn't have thumbnail -> yes
+                String thumbnailName = filename.replace(".jpg", "_t.jpg");
+                if(!images.containsKey(thumbnailName))
+                {
+                    galleryImages.add(image);
+                }
+            }
+        }
+
+        Collections.sort(galleryImages, new Comparator<Image>()
+        {
+            public int compare(Image o1, Image o2)
+            {
+                return o1.getImageName().compareToIgnoreCase(o2.getImageName());
             }
         });
 
-        return images;
+        return galleryImages;
     }
 
-
-    public String getPostImage(AbstractPost post)
+    public Map<String, Image> generateImagesByGallery(String galleryName)
     {
-        List<String> images = getGalleryImages(post);
+        File gallery = new File(deploymentContext.photoLocation() + galleryName);
+        if (gallery.exists())
+        {
+            File[] nonThumbnails = gallery.listFiles(new FilenameFilter()
+            {
+                public boolean accept(File dir, String name)
+                {
+                    if (StringUtils.endsWith(name, "_t.jpg"))
+                    {
+                        return false;
+                    }
+                    if (StringUtils.endsWith(name, ".jpg") ||
+                        StringUtils.endsWith(name, ".png"))
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
+            Map<String, Image> cache = getImagesByGallery(galleryName);
+            for (File file : nonThumbnails)
+            {
+                String imageName = file.getName();
+                Image image = cache.get(imageName);
+                if (image == null)
+                {
+                    image = new Image();
+                    image.setDirectory(DeploymentContext.PHOTO_DIR);
+                    image.setGalleryName(galleryName);
+                    image.setImageName(file.getName());
+
+                    imageDAO.save(image);
+
+                    cache.put(image.getImageName(), image);
+                }
+            }
+
+            File[] thumbnails = gallery.listFiles(new FilenameFilter()
+            {
+                public boolean accept(File dir, String name)
+                {
+                    return StringUtils.endsWith(name, "_t.jpg");
+                }
+            });
+
+            for(File file : thumbnails)
+            {
+                String imageName = file.getName();
+                Image image = cache.get(imageName);
+                if (image == null)
+                {
+                    image = new Image();
+                    image.setDirectory(DeploymentContext.PHOTO_DIR);
+                    image.setGalleryName(galleryName);
+                    image.setImageName(file.getName());
+
+                    String parentName = imageName.replace("_t.jpg", ".jpg");
+                    Image parent = cache.get(parentName);
+
+                    image.setParent(parent);
+
+                    imageDAO.save(image);
+
+                    cache.put(image.getImageName(), image);
+                }
+            }
+            return cache;
+        }
+        return Collections.EMPTY_MAP;
+    }
+
+    private Map<String, Image> getImagesByGallery(String galleryName)
+    {
+        List<Image> allImages = imageDAO.getByGallery(galleryName);
+
+        Map<String, Image> cache = new HashMap<String, Image>();
+        for(Image image : allImages)
+        {
+            cache.put(image.getImageName(), image);
+        }
+        return cache;
+    }
+
+    public Image getPostImage(AbstractPost post)
+    {
+        List<Image> images = getGalleryImages(post);
 
         String header = post.getCoverImage();
         if (StringUtils.isNotBlank(header))
         {
-            for (String image : images)
+            for (Image image : images)
             {
-                if (StringUtils.endsWithIgnoreCase(image, header))
+                if (StringUtils.endsWithIgnoreCase(image.getImageName(), header))
                 {
                     return image;
                 }

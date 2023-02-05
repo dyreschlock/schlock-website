@@ -7,8 +7,8 @@
 
             <t:loop source="galleryImages" value="currentImage" index="currentIndex">
 
-                <div class="image ${columnClasses}" style="background-image: url(${currentImage})">
-                    <t:eventlink event="selectImage" context="currentImage" zone="imageOverlayZone" />
+                <div class="image ${columnClasses}" style="background-image: url(${currentImage.imageLink})">
+                    <t:eventlink event="selectImage" context="currentImage.imageName" zone="imageOverlayZone" />
                 </div>
 
             </t:loop>
@@ -18,10 +18,10 @@
             <t:zone t:id="imageOverlayZone" id="imageOverlayZone" t:update="show">
 
                 <t:if test="hasImageSelected">
-                    <div id="overlayImage" class="overlay" style="background-image: url(${imageLink})">
+                    <div id="overlayImage" class="overlay" style="background-image: url(${selectedImage.imageLink})">
 
                         <div class="imageLink textBox">
-                            <a href="${imageLink}" target="_blank">${imageLink}</a>
+                            <a href="${selectedImage.imageLink}" target="_blank">${selectedImage.imageLink}</a>
                         </div>
 
                         <div class="close textBox">
@@ -30,10 +30,10 @@
 
                         <t:if test="hasPreviousImage">
                             <div class="previous overlayLink">
-                                <t:eventlink class="link" event="selectImage" context="previousImage" zone="imageOverlayZone"/>
+                                <t:eventlink class="link" event="selectImage" context="previousImage.imageName" zone="imageOverlayZone"/>
                                 <div class="center">
                                     <div class="textBox">
-                                        <t:eventlink event="selectImage" context="previousImage" zone="imageOverlayZone">${message:previous}</t:eventlink>
+                                        <t:eventlink event="selectImage" context="previousImage.imageName" zone="imageOverlayZone">${message:previous}</t:eventlink>
                                     </div>
                                 </div>
                             </div>
@@ -41,10 +41,10 @@
 
                         <t:if test="hasNextImage">
                             <div class="next overlayLink">
-                                <t:eventlink class="link" event="selectImage" context="nextImage" zone="imageOverlayZone"/>
+                                <t:eventlink class="link" event="selectImage" context="nextImage.imageName" zone="imageOverlayZone"/>
                                 <div class="center">
                                     <div class="textBox">
-                                        <t:eventlink event="selectImage" context="nextImage" zone="imageOverlayZone">${message:next}</t:eventlink>
+                                        <t:eventlink event="selectImage" context="nextImage.imageName" zone="imageOverlayZone">${message:next}</t:eventlink>
                                     </div>
                                 </div>
                             </div>

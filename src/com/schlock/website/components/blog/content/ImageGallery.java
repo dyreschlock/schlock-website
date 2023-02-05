@@ -41,11 +41,11 @@ public class ImageGallery
     private Integer currentIndex;
 
     @Property
-    private String currentImage;
+    private Image currentImage;
 
     @Property
     @Persist
-    private String selectedImage;
+    private Image selectedImage;
 
 
     public String getImageMessage()
@@ -57,7 +57,7 @@ public class ImageGallery
     }
 
 
-    public List<String> getGalleryImages()
+    public List<Image> getGalleryImages()
     {
         selectedImage = null;
 
@@ -72,31 +72,31 @@ public class ImageGallery
 
     public boolean isHasImageSelected()
     {
-        return StringUtils.isNotBlank(selectedImage);
+        return selectedImage != null;
     }
 
-    Object onSelectImage(String image)
+    Object onSelectImage(String imageName)
     {
-        this.selectedImage = image;
+        this.selectedImage = null;
+        for(Image image : loadGalleryImages())
+        {
+            if (StringUtils.equalsIgnoreCase(imageName, image.getImageName()))
+            {
+                this.selectedImage = image;
+            }
+        }
 
         return imageOverlayZone;
     }
 
-    public String getImageLink()
-    {
-        String thumbless = selectedImage.replaceAll("_t.jpg", ".jpg");
-        return thumbless;
-    }
-
-
     public boolean isHasPreviousImage()
     {
-        return StringUtils.isNotBlank(getPreviousImage());
+        return getPreviousImage() != null;
     }
 
-    public String getPreviousImage()
+    public Image getPreviousImage()
     {
-        List<String> gallery = loadGalleryImages();
+        List<Image> gallery = loadGalleryImages();
 
         int index = gallery.indexOf(selectedImage);
         if (index == 0)
@@ -108,12 +108,12 @@ public class ImageGallery
 
     public boolean isHasNextImage()
     {
-        return StringUtils.isNotBlank(getNextImage());
+        return getNextImage() != null;
     }
 
-    public String getNextImage()
+    public Image getNextImage()
     {
-        List<String> gallery = loadGalleryImages();
+        List<Image> gallery = loadGalleryImages();
 
         int index = gallery.indexOf(selectedImage);
         if (index == gallery.size() - 1)
@@ -125,41 +125,24 @@ public class ImageGallery
 
     public boolean isHasImageComment()
     {
-        Image comment = getImageComment();
-        return comment != null;
+        return selectedImage != null && selectedImage.getCommentText() != null;
     }
 
     public String getImageCommentHtml()
     {
-        Image comment = getImageComment();
-        if (comment != null)
+        if(selectedImage != null && selectedImage.getCommentText() != null)
         {
-            String html = postManagement.wrapJapaneseTextInTags(comment.getCommentText());
+            String comment = selectedImage.getCommentText();
+            String html = postManagement.wrapJapaneseTextInTags(comment);
             return html;
         }
         return "";
     }
 
-    private Image getImageComment()
-    {
-        Set<Image> comments = post.getImageComments();
-        for (Image comment : comments)
-        {
-            String image = comment.getImageName();
-            String sImage = selectedImage;
 
-            if (StringUtils.endsWith(sImage, image))
-            {
-                return comment;
-            }
-        }
-        return null;
-    }
+    private List<Image> cachedGalleryImages;
 
-
-    private List<String> cachedGalleryImages;
-
-    private List<String> loadGalleryImages()
+    private List<Image> loadGalleryImages()
     {
         if(cachedGalleryImages == null)
         {

@@ -1,6 +1,7 @@
 package com.schlock.website.services.blog;
 
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Image;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.Post;
 
@@ -24,9 +25,9 @@ public interface PostManagement
 
     public String wrapJapaneseTextInTags(String html);
 
-    public List<String> getGalleryImages(AbstractPost post);
+    public List<Image> getGalleryImages(AbstractPost post);
 
-    public String getPostImage(AbstractPost post);
+    public Image getPostImage(AbstractPost post);
 
     public String getStylizedHTMLTitle(AbstractPost post);
 

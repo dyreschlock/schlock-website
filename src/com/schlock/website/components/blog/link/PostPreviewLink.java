@@ -1,5 +1,6 @@
 package com.schlock.website.components.blog.link;
 
+import com.schlock.website.entities.blog.Image;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.pages.Index;
 import com.schlock.website.services.DateFormatter;
@@ -43,7 +44,8 @@ public class PostPreviewLink
 
     public String getCurrentImage()
     {
-        return postManagement.getPostImage(post);
+        Image image = postManagement.getPostImage(post);
+        return image.getImageLink();
     }
 
     public String getCreatedDate()

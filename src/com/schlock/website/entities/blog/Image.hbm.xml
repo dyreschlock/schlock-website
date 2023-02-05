@@ -7,9 +7,13 @@
             <generator class="native" />
         </id>
 
+        <property name="directory" not-null="true" />
+        <property name="galleryName" not-null="true" />
         <property name="imageName" not-null="true" />
-        <property name="googleId" not-null="true" />
+        <property name="googleId" />
 
         <property name="commentText" length="1000000" />
+
+        <many-to-one name="parent" column="parentId" class="com.schlock.website.entities.blog.Image" />
     </class>
 </hibernate-mapping>

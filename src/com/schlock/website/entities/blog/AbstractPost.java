@@ -43,8 +43,6 @@ public abstract class AbstractPost extends Persisted
     private Set<AbstractCategory> categories;
     private List<Keyword> keywords;
 
-    private Set<Image> images;
-
     protected AbstractPost()
     {
     }
@@ -322,8 +320,4 @@ public abstract class AbstractPost extends Persisted
     {
         this.categories = categories;
     }
-
-    public Set<Image> getImageComments() { return images; }
-
-    public void setImageComments(Set<Image> images) { this.images = images; }
 }
