@@ -8,6 +8,7 @@
         </id>
 
         <property name="imageName" not-null="true" />
+        <property name="googleId" not-null="true" />
 
         <property name="commentText" length="1000000" />
     </class>
