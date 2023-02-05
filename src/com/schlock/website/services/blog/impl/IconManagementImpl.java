@@ -1,7 +1,7 @@
 package com.schlock.website.services.blog.impl;
 
 import com.schlock.website.entities.Icon;
-import com.schlock.website.services.blog.ImageManagement;
+import com.schlock.website.services.blog.IconManagement;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.tapestry5.services.Context;
@@ -9,11 +9,11 @@ import org.apache.tapestry5.services.Context;
 import java.io.File;
 import java.io.IOException;
 
-public class ImageManagementImpl implements ImageManagement
+public class IconManagementImpl implements IconManagement
 {
     private Context context;
 
-    public ImageManagementImpl(Context context)
+    public IconManagementImpl(Context context)
     {
         this.context = context;
     }

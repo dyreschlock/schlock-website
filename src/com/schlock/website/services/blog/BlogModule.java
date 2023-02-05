@@ -8,7 +8,7 @@ public class BlogModule
     public static void bind(ServiceBinder binder)
     {
         binder.bind(LayoutManagement.class, LayoutManagementImpl.class);
-        binder.bind(ImageManagement.class, ImageManagementImpl.class);
+        binder.bind(IconManagement.class, IconManagementImpl.class);
         binder.bind(PostManagement.class, PostManagementImpl.class);
         binder.bind(PostArchiveManagement.class, PostArchiveManagementImpl.class);
         binder.bind(LessonsManagement.class, LessonsManagementImpl.class);

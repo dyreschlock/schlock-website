@@ -3,7 +3,6 @@ package com.schlock.website.components.apps.bingo;
 import com.schlock.website.services.apps.bingo.BingoRandomizer;
 import com.schlock.website.services.apps.bingo.impl.FifthGradeVocabBingoRandomizerImpl;
 import com.schlock.website.services.apps.bingo.impl.FifthGradeVocabBingoService;
-import com.schlock.website.services.blog.ImageManagement;
 import org.apache.tapestry5.annotations.Property;
 
 import javax.inject.Inject;
@@ -18,9 +17,6 @@ public class FifthGradeVocabBingoSheet
     @Inject
     @FifthGradeVocabBingoService
     private BingoRandomizer bingoService;
-
-    @Inject
-    private ImageManagement imageManagement;
 
 
     private List<String> itemsList;
