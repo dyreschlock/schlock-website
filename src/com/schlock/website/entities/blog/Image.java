@@ -2,7 +2,7 @@ package com.schlock.website.entities.blog;
 
 import com.schlock.website.entities.Persisted;
 
-public class ImageComment extends Persisted
+public class Image extends Persisted
 {
     private String imageName;
 

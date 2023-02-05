@@ -1,7 +1,7 @@
 package com.schlock.website.components.blog.content;
 
 import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.ImageComment;
+import com.schlock.website.entities.blog.Image;
 import com.schlock.website.services.blog.LayoutManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
@@ -125,13 +125,13 @@ public class ImageGallery
 
     public boolean isHasImageComment()
     {
-        ImageComment comment = getImageComment();
+        Image comment = getImageComment();
         return comment != null;
     }
 
     public String getImageCommentHtml()
     {
-        ImageComment comment = getImageComment();
+        Image comment = getImageComment();
         if (comment != null)
         {
             String html = postManagement.wrapJapaneseTextInTags(comment.getCommentText());
@@ -140,10 +140,10 @@ public class ImageGallery
         return "";
     }
 
-    private ImageComment getImageComment()
+    private Image getImageComment()
     {
-        Set<ImageComment> comments = post.getImageComments();
-        for (ImageComment comment : comments)
+        Set<Image> comments = post.getImageComments();
+        for (Image comment : comments)
         {
             String image = comment.getImageName();
             String sImage = selectedImage;

@@ -40,9 +40,9 @@
             <many-to-many class="com.schlock.website.entities.blog.Keyword" column="keywordId" />
         </list>
 
-        <set name="imageComments" cascade="none" lazy="true" >
+        <set name="images" cascade="none" lazy="true" >
             <key column="postId" not-null="true" />
-            <one-to-many class="com.schlock.website.entities.blog.ImageComment" />
+            <one-to-many class="com.schlock.website.entities.blog.Image" />
         </set>
 
         <subclass name="com.schlock.website.entities.blog.Post">
