@@ -120,7 +120,11 @@ public class Club
     public String getCurrentImage()
     {
         Image image = postManagement.getPostImage(currentPost);
-        return image.getImageLink();
+        if (image != null)
+        {
+            return image.getImageLink();
+        }
+        return null;
     }
 
     public String getPostTitleHTML()

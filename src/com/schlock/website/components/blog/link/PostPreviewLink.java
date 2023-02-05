@@ -45,7 +45,11 @@ public class PostPreviewLink
     public String getCurrentImage()
     {
         Image image = postManagement.getPostImage(post);
-        return image.getImageLink();
+        if (image != null)
+        {
+            return image.getImageLink();
+        }
+        return null;
     }
 
     public String getCreatedDate()
