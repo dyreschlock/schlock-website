@@ -2,6 +2,7 @@ package com.schlock.website.components.blog.content;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
+import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.LayoutManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
@@ -25,6 +26,9 @@ public class ImageGallery
 
     @Inject
     private LayoutManagement layoutManagement;
+
+    @Inject
+    private ImageManagement imageManagement;
 
     @Inject
     private PostManagement postManagement;
@@ -146,7 +150,7 @@ public class ImageGallery
     {
         if(cachedGalleryImages == null)
         {
-            cachedGalleryImages = postManagement.getGalleryImages(post);
+            cachedGalleryImages = imageManagement.getGalleryImages(post);
         }
         return cachedGalleryImages;
     }

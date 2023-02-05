@@ -5,6 +5,7 @@ import com.schlock.website.entities.blog.ClubPost;
 import com.schlock.website.entities.blog.Image;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.services.DateFormatter;
+import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.LayoutManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -23,6 +24,9 @@ public class Club
 
     @Inject
     private LayoutManagement layoutManagement;
+
+    @Inject
+    private ImageManagement imageManagement;
 
     @Inject
     private PostManagement postManagement;
@@ -119,7 +123,7 @@ public class Club
 
     public String getCurrentImage()
     {
-        Image image = postManagement.getPostImage(currentPost);
+        Image image = imageManagement.getPostImage(currentPost);
         if (image != null)
         {
             return image.getImageLink();

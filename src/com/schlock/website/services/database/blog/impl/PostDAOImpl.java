@@ -86,6 +86,21 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return uuids;
     }
 
+    public Set<String> getAllGalleryNames()
+    {
+        String text = "select p.galleryName " +
+                        " from AbstractPost p " +
+                        " where p.galleryName is not null ";
+
+        Query query = session.createQuery(text);
+        List<String> list = query.list();
+
+        Set<String> names = new HashSet<String>();
+        names.addAll(list);
+
+        return names;
+    }
+
     public Post getMostRecentFrontPagePost(Long categoryId)
     {
         int publishLevel = POST_FRONT_PAGE;

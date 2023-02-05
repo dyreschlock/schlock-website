@@ -15,6 +15,11 @@
         <a href="/projects">${message:projects}</a>
         /
         <a href="/aboutme">${message:about-me}</a>
+
+        <t:remove>
+            / <t:eventlink t:id="regeneratePostHTML">Regen HTML</t:eventlink>
+            / <t:eventlink t:id="catalogImages">Regen Images</t:eventlink>
+        </t:remove>
     </div>
     <br class="clr" />
 

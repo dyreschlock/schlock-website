@@ -5,6 +5,7 @@ import com.schlock.website.pages.archive.ArchiveIndex;
 import com.schlock.website.pages.Index;
 import com.schlock.website.pages.Projects;
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -14,6 +15,9 @@ public class Header
 {
     @Inject
     private DeploymentContext deploymentContext;
+
+    @Inject
+    private ImageManagement imageManagement;
 
     @Inject
     private PostManagement postManagement;
@@ -28,5 +32,11 @@ public class Header
     void onRegeneratePostHTML()
     {
         postManagement.regenerateAllPostHTML();
+    }
+
+    @CommitAfter
+    void onCatalogImages()
+    {
+        imageManagement.generateImages();
     }
 }

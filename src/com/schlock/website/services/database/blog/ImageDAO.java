@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface ImageDAO extends BaseDAO<Image>
 {
-    public List<Image> getByGallery(String galleryName);
+    List<Image> getByGallery(String galleryName);
+
+    List<Image> getAllWithoutGooleId();
 }

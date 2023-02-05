@@ -7,6 +7,7 @@ import com.schlock.website.entities.blog.Post;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public interface PostManagement
@@ -24,10 +25,6 @@ public interface PostManagement
     public String generatePostPreview(AbstractPost post);
 
     public String wrapJapaneseTextInTags(String html);
-
-    public List<Image> getGalleryImages(AbstractPost post);
-
-    public Image getPostImage(AbstractPost post);
 
     public String getStylizedHTMLTitle(AbstractPost post);
 

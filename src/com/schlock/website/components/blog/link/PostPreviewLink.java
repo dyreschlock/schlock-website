@@ -4,6 +4,7 @@ import com.schlock.website.entities.blog.Image;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.pages.Index;
 import com.schlock.website.services.DateFormatter;
+import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
@@ -26,6 +27,9 @@ public class PostPreviewLink
     private PostManagement postManagement;
 
     @Inject
+    private ImageManagement imageManagement;
+
+    @Inject
     private DateFormatter dateFormat;
 
 
@@ -44,7 +48,7 @@ public class PostPreviewLink
 
     public String getCurrentImage()
     {
-        Image image = postManagement.getPostImage(post);
+        Image image = imageManagement.getPostImage(post);
         if (image != null)
         {
             return image.getImageLink();

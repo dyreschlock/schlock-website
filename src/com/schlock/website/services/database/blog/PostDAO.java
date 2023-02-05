@@ -22,6 +22,8 @@ public interface PostDAO extends BaseDAO<AbstractPost>
 
     public Set<String> getAllUuids();
 
+    public Set<String> getAllGalleryNames();
+
 
     public Post getMostRecentFrontPagePost(Long categoryId);
 

@@ -18,12 +18,22 @@ public class ImageDAOImpl extends BaseDAOImpl<Image> implements ImageDAO
 
     public List<Image> getByGallery(String galleryName)
     {
-        String text = "from Image i " +
-                " where i.galleryName = :galleryName " +
-                " order by imageName ";
+        String text = " from Image i " +
+                        " where i.galleryName = :galleryName " +
+                        " order by imageName ";
 
         Query query = session.createQuery(text);
         query.setParameter("galleryName", galleryName);
+
+        return query.list();
+    }
+
+    public List<Image> getAllWithoutGooleId()
+    {
+        String text = " from Image i " +
+                " where i.googleId is null ";
+
+        Query query = session.createQuery(text);
 
         return query.list();
     }
