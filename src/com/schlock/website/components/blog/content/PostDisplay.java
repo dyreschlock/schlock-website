@@ -145,6 +145,13 @@ public class PostDisplay
         return html;
     }
 
+    public String getPostBodyHTML()
+    {
+        postManagement.setPostHTML(post);
+
+        return post.getBodyHTML();
+    }
+
 
     public String getCreatedDate()
     {

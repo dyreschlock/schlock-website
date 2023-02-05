@@ -82,7 +82,7 @@
         </t:if>
 
         <div class="postBody" itemprop="articleBody">
-            <t:outputraw value="post.bodyHTML" />
+            <t:outputraw value="postBodyHTML" />
         </div>
 
         <t:body />
