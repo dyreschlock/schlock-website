@@ -2,6 +2,7 @@ package com.schlock.website.services.blog.impl;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
+import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.database.blog.ImageDAO;
@@ -28,6 +29,8 @@ public class ImageManagementImpl implements ImageManagement
         this.postDAO = postDAO;
         this.imageDAO = imageDAO;
     }
+
+
     public List<Image> getGalleryImages(AbstractPost post)
     {
         String galleryName = post.getGalleryName();
@@ -79,8 +82,15 @@ public class ImageManagementImpl implements ImageManagement
         List<Image> images = imageDAO.getAllWithoutGooleId();
         for(Image image : images)
         {
+            generateGoogleId(image);
+        }
+
+        List<AbstractPost> posts = postDAO.getAll();
+        for(AbstractPost post : posts)
+        {
 
         }
+        //TODO find images in post html
     }
 
     private Map<String, Image> generateImagesByGallery(String galleryName)
@@ -89,7 +99,6 @@ public class ImageManagementImpl implements ImageManagement
         if (gallery.exists())
         {
             Map<String, Image> cache = getImagesByGallery(galleryName);
-
 
             File[] nonThumbnails = gallery.listFiles(new FilenameFilter()
             {
@@ -115,15 +124,12 @@ public class ImageManagementImpl implements ImageManagement
                 Image image = cache.get(imageName);
                 if (image == null)
                 {
-                    image = new Image();
-                    image.setDirectory(DeploymentContext.PHOTO_DIR);
-                    image.setGalleryName(galleryName);
-                    image.setImageName(file.getName());
-
+                    image = createImage(file.getName(), galleryName);
                     imageDAO.save(image);
 
                     cache.put(image.getImageName(), image);
                 }
+                generateGoogleId(image);
             }
 
             File[] thumbnails = gallery.listFiles(new FilenameFilter()
@@ -140,24 +146,59 @@ public class ImageManagementImpl implements ImageManagement
                 Image image = cache.get(imageName);
                 if (image == null)
                 {
-                    image = new Image();
-                    image.setDirectory(DeploymentContext.PHOTO_DIR);
-                    image.setGalleryName(galleryName);
-                    image.setImageName(file.getName());
-
                     String parentName = imageName.replace("_t.jpg", ".jpg");
                     Image parent = cache.get(parentName);
 
-                    image.setParent(parent);
-
+                    image = createImage(file.getName(), galleryName, parent);
                     imageDAO.save(image);
 
                     cache.put(image.getImageName(), image);
                 }
+                generateGoogleId(image);
             }
             return cache;
         }
         return Collections.EMPTY_MAP;
+    }
+
+    private Image createImage(String imageName, String galleryName)
+    {
+        return createImage(imageName, galleryName, null);
+    }
+
+    private Image createImage(String imageName, String galleryName, Image parent)
+    {
+        String directory = DeploymentContext.PHOTO_DIR;
+        directory = directory.substring(0, directory.length() - 1);
+
+        return createImage(imageName, galleryName, directory, parent);
+    }
+
+    private Image createImage(String imageName, String galleryName, String directory, Image parent)
+    {
+        Image image = new Image();
+        image.setDirectory(directory);
+        image.setGalleryName(galleryName);
+        image.setImageName(imageName);
+        image.setParent(parent);
+
+        generateGoogleId(image);
+
+        return image;
+    }
+
+
+
+    private void generateGoogleId(Image image)
+    {
+        String googleId = image.getGoogleId();
+        if (StringUtils.isBlank(googleId))
+        {
+            //TODO do google stuff
+
+            image.setGoogleId(googleId);
+            imageDAO.save(image);
+        }
     }
 
     private Map<String, Image> getImagesByGallery(String galleryName)
