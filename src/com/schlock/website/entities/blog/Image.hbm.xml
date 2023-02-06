@@ -8,7 +8,7 @@
         </id>
 
         <property name="directory" not-null="true" />
-        <property name="galleryName" not-null="true" />
+        <property name="galleryName" />
         <property name="imageName" not-null="true" />
         <property name="googleId" />
 

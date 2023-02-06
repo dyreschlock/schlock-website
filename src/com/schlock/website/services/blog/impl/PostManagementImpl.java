@@ -1,16 +1,13 @@
 package com.schlock.website.services.blog.impl;
 
 import com.schlock.website.entities.blog.*;
-import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.KeywordManagement;
 import com.schlock.website.services.blog.PostManagement;
-import com.schlock.website.services.database.blog.ImageDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.services.ApplicationStateManager;
 
-import java.io.File;
-import java.io.FilenameFilter;
 import java.util.*;
 
 public class PostManagementImpl implements PostManagement
@@ -38,22 +35,22 @@ public class PostManagementImpl implements PostManagement
     private final ApplicationStateManager asoManager;
 
     private final KeywordManagement keywordManagement;
+    private final ImageManagement imageManagement;
     private final PostDAO postDAO;
-    private final ImageDAO imageDAO;
 
     private Map<String, Date> cachedUpdateTime;
     private Set<String> cachedUuids;
 
     public PostManagementImpl(ApplicationStateManager asoManager,
                                 KeywordManagement keywordManagement,
-                                PostDAO postDAO,
-                                ImageDAO imageDAO)
+                                ImageManagement imageManagement,
+                                PostDAO postDAO)
     {
         this.asoManager = asoManager;
 
         this.keywordManagement = keywordManagement;
+        this.imageManagement = imageManagement;
         this.postDAO = postDAO;
-        this.imageDAO = imageDAO;
     }
 
 
@@ -252,6 +249,8 @@ public class PostManagementImpl implements PostManagement
         html = removeBreaksFromBetweenHtmlCode(html);
 
         html = wrapJapaneseTextInTags(html);
+
+        html = imageManagement.updateImagesInHTML(html);
 
         return html;
     }

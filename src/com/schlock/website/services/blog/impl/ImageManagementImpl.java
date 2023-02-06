@@ -2,7 +2,6 @@ package com.schlock.website.services.blog.impl;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
-import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.database.blog.ImageDAO;
@@ -90,9 +89,13 @@ public class ImageManagementImpl implements ImageManagement
         List<AbstractPost> posts = postDAO.getAll();
         for(AbstractPost post : posts)
         {
+            String html = post.getBodyHTML();
+            html = updateImagesInHTML(html);
 
+            post.setBodyHTML(html);
+
+            postDAO.save(post);
         }
-        //TODO find images in post html
     }
 
     private Map<String, Image> generateImagesByGallery(String galleryName)
@@ -190,6 +193,106 @@ public class ImageManagementImpl implements ImageManagement
     }
 
 
+    public String updateImagesInHTML(String h)
+    {
+        final String IMG_TAG = "<img";
+        final String SRC_PARAM = "src=\"";
+        final String QUOTE = "\"";
+
+        String finishHTML = "";
+        String remainHTML = h;
+
+        while(StringUtils.isNotBlank(remainHTML))
+        {
+            int index = remainHTML.indexOf(IMG_TAG);
+            if (index == -1)
+            {
+                finishHTML += remainHTML;
+                remainHTML = "";
+            }
+            else
+            {
+                finishHTML += remainHTML.substring(0, index);
+                remainHTML = remainHTML.substring(index, remainHTML.length());
+
+                index = remainHTML.indexOf(SRC_PARAM) + SRC_PARAM.length();
+
+                finishHTML += remainHTML.substring(0, index);
+                remainHTML = remainHTML.substring(index, remainHTML.length());
+
+                index = remainHTML.indexOf(QUOTE);
+
+                String imageLink = remainHTML.substring(0, index);
+
+                remainHTML = remainHTML.substring(index, remainHTML.length());
+
+                finishHTML += updateImageLink(imageLink);
+            }
+        }
+
+        return finishHTML;
+    }
+
+    private String updateImageLink(String link)
+    {
+        String originalLink = link;
+
+        final String HTTP = "http";
+        final String SLASH = "/";
+
+        if (StringUtils.startsWith(originalLink, HTTP))
+        {
+            return originalLink;
+        }
+
+        if (StringUtils.startsWith(originalLink, SLASH))
+        {
+            originalLink = originalLink.substring(1);
+        }
+
+        boolean exists = checkIfImageExists(originalLink);
+        if (!exists)
+        {
+            throw new RuntimeException("image does not exist: " + link);
+        }
+
+        String[] parts = originalLink.split(SLASH);
+
+        String directory = parts[0];
+        String galleryName = null;
+        String imageName = "";
+
+        if (parts.length == 2)
+        {
+            imageName = parts[1];
+        }
+        else if (parts.length == 3)
+        {
+            galleryName = parts[1];
+            imageName = parts[2];
+        }
+        else
+        {
+            throw new RuntimeException("image tag is weird with " + link);
+        }
+
+        Image image = imageDAO.getByDirectoryGalleryName(directory, galleryName, imageName);
+        if (image == null)
+        {
+            image = createImage(imageName, galleryName, directory, null);
+            imageDAO.save(image);
+        }
+        generateGoogleId(image);
+
+        return image.getImageLink();
+    }
+
+    private boolean checkIfImageExists(String link)
+    {
+        String filepath = deploymentContext.webDirectory() + link;
+
+        return new File(filepath).exists();
+    }
 
     private void generateGoogleId(Image image)
     {

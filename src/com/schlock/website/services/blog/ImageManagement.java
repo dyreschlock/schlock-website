@@ -13,4 +13,5 @@ public interface ImageManagement
 
     public void generateImages();
 
+    public String updateImagesInHTML(String html);
 }
