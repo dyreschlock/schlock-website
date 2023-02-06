@@ -24,13 +24,17 @@ public class Image extends Persisted
         {
             return GOOGLE_IMAGE_LINK + googleId;
         }
+        if (StringUtils.isBlank(galleryName))
+        {
+            return "/" + directory + "/" + imageName;
+        }
         return "/" + directory + "/" + galleryName + "/" + imageName;
     }
 
 
     public boolean isThumbnail()
     {
-        return StringUtils.endsWith(imageName, "_t.jpg");
+        return parent != null;
     }
 
 

@@ -100,64 +100,44 @@ public class ImageManagementImpl implements ImageManagement
 
     private Map<String, Image> generateImagesByGallery(String galleryName)
     {
+        String directory = DeploymentContext.PHOTO_DIR.substring(0, DeploymentContext.PHOTO_DIR.length() - 1);
+
         File gallery = new File(deploymentContext.photoLocation() + galleryName);
         if (gallery.exists())
         {
             Map<String, Image> cache = getImagesByGallery(galleryName);
 
-            File[] nonThumbnails = gallery.listFiles(new FilenameFilter()
+            File[] directoryImages = gallery.listFiles(new FilenameFilter()
             {
                 public boolean accept(File dir, String name)
                 {
-                    if (StringUtils.endsWith(name, "_t.jpg"))
-                    {
-                        return false;
-                    }
-                    if (StringUtils.endsWith(name, ".jpg") ||
+                    return StringUtils.endsWith(name, ".jpg") ||
                             StringUtils.endsWith(name, ".png") ||
-                            StringUtils.endsWith(name, ".gif"))
+                            StringUtils.endsWith(name, ".gif");
+                }
+            });
+
+            for (File file : directoryImages)
+            {
+                String imageName = file.getName();
+                Image image = cache.get(imageName);
+                if (image == null)
+                {
+                    image = imageDAO.getByDirectoryGalleryName(directory, galleryName, imageName);
+                    if (image == null)
                     {
-                        return true;
+                        String possibleParentName = imageName.replace("_t.", ".");
+                        Image parent = cache.get(possibleParentName);
+
+                        image = createImage(directory, galleryName, imageName, parent);
                     }
-                    return false;
-                }
-            });
-
-            for (File file : nonThumbnails)
-            {
-                String imageName = file.getName();
-                Image image = cache.get(imageName);
-                if (image == null)
-                {
-                    image = createImage(file.getName(), galleryName);
-                    imageDAO.save(image);
 
                     cache.put(image.getImageName(), image);
-                }
-                generateGoogleId(image);
-            }
-
-            File[] thumbnails = gallery.listFiles(new FilenameFilter()
-            {
-                public boolean accept(File dir, String name)
-                {
-                    return StringUtils.endsWith(name, "_t.jpg");
-                }
-            });
-
-            for(File file : thumbnails)
-            {
-                String imageName = file.getName();
-                Image image = cache.get(imageName);
-                if (image == null)
-                {
-                    String parentName = imageName.replace("_t.jpg", ".jpg");
-                    Image parent = cache.get(parentName);
-
-                    image = createImage(file.getName(), galleryName, parent);
-                    imageDAO.save(image);
-
-                    cache.put(image.getImageName(), image);
+                    if (image.getParent() != null)
+                    {
+                        Image parent = image.getParent();
+                        cache.put(parent.getImageName(), parent);
+                    }
                 }
                 generateGoogleId(image);
             }
@@ -166,30 +146,57 @@ public class ImageManagementImpl implements ImageManagement
         return Collections.EMPTY_MAP;
     }
 
-    private Image createImage(String imageName, String galleryName)
+    private Image createImage(String directory, String galleryName, String imageName)
     {
-        return createImage(imageName, galleryName, null);
+        return createImage(directory, galleryName, imageName, null);
     }
 
-    private Image createImage(String imageName, String galleryName, Image parent)
-    {
-        String directory = DeploymentContext.PHOTO_DIR;
-        directory = directory.substring(0, directory.length() - 1);
-
-        return createImage(imageName, galleryName, directory, parent);
-    }
-
-    private Image createImage(String imageName, String galleryName, String directory, Image parent)
+    private Image createImage(String directory, String galleryName, String imageName, Image parentImage)
     {
         Image image = new Image();
         image.setDirectory(directory);
         image.setGalleryName(galleryName);
         image.setImageName(imageName);
+
+        Image parent = parentImage;
+        if (parent == null)
+        {
+            parent = getCreateParentIfExists(image);
+        }
         image.setParent(parent);
 
         generateGoogleId(image);
 
+        imageDAO.save(image);
         return image;
+    }
+
+    private Image getCreateParentIfExists(Image image)
+    {
+        String imageLink = image.getImageLink().substring(1);
+        int index = imageLink.lastIndexOf(".");
+
+        String parentLink = imageLink.substring(0, index - 2) + imageLink.substring(index);
+        if (checkIfImageExists(parentLink))
+        {
+            String imageName = image.getImageName();
+            index = imageName.lastIndexOf(".");
+
+            String parentName = imageName.substring(0, index -2) + imageName.substring(index);
+            String galleryName = image.getGalleryName();
+            String directory = image.getDirectory();
+
+            Image parent = imageDAO.getByDirectoryGalleryName(directory, galleryName, imageName);
+            if (parent == null)
+            {
+                parent = new Image();
+                parent.setDirectory(directory);
+                parent.setGalleryName(galleryName);
+                parent.setImageName(parentName);
+            }
+            return parent;
+        }
+        return null;
     }
 
 
@@ -213,20 +220,18 @@ public class ImageManagementImpl implements ImageManagement
             else
             {
                 finishHTML += remainHTML.substring(0, index);
-                remainHTML = remainHTML.substring(index, remainHTML.length());
+                remainHTML = remainHTML.substring(index);
 
                 index = remainHTML.indexOf(SRC_PARAM) + SRC_PARAM.length();
 
                 finishHTML += remainHTML.substring(0, index);
-                remainHTML = remainHTML.substring(index, remainHTML.length());
+                remainHTML = remainHTML.substring(index);
 
                 index = remainHTML.indexOf(QUOTE);
 
                 String imageLink = remainHTML.substring(0, index);
-
-                remainHTML = remainHTML.substring(index, remainHTML.length());
-
                 finishHTML += updateImageLink(imageLink);
+                remainHTML = remainHTML.substring(index);
             }
         }
 
@@ -279,8 +284,7 @@ public class ImageManagementImpl implements ImageManagement
         Image image = imageDAO.getByDirectoryGalleryName(directory, galleryName, imageName);
         if (image == null)
         {
-            image = createImage(imageName, galleryName, directory, null);
-            imageDAO.save(image);
+            image = createImage(directory, galleryName, imageName);
         }
         generateGoogleId(image);
 
@@ -303,6 +307,11 @@ public class ImageManagementImpl implements ImageManagement
 
             image.setGoogleId(googleId);
             imageDAO.save(image);
+        }
+
+        if (image.getParent() != null)
+        {
+            generateGoogleId(image.getParent());
         }
     }
 

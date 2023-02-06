@@ -17,8 +17,8 @@
         <a href="/aboutme">${message:about-me}</a>
 
         <t:remove>
-            / <t:eventlink t:id="regeneratePostHTML">Regen HTML</t:eventlink>
-            / <t:eventlink t:id="catalogImages">Regen Images</t:eventlink>
+            / <t:eventlink t:id="regenImages">Regen1</t:eventlink>
+            / <t:eventlink t:id="regenHtml">Regen2</t:eventlink>
         </t:remove>
     </div>
     <br class="clr" />
