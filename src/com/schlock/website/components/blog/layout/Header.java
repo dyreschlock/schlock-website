@@ -31,7 +31,7 @@ public class Header
     {
         try
         {
-            googleManagement.test();
+            googleManagement.buildFolders();
         }
         catch (Exception e)
         {

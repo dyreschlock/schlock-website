@@ -18,6 +18,7 @@ import com.schlock.website.entities.blog.Image;
 import com.schlock.website.entities.blog.ImageFolder;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.GoogleManagement;
+import com.schlock.website.services.database.blog.ImageDAO;
 import com.schlock.website.services.database.blog.ImageFolderDAO;
 import org.apache.commons.lang.StringUtils;
 
@@ -25,17 +26,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class GoogleManagementImpl implements GoogleManagement
 {
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
     private static final String APPLICATION_NAME = "schlock-website"; // doesn't matter?
-    private static final String TOKENS_DIRECTORY_PATH = "tokens"; // for caching? I dunno
+    private static final String TOKENS_DIRECTORY_PATH = "tokens"; // for caching, probably
 
     /**
      * Global instance of the scopes required by this quickstart.
@@ -43,16 +41,28 @@ public class GoogleManagementImpl implements GoogleManagement
      */
     private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE_METADATA_READONLY);
 
+    private final ImageDAO imageDAO;
     private final ImageFolderDAO folderDAO;
     private final DeploymentContext context;
 
     public GoogleManagementImpl(ImageFolderDAO folderDAO,
+                                ImageDAO imageDAO,
                                 DeploymentContext context)
     {
         this.folderDAO = folderDAO;
+        this.imageDAO = imageDAO;
         this.context = context;
     }
 
+    /**
+     * single queries are limited to 100 results by default
+     *
+     * Query Terms and Operators
+     * https://developers.google.com/drive/api/guides/ref-search-terms
+     *
+     * query for folders = "mimeType='application/vnd.google-apps.folder'"
+     *
+     */
 
     /**
      * Creates an authorized Credential object.
@@ -79,6 +89,105 @@ public class GoogleManagementImpl implements GoogleManagement
         return credential;
     }
 
+    private Drive cachedService;
+
+    private Drive service() throws Exception
+    {
+        if (cachedService == null)
+        {
+            // Build a new authorized API client service.
+            final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+            Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                                                                .setApplicationName(APPLICATION_NAME)
+                                                                .build();
+
+            cachedService = service;
+        }
+        return cachedService;
+    }
+
+
+//        File photo = getFileFromPath(Arrays.asList("photo", "ffxv", "FINAL_FANTASY_XV_20161230163328.jpg"));
+//        if(photo != null)
+//        {
+//            System.out.printf("%s (%s)\n", photo.getName(), photo.getId());
+//        }
+//        else
+//        {
+//            System.out.println("Cannot find photo: FINAL_FANTASY_XV_20161230163328.jpg");
+//        }
+
+    public void buildFolders() throws Exception
+    {
+        List<Image> allImages = imageDAO.getAll();
+
+        Map<String, List<String>> folderStructure = new HashMap<String, List<String>>();
+
+        for(Image image : allImages)
+        {
+            String directory = image.getDirectory();
+            String galleryName = image.getGalleryName();
+
+            if (!folderStructure.containsKey(directory))
+            {
+                List<String> subFolders = new ArrayList<String>();
+                if (StringUtils.isNotBlank(galleryName) && !subFolders.contains(galleryName))
+                {
+                    subFolders.add(galleryName);
+                }
+
+                folderStructure.put(directory, subFolders);
+            }
+            else if(StringUtils.isNotBlank(galleryName) && !folderStructure.get(directory).contains(galleryName))
+            {
+                folderStructure.get(directory).add(galleryName);
+            }
+        }
+
+        ImageFolder root = folderDAO.getRoot();
+
+        for(String dir : folderStructure.keySet())
+        {
+            ImageFolder mainFolder = folderDAO.getFolderByNameParentId(dir, root.getGoogleId());
+            if (mainFolder == null)
+            {
+                mainFolder = new ImageFolder();
+                mainFolder.setFolderName(dir);
+                mainFolder.setParent(root);
+            }
+
+            if (StringUtils.isBlank(mainFolder.getGoogleId()))
+            {
+                File mainFolderGoogle = getFromGoogle(root.getGoogleId(), dir);
+                mainFolder.setGoogleId(mainFolderGoogle.getId());
+
+                folderDAO.save(mainFolder);
+            }
+
+            List<String> subFolders = folderStructure.get(dir);
+            for(String subName : subFolders)
+            {
+                ImageFolder subFolder = folderDAO.getFolderByNameParentId(subName, mainFolder.getGoogleId());
+                if (subFolder == null)
+                {
+                    subFolder = new ImageFolder();
+                    subFolder.setFolderName(subName);
+                    subFolder.setParent(mainFolder);
+                }
+
+                if (StringUtils.isBlank(subFolder.getGoogleId()))
+                {
+                    File subFolderGoogle = getFromGoogle(mainFolder.getGoogleId(), subName);
+                    subFolder.setGoogleId(subFolderGoogle.getId());
+
+                    folderDAO.save(subFolder);
+                }
+            }
+        }
+    }
+
+
+
     public String getGoogleIdForImage(Image image)
     {
         List<String> path = new ArrayList<String>();
@@ -91,7 +200,9 @@ public class GoogleManagementImpl implements GoogleManagement
 
         try
         {
-            File photo = getFileFromPath(path);
+            ImageFolder rootFolder = folderDAO.getRoot();
+
+            File photo = getFileFromPath(rootFolder, path);
             if (photo != null)
             {
                 return photo.getId();
@@ -104,51 +215,7 @@ public class GoogleManagementImpl implements GoogleManagement
         }
     }
 
-    public void test() throws Exception
-    {
-        File photo = getFileFromPath(Arrays.asList("photo", "ffxv", "FINAL_FANTASY_XV_20161230163328.jpg"));
-        if(photo != null)
-        {
-            System.out.printf("%s (%s)\n", photo.getName(), photo.getId());
-        }
-        else
-        {
-            System.out.println("Cannot find photo: FINAL_FANTASY_XV_20161230163328.jpg");
-        }
-    }
-
-    private void buildFolders()
-    {
-
-    }
-
-    public File getFileFromPath(List<String> path) throws Exception
-    {
-        // Build a new authorized API client service.
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Drive service =
-                new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                    .setApplicationName(APPLICATION_NAME)
-                    .build();
-
-
-        // Print the names and IDs for up to 10 files.
-//        FileList result = service.files().list()
-//                                            .setPageSize(10)
-//                                            .setFields("nextPageToken, files(id, name)")
-//                                            .execute();
-
-        //page is limited to 100 by default
-
-        //query for folders = "mimeType='application/vnd.google-apps.folder'"
-
-        ImageFolder rootFolder = folderDAO.getRoot();
-
-        File photo = getFileFromPath(service, rootFolder, path);
-        return photo;
-    }
-
-    private File getFileFromPath(Drive service, ImageFolder currentFolder, List<String> path) throws Exception
+    private File getFileFromPath(ImageFolder currentFolder, List<String> path) throws Exception
     {
         String folderId = currentFolder.getGoogleId();
 
@@ -156,7 +223,7 @@ public class GoogleManagementImpl implements GoogleManagement
         {
             //look for file
             String filename = path.get(0);
-            return getFromGoogle(service, folderId, filename);
+            return getFromGoogle(folderId, filename);
         }
 
         String subFolderName = path.get(0);
@@ -165,7 +232,7 @@ public class GoogleManagementImpl implements GoogleManagement
         ImageFolder subFolder = folderDAO.getFolderByNameParentId(subFolderName, folderId);
         if (subFolder == null || StringUtils.isBlank(subFolder.getGoogleId()))
         {
-            File folder = getFromGoogle(service, folderId, subFolderName);
+            File folder = getFromGoogle(folderId, subFolderName);
             if (folder == null)
             {
                 return null;
@@ -181,15 +248,16 @@ public class GoogleManagementImpl implements GoogleManagement
 
             folderDAO.save(subFolder);
         }
-        return getFileFromPath(service, subFolder, path);
+        return getFileFromPath(subFolder, path);
     }
 
-    private File getFromGoogle(Drive service, String folderId, String name) throws Exception
+    private File getFromGoogle(String folderId, String name) throws Exception
     {
-        String queryText = String.format("parents = '%s'", folderId);
+        String query1 = String.format("parents = '%s'", folderId); //from parent
+        String query2 = String.format("name = '%s'", name);        //with name
 
-        FileList result = service.files().list()
-                                            .setQ(queryText)
+        FileList result = service().files().list()
+                                            .setQ(query1).setQ(query2)
                                             .setFields("nextPageToken, files(id, name)")
                                             .execute();
 
