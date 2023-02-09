@@ -78,7 +78,7 @@ public class ImageManagementImpl implements ImageManagement
         return galleryImages;
     }
 
-    public void generateImages()
+    public void generateImages() throws Exception
     {
         Set<String> galleries = postDAO.getAllGalleryNames();
         for(String gallery : galleries)
@@ -86,11 +86,7 @@ public class ImageManagementImpl implements ImageManagement
             generateImagesByGallery(gallery);
         }
 
-        List<Image> images = imageDAO.getAllWithoutGooleId();
-        for(Image image : images)
-        {
-            generateGoogleId(image);
-        }
+        googleManagement.generateIdsForFoldersImages();
 
         List<AbstractPost> posts = postDAO.getAll();
         for(AbstractPost post : posts)
@@ -145,7 +141,6 @@ public class ImageManagementImpl implements ImageManagement
                         cache.put(parent.getImageName(), parent);
                     }
                 }
-                generateGoogleId(image);
             }
             return cache;
         }
@@ -170,8 +165,6 @@ public class ImageManagementImpl implements ImageManagement
             parent = getCreateParentIfExists(image);
         }
         image.setParent(parent);
-
-        generateGoogleId(image);
 
         imageDAO.save(image);
         return image;

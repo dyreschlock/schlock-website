@@ -117,7 +117,7 @@ public class GoogleManagementImpl implements GoogleManagement
 //            System.out.println("Cannot find photo: FINAL_FANTASY_XV_20161230163328.jpg");
 //        }
 
-    public void buildFolders() throws Exception
+    public void generateIdsForFoldersImages() throws Exception
     {
         List<Image> allImages = imageDAO.getAll();
 
@@ -148,42 +148,34 @@ public class GoogleManagementImpl implements GoogleManagement
 
         for(String dir : folderStructure.keySet())
         {
-            ImageFolder mainFolder = folderDAO.getFolderByNameParentId(dir, root.getGoogleId());
-            if (mainFolder == null)
-            {
-                mainFolder = new ImageFolder();
-                mainFolder.setFolderName(dir);
-                mainFolder.setParent(root);
-            }
-
-            if (StringUtils.isBlank(mainFolder.getGoogleId()))
-            {
-                File mainFolderGoogle = getFromGoogle(root.getGoogleId(), dir);
-                mainFolder.setGoogleId(mainFolderGoogle.getId());
-
-                folderDAO.save(mainFolder);
-            }
+            ImageFolder mainFolder = getCreateFolder(dir, root);
 
             List<String> subFolders = folderStructure.get(dir);
             for(String subName : subFolders)
             {
-                ImageFolder subFolder = folderDAO.getFolderByNameParentId(subName, mainFolder.getGoogleId());
-                if (subFolder == null)
-                {
-                    subFolder = new ImageFolder();
-                    subFolder.setFolderName(subName);
-                    subFolder.setParent(mainFolder);
-                }
-
-                if (StringUtils.isBlank(subFolder.getGoogleId()))
-                {
-                    File subFolderGoogle = getFromGoogle(mainFolder.getGoogleId(), subName);
-                    subFolder.setGoogleId(subFolderGoogle.getId());
-
-                    folderDAO.save(subFolder);
-                }
+                getCreateFolder(subName, mainFolder);
             }
         }
+    }
+
+    private ImageFolder getCreateFolder(String name, ImageFolder parent) throws Exception
+    {
+        ImageFolder folder = folderDAO.getFolderByNameParentId(name, parent.getGoogleId());
+        if (folder == null)
+        {
+            folder = new ImageFolder();
+            folder.setFolderName(name);
+            folder.setParent(parent);
+        }
+
+        if (StringUtils.isBlank(folder.getGoogleId()))
+        {
+            File subFolderGoogle = getFromGoogle(parent.getGoogleId(), name);
+            folder.setGoogleId(subFolderGoogle.getId());
+
+            folderDAO.save(folder);
+        }
+        return folder;
     }
 
 

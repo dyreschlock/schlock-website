@@ -11,7 +11,7 @@ public interface ImageManagement
 
     public Image getPostImage(AbstractPost post);
 
-    public void generateImages();
+    public void generateImages() throws Exception;
 
     public String updateImagesInHTML(String html);
 }

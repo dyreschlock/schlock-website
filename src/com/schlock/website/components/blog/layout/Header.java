@@ -31,7 +31,7 @@ public class Header
     {
         try
         {
-            googleManagement.buildFolders();
+            googleManagement.generateIdsForFoldersImages();
         }
         catch (Exception e)
         {
@@ -42,7 +42,14 @@ public class Header
     @CommitAfter
     void onRegenImages()
     {
-        imageManagement.generateImages();
+        try
+        {
+            imageManagement.generateImages();
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     @CommitAfter
