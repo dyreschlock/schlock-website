@@ -14,6 +14,8 @@ public class DeploymentContextImpl implements DeploymentContext
 {
     private static final String LOCATION = "com.schlock.website.deploy";
 
+    private static final String GOOGLE_CREDENTIALS_FILEPATH = "google.credentials.filepath";
+
     private static final String WEBDIR_PARAM = "webdirectory.location";
 
     private static final String LOCAL = "local";
@@ -104,6 +106,11 @@ public class DeploymentContextImpl implements DeploymentContext
         return getDeployProperties().getProperty(name + "." + context);
     }
 
+
+    public String googleCredentialsFilepath()
+    {
+        return getDeployProperties().getProperty(GOOGLE_CREDENTIALS_FILEPATH);
+    }
 
     public String imageLocation()
     {

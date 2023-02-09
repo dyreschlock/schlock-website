@@ -5,6 +5,8 @@
 .idea/gradle.xml
 out/
 build/
+resources/
+tokens/
 schlock-website.iml
 schlock-website.ipr
 schlock-website.iws

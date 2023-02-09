@@ -18,6 +18,8 @@ public interface DeploymentContext
 
     public String getHibernateProperty(String name);
 
+    public String googleCredentialsFilepath();
+
     public String webDirectory();
 
     public String photoLocation();

@@ -1,6 +1,7 @@
 package com.schlock.website.components.blog.layout;
 
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.blog.GoogleManagement;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
@@ -17,10 +18,25 @@ public class Header
     @Inject
     private PostManagement postManagement;
 
+    @Inject
+    private GoogleManagement googleManagement;
 
     public boolean isLocal()
     {
         return deploymentContext.isLocal();
+    }
+
+    @CommitAfter
+    void onTestGoogle()
+    {
+        try
+        {
+            googleManagement.test();
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     @CommitAfter

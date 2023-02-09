@@ -14,3 +14,5 @@ new.connection.username.hosted=
 new.connection.password.hosted=
 
 generation.output.directory=
+
+google.credentials.filepath=

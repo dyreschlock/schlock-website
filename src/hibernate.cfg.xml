@@ -33,6 +33,7 @@
         <mapping resource="com/schlock/website/entities/blog/AbstractPost.hbm.xml" />
         <mapping resource="com/schlock/website/entities/blog/Keyword.hbm.xml" />
         <mapping resource="com/schlock/website/entities/blog/Image.hbm.xml" />
+        <mapping resource="com/schlock/website/entities/blog/ImageFolder.hbm.xml" />
 
         <mapping resource="com/schlock/website/entities/apps/japanese/Kanji.hbm.xml" />
 

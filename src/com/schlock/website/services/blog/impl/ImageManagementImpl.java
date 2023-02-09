@@ -3,6 +3,7 @@ package com.schlock.website.services.blog.impl;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.blog.GoogleManagement;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.database.blog.ImageDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -16,14 +17,19 @@ public class ImageManagementImpl implements ImageManagement
 {
     private final DeploymentContext deploymentContext;
 
+    private final GoogleManagement googleManagement;
+
     private final PostDAO postDAO;
     private final ImageDAO imageDAO;
 
     public ImageManagementImpl(DeploymentContext deploymentContext,
+                               GoogleManagement googleManagement,
                                PostDAO postDAO,
                                ImageDAO imageDAO)
     {
         this.deploymentContext = deploymentContext;
+
+        this.googleManagement = googleManagement;
 
         this.postDAO = postDAO;
         this.imageDAO = imageDAO;
@@ -303,7 +309,7 @@ public class ImageManagementImpl implements ImageManagement
         String googleId = image.getGoogleId();
         if (StringUtils.isBlank(googleId))
         {
-            //TODO do google stuff
+            googleId = googleManagement.getGoogleIdForImage(image);
 
             image.setGoogleId(googleId);
             imageDAO.save(image);

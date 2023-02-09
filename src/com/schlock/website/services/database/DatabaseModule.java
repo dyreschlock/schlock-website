@@ -9,14 +9,8 @@ import com.schlock.website.services.database.apps.kendo.ExamQuestionDAO;
 import com.schlock.website.services.database.apps.kendo.impl.ExamQuestionDAOImpl;
 import com.schlock.website.services.database.apps.notfibbage.NotFibbageQuestionDAO;
 import com.schlock.website.services.database.apps.notfibbage.impl.NotFibbageQuestionDAOImpl;
-import com.schlock.website.services.database.blog.CategoryDAO;
-import com.schlock.website.services.database.blog.ImageDAO;
-import com.schlock.website.services.database.blog.KeywordDAO;
-import com.schlock.website.services.database.blog.PostDAO;
-import com.schlock.website.services.database.blog.impl.CategoryDAOImpl;
-import com.schlock.website.services.database.blog.impl.ImageDAOImpl;
-import com.schlock.website.services.database.blog.impl.KeywordDAOImpl;
-import com.schlock.website.services.database.blog.impl.PostDAOImpl;
+import com.schlock.website.services.database.blog.*;
+import com.schlock.website.services.database.blog.impl.*;
 import org.apache.tapestry5.hibernate.HibernateConfigurer;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
@@ -28,6 +22,7 @@ public class DatabaseModule
     {
         binder.bind(PostDAO.class, PostDAOImpl.class);
         binder.bind(ImageDAO.class, ImageDAOImpl.class);
+        binder.bind(ImageFolderDAO.class, ImageFolderDAOImpl.class);
         binder.bind(CategoryDAO.class, CategoryDAOImpl.class);
         binder.bind(KeywordDAO.class, KeywordDAOImpl.class);
 
