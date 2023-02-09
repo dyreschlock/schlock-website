@@ -17,16 +17,21 @@ public class ImageFolderDAOImpl extends BaseDAOImpl<ImageFolder> implements Imag
     {
         final String ROOT_FOLDER_NAME = "www";
 
-        String text = " from ImageFolder f " +
-                " where f.folderName = :name ";
+        return getByName(ROOT_FOLDER_NAME);
+    }
+
+    public ImageFolder getByName(String name)
+    {
+        String text = " from ImageFolder i " +
+                " where i.folderName = :name ";
 
         Query query = session.createQuery(text);
-        query.setParameter("name", ROOT_FOLDER_NAME);
+        query.setParameter("name", name);
 
         return (ImageFolder) singleResult(query);
     }
 
-    public ImageFolder getFolderByNameParentId(String name, String parentId)
+    public ImageFolder getFolderByNameParentGoogleId(String name, String parentGoogleId)
     {
         String text = " select child " +
                 " from ImageFolder child " +
@@ -36,7 +41,7 @@ public class ImageFolderDAOImpl extends BaseDAOImpl<ImageFolder> implements Imag
 
         Query query = session.createQuery(text);
         query.setParameter("name", name);
-        query.setParameter("parentId", parentId);
+        query.setParameter("parentId", parentGoogleId);
 
         return (ImageFolder) singleResult(query);
     }

@@ -117,7 +117,15 @@ public class GoogleManagementImpl implements GoogleManagement
 //            System.out.println("Cannot find photo: FINAL_FANTASY_XV_20161230163328.jpg");
 //        }
 
+
     public void generateIdsForFoldersImages() throws Exception
+    {
+        buildFolders();
+        updateImages();
+    }
+
+
+    public void buildFolders() throws Exception
     {
         List<Image> allImages = imageDAO.getAll();
 
@@ -160,7 +168,7 @@ public class GoogleManagementImpl implements GoogleManagement
 
     private ImageFolder getCreateFolder(String name, ImageFolder parent) throws Exception
     {
-        ImageFolder folder = folderDAO.getFolderByNameParentId(name, parent.getGoogleId());
+        ImageFolder folder = folderDAO.getFolderByNameParentGoogleId(name, parent.getGoogleId());
         if (folder == null)
         {
             folder = new ImageFolder();
@@ -177,6 +185,82 @@ public class GoogleManagementImpl implements GoogleManagement
         }
         return folder;
     }
+
+
+
+
+    private void updateImages() throws Exception
+    {
+        List<Image> allImages = imageDAO.getAllWithoutGooleId();
+
+        Map<String, Map<String, Map<String, Image>>> fileStructure = new HashMap<String, Map<String, Map<String, Image>>>();
+        for(Image image : allImages)
+        {
+            String directory = image.getDirectory();
+            String galleryName = image.getGalleryName();
+
+            if (StringUtils.isNotBlank(galleryName))
+            {
+                Map<String, Map<String, Image>> subFolderStructure = fileStructure.get(directory);
+                if (subFolderStructure == null)
+                {
+                    subFolderStructure = new HashMap<String, Map<String, Image>>();
+
+                    fileStructure.put(directory, subFolderStructure);
+                }
+
+                Map<String, Image> images = subFolderStructure.get(galleryName);
+                if (images == null)
+                {
+                    images = new HashMap<String, Image>();
+
+                    subFolderStructure.put(galleryName, images);
+                }
+                images.put(image.getImageName(), image);
+            }
+        }
+
+        for(Map<String, Map<String, Image>> gallery : fileStructure.values())
+        {
+            for(String galleryName : gallery.keySet())
+            {
+                Map<String, Image> imageSet = gallery.get(galleryName);
+
+                ImageFolder folder = folderDAO.getByName(galleryName);
+
+                String pageToken = null;
+                do
+                {
+                    String query1 = String.format("parents = '%s'", folder.getGoogleId()); //from parent
+
+                    FileList result = service().files().list()
+                                                        .setQ(query1)
+                                                        .setFields("nextPageToken, files(id, name)")
+                                                        .setPageToken(pageToken)
+                                                        .execute();
+
+                    for (File file : result.getFiles())
+                    {
+                        String fileName = file.getName();
+                        Image image = imageSet.get(fileName);
+                        if (image != null)
+                        {
+                            image.setGoogleId(file.getId());
+                            imageDAO.save(image);
+
+                            String message = String.format("Updated Google Id on Image: %s (%s)", file.getName(), file.getId());
+                            System.out.println(message);
+                        }
+                    }
+
+                    pageToken = result.getNextPageToken();
+                }
+                while (pageToken != null);
+
+            }
+        }
+    }
+
 
 
 
@@ -221,7 +305,7 @@ public class GoogleManagementImpl implements GoogleManagement
         String subFolderName = path.get(0);
         path = path.subList(1, path.size());
 
-        ImageFolder subFolder = folderDAO.getFolderByNameParentId(subFolderName, folderId);
+        ImageFolder subFolder = folderDAO.getFolderByNameParentGoogleId(subFolderName, folderId);
         if (subFolder == null || StringUtils.isBlank(subFolder.getGoogleId()))
         {
             File folder = getFromGoogle(folderId, subFolderName);
