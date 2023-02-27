@@ -452,6 +452,10 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         {
             text += " where p.publishedLevel >= " + POST_PUBLISHED + " ";
         }
+        else
+        {
+            text += " where p.publishedLevel > " + POST_NOT_VISIBLE + " ";
+        }
         text += " order by p.eventDate desc ";
 
         Query query = session.createQuery(text);
