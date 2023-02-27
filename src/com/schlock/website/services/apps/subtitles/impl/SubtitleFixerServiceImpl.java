@@ -123,8 +123,8 @@ public class SubtitleFixerServiceImpl implements SubtitleFixerService
     private static final String OLD_SUBTITLES_FILEPATH = "old_subtitles.srt";
     private static final String NEW_SUBTITLES_FILEPATH = "new_subtitles.srt";
 
-    private static double INITIAL_OFFSET = 1.2;
-    private static double RATIO_OFFSET = 1.0442;
+    private static double INITIAL_OFFSET = -1;        // old_time - new_time (earliest instance)
+    private static double RATIO_OFFSET = 1;  // old_time / (new_time - INITIAL_OFFSET) (latest instance)
 
     public void process() throws Exception
     {
@@ -181,9 +181,9 @@ public class SubtitleFixerServiceImpl implements SubtitleFixerService
     {
         Double totalSeconds = convertTimeCodeToSeconds(timeCode);
 
-        Double alteredSeconds = (totalSeconds / RATIO_OFFSET) - INITIAL_OFFSET;
+        Double alteredSeconds = (totalSeconds - INITIAL_OFFSET) / RATIO_OFFSET;
 
-        int offset = -(totalSeconds.intValue() - alteredSeconds.intValue());
+        int offset = (int) Math.round(alteredSeconds - totalSeconds);
 
         return offsetTime(timeCode, offset);
     }
