@@ -201,8 +201,23 @@ public class ImageManagementImpl implements ImageManagement
 
     public String updateImagesInHTML(String h)
     {
-        final String IMG_TAG = "<img";
+        String html = h;
+
+        final String IMG_TAG = "<img ";
         final String SRC_PARAM = "src=\"";
+
+        html = updateImagesInHTML(IMG_TAG, SRC_PARAM, html);
+
+        final String A_TAG = "<a ";
+        final String HREF_PARAM = "href=\"";
+
+        html = updateImagesInHTML(A_TAG, HREF_PARAM, html);
+
+        return html;
+    }
+
+    private String updateImagesInHTML(final String TAG, final String PARAM, String h)
+    {
         final String QUOTE = "\"";
 
         String finishHTML = "";
@@ -210,7 +225,7 @@ public class ImageManagementImpl implements ImageManagement
 
         while(StringUtils.isNotBlank(remainHTML))
         {
-            int index = remainHTML.indexOf(IMG_TAG);
+            int index = remainHTML.indexOf(TAG);
             if (index == -1)
             {
                 finishHTML += remainHTML;
@@ -221,7 +236,7 @@ public class ImageManagementImpl implements ImageManagement
                 finishHTML += remainHTML.substring(0, index);
                 remainHTML = remainHTML.substring(index);
 
-                index = remainHTML.indexOf(SRC_PARAM) + SRC_PARAM.length();
+                index = remainHTML.indexOf(PARAM) + PARAM.length();
 
                 finishHTML += remainHTML.substring(0, index);
                 remainHTML = remainHTML.substring(index);
@@ -229,12 +244,28 @@ public class ImageManagementImpl implements ImageManagement
                 index = remainHTML.indexOf(QUOTE);
 
                 String imageLink = remainHTML.substring(0, index);
-                finishHTML += updateImageLink(imageLink);
+                if (isImage(imageLink))
+                {
+                    finishHTML += updateImageLink(imageLink);
+                }
+                else
+                {
+                    //TODO fix local page links
+                    finishHTML += imageLink;
+                }
                 remainHTML = remainHTML.substring(index);
             }
         }
-
         return finishHTML;
+    }
+
+    private boolean isImage(String link)
+    {
+        return StringUtils.isNotBlank(link) &&
+                    (link.endsWith("jpg") ||
+                        link.endsWith("jpeg") ||
+                        link.endsWith("png") ||
+                        link.endsWith("gif"));
     }
 
     private String updateImageLink(String link)
