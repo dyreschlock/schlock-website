@@ -144,7 +144,7 @@ public class Projects
             categoryId = category.getId();
         }
 
-        List<AbstractPost> pages = postDAO.getAllProjectsByCategory(true, categoryId);
+        List<AbstractPost> pages = postDAO.getAllProjectsByCategory(false, categoryId);
         return pages;
     }
 
