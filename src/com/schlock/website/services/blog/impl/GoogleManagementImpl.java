@@ -283,12 +283,13 @@ public class GoogleManagementImpl implements GoogleManagement
             {
                 return photo.getId();
             }
-            return null;
         }
         catch (Exception e)
         {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+//            throw new RuntimeException(e);
         }
+        return null;
     }
 
     private File getFileFromPath(ImageFolder currentFolder, List<String> path) throws Exception

@@ -1,13 +1,11 @@
 package com.schlock.website.services.blog;
 
 import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.Image;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.Post;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public interface PostManagement
@@ -21,6 +19,8 @@ public interface PostManagement
     public void regenerateAllPostHTML();
 
     public void setPostHTML(AbstractPost post);
+
+    public String updateLinkToModernReference(String link);
 
     public String generatePostPreview(AbstractPost post);
 

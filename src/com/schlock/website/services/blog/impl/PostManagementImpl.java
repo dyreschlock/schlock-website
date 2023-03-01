@@ -441,6 +441,84 @@ public class PostManagementImpl implements PostManagement
     }
 
 
+    public String updateLinkToModernReference(String originalLink)
+    {
+        if (StringUtils.isBlank(originalLink) ||
+                isNotLocalLinkReference(originalLink))
+        {
+            return originalLink;
+        }
+
+        final List<String> WHITE_LIST = Arrays.asList(
+                "/misc/games2.html",
+                "/pages/games/lst/games2.html"
+        );
+        if (WHITE_LIST.contains(originalLink))
+        {
+            return originalLink;
+        }
+
+        String possibleUUID = originalLink.substring(1);
+        AbstractPost post = postDAO.getByUuid(possibleUUID);
+        if (post != null)
+        {
+            return originalLink;
+        }
+
+        if (originalLink.endsWith("events.html"))
+        {
+            return "/club";
+        }
+
+        final String PHOTO_LINK = "/photo/";
+        if (originalLink.startsWith(PHOTO_LINK))
+        {
+            String galleryName = originalLink.substring(PHOTO_LINK.length());
+            galleryName = galleryName.split("/")[0];
+
+            post = postDAO.getByGalleryName(galleryName);
+            if(post != null)
+            {
+                return "/" + post.getUuid();
+            }
+        }
+
+        final String WORDPRESS_PREFIX = "/blog/?p=";
+        if (originalLink.startsWith(WORDPRESS_PREFIX))
+        {
+            String wpid = originalLink.substring(WORDPRESS_PREFIX.length());
+            post = postDAO.getByWpid(wpid);
+            if (post != null)
+            {
+                return "/" + post.getUuid();
+            }
+        }
+
+        final String CLUB_LINK = "/club/";
+        if (originalLink.startsWith(CLUB_LINK))
+        {
+            String galleryName = originalLink.substring(CLUB_LINK.length());
+            galleryName = galleryName.split("/")[0];
+
+            post = postDAO.getByGalleryName(galleryName);
+            if (post != null)
+            {
+                return "/" + post.getUuid();
+            }
+        }
+
+
+
+        System.out.println("[Non-Image] " + originalLink);
+        return originalLink;
+    }
+
+    private boolean isNotLocalLinkReference(String link)
+    {
+        boolean notLocal = link.startsWith("http") && !link.contains("theschlock.com");
+        return notLocal;
+    }
+
     public String getStylizedHTMLTitle(AbstractPost post)
     {
         String title = post.getTitle();

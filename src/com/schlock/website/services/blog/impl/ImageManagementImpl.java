@@ -5,6 +5,7 @@ import com.schlock.website.entities.blog.Image;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.GoogleManagement;
 import com.schlock.website.services.blog.ImageManagement;
+import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.ImageDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
@@ -18,18 +19,21 @@ public class ImageManagementImpl implements ImageManagement
     private final DeploymentContext deploymentContext;
 
     private final GoogleManagement googleManagement;
+    private final PostManagement postManagement;
 
     private final PostDAO postDAO;
     private final ImageDAO imageDAO;
 
     public ImageManagementImpl(DeploymentContext deploymentContext,
                                GoogleManagement googleManagement,
+                               PostManagement postManagement,
                                PostDAO postDAO,
                                ImageDAO imageDAO)
     {
         this.deploymentContext = deploymentContext;
 
         this.googleManagement = googleManagement;
+        this.postManagement = postManagement;
 
         this.postDAO = postDAO;
         this.imageDAO = imageDAO;
@@ -250,8 +254,7 @@ public class ImageManagementImpl implements ImageManagement
                 }
                 else
                 {
-                    //TODO fix local page links
-                    finishHTML += imageLink;
+                    finishHTML += postManagement.updateLinkToModernReference(imageLink);
                 }
                 remainHTML = remainHTML.substring(index);
             }
