@@ -6,16 +6,13 @@ import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.LayoutManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.List;
-import java.util.Set;
 
 public class ImageGallery
 {
@@ -35,10 +32,6 @@ public class ImageGallery
 
     @Inject
     private Messages messages;
-
-
-    @InjectComponent
-    private Zone imageOverlayZone;
 
 
     @Property
@@ -74,75 +67,42 @@ public class ImageGallery
         return cls;
     }
 
-    public boolean isHasImageSelected()
+
+    public String getImageArrayJS()
     {
-        return selectedImage != null;
+        String code = "";
+
+        List<Image> images = getGalleryImages();
+        for(int i = 0; i < images.size(); i++)
+        {
+            String index = Integer.toString(i);
+            String url = images.get(i).getImageLink();
+
+            String codeLine = String.format("images[%s] = \"%s\";\n", index, url);
+            code += codeLine;
+        }
+        return code;
     }
 
-    Object onSelectImage(String imageName)
+    public String getImageCommentArrayJS()
     {
-        this.selectedImage = null;
-        for(Image image : loadGalleryImages())
+        String code = "";
+
+        List<Image> images = getGalleryImages();
+        for(int i = 0; i < images.size(); i++)
         {
-            if (StringUtils.equalsIgnoreCase(imageName, image.getImageName()))
+            String index = Integer.toString(i);
+            String comment = images.get(i).getCommentText();
+            if (StringUtils.isBlank(comment))
             {
-                this.selectedImage = image;
+                comment = "";
             }
+
+            String codeLine = String.format("comments[%s] = \"%s\";\n", index, comment);
+            code += codeLine;
         }
-
-        return imageOverlayZone;
+        return code;
     }
-
-    public boolean isHasPreviousImage()
-    {
-        return getPreviousImage() != null;
-    }
-
-    public Image getPreviousImage()
-    {
-        List<Image> gallery = loadGalleryImages();
-
-        int index = gallery.indexOf(selectedImage);
-        if (index == 0)
-        {
-            return null;
-        }
-        return gallery.get(index - 1);
-    }
-
-    public boolean isHasNextImage()
-    {
-        return getNextImage() != null;
-    }
-
-    public Image getNextImage()
-    {
-        List<Image> gallery = loadGalleryImages();
-
-        int index = gallery.indexOf(selectedImage);
-        if (index == gallery.size() - 1)
-        {
-            return null;
-        }
-        return gallery.get(index + 1);
-    }
-
-    public boolean isHasImageComment()
-    {
-        return selectedImage != null && selectedImage.getCommentText() != null;
-    }
-
-    public String getImageCommentHtml()
-    {
-        if(selectedImage != null && selectedImage.getCommentText() != null)
-        {
-            String comment = selectedImage.getCommentText();
-            String html = postManagement.wrapJapaneseTextInTags(comment);
-            return html;
-        }
-        return "";
-    }
-
 
     private List<Image> cachedGalleryImages;
 
