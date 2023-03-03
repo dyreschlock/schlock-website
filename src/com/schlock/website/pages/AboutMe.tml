@@ -13,20 +13,6 @@
             <div class="title">${message:email-title}</div>
             <div class="details">${message:website-email}</div>
         </div>
-        <!--
-        <div id="resume1">
-            <div class="title">${message:resume-title}</div>
-            <div class="details">
-                <a href="${message:resume-software-url}" target="_blank">${message:resume-software}</a><br/>
-            </div>
-        </div>
-        <div id="resume2">
-            <div class="title">&nbsp;</div>
-            <div class="details">
-                <a href="${message:resume-teaching-url}" target="_blank">${message:resume-teaching}</a>
-            </div>
-        </div>
-        -->
         <br class="clr" />
         <br class="clr" />
 
@@ -40,12 +26,6 @@
             <l:iconlink icon="youtube" redirectUrl="${message:youtube2Url}" altTitleText="${message:youtube2Title}" />
             <l:iconlink icon="ebay" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
         </div>
-        <!--div id="gameLinks">
-            <div class="title">${message:gamesTitle}</div>
-            <l:iconlink icon="psn" redirectUrl="${message:psnUrl}" altTitleText="${message:psnTitle}" />
-            <l:iconlink icon="xbox" redirectUrl="${message:xboxUrl}" altTitleText="${message:xboxTitle}" />
-            <l:iconlink icon="steam" redirectUrl="${message:steamUrl}" altTitleText="${message:steamTitle}" />
-        </div-->
         <div id="codeLinks">
             <div class="title">${message:codeTitle}</div>
             <l:iconlink icon="stack" redirectUrl="${message:stackUrl}" altTitleText="${message:stackTitle}" />
