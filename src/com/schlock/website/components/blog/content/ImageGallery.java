@@ -68,7 +68,7 @@ public class ImageGallery
     }
 
 
-    public String getImageArrayJS()
+    public String getImageDataJS()
     {
         String code = "";
 
@@ -76,30 +76,29 @@ public class ImageGallery
         for(int i = 0; i < images.size(); i++)
         {
             String index = Integer.toString(i);
-            String url = images.get(i).getImageLink();
 
-            String codeLine = String.format("images[%s] = \"%s\";\n", index, url);
-            code += codeLine;
-        }
-        return code;
-    }
+            Image image = images.get(i);
+            Image parent = image;
+            if (image.getParent() != null)
+            {
+                parent = image.getParent();
+            }
 
-    public String getImageCommentArrayJS()
-    {
-        String code = "";
-
-        List<Image> images = getGalleryImages();
-        for(int i = 0; i < images.size(); i++)
-        {
-            String index = Integer.toString(i);
-            String comment = images.get(i).getCommentText();
+            String imageUrl = image.getImageLink();
+            String parentUrl = parent.getImageLink();
+            String comment = image.getCommentText();
             if (StringUtils.isBlank(comment))
             {
                 comment = "";
             }
 
-            String codeLine = String.format("comments[%s] = \"%s\";\n", index, comment);
-            code += codeLine;
+            String imageCode = String.format("images[%s] = \"%s\";\n", index, imageUrl);
+            String parentCode = String.format("linkImages[%s] = \"%s\";\n", index, parentUrl);
+            String commentCode = String.format("comments[%s] = \"%s\";\n", index, comment);
+
+            code += imageCode;
+            code += parentCode;
+            code += commentCode;
         }
         return code;
     }

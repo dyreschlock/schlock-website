@@ -7,17 +7,19 @@
 
             <script>
 
+                const images = [];
+                const linkImages = [];
+                const comments = [];
+
+                ${imageDataJS}
+
                 function galleryClicked(index)
                 {
-                    const images = [];
-                    ${imageArrayJS}
-
                     document.getElementById("overlayImage").style.display = 'block';
                     document.getElementById("overlayBackground").style.display = 'block';
 
-                    let link = images[index];
-                    setBackgroundImage(link);
-                    setImageLink(link);
+                    setBackgroundImage(index);
+                    setImageLink(index);
                     setImageCommentText(index);
 
                     if(index == 0)
@@ -41,22 +43,21 @@
                     }
                 }
 
-                function setBackgroundImage(link)
+                function setBackgroundImage(index)
                 {
+                    let link = images[index];
                     document.getElementById("overlayImage").style.backgroundImage = "url("+link+")";
                 }
 
-                function setImageLink(link)
+                function setImageLink(index)
                 {
+                    let link = linkImages[index];
                     document.getElementById("imageLink").innerHTML = link;
                     document.getElementById("imageLink").href = link;
                 }
 
                 function setImageCommentText(index)
                 {
-                    const comments = [];
-                    ${imageCommentArrayJS}
-
                     let comment = comments[index];
 
                     document.getElementById("imageCommentText").innerHTML = comment;
