@@ -36,9 +36,9 @@
         <div id="iconLinks">
             <l:iconlink icon="rss" redirectUrl="rssUrl" altTitleText="${message:rssTitle}" />
             <l:iconlink icon="twitter" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
-            <l:iconlink icon="discord" redirectUrl="${message:discordUrl}" altTitleText="${message:discordTitle}" />
+            <!-- l:iconlink icon="discord" redirectUrl="${message:discordUrl}" altTitleText="${message:discordTitle}" / -->
             <l:iconlink icon="twitch" redirectUrl="${message:twitchUrl}" altTitleText="${message:twitchTitle}" />
-            <!-- l:iconlink icon="youtube" redirectUrl="${message:youtube1Url}" altTitleText="${message:youtube1Title}" /-->
+            <l:iconlink icon="youtube" redirectUrl="${message:youtube1Url}" altTitleText="${message:youtube1Title}" />
             <l:iconlink icon="github" redirectUrl="${message:githubUrl}" altTitleText="${message:githubTitle}" />
             <l:iconlink icon="ebay" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
         </div>
