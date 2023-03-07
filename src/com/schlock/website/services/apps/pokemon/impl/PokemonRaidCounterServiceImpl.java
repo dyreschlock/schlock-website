@@ -132,6 +132,10 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
     private static final String DARKRAI = "Darkrai";
     private static final String DARK_TYPE = "Dark";
 
+    private static final String CHANDELURE = "Chandelure";
+    private static final String SHADOW_BALL = "Shadow Ball";
+    private static final String POLTERGEIST = "Poltergeist";
+
     private List<RaidCounterInstance> filterListForBest(List<RaidCounterInstance> counterList)
     {
         List<RaidCounterInstance> allCounters = new ArrayList<RaidCounterInstance>();
@@ -160,6 +164,18 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
                 {
                     PokemonMove move = dataService.getMoveByName(counter.getChargeMove());
                     if (topFast.equals(counter.getFastMove()) && DARK_TYPE.equalsIgnoreCase(move.getType()))
+                    {
+                        uniqueCounters.add(counter);
+                    }
+                }
+
+                if (CHANDELURE.equalsIgnoreCase(counter.getName()))
+                {
+                    if (SHADOW_BALL.equalsIgnoreCase(topCharge) && POLTERGEIST.equalsIgnoreCase(counter.getChargeMove()))
+                    {
+                        uniqueCounters.add(counter);
+                    }
+                    if (POLTERGEIST.equalsIgnoreCase(topCharge) && SHADOW_BALL.equalsIgnoreCase(counter.getChargeMove()))
                     {
                         uniqueCounters.add(counter);
                     }
