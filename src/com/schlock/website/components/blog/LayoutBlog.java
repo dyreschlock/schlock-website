@@ -43,6 +43,6 @@ public class LayoutBlog
 
     public String getPrimaryCss()
     {
-        return cssCache.getPrimaryCss();
+        return cssCache.getAllCss();
     }
 }
