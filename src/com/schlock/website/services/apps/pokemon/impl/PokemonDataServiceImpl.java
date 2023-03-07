@@ -50,18 +50,15 @@ public class PokemonDataServiceImpl implements PokemonDataService
             "Mega Heracross",
 
             "Mega Glalie",
-            "Mega Gardevoir",
             "Mega Gallade",
             "Mega Sableye",
             "Mega Mawile",
-            "Mega Medicham",
             "Mega Shapedo",
             "Mega Camerupt",
             "Mega Audino",
 
             "Mega Tyranitar",
             "Mega Metagross",
-            "Mega Salamence",
             "Mega Garchomp",
             "Mega Lucario",
 
@@ -69,9 +66,6 @@ public class PokemonDataServiceImpl implements PokemonDataService
             "Mega Mewtwo Y",
             "Mega Rayquaza",
             "Mega Diancie",
-
-            "Primal Kyogre",
-            "Primal Groudon",
 
             "White Kyurem",
             "Black Kyurem",
@@ -174,6 +168,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
 //        copyStatsCreateNewMove("Dark Void (OP)", "Dark", "Origin Pulse");
 //        addEliteMoveToPokemon("Darkrai", "Dark Void (OP)");
 
+        addEliteMoveToPokemon("Chandelure", "Poltergeist");
         addEliteMoveToPokemon("Greninja", "Hydro Cannon");
         addEliteMoveToPokemon("Delphox", "Blast Burn");
         addEliteMoveToPokemon("Chesnaught", "Frenzy Plant");
