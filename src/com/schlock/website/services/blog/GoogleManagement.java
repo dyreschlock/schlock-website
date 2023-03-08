@@ -4,7 +4,7 @@ import com.schlock.website.entities.blog.Image;
 
 public interface GoogleManagement
 {
-    void generateIdsForFoldersImages() throws Exception;
+    void generateIdsForFoldersImages();
 
     String getGoogleIdForImage(Image image);
 }

@@ -82,16 +82,17 @@ public class ImageManagementImpl implements ImageManagement
         return galleryImages;
     }
 
-    public void generateImages() throws Exception
+    public void generateImageObjects()
     {
         Set<String> galleries = postDAO.getAllGalleryNames();
         for(String gallery : galleries)
         {
             generateImagesByGallery(gallery);
         }
+    }
 
-        googleManagement.generateIdsForFoldersImages();
-
+    public void generateImagesAndPosts()
+    {
         List<AbstractPost> posts = postDAO.getAll();
         for(AbstractPost post : posts)
         {

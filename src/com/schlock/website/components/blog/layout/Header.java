@@ -27,29 +27,15 @@ public class Header
     }
 
     @CommitAfter
-    void onTestGoogle()
+    void onRegenImages()
     {
-        try
-        {
-            googleManagement.generateIdsForFoldersImages();
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException(e);
-        }
+        imageManagement.generateImageObjects();
     }
 
     @CommitAfter
-    void onRegenImages()
+    void onRegenGoogle()
     {
-        try
-        {
-            imageManagement.generateImages();
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException(e);
-        }
+        googleManagement.generateIdsForFoldersImages();
     }
 
     @CommitAfter
