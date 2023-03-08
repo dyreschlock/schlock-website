@@ -13,7 +13,7 @@ public interface ImageManagement
 
     public void generateImageObjects();
 
-    public void generateImagesAndPosts();
+    public void generateImagesInPostBody();
 
     public String updateImagesInHTML(String html);
 }

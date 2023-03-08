@@ -91,7 +91,7 @@ public class ImageManagementImpl implements ImageManagement
         }
     }
 
-    public void generateImagesAndPosts()
+    public void generateImagesInPostBody()
     {
         List<AbstractPost> posts = postDAO.getAll();
         for(AbstractPost post : posts)
@@ -114,13 +114,22 @@ public class ImageManagementImpl implements ImageManagement
         {
             Map<String, Image> cache = getImagesByGallery(galleryName);
 
-            File[] directoryImages = gallery.listFiles(new FilenameFilter()
+            File[] dirImgs = gallery.listFiles(new FilenameFilter()
             {
                 public boolean accept(File dir, String name)
                 {
                     return StringUtils.endsWith(name, ".jpg") ||
                             StringUtils.endsWith(name, ".png") ||
                             StringUtils.endsWith(name, ".gif");
+                }
+            });
+
+            List<File> directoryImages = Arrays.asList(dirImgs);
+            Collections.sort(directoryImages, new Comparator<File>()
+            {
+                public int compare(File o1, File o2)
+                {
+                    return o1.getName().compareTo(o2.getName());
                 }
             });
 
