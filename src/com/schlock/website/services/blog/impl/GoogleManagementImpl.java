@@ -9,7 +9,8 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
-import com.google.api.client.util.store.FileDataStoreFactory;
+import com.google.api.client.util.store.DataStoreFactory;
+import com.google.api.client.util.store.MemoryDataStoreFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
@@ -76,10 +77,13 @@ public class GoogleManagementImpl implements GoogleManagement
         InputStream in = new FileInputStream(context.googleCredentialsFilepath());
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
+//        DataStoreFactory dataStoreFactory = new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH));
+        DataStoreFactory dataStoreFactory = new MemoryDataStoreFactory();
+
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow =
                 new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                    .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+                    .setDataStoreFactory(dataStoreFactory)
                     .setAccessType("offline")
                     .build();
 
@@ -107,30 +111,19 @@ public class GoogleManagementImpl implements GoogleManagement
     }
 
 
-//        File photo = getFileFromPath(Arrays.asList("photo", "ffxv", "FINAL_FANTASY_XV_20161230163328.jpg"));
-//        if(photo != null)
-//        {
-//            System.out.printf("%s (%s)\n", photo.getName(), photo.getId());
-//        }
-//        else
-//        {
-//            System.out.println("Cannot find photo: FINAL_FANTASY_XV_20161230163328.jpg");
-//        }
 
-
-    public void generateIdsForFoldersImages() throws Exception
+    public void generateIdsForFoldersImages()
     {
         buildFolders();
         updateImages();
     }
 
 
-    public void buildFolders() throws Exception
+    public void buildFolders()
     {
-        List<Image> allImages = imageDAO.getAll();
-
         Map<String, List<String>> folderStructure = new HashMap<String, List<String>>();
 
+        List<Image> allImages = imageDAO.getAll();
         for(Image image : allImages)
         {
             String directory = image.getDirectory();
@@ -156,12 +149,20 @@ public class GoogleManagementImpl implements GoogleManagement
 
         for(String dir : folderStructure.keySet())
         {
-            ImageFolder mainFolder = getCreateFolder(dir, root);
-
-            List<String> subFolders = folderStructure.get(dir);
-            for(String subName : subFolders)
+            try
             {
-                getCreateFolder(subName, mainFolder);
+                ImageFolder mainFolder = getCreateFolder(dir, root);
+
+                List<String> subFolders = folderStructure.get(dir);
+                for(String subName : subFolders)
+                {
+                    getCreateFolder(subName, mainFolder);
+                }
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                //throw new RuntimeException(e);
             }
         }
     }
@@ -189,7 +190,7 @@ public class GoogleManagementImpl implements GoogleManagement
 
 
 
-    private void updateImages() throws Exception
+    private void updateImages()
     {
         List<Image> allImages = imageDAO.getAllWithoutGooleId();
 
@@ -228,35 +229,42 @@ public class GoogleManagementImpl implements GoogleManagement
 
                 ImageFolder folder = folderDAO.getByName(galleryName);
 
-                String pageToken = null;
-                do
+                try
                 {
-                    String query1 = String.format("parents = '%s'", folder.getGoogleId()); //from parent
-
-                    FileList result = service().files().list()
-                                                        .setQ(query1)
-                                                        .setFields("nextPageToken, files(id, name)")
-                                                        .setPageToken(pageToken)
-                                                        .execute();
-
-                    for (File file : result.getFiles())
+                    String pageToken = null;
+                    do
                     {
-                        String fileName = file.getName();
-                        Image image = imageSet.get(fileName);
-                        if (image != null)
+                        String query1 = String.format("parents = '%s'", folder.getGoogleId()); //from parent
+
+                        FileList result = service().files().list()
+                                .setQ(query1)
+                                .setFields("nextPageToken, files(id, name)")
+                                .setPageToken(pageToken)
+                                .execute();
+
+                        for (File file : result.getFiles())
                         {
-                            image.setGoogleId(file.getId());
-                            imageDAO.save(image);
+                            String fileName = file.getName();
+                            Image image = imageSet.get(fileName);
+                            if (image != null)
+                            {
+                                image.setGoogleId(file.getId());
+                                imageDAO.save(image);
 
-                            String message = String.format("Updated Google Id on Image: %s (%s)", file.getName(), file.getId());
-                            System.out.println(message);
+                                String message = String.format("Updated Google Id on Image: %s (%s)", file.getName(), file.getId());
+                                System.out.println(message);
+                            }
                         }
+
+                        pageToken = result.getNextPageToken();
                     }
-
-                    pageToken = result.getNextPageToken();
+                    while (pageToken != null);
                 }
-                while (pageToken != null);
-
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+//                    throw new RuntimeException(e);
+                }
             }
         }
     }
