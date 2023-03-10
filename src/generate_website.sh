@@ -40,6 +40,8 @@ for dir in $(find . -mindepth 1 -type d -not \( -path "./.*" -prune \)) ; do
     fi
 done
 
+mv "feed" "feed.xml"
+
 echo "update complete"
 
 exit 0
