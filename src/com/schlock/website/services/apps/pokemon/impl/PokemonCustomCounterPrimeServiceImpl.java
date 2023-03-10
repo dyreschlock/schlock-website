@@ -54,7 +54,13 @@ public class PokemonCustomCounterPrimeServiceImpl extends AbstractCustomCounterS
         addCustom("Mega Swampert", 50, 15, 15, 15);
         addCustom("Mega Swampert", 41, 13, 15, 15);
 
+        addCustom("Primal Groudon", 40, 14, 15, 13, "Mud Shot", "Precipice Blades");
+        addCustom("Primal Kyogre", 40, 15, 15, 13, "Waterfall", "Origin Pulse");
 
+        addCustom("Mega Gardevoir", 50, 14, 15, 14, "Charm", "Synchronoise, Dazzling Gleam");
+        addCustom("Mega Salamence", 50, 14, 15, 14, "Dragon Tail", "Outrage");
+
+        addCustom("Salamence", 50, 14, 15, 14, "Dragon Tail", "Outrage");
 
         addCustom("Mega Alakazam", 40, 14, 15, 14, "Confusion", "Psychic");
 
@@ -122,6 +128,9 @@ public class PokemonCustomCounterPrimeServiceImpl extends AbstractCustomCounterS
         addCustom("Emboar", 30, 14, 13, 15, "Ember", "Blast Burn");
 
         addCustom("Chandelure", 50, 15, 13, 15);
+        addCustom("Chandelure", 50, 15, 15, 15);
+        addCustom("Chandelure", 40, 15, 15, 14);
+
         addCustom("Chandelure", 40, 14, 12, 12);
         addCustom("Chandelure", 32, 13, 14, 7);
 
