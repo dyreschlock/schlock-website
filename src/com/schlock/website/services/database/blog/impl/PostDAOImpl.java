@@ -86,6 +86,19 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return uuids;
     }
 
+    public List<String> getAllPublishedUuids()
+    {
+        String text = "select p.uuid " +
+                " from AbstractPost p " +
+                " where p.publishedLevel >= " + POST_PUBLISHED + " " +
+                " order by p.created asc ";
+
+        Query query = session.createQuery(text);
+
+        List<String> list = query.list();
+        return list;
+    }
+
     public Set<String> getAllGalleryNames()
     {
         String text = "select p.galleryName " +

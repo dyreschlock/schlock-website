@@ -1,8 +1,6 @@
 package com.schlock.website.components.blog.layout;
 
 import com.schlock.website.entities.blog.*;
-import com.schlock.website.pages.Index;
-import com.schlock.website.pages.category.CategoryIndex;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -10,7 +8,6 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.List;
 
@@ -40,6 +37,23 @@ public class Subheader
     @Property
     private Integer currentIndex;
 
+
+    public String getBlogDataJS()
+    {
+        String code = "";
+
+        List<String> uuids = postDAO.getAllPublishedUuids();
+        for(int i = 0; i < uuids.size(); i++)
+        {
+            String index = Integer.toString(i);
+            String uuid = uuids.get(i);
+
+            String postcode = String.format("blogLinks[%s] = \"%s\";\n", index, uuid);
+
+            code += postcode;
+        }
+        return code;
+    }
 
 
     public boolean isHasBoth()

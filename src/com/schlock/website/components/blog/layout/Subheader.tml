@@ -1,6 +1,48 @@
 <t:container
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
+    <script>
+
+        const blogLinks = [];
+
+        ${blogDataJS}
+
+        function randomClicked()
+        {
+            let randomIndex = Math.floor(Math.random() * (blogLinks.length -1));
+            let randomIndex2 = Math.floor(Math.random() * (blogLinks.length -1));
+
+            if(isGreaterThan(randomIndex2, randomIndex))
+            {
+                randomIndex = randomIndex2;
+            }
+
+            location.href = "/" + blogLinks[randomIndex];
+        }
+
+        function isGreaterThan(n1, n2)
+        {
+            let number1 = n1;
+            let number2 = n2;
+
+            while(true)
+            {
+                number1--;
+                number2--;
+
+                if(number1 == 0)
+                {
+                    return false;
+                }
+                if(number2 == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+    </script>
     <div class="previousNext">
 
         <t:if test="hasPrevious">
@@ -35,6 +77,8 @@
             <t:if test="notFirst"> / </t:if>
             <a href="/category/${currentCategory.uuid}">${currentCategory.name}</a>
         </t:loop>
+        /
+        <a onclick="randomClicked()">${message:random}</a>
     </div>
     <br class="clr" />
 
