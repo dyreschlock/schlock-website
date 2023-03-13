@@ -2,7 +2,6 @@ package com.schlock.website.pages;
 
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.database.blog.PostDAO;
-import com.schlock.website.services.database.blog.impl.PostDAOImpl;
 import org.apache.tapestry5.annotations.ContentType;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
@@ -30,7 +29,7 @@ public class Feed
 
     public List<Post> getRecentPosts()
     {
-        int postCount = PostDAOImpl.TOP_RECENT;
+        int postCount = 20;
 
         List<Post> posts = postDAO.getMostRecentPosts(postCount, false, null, null, null);
         return posts;
