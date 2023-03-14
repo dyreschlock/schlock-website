@@ -20,6 +20,9 @@
             location.href = "/" + blogLinks[randomIndex];
         }
 
+        // cannot use greater than or less than operators because of tapestry
+        // cannot use the AND operator either.
+
         function isGreaterThan(n1, n2)
         {
             let number1 = n1;
