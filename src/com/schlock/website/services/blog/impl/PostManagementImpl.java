@@ -161,7 +161,10 @@ public class PostManagementImpl implements PostManagement
 
     public void regenerateAllPostHTML()
     {
-        imageManagement.generateImagesInPostBody();
+        for(AbstractPost post : postDAO.getAll())
+        {
+            setPostHTML(post);
+        }
     }
 
     public void setPostHTML(AbstractPost post)

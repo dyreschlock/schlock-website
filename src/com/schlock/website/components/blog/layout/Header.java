@@ -27,6 +27,14 @@ public class Header
     }
 
     @CommitAfter
+    void onRegen()
+    {
+        onRegenImages();
+        onRegenHTML();
+        onRegenGoogle();
+    }
+
+    @CommitAfter
     void onRegenImages()
     {
         imageManagement.generateImageObjects();

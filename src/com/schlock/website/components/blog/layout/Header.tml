@@ -17,7 +17,8 @@
         <a href="/aboutme">${message:about-me}</a>
 
         <t:remove>
-            / <t:eventlink t:id="regenImages">★Img</t:eventlink> <t:eventlink t:id="regenGoogle">★Ids</t:eventlink> <t:eventlink t:id="regenHtml">★Html</t:eventlink>
+            / <t:eventlink t:id="regen">★Regen</t:eventlink>
+            / <t:eventlink t:id="regenImages">★Img</t:eventlink> <t:eventlink t:id="regenHtml">★Html</t:eventlink> <t:eventlink t:id="regenGoogle">★Ids</t:eventlink>
         </t:remove>
     </div>
     <br class="clr" />

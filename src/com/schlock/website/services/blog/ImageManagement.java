@@ -7,13 +7,11 @@ import java.util.List;
 
 public interface ImageManagement
 {
-    public List<Image> getGalleryImages(AbstractPost post);
+    List<Image> getGalleryImages(AbstractPost post);
 
-    public Image getPostImage(AbstractPost post);
+    Image getPostImage(AbstractPost post);
 
-    public void generateImageObjects();
+    void generateImageObjects();
 
-    public void generateImagesInPostBody();
-
-    public String updateImagesInHTML(String html);
+    String updateImagesInHTML(String html);
 }

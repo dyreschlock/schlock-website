@@ -91,20 +91,6 @@ public class ImageManagementImpl implements ImageManagement
         }
     }
 
-    public void generateImagesInPostBody()
-    {
-        List<AbstractPost> posts = postDAO.getAll();
-        for(AbstractPost post : posts)
-        {
-            String html = post.getBodyHTML();
-            html = updateImagesInHTML(html);
-
-            post.setBodyHTML(html);
-
-            postDAO.save(post);
-        }
-    }
-
     private Map<String, Image> generateImagesByGallery(String galleryName)
     {
         String directory = DeploymentContext.PHOTO_DIR.substring(0, DeploymentContext.PHOTO_DIR.length() - 1);
