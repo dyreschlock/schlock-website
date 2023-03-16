@@ -7,7 +7,6 @@ import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.PokemonUnownService;
 import org.apache.commons.lang.StringUtils;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -19,8 +18,8 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
      * https://www.serebii.net/pokemongo/unownevents.shtml
      */
 
-    private final static String CURRENT_UNOWN_POKEDEX = "ABEFGIJKLMNOPRSTUVWXY!";
-    private final static String HAVE_TO_TRADE =         "ACEFGIJKLMNOPRSTUVWXY!";
+    private final static String CURRENT_UNOWN_POKEDEX = "ABEFGHIJKLMNOPRSTUVWXY!";
+    private final static String HAVE_TO_TRADE =         "ACEFGHIJKLMNOPRSTUVWXY!";
     private final static String HAVE_SHINY =            "ABSTU";
 
     private final static List[] UNOWN_EVENTS = {
@@ -141,7 +140,13 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
 
             Arrays.asList("Go Fest 2022 Finale", "BGNOPSX", "8/27/2022", "8/27/2022", "Global", WorldRegion.GLOBAL, Boolean.TRUE),
 
-            Arrays.asList("Safari Zone Goyang, South Korea", "GOYAN", "9/23/2022", "9/25/2022", "South Korea", WorldRegion.ASIA)
+            Arrays.asList("Safari Zone Goyang, South Korea", "GOYAN", "9/23/2022", "9/25/2022", "South Korea", WorldRegion.ASIA),
+            Arrays.asList("Safari Zone Taipei, Taiwan", "TPE", "10/21/2022", "10/23/2022", "Taiwan", WorldRegion.ASIA),
+            Arrays.asList("Safari Zone Singapore", "SIN", "11/18/2022", "11/20/2022", "Singapore", WorldRegion.ASIA),
+
+            Arrays.asList("Taipei Lanturn Festival", "FUL", "2/10/2023", "2/12/2023", "Taiwan", WorldRegion.ASIA),
+            Arrays.asList("Hoenn Tour, Las Vegas", "HOEN", "2/18/2023", "2/19/2023", "US", WorldRegion.NORTH_AMERICA),
+            Arrays.asList("Hoenn Tour Global", "HEON", "2/25/2023", "2/25/2023", "Global", WorldRegion.GLOBAL, Boolean.TRUE)
     };
 
     private List<UnownPokemon> listOfUnown = new ArrayList<UnownPokemon>();
