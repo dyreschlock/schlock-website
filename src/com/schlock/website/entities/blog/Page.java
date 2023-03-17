@@ -4,7 +4,7 @@ import org.apache.commons.lang.StringUtils;
 
 public class Page extends AbstractPost
 {
-    public static final String ABOUT_ME_UUID = "about-me";
+    public static final String ABOUT_ME_UUID = "aboutme";
     public static final String CLUB_UUID = "club";
     public static final String LESSON_PLANS_UUID = "lessons";
     public static final String PROJECTS_UUID = "projects";
