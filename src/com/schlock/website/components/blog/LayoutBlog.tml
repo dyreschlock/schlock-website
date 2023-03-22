@@ -8,6 +8,12 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="p:domain_verify" content="8b58e68bd24b01d551284566abf39d9a"/>
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="${title}" />
+        <t:if test="hasCoverImage">
+            <meta property="og:image" itemprop="image primaryImageOfPage" content="${coverImageUrl}" />
+        </t:if>
+
         <title>${title}</title>
         <link rel="shortcut icon" href="/icons/favicon.ico" type="image/x-icon"/>
         <link rel="icon" href="/icons/favicon.ico" type="image/x-icon"/>
