@@ -38,6 +38,7 @@ public class Header
     void onRegenImages()
     {
         imageManagement.generateImageObjects();
+        imageManagement.createPostPreviewImages();
     }
 
     @CommitAfter

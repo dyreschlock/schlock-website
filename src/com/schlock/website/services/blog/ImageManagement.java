@@ -16,4 +16,6 @@ public interface ImageManagement
     void generateImageObjects();
 
     String updateImagesInHTML(String html);
+
+    void createPostPreviewImages();
 }

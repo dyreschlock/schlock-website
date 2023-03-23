@@ -71,6 +71,14 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return (AbstractPost) singleResult(query);
     }
 
+    public List<AbstractPost> getAllWithGallery()
+    {
+        String text = "from AbstractPost p where p.galleryName is not null";
+        Query query = session.createQuery(text);
+
+        return query.list();
+    }
+
     public Set<String> getAllUuids()
     {
         String text = "select p.uuid " +

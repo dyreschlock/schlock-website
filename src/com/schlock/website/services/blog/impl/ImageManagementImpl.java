@@ -10,9 +10,13 @@ import com.schlock.website.services.database.blog.ImageDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.*;
+import java.util.List;
 
 public class ImageManagementImpl implements ImageManagement
 {
@@ -403,5 +407,91 @@ public class ImageManagementImpl implements ImageManagement
             link = coverUrlBase + uuid + ".jpg";
         }
         return link;
+    }
+
+
+    public void createPostPreviewImages()
+    {
+        final String COVER_DIRECTORY = deploymentContext.coverImageLocationLocal();
+        final String PHOTO_DIRECTORY = deploymentContext.photoLocation();
+
+        createDirectories(COVER_DIRECTORY);
+
+        List<AbstractPost> posts = postDAO.getAllWithGallery();
+        for(AbstractPost post : posts)
+        {
+            Image coverImage = getPostImage(post);
+            if (coverImage != null)
+            {
+                String coverOutputLocation = COVER_DIRECTORY + post.getUuid() + ".jpg";
+
+                File coverOutput = new File(coverOutputLocation);
+                if (!coverOutput.exists())
+                {
+                    String coverInputLocation = PHOTO_DIRECTORY + coverImage.getGalleryName() + "/" + coverImage.getImageName();
+                    File coverInput = new File(coverInputLocation);
+
+                    try
+                    {
+                        convertAndCopyImage(coverInput, coverOutput);
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println(String.format("Failure converting image: %s", coverInputLocation));
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+    private void createDirectories(String location)
+    {
+        File folder = new File(location);
+        if (!folder.exists())
+        {
+            folder.mkdirs();
+        }
+    }
+
+    private static final int PREVIEW_WIDTH = 1024;
+
+    private void convertAndCopyImage(File originalLocation, File outputLocation) throws Exception
+    {
+        BufferedImage originalImage = ImageIO.read(originalLocation);
+
+        int newWidth = PREVIEW_WIDTH;
+        int newHeight = getScaledHeight(originalImage);
+
+        java.awt.Image scaledImage = originalImage.getScaledInstance(newWidth, newHeight, java.awt.Image.SCALE_SMOOTH);
+
+        // The new Image must not contain an Alpha channel.
+        BufferedImage convertedJPG = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
+
+        Graphics2D gr = convertedJPG.createGraphics();
+        gr.drawImage(scaledImage, 0, 0, newWidth, newHeight, Color.WHITE, null);
+        gr.dispose();
+
+        boolean success = ImageIO.write(convertedJPG, "jpg", outputLocation);
+        if(success)
+        {
+            System.out.println("Converted file: " + originalLocation.getName());
+        }
+        else
+        {
+            System.out.println("Write failed for: " + originalLocation.getName());
+        }
+    }
+
+    private int getScaledHeight(BufferedImage image)
+    {
+        double oldWidth = image.getWidth();
+        double oldHeight = image.getHeight();
+
+        double ratioWidth = PREVIEW_WIDTH / oldWidth;
+
+        Double newHeight = ratioWidth * oldHeight;
+
+        return newHeight.intValue();
     }
 }
