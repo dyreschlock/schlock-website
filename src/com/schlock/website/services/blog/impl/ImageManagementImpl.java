@@ -16,6 +16,7 @@ import java.util.*;
 
 public class ImageManagementImpl implements ImageManagement
 {
+
     private final DeploymentContext deploymentContext;
 
     private final GoogleManagement googleManagement;
@@ -391,4 +392,16 @@ public class ImageManagementImpl implements ImageManagement
         return null;
     }
 
+    public String getPostPreviewMetadataLink(AbstractPost post)
+    {
+        String link = "";
+        if (post != null)
+        {
+            String uuid = post.getUuid();
+            String coverUrlBase = deploymentContext.coverImageLocationInternet();
+
+            link = coverUrlBase + uuid + ".jpg";
+        }
+        return link;
+    }
 }

@@ -22,8 +22,11 @@
         <t:if test="hasCoverImage">
             <meta property="og:image" itemprop="image primaryImageOfPage" content="${coverImageUrl}" />
             <meta property="twitter:image" name="twitter:image" itemprop="image primaryImageOfPage" content="${coverImageUrl}" />
+            <meta property="twitter:card" name="twitter:card" content="summary_large_image" />
         </t:if>
-        <meta property="twitter:card" name="twitter:card" content="summary_large_image" />
+        <t:if test="!hasCoverImage">
+            <meta property="twitter:card" name="twitter:card" content="summary" />
+        </t:if>
 
         <link rel="shortcut icon" href="/icons/favicon.ico" type="image/x-icon"/>
         <link rel="icon" href="/icons/favicon.ico" type="image/x-icon"/>

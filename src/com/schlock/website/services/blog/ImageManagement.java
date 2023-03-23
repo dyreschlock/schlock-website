@@ -11,6 +11,8 @@ public interface ImageManagement
 
     Image getPostImage(AbstractPost post);
 
+    String getPostPreviewMetadataLink(AbstractPost post);
+
     void generateImageObjects();
 
     String updateImagesInHTML(String html);

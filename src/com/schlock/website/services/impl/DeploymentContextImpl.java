@@ -12,11 +12,15 @@ import java.util.Properties;
 
 public class DeploymentContextImpl implements DeploymentContext
 {
+    private static final String WEB_DOMAIN = "web.domain";
+
     private static final String LOCATION = "com.schlock.website.deploy";
 
     private static final String GOOGLE_CREDENTIALS_FILEPATH = "google.credentials.filepath";
 
     private static final String WEBDIR_PARAM = "webdirectory.location";
+
+    private static final String OUT_DIR_PARAM = "generation.output.directory";
 
     private static final String LOCAL = "local";
     private static final String HOSTED = "hosted";
@@ -126,5 +130,17 @@ public class DeploymentContextImpl implements DeploymentContext
     {
         String context = getContext();
         return getDeployProperties().getProperty(WEBDIR_PARAM + "." + context);
+    }
+
+    public String coverImageLocationLocal()
+    {
+        String outputDirectory = getDeployProperties().getProperty(OUT_DIR_PARAM);
+        return outputDirectory + "/" + COVER_DIR;
+    }
+
+    public String coverImageLocationInternet()
+    {
+        String domain = getDeployProperties().getProperty(WEB_DOMAIN);
+        return domain + COVER_DIR;
     }
 }

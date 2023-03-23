@@ -58,7 +58,12 @@ public class LayoutBlog
 
     public boolean isHasCoverImage()
     {
-        return post != null && post.getCoverImage() != null;
+        if (post != null)
+        {
+            Image coverImage = imageManagement.getPostImage(post);
+            return coverImage != null;
+        }
+        return false;
     }
 
     public String getCoverImageUrl()
@@ -66,18 +71,7 @@ public class LayoutBlog
         String imageUrl = "";
         if (post != null)
         {
-            Image coverImage = imageManagement.getPostImage(post);
-            if (coverImage != null)
-            {
-                if (StringUtils.isNotBlank(coverImage.getMetaThumbnailLink()))
-                {
-                    imageUrl = coverImage.getMetaThumbnailLink();
-                }
-                else
-                {
-                    imageUrl = coverImage.getImageLink();
-                }
-            }
+            imageUrl = imageManagement.getPostPreviewMetadataLink(post);
         }
         return imageUrl;
     }
