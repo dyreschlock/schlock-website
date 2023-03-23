@@ -65,4 +65,17 @@ public class ImageDAOImpl extends BaseDAOImpl<Image> implements ImageDAO
 
         return query.list();
     }
+
+    public List<Image> getAllCoverImagesWithoutThumbnailLinks()
+    {
+        String text = "select i " +
+                " from AbstractPost p, Image i " +
+                " where p.galleryName = i.galleryName " +
+                " and p.coverImage = i.imageName " +
+                " and i.metaThumbnailLink is null ";
+
+        Query query = session.createQuery(text);
+
+        return query.list();
+    }
 }

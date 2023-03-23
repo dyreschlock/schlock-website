@@ -23,10 +23,9 @@ import com.schlock.website.services.database.blog.ImageDAO;
 import com.schlock.website.services.database.blog.ImageFolderDAO;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.*;
 
 public class GoogleManagementImpl implements GoogleManagement
@@ -116,6 +115,7 @@ public class GoogleManagementImpl implements GoogleManagement
     {
         buildFolders();
         updateImages();
+        buildThumbnailLinks();
     }
 
 
@@ -352,6 +352,73 @@ public class GoogleManagementImpl implements GoogleManagement
             {
                 return file;
             }
+        }
+        return null;
+    }
+
+
+    private static final String FILE_LINK = "https://drive.google.com/file/d/%s/view?usp=share_link";
+
+    private void buildThumbnailLinks()
+    {
+        List<Image> images = imageDAO.getAllCoverImagesWithoutThumbnailLinks();
+
+        for(Image image : images)
+        {
+            if(StringUtils.isNotBlank(image.getGoogleId()))
+            {
+                String link = "";
+                try
+                {
+                    String imageFileLink = String.format(FILE_LINK, image.getGoogleId());
+                    link = getThumbnailLinkFromGoogleImage(imageFileLink);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+                if (StringUtils.isNotBlank(link))
+                {
+                    image.setMetaThumbnailLink(link);
+                    imageDAO.save(image);
+                }
+            }
+        }
+    }
+
+    private String getThumbnailLinkFromGoogleImage(String link) throws Exception
+    {
+        URL googleURL = new URL(link);
+
+        BufferedReader in = null;
+        try
+        {
+            HttpURLConnection conn = (HttpURLConnection) googleURL.openConnection();
+
+            String IMAGE_PARAM = "property=\"og:image\"";
+            String CONTENT_PARAM = "content=\"";
+
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line = "";
+
+            while ((line = in.readLine()) != null)
+            {
+                if (line.contains(IMAGE_PARAM))
+                {
+                    int start = line.indexOf(IMAGE_PARAM);
+                    start = line.indexOf(CONTENT_PARAM, start) + CONTENT_PARAM.length();
+
+                    int end = line.indexOf("\"", start);
+
+                    String thumbnailLink = line.substring(start, end);
+                    return thumbnailLink;
+                }
+            }
+        }
+        finally
+        {
+            in.close();
         }
         return null;
     }

@@ -12,4 +12,6 @@ public interface ImageDAO extends BaseDAO<Image>
     List<Image> getByGallery(String galleryName);
 
     List<Image> getAllWithoutGooleId();
+
+    List<Image> getAllCoverImagesWithoutThumbnailLinks();
 }

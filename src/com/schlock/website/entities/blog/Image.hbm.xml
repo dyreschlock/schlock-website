@@ -13,6 +13,7 @@
         <property name="googleId" />
 
         <property name="commentText" length="1000000" />
+        <property name="metaThumbnailLink" />
 
         <many-to-one name="parent" column="parentId" class="com.schlock.website.entities.blog.Image" />
     </class>

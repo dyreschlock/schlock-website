@@ -10,6 +10,7 @@ public class Image extends Persisted
     private String imageName;
 
     private String googleId;
+    private String metaThumbnailLink;
 
     private String commentText;
 
@@ -70,6 +71,16 @@ public class Image extends Persisted
     public void setGoogleId(String googleId)
     {
         this.googleId = googleId;
+    }
+
+    public String getMetaThumbnailLink()
+    {
+        return metaThumbnailLink;
+    }
+
+    public void setMetaThumbnailLink(String metaThumbnailLink)
+    {
+        this.metaThumbnailLink = metaThumbnailLink;
     }
 
     public String getCommentText() { return commentText; }

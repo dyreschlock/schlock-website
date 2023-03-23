@@ -31,8 +31,19 @@ public class LayoutBlog
 
     public String getTitle()
     {
-        String title = messages.get("website-title");
+        String title = getWebsiteTitle();
+        String name = getPageTitle();
 
+        return title + " // " + name;
+    }
+
+    public String getWebsiteTitle()
+    {
+        return messages.get("website-title");
+    }
+
+    public String getPageTitle()
+    {
         String name = "";
         if (StringUtils.isNotBlank(pageName))
         {
@@ -42,8 +53,7 @@ public class LayoutBlog
         {
             name = post.getTitle();
         }
-
-        return title + " // " + name;
+        return name;
     }
 
     public boolean isHasCoverImage()
@@ -59,7 +69,14 @@ public class LayoutBlog
             Image coverImage = imageManagement.getPostImage(post);
             if (coverImage != null)
             {
-                imageUrl = coverImage.getImageLink();
+                if (StringUtils.isNotBlank(coverImage.getMetaThumbnailLink()))
+                {
+                    imageUrl = coverImage.getMetaThumbnailLink();
+                }
+                else
+                {
+                    imageUrl = coverImage.getImageLink();
+                }
             }
         }
         return imageUrl;
