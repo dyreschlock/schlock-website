@@ -456,7 +456,7 @@ public class ImageManagementImpl implements ImageManagement
 
     private static final int PREVIEW_WIDTH = 1024;
 
-    private void convertAndCopyImage(File originalLocation, File outputLocation) throws Exception
+    private static void convertAndCopyImage(File originalLocation, File outputLocation) throws Exception
     {
         BufferedImage originalImage = ImageIO.read(originalLocation);
 
@@ -483,7 +483,7 @@ public class ImageManagementImpl implements ImageManagement
         }
     }
 
-    private int getScaledHeight(BufferedImage image)
+    private static int getScaledHeight(BufferedImage image)
     {
         double oldWidth = image.getWidth();
         double oldHeight = image.getHeight();
@@ -493,5 +493,51 @@ public class ImageManagementImpl implements ImageManagement
         Double newHeight = ratioWidth * oldHeight;
 
         return newHeight.intValue();
+    }
+
+
+
+
+    private static void createThumbnailsForDirectory(String location) throws Exception
+    {
+        FilenameFilter filter = new FilenameFilter()
+        {
+            public boolean accept(File dir, String name)
+            {
+                boolean image =  StringUtils.endsWith(name, ".jpg") || StringUtils.endsWith(name, ".png");
+                boolean thumbnail = StringUtils.endsWith(name, "_t.jpg") || StringUtils.endsWith(name, "_t.png");
+
+                return image && !thumbnail;
+            }
+        };
+
+        File folder = new File(location);
+        for(File image : folder.listFiles(filter))
+        {
+            String imageName = image.getAbsolutePath();
+            String thumbnailName = imageName.substring(0, imageName.length() - 4);
+
+            if (StringUtils.endsWith(imageName, ".jpg"))
+            {
+                thumbnailName += "_t.jpg";
+            }
+            if (StringUtils.endsWith(imageName, ".png"))
+            {
+                thumbnailName += "_t.png";
+            }
+
+            File thumbnail = new File(thumbnailName);
+            if (!thumbnail.exists())
+            {
+                convertAndCopyImage(image, thumbnail);
+            }
+        }
+    }
+
+    public static void main(String[] args) throws Exception
+    {
+        String LOCATION = "";
+
+//        createThumbnailsForDirectory(LOCATION);
     }
 }
