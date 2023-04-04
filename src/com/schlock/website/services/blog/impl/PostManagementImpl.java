@@ -180,6 +180,34 @@ public class PostManagementImpl implements PostManagement
         postDAO.save(post);
     }
 
+    public String generateCommentHTML(String comment)
+    {
+        String output = comment.trim();
+
+        output = replace(output,"\"", "\\\"");
+
+        return output;
+    }
+
+    private String replace(String fullString, String toReplace, String replacement)
+    {
+        String newString = "";
+        String remainingString = fullString;
+
+        int index = remainingString.indexOf(toReplace);
+        while(index > 0)
+        {
+            newString += remainingString.substring(0, index) + replacement;
+            remainingString = remainingString.substring(index + toReplace.length());
+
+            index = remainingString.indexOf(toReplace);
+        }
+
+        newString += remainingString;
+
+        return newString;
+    }
+
     public String generatePostPreview(AbstractPost post)
     {
         String tempText = post.getBlurb();

@@ -86,13 +86,19 @@ public class ImageGallery
 
             String imageUrl = image.getImageLink();
             String parentUrl = parent.getImageLink();
+
             String comment = image.getCommentText();
+            if (StringUtils.isBlank(comment))
+            {
+                comment = parent.getCommentText();
+            }
             if (StringUtils.isBlank(comment))
             {
                 comment = "";
             }
+            comment = postManagement.generateCommentHTML(comment);
 
-            String imageCode = String.format("images[%s] = \"%s\";\n", index, imageUrl);
+            String imageCode = String.format("images[%s] = \"%s\";\n", index, parentUrl);
             String parentCode = String.format("linkImages[%s] = \"%s\";\n", index, parentUrl);
             String commentCode = String.format("comments[%s] = \"%s\";\n", index, comment);
 

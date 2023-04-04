@@ -20,6 +20,8 @@ public interface PostManagement
 
     public void setPostHTML(AbstractPost post);
 
+    public String generateCommentHTML(String comment);
+
     public String updateLinkToModernReference(String link);
 
     public String generatePostPreview(AbstractPost post);
