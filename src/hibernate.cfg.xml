@@ -7,10 +7,10 @@
         <property name="hibernate.connection.provider_class">com.jolbox.bonecp.provider.BoneCPConnectionProvider</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
 
-        <property name="hbm2ddl.auto">update</property>
         <!--
+        <property name="hbm2ddl.auto">update</property>
         -->
-        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.show_sql">false</property>
         <property name="hibernate.format_sql">true</property>
 
         <property name="hibernate.connection.CharSet">utf8</property>
