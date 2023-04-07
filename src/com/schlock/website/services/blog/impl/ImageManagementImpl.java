@@ -1,5 +1,6 @@
 package com.schlock.website.services.blog.impl;
 
+import com.google.common.io.Files;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
 import com.schlock.website.services.DeploymentContext;
@@ -472,7 +473,9 @@ public class ImageManagementImpl implements ImageManagement
         gr.drawImage(scaledImage, 0, 0, newWidth, newHeight, Color.WHITE, null);
         gr.dispose();
 
-        boolean success = ImageIO.write(convertedJPG, "jpg", outputLocation);
+        String extension = Files.getFileExtension(originalLocation.getName());
+
+        boolean success = ImageIO.write(convertedJPG, extension, outputLocation);
         if(success)
         {
             System.out.println("Converted file: " + originalLocation.getName());
