@@ -4,6 +4,7 @@ import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
 import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.blog.ImageManagement;
+import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -21,6 +22,9 @@ public class LayoutBlog
 
     @Inject
     private ImageManagement imageManagement;
+
+    @Inject
+    private PostManagement postManagement;
 
     @Inject
     private CssCache cssCache;
@@ -54,6 +58,22 @@ public class LayoutBlog
             name = post.getTitle();
         }
         return name;
+    }
+
+    public boolean isHasDescription()
+    {
+        String description = getPostDescription();
+        return StringUtils.isNotBlank(description);
+    }
+
+    public String getPostDescription()
+    {
+        if (post != null)
+        {
+            String description = postManagement.generatePostDescription(post);
+            return description;
+        }
+        return null;
     }
 
     public boolean isHasCoverImage()

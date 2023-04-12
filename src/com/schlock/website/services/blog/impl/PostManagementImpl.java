@@ -549,6 +549,29 @@ public class PostManagementImpl implements PostManagement
         return notLocal;
     }
 
+    private static final Integer POST_DESCRIPTION_LENGTH = 175;
+
+    public String generatePostDescription(AbstractPost post)
+    {
+        String description = post.getBodyText();
+        if (description != null && description.length() > POST_DESCRIPTION_LENGTH)
+        {
+            description = description.substring(0, POST_DESCRIPTION_LENGTH);
+
+            description = description.replaceAll(BREAK, "");
+            description = description.replaceAll("\r\n\r\n", " ");
+            description = description.replaceAll("\r\n", " ");
+            description = description.replaceAll("\n\n", " ");
+            description = description.replaceAll("\n", " ");
+
+
+            int lastSpace = description.lastIndexOf(" ");
+            description = description.substring(0, lastSpace);
+            description += "...";
+        }
+        return description;
+    }
+
     public String getStylizedHTMLTitle(AbstractPost post)
     {
         String title = post.getTitle();

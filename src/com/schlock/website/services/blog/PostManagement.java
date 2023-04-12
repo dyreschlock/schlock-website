@@ -28,6 +28,8 @@ public interface PostManagement
 
     public String wrapJapaneseTextInTags(String html);
 
+    public String generatePostDescription(AbstractPost post);
+
     public String getStylizedHTMLTitle(AbstractPost post);
 
     public List<Post> getTopPosts(Integer count, Long categoryId, Set<Long> excludeIds);
