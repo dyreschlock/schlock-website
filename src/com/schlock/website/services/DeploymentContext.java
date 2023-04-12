@@ -22,6 +22,7 @@ public interface DeploymentContext
     public String googleCredentialsFilepath();
 
     public String webDirectory();
+    public String dataDirectory();
 
     public String photoLocation();
 

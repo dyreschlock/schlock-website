@@ -5,12 +5,14 @@ hibernate.connection.username.local=
 hibernate.connection.password.local=
 
 webdirectory.location.local=
+datadirectory.location.local=
 
 hibernate.connection.url.hosted=
 hibernate.connection.username.hosted=
 hibernate.connection.password.hosted=
 
 webdirectory.location.hosted=
+datadirectory.location.hosted=
 
 new.connection.username.hosted=
 new.connection.password.hosted=

@@ -19,6 +19,7 @@ public class DeploymentContextImpl implements DeploymentContext
     private static final String GOOGLE_CREDENTIALS_FILEPATH = "google.credentials.filepath";
 
     private static final String WEBDIR_PARAM = "webdirectory.location";
+    private static final String DATADIR_PARAM = "datadirectory.location";
 
     private static final String OUT_DIR_PARAM = "generation.output.directory";
 
@@ -130,6 +131,12 @@ public class DeploymentContextImpl implements DeploymentContext
     {
         String context = getContext();
         return getDeployProperties().getProperty(WEBDIR_PARAM + "." + context);
+    }
+
+    public String dataDirectory()
+    {
+        String context = getContext();
+        return getDeployProperties().getProperty(DATADIR_PARAM + "." + context);
     }
 
     public String coverImageLocationLocal()

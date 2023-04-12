@@ -23,7 +23,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
     private static final boolean USE_OVERWRITES = true;
 //    private static final boolean USE_OVERWRITES = false;
 
-    private static final String POKEMON_DIR = "pokemon/raid/";
+    private static final String POKEMON_DIR = "pokemon-data/counter-data/";
 
     // https://gamepress.gg/sites/default/files/aggregatedjson/pokemon-data-full-en-PoGO.json
     private static final String POKEMON_FILE = "pokemon-data-full-en-PoGO.json";
@@ -409,7 +409,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
         String content = "";
         try
         {
-            String fileLocation = deploymentContext.webDirectory() + POKEMON_DIR + filename;
+            String fileLocation = deploymentContext.dataDirectory() + POKEMON_DIR + filename;
 
             InputStream in = new FileInputStream(fileLocation);
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
