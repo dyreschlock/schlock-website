@@ -12,6 +12,8 @@ import java.util.*;
 
 public class PostManagementImpl implements PostManagement
 {
+    private static final List<String> IGNORE_CATEGORY_UUIDS_WHEN_FINDING_RELATED_POSTS = Arrays.asList("reviews");
+
     private final static String VALID_UUID_CHARACTERS = "abcdefghijklmnopqrstuvwxyz1234567890";
     private final static int PREVIEW_LENGTH = 900;
 
@@ -815,13 +817,16 @@ public class PostManagementImpl implements PostManagement
 
         for(PostCategory category : categories)
         {
-            for (Keyword keyword : keywords)
+            if (!IGNORE_CATEGORY_UUIDS_WHEN_FINDING_RELATED_POSTS.contains(category.getUuid()))
             {
-                if (clazz != null)
+                for (Keyword keyword : keywords)
                 {
-                    classCriteria.add(new SearchCriteria(clazz, keyword.getId(), category.getId()));
+                    if (clazz != null)
+                    {
+                        classCriteria.add(new SearchCriteria(clazz, keyword.getId(), category.getId()));
+                    }
+                    criteria.add(new SearchCriteria(null, keyword.getId(), category.getId()));
                 }
-                criteria.add(new SearchCriteria(null, keyword.getId(), category.getId()));
             }
         }
 
