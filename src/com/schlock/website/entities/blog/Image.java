@@ -10,19 +10,26 @@ public class Image extends Persisted
     private String imageName;
 
     private String googleId;
+    private String linkId;
 
     private String commentText;
 
     private Image parent; // full version of the thumbnail
 
 
-    public static final String GOOGLE_IMAGE_LINK = "https://drive.google.com/uc?id=";
+    public static final String GOOGLE_DRIVE_LINK = "https://drive.google.com/uc?id=";
+    public static final String GOOGLE_DIRECT_IMAGE_LINK = "https://lh3.googleusercontent.com/drive-viewer/%s=s1600";
 
     public String getImageLink()
     {
+        if (linkId != null && !linkId.isEmpty())
+        {
+            String link = String.format(GOOGLE_DIRECT_IMAGE_LINK, linkId);
+            return link;
+        }
         if (googleId != null && !googleId.isEmpty())
         {
-            return GOOGLE_IMAGE_LINK + googleId;
+            return GOOGLE_DRIVE_LINK + googleId;
         }
         if (StringUtils.isBlank(galleryName))
         {
@@ -70,6 +77,16 @@ public class Image extends Persisted
     public void setGoogleId(String googleId)
     {
         this.googleId = googleId;
+    }
+
+    public String getLinkId()
+    {
+        return linkId;
+    }
+
+    public void setLinkId(String linkId)
+    {
+        this.linkId = linkId;
     }
 
     public String getCommentText() { return commentText; }
