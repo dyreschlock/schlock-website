@@ -3,18 +3,9 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     xmlns:l="tapestry-library:blog/layout"
+    lang="en"
     >
     <head>
-        <!-- Google tag (gtag.js) -->
-        <script async="true" src="https://www.googletagmanager.com/gtag/js?id=G-1KQ4DHX3L9"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-1KQ4DHX3L9');
-        </script>
-
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="p:domain_verify" content="8b58e68bd24b01d551284566abf39d9a"/>
@@ -49,6 +40,16 @@
         <link rel="icon" href="/icons/favicon.ico" type="image/x-icon"/>
         <style>${primaryCss}</style>
     </head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async="true" src="https://www.googletagmanager.com/gtag/js?id=G-1KQ4DHX3L9"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-1KQ4DHX3L9');
+    </script>
 
     <body>
         <div id="headerFullBody"><div id="headerInnerBody"><div id="headerBody">
