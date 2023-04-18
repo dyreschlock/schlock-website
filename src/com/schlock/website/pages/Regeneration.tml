@@ -38,7 +38,7 @@
                 - <t:eventlink t:id="regenGoogle">Retrieve all Google IDs for Images and Retrieve Direct Links</t:eventlink><br/>
                 <br/>
                 <br/>
-                Generate Thumbnails for Directory<br/>
+                <t:eventlink t:id="generateThumbnails">Generate Thumbnails for Directory</t:eventlink><br/>
                 <br/>
                 <br/>
             </div>

@@ -16,6 +16,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -457,7 +458,7 @@ public class ImageManagementImpl implements ImageManagement
 
     private static final int PREVIEW_WIDTH = 1024;
 
-    private static void convertAndCopyImage(File originalLocation, File outputLocation) throws Exception
+    private static void convertAndCopyImage(File originalLocation, File outputLocation) throws IOException
     {
         BufferedImage originalImage = ImageIO.read(originalLocation);
 
@@ -501,7 +502,7 @@ public class ImageManagementImpl implements ImageManagement
 
 
 
-    private static void createThumbnailsForDirectory(String location) throws Exception
+    public void createThumbnailsForDirectory(String location) throws IOException
     {
         FilenameFilter filter = new FilenameFilter()
         {
@@ -535,12 +536,5 @@ public class ImageManagementImpl implements ImageManagement
                 convertAndCopyImage(image, thumbnail);
             }
         }
-    }
-
-    public static void main(String[] args) throws Exception
-    {
-        String LOCATION = "";
-
-//        createThumbnailsForDirectory(LOCATION);
     }
 }

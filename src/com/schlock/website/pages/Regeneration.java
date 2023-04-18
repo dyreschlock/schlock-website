@@ -7,6 +7,8 @@ import com.schlock.website.services.blog.PostManagement;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import java.io.IOException;
+
 public class Regeneration
 {
     @Inject
@@ -57,5 +59,20 @@ public class Regeneration
     void onRegenGoogle()
     {
         googleManagement.generateGoogleImageDetails();
+    }
+
+    @CommitAfter
+    void onGenerateThumbnails()
+    {
+        String LOCATION = "";
+
+        try
+        {
+            imageManagement.createThumbnailsForDirectory(LOCATION);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }
