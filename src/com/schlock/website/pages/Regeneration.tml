@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+    <head>
+        <style>
+
+            div
+            {
+                text-align: center;
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <t:if test="local">
+            <div>
+                <t:eventlink t:id="executeAll">Regenerate each of the following in order</t:eventlink><br/>
+                <br/>
+                <t:eventlink t:id="generateImageObjects">Find and Create Image Objects from Files</t:eventlink><br/>
+                <t:eventlink t:id="createPostPreviewImages">Create Post Preview Image Files</t:eventlink><br/>
+                <t:eventlink t:id="regenHtml">Regenerate all post Html</t:eventlink><br/>
+                <t:eventlink t:id="regenGoogle">Retrieve all Google IDs for Images and Retrieve Direct Links</t:eventlink><br/>
+            </div>
+
+        </t:if>
+
+    </body>
+</html>
