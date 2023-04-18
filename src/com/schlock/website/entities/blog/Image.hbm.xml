@@ -11,7 +11,7 @@
         <property name="galleryName" />
         <property name="imageName" not-null="true" />
         <property name="googleId" />
-        <property name="linkId" />
+        <property name="directLink" />
 
         <property name="commentText" length="1000000" />
 

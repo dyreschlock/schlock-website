@@ -10,7 +10,7 @@ public class Image extends Persisted
     private String imageName;
 
     private String googleId;
-    private String linkId;
+    private String directLink;
 
     private String commentText;
 
@@ -18,14 +18,12 @@ public class Image extends Persisted
 
 
     public static final String GOOGLE_DRIVE_LINK = "https://drive.google.com/uc?id=";
-    public static final String GOOGLE_DIRECT_IMAGE_LINK = "https://lh3.googleusercontent.com/drive-viewer/%s=s1600";
 
     public String getImageLink()
     {
-        if (linkId != null && !linkId.isEmpty())
+        if(directLink != null && !directLink.isEmpty())
         {
-            String link = String.format(GOOGLE_DIRECT_IMAGE_LINK, linkId);
-            return link;
+            return directLink;
         }
         if (googleId != null && !googleId.isEmpty())
         {
@@ -79,14 +77,14 @@ public class Image extends Persisted
         this.googleId = googleId;
     }
 
-    public String getLinkId()
+    public String getDirectLink()
     {
-        return linkId;
+        return directLink;
     }
 
-    public void setLinkId(String linkId)
+    public void setDirectLink(String directLink)
     {
-        this.linkId = linkId;
+        this.directLink = directLink;
     }
 
     public String getCommentText() { return commentText; }

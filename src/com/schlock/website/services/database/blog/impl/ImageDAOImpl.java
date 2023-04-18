@@ -65,4 +65,15 @@ public class ImageDAOImpl extends BaseDAOImpl<Image> implements ImageDAO
 
         return query.list();
     }
+
+    public List<Image> getAllWithoutDirectLink()
+    {
+        String text = " from Image i " +
+                " where i.directLink is null " +
+                " order by i.googleId desc ";
+
+        Query query = session.createQuery(text);
+
+        return query.list();
+    }
 }

@@ -23,10 +23,8 @@ import com.schlock.website.services.database.blog.ImageDAO;
 import com.schlock.website.services.database.blog.ImageFolderDAO;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.URL;
 import java.util.*;
 
 public class GoogleManagementImpl implements GoogleManagement
@@ -112,10 +110,11 @@ public class GoogleManagementImpl implements GoogleManagement
 
 
 
-    public void generateIdsForFoldersImages()
+    public void generateGoogleImageDetails()
     {
-        buildFolders();
-        updateImages();
+//        buildFolders();
+//        updateImagesWithGoogleIds();
+        updateImagesWithDirectLinks();
     }
 
 
@@ -190,7 +189,7 @@ public class GoogleManagementImpl implements GoogleManagement
 
 
 
-    private void updateImages()
+    private void updateImagesWithGoogleIds()
     {
         List<Image> allImages = imageDAO.getAllWithoutGooleId();
 
@@ -354,5 +353,102 @@ public class GoogleManagementImpl implements GoogleManagement
             }
         }
         return null;
+    }
+
+
+
+    public void updateImagesWithDirectLinks()
+    {
+        List<Image> allImages = imageDAO.getAllWithoutDirectLink();
+
+        for(int i = 0; i < 500; i++)
+        {
+            Image image = allImages.get(i);
+
+            String link = getDirectImageLinkForImage(image);
+            image.setDirectLink(link);
+
+            imageDAO.save(image);
+
+            if (i % 10 == 0)
+            {
+                String message = "Curennt index: %s (%s)";
+
+                System.out.println(String.format(message, i, new Date()));
+            }
+        }
+    }
+
+    public static final String GOOGLE_DRIVE_SHARE_LINK_PRE = "https://drive.google.com/file/d/";
+    public static final String GOOGLE_DRIVE_SHARD_LINK_POST = "/view?google_abuse=GOOGLE_ABUSE_EXEMPTION%3DID%3D4c257afad30c90d2:TM%3D1681771648:C%3Dr:IP%3D202.124.215.123-:S%3DzOVxQkkZLZh_YcBCIbq6lxU%3B+path%3D/%3B+domain%3Dgoogle.com%3B+expires%3DTue,+18-Apr-2023+01:47:28+GMT&resourcekey=0-qaYbZgI6u-cC4tqKkrvmGw";
+
+    public String getDirectImageLinkForImage(Image image)
+    {
+        if (StringUtils.isBlank(image.getGoogleId()))
+        {
+            return null;
+        }
+
+        String googleUrl = GOOGLE_DRIVE_SHARE_LINK_PRE + image.getGoogleId();
+        try
+        {
+            String link = getLinkFromUrl(googleUrl);
+            return link;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+//            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    private static final String CONTEXT = "googleusercontent";
+
+    private String getLinkFromUrl(String googleUrl) throws Exception
+    {
+        BufferedReader input = new BufferedReader(new InputStreamReader(new URL(googleUrl).openStream()));
+
+        String line;
+        while((line = input.readLine()) != null)
+        {
+            if (line.contains(CONTEXT))
+            {
+                String link = getGoogleLinkFromCode(line);
+                return link;
+            }
+        }
+        return " ";
+    }
+
+    private String getGoogleLinkFromCode(String codeString)
+    {
+        int gIndex = codeString.indexOf(CONTEXT);
+
+        String pre = codeString.substring(0, gIndex);
+        String post = codeString.substring(gIndex);
+
+        int index1 = pre.lastIndexOf("\"") +1;
+        int index2 = post.indexOf("\"");
+
+        String link = pre.substring(index1) + post.substring(0, index2);
+
+        link = replaceString(link, "\\u003d", "=");
+
+        return link;
+    }
+
+    private String replaceString(String string, String find, String replace)
+    {
+        int index = string.indexOf(find);
+        if (index > 0)
+        {
+            String newString = string.substring(0, index);
+            newString += replace;
+            newString += string.substring(index + find.length());
+
+            return newString;
+        }
+        return string;
     }
 }
