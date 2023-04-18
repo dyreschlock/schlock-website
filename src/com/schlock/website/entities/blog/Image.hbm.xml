@@ -12,6 +12,8 @@
         <property name="imageName" not-null="true" />
         <property name="googleId" />
         <property name="directLink" />
+        <property name="webpGoogleId" />
+        <property name="webpDirectLink" />
 
         <property name="commentText" length="1000000" />
 

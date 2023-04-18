@@ -12,6 +12,9 @@ public class Image extends Persisted
     private String googleId;
     private String directLink;
 
+    private String webpGoogleId;
+    private String webpDirectLink;
+
     private String commentText;
 
     private Image parent; // full version of the thumbnail
@@ -85,6 +88,26 @@ public class Image extends Persisted
     public void setDirectLink(String directLink)
     {
         this.directLink = directLink;
+    }
+
+    public String getWebpGoogleId()
+    {
+        return webpGoogleId;
+    }
+
+    public void setWebpGoogleId(String webpGoogleId)
+    {
+        this.webpGoogleId = webpGoogleId;
+    }
+
+    public String getWebpDirectLink()
+    {
+        return webpDirectLink;
+    }
+
+    public void setWebpDirectLink(String webpDirectLink)
+    {
+        this.webpDirectLink = webpDirectLink;
     }
 
     public String getCommentText() { return commentText; }
