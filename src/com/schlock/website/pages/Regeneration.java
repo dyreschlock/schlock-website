@@ -34,7 +34,8 @@ public class Regeneration
         onGenerateImageObjects();
         onCreatePostPreviewImages();
         onRegenHTML();
-        onRegenGoogle();
+        onGenerateGoogleImageIds();
+        onGenerateImageDirectLinks();
     }
 
     @CommitAfter
@@ -56,9 +57,15 @@ public class Regeneration
     }
 
     @CommitAfter
-    void onRegenGoogle()
+    void onGenerateGoogleImageIds()
     {
-        googleManagement.generateGoogleImageDetails();
+        googleManagement.generateGoogleImageIds();
+    }
+
+    @CommitAfter
+    void onGenerateImageDirectLinks()
+    {
+        googleManagement.updateImagesWithDirectLinks();
     }
 
     @CommitAfter

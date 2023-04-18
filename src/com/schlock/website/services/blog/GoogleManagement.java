@@ -4,7 +4,9 @@ import com.schlock.website.entities.blog.Image;
 
 public interface GoogleManagement
 {
-    void generateGoogleImageDetails();
+    void generateGoogleImageIds();
+
+    void updateImagesWithDirectLinks();
 
     String getGoogleIdForImage(Image image);
 

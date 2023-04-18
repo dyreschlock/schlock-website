@@ -34,8 +34,9 @@
                 <br/>
                 - <t:eventlink t:id="generateImageObjects">Find and Create Image Objects from Files</t:eventlink><br/>
                 - <t:eventlink t:id="createPostPreviewImages">Create Post Preview Image Files</t:eventlink><br/>
-                - <t:eventlink t:id="regenHtml">Regenerate all post Html</t:eventlink><br/>
-                - <t:eventlink t:id="regenGoogle">Retrieve all Google IDs for Images and Retrieve Direct Links</t:eventlink><br/>
+                - <t:eventlink t:id="regenHtml">Regenerate all AbstractPost HTML</t:eventlink><br/>
+                - <t:eventlink t:id="generateGoogleImageIds">Retrieve all Google IDs for Images</t:eventlink><br/>
+                - <t:eventlink t:id="generateImageDirectLinks">Retrieve Direct Links for Images</t:eventlink><br/>
                 <br/>
                 <br/>
                 <t:eventlink t:id="generateThumbnails">Generate Thumbnails for Directory</t:eventlink><br/>

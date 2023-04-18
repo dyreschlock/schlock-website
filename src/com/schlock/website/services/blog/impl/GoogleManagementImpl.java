@@ -110,11 +110,10 @@ public class GoogleManagementImpl implements GoogleManagement
 
 
 
-    public void generateGoogleImageDetails()
+    public void generateGoogleImageIds()
     {
-//        buildFolders();
-//        updateImagesWithGoogleIds();
-        updateImagesWithDirectLinks();
+        buildFolders();
+        updateImagesWithGoogleIds();
     }
 
 
