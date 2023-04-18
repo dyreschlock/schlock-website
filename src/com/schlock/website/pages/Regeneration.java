@@ -82,4 +82,10 @@ public class Regeneration
             throw new RuntimeException(e);
         }
     }
+
+    @CommitAfter
+    void onGenerateWebpFiles()
+    {
+        imageManagement.generateWebpFilesFromImages();
+    }
 }

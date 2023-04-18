@@ -41,6 +41,7 @@
                 <br/>
                 <t:eventlink t:id="generateThumbnails">Generate Thumbnails for Directory</t:eventlink><br/>
                 <br/>
+                <t:eventlink t:id="generateWebpFiles">Generate WebP Files from Images</t:eventlink><br/>
                 <br/>
             </div>
 

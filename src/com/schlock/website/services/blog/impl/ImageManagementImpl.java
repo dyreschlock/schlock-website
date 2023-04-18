@@ -500,8 +500,6 @@ public class ImageManagementImpl implements ImageManagement
     }
 
 
-
-
     public void createThumbnailsForDirectory(String location) throws IOException
     {
         FilenameFilter filter = new FilenameFilter()
@@ -536,5 +534,44 @@ public class ImageManagementImpl implements ImageManagement
                 convertAndCopyImage(image, thumbnail);
             }
         }
+    }
+
+    public void generateWebpFilesFromImages()
+    {
+        List<Image> allImages = imageDAO.getAll();
+        for(Image image: allImages)
+        {
+            String webpPath = getWebpFilepath(image);
+            File webpFile = new File(webpPath);
+
+            File folder = webpFile.getParentFile();
+            if (!folder.exists())
+            {
+                folder.mkdirs();
+            }
+
+
+            
+        }
+    }
+
+    private static final String WEBP_FOLDER = "webp";
+    private static final String WEBP_FILE_EXT = ".webp";
+
+    private String getWebpFilepath(Image image)
+    {
+        String filepath = deploymentContext.webDirectory();
+
+        filepath += WEBP_FOLDER + "/" + image.getDirectory() + "/";
+        if (StringUtils.isNotBlank(image.getGalleryName()))
+        {
+            filepath += image.getGalleryName() + "/";
+        }
+
+        String imageName = image.getImageName();
+        imageName = imageName.substring(imageName.indexOf("."));
+
+        filepath += imageName + WEBP_FILE_EXT;
+        return filepath;
     }
 }
