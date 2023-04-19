@@ -557,9 +557,15 @@ public class ImageManagementImpl implements ImageManagement
                 {
                     BufferedImage original = ImageIO.read(new File(imagePath));
 
-                    ImageIO.write(original, "webp", new File(webpPath));
-
-                    System.out.println("Successfully Converted file: " + imagePath);
+                    boolean success = ImageIO.write(original, "webp", new File(webpPath));
+                    if(success)
+                    {
+                        System.out.println("Successfully Converted file: " + imagePath);
+                    }
+                    else
+                    {
+                        System.out.println("Something is wrong: " + imagePath);
+                    }
                 }
                 catch (Exception e)
                 {
