@@ -17,8 +17,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class ImageManagementImpl implements ImageManagement
 {
@@ -336,12 +336,12 @@ public class ImageManagementImpl implements ImageManagement
 
     private void generateGoogleId(Image image)
     {
-        String googleId = image.getGoogleId();
+        String googleId = image.getWebpGoogleId();
         if (StringUtils.isBlank(googleId))
         {
             googleId = googleManagement.getGoogleIdForImage(image);
 
-            image.setGoogleId(googleId);
+            image.setWebpGoogleId(googleId);
             imageDAO.save(image);
         }
 
@@ -541,37 +541,32 @@ public class ImageManagementImpl implements ImageManagement
         List<Image> allImages = imageDAO.getAll();
         for(Image image: allImages)
         {
-            String webpPath = getWebpFilepath(image);
+            String webpPath = deploymentContext.webDirectory() + image.getWebpFilepath();
             File webpFile = new File(webpPath);
 
-            File folder = webpFile.getParentFile();
-            if (!folder.exists())
+            if (!webpFile.exists())
             {
-                folder.mkdirs();
+                File folder = webpFile.getParentFile();
+                if (!folder.exists())
+                {
+                    folder.mkdirs();
+                }
+
+                String imagePath = deploymentContext.webDirectory() + image.getImagePath();
+                try
+                {
+                    BufferedImage original = ImageIO.read(new File(imagePath));
+
+                    ImageIO.write(original, "webp", new File(webpPath));
+
+                    System.out.println("Successfully Converted file: " + imagePath);
+                }
+                catch (Exception e)
+                {
+                    System.out.println("Problem with this file: " + imagePath);
+                    e.printStackTrace();
+                }
             }
-
-
-            
         }
-    }
-
-    private static final String WEBP_FOLDER = "webp";
-    private static final String WEBP_FILE_EXT = ".webp";
-
-    private String getWebpFilepath(Image image)
-    {
-        String filepath = deploymentContext.webDirectory();
-
-        filepath += WEBP_FOLDER + "/" + image.getDirectory() + "/";
-        if (StringUtils.isNotBlank(image.getGalleryName()))
-        {
-            filepath += image.getGalleryName() + "/";
-        }
-
-        String imageName = image.getImageName();
-        imageName = imageName.substring(imageName.indexOf("."));
-
-        filepath += imageName + WEBP_FILE_EXT;
-        return filepath;
     }
 }

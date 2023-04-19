@@ -29,16 +29,6 @@ public class Regeneration
     }
 
     @CommitAfter
-    void onExecuteAll()
-    {
-        onGenerateImageObjects();
-        onCreatePostPreviewImages();
-        onRegenHTML();
-        onGenerateGoogleImageIds();
-        onGenerateImageDirectLinks();
-    }
-
-    @CommitAfter
     void onGenerateImageObjects()
     {
         imageManagement.generateImageObjects();
@@ -86,6 +76,13 @@ public class Regeneration
     @CommitAfter
     void onGenerateWebpFiles()
     {
-        imageManagement.generateWebpFilesFromImages();
+        try
+        {
+            imageManagement.generateWebpFilesFromImages();
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }
