@@ -56,10 +56,10 @@ public class ImageDAOImpl extends BaseDAOImpl<Image> implements ImageDAO
         return query.list();
     }
 
-    public List<Image> getAllWithoutGooleId()
+    public List<Image> getAllWithoutWebpGooleId()
     {
         String text = " from Image i " +
-                " where i.googleId is null ";
+                " where i.webpGoogleId is null ";
 
         Query query = session.createQuery(text);
 
@@ -69,8 +69,8 @@ public class ImageDAOImpl extends BaseDAOImpl<Image> implements ImageDAO
     public List<Image> getAllWithoutDirectLink()
     {
         String text = " from Image i " +
-                " where i.directLink is null " +
-                " order by i.googleId desc ";
+                " where i.webpDirectLink is null " +
+                " order by i.id desc ";
 
         Query query = session.createQuery(text);
 

@@ -5,12 +5,14 @@ import org.apache.commons.lang.StringUtils;
 
 public class Image extends Persisted
 {
+    public static final String GOOGLE_DRIVE_IMAGE_LINK = "https://drive.google.com/uc?id=";
+
+    public static final String WEBP_FOLDER_NAME = "webp";
+    public static final String WEBP_FILE_EXT = ".webp";
+
     private String directory;
     private String galleryName;
     private String imageName;
-
-    private String googleId;
-    private String directLink;
 
     private String webpGoogleId;
     private String webpDirectLink;
@@ -20,25 +22,48 @@ public class Image extends Persisted
     private Image parent; // full version of the thumbnail
 
 
-    public static final String GOOGLE_DRIVE_LINK = "https://drive.google.com/uc?id=";
-
     public String getImageLink()
     {
-        if(directLink != null && !directLink.isEmpty())
+        if(webpDirectLink != null && !webpDirectLink.isEmpty())
         {
-            return directLink;
+            return webpDirectLink;
         }
-        if (googleId != null && !googleId.isEmpty())
+        if (webpGoogleId != null && !webpGoogleId.isEmpty())
         {
-            return GOOGLE_DRIVE_LINK + googleId;
+            return GOOGLE_DRIVE_IMAGE_LINK + webpGoogleId;
         }
         if (StringUtils.isBlank(galleryName))
         {
-            return "/" + directory + "/" + imageName;
+            return "/" + WEBP_FOLDER_NAME + "/" + directory + "/" + getWebpFilename();
         }
-        return "/" + directory + "/" + galleryName + "/" + imageName;
+        return "/" + WEBP_FOLDER_NAME + "/" + directory + "/" + galleryName + "/" + getWebpFilename();
     }
 
+    private String getLocalPath()
+    {
+        String path = directory + "/";
+        if (StringUtils.isNotBlank(galleryName))
+        {
+            path += galleryName + "/";
+        }
+        return path;
+    }
+
+    public String getImagePath()
+    {
+        return getLocalPath() + imageName;
+    }
+
+    public String getWebpFilename()
+    {
+        String name = imageName.substring(0, imageName.lastIndexOf("."));
+        return name + WEBP_FILE_EXT;
+    }
+
+    public String getWebpFilepath()
+    {
+        return getLocalPath() + getWebpFilename();
+    }
 
     public boolean isThumbnail()
     {
@@ -69,26 +94,6 @@ public class Image extends Persisted
     public String getImageName() { return imageName; }
 
     public void setImageName(String imageName) { this.imageName = imageName; }
-
-    public String getGoogleId()
-    {
-        return googleId;
-    }
-
-    public void setGoogleId(String googleId)
-    {
-        this.googleId = googleId;
-    }
-
-    public String getDirectLink()
-    {
-        return directLink;
-    }
-
-    public void setDirectLink(String directLink)
-    {
-        this.directLink = directLink;
-    }
 
     public String getWebpGoogleId()
     {

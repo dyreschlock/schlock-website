@@ -7,6 +7,8 @@ public interface ImageFolderDAO extends BaseDAO<ImageFolder>
 {
     ImageFolder getRoot();
 
+    ImageFolder getWebpFolder();
+
     ImageFolder getByName(String name);
 
     ImageFolder getFolderByNameParentGoogleId(String name, String parentId);

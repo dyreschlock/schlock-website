@@ -143,7 +143,7 @@ public class GoogleManagementImpl implements GoogleManagement
             }
         }
 
-        ImageFolder root = folderDAO.getRoot();
+        ImageFolder root = folderDAO.getWebpFolder();
 
         for(String dir : folderStructure.keySet())
         {
@@ -190,7 +190,7 @@ public class GoogleManagementImpl implements GoogleManagement
 
     private void updateImagesWithGoogleIds()
     {
-        List<Image> allImages = imageDAO.getAllWithoutGooleId();
+        List<Image> allImages = imageDAO.getAllWithoutWebpGooleId();
 
         Map<String, Map<String, Map<String, Image>>> fileStructure = new HashMap<String, Map<String, Map<String, Image>>>();
         for(Image image : allImages)
@@ -215,7 +215,7 @@ public class GoogleManagementImpl implements GoogleManagement
 
                     subFolderStructure.put(galleryName, images);
                 }
-                images.put(image.getImageName(), image);
+                images.put(image.getWebpFilename(), image);
             }
         }
 
@@ -246,10 +246,10 @@ public class GoogleManagementImpl implements GoogleManagement
                             Image image = imageSet.get(fileName);
                             if (image != null)
                             {
-                                image.setGoogleId(file.getId());
+                                image.setWebpGoogleId(file.getId());
                                 imageDAO.save(image);
 
-                                String message = String.format("Updated Google Id on Image: %s (%s)", file.getName(), file.getId());
+                                String message = String.format("Updated Google Id on WebP Image: %s (%s)", file.getName(), file.getId());
                                 System.out.println(message);
                             }
                         }
@@ -273,12 +273,13 @@ public class GoogleManagementImpl implements GoogleManagement
     public String getGoogleIdForImage(Image image)
     {
         List<String> path = new ArrayList<String>();
+        path.add(Image.WEBP_FOLDER_NAME);
         path.add(image.getDirectory());
         if (StringUtils.isNotBlank(image.getGalleryName()))
         {
             path.add(image.getGalleryName());
         }
-        path.add(image.getImageName());
+        path.add(image.getWebpFilename());
 
         try
         {
@@ -360,12 +361,12 @@ public class GoogleManagementImpl implements GoogleManagement
     {
         List<Image> allImages = imageDAO.getAllWithoutDirectLink();
 
-        for(int i = 0; i < 500; i++)
+        for(int i = 0; i < 30; i++)
         {
             Image image = allImages.get(i);
 
             String link = getDirectImageLinkForImage(image);
-            image.setDirectLink(link);
+            image.setWebpDirectLink(link);
 
             imageDAO.save(image);
 
@@ -378,17 +379,14 @@ public class GoogleManagementImpl implements GoogleManagement
         }
     }
 
-    public static final String GOOGLE_DRIVE_SHARE_LINK_PRE = "https://drive.google.com/file/d/";
-    public static final String GOOGLE_DRIVE_SHARD_LINK_POST = "/view?google_abuse=GOOGLE_ABUSE_EXEMPTION%3DID%3D4c257afad30c90d2:TM%3D1681771648:C%3Dr:IP%3D202.124.215.123-:S%3DzOVxQkkZLZh_YcBCIbq6lxU%3B+path%3D/%3B+domain%3Dgoogle.com%3B+expires%3DTue,+18-Apr-2023+01:47:28+GMT&resourcekey=0-qaYbZgI6u-cC4tqKkrvmGw";
-
     public String getDirectImageLinkForImage(Image image)
     {
-        if (StringUtils.isBlank(image.getGoogleId()))
+        if (StringUtils.isBlank(image.getWebpGoogleId()))
         {
             return null;
         }
 
-        String googleUrl = GOOGLE_DRIVE_SHARE_LINK_PRE + image.getGoogleId();
+        String googleUrl = Image.GOOGLE_DRIVE_IMAGE_LINK + image.getWebpGoogleId();
         try
         {
             String link = getLinkFromUrl(googleUrl);
@@ -417,7 +415,7 @@ public class GoogleManagementImpl implements GoogleManagement
                 return link;
             }
         }
-        return " ";
+        return null;
     }
 
     private String getGoogleLinkFromCode(String codeString)

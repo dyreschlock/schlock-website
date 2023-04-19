@@ -22,5 +22,5 @@ public interface ImageManagement
 
     void createThumbnailsForDirectory(String webDirPath) throws IOException;
 
-    void generateWebpFilesFromImages();
+    void generateWebpFilesFromImages() throws IOException;
 }

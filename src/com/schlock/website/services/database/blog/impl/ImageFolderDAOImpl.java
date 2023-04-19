@@ -1,5 +1,6 @@
 package com.schlock.website.services.database.blog.impl;
 
+import com.schlock.website.entities.blog.Image;
 import com.schlock.website.entities.blog.ImageFolder;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.blog.ImageFolderDAO;
@@ -18,6 +19,11 @@ public class ImageFolderDAOImpl extends BaseDAOImpl<ImageFolder> implements Imag
         final String ROOT_FOLDER_NAME = "www";
 
         return getByName(ROOT_FOLDER_NAME);
+    }
+
+    public ImageFolder getWebpFolder()
+    {
+        return getByName(Image.WEBP_FOLDER_NAME);
     }
 
     public ImageFolder getByName(String name)
