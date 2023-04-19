@@ -18,7 +18,7 @@ wget \
   --recursive \
   --no-host-directories \
   --html-extension \
-  --reject jpg,jpeg,png,gif,mpg \
+  --reject jpg,jpeg,png,gif,mpg,webp \
   --domains localhost \
   http://localhost:8084/
 
