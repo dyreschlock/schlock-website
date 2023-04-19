@@ -361,7 +361,7 @@ public class GoogleManagementImpl implements GoogleManagement
     {
         List<Image> allImages = imageDAO.getAllWithoutDirectLink();
 
-        for(int i = 0; i < 30; i++)
+        for(int i = 0; i < 3000; i++)
         {
             Image image = allImages.get(i);
 
@@ -370,14 +370,16 @@ public class GoogleManagementImpl implements GoogleManagement
 
             imageDAO.save(image);
 
-            if (i % 10 == 0)
+            if ((i+1) % 10 == 0)
             {
-                String message = "Curennt index: %s (%s)";
+                String message = "Current index: %s (%s)";
 
-                System.out.println(String.format(message, i, new Date()));
+                System.out.println(String.format(message, i+1, new Date()));
             }
         }
     }
+
+    private static final String GOOGLE_DRIVE_LINK = "https://drive.google.com/file/d/";
 
     public String getDirectImageLinkForImage(Image image)
     {
@@ -386,7 +388,7 @@ public class GoogleManagementImpl implements GoogleManagement
             return null;
         }
 
-        String googleUrl = Image.GOOGLE_DRIVE_IMAGE_LINK + image.getWebpGoogleId();
+        String googleUrl = GOOGLE_DRIVE_LINK + image.getWebpGoogleId();
         try
         {
             String link = getLinkFromUrl(googleUrl);
@@ -401,9 +403,33 @@ public class GoogleManagementImpl implements GoogleManagement
     }
 
     private static final String CONTEXT = "googleusercontent";
+    private static final String HEADER_FIELD_LOCATION = "Location";
 
     private String getLinkFromUrl(String googleUrl) throws Exception
     {
+//        URLConnection conn = new URL(googleUrl).openConnection();
+//        ((HttpURLConnection) conn).setInstanceFollowRedirects(false);
+//
+//        String link  = conn.getHeaderField(HEADER_FIELD_LOCATION);
+//        return link;
+//
+//        for (int i = 0;; i++)
+//        {
+//            String headerName = conn.getHeaderFieldKey(i);
+//            String headerValue = conn.getHeaderField(i);
+//            System.out.println(headerName);
+//            System.out.println(headerValue);
+//
+//            if (headerName == null && headerValue == null)
+//            {
+//                System.out.println("No more headers");
+//                break;
+//            }
+//        }
+//        return null;
+
+
+
         BufferedReader input = new BufferedReader(new InputStreamReader(new URL(googleUrl).openStream()));
 
         String line;

@@ -24,10 +24,10 @@ public class Image extends Persisted
 
     public String getImageLink()
     {
-//        if(webpDirectLink != null && !webpDirectLink.isEmpty())
-//        {
-//            return webpDirectLink;
-//        }
+        if(webpDirectLink != null && !webpDirectLink.isEmpty())
+        {
+            return webpDirectLink;
+        }
         if (webpGoogleId != null && !webpGoogleId.isEmpty())
         {
             return GOOGLE_DRIVE_IMAGE_LINK + webpGoogleId;
