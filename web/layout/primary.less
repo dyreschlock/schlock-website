@@ -10,6 +10,8 @@
 
 @backgroundcolor: #282828;
 
+@subheader_textcolor: #464646;
+
 @subheadercolor: #eee;
 @subheadercolor_off: #ededed;
 
@@ -115,7 +117,7 @@ h1, h2, h3
 #subheaderBody
 {
     background-color: @subheadercolor;
-    color: #999;
+    color: @subheader_textcolor;
 
     padding: 5px 30px;
 
@@ -184,11 +186,11 @@ h1, h2, h3
 
         a
         {
-            color: #999;
+            color: @subheader_textcolor;
         }
         span.title
         {
-            color: #888;
+            color: @subheader_textcolor;
         }
         span.divider
         {
@@ -202,7 +204,7 @@ h1, h2, h3
 
         a
         {
-            color: #999;
+            color: @subheader_textcolor;
         }
         a:hover
         {
