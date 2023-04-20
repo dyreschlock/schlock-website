@@ -205,19 +205,31 @@ public class ImageManagementImpl implements ImageManagement
         return null;
     }
 
+    private Map<String, Image> getImagesByGallery(String galleryName)
+    {
+        List<Image> allImages = imageDAO.getByGallery(galleryName);
+
+        Map<String, Image> cache = new HashMap<String, Image>();
+        for(Image image : allImages)
+        {
+            cache.put(image.getImageName(), image);
+        }
+        return cache;
+    }
+
+
+    private static final String IMG_TAG = "<img ";
+    private static final String SRC_PARAM = "src=\"";
+
+    private static final String A_TAG = "<a ";
+    private static final String HREF_PARAM = "href=\"";
+
 
     public String updateImagesInHTML(String h)
     {
         String html = h;
 
-        final String IMG_TAG = "<img ";
-        final String SRC_PARAM = "src=\"";
-
         html = updateImagesInHTML(IMG_TAG, SRC_PARAM, html);
-
-        final String A_TAG = "<a ";
-        final String HREF_PARAM = "href=\"";
-
         html = updateImagesInHTML(A_TAG, HREF_PARAM, html);
 
         return html;
@@ -250,16 +262,26 @@ public class ImageManagementImpl implements ImageManagement
 
                 index = remainHTML.indexOf(QUOTE);
 
-                String imageLink = remainHTML.substring(0, index);
-                if (isImage(imageLink))
+                String linkReference = remainHTML.substring(0, index);
+                remainHTML = remainHTML.substring(index);
+
+                String updatedLink;
+                if (isImage(linkReference))
                 {
-                    finishHTML += updateImageLink(imageLink);
+                    updatedLink = updateImageLink(linkReference);
                 }
                 else
                 {
-                    finishHTML += postManagement.updateLinkToModernReference(imageLink);
+                    updatedLink = postManagement.updateLinkToModernReference(linkReference);
                 }
-                remainHTML = remainHTML.substring(index);
+
+                finishHTML += updatedLink;
+
+                if (IMG_TAG.equals(TAG))
+                {
+                    finishHTML += "\" alt=\"" + updatedLink;
+                }
+                finishHTML += "\" title=\"" + updatedLink;
             }
         }
         return finishHTML;
@@ -332,18 +354,6 @@ public class ImageManagementImpl implements ImageManagement
         return new File(filepath).exists();
     }
 
-    private Map<String, Image> getImagesByGallery(String galleryName)
-    {
-        List<Image> allImages = imageDAO.getByGallery(galleryName);
-
-        Map<String, Image> cache = new HashMap<String, Image>();
-        for(Image image : allImages)
-        {
-            cache.put(image.getImageName(), image);
-        }
-        return cache;
-    }
-
     public Image getPostImage(AbstractPost post)
     {
         List<Image> images = getGalleryImages(post);
@@ -379,6 +389,8 @@ public class ImageManagementImpl implements ImageManagement
         return null;
     }
 
+
+
     public String getPostPreviewMetadataLink(AbstractPost post)
     {
         String link = "";
@@ -391,6 +403,7 @@ public class ImageManagementImpl implements ImageManagement
         }
         return link;
     }
+
 
 
     public void createPostPreviewImages()
