@@ -31,7 +31,7 @@ public class Regeneration
     @CommitAfter
     void onGenerateThumbnails()
     {
-        String LOCATION = "";
+        final String LOCATION = "";
 
         try
         {
