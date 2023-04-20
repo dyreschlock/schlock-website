@@ -322,8 +322,6 @@ public class ImageManagementImpl implements ImageManagement
         {
             image = createImage(directory, galleryName, imageName);
         }
-        generateGoogleId(image);
-
         return image.getImageLink();
     }
 
@@ -332,23 +330,6 @@ public class ImageManagementImpl implements ImageManagement
         String filepath = deploymentContext.webDirectory() + link;
 
         return new File(filepath).exists();
-    }
-
-    private void generateGoogleId(Image image)
-    {
-        String googleId = image.getWebpGoogleId();
-        if (StringUtils.isBlank(googleId))
-        {
-            googleId = googleManagement.getGoogleIdForImage(image);
-
-            image.setWebpGoogleId(googleId);
-            imageDAO.save(image);
-        }
-
-        if (image.getParent() != null)
-        {
-            generateGoogleId(image.getParent());
-        }
     }
 
     private Map<String, Image> getImagesByGallery(String galleryName)
