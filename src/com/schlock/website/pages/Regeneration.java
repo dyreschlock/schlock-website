@@ -29,36 +29,6 @@ public class Regeneration
     }
 
     @CommitAfter
-    void onGenerateImageObjects()
-    {
-        imageManagement.generateImageObjects();
-    }
-
-    @CommitAfter
-    void onCreatePostPreviewImages()
-    {
-        imageManagement.createPostPreviewImages();
-    }
-
-    @CommitAfter
-    void onRegenHTML()
-    {
-        postManagement.regenerateAllPostHTML();
-    }
-
-    @CommitAfter
-    void onGenerateGoogleImageIds()
-    {
-        googleManagement.generateGoogleImageIds();
-    }
-
-    @CommitAfter
-    void onGenerateImageDirectLinks()
-    {
-        googleManagement.updateImagesWithDirectLinks();
-    }
-
-    @CommitAfter
     void onGenerateThumbnails()
     {
         String LOCATION = "";
@@ -74,15 +44,62 @@ public class Regeneration
     }
 
     @CommitAfter
+    void onGeneratePostItems()
+    {
+        onCreatePostPreviewImages();
+        onGenerateImageObjects();
+        onRegenHTML();
+        onGenerateWebpFiles();
+    }
+
+    @CommitAfter
+    void onCreatePostPreviewImages()
+    {
+        imageManagement.createPostPreviewImages();
+    }
+
+    @CommitAfter
+    void onGenerateImageObjects()
+    {
+        imageManagement.generateImageObjects();
+    }
+
+    @CommitAfter
+    void onRegenHTML()
+    {
+        postManagement.regenerateAllPostHTML();
+    }
+
+    @CommitAfter
     void onGenerateWebpFiles()
     {
         try
         {
             imageManagement.generateWebpFilesFromImages();
         }
-        catch (IOException e)
+        catch (Exception e)
         {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+//            throw new RuntimeException(e);
         }
+    }
+
+    @CommitAfter
+    void onGenerateGoogleItems()
+    {
+        onGenerateGoogleImageIds();
+        onGenerateImageDirectLinks();
+    }
+
+    @CommitAfter
+    void onGenerateGoogleImageIds()
+    {
+        googleManagement.generateGoogleImageIds();
+    }
+
+    @CommitAfter
+    void onGenerateImageDirectLinks()
+    {
+        googleManagement.updateImagesWithDirectLinks();
     }
 }
