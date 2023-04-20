@@ -8,13 +8,13 @@
         </a>
     </div>
     <div class="links">
-        <a href="/">${message:home}</a>
+        <a title="${message:home}" href="/">${message:home}</a>
         /
-        <a href="/archive">${message:archive}</a>
+        <a title="${message:archive}" href="/archive">${message:archive}</a>
         /
-        <a href="/projects">${message:projects}</a>
+        <a title="${message:projects}" href="/projects">${message:projects}</a>
         /
-        <a href="/aboutme">${message:about-me}</a>
+        <a title="${message:about-me}" href="/aboutme">${message:about-me}</a>
     </div>
     <br class="clr" />
 

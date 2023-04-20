@@ -3,7 +3,7 @@
     >
 
     <div class="postLink ${cssClass}">
-        <a href="/${post.uuid}"></a>
+        <a title="${post.title}" href="/${post.uuid}"></a>
         <h2><t:outputraw value="postTitleHtml" /></h2>
         <t:if test="!post.page">
             <div class="postDate">${createdDate}</div>

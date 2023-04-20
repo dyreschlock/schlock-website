@@ -9,7 +9,7 @@
 
         <t:if test="!yearlyItem">
             <t:if test="hasLessonPlan">
-                <a href="${post.lessonPlanLink}">${message:lesson-plan}</a>
+                <a title="${message:lesson-plan}" href="${post.lessonPlanLink}">${message:lesson-plan}</a>
             </t:if>
             <t:if test="!hasLessonPlan">
                 <span class="none">${message:lesson-plan}</span>
@@ -19,14 +19,14 @@
         </t:if>
 
         <t:if test="hasFlashcards">
-            <a href="${post.flashCardsLink}">${downloadMessage}</a>
+            <a title="${downloadMessage}" href="${post.flashCardsLink}">${downloadMessage}</a>
         </t:if>
         <t:if test="!hasFlashcards">
             <span class="none">${downloadMessage}</span>
         </t:if>
 
         <t:if test="hasPost">
-            / <a href="/${post.uuid}">${message:more}</a>
+            / <a title="${message:more}" href="/${post.uuid}">${message:more}</a>
         </t:if>
     </div>
 

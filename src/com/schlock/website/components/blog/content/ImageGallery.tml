@@ -118,7 +118,7 @@
             <t:loop source="galleryImages" value="currentImage" index="currentIndex">
 
                 <div class="image ${columnClasses}" style="background-image: url(${currentImage.imageLink})">
-                    <a onclick="galleryClicked(${currentIndex})"></a>
+                    <a title="${currentImage.imageName}" onclick="galleryClicked(${currentIndex})"></a>
                 </div>
 
             </t:loop>
@@ -128,27 +128,27 @@
             <div id="overlayImage" class="overlay" style="display: none;">
 
                 <div class="imageLink textBox">
-                    <a id="imageLink" target="_blank"> Image </a>
+                    <a id="imageLink" title="Image" target="_blank"> Image </a>
                 </div>
 
                 <div class="close textBox">
-                    <a onclick="closeOverlay()">${message:close}</a>
+                    <a title="${message:close}" onclick="closeOverlay()">${message:close}</a>
                 </div>
 
                 <div id="previousImage" class="previous overlayLink" style="display: none;">
-                    <a class="link" id="previousImageAnchor1"></a>
+                    <a class="link" title="${message:previous}" id="previousImageAnchor1"></a>
                     <div class="center">
                         <div class="textBox">
-                            <a id="previousImageAnchor2">${message:previous}</a>
+                            <a id="previousImageAnchor2" title="${message:previous}">${message:previous}</a>
                         </div>
                     </div>
                 </div>
 
                 <div id="nextImage" class="next overlayLink" style="display: none;">
-                    <a class="link" id="nextImageAnchor1"></a>
+                    <a class="link" title="${message:next}" id="nextImageAnchor1"></a>
                     <div class="center">
                         <div class="textBox">
-                            <a id="nextImageAnchor2">${message:next}</a>
+                            <a id="nextImageAnchor2" title="${message:next}">${message:next}</a>
                         </div>
                     </div>
                 </div>

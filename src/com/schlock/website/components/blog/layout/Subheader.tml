@@ -50,7 +50,7 @@
 
         <t:if test="hasPrevious">
 
-            <a href="/${previousPost.uuid}">
+            <a title="${previousPost.title}" href="/${previousPost.uuid}">
 
                 <span class="title">${message:previous}</span>
                 <span class="name">: <t:outputraw value="previousPostTitleHtml" /></span>
@@ -63,7 +63,7 @@
         </t:if>
         <t:if test="hasNext">
 
-            <a href="/${nextPost.uuid}">
+            <a title="${nextPost.title}" href="/${nextPost.uuid}">
 
                 <span class="title">${message:next}</span>
                 <span class="name">: <t:outputraw value="nextPostTitleHtml" /></span>
@@ -78,10 +78,10 @@
     <div class="categories">
         <t:loop source="categories" value="currentCategory" index="currentIndex">
             <t:if test="notFirst"> / </t:if>
-            <a href="/category/${currentCategory.uuid}">${currentCategory.name}</a>
+            <a title="${currentCategory.name}" href="/category/${currentCategory.uuid}">${currentCategory.name}</a>
         </t:loop>
         /
-        <a onclick="randomClicked()">${message:random}</a>
+        <a title="${message:random}" onclick="randomClicked()">${message:random}</a>
     </div>
     <br class="clr" />
 

@@ -16,7 +16,7 @@
                 </time>
                 <span class="hidden" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
                     <span itemprop="name">
-                        <a href="${message:googleUrl}" itemprop="url" rel="author">${message:author}</a>
+                        <a title="${message:author}" href="${message:googleUrl}" itemprop="url" rel="author">${message:author}</a>
                     </span>
                 </span>
                 <span class="hidden">
@@ -29,24 +29,24 @@
 
                 <t:loop source="topCategories" value="currentCategory">
                     //
-                    <a href="/category/${currentCategory.uuid}">${currentCategory.name}</a>
+                    <a title="${currentCategory.name}" href="/category/${currentCategory.uuid}">${currentCategory.name}</a>
                     <t:loop source="subcategories" value="currentSubcategory">
-                        .<a href="/category/${currentSubcategory.uuid}">${currentSubcategory.name}</a>
+                        .<a title="${currentSubcategory.name}" href="/category/${currentSubcategory.uuid}">${currentSubcategory.name}</a>
                     </t:loop>
                 </t:loop>
 
                 <t:if test="project">
                     <t:loop source="projectCategories" value="currentCategory">
                         //
-                        <a class="${categoryCssClass}" href="/projects/${currentCategory.uuid}">${currentCategory.name}</a>
+                        <a class="${categoryCssClass}" title="${currentCategory.name}" href="/projects/${currentCategory.uuid}">${currentCategory.name}</a>
                     </t:loop>
                 </t:if>
 
                 <t:if test="lesson">
                     //
-                    <a class="${lessonCssClass}" href="/lessons/${lessonYearKeyword}"><t:outputraw value="lessonYearText" /></a>
+                    <a class="${lessonCssClass}" title="${lessonYearKeyword}" href="/lessons/${lessonYearKeyword}"><t:outputraw value="lessonYearText" /></a>
                     <t:loop source="grades" value="currentGrade">
-                        .<a class="${lessonCssClass}" href="/lessons/${lessonYearKeyword}/${currentGrade}"><t:outputraw value="lessonGrade" /></a>
+                        .<a class="${lessonCssClass}" title="${currentGrade}" href="/lessons/${lessonYearKeyword}/${currentGrade}"><t:outputraw value="lessonGrade" /></a>
                     </t:loop>
                 </t:if>
             </div>
@@ -58,7 +58,7 @@
 
                     <div class="material plan" style="background-image: url(${lessonPlanImage})">
 
-                        <a href="${post.lessonPlanLink}" />
+                        <a title="${message:lesson-plan}" href="${post.lessonPlanLink}" />
 
                         <span><!-- overlay effect --></span>
 
@@ -69,7 +69,7 @@
 
                     <div class="material cards" style="background-image: url(${flashCardsImage})">
 
-                        <a href="${post.flashCardsLink}" />
+                        <a title="${message:flash-cards}" href="${post.flashCardsLink}" />
 
                         <span><!-- overlay effect --></span>
 
