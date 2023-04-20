@@ -361,7 +361,7 @@ public class GoogleManagementImpl implements GoogleManagement
     {
         List<Image> allImages = imageDAO.getAllWithoutDirectLink();
 
-        for(int i = 0; i < 3000; i++)
+        for(int i = 0; i < allImages.size(); i++)
         {
             Image image = allImages.get(i);
 
