@@ -31,8 +31,9 @@ public class Regeneration
     @CommitAfter
     void onGenerateThumbnails()
     {
-        final String LOCATION = "";
+        String LOCATION = "";
 
+        LOCATION = deploymentContext.webDirectory() + LOCATION;
         try
         {
             imageManagement.createThumbnailsForDirectory(LOCATION);
