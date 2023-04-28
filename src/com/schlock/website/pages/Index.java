@@ -5,6 +5,7 @@ import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.apps.SubtitleFixer;
 import com.schlock.website.pages.apps.kendo.KendoIndex;
+import com.schlock.website.pages.apps.pocket.ImageSelector;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
@@ -78,6 +79,10 @@ public class Index
         else if (StringUtils.equalsIgnoreCase(AbstractPost.KENDO_UUID, parameter))
         {
             return KendoIndex.class;
+        }
+        else if (StringUtils.equalsIgnoreCase(AbstractPost.POCKET_SELECTOR_UUID, parameter))
+        {
+            return ImageSelector.class;
         }
         else if (StringUtils.equalsIgnoreCase(EVENT, parameter))
         {

@@ -9,6 +9,7 @@ public abstract class AbstractPost extends Persisted
 {
     public static final String SUBTITLES_UUID = "subtitles";
     public static final String CODEJAM_MAY2012_UUID = "codejam-may-2012";
+    public static final String POCKET_SELECTOR_UUID = "pocket-image-selector";
 
     public static final String KENDO_UUID = "kendo-example-written-exam";
 
