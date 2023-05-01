@@ -14,8 +14,6 @@
 
         <property name="releaseDate" />
 
-        <many-to-one name="console" class="com.schlock.website.entities.apps.games.VideoGameConsole" />
-
         <property name="region">
             <type name="org.hibernate.type.EnumType">
                 <param name="enumClass">com.schlock.website.entities.apps.games.Region</param>

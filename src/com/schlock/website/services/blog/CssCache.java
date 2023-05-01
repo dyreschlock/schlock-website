@@ -8,4 +8,5 @@ public interface CssCache
     public String getAllCss();
 
     public String getCssForNotFibbage();
+    public String getCssForGames();
 }

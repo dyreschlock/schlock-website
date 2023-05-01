@@ -3,14 +3,23 @@ package com.schlock.website.entities.apps.games;
 import com.schlock.website.entities.Persisted;
 
 import java.util.Date;
+import java.util.Set;
 
 public class VideoGameConsole extends Persisted
 {
+    public static final String PLATFORM_CO_ALL = "All";
+    public static final String PLATFORM_CO_SONY = "Sony";
+    public static final String PLATFORM_CO_NINTENDO = "Nintendo";
+    public static final String PLATFORM_CO_SEGA = "Sega";
+    public static final String PLATFORM_CO_MICROSOFT = "Microsoft";
+
     private String name;
     private String code;
 
     private Date releaseDate;
     private String company;
+
+    private Set<VideoGame> games;
 
     public VideoGameConsole()
     {
@@ -42,5 +51,15 @@ public class VideoGameConsole extends Persisted
     public void setCompany(String company)
     {
         this.company = company;
+    }
+
+    public Set<VideoGame> getGames()
+    {
+        return games;
+    }
+
+    public void setGames(Set<VideoGame> games)
+    {
+        this.games = games;
     }
 }

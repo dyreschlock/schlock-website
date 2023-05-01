@@ -13,8 +13,6 @@ public class VideoGame extends Persisted
 
     private Date releaseDate;
 
-    private VideoGameConsole console;
-
     private Region region;
     private Condition condition;
 
@@ -44,10 +42,6 @@ public class VideoGame extends Persisted
     {
         this.releaseDate = release;
     }
-
-    public VideoGameConsole getConsole() { return console; }
-
-    public void setConsole(VideoGameConsole console) { this.console = console; }
 
     public Region getRegion() { return region; }
 

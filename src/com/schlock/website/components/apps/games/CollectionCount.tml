@@ -1,0 +1,11 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <div class="panel">
+        Total Collection Count
+    </div>
+
+    <div class="panel">
+        Short Stats
+    </div>
+</t:container>

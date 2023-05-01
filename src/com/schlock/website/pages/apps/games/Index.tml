@@ -2,11 +2,39 @@
 <html
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+        xmlns:g="tapestry-library:apps/games"
 >
     <head>
-
+        <style>${css}</style>
     </head>
     <body>
-        hey hey
+        <div class="body">
+            <h2>${message:title}</h2>
+
+            <table class="layout">
+                <tr>
+                    <td rowspan="2">
+                        <g:collectioncount />
+                        <g:platformcount platformGroup="all" />
+                    </td>
+                    <td>
+                        <g:platformcount platformGroup="nintendo"/>
+                    </td>
+                    <td>
+                        <g:platformcount platformGroup="sony" />
+                    </td>
+                    <td>
+                        <g:platformcount platformGroup="sega" />
+                        <g:platformcount platformGroup="microsoft" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>a</td>
+                    <td>a</td>
+                    <td>a</td>
+                </tr>
+            </table>
+
+        </div>
     </body>
 </html>

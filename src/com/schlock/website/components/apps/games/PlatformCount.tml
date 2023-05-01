@@ -1,0 +1,21 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <div class="panel">
+        <table class="platformData">
+            <tr>
+                <td class="name">${platformGroup}</td>
+            </tr>
+
+            <t:loop source="consoleData" value="currentConsole">
+                <tr>
+                    <td class="name">${currentConsoleName}</td>
+                    <td class="count">${currentConsoleCount}</td>
+                </tr>
+            </t:loop>
+
+        </table>
+
+
+    </div>
+</t:container>

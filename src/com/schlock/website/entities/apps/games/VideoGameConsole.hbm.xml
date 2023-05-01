@@ -13,5 +13,11 @@
         <property name="releaseDate" />
         <property name="company" not-null="true" />
 
+        <set name="games" table="games_videogame" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="console" not-null="true" />
+            </key>
+            <one-to-many class="com.schlock.website.entities.apps.games.VideoGame" />
+        </set>
     </class>
 </hibernate-mapping>
