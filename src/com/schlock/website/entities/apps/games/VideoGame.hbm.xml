@@ -9,11 +9,23 @@
 
         <property name="title" not-null="true" />
 
+        <property name="developer" />
+        <property name="publisher" />
+
+        <property name="year" />
+
         <many-to-one name="console" class="com.schlock.website.entities.apps.games.VideoGameConsole" />
 
         <property name="region">
             <type name="org.hibernate.type.EnumType">
                 <param name="enumClass">com.schlock.website.entities.apps.games.Region</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+
+        <property name="condition" column="cond">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.schlock.website.entities.apps.games.Condition</param>
                 <param name="type">12</param>
             </type>
         </property>

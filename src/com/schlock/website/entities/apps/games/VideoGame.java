@@ -9,8 +9,12 @@ public class VideoGame extends Persisted
     private String publisher;
     private String developer;
 
+    private int year;
+
     private VideoGameConsole console;
+
     private Region region;
+    private Condition condition;
 
 
     public VideoGame()
@@ -29,6 +33,16 @@ public class VideoGame extends Persisted
 
     public void setDeveloper(String developer) { this.developer = developer; }
 
+    public int getYear()
+    {
+        return year;
+    }
+
+    public void setYear(int year)
+    {
+        this.year = year;
+    }
+
     public VideoGameConsole getConsole() { return console; }
 
     public void setConsole(VideoGameConsole console) { this.console = console; }
@@ -36,4 +50,14 @@ public class VideoGame extends Persisted
     public Region getRegion() { return region; }
 
     public void setRegion(Region region) { this.region = region; }
+
+    public Condition getCondition()
+    {
+        return condition;
+    }
+
+    public void setCondition(Condition condition)
+    {
+        this.condition = condition;
+    }
 }

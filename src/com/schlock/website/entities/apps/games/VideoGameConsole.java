@@ -7,6 +7,8 @@ public class VideoGameConsole extends Persisted
     private String name;
     private String code;
 
+    private String company;
+
     public VideoGameConsole()
     {
     }
@@ -18,4 +20,14 @@ public class VideoGameConsole extends Persisted
     public String getCode() { return code; }
 
     public void setCode(String code) { this.code = code; }
+
+    public String getCompany()
+    {
+        return company;
+    }
+
+    public void setCompany(String company)
+    {
+        this.company = company;
+    }
 }

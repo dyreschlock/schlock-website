@@ -10,5 +10,7 @@
         <property name="name" not-null="true" />
         <property name="code" not-null="true" />
 
+        <property name="company" not-null="true" />
+
     </class>
 </hibernate-mapping>
