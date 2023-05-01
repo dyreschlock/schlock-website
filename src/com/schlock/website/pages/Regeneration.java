@@ -45,7 +45,7 @@ public class Regeneration
     }
 
     @CommitAfter
-    void onGeneratePostItems()
+    void onRegenPostItems()
     {
         onCreatePostPreviewImages();
         onGenerateImageObjects();
