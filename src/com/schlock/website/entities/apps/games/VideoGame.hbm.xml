@@ -12,7 +12,7 @@
         <property name="developer" />
         <property name="publisher" />
 
-        <property name="year" />
+        <property name="releaseDate" />
 
         <many-to-one name="console" class="com.schlock.website.entities.apps.games.VideoGameConsole" />
 

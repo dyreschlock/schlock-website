@@ -2,6 +2,8 @@ package com.schlock.website.entities.apps.games;
 
 import com.schlock.website.entities.Persisted;
 
+import java.util.Date;
+
 public class VideoGame extends Persisted
 {
     private String title;
@@ -9,7 +11,7 @@ public class VideoGame extends Persisted
     private String publisher;
     private String developer;
 
-    private int year;
+    private Date releaseDate;
 
     private VideoGameConsole console;
 
@@ -33,14 +35,14 @@ public class VideoGame extends Persisted
 
     public void setDeveloper(String developer) { this.developer = developer; }
 
-    public int getYear()
+    public Date getReleaseDate()
     {
-        return year;
+        return releaseDate;
     }
 
-    public void setYear(int year)
+    public void setReleaseDate(Date release)
     {
-        this.year = year;
+        this.releaseDate = release;
     }
 
     public VideoGameConsole getConsole() { return console; }
