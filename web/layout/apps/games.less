@@ -35,7 +35,7 @@
 body
 {
     font-family: arial;
-    color: #555;
+    color: #444;
 }
 
 div.body
@@ -50,8 +50,6 @@ table.layout
     width: 100%;
     max-width: 100%;
 
-    border: 1px solid #ccc;
-
     td
     {
         vertical-align: top;
@@ -64,7 +62,7 @@ div.panel
 {
     width: 100%;
 
-    padding: 5px;
+    padding: 10px;
 
     margin-top: 0px;
     margin-bottom: 20px;
@@ -73,7 +71,6 @@ div.panel
     margin-right: auto;
     width: 95%;
 
-    border: 1px solid #0ff;
 }
 
 table.platformData
@@ -85,28 +82,29 @@ table.platformData
     border-collapse: collapse;
     border: 0px;
 
-    td
+    td, th
     {
         padding: 4px;
-        border: 1px solid #999;
+        border: 1px solid #333;
     }
 
-    td.name
-    {
-        width: 65%;
-        color: #fff;
-    }
-
-    td.count
-    {
-        width: 35%;
-    }
-
-    td.platform
+    th
     {
         font-weight: bold;
         color: #fff;
         background-color: #555;
+    }
+
+    td.name, th.name
+    {
+        width: 70%;
+        color: #fff;
+    }
+
+    td.totalCount
+    {
+        font-weight: bold;
+        font-size: 36pt;
     }
 
     td.even

@@ -4,7 +4,7 @@
     <div class="panel">
         <table class="platformData">
             <tr>
-                <td class="name platform">${platformGroup}</td>
+                <th class="name">${platformGroup}</th>
             </tr>
 
             <t:loop source="consoleData" value="currentConsole" index="currentIndex">

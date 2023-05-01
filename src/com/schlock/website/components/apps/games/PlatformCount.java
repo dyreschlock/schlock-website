@@ -7,12 +7,13 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class PlatformCount
 {
-    private static final String EVEN = "even";
-    private static final String ODD = "odd";
+    protected static final String EVEN = "even";
+    protected static final String ODD = "odd";
 
     @Inject
     private VideoGameConsoleDAO consoleDAO;
@@ -38,7 +39,21 @@ public class PlatformCount
         {
             return consoleDAO.getByCompany(platformGroup);
         }
-        return Collections.EMPTY_LIST;
+
+        List<VideoGameConsole> all = consoleDAO.getAll();
+        Collections.sort(all, new Comparator<VideoGameConsole>()
+        {
+            @Override
+            public int compare(VideoGameConsole o1, VideoGameConsole o2)
+            {
+                Integer c1 = o1.getGames().size();
+                Integer c2 = o2.getGames().size();
+
+                return c2.compareTo(c1);
+            }
+        });
+
+        return all;
     }
 
     public String getCurrentConsoleName()

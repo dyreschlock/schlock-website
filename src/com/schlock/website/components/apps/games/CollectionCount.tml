@@ -2,10 +2,54 @@
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 >
     <div class="panel">
-        Total Collection Count
+        <table class="platformData">
+            <tr>
+                <th>${message:total}</th>
+            </tr>
+            <tr>
+                <td class="totalCount">${totalCount}</td>
+            </tr>
+        </table>
     </div>
 
     <div class="panel">
-        Short Stats
+        <table class="platformData">
+            <tr>
+                <th class="name">${message:total-consoles}</th>
+                <td class="count even">${totalConsoles}</td>
+            </tr>
+            <tr>
+                <th class="name">${message:average-games}</th>
+                <td class="count odd">${averageGames}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="panel">
+        <table class="platformData">
+            <tr>
+                <th class="name">${message:condition}</th>
+            </tr>
+            <t:loop source="conditions" value="currentCondition" index="currentIndex">
+                <tr>
+                    <td class="${evenOdd}">${conditionName}</td>
+                    <td class="${evenOdd}">${conditionCount}</td>
+                </tr>
+            </t:loop>
+        </table>
+    </div>
+
+    <div class="panel">
+        <table class="platformData">
+            <tr>
+                <th class="name">${message:region}</th>
+            </tr>
+            <t:loop source="regions" value="currentRegion" index="currentIndex">
+                <tr>
+                    <td class="${evenOdd}">${regionName}</td>
+                    <td class="${evenOdd}">${regionCount}</td>
+                </tr>
+            </t:loop>
+        </table>
     </div>
 </t:container>

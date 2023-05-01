@@ -15,7 +15,7 @@
                 <tr>
                     <td rowspan="2">
                         <g:collectioncount />
-                        <g:platformcount platformGroup="all" />
+                        <!--g:platformcount platformGroup="all" /-->
                     </td>
                     <td>
                         <g:platformcount platformGroup="nintendo"/>
