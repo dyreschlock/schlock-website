@@ -11,6 +11,9 @@ import java.util.List;
 
 public class PlatformCount
 {
+    private static final String EVEN = "even";
+    private static final String ODD = "odd";
+
     @Inject
     private VideoGameConsoleDAO consoleDAO;
 
@@ -20,6 +23,9 @@ public class PlatformCount
 
     @Property
     private VideoGameConsole currentConsole;
+
+    @Property
+    private Integer currentIndex;
 
     private boolean isAll()
     {
@@ -45,5 +51,14 @@ public class PlatformCount
         Integer count = currentConsole.getGames().size();
 
         return count.toString();
+    }
+
+    public String getEvenOdd()
+    {
+        if (currentIndex % 2 == 0)
+        {
+            return EVEN;
+        }
+        return ODD;
     }
 }

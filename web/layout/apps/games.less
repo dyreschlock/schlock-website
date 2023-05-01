@@ -1,5 +1,37 @@
 
 
+
+
+@nes:  #e13124;
+@snes: #8752c4;
+@n64:  #430da4;
+@gc:   #6e20dd;
+@wii:  #cd26dd;
+@wiiu: #e13146;
+@sw:   #f42e41;
+@gb:   #8a2b63;
+@gbc:  #aa214b;
+@gba:  #d1273b;
+@nds:  #6f32cc;
+@n3ds: #b132cc;
+@ps1:  #4489ca;
+@ps2:  #0000b8;
+@ps3:  #332cf4;
+@ps4:  #0000f4;
+@ps5:  #428fee;
+@psp:  #3561ac;
+@psv:  #264585;
+@xbx:  #53c524;
+@x360: #8fbe4a;
+@xone: #366d1c;
+@xsx:  #559f2e;
+@gen:  #ae4921;
+@scd:  #ff5837;
+@sat:  #ea5743;
+@dc:   #d66523;
+
+
+
 body
 {
     font-family: arial;
@@ -46,7 +78,73 @@ div.panel
 
 table.platformData
 {
+    width: 100%;
+
     text-align: center;
 
-    border: 1px solid #999;
+    border-collapse: collapse;
+    border: 0px;
+
+    td
+    {
+        padding: 4px;
+        border: 1px solid #999;
+    }
+
+    td.name
+    {
+        width: 65%;
+        color: #fff;
+    }
+
+    td.count
+    {
+        width: 35%;
+    }
+
+    td.platform
+    {
+        font-weight: bold;
+        color: #fff;
+        background-color: #555;
+    }
+
+    td.even
+    {
+        background-color: #fff;
+    }
+
+    td.odd
+    {
+        background-color: #f4f4f4;
+    }
 }
+
+
+.nes   { background-color: @nes; }
+.snes  { background-color: @snes; }
+.n64   { background-color: @n64; }
+.gc    { background-color: @gc; }
+.wii   { background-color: @wii; }
+.wiiu  { background-color: @wiiu; }
+.sw    { background-color: @sw; }
+.gb    { background-color: @gb; }
+.gbc   { background-color: @gbc; }
+.gba   { background-color: @gba; }
+.nds   { background-color: @nds; }
+.n3ds  { background-color: @n3ds; }
+.ps1   { background-color: @ps1; }
+.ps2   { background-color: @ps2; }
+.ps3   { background-color: @ps3; }
+.ps4   { background-color: @ps4; }
+.ps5   { background-color: @ps5; }
+.psp   { background-color: @psp; }
+.psv   { background-color: @psv; }
+.xbx   { background-color: @xbx; }
+.x360  { background-color: @x360; }
+.xone  { background-color: @xone; }
+.xsx   { background-color: @xsx; }
+.gen   { background-color: @gen; }
+.scd   { background-color: @scd; }
+.sat   { background-color: @sat; }
+.dc    { background-color: @dc; }

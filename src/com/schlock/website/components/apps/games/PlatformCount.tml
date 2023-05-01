@@ -4,13 +4,13 @@
     <div class="panel">
         <table class="platformData">
             <tr>
-                <td class="name">${platformGroup}</td>
+                <td class="name platform">${platformGroup}</td>
             </tr>
 
-            <t:loop source="consoleData" value="currentConsole">
+            <t:loop source="consoleData" value="currentConsole" index="currentIndex">
                 <tr>
-                    <td class="name">${currentConsoleName}</td>
-                    <td class="count">${currentConsoleCount}</td>
+                    <td class="name ${currentConsole.code}">${currentConsole.name}</td>
+                    <td class="count ${evenOdd}">${currentConsoleCount}</td>
                 </tr>
             </t:loop>
 
