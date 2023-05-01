@@ -68,6 +68,17 @@ public class PlatformCount
         return count.toString();
     }
 
+    public String getTotalCount()
+    {
+        int count = 0;
+        for(VideoGameConsole console : getConsoleData())
+        {
+            count += console.getGames().size();
+        }
+
+        return Integer.toString(count);
+    }
+
     public String getEvenOdd()
     {
         if (currentIndex % 2 == 0)

@@ -14,8 +14,11 @@
                 </tr>
             </t:loop>
 
+            <tr>
+                <td class="empty"></td>
+                <td class="totalConsoleCount">${totalCount}</td>
+            </tr>
+
         </table>
-
-
     </div>
 </t:container>
