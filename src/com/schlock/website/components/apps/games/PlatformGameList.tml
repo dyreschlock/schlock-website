@@ -1,0 +1,31 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <div class="list">
+        <table class="gameList">
+
+            <tr>
+                <th class="${console.code} name">${message:name}</th>
+                <th class="${console.code} developer">${message:developer}</th>
+                <th class="${console.code} publisher">${message:publisher}</th>
+                <th class="${console.code} releaseDate">${message:release-date}</th>
+                <th class="${console.code} condition">${message:condition}</th>
+                <th class="${console.code} region">${message:region}</th>
+            </tr>
+
+            <t:loop source="games" value="currentGame" index="currentIndex">
+
+                <tr>
+                    <td class="${evenOdd} name">${currentGame.title}</td>
+                    <td class="${evenOdd} developer">${currentGame.developer}</td>
+                    <td class="${evenOdd} publisher">${currentGame.publisher}</td>
+                    <td class="${evenOdd} releaseDate">${currentGameReleaseDate}</td>
+                    <td class="${evenOdd} condition">${currentGameCondition}</td>
+                    <td class="${evenOdd} region">${currentGameRegion}</td>
+                </tr>
+
+            </t:loop>
+
+        </table>
+    </div>
+</t:container>

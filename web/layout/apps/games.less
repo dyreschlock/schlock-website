@@ -74,12 +74,15 @@ table.layout
 
         width: 25%;
     }
+
+    td.data
+    {
+        width: 75%;
+    }
 }
 
-div.panel
+div.panel, div.list
 {
-    width: 100%;
-
     padding: 10px;
 
     margin-top: 0px;
@@ -87,11 +90,19 @@ div.panel
 
     margin-left: auto;
     margin-right: auto;
-    width: 90%;
-
 }
 
-table.platformData
+div.panel
+{
+    width: 90%;
+}
+
+div.list
+{
+    width: 95%;
+}
+
+table.platformData, table.gameList
 {
     width: 100%;
 
@@ -106,6 +117,42 @@ table.platformData
         border: 1px solid #333;
     }
 
+    th
+    {
+        font-weight: bold;
+        color: #fff;
+    }
+
+    td.empty
+    {
+        border: 0px;
+    }
+
+    td.name        { width: 32%; }
+    td.developer   { width: 17%; }
+    td.publisher   { width: 17%; }
+    td.releaseDate { width: 12%; }
+    td.condition   { width: 10%; }
+    td.region      { width: 10%; }
+
+    td.even
+    {
+        background-color: #fff;
+    }
+
+    td.odd
+    {
+        background-color: #f4f4f4;
+    }
+}
+
+table.gameList
+{
+    font-size: 10pt;
+}
+
+table.platformData
+{
     th, td.totalConsoleCount
     {
         font-weight: bold;
@@ -135,46 +182,36 @@ table.platformData
 
         background-color: #fff;
     }
-
-    td.even
-    {
-        background-color: #fff;
-    }
-
-    td.odd
-    {
-        background-color: #f4f4f4;
-    }
 }
 
 
-td.nes   { background-color: @nes; }
-td.snes  { background-color: @snes; }
-td.n64   { background-color: @n64; }
-td.gc    { background-color: @gc; }
-td.wii   { background-color: @wii; }
-td.wiiu  { background-color: @wiiu; }
-td.sw    { background-color: @sw; }
-td.gb    { background-color: @gb; }
-td.gbc   { background-color: @gbc; }
-td.gba   { background-color: @gba; }
-td.nds   { background-color: @nds; }
-td.n3ds  { background-color: @n3ds; }
-td.ps1   { background-color: @ps1; }
-td.ps2   { background-color: @ps2; }
-td.ps3   { background-color: @ps3; }
-td.ps4   { background-color: @ps4; }
-td.ps5   { background-color: @ps5; }
-td.psp   { background-color: @psp; }
-td.psv   { background-color: @psv; }
-td.xbx   { background-color: @xbx; }
-td.x360  { background-color: @x360; }
-td.xone  { background-color: @xone; }
-td.xsx   { background-color: @xsx; }
-td.gen   { background-color: @gen; }
-td.scd   { background-color: @scd; }
-td.sat   { background-color: @sat; }
-td.dc    { background-color: @dc; }
+th.nes,  td.nes   { background-color: @nes; }
+th.snes, td.snes  { background-color: @snes; }
+th.n64,  td.n64   { background-color: @n64; }
+th.gc,   td.gc    { background-color: @gc; }
+th.wii,  td.wii   { background-color: @wii; }
+th.wiiu, td.wiiu  { background-color: @wiiu; }
+th.sw,   td.sw    { background-color: @sw; }
+th.gb,   td.gb    { background-color: @gb; }
+th.gbc,  td.gbc   { background-color: @gbc; }
+th.gba,  td.gba   { background-color: @gba; }
+th.nds,  td.nds   { background-color: @nds; }
+th.n3ds, td.n3ds  { background-color: @n3ds; }
+th.ps1,  td.ps1   { background-color: @ps1; }
+th.ps2,  td.ps2   { background-color: @ps2; }
+th.ps3,  td.ps3   { background-color: @ps3; }
+th.ps4,  td.ps4   { background-color: @ps4; }
+th.ps5,  td.ps5   { background-color: @ps5; }
+th.psp,  td.psp   { background-color: @psp; }
+th.psv,  td.psv   { background-color: @psv; }
+th.xbx,  td.xbx   { background-color: @xbx; }
+th.x360, td.x360  { background-color: @x360; }
+th.xone, td.xone  { background-color: @xone; }
+th.xsx,  td.xsx   { background-color: @xsx; }
+th.gen,  td.gen   { background-color: @gen; }
+th.scd,  td.scd   { background-color: @scd; }
+th.sat,  td.sat   { background-color: @sat; }
+th.dc,   td.dc    { background-color: @dc; }
 
 span.nes   { color: @nes; }
 span.snes  { color: @snes; }

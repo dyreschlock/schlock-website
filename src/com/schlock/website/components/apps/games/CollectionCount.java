@@ -39,9 +39,9 @@ public class CollectionCount
     private Integer currentIndex;
 
 
-    public boolean isNotConsoleSelected()
+    public boolean isConsoleSelected()
     {
-        return currentConsole == null;
+        return currentConsole != null;
     }
 
     public String getTotalCount()

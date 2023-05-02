@@ -64,6 +64,11 @@ public class Index
         return title;
     }
 
+    public boolean isConsoleSelected()
+    {
+        return selectedConsole != null;
+    }
+
 
     public String getAll()
     {

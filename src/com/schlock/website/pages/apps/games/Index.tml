@@ -11,29 +11,46 @@
         <div class="body">
             <h2><t:outputraw value="title" /></h2>
 
-            <table class="layout">
-                <tr>
-                    <td rowspan="2">
-                        <g:collectioncount currentConsole="selectedConsole" />
-                        <!--g:platformcount platformGroup="all" /-->
-                    </td>
-                    <td>
-                        <g:platformcount platformGroup="nintendo"/>
-                    </td>
-                    <td>
-                        <g:platformcount platformGroup="sony" />
-                    </td>
-                    <td>
-                        <g:platformcount platformGroup="sega" />
-                        <g:platformcount platformGroup="microsoft" />
-                    </td>
-                </tr>
-                <tr>
-                    <td><!-- Most Common by Dev --></td>
-                    <td><!-- Most Common by Pub --></td>
-                    <td><!-- Most Common Year --></td>
-                </tr>
-            </table>
+            <t:if test="!consoleSelected">
+                <table class="layout">
+                    <tr>
+                        <td rowspan="2">
+                            <g:collectioncount currentConsole="selectedConsole" />
+                            <!--g:platformcount platformGroup="all" /-->
+                        </td>
+                        <td>
+                            <g:platformcount platformGroup="nintendo"/>
+                        </td>
+                        <td>
+                            <g:platformcount platformGroup="sony" />
+                        </td>
+                        <td>
+                            <g:platformcount platformGroup="sega" />
+                            <g:platformcount platformGroup="microsoft" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><!-- Most Common by Dev --></td>
+                        <td><!-- Most Common by Pub --></td>
+                        <td><!-- Most Common Year --></td>
+                    </tr>
+                </table>
+            </t:if>
+
+            <t:if test="consoleSelected">
+
+                <table class="layout">
+                    <tr>
+                        <td rowspan="2">
+                            <g:collectioncount currentConsole="selectedConsole" />
+                            <g:platformcount platformGroup="all" />
+                        </td>
+                        <td class="data">
+                            <g:platformgamelist console="selectedConsole" />
+                        </td>
+                    </tr>
+                </table>
+            </t:if>
 
         </div>
     </body>
