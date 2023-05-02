@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="body">
-            <h2>${message:title}</h2>
+            <h2><t:outputraw value="title" /></h2>
 
             <table class="layout">
                 <tr>

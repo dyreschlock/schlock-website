@@ -15,6 +15,17 @@ public class VideoGameConsoleDAOImpl extends BaseDAOImpl<VideoGameConsole> imple
         super(VideoGameConsole.class, session);
     }
 
+    public VideoGameConsole getByCode(String code)
+    {
+        String text = " from VideoGameConsole c " +
+                " where c.code = :code ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("code", code);
+
+        return (VideoGameConsole) singleResult(query);
+    }
+
     public List<VideoGameConsole> getByCompany(String company)
     {
         String text = " from VideoGameConsole c " +

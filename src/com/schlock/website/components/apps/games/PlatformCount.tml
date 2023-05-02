@@ -9,7 +9,7 @@
 
             <t:loop source="consoleData" value="currentConsole" index="currentIndex">
                 <tr>
-                    <td class="name ${currentConsole.code}">${currentConsole.name}</td>
+                    <td class="name ${currentConsole.code}"><a href="/apps/games/${currentConsole.code}">${currentConsole.name}</a></td>
                     <td class="count ${evenOdd}">${currentConsoleCount}</td>
                 </tr>
             </t:loop>

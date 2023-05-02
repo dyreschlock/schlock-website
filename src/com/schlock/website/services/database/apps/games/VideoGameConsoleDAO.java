@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface VideoGameConsoleDAO extends BaseDAO<VideoGameConsole>
 {
+    VideoGameConsole getByCode(String code);
+
     List<VideoGameConsole> getByCompany(String company);
 }
