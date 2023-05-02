@@ -6,6 +6,7 @@ import com.schlock.website.entities.apps.games.VideoGame;
 import com.schlock.website.entities.apps.games.VideoGameConsole;
 import com.schlock.website.services.database.apps.games.VideoGameConsoleDAO;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
+import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -25,6 +26,9 @@ public class CollectionCount
     @Inject
     private Messages messages;
 
+    @Parameter
+    private VideoGameConsole currentConsole;
+
     @Property
     private Region currentRegion;
 
@@ -34,11 +38,25 @@ public class CollectionCount
     @Property
     private Integer currentIndex;
 
+
+    public boolean isNotConsoleSelected()
+    {
+        return currentConsole == null;
+    }
+
     public String getTotalCount()
     {
-        List<VideoGame> games = gameDAO.getAll();
-
-        return Integer.toString(games.size());
+        int count;
+        if (currentConsole == null)
+        {
+            List<VideoGame> games = gameDAO.getAll();
+            count = games.size();
+        }
+        else
+        {
+            count = currentConsole.getGames().size();
+        }
+        return Integer.toString(count);
     }
 
     public String getTotalConsoles()
@@ -78,9 +96,24 @@ public class CollectionCount
 
     public String getRegionCount()
     {
-        List<VideoGame> games = gameDAO.getByRegion(currentRegion);
-
-        return Integer.toString(games.size());
+        int count;
+        if (currentConsole == null)
+        {
+            List<VideoGame> games = gameDAO.getByRegion(currentRegion);
+            count = games.size();
+        }
+        else
+        {
+            count = 0;
+            for(VideoGame game : currentConsole.getGames())
+            {
+                if (currentRegion.equals(game.getRegion()))
+                {
+                    count++;
+                }
+            }
+        }
+        return Integer.toString(count);
     }
 
     public List<Condition> getConditions()
@@ -95,9 +128,25 @@ public class CollectionCount
 
     public String getConditionCount()
     {
-        List<VideoGame> games = gameDAO.getByCondition(currentCondition);
+        int count;
+        if (currentConsole == null)
+        {
+            List<VideoGame> games = gameDAO.getByCondition(currentCondition);
+            count = games.size();
+        }
+        else
+        {
+            count = 0;
+            for(VideoGame game : currentConsole.getGames())
+            {
+                if (currentCondition.equals(game.getCondition()))
+                {
+                    count++;
+                }
+            }
+        }
 
-        return Integer.toString(games.size());
+        return Integer.toString(count);
     }
 
     public String getEvenOdd()

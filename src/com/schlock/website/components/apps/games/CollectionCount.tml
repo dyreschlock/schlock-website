@@ -12,18 +12,20 @@
         </table>
     </div>
 
-    <div class="panel">
-        <table class="platformData">
-            <tr>
-                <th class="name">${message:total-consoles}</th>
-                <td class="count even">${totalConsoles}</td>
-            </tr>
-            <tr>
-                <th class="name">${message:average-games}</th>
-                <td class="count odd">${averageGames}</td>
-            </tr>
-        </table>
-    </div>
+    <t:if test="notConsoleSelected">
+        <div class="panel">
+            <table class="platformData">
+                <tr>
+                    <th class="name">${message:total-consoles}</th>
+                    <td class="count even">${totalConsoles}</td>
+                </tr>
+                <tr>
+                    <th class="name">${message:average-games}</th>
+                    <td class="count odd">${averageGames}</td>
+                </tr>
+            </table>
+        </div>
+    </t:if>
 
     <div class="panel">
         <table class="platformData">

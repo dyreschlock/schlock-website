@@ -14,7 +14,7 @@
             <table class="layout">
                 <tr>
                     <td rowspan="2">
-                        <g:collectioncount />
+                        <g:collectioncount currentConsole="selectedConsole" />
                         <!--g:platformcount platformGroup="all" /-->
                     </td>
                     <td>
