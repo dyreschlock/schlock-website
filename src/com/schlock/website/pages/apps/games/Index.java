@@ -4,6 +4,7 @@ import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.games.VideoGameConsole;
 import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.database.apps.games.VideoGameConsoleDAO;
+import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -17,6 +18,9 @@ public class Index
 {
     private static final String TITLE_KEY = "title";
 
+    private static final int MAX_RESULTS_MAIN = 10;
+    private static final int MAX_RESULTS_CONSOLE = 5;
+
     @Inject
     private CssCache cssCashe;
 
@@ -25,6 +29,9 @@ public class Index
 
     @Inject
     private VideoGameConsoleDAO consoleDAO;
+
+    @Inject
+    private VideoGameDAO gameDAO;
 
     @Property
     @Persist
@@ -83,30 +90,43 @@ public class Index
         return selectedConsole != null;
     }
 
+    public int maxResults()
+    {
+        if (isConsoleSelected())
+        {
+            return MAX_RESULTS_CONSOLE;
+        }
+        return MAX_RESULTS_MAIN;
+    }
+
     public List<DataPanelData> getDevData()
     {
-        List<DataPanelData> data = new ArrayList<DataPanelData>();
-
-        data.add(new DataPanelData("test", "5"));
-
-        return data;
+        List<String[]> devData = gameDAO.getCountByMostCommonDeveloper(selectedConsole, maxResults());
+        return createPanelData(devData);
     }
 
     public List<DataPanelData> getPubData()
     {
-        List<DataPanelData> data = new ArrayList<DataPanelData>();
-
-        data.add(new DataPanelData("test", "5"));
-
-        return data;
+        List<String[]> devData = gameDAO.getCountByMostCommonPublisher(selectedConsole, maxResults());
+        return createPanelData(devData);
     }
 
     public List<DataPanelData> getYearData()
     {
+        List<String[]> devData = gameDAO.getCountByMostCommonYear(selectedConsole, maxResults());
+        return createPanelData(devData);
+    }
+
+    private List<DataPanelData> createPanelData(List<String[]> results)
+    {
         List<DataPanelData> data = new ArrayList<DataPanelData>();
+        for(String[] d : results)
+        {
+            String name = d[0];
+            String count = d[1];
 
-        data.add(new DataPanelData("test", "5"));
-
+            data.add(new DataPanelData(name, count));
+        }
         return data;
     }
 
