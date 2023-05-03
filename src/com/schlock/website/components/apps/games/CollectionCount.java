@@ -1,6 +1,7 @@
 package com.schlock.website.components.apps.games;
 
 import com.schlock.website.entities.apps.games.*;
+import com.schlock.website.pages.apps.games.Index;
 import com.schlock.website.services.database.apps.games.VideoGameConsoleDAO;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import org.apache.tapestry5.annotations.Parameter;
@@ -85,10 +86,11 @@ public class CollectionCount
 
         for(Condition condition : Condition.values())
         {
-            String name = messages.get(condition.name().toLowerCase());
+            String name = messages.get(condition.key());
             String count = getConditionCount(condition);
+            String link = Index.getPageLink(currentConsole, condition, null);
 
-            data.add(new DataPanelData(name, count));
+            data.add(new DataPanelData(name, count, link));
         }
         return data;
     }
@@ -104,10 +106,11 @@ public class CollectionCount
 
         for(Region region : Region.values())
         {
-            String name = messages.get(region.name().toLowerCase());
+            String name = messages.get(region.key());
             String count = getRegionCount(region);
+            String link = Index.getPageLink(currentConsole, null, region);
 
-            data.add(new DataPanelData(name, count));
+            data.add(new DataPanelData(name, count, link));
         }
         return data;
     }

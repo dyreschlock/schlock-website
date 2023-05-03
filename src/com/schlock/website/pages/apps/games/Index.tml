@@ -22,14 +22,14 @@
                             <g:collectioncount currentConsole="selectedConsole" />
                         </td>
                         <td>
-                            <g:platformpanel platformGroup="nintendo"/>
+                            <g:platformpanel platformGroup="nintendo" condition="selectedCondition" region="selectedRegion"/>
                         </td>
                         <td>
-                            <g:platformpanel platformGroup="sony" />
+                            <g:platformpanel platformGroup="sony" condition="selectedCondition" region="selectedRegion"/>
                         </td>
                         <td>
-                            <g:platformpanel platformGroup="sega" />
-                            <g:platformpanel platformGroup="microsoft" />
+                            <g:platformpanel platformGroup="sega" condition="selectedCondition" region="selectedRegion"/>
+                            <g:platformpanel platformGroup="microsoft" condition="selectedCondition" region="selectedRegion"/>
                         </td>
                     </tr>
                     <tr>

@@ -10,7 +10,17 @@
             </tr>
             <t:loop source="displayData" value="currentData" index="currentIndex">
                 <tr>
-                    <td class="${evenOdd} ${outerLeftCss}">${currentData.name}</td>
+                    <td class="${evenOdd} ${outerLeftCss}">
+
+                        <t:if test="currentData.hasLink">
+                            <a href="${currentData.link}">${currentData.name}</a>
+                        </t:if>
+
+                        <t:if test="!currentData.hasLink">
+                            ${currentData.name}
+                        </t:if>
+
+                    </td>
                     <td class="${evenOdd} ${outerRightCss}">${currentData.count}</td>
                 </tr>
             </t:loop>

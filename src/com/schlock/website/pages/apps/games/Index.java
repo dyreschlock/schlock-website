@@ -1,11 +1,12 @@
 package com.schlock.website.pages.apps.games;
 
+import com.schlock.website.entities.apps.games.Condition;
 import com.schlock.website.entities.apps.games.DataPanelData;
+import com.schlock.website.entities.apps.games.Region;
 import com.schlock.website.entities.apps.games.VideoGameConsole;
 import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.database.apps.games.VideoGameConsoleDAO;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
-import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
@@ -37,6 +38,14 @@ public class Index
     @Persist
     private VideoGameConsole selectedConsole;
 
+    @Property
+    @Persist
+    private Region selectedRegion;
+
+    @Property
+    @Persist
+    private Condition selectedCondition;
+
     Object onActivate()
     {
         return onActivate(null);
@@ -44,16 +53,22 @@ public class Index
 
     Object onActivate(String parameter)
     {
-        if (StringUtils.isBlank(parameter))
-        {
-            selectedConsole = null;
-        }
-        else
-        {
-            selectedConsole = consoleDAO.getByCode(parameter);
-        }
+        selectedConsole = consoleDAO.getByCode(parameter);
+        selectedCondition = Condition.parse(parameter);
+        selectedRegion = Region.parse(parameter);
+
         return true;
     }
+
+    Object onActivate(String parameter1, String parameter2)
+    {
+        selectedConsole = consoleDAO.getByCode(parameter1);
+        selectedCondition = Condition.parse(parameter2);
+        selectedRegion = Region.parse(parameter2);
+
+        return true;
+    }
+
 
 
     public String getCss()
@@ -67,6 +82,14 @@ public class Index
         if (selectedConsole != null)
         {
             title += " // " + selectedConsole.getName();
+        }
+        if (selectedRegion != null)
+        {
+            title += " // " + messages.get(selectedRegion.name().toLowerCase());
+        }
+        if (selectedCondition != null)
+        {
+            title += " // " + messages.get(selectedCondition.name().toLowerCase());
         }
         return title;
     }
@@ -153,5 +176,24 @@ public class Index
     public String getMicrosoft()
     {
         return VideoGameConsole.PLATFORM_CO_MICROSOFT;
+    }
+
+    public static String getPageLink(VideoGameConsole console, Condition condition, Region region)
+    {
+        String link = "/apps/games";
+
+        if (console != null)
+        {
+            link += "/" + console.getCode();
+        }
+        if (condition != null)
+        {
+            link += "/" + condition.key();
+        }
+        if (region != null)
+        {
+            link += "/" + region.key();
+        }
+        return link;
     }
 }

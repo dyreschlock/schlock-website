@@ -5,18 +5,15 @@
         <table class="platformData">
             <tr>
                 <th class="name outerTop outerRight outerLeft">
-                    <t:if test="all">
-                        <a href="/apps/games">${platformGroup}</a>
-                    </t:if>
-                    <t:if test="!all">
-                        ${platformGroup}
-                    </t:if>
+                    <t:outputraw value="panelTitle" />
                 </th>
             </tr>
 
             <t:loop source="consoleData" value="currentConsole" index="currentIndex">
                 <tr>
-                    <td class="name ${outerLeftCss} ${currentConsole.code}"><a href="/apps/games/${currentConsole.code}">${currentConsole.name}</a></td>
+                    <td class="name ${outerLeftCss} ${currentConsole.code}">
+                        <t:outputraw value="currentConsoleNameHTML" />
+                    </td>
                     <td class="count ${outerRightCss} ${evenOdd}">${currentConsoleCount}</td>
                 </tr>
             </t:loop>

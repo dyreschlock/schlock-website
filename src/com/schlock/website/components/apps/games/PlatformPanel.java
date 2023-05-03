@@ -1,6 +1,9 @@
 package com.schlock.website.components.apps.games;
 
+import com.schlock.website.entities.apps.games.Condition;
+import com.schlock.website.entities.apps.games.Region;
 import com.schlock.website.entities.apps.games.VideoGameConsole;
+import com.schlock.website.pages.apps.games.Index;
 import com.schlock.website.services.database.apps.games.VideoGameConsoleDAO;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -19,8 +22,14 @@ public class PlatformPanel
     private VideoGameConsoleDAO consoleDAO;
 
     @Parameter(required = true)
-    @Property
     private String platformGroup;
+
+    @Parameter
+    private Condition condition;
+
+    @Parameter
+    private Region region;
+
 
     @Property
     private VideoGameConsole currentConsole;
@@ -34,6 +43,19 @@ public class PlatformPanel
     }
 
     private List<VideoGameConsole> cachedData = null;
+
+    public String getPanelTitle()
+    {
+        String title = platformGroup;
+        if (isAll())
+        {
+            String html = "<a href=\"%s\">%s</a>";
+            String link = Index.getPageLink(null, null, null);
+
+            title = String.format(html, link, title);
+        }
+        return title;
+    }
 
     public List<VideoGameConsole> getConsoleData()
     {
@@ -62,9 +84,13 @@ public class PlatformPanel
         return cachedData;
     }
 
-    public String getCurrentConsoleName()
+    public String getCurrentConsoleNameHTML()
     {
-        return currentConsole.getName();
+        String html = "<a href=\"%s\">%s</a>";
+        String name = currentConsole.getName();
+        String link = Index.getPageLink(currentConsole, condition, region);
+
+        return String.format(html, link, name);
     }
 
     public String getCurrentConsoleCount()
