@@ -1,5 +1,6 @@
 package com.schlock.website.pages.apps.games;
 
+import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.games.VideoGameConsole;
 import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.database.apps.games.VideoGameConsoleDAO;
@@ -8,6 +9,9 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Index
 {
@@ -79,6 +83,32 @@ public class Index
         return selectedConsole != null;
     }
 
+    public List<DataPanelData> getDevData()
+    {
+        List<DataPanelData> data = new ArrayList<DataPanelData>();
+
+        data.add(new DataPanelData("test", "5"));
+
+        return data;
+    }
+
+    public List<DataPanelData> getPubData()
+    {
+        List<DataPanelData> data = new ArrayList<DataPanelData>();
+
+        data.add(new DataPanelData("test", "5"));
+
+        return data;
+    }
+
+    public List<DataPanelData> getYearData()
+    {
+        List<DataPanelData> data = new ArrayList<DataPanelData>();
+
+        data.add(new DataPanelData("test", "5"));
+
+        return data;
+    }
 
     public String getAll()
     {
