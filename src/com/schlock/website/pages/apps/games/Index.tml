@@ -23,14 +23,14 @@
                             <!--g:platformcount platformGroup="all" /-->
                         </td>
                         <td>
-                            <g:platformcount platformGroup="nintendo"/>
+                            <g:platformpanel platformGroup="nintendo"/>
                         </td>
                         <td>
-                            <g:platformcount platformGroup="sony" />
+                            <g:platformpanel platformGroup="sony" />
                         </td>
                         <td>
-                            <g:platformcount platformGroup="sega" />
-                            <g:platformcount platformGroup="microsoft" />
+                            <g:platformpanel platformGroup="sega" />
+                            <g:platformpanel platformGroup="microsoft" />
                         </td>
                     </tr>
                     <tr>
@@ -47,10 +47,10 @@
                     <tr>
                         <td rowspan="2">
                             <g:collectioncount currentConsole="selectedConsole" />
-                            <g:platformcount platformGroup="all" />
+                            <g:platformpanel platformGroup="all" />
                         </td>
                         <td class="data">
-                            <g:platformgamelist console="selectedConsole" />
+                            <g:platformgamespanel console="selectedConsole" />
                         </td>
                     </tr>
                 </table>

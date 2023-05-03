@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class PlatformCount
+public class PlatformPanel
 {
     protected static final String EVEN = "even";
     protected static final String ODD = "odd";

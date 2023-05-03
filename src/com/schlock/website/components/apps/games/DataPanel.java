@@ -53,8 +53,8 @@ public class DataPanel
     {
         if (currentIndex % 2 == 0)
         {
-            return PlatformCount.EVEN;
+            return PlatformPanel.EVEN;
         }
-        return PlatformCount.ODD;
+        return PlatformPanel.ODD;
     }
 }
