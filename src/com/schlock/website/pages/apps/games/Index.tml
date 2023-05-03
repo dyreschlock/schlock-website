@@ -5,6 +5,10 @@
         xmlns:g="tapestry-library:apps/games"
 >
     <head>
+
+        <title>${plainTitle}</title>
+        <link rel="icon" href="/icons/favicon.ico" type="image/x-icon"/>
+
         <style>${css}</style>
     </head>
     <body>

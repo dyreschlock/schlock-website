@@ -50,6 +50,16 @@ public class Index
         return cssCashe.getCssForGames();
     }
 
+    public String getPlainTitle()
+    {
+        String title = messages.get(TITLE_KEY);
+        if (selectedConsole != null)
+        {
+            title += " // " + selectedConsole.getName();
+        }
+        return title;
+    }
+
     public String getTitle()
     {
         String title = messages.get(TITLE_KEY);
