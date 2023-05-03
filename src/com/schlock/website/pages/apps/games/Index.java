@@ -96,16 +96,42 @@ public class Index
 
     public String getTitle()
     {
-        String title = messages.get(TITLE_KEY);
+        final String LINK_HTML = "<a href=\"%s\">%s</a>";
+
+        String pageTitle = messages.get(TITLE_KEY);
+        if (selectedConsole != null || selectedCondition != null || selectedRegion != null)
+        {
+            String link = Index.getPageLink(null, null, null);
+
+            pageTitle = String.format(LINK_HTML, link, pageTitle);
+        }
+
+        String titleBar = pageTitle;
 
         if (selectedConsole != null)
         {
-            title = "<a href=\"/apps/games\">" + title + "</a>";
+            String consoleTitle = "<span class=\"%s\">%s</span>";
+            consoleTitle = String.format(consoleTitle, selectedConsole.getCode(), selectedConsole.getName());
 
-            title += " // ";
-            title += "<span class=\"" + selectedConsole.getCode() + "\">" + selectedConsole.getName() + "</span>";
+            if (selectedCondition != null || selectedRegion != null)
+            {
+                String link = Index.getPageLink(selectedConsole, null, null);
+
+                consoleTitle = String.format(LINK_HTML, link, consoleTitle);
+            }
+
+            titleBar += " // " + consoleTitle;
         }
-        return title;
+
+        if (selectedCondition != null)
+        {
+            titleBar += " // " + messages.get(selectedCondition.key());
+        }
+        if (selectedRegion != null)
+        {
+            titleBar += " // " + messages.get(selectedRegion.key());
+        }
+        return titleBar;
     }
 
     public boolean isConsoleSelected()
