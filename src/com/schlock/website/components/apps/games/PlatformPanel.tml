@@ -5,7 +5,12 @@
         <table class="platformData">
             <tr>
                 <th class="name outerTop outerRight outerLeft">
-                    ${platformGroup}
+                    <t:if test="all">
+                        <a href="/apps/games">${platformGroup}</a>
+                    </t:if>
+                    <t:if test="!all">
+                        ${platformGroup}
+                    </t:if>
                 </th>
             </tr>
 

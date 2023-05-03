@@ -28,7 +28,7 @@ public class PlatformPanel
     @Property
     private Integer currentIndex;
 
-    private boolean isAll()
+    public boolean isAll()
     {
         return VideoGameConsole.PLATFORM_CO_ALL.equalsIgnoreCase(platformGroup);
     }
