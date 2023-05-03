@@ -48,9 +48,9 @@
                             <g:collectioncount currentConsole="selectedConsole" />
                             <g:platformpanel platformGroup="all" />
                         </td>
-                        <td><g:datapanel title="message:most-common-dev" displayData="devData" /></td>
-                        <td><g:datapanel title="message:most-common-pub" displayData="pubData" /></td>
-                        <td><g:datapanel title="message:most-common-year" displayData="yearData" /></td>
+                        <td class="common"><g:datapanel title="message:most-common-dev" displayData="devData" /></td>
+                        <td class="common"><g:datapanel title="message:most-common-pub" displayData="pubData" /></td>
+                        <td class="common"><g:datapanel title="message:most-common-year" displayData="yearData" /></td>
                     </tr>
                     <tr>
                         <td class="data" colspan="3">
