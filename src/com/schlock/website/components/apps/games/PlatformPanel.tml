@@ -4,19 +4,23 @@
     <div class="panel">
         <table class="platformData">
             <tr>
-                <th class="name">${platformGroup}</th>
+                <th class="name outerTop outerRight outerLeft">
+                    ${platformGroup}
+                </th>
             </tr>
 
             <t:loop source="consoleData" value="currentConsole" index="currentIndex">
                 <tr>
-                    <td class="name ${currentConsole.code}"><a href="/apps/games/${currentConsole.code}">${currentConsole.name}</a></td>
-                    <td class="count ${evenOdd}">${currentConsoleCount}</td>
+                    <td class="name ${outerLeftCss} ${currentConsole.code}"><a href="/apps/games/${currentConsole.code}">${currentConsole.name}</a></td>
+                    <td class="count ${outerRightCss} ${evenOdd}">${currentConsoleCount}</td>
                 </tr>
             </t:loop>
 
             <tr>
                 <td class="empty"></td>
-                <td class="totalConsoleCount">${totalCount}</td>
+                <td class="totalConsoleCount outerRight outerLeft outerBottom">
+                    ${totalCount}
+                </td>
             </tr>
 
         </table>

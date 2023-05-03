@@ -33,27 +33,33 @@ public class PlatformPanel
         return VideoGameConsole.PLATFORM_CO_ALL.equalsIgnoreCase(platformGroup);
     }
 
+    private List<VideoGameConsole> cachedData = null;
+
     public List<VideoGameConsole> getConsoleData()
     {
-        if (!isAll())
+        if (cachedData == null)
         {
-            return consoleDAO.getByCompany(platformGroup);
-        }
-
-        List<VideoGameConsole> all = consoleDAO.getAll();
-        Collections.sort(all, new Comparator<VideoGameConsole>()
-        {
-            @Override
-            public int compare(VideoGameConsole o1, VideoGameConsole o2)
+            if (!isAll())
             {
-                Integer c1 = o1.getGames().size();
-                Integer c2 = o2.getGames().size();
-
-                return c2.compareTo(c1);
+                cachedData = consoleDAO.getByCompany(platformGroup);
             }
-        });
+            else
+            {
+                cachedData = consoleDAO.getAll();
+                Collections.sort(cachedData, new Comparator<VideoGameConsole>()
+                {
+                    @Override
+                    public int compare(VideoGameConsole o1, VideoGameConsole o2)
+                    {
+                        Integer c1 = o1.getGames().size();
+                        Integer c2 = o2.getGames().size();
 
-        return all;
+                        return c2.compareTo(c1);
+                    }
+                });
+            }
+        }
+        return cachedData;
     }
 
     public String getCurrentConsoleName()
@@ -77,6 +83,28 @@ public class PlatformPanel
         }
 
         return Integer.toString(count);
+    }
+
+    public String getOuterLeftCss()
+    {
+        String css = "outerLeft ";
+
+        if (currentIndex == getConsoleData().size() - 1)
+        {
+            css += "outerBottom";
+        }
+        return css;
+    }
+
+    public String getOuterRightCss()
+    {
+        String css = "outerRight ";
+
+        if (currentIndex == 0)
+        {
+            css += "outerTop";
+        }
+        return css;
     }
 
     public String getEvenOdd()
