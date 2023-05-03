@@ -69,9 +69,9 @@ public class VideoGameDAOImpl extends BaseDAOImpl<VideoGame> implements VideoGam
         }
 
         text += " group by %s " +
-                " order by count(g.id) desc ";
+                " order by count(g.id) desc, %s asc ";
 
-        text = String.format(text, parameter, parameter, parameter);
+        text = String.format(text, parameter, parameter, parameter, parameter);
 
         Query query = session.createQuery(text);
         query.setMaxResults(maxResults);
