@@ -2,6 +2,8 @@
 
 @text_color: #444;
 
+@border_color: #333;
+
 @nes:  #e13124;
 @snes: #8752c4;
 @n64:  #430da4;
@@ -109,12 +111,12 @@ table.platformData, table.gameList
     text-align: center;
 
     border-collapse: collapse;
-    border: 0px;
+
 
     td, th
     {
         padding: 4px;
-        border: 1px solid #333;
+        border: 1px solid @border_color;
     }
 
     th
@@ -148,16 +150,40 @@ table.platformData, table.gameList
 
 table.gameList
 {
+    border: 2px solid @border_color;
+
     font-size: 10pt;
 }
 
 table.platformData
 {
+    border: 0px;
+
     th, td.totalConsoleCount
     {
         font-weight: bold;
         color: #fff;
         background-color: #444;
+    }
+
+    .outerTop
+    {
+        border-top: 2px solid @border_color;
+    }
+
+    .outerBottom
+    {
+        border-bottom: 2px solid @border_color;
+    }
+
+    .outerLeft
+    {
+        border-left: 2px solid @border_color;
+    }
+
+    .outerRight
+    {
+        border-right: 2px solid @border_color;
     }
 
     td.empty

@@ -1,13 +1,18 @@
 <t:container
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+        xmlns:g="tapestry-library:apps/games"
 >
     <div class="panel">
         <table class="platformData">
             <tr>
-                <th>${message:total}</th>
+                <th class="outerTop outerLeft outerRight">
+                    ${message:total}
+                </th>
             </tr>
             <tr>
-                <td class="totalCount">${totalCount}</td>
+                <td class="totalCount outerBottom outerLeft outerRight">
+                    ${totalCount}
+                </td>
             </tr>
         </table>
     </div>
@@ -16,42 +21,25 @@
         <div class="panel">
             <table class="platformData">
                 <tr>
-                    <th class="name">${message:total-consoles}</th>
-                    <td class="count even">${totalConsoles}</td>
+                    <th class="name outerLeft outerTop">
+                        ${message:total-consoles}
+                    </th>
+                    <td class="count even outerTop outerRight">
+                        ${totalConsoles}
+                    </td>
                 </tr>
                 <tr>
-                    <th class="name">${message:average-games}</th>
-                    <td class="count odd">${averageGames}</td>
+                    <th class="name outerLeft outerBottom">
+                        ${message:average-games}
+                    </th>
+                    <td class="count odd outerBottom outerRight"
+                        >${averageGames}
+                    </td>
                 </tr>
             </table>
         </div>
     </t:if>
 
-    <div class="panel">
-        <table class="platformData">
-            <tr>
-                <th class="name">${message:condition}</th>
-            </tr>
-            <t:loop source="conditions" value="currentCondition" index="currentIndex">
-                <tr>
-                    <td class="${evenOdd}">${conditionName}</td>
-                    <td class="${evenOdd}">${conditionCount}</td>
-                </tr>
-            </t:loop>
-        </table>
-    </div>
-
-    <div class="panel">
-        <table class="platformData">
-            <tr>
-                <th class="name">${message:region}</th>
-            </tr>
-            <t:loop source="regions" value="currentRegion" index="currentIndex">
-                <tr>
-                    <td class="${evenOdd}">${regionName}</td>
-                    <td class="${evenOdd}">${regionCount}</td>
-                </tr>
-            </t:loop>
-        </table>
-    </div>
+    <g:datapanel title="conditionTitle" displayData="conditionData" />
+    <g:datapanel title="regionTitle" displayData="regionData" />
 </t:container>

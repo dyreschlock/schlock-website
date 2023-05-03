@@ -1,22 +1,21 @@
 package com.schlock.website.components.apps.games;
 
-import com.schlock.website.entities.apps.games.Condition;
-import com.schlock.website.entities.apps.games.Region;
-import com.schlock.website.entities.apps.games.VideoGame;
-import com.schlock.website.entities.apps.games.VideoGameConsole;
+import com.schlock.website.entities.apps.games.*;
 import com.schlock.website.services.database.apps.games.VideoGameConsoleDAO;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.text.DecimalFormat;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CollectionCount
 {
+    private static final String CONDITION_KEY = "condition";
+    private static final String REGION_KEY = "region";
+
     @Inject
     private VideoGameDAO gameDAO;
 
@@ -28,15 +27,6 @@ public class CollectionCount
 
     @Parameter
     private VideoGameConsole currentConsole;
-
-    @Property
-    private Region currentRegion;
-
-    @Property
-    private Condition currentCondition;
-
-    @Property
-    private Integer currentIndex;
 
 
     public boolean isConsoleSelected()
@@ -84,22 +74,51 @@ public class CollectionCount
         return new DecimalFormat("#.0#").format(average);
     }
 
-    public List<Region> getRegions()
+    public String getConditionTitle()
     {
-        return Arrays.asList(Region.values());
+        return messages.get(CONDITION_KEY);
     }
 
-    public String getRegionName()
+    public List<DataPanelData> getConditionData()
     {
-        return messages.get(currentRegion.name().toLowerCase());
+        List<DataPanelData> data = new ArrayList<DataPanelData>();
+
+        for(Condition condition : Condition.values())
+        {
+            String name = messages.get(condition.name().toLowerCase());
+            String count = getConditionCount(condition);
+
+            data.add(new DataPanelData(name, count));
+        }
+        return data;
     }
 
-    public String getRegionCount()
+    public String getRegionTitle()
+    {
+        return messages.get(REGION_KEY);
+    }
+
+    public List<DataPanelData> getRegionData()
+    {
+        List<DataPanelData> data = new ArrayList<DataPanelData>();
+
+        for(Region region : Region.values())
+        {
+            String name = messages.get(region.name().toLowerCase());
+            String count = getRegionCount(region);
+
+            data.add(new DataPanelData(name, count));
+        }
+        return data;
+    }
+
+
+    public String getRegionCount(Region region)
     {
         int count;
         if (currentConsole == null)
         {
-            List<VideoGame> games = gameDAO.getByRegion(currentRegion);
+            List<VideoGame> games = gameDAO.getByRegion(region);
             count = games.size();
         }
         else
@@ -107,7 +126,7 @@ public class CollectionCount
             count = 0;
             for(VideoGame game : currentConsole.getGames())
             {
-                if (currentRegion.equals(game.getRegion()))
+                if (region.equals(game.getRegion()))
                 {
                     count++;
                 }
@@ -116,22 +135,12 @@ public class CollectionCount
         return Integer.toString(count);
     }
 
-    public List<Condition> getConditions()
-    {
-        return Arrays.asList(Condition.values());
-    }
-
-    public String getConditionName()
-    {
-        return messages.get(currentCondition.name().toLowerCase());
-    }
-
-    public String getConditionCount()
+    public String getConditionCount(Condition condition)
     {
         int count;
         if (currentConsole == null)
         {
-            List<VideoGame> games = gameDAO.getByCondition(currentCondition);
+            List<VideoGame> games = gameDAO.getByCondition(condition);
             count = games.size();
         }
         else
@@ -139,22 +148,12 @@ public class CollectionCount
             count = 0;
             for(VideoGame game : currentConsole.getGames())
             {
-                if (currentCondition.equals(game.getCondition()))
+                if (condition.equals(game.getCondition()))
                 {
                     count++;
                 }
             }
         }
-
         return Integer.toString(count);
-    }
-
-    public String getEvenOdd()
-    {
-        if (currentIndex % 2 == 0)
-        {
-            return PlatformCount.EVEN;
-        }
-        return PlatformCount.ODD;
     }
 }
