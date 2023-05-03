@@ -29,7 +29,7 @@ public class DataPanel
 
         if (currentIndex == displayData.size() - 1)
         {
-            css += "outerBottom";
+            css += "outerBottom ";
         }
         return css;
     }
@@ -40,11 +40,11 @@ public class DataPanel
 
         if (currentIndex == 0)
         {
-            css += "outerTop";
+            css += "outerTop ";
         }
         if (currentIndex == displayData.size() - 1)
         {
-            css += "outerBottom";
+            css += "outerBottom ";
         }
         return css;
     }
