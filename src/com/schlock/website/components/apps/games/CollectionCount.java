@@ -42,17 +42,50 @@ public class CollectionCount
 
     public String getTotalCount()
     {
-        int count;
-        if (currentConsole == null)
+        final String SPAN_HTML = "<span class=\"totalCount\">%s</span>";
+
+        String output;
+        if (currentConsole != null)
         {
-            List<VideoGame> games = gameDAO.getAll();
-            count = games.size();
+            int count = currentConsole.getGames().size();
+            if (condition != null)
+            {
+                int gameCount = gameDAO.getByConsoleCondition(currentConsole, condition).size();
+                output = String.format(SPAN_HTML, Integer.toString(gameCount));
+                output += " / " + count;
+            }
+            else if(region != null)
+            {
+                int gameCount = gameDAO.getByConsoleRegion(currentConsole, region).size();
+                output = String.format(SPAN_HTML, Integer.toString(gameCount));
+                output += " / " + count;
+            }
+            else
+            {
+                output = String.format(SPAN_HTML, Integer.toString(count));
+            }
         }
         else
         {
-            count = currentConsole.getGames().size();
+            int totalCount = gameDAO.getAll().size();
+            if (condition != null)
+            {
+                int gameCount = gameDAO.getByCondition(condition).size();
+                output = String.format(SPAN_HTML, Integer.toString(gameCount));
+                output += " / " + totalCount;
+            }
+            else if(region != null)
+            {
+                int gameCount = gameDAO.getByRegion(region).size();
+                output = String.format(SPAN_HTML, Integer.toString(gameCount));
+                output += " / " + totalCount;
+            }
+            else
+            {
+                output = String.format(SPAN_HTML, Integer.toString(totalCount));
+            }
         }
-        return Integer.toString(count);
+        return output;
     }
 
     public String getTotalConsoles()
@@ -72,7 +105,9 @@ public class CollectionCount
 
     public String getAverageGames()
     {
-        double totalGames = Double.parseDouble(getTotalCount());
+        Integer totalCount = gameDAO.getAll().size();
+
+        double totalGames = totalCount.doubleValue();
         double totalConsoles = Double.parseDouble(getTotalConsoles());
 
         double average = totalGames / totalConsoles;

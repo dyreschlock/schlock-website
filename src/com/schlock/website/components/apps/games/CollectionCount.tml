@@ -10,8 +10,8 @@
                 </th>
             </tr>
             <tr>
-                <td class="totalCount outerBottom outerLeft outerRight">
-                    ${totalCount}
+                <td class="even outerBottom outerLeft outerRight">
+                    <t:outputraw value="totalCount" />
                 </td>
             </tr>
         </table>
@@ -32,8 +32,8 @@
                     <th class="name outerLeft outerBottom">
                         ${message:average-games}
                     </th>
-                    <td class="count odd outerBottom outerRight"
-                        >${averageGames}
+                    <td class="count odd outerBottom outerRight">
+                        ${averageGames}
                     </td>
                 </tr>
             </table>
