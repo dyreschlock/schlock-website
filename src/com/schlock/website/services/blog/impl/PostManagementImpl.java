@@ -554,6 +554,10 @@ public class PostManagementImpl implements PostManagement
     public String generatePostDescription(AbstractPost post)
     {
         String description = post.getBodyText();
+        if (StringUtils.isNotBlank(post.getBlurb()))
+        {
+            description = post.getBlurb();
+        }
         if (description != null && description.length() > POST_DESCRIPTION_LENGTH)
         {
             description = description.substring(0, POST_DESCRIPTION_LENGTH);

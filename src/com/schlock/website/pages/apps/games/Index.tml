@@ -1,65 +1,55 @@
-<!DOCTYPE html>
-<html
-        xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="apps/layoutapps" title="plainTitle" postUuid="gamesPostUuid"
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
         xmlns:g="tapestry-library:apps/games"
 >
-    <head>
+    <div class="body">
+        <h2><t:outputraw value="title" /></h2>
 
-        <title>${plainTitle}</title>
-        <link rel="icon" href="/icons/favicon.ico" type="image/x-icon"/>
+        <t:if test="!consoleSelected">
+            <table class="layout">
+                <tr>
+                    <td rowspan="2">
+                        <g:collectioncount currentConsole="selectedConsole" condition="selectedCondition" region="selectedRegion" />
+                    </td>
+                    <td>
+                        <g:platformpanel platformGroup="nintendo" condition="selectedCondition" region="selectedRegion"/>
+                    </td>
+                    <td>
+                        <g:platformpanel platformGroup="sony" condition="selectedCondition" region="selectedRegion"/>
+                    </td>
+                    <td>
+                        <g:platformpanel platformGroup="sega" condition="selectedCondition" region="selectedRegion"/>
+                        <g:platformpanel platformGroup="microsoft" condition="selectedCondition" region="selectedRegion"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><g:datapanel title="message:most-common-dev" displayData="devData" /></td>
+                    <td><g:datapanel title="message:most-common-pub" displayData="pubData" /></td>
+                    <td><g:datapanel title="message:most-common-year" displayData="yearData" /></td>
+                </tr>
+            </table>
+        </t:if>
 
-        <style>${css}</style>
-    </head>
-    <body>
-        <div class="body">
-            <h2><t:outputraw value="title" /></h2>
+        <t:if test="consoleSelected">
 
-            <t:if test="!consoleSelected">
-                <table class="layout">
-                    <tr>
-                        <td rowspan="2">
-                            <g:collectioncount currentConsole="selectedConsole" condition="selectedCondition" region="selectedRegion" />
-                        </td>
-                        <td>
-                            <g:platformpanel platformGroup="nintendo" condition="selectedCondition" region="selectedRegion"/>
-                        </td>
-                        <td>
-                            <g:platformpanel platformGroup="sony" condition="selectedCondition" region="selectedRegion"/>
-                        </td>
-                        <td>
-                            <g:platformpanel platformGroup="sega" condition="selectedCondition" region="selectedRegion"/>
-                            <g:platformpanel platformGroup="microsoft" condition="selectedCondition" region="selectedRegion"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><g:datapanel title="message:most-common-dev" displayData="devData" /></td>
-                        <td><g:datapanel title="message:most-common-pub" displayData="pubData" /></td>
-                        <td><g:datapanel title="message:most-common-year" displayData="yearData" /></td>
-                    </tr>
-                </table>
-            </t:if>
+            <table class="layout">
+                <tr>
+                    <td rowspan="2">
+                        <g:collectioncount currentConsole="selectedConsole" condition="selectedCondition" region="selectedRegion" />
+                        <g:platformpanel platformGroup="all" />
+                    </td>
+                    <td class="common"><g:datapanel title="message:most-common-dev" displayData="devData" /></td>
+                    <td class="common"><g:datapanel title="message:most-common-pub" displayData="pubData" /></td>
+                    <td class="common"><g:datapanel title="message:most-common-year" displayData="yearData" /></td>
+                </tr>
+                <tr>
+                    <td class="data" colspan="3">
+                        <g:platformgamespanel console="selectedConsole" condition="selectedCondition" region="selectedRegion" />
+                    </td>
+                </tr>
+            </table>
+        </t:if>
 
-            <t:if test="consoleSelected">
-
-                <table class="layout">
-                    <tr>
-                        <td rowspan="2">
-                            <g:collectioncount currentConsole="selectedConsole" condition="selectedCondition" region="selectedRegion" />
-                            <g:platformpanel platformGroup="all" />
-                        </td>
-                        <td class="common"><g:datapanel title="message:most-common-dev" displayData="devData" /></td>
-                        <td class="common"><g:datapanel title="message:most-common-pub" displayData="pubData" /></td>
-                        <td class="common"><g:datapanel title="message:most-common-year" displayData="yearData" /></td>
-                    </tr>
-                    <tr>
-                        <td class="data" colspan="3">
-                            <g:platformgamespanel console="selectedConsole" condition="selectedCondition" region="selectedRegion" />
-                        </td>
-                    </tr>
-                </table>
-            </t:if>
-
-        </div>
-    </body>
+    </div>
 </html>

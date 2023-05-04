@@ -4,7 +4,6 @@ import com.schlock.website.entities.apps.games.Condition;
 import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.games.Region;
 import com.schlock.website.entities.apps.games.VideoGameConsole;
-import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.database.apps.games.VideoGameConsoleDAO;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import org.apache.tapestry5.annotations.Persist;
@@ -17,13 +16,12 @@ import java.util.List;
 
 public class Index
 {
+    private static final String GAMES_POST_UUID = "video-game-collection";
+
     private static final String TITLE_KEY = "title";
 
     private static final int MAX_RESULTS_MAIN = 10;
     private static final int MAX_RESULTS_CONSOLE = 5;
-
-    @Inject
-    private CssCache cssCashe;
 
     @Inject
     private Messages messages;
@@ -69,11 +67,9 @@ public class Index
         return true;
     }
 
-
-
-    public String getCss()
+    public String getGamesPostUuid()
     {
-        return cssCashe.getCssForGames();
+        return GAMES_POST_UUID;
     }
 
     public String getPlainTitle()
