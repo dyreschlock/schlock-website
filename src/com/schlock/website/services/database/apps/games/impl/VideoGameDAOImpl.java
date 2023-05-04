@@ -30,12 +30,42 @@ public class VideoGameDAOImpl extends BaseDAOImpl<VideoGame> implements VideoGam
         return query.list();
     }
 
+    public List<VideoGame> getByConsoleCondition(VideoGameConsole console, Condition condition)
+    {
+        String text = " select g " +
+                " from VideoGameConsole c " +
+                " join c.games g " +
+                " where c.id = :consoleId " +
+                " and g.condition = :cond ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("consoleId", console.getId());
+        query.setParameter("cond", condition);
+
+        return query.list();
+    }
+
     public List<VideoGame> getByRegion(Region region)
     {
         String text = " from VideoGame g " +
                 " where g.region = :region ";
 
         Query query = session.createQuery(text);
+        query.setParameter("region", region);
+
+        return query.list();
+    }
+
+    public List<VideoGame> getByConsoleRegion(VideoGameConsole console, Region region)
+    {
+        String text = " select g " +
+                " from VideoGameConsole c " +
+                " join c.games g " +
+                " where c.id = :consoleId " +
+                " and g.region = :region ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("consoleId", console.getId());
         query.setParameter("region", region);
 
         return query.list();

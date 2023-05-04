@@ -4,6 +4,7 @@ import com.schlock.website.entities.apps.games.Condition;
 import com.schlock.website.entities.apps.games.Region;
 import com.schlock.website.entities.apps.games.VideoGame;
 import com.schlock.website.entities.apps.games.VideoGameConsole;
+import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
@@ -14,6 +15,9 @@ import java.util.*;
 
 public class PlatformGamesPanel
 {
+    @Inject
+    private VideoGameDAO gameDAO;
+
     @Inject
     private Messages messages;
 
@@ -35,7 +39,20 @@ public class PlatformGamesPanel
 
     public List<VideoGame> getGames()
     {
-        List<VideoGame> games = getGames(console);
+        List<VideoGame> games;
+        if (condition != null)
+        {
+            games = gameDAO.getByConsoleCondition(console, condition);
+        }
+        else if (region != null)
+        {
+            games = gameDAO.getByConsoleRegion(console, region);
+        }
+        else
+        {
+            games = new ArrayList<VideoGame>();
+            games.addAll(console.getGames());
+        }
 
         Collections.sort(games, new Comparator<VideoGame>()
         {
@@ -48,14 +65,6 @@ public class PlatformGamesPanel
                 return t1.compareTo(t2);
             }
         });
-
-        return games;
-    }
-
-    private List<VideoGame> getGames(VideoGameConsole console)
-    {
-        List<VideoGame> games = new ArrayList<VideoGame>();
-        games.addAll(console.getGames());
 
         return games;
     }

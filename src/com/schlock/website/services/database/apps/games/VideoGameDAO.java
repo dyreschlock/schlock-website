@@ -12,7 +12,11 @@ public interface VideoGameDAO extends BaseDAO<VideoGame>
 {
     List<VideoGame> getByCondition(Condition condition);
 
+    List<VideoGame> getByConsoleCondition(VideoGameConsole console, Condition condition);
+
     List<VideoGame> getByRegion(Region region);
+
+    List<VideoGame> getByConsoleRegion(VideoGameConsole console, Region region);
 
     List<String[]> getCountByMostCommonDeveloper(VideoGameConsole console, int maxResults);
     List<String[]> getCountByMostCommonPublisher(VideoGameConsole console, int maxResults);
