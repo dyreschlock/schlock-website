@@ -29,6 +29,11 @@ public class CollectionCount
     @Parameter
     private VideoGameConsole currentConsole;
 
+    @Parameter
+    private Condition condition;
+
+    @Parameter
+    private Region region;
 
     public boolean isConsoleSelected()
     {

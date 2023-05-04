@@ -1,5 +1,7 @@
 package com.schlock.website.components.apps.games;
 
+import com.schlock.website.entities.apps.games.Condition;
+import com.schlock.website.entities.apps.games.Region;
 import com.schlock.website.entities.apps.games.VideoGame;
 import com.schlock.website.entities.apps.games.VideoGameConsole;
 import org.apache.tapestry5.annotations.Parameter;
@@ -19,6 +21,11 @@ public class PlatformGamesPanel
     @Property
     private VideoGameConsole console;
 
+    @Parameter
+    private Condition condition;
+
+    @Parameter
+    private Region region;
 
     @Property
     private VideoGame currentGame;
@@ -28,8 +35,7 @@ public class PlatformGamesPanel
 
     public List<VideoGame> getGames()
     {
-        List<VideoGame> games = new ArrayList<VideoGame>();
-        games.addAll(console.getGames());
+        List<VideoGame> games = getGames(console);
 
         Collections.sort(games, new Comparator<VideoGame>()
         {
@@ -46,6 +52,13 @@ public class PlatformGamesPanel
         return games;
     }
 
+    private List<VideoGame> getGames(VideoGameConsole console)
+    {
+        List<VideoGame> games = new ArrayList<VideoGame>();
+        games.addAll(console.getGames());
+
+        return games;
+    }
 
     public String getCurrentGameReleaseDate()
     {

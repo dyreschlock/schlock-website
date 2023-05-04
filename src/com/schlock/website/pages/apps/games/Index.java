@@ -122,7 +122,6 @@ public class Index
 
             titleBar += " // " + consoleTitle;
         }
-
         if (selectedCondition != null)
         {
             titleBar += " // " + messages.get(selectedCondition.key());
