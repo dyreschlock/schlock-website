@@ -5,6 +5,7 @@ import com.schlock.website.entities.apps.games.Region;
 import com.schlock.website.entities.apps.games.VideoGameConsole;
 import com.schlock.website.pages.apps.games.Index;
 import com.schlock.website.services.database.apps.games.VideoGameConsoleDAO;
+import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -20,6 +21,9 @@ public class PlatformPanel
 
     @Inject
     private VideoGameConsoleDAO consoleDAO;
+
+    @Inject
+    private VideoGameDAO gameDAO;
 
     @Parameter(required = true)
     private String platformGroup;
@@ -95,9 +99,26 @@ public class PlatformPanel
 
     public String getCurrentConsoleCount()
     {
-        Integer count = currentConsole.getGames().size();
+        int count = getGameCount(currentConsole);
+        return Integer.toString(count);
+    }
 
-        return count.toString();
+    private int getGameCount(VideoGameConsole console)
+    {
+        int count;
+        if (condition != null)
+        {
+            count = gameDAO.getByConsoleCondition(console, condition).size();
+        }
+        else if (region != null)
+        {
+            count = gameDAO.getByConsoleRegion(console, region).size();
+        }
+        else
+        {
+            count = console.getGames().size();
+        }
+        return count;
     }
 
     public String getTotalCount()
@@ -105,9 +126,8 @@ public class PlatformPanel
         int count = 0;
         for(VideoGameConsole console : getConsoleData())
         {
-            count += console.getGames().size();
+            count += getGameCount(console);
         }
-
         return Integer.toString(count);
     }
 
