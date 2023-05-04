@@ -122,6 +122,8 @@ public class CollectionCount
 
     public List<DataPanelData> getConditionData()
     {
+        final String SPAN_HTML = "<span class=\"bold\">%s</span>";
+
         List<DataPanelData> data = new ArrayList<DataPanelData>();
 
         for(Condition condition : Condition.values())
@@ -129,6 +131,12 @@ public class CollectionCount
             String name = messages.get(condition.key());
             String count = getConditionCount(condition);
             String link = Index.getPageLink(currentConsole, condition, null);
+
+            if (condition.equals(this.condition))
+            {
+                name = String.format(SPAN_HTML, name);
+                link = Index.getPageLink(currentConsole, null, null);
+            }
 
             data.add(new DataPanelData(name, count, link));
         }
@@ -142,6 +150,8 @@ public class CollectionCount
 
     public List<DataPanelData> getRegionData()
     {
+        final String SPAN_HTML = "<span class=\"bold\">%s</span>";
+
         List<DataPanelData> data = new ArrayList<DataPanelData>();
 
         for(Region region : Region.values())
@@ -149,6 +159,12 @@ public class CollectionCount
             String name = messages.get(region.key());
             String count = getRegionCount(region);
             String link = Index.getPageLink(currentConsole, null, region);
+
+            if (region.equals(this.region))
+            {
+                name = String.format(SPAN_HTML, name);
+                link = Index.getPageLink(currentConsole, null, null);
+            }
 
             data.add(new DataPanelData(name, count, link));
         }

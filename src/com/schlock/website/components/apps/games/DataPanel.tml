@@ -13,11 +13,11 @@
                     <td class="${evenOdd} ${outerLeftCss}">
 
                         <t:if test="currentData.hasLink">
-                            <a href="${currentData.link}">${currentData.name}</a>
+                            <a href="${currentData.link}"><t:outputraw value="currentData.name" /></a>
                         </t:if>
 
                         <t:if test="!currentData.hasLink">
-                            ${currentData.name}
+                            <t:outputraw value="currentData.name" />
                         </t:if>
 
                     </td>
