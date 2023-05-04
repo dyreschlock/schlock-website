@@ -17,6 +17,7 @@ datadirectory.location.hosted=
 new.connection.username.hosted=
 new.connection.password.hosted=
 
-generation.output.directory=
+output.directory.html=
+output.directory.photos=
 
 google.credentials.filepath=

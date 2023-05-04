@@ -535,7 +535,7 @@ public class ImageManagementImpl implements ImageManagement
         List<Image> allImages = imageDAO.getAll();
         for(Image image: allImages)
         {
-            String webpPath = deploymentContext.webDirectory() + image.getWebpFilepath();
+            String webpPath = deploymentContext.imageOutputDirectory() + "/" + image.getWebpFilepath();
             File webpFile = new File(webpPath);
 
             if (!webpFile.exists())

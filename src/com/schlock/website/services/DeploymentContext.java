@@ -28,6 +28,8 @@ public interface DeploymentContext
 
     public String imageLocation();
 
+    public String imageOutputDirectory();
+
     public String coverImageLocationLocal();
     public String coverImageLocationInternet();
 }

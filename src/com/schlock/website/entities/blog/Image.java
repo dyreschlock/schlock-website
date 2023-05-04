@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 
 public class Image extends Persisted
 {
+    public static final String GITHUB_IMAGE_LINK = "https://raw.githubusercontent.com/dyreschlock/dyreschlock.github.photos/master";
     public static final String GOOGLE_DRIVE_IMAGE_LINK = "https://drive.google.com/uc?id=";
 
     public static final String WEBP_FOLDER_NAME = "webp";
@@ -28,15 +29,16 @@ public class Image extends Persisted
 //        {
 //            return webpDirectLink;
 //        }
-        if (webpGoogleId != null && !webpGoogleId.isEmpty())
-        {
-            return GOOGLE_DRIVE_IMAGE_LINK + webpGoogleId;
-        }
+//        if (webpGoogleId != null && !webpGoogleId.isEmpty())
+//        {
+//            return GOOGLE_DRIVE_IMAGE_LINK + webpGoogleId;
+//        }
+
         if (StringUtils.isBlank(galleryName))
         {
-            return "/" + WEBP_FOLDER_NAME + "/" + directory + "/" + getWebpFilename();
+            return GITHUB_IMAGE_LINK + "/" + directory + "/" + getWebpFilename();
         }
-        return "/" + WEBP_FOLDER_NAME + "/" + directory + "/" + galleryName + "/" + getWebpFilename();
+        return GITHUB_IMAGE_LINK + "/" + directory + "/" + galleryName + "/" + getWebpFilename();
     }
 
     private String getLocalPath()
@@ -62,7 +64,7 @@ public class Image extends Persisted
 
     public String getWebpFilepath()
     {
-        return WEBP_FOLDER_NAME + "/" + getLocalPath() + getWebpFilename();
+        return getLocalPath() + getWebpFilename();
     }
 
     public boolean isThumbnail()

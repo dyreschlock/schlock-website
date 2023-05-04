@@ -2,7 +2,7 @@
 
 source _load_properties.sh
 
-cd ${generation_output_directory}
+cd ${output_directory_html}
 
 # Install with brew install wget
 

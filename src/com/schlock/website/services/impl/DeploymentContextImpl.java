@@ -21,7 +21,8 @@ public class DeploymentContextImpl implements DeploymentContext
     private static final String WEBDIR_PARAM = "webdirectory.location";
     private static final String DATADIR_PARAM = "datadirectory.location";
 
-    private static final String OUT_DIR_PARAM = "generation.output.directory";
+    private static final String OUT_DIR_HTML_PARAM = "output.directory.html";
+    private static final String OUT_DIR_PHOTO_PARAM = "output.directory.photos";
 
     private static final String LOCAL = "local";
     private static final String HOSTED = "hosted";
@@ -139,9 +140,15 @@ public class DeploymentContextImpl implements DeploymentContext
         return getDeployProperties().getProperty(DATADIR_PARAM + "." + context);
     }
 
+    public String imageOutputDirectory()
+    {
+        String outputDirectory = getDeployProperties().getProperty(OUT_DIR_PHOTO_PARAM);
+        return outputDirectory;
+    }
+
     public String coverImageLocationLocal()
     {
-        String outputDirectory = getDeployProperties().getProperty(OUT_DIR_PARAM);
+        String outputDirectory = getDeployProperties().getProperty(OUT_DIR_HTML_PARAM);
         return outputDirectory + "/" + COVER_DIR;
     }
 
