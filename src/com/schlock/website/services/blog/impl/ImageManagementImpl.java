@@ -494,6 +494,36 @@ public class ImageManagementImpl implements ImageManagement
     }
 
 
+    public void removeInvalidCharactersFromImageFilenames(String webDirPath) throws IOException
+    {
+        final String TM = "™";
+
+        File directory = new File(webDirPath);
+
+        File[] files = directory.listFiles(new FilenameFilter()
+        {
+            @Override
+            public boolean accept(File dir, String name)
+            {
+                return isImage(name);
+            }
+        });
+
+        for (File file : files)
+        {
+            String name = file.getName();
+
+            name = name.replace(TM, "");
+            name = name.replace(" ", "_");
+
+            File newfile = new File(webDirPath + name);
+            if (!newfile.exists())
+            {
+                file.renameTo(newfile);
+            }
+        }
+    }
+
     public void createThumbnailsForDirectory(String location) throws IOException
     {
         FilenameFilter filter = new FilenameFilter()

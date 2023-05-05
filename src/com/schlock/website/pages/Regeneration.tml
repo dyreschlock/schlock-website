@@ -35,7 +35,11 @@
 
         <t:if test="local">
             <div>
-                <h2><t:eventlink t:id="generateThumbnails">Generate Thumbnails for Directory</t:eventlink></h2>
+                <h2><t:eventlink t:id="processImageDirectory">Process Image Directory</t:eventlink></h2>
+                (It will do both of the following, in order)<br/>
+                <br/>
+                - <t:eventlink t:id="sanitizeImages">Remove all Invalid Characters From Image Filenames</t:eventlink><br/>
+                - <t:eventlink t:id="generateThumbnails">Generate Thumbnails for Directory</t:eventlink><br/>
                 <br/>
                 <br/>
                 <h2><t:eventlink t:id="regenPostItems">Generate Post Items</t:eventlink></h2>

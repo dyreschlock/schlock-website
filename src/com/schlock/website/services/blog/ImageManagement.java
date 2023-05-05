@@ -20,6 +20,8 @@ public interface ImageManagement
 
     void createPostPreviewImages();
 
+    void removeInvalidCharactersFromImageFilenames(String webDirPath) throws IOException;
+
     void createThumbnailsForDirectory(String webDirPath) throws IOException;
 
     void generateWebpFilesFromImages() throws IOException;

@@ -4,6 +4,7 @@ import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.GoogleManagement;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -28,19 +29,50 @@ public class Regeneration
         return deploymentContext.isLocal();
     }
 
+    /*
+     * No slash at the beginning. Slash at the end.
+     */
+    private static final String LOCATION = "";
+
+
+    @CommitAfter
+    void onProcessImageDirectory()
+    {
+        onSanitizeImages();
+        onGenerateThumbnails();
+    }
+
+    @CommitAfter
+    void onSanitizeImages()
+    {
+        if (StringUtils.isNotBlank(LOCATION))
+        {
+            String imageLocation = deploymentContext.webDirectory() + LOCATION;
+            try
+            {
+                imageManagement.removeInvalidCharactersFromImageFilenames(imageLocation);
+            }
+            catch (IOException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     @CommitAfter
     void onGenerateThumbnails()
     {
-        String LOCATION = "";
-
-        LOCATION = deploymentContext.webDirectory() + LOCATION;
-        try
+        if (StringUtils.isNotBlank(LOCATION))
         {
-            imageManagement.createThumbnailsForDirectory(LOCATION);
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException(e);
+            String imageLocation = deploymentContext.webDirectory() + LOCATION;
+            try
+            {
+                imageManagement.createThumbnailsForDirectory(imageLocation);
+            }
+            catch (IOException e)
+            {
+                throw new RuntimeException(e);
+            }
         }
     }
 
