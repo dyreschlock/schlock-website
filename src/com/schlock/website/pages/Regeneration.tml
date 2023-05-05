@@ -54,13 +54,6 @@
                 <br/>
                 - <t:eventlink t:id="generateWebpFiles">Generate WebP Files from Images</t:eventlink><br/>
                 <br/>
-                <br/>
-                <h2><t:eventlink t:id="generateGoogleItems">Generate Google IDs and Links</t:eventlink></h2>
-                (It will do both of the following, in order)<br/>
-                <br/>
-                - <t:eventlink t:id="generateGoogleImageIds">Retrieve all Google IDs for Images</t:eventlink><br/>
-                - <t:eventlink t:id="generateImageDirectLinks">Retrieve Direct Links for Images</t:eventlink><br/>
-                <br/>
             </div>
 
         </t:if>

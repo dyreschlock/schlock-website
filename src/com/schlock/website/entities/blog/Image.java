@@ -6,7 +6,6 @@ import org.apache.commons.lang.StringUtils;
 public class Image extends Persisted
 {
     public static final String GITHUB_IMAGE_LINK = "https://raw.githubusercontent.com/dyreschlock/dyreschlock.github.photos/master";
-    public static final String GOOGLE_DRIVE_IMAGE_LINK = "https://drive.google.com/uc?id=";
 
     public static final String WEBP_FOLDER_NAME = "webp";
     public static final String WEBP_FILE_EXT = ".webp";
@@ -15,9 +14,6 @@ public class Image extends Persisted
     private String galleryName;
     private String imageName;
 
-    private String webpGoogleId;
-    private String webpDirectLink;
-
     private String commentText;
 
     private Image parent; // full version of the thumbnail
@@ -25,15 +21,6 @@ public class Image extends Persisted
 
     public String getImageLink()
     {
-//        if(webpDirectLink != null && !webpDirectLink.isEmpty())
-//        {
-//            return webpDirectLink;
-//        }
-//        if (webpGoogleId != null && !webpGoogleId.isEmpty())
-//        {
-//            return GOOGLE_DRIVE_IMAGE_LINK + webpGoogleId;
-//        }
-
         if (StringUtils.isBlank(galleryName))
         {
             return GITHUB_IMAGE_LINK + "/" + directory + "/" + getWebpFilename();
@@ -96,26 +83,6 @@ public class Image extends Persisted
     public String getImageName() { return imageName; }
 
     public void setImageName(String imageName) { this.imageName = imageName; }
-
-    public String getWebpGoogleId()
-    {
-        return webpGoogleId;
-    }
-
-    public void setWebpGoogleId(String webpGoogleId)
-    {
-        this.webpGoogleId = webpGoogleId;
-    }
-
-    public String getWebpDirectLink()
-    {
-        return webpDirectLink;
-    }
-
-    public void setWebpDirectLink(String webpDirectLink)
-    {
-        this.webpDirectLink = webpDirectLink;
-    }
 
     public String getCommentText() { return commentText; }
 

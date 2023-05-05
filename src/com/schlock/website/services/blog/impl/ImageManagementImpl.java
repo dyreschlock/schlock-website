@@ -4,7 +4,6 @@ import com.google.common.io.Files;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
 import com.schlock.website.services.DeploymentContext;
-import com.schlock.website.services.blog.GoogleManagement;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.ImageDAO;
@@ -25,21 +24,18 @@ public class ImageManagementImpl implements ImageManagement
 
     private final DeploymentContext deploymentContext;
 
-    private final GoogleManagement googleManagement;
     private final PostManagement postManagement;
 
     private final PostDAO postDAO;
     private final ImageDAO imageDAO;
 
     public ImageManagementImpl(DeploymentContext deploymentContext,
-                               GoogleManagement googleManagement,
                                PostManagement postManagement,
                                PostDAO postDAO,
                                ImageDAO imageDAO)
     {
         this.deploymentContext = deploymentContext;
 
-        this.googleManagement = googleManagement;
         this.postManagement = postManagement;
 
         this.postDAO = postDAO;

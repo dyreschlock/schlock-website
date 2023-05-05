@@ -15,8 +15,6 @@ public class BlogModule
         binder.bind(LessonsManagement.class, LessonsManagementImpl.class);
         binder.bind(KeywordManagement.class, KeywordManagementImpl.class);
 
-        binder.bind(GoogleManagement.class, GoogleManagementImpl.class);
-
         binder.bind(CssCache.class, CssCacheImpl.class);
 
         binder.bind(ConvertWordpress.class, ConvertWordpressImpl.class);

@@ -26,7 +26,6 @@ public class DatabaseModule
     {
         binder.bind(PostDAO.class, PostDAOImpl.class);
         binder.bind(ImageDAO.class, ImageDAOImpl.class);
-        binder.bind(ImageFolderDAO.class, ImageFolderDAOImpl.class);
         binder.bind(CategoryDAO.class, CategoryDAOImpl.class);
         binder.bind(KeywordDAO.class, KeywordDAOImpl.class);
 

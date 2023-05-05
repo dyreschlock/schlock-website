@@ -1,7 +1,6 @@
 package com.schlock.website.pages;
 
 import com.schlock.website.services.DeploymentContext;
-import com.schlock.website.services.blog.GoogleManagement;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
@@ -21,8 +20,6 @@ public class Regeneration
     @Inject
     private PostManagement postManagement;
 
-    @Inject
-    private GoogleManagement googleManagement;
 
     public boolean isLocal()
     {
@@ -115,24 +112,5 @@ public class Regeneration
             e.printStackTrace();
 //            throw new RuntimeException(e);
         }
-    }
-
-    @CommitAfter
-    void onGenerateGoogleItems()
-    {
-        onGenerateGoogleImageIds();
-        onGenerateImageDirectLinks();
-    }
-
-    @CommitAfter
-    void onGenerateGoogleImageIds()
-    {
-        googleManagement.generateGoogleImageIds();
-    }
-
-    @CommitAfter
-    void onGenerateImageDirectLinks()
-    {
-        googleManagement.updateImagesWithDirectLinks();
     }
 }
