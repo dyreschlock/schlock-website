@@ -52,6 +52,7 @@
     </script>
 
     <body>
+        <header id="header" role="banner">
         <div id="headerFullBody"><div id="headerInnerBody"><div id="headerBody">
             <div id="headerContent">
 
@@ -59,6 +60,9 @@
 
             </div>
         </div></div></div>
+        </header>
+
+        <nav id="nav" role="navigation">
         <div id="subheaderFullBody"><div id="subheaderInnerBody"><div id="subheaderBody">
             <div id="subheaderContent">
 
@@ -66,7 +70,9 @@
 
             </div>
         </div></div></div>
+        </nav>
 
+        <main id="main" role="main">
         <div id="blogFullBody"><div id="blogInnerBody"><div id="blogBody">
             <div id="blogContent">
 
@@ -74,6 +80,9 @@
 
             </div>
         </div></div></div>
+        </main>
+
+        <footer id="footer" role="contentinfo">
         <div id="footerFullBody"><div id="footerInnerBody"><div id="footerBody">
             <div id="footerContent">
 
@@ -81,6 +90,8 @@
 
             </div>
         </div></div></div>
+        </footer>
+
         <link rel="stylesheet" href="/layout/blog.css" type="text/css"/>
     </body>
 </html>
