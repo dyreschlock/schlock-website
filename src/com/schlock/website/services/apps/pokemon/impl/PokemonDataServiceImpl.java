@@ -45,11 +45,8 @@ public class PokemonDataServiceImpl implements PokemonDataService
     );
 
     private final static List<String> IGNORE_POKEMON = Arrays.asList(
-            "Mega Pinsir",
-
             "Mega Heracross",
 
-            "Mega Glalie",
             "Mega Gallade",
             "Mega Sableye",
             "Mega Mawile",
@@ -840,6 +837,8 @@ public class PokemonDataServiceImpl implements PokemonDataService
         List<String> names = new ArrayList<String>();
 
         //TODO: Add random bosses here
+//        names.add("");
+
         names.addAll(GEN1_BOSSES);
         names.addAll(GEN2_BOSSES);
         names.addAll(GEN3_BOSSES);
