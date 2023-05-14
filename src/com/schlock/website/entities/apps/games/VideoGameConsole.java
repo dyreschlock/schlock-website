@@ -12,6 +12,7 @@ public class VideoGameConsole extends Persisted
     public static final String PLATFORM_CO_NINTENDO = "Nintendo";
     public static final String PLATFORM_CO_SEGA = "Sega";
     public static final String PLATFORM_CO_MICROSOFT = "Microsoft";
+    public static final String PLATFORM_CO_OTHER = "Other";
 
     private String name;
     private String code;

@@ -17,6 +17,7 @@
                     </td>
                     <td>
                         <g:platformpanel platformGroup="sony" condition="selectedCondition" region="selectedRegion"/>
+                        <g:platformpanel platformGroup="other" condition="selectedCondition" region="selectedRegion"/>
                     </td>
                     <td>
                         <g:platformpanel platformGroup="sega" condition="selectedCondition" region="selectedRegion"/>

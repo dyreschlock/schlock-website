@@ -199,6 +199,11 @@ public class Index
         return VideoGameConsole.PLATFORM_CO_MICROSOFT;
     }
 
+    public String getOther()
+    {
+        return VideoGameConsole.PLATFORM_CO_OTHER;
+    }
+
     public static String getPageLink(VideoGameConsole console, Condition condition, Region region)
     {
         String link = "/apps/games";
