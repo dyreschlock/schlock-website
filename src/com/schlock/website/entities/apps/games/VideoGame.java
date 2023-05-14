@@ -16,6 +16,7 @@ public class VideoGame extends Persisted
     private Region region;
     private Condition condition;
 
+    private String postUUID;
 
     public VideoGame()
     {
@@ -55,5 +56,15 @@ public class VideoGame extends Persisted
     public void setCondition(Condition condition)
     {
         this.condition = condition;
+    }
+
+    public String getPostUUID()
+    {
+        return postUUID;
+    }
+
+    public void setPostUUID(String postUUID)
+    {
+        this.postUUID = postUUID;
     }
 }

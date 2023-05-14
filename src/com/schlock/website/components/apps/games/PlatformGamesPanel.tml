@@ -16,7 +16,7 @@
             <t:loop source="games" value="currentGame" index="currentIndex">
 
                 <tr>
-                    <td class="${evenOdd} name">${currentGame.title}</td>
+                    <td class="${evenOdd} name"><t:outputraw value="currentGameTitle" /></td>
                     <td class="${evenOdd} developer">${currentGame.developer}</td>
                     <td class="${evenOdd} publisher">${currentGame.publisher}</td>
                     <td class="${evenOdd} releaseDate">${currentGameReleaseDate}</td>

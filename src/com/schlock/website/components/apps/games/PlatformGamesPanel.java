@@ -5,6 +5,7 @@ import com.schlock.website.entities.apps.games.Region;
 import com.schlock.website.entities.apps.games.VideoGame;
 import com.schlock.website.entities.apps.games.VideoGameConsole;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
@@ -67,6 +68,18 @@ public class PlatformGamesPanel
         });
 
         return games;
+    }
+
+    public String getCurrentGameTitle()
+    {
+        String title = currentGame.getTitle();
+        if (StringUtils.isNotBlank(currentGame.getPostUUID()))
+        {
+            String span = "<a href=\"%s\">%s</a>";
+
+            title = String.format(span, "/" + currentGame.getPostUUID(), title);
+        }
+        return title;
     }
 
     public String getCurrentGameReleaseDate()

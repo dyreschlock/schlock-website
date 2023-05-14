@@ -28,5 +28,7 @@
             </type>
         </property>
 
+        <property name="postUUID" />
+
     </class>
 </hibernate-mapping>

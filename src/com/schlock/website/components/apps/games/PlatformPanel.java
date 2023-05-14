@@ -8,6 +8,7 @@ import com.schlock.website.services.database.apps.games.VideoGameConsoleDAO;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.Collections;
@@ -24,6 +25,9 @@ public class PlatformPanel
 
     @Inject
     private VideoGameDAO gameDAO;
+
+    @Inject
+    private Messages messages;
 
     @Parameter(required = true)
     private String platformGroup;
@@ -50,7 +54,7 @@ public class PlatformPanel
 
     public String getPanelTitle()
     {
-        String title = platformGroup;
+        String title = messages.get(platformGroup.toLowerCase());
         if (isAll())
         {
             String html = "<a href=\"%s\">%s</a>";
