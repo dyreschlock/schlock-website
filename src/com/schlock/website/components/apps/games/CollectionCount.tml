@@ -59,7 +59,7 @@
                         ${message:total-zelda-games}
                     </th>
                     <td class="count even outerBottom outerRight">
-                        ${totalFinalFantasyGames}
+                        ${totalZeldaGames}
                     </td>
                 </tr>
             </table>
