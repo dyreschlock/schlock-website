@@ -4,6 +4,7 @@ import com.schlock.website.entities.apps.games.*;
 import com.schlock.website.pages.apps.games.Index;
 import com.schlock.website.services.database.apps.games.VideoGameConsoleDAO;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -114,6 +115,38 @@ public class CollectionCount
 
         return new DecimalFormat("#.0#").format(average);
     }
+
+    public String getTotalPokemonGames()
+    {
+        return getTotalsTitleContainsString("pokemon");
+    }
+
+    public String getTotalFinalFantasyGames()
+    {
+        return getTotalsTitleContainsString("final fantasy");
+    }
+
+    public String getTotalZeldaGames()
+    {
+        return getTotalsTitleContainsString("zelda");
+    }
+
+    private String getTotalsTitleContainsString(final String CONTAINS)
+    {
+        int count = 0;
+        for(VideoGame game : gameDAO.getAll())
+        {
+            if (StringUtils.containsIgnoreCase(game.getTitle(), CONTAINS))
+            {
+                count ++;
+            }
+        }
+        return Integer.toString(count);
+    }
+
+
+
+
 
     public String getConditionTitle()
     {

@@ -32,8 +32,34 @@
                     <th class="name outerLeft outerBottom">
                         ${message:average-games}
                     </th>
-                    <td class="count odd outerBottom outerRight">
+                    <td class="count odd outerRight outerBottom">
                         ${averageGames}
+                    </td>
+                </tr>
+            </table><br />
+            <table class="platformData">
+                <tr>
+                    <th class="name outerLeft outerTop">
+                        ${message:total-pokemon-games}
+                    </th>
+                    <td class="count even outerRight outerTop">
+                        ${totalPokemonGames}
+                    </td>
+                </tr>
+                <tr>
+                    <th class="name outerLeft">
+                        ${message:total-final-fantasy-games}
+                    </th>
+                    <td class="count odd outerRight">
+                        ${totalFinalFantasyGames}
+                    </td>
+                </tr>
+                <tr>
+                    <th class="name outerLeft outerBottom">
+                        ${message:total-zelda-games}
+                    </th>
+                    <td class="count even outerBottom outerRight">
+                        ${totalFinalFantasyGames}
                     </td>
                 </tr>
             </table>
