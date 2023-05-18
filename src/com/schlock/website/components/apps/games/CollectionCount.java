@@ -2,10 +2,11 @@ package com.schlock.website.components.apps.games;
 
 import com.schlock.website.entities.apps.games.*;
 import com.schlock.website.pages.apps.games.Index;
-import com.schlock.website.services.database.apps.games.VideoGamePlatformDAO;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
+import com.schlock.website.services.database.apps.games.VideoGamePlatformDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -35,6 +36,10 @@ public class CollectionCount
 
     @Parameter
     private Region region;
+
+    @Parameter
+    @Property
+    private Boolean displayConditionRegion = true;
 
     public boolean isPlatformSelected()
     {
@@ -91,12 +96,12 @@ public class CollectionCount
 
     public String getTotalConsoles()
     {
-        List<VideoGamePlatform> consoles = platformDAO.getAll();
+        List<VideoGamePlatform> platforms = platformDAO.getAll();
 
         int count = 0;
-        for(VideoGamePlatform console : consoles)
+        for(VideoGamePlatform platform : platforms)
         {
-            if (!console.getGames().isEmpty())
+            if (platform.isHasConsole())
             {
                 count++;
             }

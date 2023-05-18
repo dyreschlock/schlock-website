@@ -71,6 +71,8 @@
         </div>
     </t:if>
 
-    <g:datapanel title="conditionTitle" displayData="conditionData" />
-    <g:datapanel title="regionTitle" displayData="regionData" />
+    <t:if test="displayConditionRegion">
+        <g:datapanel title="conditionTitle" displayData="conditionData" />
+        <g:datapanel title="regionTitle" displayData="regionData" />
+    </t:if>
 </t:container>

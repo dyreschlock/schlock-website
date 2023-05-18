@@ -6,7 +6,7 @@
     <div class="body">
         <h2><t:outputraw value="title" /></h2>
 
-        <t:if test="!consoleSelected">
+        <t:if test="neutralModePlatformNotSelected">
             <table class="layout">
                 <tr>
                     <td rowspan="2">
@@ -32,7 +32,7 @@
             </table>
         </t:if>
 
-        <t:if test="consoleSelected">
+        <t:if test="neutralModePlatformSelected">
 
             <table class="layout">
                 <tr>
@@ -51,6 +51,28 @@
                     </td>
                 </tr>
             </table>
+        </t:if>
+
+        <t:if test="hardwareMode">
+
+            <table class="layout">
+                <tr>
+                    <td rowspan="2">
+                        <g:collectioncount platform="selectedPlatform" displayConditionRegion="false" />
+                        <g:platformpanel platformGroup="all"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="data" colspan="3">
+
+                        <t:loop source="platformsWithHardware" value="currentPlatform">
+                            <g:platformhardwarepanel platform="currentPlatform" />
+                        </t:loop>
+
+                    </td>
+                </tr>
+            </table>
+
         </t:if>
 
     </div>

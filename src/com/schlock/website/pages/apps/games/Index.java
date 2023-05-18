@@ -52,6 +52,8 @@ public class Index
     @Persist
     private String selectedMode;
 
+    @Property
+    private VideoGamePlatform currentPlatform;
 
     Object onActivate()
     {
@@ -112,6 +114,10 @@ public class Index
         {
             title += " // " + messages.get(selectedCondition.name().toLowerCase());
         }
+        if (!StringUtils.equalsIgnoreCase(selectedMode, MODE_STANDARD))
+        {
+            title += " // " + messages.get(selectedMode);
+        }
         return title;
     }
 
@@ -120,7 +126,7 @@ public class Index
         final String LINK_HTML = "<a href=\"%s\">%s</a>";
 
         String pageTitle = messages.get(TITLE_KEY);
-        if (selectedPlatform != null || selectedCondition != null || selectedRegion != null)
+        if (selectedPlatform != null || selectedCondition != null || selectedRegion != null || !StringUtils.equalsIgnoreCase(MODE_STANDARD, selectedMode))
         {
             String link = Index.getPageLink(null, null, null);
 
@@ -151,17 +157,31 @@ public class Index
         {
             titleBar += " // " + messages.get(selectedRegion.key());
         }
+        if (!StringUtils.equalsIgnoreCase(selectedMode, MODE_STANDARD))
+        {
+            titleBar += " // " + messages.get(selectedMode);
+        }
         return titleBar;
     }
 
-    public boolean isConsoleSelected()
+    public boolean isNeutralModePlatformSelected()
     {
-        return selectedPlatform != null;
+        return selectedPlatform != null && StringUtils.equalsIgnoreCase(MODE_STANDARD, selectedMode);
+    }
+
+    public boolean isNeutralModePlatformNotSelected()
+    {
+        return selectedPlatform == null && StringUtils.equalsIgnoreCase(MODE_STANDARD, selectedMode);
+    }
+
+    public boolean isHardwareMode()
+    {
+        return StringUtils.equalsIgnoreCase(MODE_HARDWARE, selectedMode);
     }
 
     public int maxResults()
     {
-        if (isConsoleSelected())
+        if (isNeutralModePlatformSelected())
         {
             return MAX_RESULTS_CONSOLE;
         }
@@ -199,6 +219,23 @@ public class Index
         return data;
     }
 
+
+    public List<VideoGamePlatform> getPlatformsWithHardware()
+    {
+        List<VideoGamePlatform> platforms = new ArrayList<VideoGamePlatform>();
+
+        for(VideoGamePlatform platform : platformDAO.getAll())
+        {
+            if (platform.getHardware().size() > 0)
+            {
+                platforms.add(platform);
+            }
+        }
+        return platforms;
+    }
+
+
+
     public String getAll()
     {
         return VideoGamePlatform.PLATFORM_CO_ALL;
@@ -228,6 +265,7 @@ public class Index
     {
         return VideoGamePlatform.PLATFORM_CO_OTHER;
     }
+
 
     public static String getPageLink(VideoGamePlatform console, Condition condition, Region region)
     {
