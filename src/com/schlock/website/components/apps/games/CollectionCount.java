@@ -3,6 +3,7 @@ package com.schlock.website.components.apps.games;
 import com.schlock.website.entities.apps.games.*;
 import com.schlock.website.pages.apps.games.Index;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
+import com.schlock.website.services.database.apps.games.VideoGameHardwareDAO;
 import com.schlock.website.services.database.apps.games.VideoGamePlatformDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
@@ -21,6 +22,9 @@ public class CollectionCount
 
     @Inject
     private VideoGameDAO gameDAO;
+
+    @Inject
+    private VideoGameHardwareDAO hardwareDAO;
 
     @Inject
     private VideoGamePlatformDAO platformDAO;
@@ -96,12 +100,15 @@ public class CollectionCount
 
     public String getTotalConsoles()
     {
-        List<VideoGamePlatform> platforms = platformDAO.getAll();
+        List<VideoGameHardware> hardware = hardwareDAO.getAll();
 
         int count = 0;
-        for(VideoGamePlatform platform : platforms)
+        for(VideoGameHardware hard : hardware)
         {
-            count += platform.getConsoleCount();
+            if (HardwareType.CONSOLE.equals(hard.getHardwareType()))
+            {
+                count++;
+            }
         }
         return Integer.toString(count);
     }

@@ -162,12 +162,9 @@ table.gameList, table.hardwareList
         font-weight: bold;
     }
 
-    th.blank
-    {
-        background-color: #444;
-    }
-
     td.name           { width: 35%; text-align: left; }
+
+    td.platColor      { width: 4%; color: #fff; }
 
     td.developer      { width: 18%; }
 
@@ -235,7 +232,7 @@ table.platformData
     }
 }
 
-
+th.blank,td.blank { background-color: #444; }
 th.nes,  td.nes   { background-color: @nes; }
 th.snes, td.snes  { background-color: @snes; }
 th.n64,  td.n64   { background-color: @n64; }

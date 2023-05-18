@@ -2,8 +2,7 @@ package com.schlock.website.entities.apps.games;
 
 import com.schlock.website.entities.Persisted;
 
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 public class VideoGamePlatform extends Persisted
 {
@@ -39,6 +38,33 @@ public class VideoGamePlatform extends Persisted
         }
         return count;
     }
+
+    public List<VideoGameHardware> getSortedHardware()
+    {
+        List<VideoGameHardware> output = new ArrayList<VideoGameHardware>();
+        output.addAll(hardware);
+
+        Collections.sort(output, new Comparator<VideoGameHardware>()
+        {
+            public int compare(VideoGameHardware o1, VideoGameHardware o2)
+            {
+                HardwareType CONSOLE = HardwareType.CONSOLE;
+
+                if (CONSOLE.equals(o1.getHardwareType()) && !CONSOLE.equals(o2.getHardwareType()))
+                {
+                    return -1;
+                }
+                if (!CONSOLE.equals(o1.getHardwareType()) && CONSOLE.equals(o2.getHardwareType()))
+                {
+                    return 1;
+                }
+                return o1.getTitle().compareTo(o2.getTitle());
+            }
+        });
+
+        return output;
+    }
+
 
     public String getName() { return name; }
 

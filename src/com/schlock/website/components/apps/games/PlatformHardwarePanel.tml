@@ -5,7 +5,14 @@
         <table class="hardwareList">
 
             <tr>
-                <th class="${platformCode} name">${message:name}</th>
+
+                <t:if test="!platformSelected">
+                    <th class="${platformCode} name" colspan="2">${message:name}</th>
+                </t:if>
+                <t:if test="platformSelected">
+                    <th class="${platformCode} name">${message:name}</th>
+                </t:if>
+
                 <th class="${platformCode} developer">${message:developer}</th>
                 <th class="${platformCode} manufacturer">${message:manufacturer}</th>
                 <th class="${platformCode} releaseDate">${message:release-date}</th>
@@ -16,7 +23,15 @@
             <t:loop source="hardware" value="currentHardware" index="currentIndex">
 
                 <tr>
-                    <td class="${evenOdd} name"><t:outputraw value="currentTitle" /></td>
+
+                    <t:if test="!platformSelected">
+                        <td class="${currentHardwarePlatformCode} platColor">${currentHardwarePlatformCodeText}</td>
+                        <td class="${evenOdd} name"><t:outputraw value="currentTitle" /></td>
+                    </t:if>
+                    <t:if test="platformSelected">
+                        <td class="${evenOdd} name"><t:outputraw value="currentTitle" /></td>
+                    </t:if>
+
                     <td class="${evenOdd} developer">${currentHardware.developer}</td>
                     <td class="${evenOdd} manufacturer">${currentHardware.manufacturer}</td>
                     <td class="${evenOdd} releaseDate">${currentReleaseDate}</td>
