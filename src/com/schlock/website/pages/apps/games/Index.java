@@ -6,6 +6,7 @@ import com.schlock.website.entities.apps.games.Region;
 import com.schlock.website.entities.apps.games.VideoGamePlatform;
 import com.schlock.website.services.database.apps.games.VideoGamePlatformDAO;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
@@ -17,6 +18,10 @@ import java.util.List;
 public class Index
 {
     private static final String GAMES_POST_UUID = "video-game-collection";
+
+    private static final String MODE_STANDARD = null;
+    private static final String MODE_HARDWARE = "hardware";
+    private static final String MODE_STATS = "stats";
 
     private static final String TITLE_KEY = "title";
 
@@ -44,6 +49,10 @@ public class Index
     @Persist
     private Condition selectedCondition;
 
+    @Persist
+    private String selectedMode;
+
+
     Object onActivate()
     {
         return onActivate(null);
@@ -51,6 +60,7 @@ public class Index
 
     Object onActivate(String parameter)
     {
+        selectedMode = parseMode(parameter);
         selectedPlatform = platformDAO.getByCode(parameter);
         selectedCondition = Condition.parse(parameter);
         selectedRegion = Region.parse(parameter);
@@ -66,6 +76,21 @@ public class Index
 
         return true;
     }
+
+    public String parseMode(String parameter)
+    {
+        if (StringUtils.equalsIgnoreCase(MODE_HARDWARE, parameter))
+        {
+            return MODE_HARDWARE;
+        }
+        if (StringUtils.equalsIgnoreCase(MODE_STATS, parameter))
+        {
+            return MODE_STATS;
+        }
+        return MODE_STANDARD;
+    }
+
+
 
     public String getGamesPostUuid()
     {

@@ -10,13 +10,20 @@
         <property name="title" not-null="true" />
 
         <property name="developer" />
-        <property name="publisher" />
+        <property name="manufacturer" />
 
         <property name="releaseDate" />
 
         <property name="region">
             <type name="org.hibernate.type.EnumType">
                 <param name="enumClass">com.schlock.website.entities.apps.games.Region</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+
+        <property name="hardwareType" column="type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.schlock.website.entities.apps.games.HardwareType</param>
                 <param name="type">12</param>
             </type>
         </property>

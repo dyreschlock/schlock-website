@@ -29,11 +29,16 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="name outerLeft outerBottom">
+                    <th class="name outerLeft">
                         ${message:average-games}
                     </th>
-                    <td class="count odd outerRight outerBottom">
+                    <td class="count odd outerRight">
                         ${averageGames}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="count even outerBottom outerLeft outerRight">
+                        <a href="/apps/games/hardware">${message:hardware-link}</a>
                     </td>
                 </tr>
             </table><br />

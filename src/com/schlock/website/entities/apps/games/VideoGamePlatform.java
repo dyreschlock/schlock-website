@@ -21,7 +21,7 @@ public class VideoGamePlatform extends Persisted
     private String company;
 
     private Set<VideoGame> games;
-    private Set<VideoGame> hardware;
+    private Set<VideoGameHardware> hardware;
 
     public VideoGamePlatform()
     {
@@ -65,12 +65,12 @@ public class VideoGamePlatform extends Persisted
         this.games = games;
     }
 
-    public Set<VideoGame> getHardware()
+    public Set<VideoGameHardware> getHardware()
     {
         return hardware;
     }
 
-    public void setHardware(Set<VideoGame> hardware)
+    public void setHardware(Set<VideoGameHardware> hardware)
     {
         this.hardware = hardware;
     }

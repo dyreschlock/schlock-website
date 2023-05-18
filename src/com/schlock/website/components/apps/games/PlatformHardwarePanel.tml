@@ -1,0 +1,29 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <div class="list">
+        <table class="hardwareList">
+
+            <tr>
+                <th class="${platform.code} name">${message:name}</th>
+                <th class="${platform.code} developer">${message:developer}</th>
+                <th class="${platform.code} manufacturer">${message:manufacturer}</th>
+                <th class="${platform.code} releaseDate">${message:release-date}</th>
+                <th class="${platform.code} region">${message:region}</th>
+            </tr>
+
+            <t:loop source="hardware" value="currentHardware" index="currentIndex">
+
+                <tr>
+                    <td class="${evenOdd} name"><t:outputraw value="currentTitle" /></td>
+                    <td class="${evenOdd} developer">${currentHardware.developer}</td>
+                    <td class="${evenOdd} manufacturer">${currentHardware.manufacturer}</td>
+                    <td class="${evenOdd} releaseDate">${currentReleaseDate}</td>
+                    <td class="${evenOdd} region">${currentRegion}</td>
+                </tr>
+
+            </t:loop>
+
+        </table>
+    </div>
+</t:container>

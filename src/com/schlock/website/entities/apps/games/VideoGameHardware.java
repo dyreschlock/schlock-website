@@ -8,12 +8,13 @@ public class VideoGameHardware extends Persisted
 {
     private String title;
 
-    private String publisher;
     private String developer;
+    private String manufacturer;
 
     private Date releaseDate;
 
     private Region region;
+    private HardwareType hardwareType;
 
     private String postUUID;
 
@@ -31,16 +32,6 @@ public class VideoGameHardware extends Persisted
         this.title = title;
     }
 
-    public String getPublisher()
-    {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher)
-    {
-        this.publisher = publisher;
-    }
-
     public String getDeveloper()
     {
         return developer;
@@ -49,6 +40,16 @@ public class VideoGameHardware extends Persisted
     public void setDeveloper(String developer)
     {
         this.developer = developer;
+    }
+
+    public String getManufacturer()
+    {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer)
+    {
+        this.manufacturer = manufacturer;
     }
 
     public Date getReleaseDate()
@@ -69,6 +70,16 @@ public class VideoGameHardware extends Persisted
     public void setRegion(Region region)
     {
         this.region = region;
+    }
+
+    public HardwareType getHardwareType()
+    {
+        return hardwareType;
+    }
+
+    public void setHardwareType(HardwareType hardwareType)
+    {
+        this.hardwareType = hardwareType;
     }
 
     public String getPostUUID()
