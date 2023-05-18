@@ -1,0 +1,27 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field" >
+    <class name="com.schlock.website.entities.apps.games.VideoGameHardware" table="games_hardware">
+        <id name="id" unsaved-value="null">
+            <generator class="native" />
+        </id>
+
+        <property name="title" not-null="true" />
+
+        <property name="developer" />
+        <property name="publisher" />
+
+        <property name="releaseDate" />
+
+        <property name="region">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.schlock.website.entities.apps.games.Region</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+
+        <property name="postUUID" />
+
+    </class>
+</hibernate-mapping>

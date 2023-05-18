@@ -19,5 +19,12 @@
             </key>
             <one-to-many class="com.schlock.website.entities.apps.games.VideoGame" />
         </set>
+
+        <set name="hardware" table="games_hardware" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="platform" not-null="true" />
+            </key>
+            <one-to-many class="com.schlock.website.entities.apps.games.VideoGameHardware" />
+        </set>
     </class>
 </hibernate-mapping>

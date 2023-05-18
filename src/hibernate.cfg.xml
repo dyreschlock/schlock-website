@@ -44,6 +44,7 @@
         <mapping resource="com/schlock/website/entities/apps/bingo/BingoOption.hbm.xml" />
 
         <mapping resource="com/schlock/website/entities/apps/games/VideoGame.hbm.xml" />
+        <mapping resource="com/schlock/website/entities/apps/games/VideoGameHardware.hbm.xml" />
         <mapping resource="com/schlock/website/entities/apps/games/VideoGamePlatform.hbm.xml" />
     </session-factory>
 </hibernate-configuration>
