@@ -27,16 +27,17 @@ public class VideoGamePlatform extends Persisted
     {
     }
 
-    public boolean isHasConsole()
+    public int getConsoleCount()
     {
+        int count = 0;
         for(VideoGameHardware hard : hardware)
         {
             if (HardwareType.CONSOLE.equals(hard.getHardwareType()))
             {
-                return true;
+                count++;
             }
         }
-        return false;
+        return count;
     }
 
     public String getName() { return name; }

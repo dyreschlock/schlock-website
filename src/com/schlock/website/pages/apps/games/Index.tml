@@ -65,9 +65,7 @@
                 <tr>
                     <td class="data" colspan="3">
 
-                        <t:loop source="platformsWithHardware" value="currentPlatform">
-                            <g:platformhardwarepanel platform="currentPlatform" />
-                        </t:loop>
+                        <g:platformhardwarepanel />
 
                     </td>
                 </tr>

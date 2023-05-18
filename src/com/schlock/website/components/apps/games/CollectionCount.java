@@ -101,10 +101,7 @@ public class CollectionCount
         int count = 0;
         for(VideoGamePlatform platform : platforms)
         {
-            if (platform.isHasConsole())
-            {
-                count++;
-            }
+            count += platform.getConsoleCount();
         }
         return Integer.toString(count);
     }
