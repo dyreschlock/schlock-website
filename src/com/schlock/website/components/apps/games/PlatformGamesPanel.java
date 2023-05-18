@@ -3,7 +3,7 @@ package com.schlock.website.components.apps.games;
 import com.schlock.website.entities.apps.games.Condition;
 import com.schlock.website.entities.apps.games.Region;
 import com.schlock.website.entities.apps.games.VideoGame;
-import com.schlock.website.entities.apps.games.VideoGameConsole;
+import com.schlock.website.entities.apps.games.VideoGamePlatform;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
@@ -24,7 +24,7 @@ public class PlatformGamesPanel
 
     @Parameter
     @Property
-    private VideoGameConsole console;
+    private VideoGamePlatform platform;
 
     @Parameter
     private Condition condition;
@@ -43,16 +43,16 @@ public class PlatformGamesPanel
         List<VideoGame> games;
         if (condition != null)
         {
-            games = gameDAO.getByConsoleCondition(console, condition);
+            games = gameDAO.getByPlatformCondition(platform, condition);
         }
         else if (region != null)
         {
-            games = gameDAO.getByConsoleRegion(console, region);
+            games = gameDAO.getByPlatformRegion(platform, region);
         }
         else
         {
             games = new ArrayList<VideoGame>();
-            games.addAll(console.getGames());
+            games.addAll(platform.getGames());
         }
 
         Collections.sort(games, new Comparator<VideoGame>()

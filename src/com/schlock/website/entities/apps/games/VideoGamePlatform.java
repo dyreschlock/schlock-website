@@ -5,7 +5,7 @@ import com.schlock.website.entities.Persisted;
 import java.util.Date;
 import java.util.Set;
 
-public class VideoGameConsole extends Persisted
+public class VideoGamePlatform extends Persisted
 {
     public static final String PLATFORM_CO_ALL = "All";
     public static final String PLATFORM_CO_SONY = "Sony";
@@ -22,7 +22,7 @@ public class VideoGameConsole extends Persisted
 
     private Set<VideoGame> games;
 
-    public VideoGameConsole()
+    public VideoGamePlatform()
     {
     }
 

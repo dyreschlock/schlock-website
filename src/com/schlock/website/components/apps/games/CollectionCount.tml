@@ -17,7 +17,7 @@
         </table>
     </div>
 
-    <t:if test="!consoleSelected">
+    <t:if test="!platformSelected">
         <div class="panel">
             <table class="platformData">
                 <tr>

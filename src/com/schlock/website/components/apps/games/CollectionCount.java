@@ -2,7 +2,7 @@ package com.schlock.website.components.apps.games;
 
 import com.schlock.website.entities.apps.games.*;
 import com.schlock.website.pages.apps.games.Index;
-import com.schlock.website.services.database.apps.games.VideoGameConsoleDAO;
+import com.schlock.website.services.database.apps.games.VideoGamePlatformDAO;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
@@ -22,13 +22,13 @@ public class CollectionCount
     private VideoGameDAO gameDAO;
 
     @Inject
-    private VideoGameConsoleDAO consoleDAO;
+    private VideoGamePlatformDAO platformDAO;
 
     @Inject
     private Messages messages;
 
     @Parameter
-    private VideoGameConsole currentConsole;
+    private VideoGamePlatform platform;
 
     @Parameter
     private Condition condition;
@@ -36,9 +36,9 @@ public class CollectionCount
     @Parameter
     private Region region;
 
-    public boolean isConsoleSelected()
+    public boolean isPlatformSelected()
     {
-        return currentConsole != null;
+        return platform != null;
     }
 
     public String getTotalCount()
@@ -46,18 +46,18 @@ public class CollectionCount
         final String SPAN_HTML = "<span class=\"totalCount\">%s</span>";
 
         String output;
-        if (currentConsole != null)
+        if (platform != null)
         {
-            int count = currentConsole.getGames().size();
+            int count = platform.getGames().size();
             if (condition != null)
             {
-                int gameCount = gameDAO.getByConsoleCondition(currentConsole, condition).size();
+                int gameCount = gameDAO.getByPlatformCondition(platform, condition).size();
                 output = String.format(SPAN_HTML, Integer.toString(gameCount));
                 output += " / " + count;
             }
             else if(region != null)
             {
-                int gameCount = gameDAO.getByConsoleRegion(currentConsole, region).size();
+                int gameCount = gameDAO.getByPlatformRegion(platform, region).size();
                 output = String.format(SPAN_HTML, Integer.toString(gameCount));
                 output += " / " + count;
             }
@@ -91,10 +91,10 @@ public class CollectionCount
 
     public String getTotalConsoles()
     {
-        List<VideoGameConsole> consoles = consoleDAO.getAll();
+        List<VideoGamePlatform> consoles = platformDAO.getAll();
 
         int count = 0;
-        for(VideoGameConsole console : consoles)
+        for(VideoGamePlatform console : consoles)
         {
             if (!console.getGames().isEmpty())
             {
@@ -163,12 +163,12 @@ public class CollectionCount
         {
             String name = messages.get(condition.key());
             String count = getConditionCount(condition);
-            String link = Index.getPageLink(currentConsole, condition, null);
+            String link = Index.getPageLink(platform, condition, null);
 
             if (condition.equals(this.condition))
             {
                 name = String.format(SPAN_HTML, name);
-                link = Index.getPageLink(currentConsole, null, null);
+                link = Index.getPageLink(platform, null, null);
             }
 
             data.add(new DataPanelData(name, count, link));
@@ -191,12 +191,12 @@ public class CollectionCount
         {
             String name = messages.get(region.key());
             String count = getRegionCount(region);
-            String link = Index.getPageLink(currentConsole, null, region);
+            String link = Index.getPageLink(platform, null, region);
 
             if (region.equals(this.region))
             {
                 name = String.format(SPAN_HTML, name);
-                link = Index.getPageLink(currentConsole, null, null);
+                link = Index.getPageLink(platform, null, null);
             }
 
             data.add(new DataPanelData(name, count, link));
@@ -208,7 +208,7 @@ public class CollectionCount
     public String getRegionCount(Region region)
     {
         int count;
-        if (currentConsole == null)
+        if (platform == null)
         {
             List<VideoGame> games = gameDAO.getByRegion(region);
             count = games.size();
@@ -216,7 +216,7 @@ public class CollectionCount
         else
         {
             count = 0;
-            for(VideoGame game : currentConsole.getGames())
+            for(VideoGame game : platform.getGames())
             {
                 if (region.equals(game.getRegion()))
                 {
@@ -230,7 +230,7 @@ public class CollectionCount
     public String getConditionCount(Condition condition)
     {
         int count;
-        if (currentConsole == null)
+        if (platform == null)
         {
             List<VideoGame> games = gameDAO.getByCondition(condition);
             count = games.size();
@@ -238,7 +238,7 @@ public class CollectionCount
         else
         {
             count = 0;
-            for(VideoGame game : currentConsole.getGames())
+            for(VideoGame game : platform.getGames())
             {
                 if (condition.equals(game.getCondition()))
                 {

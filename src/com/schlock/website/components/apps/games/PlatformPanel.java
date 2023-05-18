@@ -2,9 +2,9 @@ package com.schlock.website.components.apps.games;
 
 import com.schlock.website.entities.apps.games.Condition;
 import com.schlock.website.entities.apps.games.Region;
-import com.schlock.website.entities.apps.games.VideoGameConsole;
+import com.schlock.website.entities.apps.games.VideoGamePlatform;
 import com.schlock.website.pages.apps.games.Index;
-import com.schlock.website.services.database.apps.games.VideoGameConsoleDAO;
+import com.schlock.website.services.database.apps.games.VideoGamePlatformDAO;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -21,7 +21,7 @@ public class PlatformPanel
     protected static final String ODD = "odd";
 
     @Inject
-    private VideoGameConsoleDAO consoleDAO;
+    private VideoGamePlatformDAO platformDAO;
 
     @Inject
     private VideoGameDAO gameDAO;
@@ -40,17 +40,17 @@ public class PlatformPanel
 
 
     @Property
-    private VideoGameConsole currentConsole;
+    private VideoGamePlatform currentPlatform;
 
     @Property
     private Integer currentIndex;
 
     public boolean isAll()
     {
-        return VideoGameConsole.PLATFORM_CO_ALL.equalsIgnoreCase(platformGroup);
+        return VideoGamePlatform.PLATFORM_CO_ALL.equalsIgnoreCase(platformGroup);
     }
 
-    private List<VideoGameConsole> cachedData = null;
+    private List<VideoGamePlatform> cachedData = null;
 
     public String getPanelTitle()
     {
@@ -65,21 +65,21 @@ public class PlatformPanel
         return title;
     }
 
-    public List<VideoGameConsole> getConsoleData()
+    public List<VideoGamePlatform> getPlatformData()
     {
         if (cachedData == null)
         {
             if (!isAll())
             {
-                cachedData = consoleDAO.getByCompany(platformGroup);
+                cachedData = platformDAO.getByCompany(platformGroup);
             }
             else
             {
-                cachedData = consoleDAO.getAll();
-                Collections.sort(cachedData, new Comparator<VideoGameConsole>()
+                cachedData = platformDAO.getAll();
+                Collections.sort(cachedData, new Comparator<VideoGamePlatform>()
                 {
                     @Override
-                    public int compare(VideoGameConsole o1, VideoGameConsole o2)
+                    public int compare(VideoGamePlatform o1, VideoGamePlatform o2)
                     {
                         Integer c1 = o1.getGames().size();
                         Integer c2 = o2.getGames().size();
@@ -92,35 +92,35 @@ public class PlatformPanel
         return cachedData;
     }
 
-    public String getCurrentConsoleNameHTML()
+    public String getCurrentPlatformNameHTML()
     {
         String html = "<a href=\"%s\">%s</a>";
-        String name = currentConsole.getName();
-        String link = Index.getPageLink(currentConsole, condition, region);
+        String name = currentPlatform.getName();
+        String link = Index.getPageLink(currentPlatform, condition, region);
 
         return String.format(html, link, name);
     }
 
-    public String getCurrentConsoleCount()
+    public String getCurrentPlatformGameCount()
     {
-        int count = getGameCount(currentConsole);
+        int count = getGameCount(currentPlatform);
         return Integer.toString(count);
     }
 
-    private int getGameCount(VideoGameConsole console)
+    private int getGameCount(VideoGamePlatform platform)
     {
         int count;
         if (condition != null)
         {
-            count = gameDAO.getByConsoleCondition(console, condition).size();
+            count = gameDAO.getByPlatformCondition(platform, condition).size();
         }
         else if (region != null)
         {
-            count = gameDAO.getByConsoleRegion(console, region).size();
+            count = gameDAO.getByPlatformRegion(platform, region).size();
         }
         else
         {
-            count = console.getGames().size();
+            count = platform.getGames().size();
         }
         return count;
     }
@@ -128,9 +128,9 @@ public class PlatformPanel
     public String getTotalCount()
     {
         int count = 0;
-        for(VideoGameConsole console : getConsoleData())
+        for(VideoGamePlatform platform : getPlatformData())
         {
-            count += getGameCount(console);
+            count += getGameCount(platform);
         }
         return Integer.toString(count);
     }
@@ -139,7 +139,7 @@ public class PlatformPanel
     {
         String css = "outerLeft ";
 
-        if (currentIndex == getConsoleData().size() - 1)
+        if (currentIndex == getPlatformData().size() - 1)
         {
             css += "outerBottom";
         }

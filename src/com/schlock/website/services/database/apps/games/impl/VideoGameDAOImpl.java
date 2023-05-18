@@ -3,7 +3,7 @@ package com.schlock.website.services.database.apps.games.impl;
 import com.schlock.website.entities.apps.games.Condition;
 import com.schlock.website.entities.apps.games.Region;
 import com.schlock.website.entities.apps.games.VideoGame;
-import com.schlock.website.entities.apps.games.VideoGameConsole;
+import com.schlock.website.entities.apps.games.VideoGamePlatform;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import org.hibernate.Query;
@@ -30,16 +30,16 @@ public class VideoGameDAOImpl extends BaseDAOImpl<VideoGame> implements VideoGam
         return query.list();
     }
 
-    public List<VideoGame> getByConsoleCondition(VideoGameConsole console, Condition condition)
+    public List<VideoGame> getByPlatformCondition(VideoGamePlatform platform, Condition condition)
     {
         String text = " select g " +
-                " from VideoGameConsole c " +
-                " join c.games g " +
-                " where c.id = :consoleId " +
+                " from VideoGamePlatform p " +
+                " join p.games g " +
+                " where p.id = :platformId " +
                 " and g.condition = :cond ";
 
         Query query = session.createQuery(text);
-        query.setParameter("consoleId", console.getId());
+        query.setParameter("platformId", platform.getId());
         query.setParameter("cond", condition);
 
         return query.list();
@@ -56,46 +56,46 @@ public class VideoGameDAOImpl extends BaseDAOImpl<VideoGame> implements VideoGam
         return query.list();
     }
 
-    public List<VideoGame> getByConsoleRegion(VideoGameConsole console, Region region)
+    public List<VideoGame> getByPlatformRegion(VideoGamePlatform platform, Region region)
     {
         String text = " select g " +
-                " from VideoGameConsole c " +
-                " join c.games g " +
-                " where c.id = :consoleId " +
+                " from VideoGamePlatform p " +
+                " join p.games g " +
+                " where p.id = :platformId " +
                 " and g.region = :region ";
 
         Query query = session.createQuery(text);
-        query.setParameter("consoleId", console.getId());
+        query.setParameter("platformId", platform.getId());
         query.setParameter("region", region);
 
         return query.list();
     }
 
-    public List<String[]> getCountByMostCommonDeveloper(VideoGameConsole console, int maxResults)
+    public List<String[]> getCountByMostCommonDeveloper(VideoGamePlatform console, int maxResults)
     {
         return getCountByParameter("g.developer", console, maxResults);
     }
 
-    public List<String[]> getCountByMostCommonPublisher(VideoGameConsole console, int maxResults)
+    public List<String[]> getCountByMostCommonPublisher(VideoGamePlatform console, int maxResults)
     {
         return getCountByParameter("g.publisher", console, maxResults);
     }
 
-    public List<String[]> getCountByMostCommonYear(VideoGameConsole console, int maxResults)
+    public List<String[]> getCountByMostCommonYear(VideoGamePlatform console, int maxResults)
     {
         return getCountByParameter("year(g.releaseDate)", console, maxResults);
     }
 
-    private List<String[]> getCountByParameter(String parameter, VideoGameConsole console, int maxResults)
+    private List<String[]> getCountByParameter(String parameter, VideoGamePlatform platform, int maxResults)
     {
         String text = " select %s, count(g.id) " +
-                " from VideoGameConsole c " +
-                " join c.games g " +
+                " from VideoGamePlatform p " +
+                " join p.games g " +
                 " where %s is not null ";
 
-        if (console != null)
+        if (platform != null)
         {
-            text += " and c.id = :consoleId ";
+            text += " and p.id = :platformId ";
         }
 
         text += " group by %s " +
@@ -106,9 +106,9 @@ public class VideoGameDAOImpl extends BaseDAOImpl<VideoGame> implements VideoGam
         Query query = session.createQuery(text);
         query.setMaxResults(maxResults);
 
-        if (console != null)
+        if (platform != null)
         {
-            query.setParameter("consoleId", console.getId());
+            query.setParameter("platformId", platform.getId());
         }
 
         List<Object[]> results = query.list();

@@ -3,9 +3,9 @@ package com.schlock.website.services.database;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.database.apps.bingo.BingoOptionDAO;
 import com.schlock.website.services.database.apps.bingo.impl.BingoOptionDAOImpl;
-import com.schlock.website.services.database.apps.games.VideoGameConsoleDAO;
+import com.schlock.website.services.database.apps.games.VideoGamePlatformDAO;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
-import com.schlock.website.services.database.apps.games.impl.VideoGameConsoleDAOImpl;
+import com.schlock.website.services.database.apps.games.impl.VideoGamePlatformDAOImpl;
 import com.schlock.website.services.database.apps.games.impl.VideoGameDAOImpl;
 import com.schlock.website.services.database.apps.japanese.KanjiDAO;
 import com.schlock.website.services.database.apps.japanese.impl.KanjiDAOImpl;
@@ -38,7 +38,7 @@ public class DatabaseModule
         binder.bind(NotFibbageQuestionDAO.class, NotFibbageQuestionDAOImpl.class);
 
         binder.bind(VideoGameDAO.class, VideoGameDAOImpl.class);
-        binder.bind(VideoGameConsoleDAO.class, VideoGameConsoleDAOImpl.class);
+        binder.bind(VideoGamePlatformDAO.class, VideoGamePlatformDAOImpl.class);
     }
 
 

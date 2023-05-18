@@ -9,12 +9,12 @@
                 </th>
             </tr>
 
-            <t:loop source="consoleData" value="currentConsole" index="currentIndex">
+            <t:loop source="platformData" value="currentPlatform" index="currentIndex">
                 <tr>
-                    <td class="name ${outerLeftCss} ${currentConsole.code}">
-                        <t:outputraw value="currentConsoleNameHTML" />
+                    <td class="name ${outerLeftCss} ${currentPlatform.code}">
+                        <t:outputraw value="currentPlatformNameHTML" />
                     </td>
-                    <td class="count ${outerRightCss} ${evenOdd}">${currentConsoleCount}</td>
+                    <td class="count ${outerRightCss} ${evenOdd}">${currentPlatformGameCount}</td>
                 </tr>
             </t:loop>
 

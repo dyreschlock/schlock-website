@@ -5,12 +5,12 @@
         <table class="gameList">
 
             <tr>
-                <th class="${console.code} name">${message:name}</th>
-                <th class="${console.code} developer">${message:developer}</th>
-                <th class="${console.code} publisher">${message:publisher}</th>
-                <th class="${console.code} releaseDate">${message:release-date}</th>
-                <th class="${console.code} condition">${message:condition}</th>
-                <th class="${console.code} region">${message:region}</th>
+                <th class="${platform.code} name">${message:name}</th>
+                <th class="${platform.code} developer">${message:developer}</th>
+                <th class="${platform.code} publisher">${message:publisher}</th>
+                <th class="${platform.code} releaseDate">${message:release-date}</th>
+                <th class="${platform.code} condition">${message:condition}</th>
+                <th class="${platform.code} region">${message:region}</th>
             </tr>
 
             <t:loop source="games" value="currentGame" index="currentIndex">

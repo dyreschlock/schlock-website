@@ -3,8 +3,8 @@ package com.schlock.website.pages.apps.games;
 import com.schlock.website.entities.apps.games.Condition;
 import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.games.Region;
-import com.schlock.website.entities.apps.games.VideoGameConsole;
-import com.schlock.website.services.database.apps.games.VideoGameConsoleDAO;
+import com.schlock.website.entities.apps.games.VideoGamePlatform;
+import com.schlock.website.services.database.apps.games.VideoGamePlatformDAO;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -27,14 +27,14 @@ public class Index
     private Messages messages;
 
     @Inject
-    private VideoGameConsoleDAO consoleDAO;
+    private VideoGamePlatformDAO platformDAO;
 
     @Inject
     private VideoGameDAO gameDAO;
 
     @Property
     @Persist
-    private VideoGameConsole selectedConsole;
+    private VideoGamePlatform selectedPlatform;
 
     @Property
     @Persist
@@ -51,7 +51,7 @@ public class Index
 
     Object onActivate(String parameter)
     {
-        selectedConsole = consoleDAO.getByCode(parameter);
+        selectedPlatform = platformDAO.getByCode(parameter);
         selectedCondition = Condition.parse(parameter);
         selectedRegion = Region.parse(parameter);
 
@@ -60,7 +60,7 @@ public class Index
 
     Object onActivate(String parameter1, String parameter2)
     {
-        selectedConsole = consoleDAO.getByCode(parameter1);
+        selectedPlatform = platformDAO.getByCode(parameter1);
         selectedCondition = Condition.parse(parameter2);
         selectedRegion = Region.parse(parameter2);
 
@@ -75,9 +75,9 @@ public class Index
     public String getPlainTitle()
     {
         String title = messages.get(TITLE_KEY);
-        if (selectedConsole != null)
+        if (selectedPlatform != null)
         {
-            title += " // " + selectedConsole.getName();
+            title += " // " + selectedPlatform.getName();
         }
         if (selectedRegion != null)
         {
@@ -95,7 +95,7 @@ public class Index
         final String LINK_HTML = "<a href=\"%s\">%s</a>";
 
         String pageTitle = messages.get(TITLE_KEY);
-        if (selectedConsole != null || selectedCondition != null || selectedRegion != null)
+        if (selectedPlatform != null || selectedCondition != null || selectedRegion != null)
         {
             String link = Index.getPageLink(null, null, null);
 
@@ -104,14 +104,14 @@ public class Index
 
         String titleBar = pageTitle;
 
-        if (selectedConsole != null)
+        if (selectedPlatform != null)
         {
             String consoleTitle = "<span class=\"%s\">%s</span>";
-            consoleTitle = String.format(consoleTitle, selectedConsole.getCode(), selectedConsole.getName());
+            consoleTitle = String.format(consoleTitle, selectedPlatform.getCode(), selectedPlatform.getName());
 
             if (selectedCondition != null || selectedRegion != null)
             {
-                String link = Index.getPageLink(selectedConsole, null, null);
+                String link = Index.getPageLink(selectedPlatform, null, null);
 
                 consoleTitle = String.format(LINK_HTML, link, consoleTitle);
             }
@@ -131,7 +131,7 @@ public class Index
 
     public boolean isConsoleSelected()
     {
-        return selectedConsole != null;
+        return selectedPlatform != null;
     }
 
     public int maxResults()
@@ -145,19 +145,19 @@ public class Index
 
     public List<DataPanelData> getDevData()
     {
-        List<String[]> devData = gameDAO.getCountByMostCommonDeveloper(selectedConsole, maxResults());
+        List<String[]> devData = gameDAO.getCountByMostCommonDeveloper(selectedPlatform, maxResults());
         return createPanelData(devData);
     }
 
     public List<DataPanelData> getPubData()
     {
-        List<String[]> devData = gameDAO.getCountByMostCommonPublisher(selectedConsole, maxResults());
+        List<String[]> devData = gameDAO.getCountByMostCommonPublisher(selectedPlatform, maxResults());
         return createPanelData(devData);
     }
 
     public List<DataPanelData> getYearData()
     {
-        List<String[]> devData = gameDAO.getCountByMostCommonYear(selectedConsole, maxResults());
+        List<String[]> devData = gameDAO.getCountByMostCommonYear(selectedPlatform, maxResults());
         return createPanelData(devData);
     }
 
@@ -176,35 +176,35 @@ public class Index
 
     public String getAll()
     {
-        return VideoGameConsole.PLATFORM_CO_ALL;
+        return VideoGamePlatform.PLATFORM_CO_ALL;
     }
 
     public String getNintendo()
     {
-        return VideoGameConsole.PLATFORM_CO_NINTENDO;
+        return VideoGamePlatform.PLATFORM_CO_NINTENDO;
     }
 
     public String getSony()
     {
-        return VideoGameConsole.PLATFORM_CO_SONY;
+        return VideoGamePlatform.PLATFORM_CO_SONY;
     }
 
     public String getSega()
     {
-        return VideoGameConsole.PLATFORM_CO_SEGA;
+        return VideoGamePlatform.PLATFORM_CO_SEGA;
     }
 
     public String getMicrosoft()
     {
-        return VideoGameConsole.PLATFORM_CO_MICROSOFT;
+        return VideoGamePlatform.PLATFORM_CO_MICROSOFT;
     }
 
     public String getOther()
     {
-        return VideoGameConsole.PLATFORM_CO_OTHER;
+        return VideoGamePlatform.PLATFORM_CO_OTHER;
     }
 
-    public static String getPageLink(VideoGameConsole console, Condition condition, Region region)
+    public static String getPageLink(VideoGamePlatform console, Condition condition, Region region)
     {
         String link = "/apps/games";
 

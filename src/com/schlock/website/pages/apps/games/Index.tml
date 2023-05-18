@@ -10,7 +10,7 @@
             <table class="layout">
                 <tr>
                     <td rowspan="2">
-                        <g:collectioncount currentConsole="selectedConsole" condition="selectedCondition" region="selectedRegion" />
+                        <g:collectioncount platform="selectedPlatform" condition="selectedCondition" region="selectedRegion" />
                     </td>
                     <td>
                         <g:platformpanel platformGroup="nintendo" condition="selectedCondition" region="selectedRegion"/>
