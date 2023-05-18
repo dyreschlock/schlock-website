@@ -2,7 +2,9 @@ package com.schlock.website.components.apps.games;
 
 import com.schlock.website.entities.apps.games.VideoGameHardware;
 import com.schlock.website.entities.apps.games.VideoGamePlatform;
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.services.database.apps.games.VideoGamePlatformDAO;
+import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -16,6 +18,9 @@ import java.util.List;
 
 public class PlatformHardwarePanel
 {
+    @Inject
+    private PostDAO postDAO;
+
     @Inject
     private VideoGamePlatformDAO platformDAO;
 
@@ -67,9 +72,13 @@ public class PlatformHardwarePanel
         String title = currentHardware.getTitle();
         if (StringUtils.isNotBlank(currentHardware.getPostUUID()))
         {
-            String span = "<a href=\"%s\">%s</a>";
+            AbstractPost post = postDAO.getByUuid(currentHardware.getPostUUID());
+            if (post != null && post.isPublished())
+            {
+                String span = "<a href=\"%s\">%s</a>";
 
-            title = String.format(span, "/" + currentHardware.getPostUUID(), title);
+                title = String.format(span, "/" + currentHardware.getPostUUID(), title);
+            }
         }
         return title;
     }

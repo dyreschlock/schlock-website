@@ -4,7 +4,9 @@ import com.schlock.website.entities.apps.games.Condition;
 import com.schlock.website.entities.apps.games.Region;
 import com.schlock.website.entities.apps.games.VideoGame;
 import com.schlock.website.entities.apps.games.VideoGamePlatform;
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
+import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -16,6 +18,9 @@ import java.util.*;
 
 public class PlatformGamesPanel
 {
+    @Inject
+    private PostDAO postDAO;
+
     @Inject
     private VideoGameDAO gameDAO;
 
@@ -75,9 +80,13 @@ public class PlatformGamesPanel
         String title = currentGame.getTitle();
         if (StringUtils.isNotBlank(currentGame.getPostUUID()))
         {
-            String span = "<a href=\"%s\">%s</a>";
+            AbstractPost post = postDAO.getByUuid(currentGame.getPostUUID());
+            if (post != null && post.isPublished())
+            {
+                String span = "<a href=\"%s\">%s</a>";
 
-            title = String.format(span, "/" + currentGame.getPostUUID(), title);
+                title = String.format(span, "/" + currentGame.getPostUUID(), title);
+            }
         }
         return title;
     }

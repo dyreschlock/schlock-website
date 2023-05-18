@@ -97,6 +97,11 @@ public abstract class AbstractPost extends Persisted
         return publishedLevel > LEVEL_NOT_VISIBLE;
     }
 
+    public boolean isPublished()
+    {
+        return publishedLevel >= LEVEL_PUBLISHED;
+    }
+
     public List<PostCategory> getTopPostCategories()
     {
         List<PostCategory> top = new ArrayList<PostCategory>();
