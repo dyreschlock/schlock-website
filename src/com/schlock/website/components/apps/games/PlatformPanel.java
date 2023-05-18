@@ -11,6 +11,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -88,8 +89,23 @@ public class PlatformPanel
                     }
                 });
             }
+            cachedData = filterBlank(cachedData);
         }
         return cachedData;
+    }
+
+    private List<VideoGamePlatform> filterBlank(List<VideoGamePlatform> platforms)
+    {
+        List<VideoGamePlatform> filtered = new ArrayList<VideoGamePlatform>();
+
+        for(VideoGamePlatform platform : platforms)
+        {
+            if (!VideoGamePlatform.PLATFORM_BLANK.equals(platform.getCode()))
+            {
+                filtered.add(platform);
+            }
+        }
+        return filtered;
     }
 
     public String getCurrentPlatformNameHTML()

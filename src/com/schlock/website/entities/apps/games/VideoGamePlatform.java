@@ -13,6 +13,8 @@ public class VideoGamePlatform extends Persisted
     public static final String PLATFORM_CO_MICROSOFT = "Microsoft";
     public static final String PLATFORM_CO_OTHER = "Other";
 
+    public static final String PLATFORM_BLANK = "blank";
+
     private String name;
     private String code;
 
