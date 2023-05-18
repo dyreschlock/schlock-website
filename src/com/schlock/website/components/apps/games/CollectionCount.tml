@@ -47,7 +47,7 @@
                     <th class="name outerLeft outerTop">
                         ${message:total-pokemon-games}
                     </th>
-                    <td class="count even outerRight outerTop">
+                    <td class="count odd outerRight outerTop">
                         ${totalPokemonGames}
                     </td>
                 </tr>
@@ -55,7 +55,7 @@
                     <th class="name outerLeft">
                         ${message:total-final-fantasy-games}
                     </th>
-                    <td class="count odd outerRight">
+                    <td class="count even outerRight">
                         ${totalFinalFantasyGames}
                     </td>
                 </tr>
@@ -63,10 +63,17 @@
                     <th class="name outerLeft outerBottom">
                         ${message:total-zelda-games}
                     </th>
-                    <td class="count even outerBottom outerRight">
+                    <td class="count odd outerRight outerBottom">
                         ${totalZeldaGames}
                     </td>
                 </tr>
+                <!--
+                <tr>
+                    <td colspan="2" class="count even outerBottom outerLeft outerRight">
+                        <a href="/apps/games/stats">${message:stats-link}</a>
+                    </td>
+                </tr>
+                -->
             </table>
         </div>
     </t:if>

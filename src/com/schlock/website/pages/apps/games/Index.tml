@@ -73,5 +73,23 @@
 
         </t:if>
 
+        <t:if test="statsMode">
+
+            <table class="layout">
+                <tr>
+                    <td rowspan="2">
+                        <g:collectioncount platform="selectedPlatform" displayConditionRegion="false" />
+                        <g:platformpanel platformGroup="all"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="common"><g:datapanel title="message:most-common-dev" displayData="devData" /></td>
+                    <td class="common"><g:datapanel title="message:most-common-pub" displayData="pubData" /></td>
+                    <td class="common"><g:datapanel title="message:most-common-year" displayData="yearData" /></td>
+                </tr>
+            </table>
+
+        </t:if>
+
     </div>
 </html>

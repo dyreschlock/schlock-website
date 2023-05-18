@@ -179,6 +179,12 @@ public class Index
         return StringUtils.equalsIgnoreCase(MODE_HARDWARE, selectedMode);
     }
 
+    public boolean isStatsMode()
+    {
+        return StringUtils.equalsIgnoreCase(MODE_STATS, selectedMode);
+    }
+
+
     public int maxResults()
     {
         if (isNeutralModePlatformSelected())
