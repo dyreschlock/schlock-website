@@ -2,7 +2,7 @@ package com.schlock.website.entities.apps.games;
 
 public enum Condition
 {
-    SEALED, COMPLETE, LOOSE, DIGITAL, ROM;
+    SEALED, COMPLETE, LOOSE, DIGITAL, DLC, ROM;
 
     public String key()
     {
