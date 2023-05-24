@@ -98,7 +98,7 @@ public class PlatformHardwarePanel
                 return platform.getCode();
             }
         }
-        return "blank";
+        return VideoGamePlatform.PLATFORM_BLANK;
     }
 
     public String getCurrentReleaseDate()

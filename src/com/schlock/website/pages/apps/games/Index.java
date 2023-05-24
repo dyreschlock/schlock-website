@@ -19,9 +19,10 @@ public class Index
 {
     private static final String GAMES_POST_UUID = "video-game-collection";
 
-    private static final String MODE_STANDARD = null;
-    private static final String MODE_HARDWARE = "hardware";
-    private static final String MODE_STATS = "stats";
+    public static final String MODE_STANDARD = null;
+    public static final String MODE_HARDWARE = "hardware";
+    public static final String MODE_ALL_GAMES = "all";
+    public static final String MODE_STATS = "stats";
 
     private static final String TITLE_KEY = "title";
 
@@ -49,6 +50,7 @@ public class Index
     @Persist
     private Condition selectedCondition;
 
+    @Property
     @Persist
     private String selectedMode;
 
@@ -89,6 +91,10 @@ public class Index
         {
             return MODE_STATS;
         }
+        if (StringUtils.equalsIgnoreCase(MODE_ALL_GAMES, parameter))
+        {
+            return MODE_ALL_GAMES;
+        }
         return MODE_STANDARD;
     }
 
@@ -128,13 +134,25 @@ public class Index
         String pageTitle = messages.get(TITLE_KEY);
         if (selectedPlatform != null || selectedCondition != null || selectedRegion != null || !StringUtils.equalsIgnoreCase(MODE_STANDARD, selectedMode))
         {
-            String link = Index.getPageLink(null, null, null);
+            String link = Index.getPageLink(null, null, null, null);
 
             pageTitle = String.format(LINK_HTML, link, pageTitle);
         }
 
         String titleBar = pageTitle;
 
+        if (!StringUtils.equalsIgnoreCase(selectedMode, MODE_STANDARD))
+        {
+            String modeTitle = messages.get(selectedMode);
+            if (selectedCondition != null || selectedRegion != null)
+            {
+                String link = Index.getPageLink(selectedMode, null, null, null);
+
+                modeTitle = String.format(LINK_HTML, link, modeTitle);
+            }
+
+            titleBar += " // " + modeTitle;
+        }
         if (selectedPlatform != null)
         {
             String consoleTitle = "<span class=\"%s\">%s</span>";
@@ -142,7 +160,7 @@ public class Index
 
             if (selectedCondition != null || selectedRegion != null)
             {
-                String link = Index.getPageLink(selectedPlatform, null, null);
+                String link = Index.getPageLink(null, selectedPlatform, null, null);
 
                 consoleTitle = String.format(LINK_HTML, link, consoleTitle);
             }
@@ -156,10 +174,6 @@ public class Index
         if (selectedRegion != null)
         {
             titleBar += " // " + messages.get(selectedRegion.key());
-        }
-        if (!StringUtils.equalsIgnoreCase(selectedMode, MODE_STANDARD))
-        {
-            titleBar += " // " + messages.get(selectedMode);
         }
         return titleBar;
     }
@@ -177,6 +191,11 @@ public class Index
     public boolean isHardwareMode()
     {
         return StringUtils.equalsIgnoreCase(MODE_HARDWARE, selectedMode);
+    }
+
+    public boolean isAllGamesMode()
+    {
+        return StringUtils.equalsIgnoreCase(MODE_ALL_GAMES, selectedMode);
     }
 
     public boolean isStatsMode()
@@ -273,10 +292,14 @@ public class Index
     }
 
 
-    public static String getPageLink(VideoGamePlatform console, Condition condition, Region region)
+    public static String getPageLink(String pageMode, VideoGamePlatform console, Condition condition, Region region)
     {
         String link = "/apps/games";
 
+        if (pageMode != null)
+        {
+            link += "/" + pageMode;
+        }
         if (console != null)
         {
             link += "/" + console.getCode();

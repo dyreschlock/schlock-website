@@ -60,11 +60,16 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="name outerLeft outerBottom">
+                    <th class="name outerLeft">
                         ${message:total-zelda-games}
                     </th>
-                    <td class="count odd outerRight outerBottom">
+                    <td class="count odd outerRight">
                         ${totalZeldaGames}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="count even outerBottom outerLeft outerRight">
+                        <a href="/apps/games/all">${message:all-games}</a>
                     </td>
                 </tr>
                 <!--

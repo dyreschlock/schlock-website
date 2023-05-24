@@ -10,7 +10,7 @@
             <table class="layout">
                 <tr>
                     <td rowspan="2">
-                        <g:collectioncount platform="selectedPlatform" condition="selectedCondition" region="selectedRegion" />
+                        <g:collectioncount pageMode="selectedMode" platform="selectedPlatform" condition="selectedCondition" region="selectedRegion" />
                     </td>
                     <td>
                         <g:platformpanel platformGroup="nintendo" condition="selectedCondition" region="selectedRegion"/>
@@ -37,7 +37,7 @@
             <table class="layout">
                 <tr>
                     <td rowspan="2">
-                        <g:collectioncount platform="selectedPlatform" condition="selectedCondition" region="selectedRegion" />
+                        <g:collectioncount pageMode="selectedMode" platform="selectedPlatform" condition="selectedCondition" region="selectedRegion" />
                         <g:platformpanel platformGroup="all" />
                     </td>
                     <td class="common"><g:datapanel title="message:most-common-dev" displayData="devData" /></td>
@@ -58,7 +58,7 @@
             <table class="layout">
                 <tr>
                     <td rowspan="2">
-                        <g:collectioncount platform="selectedPlatform" displayConditionRegion="false" />
+                        <g:collectioncount pageMode="selectedMode" platform="selectedPlatform" />
                         <g:platformpanel platformGroup="all"/>
                     </td>
                 </tr>
@@ -73,12 +73,32 @@
 
         </t:if>
 
+        <t:if test="allGamesMode">
+
+            <table class="layout">
+                <tr>
+                    <td rowspan="2">
+                        <g:collectioncount pageMode="selectedMode" platform="selectedPlatform" condition="selectedCondition" region="selectedRegion"  />
+                        <g:platformpanel platformGroup="all"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="data" colspan="3">
+
+                        <g:platformgamespanel platform="selectedPlatform" condition="selectedCondition" region="selectedRegion" />
+
+                    </td>
+                </tr>
+            </table>
+
+        </t:if>
+
         <t:if test="statsMode">
 
             <table class="layout">
                 <tr>
                     <td rowspan="2">
-                        <g:collectioncount platform="selectedPlatform" displayConditionRegion="false" />
+                        <g:collectioncount pageMode="selectedMode" platform="selectedPlatform" />
                         <g:platformpanel platformGroup="all"/>
                     </td>
                 </tr>

@@ -6,6 +6,7 @@ import com.schlock.website.entities.apps.games.VideoGame;
 import com.schlock.website.entities.apps.games.VideoGamePlatform;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
+import com.schlock.website.services.database.apps.games.VideoGamePlatformDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
@@ -23,6 +24,9 @@ public class PlatformGamesPanel
 
     @Inject
     private VideoGameDAO gameDAO;
+
+    @Inject
+    private VideoGamePlatformDAO platformDAO;
 
     @Inject
     private Messages messages;
@@ -43,21 +47,45 @@ public class PlatformGamesPanel
     @Property
     private Integer currentIndex;
 
+    public boolean isPlatformSelected()
+    {
+        return platform != null;
+    }
+
     public List<VideoGame> getGames()
     {
         List<VideoGame> games;
-        if (condition != null)
+
+        if (isPlatformSelected())
         {
-            games = gameDAO.getByPlatformCondition(platform, condition);
-        }
-        else if (region != null)
-        {
-            games = gameDAO.getByPlatformRegion(platform, region);
+            if (condition != null)
+            {
+                games = gameDAO.getByPlatformCondition(platform, condition);
+            }
+            else if (region != null)
+            {
+                games = gameDAO.getByPlatformRegion(platform, region);
+            }
+            else
+            {
+                games = new ArrayList<VideoGame>();
+                games.addAll(platform.getGames());
+            }
         }
         else
         {
-            games = new ArrayList<VideoGame>();
-            games.addAll(platform.getGames());
+            if (condition != null)
+            {
+                games = gameDAO.getByCondition(condition);
+            }
+            else if (region != null)
+            {
+                games = gameDAO.getByRegion(region);
+            }
+            else
+            {
+                games = gameDAO.getAll();
+            }
         }
 
         Collections.sort(games, new Comparator<VideoGame>()
@@ -75,6 +103,15 @@ public class PlatformGamesPanel
         return games;
     }
 
+    public String getPlatformCode()
+    {
+        if (platform != null)
+        {
+            return platform.getCode();
+        }
+        return VideoGamePlatform.PLATFORM_BLANK;
+    }
+
     public String getCurrentGameTitle()
     {
         String title = currentGame.getTitle();
@@ -89,6 +126,24 @@ public class PlatformGamesPanel
             }
         }
         return title;
+    }
+
+    public String getCurrentGamePlatformCodeText()
+    {
+        String code = getCurrentGamePlatformCode();
+        return messages.get(code);
+    }
+
+    public String getCurrentGamePlatformCode()
+    {
+        for(VideoGamePlatform platform : platformDAO.getAll())
+        {
+            if (platform.getGames().contains(currentGame))
+            {
+                return platform.getCode();
+            }
+        }
+        return VideoGamePlatform.PLATFORM_BLANK;
     }
 
     public String getCurrentGameReleaseDate()

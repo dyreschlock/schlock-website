@@ -7,7 +7,6 @@ import com.schlock.website.services.database.apps.games.VideoGameHardwareDAO;
 import com.schlock.website.services.database.apps.games.VideoGamePlatformDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -42,12 +41,19 @@ public class CollectionCount
     private Region region;
 
     @Parameter
-    @Property
-    private Boolean displayConditionRegion = true;
+    private String pageMode;
 
     public boolean isPlatformSelected()
     {
         return platform != null;
+    }
+
+    public boolean isDisplayConditionRegion()
+    {
+        boolean dontDisplay = StringUtils.equalsIgnoreCase(pageMode, Index.MODE_HARDWARE)
+                                || StringUtils.equalsIgnoreCase(pageMode, Index.MODE_STATS);
+
+        return !dontDisplay;
     }
 
     public String getTotalCount()
@@ -172,12 +178,12 @@ public class CollectionCount
         {
             String name = messages.get(condition.key());
             String count = getConditionCount(condition);
-            String link = Index.getPageLink(platform, condition, null);
+            String link = Index.getPageLink(pageMode, platform, condition, null);
 
             if (condition.equals(this.condition))
             {
                 name = String.format(SPAN_HTML, name);
-                link = Index.getPageLink(platform, null, null);
+                link = Index.getPageLink(pageMode, platform, null, null);
             }
 
             data.add(new DataPanelData(name, count, link));
@@ -200,12 +206,12 @@ public class CollectionCount
         {
             String name = messages.get(region.key());
             String count = getRegionCount(region);
-            String link = Index.getPageLink(platform, null, region);
+            String link = Index.getPageLink(pageMode, platform, null, region);
 
             if (region.equals(this.region))
             {
                 name = String.format(SPAN_HTML, name);
-                link = Index.getPageLink(platform, null, null);
+                link = Index.getPageLink(pageMode, platform, null, null);
             }
 
             data.add(new DataPanelData(name, count, link));

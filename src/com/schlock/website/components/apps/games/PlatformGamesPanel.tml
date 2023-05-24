@@ -5,18 +5,33 @@
         <table class="gameList">
 
             <tr>
-                <th class="${platform.code} name">${message:name}</th>
-                <th class="${platform.code} developer">${message:developer}</th>
-                <th class="${platform.code} publisher">${message:publisher}</th>
-                <th class="${platform.code} releaseDate">${message:release-date}</th>
-                <th class="${platform.code} condition">${message:condition}</th>
-                <th class="${platform.code} region">${message:region}</th>
+
+                <t:if test="!platformSelected">
+                    <th class="${platformCode} name" colspan="2">${message:name}</th>
+                </t:if>
+                <t:if test="platformSelected">
+                    <th class="${platformCode} name">${message:name}</th>
+                </t:if>
+
+                <th class="${platformCode} developer">${message:developer}</th>
+                <th class="${platformCode} publisher">${message:publisher}</th>
+                <th class="${platformCode} releaseDate">${message:release-date}</th>
+                <th class="${platformCode} condition">${message:condition}</th>
+                <th class="${platformCode} region">${message:region}</th>
             </tr>
 
             <t:loop source="games" value="currentGame" index="currentIndex">
 
                 <tr>
-                    <td class="${evenOdd} name"><t:outputraw value="currentGameTitle" /></td>
+
+                    <t:if test="!platformSelected">
+                        <td class="${currentGamePlatformCode} platColor">${currentGamePlatformCodeText}</td>
+                        <td class="${evenOdd} name"><t:outputraw value="currentGameTitle" /></td>
+                    </t:if>
+                    <t:if test="platformSelected">
+                        <td class="${evenOdd} name"><t:outputraw value="currentGameTitle" /></td>
+                    </t:if>
+
                     <td class="${evenOdd} developer">${currentGame.developer}</td>
                     <td class="${evenOdd} publisher">${currentGame.publisher}</td>
                     <td class="${evenOdd} releaseDate">${currentGameReleaseDate}</td>

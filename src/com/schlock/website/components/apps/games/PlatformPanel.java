@@ -59,7 +59,7 @@ public class PlatformPanel
         if (isAll())
         {
             String html = "<a href=\"%s\">%s</a>";
-            String link = Index.getPageLink(null, null, null);
+            String link = Index.getPageLink(null, null, null, null);
 
             title = String.format(html, link, title);
         }
@@ -112,7 +112,7 @@ public class PlatformPanel
     {
         String html = "<a href=\"%s\">%s</a>";
         String name = currentPlatform.getName();
-        String link = Index.getPageLink(currentPlatform, condition, region);
+        String link = Index.getPageLink(null, currentPlatform, condition, region);
 
         return String.format(html, link, name);
     }
