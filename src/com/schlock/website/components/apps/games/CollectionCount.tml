@@ -70,15 +70,11 @@
                 <tr>
                     <td colspan="2" class="count even outerBottom outerLeft outerRight">
                         <a href="/apps/games/all">${message:all-games}</a>
+                        <!--
+                        / <a href="/apps/games/stats">${message:stats-link}</a>
+                        -->
                     </td>
                 </tr>
-                <!--
-                <tr>
-                    <td colspan="2" class="count even outerBottom outerLeft outerRight">
-                        <a href="/apps/games/stats">${message:stats-link}</a>
-                    </td>
-                </tr>
-                -->
             </table>
         </div>
     </t:if>
