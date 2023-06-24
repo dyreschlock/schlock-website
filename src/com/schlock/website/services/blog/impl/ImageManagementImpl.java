@@ -450,10 +450,15 @@ public class ImageManagementImpl implements ImageManagement
 
     private static void convertAndCopyImage(File originalLocation, File outputLocation) throws IOException
     {
+        convertAndCopyImage(originalLocation, outputLocation, PREVIEW_WIDTH);
+    }
+
+    private static void convertAndCopyImage(File originalLocation, File outputLocation, int newImageWidth) throws IOException
+    {
         BufferedImage originalImage = ImageIO.read(originalLocation);
 
-        int newWidth = PREVIEW_WIDTH;
-        int newHeight = getScaledHeight(originalImage);
+        int newWidth = newImageWidth;
+        int newHeight = getScaledHeight(newWidth, originalImage);
 
         java.awt.Image scaledImage = originalImage.getScaledInstance(newWidth, newHeight, java.awt.Image.SCALE_SMOOTH);
 
@@ -477,12 +482,12 @@ public class ImageManagementImpl implements ImageManagement
         }
     }
 
-    private static int getScaledHeight(BufferedImage image)
+    private static int getScaledHeight(int width, BufferedImage image)
     {
         double oldWidth = image.getWidth();
         double oldHeight = image.getHeight();
 
-        double ratioWidth = PREVIEW_WIDTH / oldWidth;
+        double ratioWidth = width / oldWidth;
 
         Double newHeight = ratioWidth * oldHeight;
 
@@ -593,6 +598,22 @@ public class ImageManagementImpl implements ImageManagement
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    public static void main(String[] args) throws Exception
+    {
+        final int IMAGE_WIDTH = 128;
+
+        final String INPUT_DIR =  "";
+        final String OUTPUT_DIR = "";
+
+        for(int i = 906; i <= 1010; i++)
+        {
+            File oldImage = new File(INPUT_DIR + i + ".png");
+            File newImage = new File(OUTPUT_DIR + i + ".png");
+
+//            convertAndCopyImage(oldImage, newImage, IMAGE_WIDTH);
         }
     }
 }
