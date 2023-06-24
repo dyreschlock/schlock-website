@@ -181,6 +181,8 @@ public class PokemonDataServiceImpl implements PokemonDataService
         addEliteMoveToPokemon("Kyogre", "Origin Pulse");
 
         addEliteMoveToPokemon("Rayquaza", "Breaking Swipe");
+
+        addStandardMoveToPokemon("Tyranitar", "Brutal Swing");
     }
 
     private void addStandardMoveToPokemon(String pokemonName, String... moveNames)
