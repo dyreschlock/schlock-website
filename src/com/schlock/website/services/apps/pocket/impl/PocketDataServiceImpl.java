@@ -7,6 +7,7 @@ import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.entities.apps.pocket.PocketGame;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pocket.PocketDataService;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -23,6 +24,7 @@ public class PocketDataServiceImpl implements PocketDataService
     private final DeploymentContext context;
 
     private List<PocketGame> cachedGames = new ArrayList<PocketGame>();
+    private List<PocketCore> cachedCores = new ArrayList<PocketCore>();
 
     public PocketDataServiceImpl(DeploymentContext context)
     {
@@ -40,7 +42,11 @@ public class PocketDataServiceImpl implements PocketDataService
 
     public List<PocketCore> getCores()
     {
-        return null;
+        if (cachedCores.isEmpty())
+        {
+            cachedCores = loadCores();
+        }
+        return cachedCores;
     }
 
     private List<PocketGame> loadGames()
@@ -54,6 +60,22 @@ public class PocketDataServiceImpl implements PocketDataService
 
         List<PocketGame> games = gson.fromJson(jsonString, listOfGames);
         return games;
+    }
+
+    private List<PocketCore> loadCores()
+    {
+        String filepath = context.dataDirectory() + POCKET_DIR + CORES_JSON_FILE;
+        String jsonString = readFileContents(filepath);
+
+        Gson gson = new GsonBuilder().create();
+
+        Type listOfCores = new TypeToken<ArrayList<PocketCore>>(){}.getType();
+
+        List<PocketCore> cores = gson.fromJson(jsonString, listOfCores);
+
+        cores = filterCoresByGames(cores);
+
+        return cores;
     }
 
     private String readFileContents(String filepath)
@@ -80,4 +102,30 @@ public class PocketDataServiceImpl implements PocketDataService
         return content;
     }
 
+    private List<PocketCore> filterCoresByGames(List<PocketCore> oldList)
+    {
+        List<PocketCore> newList = new ArrayList<PocketCore>();
+
+        for(PocketCore core : oldList)
+        {
+            boolean containsGameForCore = containsGameForCore(core);
+            if (containsGameForCore)
+            {
+                newList.add(core);
+            }
+        }
+        return newList;
+    }
+
+    private boolean containsGameForCore(PocketCore core)
+    {
+        for(PocketGame game : getGames())
+        {
+            if (StringUtils.equalsIgnoreCase(game.getCore(), core.getNamespace()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
