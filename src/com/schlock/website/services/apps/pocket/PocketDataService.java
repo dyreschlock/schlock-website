@@ -11,6 +11,8 @@ public interface PocketDataService
 
     List<PocketGame> getGamesByCore(PocketCore core);
 
+    List<PocketGame> getGamesByGenre(String genre);
+
     List<PocketCore> getCores();
 
     List<PocketCore> getCoresByCategory(String category);

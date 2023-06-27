@@ -17,4 +17,6 @@
         </table>
     </div>
 
+    <g:datapanel title="genreTitle" displayData="genreData" />
+
 </t:container>
