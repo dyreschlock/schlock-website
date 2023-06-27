@@ -11,6 +11,8 @@ import com.schlock.website.services.apps.notfibbage.NotFibbageController;
 import com.schlock.website.services.apps.notfibbage.NotFibbageManagement;
 import com.schlock.website.services.apps.notfibbage.impl.NotFibbageControllerImpl;
 import com.schlock.website.services.apps.notfibbage.impl.NotFibbageManagementImpl;
+import com.schlock.website.services.apps.pocket.PocketDataService;
+import com.schlock.website.services.apps.pocket.impl.PocketDataServiceImpl;
 import com.schlock.website.services.apps.pokemon.*;
 import com.schlock.website.services.apps.pokemon.impl.*;
 import com.schlock.website.services.apps.ranking.RankingService;
@@ -39,6 +41,8 @@ public class ApplicationsModule
         binder.bind(NotFibbageController.class, NotFibbageControllerImpl.class);
 
         binder.bind(RankingService.class, RankingServiceImpl.class);
+
+        binder.bind(PocketDataService.class, PocketDataServiceImpl.class);
 
         binder.bind(PokemonRaidCounterService.class, PokemonRaidCounterServiceImpl.class);
         binder.bind(PokemonCounterCalculationService.class, PokemonCounterCalculationServiceImpl.class);
