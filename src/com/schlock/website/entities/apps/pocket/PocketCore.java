@@ -2,6 +2,12 @@ package com.schlock.website.entities.apps.pocket;
 
 public class PocketCore
 {
+    public static final String CAT_CONSOLE = "Console";
+    public static final String CAT_HANDHELD = "Handheld";
+    public static final String CAT_COMPUTER = "Computer";
+    public static final String CAT_ARCADE = "Arcade";
+    public static final String CAT_ARCADE_MULTI = "Arcade Multi";
+
     private String namespace;
     private String name;
     private String category;

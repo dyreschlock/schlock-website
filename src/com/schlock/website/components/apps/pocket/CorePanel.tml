@@ -1,0 +1,31 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <div class="panel">
+        <table class="platformData">
+
+            <tr>
+                <th class="name outerTop outerRight outerLeft">
+                    <t:outputraw value="panelTitle" />
+                </th>
+            </tr>
+
+            <t:loop source="cores" value="currentCore" index="currentIndex">
+                <tr>
+                    <td class="name ${outerLeftCss} ${currentCore.namespace}">
+                        <t:outputraw value="currentCoreNameHTML" />
+                    </td>
+                    <td class="count ${outerRightCss} ${evenOdd}">${currentCoreGameCount}</td>
+                </tr>
+            </t:loop>
+
+            <tr>
+                <td class="empty"></td>
+                <td class="totalConsoleCount outerRight outerLeft outerBottom">
+                    ${totalCount}
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</t:container>

@@ -8,12 +8,26 @@
 
         <table class="layout">
             <tr>
-                <td>
+                <td rowspan="2">
                     <p:menupanel />
                 </td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>
+                    <p:corepanel category="console" />
+                </td>
+                <td>
+                    <p:corepanel category="handheld" />
+                </td>
+                <td rowspan="2">
+                    <p:corepanel category="arcade" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:corepanel category="computer" />
+                </td>
+                <td>
+                    <p:corepanel category="arcadeMulti" />
+                </td>
             </tr>
 
         </table>
