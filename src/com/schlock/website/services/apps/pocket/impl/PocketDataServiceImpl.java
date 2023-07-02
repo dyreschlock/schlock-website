@@ -13,6 +13,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class PocketDataServiceImpl implements PocketDataService
@@ -94,6 +95,23 @@ public class PocketDataServiceImpl implements PocketDataService
         return cores;
     }
 
+    public PocketCore getCoreByNamespace(String namespace)
+    {
+        if (StringUtils.isBlank(namespace))
+        {
+            return null;
+        }
+
+        for(PocketCore core : getCores())
+        {
+            if (StringUtils.equalsIgnoreCase(namespace, core.getNamespace()))
+            {
+                return core;
+            }
+        }
+        return null;
+    }
+
     private List<PocketGame> loadGames()
     {
         String filepath = context.dataDirectory() + POCKET_DIR + GAMES_JSON_FILE;
@@ -104,6 +122,14 @@ public class PocketDataServiceImpl implements PocketDataService
         Type listOfGames = new TypeToken<ArrayList<PocketGame>>(){}.getType();
 
         List<PocketGame> games = gson.fromJson(jsonString, listOfGames);
+
+        Collections.sort(games, new Comparator<PocketGame>()
+        {
+            public int compare(PocketGame o1, PocketGame o2)
+            {
+                return o1.getGameName().compareTo(o2.getGameName());
+            }
+        });
         return games;
     }
 

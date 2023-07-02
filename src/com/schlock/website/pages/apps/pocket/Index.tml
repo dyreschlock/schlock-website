@@ -6,31 +6,51 @@
     <div class="body">
         <h2><t:outputraw value="title" /></h2>
 
-        <table class="layout">
-            <tr>
-                <td rowspan="2">
-                    <p:menupanel />
-                </td>
-                <td>
-                    <p:corepanel category="console" />
-                </td>
-                <td>
-                    <p:corepanel category="handheld" />
-                </td>
-                <td rowspan="2">
-                    <p:corepanel category="arcade" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p:corepanel category="computer" />
-                </td>
-                <td>
-                    <p:corepanel category="arcadeMulti" />
-                </td>
-            </tr>
+        <t:if test="!coreSelected">
+            <table class="layout">
+                <tr>
+                    <td rowspan="2">
+                        <p:menupanel core="selectedCore" />
+                    </td>
+                    <td>
+                        <p:corepanel category="console" />
+                    </td>
+                    <td>
+                        <p:corepanel category="handheld" />
+                        <p:corepanel category="computer" />
+                    </td>
+                    <td rowspan="2">
+                        <p:corepanel category="arcadeMulti" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
 
-        </table>
+            </table>
+        </t:if>
+
+        <t:if test="coreSelected">
+
+            <table class="layout">
+                <tr>
+                    <td rowspan="2">
+                        <p:menupanel core="selectedCore" />
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="data" colspan="3">
+                        <p:gamespanel core="selectedCore" />
+                    </td>
+                </tr>
+            </table>
+
+        </t:if>
 
     </div>
 </html>

@@ -1,0 +1,30 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <div class="list">
+        <table class="gameList">
+
+            <tr>
+                <th class="${core.namespace} name">${message:name}</th>
+                <th class="${core.namespace} developer">${message:developer}</th>
+                <th class="${core.namespace} publisher">${message:publisher}</th>
+                <th class="${core.namespace} releaseDate">${message:release-date}</th>
+                <th class="${core.namespace} genre">${message:genre}</th>
+                <th class="${core.namespace} core">${message:core}</th>
+            </tr>
+
+            <t:loop source="games" value="currentGame" index="currentIndex">
+
+                <tr>
+                    <td class="${evenOdd} name">${currentGame.gameName}</td>
+                    <td class="${evenOdd} developer">${currentGame.developer}</td>
+                    <td class="${evenOdd} publisher">${currentGame.publisher}</td>
+                    <td class="${evenOdd} releaseDate">${currentGame.releaseDate}</td>
+                    <td class="${evenOdd} genre">${currentGame.genre}</td>
+                    <td class="${evenOdd} core">${currentGame.core}</td>
+                </tr>
+
+            </t:loop>
+        </table>
+    </div>
+</t:container>

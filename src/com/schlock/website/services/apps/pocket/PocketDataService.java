@@ -17,6 +17,7 @@ public interface PocketDataService
 
     List<PocketCore> getCoresByCategory(String category);
 
+    PocketCore getCoreByNamespace(String namespace);
 
     List<String> getGameGenres();
 }

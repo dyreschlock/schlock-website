@@ -1,7 +1,10 @@
 package com.schlock.website.components.apps.pocket;
 
 import com.schlock.website.entities.apps.games.DataPanelData;
+import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.services.apps.pocket.PocketDataService;
+import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 
 import javax.inject.Inject;
@@ -18,6 +21,9 @@ public class MenuPanel
     @Inject
     private PocketDataService pocketDataService;
 
+    @Parameter
+    @Property
+    private PocketCore core;
 
     public String getTotalCount()
     {

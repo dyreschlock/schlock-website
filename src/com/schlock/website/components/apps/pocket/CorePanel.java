@@ -2,6 +2,7 @@ package com.schlock.website.components.apps.pocket;
 
 import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.entities.apps.pocket.PocketGame;
+import com.schlock.website.pages.apps.pocket.Index;
 import com.schlock.website.services.apps.pocket.PocketDataService;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -41,7 +42,11 @@ public class CorePanel
 
     public String getCurrentCoreNameHTML()
     {
-        return currentCore.getName();
+        String html = "<a href=\"%s\">%s</a>";
+        String name = currentCore.getName();
+        String link = Index.getPageLink(currentCore);
+
+        return String.format(html, link, name);
     }
 
     public String getCurrentCoreGameCount()
