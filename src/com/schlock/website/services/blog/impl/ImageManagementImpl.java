@@ -464,9 +464,11 @@ public class ImageManagementImpl implements ImageManagement
 
         // The new Image must not contain an Alpha channel.
         BufferedImage convertedJPG = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
+//        BufferedImage convertedJPG = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB); // to copy a PNG
 
         Graphics2D gr = convertedJPG.createGraphics();
         gr.drawImage(scaledImage, 0, 0, newWidth, newHeight, Color.WHITE, null);
+//        gr.drawImage(scaledImage, 0, 0, newWidth, newHeight, null); // to preserve the alpha channel
         gr.dispose();
 
         String extension = Files.getFileExtension(originalLocation.getName());
@@ -608,12 +610,15 @@ public class ImageManagementImpl implements ImageManagement
         final String INPUT_DIR =  "";
         final String OUTPUT_DIR = "";
 
-        for(int i = 906; i <= 1010; i++)
+        if (StringUtils.isNotBlank(INPUT_DIR) && StringUtils.isNotBlank(OUTPUT_DIR))
         {
-            File oldImage = new File(INPUT_DIR + i + ".png");
-            File newImage = new File(OUTPUT_DIR + i + ".png");
+            for(int i = 906; i <= 1010; i++)
+            {
+                File oldImage = new File(INPUT_DIR + i + ".png");
+                File newImage = new File(OUTPUT_DIR + i + ".png");
 
-//            convertAndCopyImage(oldImage, newImage, IMAGE_WIDTH);
+                convertAndCopyImage(oldImage, newImage, IMAGE_WIDTH);
+            }
         }
     }
 }
