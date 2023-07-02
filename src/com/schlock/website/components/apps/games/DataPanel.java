@@ -23,6 +23,21 @@ public class DataPanel
     private Integer currentIndex;
 
 
+    public String getCurrentDataCount()
+    {
+        final String ZERO = "0";
+
+        String count = currentData.getCount();
+
+        if (ZERO.equalsIgnoreCase(count))
+        {
+            final String SPAN_HTML = "<span class=\"zero\">%s</span>";
+
+            count = String.format(SPAN_HTML, count);
+        }
+        return count;
+    }
+
     public String getOuterLeftCss()
     {
         String css = "outerLeft ";

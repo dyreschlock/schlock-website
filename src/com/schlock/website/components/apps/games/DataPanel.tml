@@ -21,7 +21,7 @@
                         </t:if>
 
                     </td>
-                    <td class="${evenOdd} ${outerRightCss}">${currentData.count}</td>
+                    <td class="${evenOdd} ${outerRightCss}"><t:outputraw value="currentDataCount" /></td>
                 </tr>
             </t:loop>
         </table>
