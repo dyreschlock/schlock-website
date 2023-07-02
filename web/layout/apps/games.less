@@ -105,6 +105,7 @@ div.panel
 
 div.list
 {
+    padding-top: 0px;
     width: 97%;
 }
 
@@ -270,144 +271,62 @@ table.platformData
     }
 }
 
-@nes:  #e13124;
-@snes: #8752c4;
-@n64:  #430da4;
-@gc:   #6e20dd;
-@wii:  #cd26dd;
-@wiiu: #e13146;
-@sw:   #f42e41;
-@gb:   #8a2b63;
-@gbc:  #aa214b;
-@gba:  #d1273b;
-@nds:  #6f32cc;
-@n3ds: #b132cc;
-@ps1:  #4489ca;
-@ps2:  #0000b8;
-@ps3:  #332cf4;
-@ps4:  #0000f4;
-@ps5:  #428fee;
-@psp:  #3561ac;
-@psv:  #264585;
-@xbx:  #53c524;
-@x360: #8fbe4a;
-@xone: #366d1c;
-@xsx:  #559f2e;
-@gen:  #ae4921;
-@scd:  #cd5328;
-@sat:  #ba8431;
-@dc:   #ff5837;
-@ng:   #cea500;
-
-
-@genesis:  #9a2121;
-@pcecd:    #3c5abc;
-@pce:      #4058a5;
-@coleco:   #a7327c;
-@a2600:    #a42d3b;
-@a7800:    #971525;
-@sg1000:   #3f24b4;
-@sms:      #2f32bd;
-@odyssey2: #ba351a;
-@vb:       #c01428;
-
-@arduboy:      #c90c0c;
-@gameandwatch: #d1551e;
-@gg:           #1b44cb;
-@wonderswan:   #1b6abb;
-@poke_mini:    #1c813b;
-@supervision:  #097c47;
-
-@jtcps2:   #bb9d10;
-@jtcps1:   #b49b25;
-@jts16b:   #2e3ad0;
-@jtkiwi:   #2267b4;
-@tecmo:    #d02e3a;
-@jtaliens: #1e6e9c;
-@jtpang:   #0558c8;
-
-
 th.blank,td.blank { background-color: #444; }
-th.nes,  td.nes   { background-color: @nes; }
-th.snes, td.snes  { background-color: @snes; }
-th.n64,  td.n64   { background-color: @n64; }
-th.gc,   td.gc    { background-color: @gc; }
-th.wii,  td.wii   { background-color: @wii; }
-th.wiiu, td.wiiu  { background-color: @wiiu; }
-th.sw,   td.sw    { background-color: @sw; }
-th.gb,   td.gb    { background-color: @gb; }
-th.gbc,  td.gbc   { background-color: @gbc; }
-th.gba,  td.gba   { background-color: @gba; }
-th.nds,  td.nds   { background-color: @nds; }
-th.n3ds, td.n3ds  { background-color: @n3ds; }
-th.ps1,  td.ps1   { background-color: @ps1; }
-th.ps2,  td.ps2   { background-color: @ps2; }
-th.ps3,  td.ps3   { background-color: @ps3; }
-th.ps4,  td.ps4   { background-color: @ps4; }
-th.ps5,  td.ps5   { background-color: @ps5; }
-th.psp,  td.psp   { background-color: @psp; }
-th.psv,  td.psv   { background-color: @psv; }
-th.xbx,  td.xbx   { background-color: @xbx; }
-th.x360, td.x360  { background-color: @x360; }
-th.xone, td.xone  { background-color: @xone; }
-th.xsx,  td.xsx   { background-color: @xsx; }
-th.gen,  td.gen   { background-color: @gen; }
-th.scd,  td.scd   { background-color: @scd; }
-th.sat,  td.sat   { background-color: @sat; }
-th.dc,   td.dc    { background-color: @dc; }
-th.ng,   td.ng    { background-color: @ng; }
 
-th.genesis,  td.genesis   { background-color: @genesis; }
-th.pcecd,    td.pcecd     { background-color: @pcecd; }
-th.pce,      td.pce       { background-color: @pce; }
-th.coleco,   td.coleco    { background-color: @coleco; }
-th.a2600,    td.a2600     { background-color: @a2600; }
-th.a7800,    td.a7800     { background-color: @a7800; }
-th.sg1000,   td.sg1000    { background-color: @sg1000; }
-th.sms,      td.sms       { background-color: @sms; }
-th.odyssey2, td.odyssey2  { background-color: @odyssey2; }
-th.vb,       td.vb        { background-color: @vb; }
+@nes:  #e13124;     th.nes,  td.nes   { background-color: @nes; }    span.nes   { color: @nes; }
+@snes: #8752c4;     th.snes, td.snes  { background-color: @snes; }   span.snes  { color: @snes; }
+@n64:  #430da4;     th.n64,  td.n64   { background-color: @n64; }    span.n64   { color: @n64; }
+@gc:   #6e20dd;     th.gc,   td.gc    { background-color: @gc; }     span.gc    { color: @gc; }
+@wii:  #cd26dd;     th.wii,  td.wii   { background-color: @wii; }    span.wii   { color: @wii; }
+@wiiu: #e13146;     th.wiiu, td.wiiu  { background-color: @wiiu; }   span.wiiu  { color: @wiiu; }
+@sw:   #f42e41;     th.sw,   td.sw    { background-color: @sw; }     span.sw    { color: @sw; }
+@gb:   #8a2b63;     th.gb,   td.gb    { background-color: @gb; }     span.gb    { color: @gb; }
+@gbc:  #aa214b;     th.gbc,  td.gbc   { background-color: @gbc; }    span.gbc   { color: @gbc; }
+@gba:  #d1273b;     th.gba,  td.gba   { background-color: @gba; }    span.gba   { color: @gba; }
+@nds:  #6f32cc;     th.nds,  td.nds   { background-color: @nds; }    span.nds   { color: @nds; }
+@n3ds: #b132cc;     th.n3ds, td.n3ds  { background-color: @n3ds; }   span.n3ds  { color: @n3ds; }
+@ps1:  #4489ca;     th.ps1,  td.ps1   { background-color: @ps1; }    span.ps1   { color: @ps1; }
+@ps2:  #0000b8;     th.ps2,  td.ps2   { background-color: @ps2; }    span.ps2   { color: @ps2; }
+@ps3:  #332cf4;     th.ps3,  td.ps3   { background-color: @ps3; }    span.ps3   { color: @ps3; }
+@ps4:  #0000f4;     th.ps4,  td.ps4   { background-color: @ps4; }    span.ps4   { color: @ps4; }
+@ps5:  #428fee;     th.ps5,  td.ps5   { background-color: @ps5; }    span.ps5   { color: @ps5; }
+@psp:  #3561ac;     th.psp,  td.psp   { background-color: @psp; }    span.psp   { color: @psp; }
+@psv:  #264585;     th.psv,  td.psv   { background-color: @psv; }    span.psv   { color: @psv; }
+@xbx:  #53c524;     th.xbx,  td.xbx   { background-color: @xbx; }    span.xbx   { color: @xbx; }
+@x360: #8fbe4a;     th.x360, td.x360  { background-color: @x360; }   span.x360  { color: @x360; }
+@xone: #366d1c;     th.xone, td.xone  { background-color: @xone; }   span.xone  { color: @xone; }
+@xsx:  #559f2e;     th.xsx,  td.xsx   { background-color: @xsx; }    span.xsx   { color: @xsx; }
+@gen:  #ae4921;     th.gen,  td.gen   { background-color: @gen; }    span.gen   { color: @gen; }
+@scd:  #cd5328;     th.scd,  td.scd   { background-color: @scd; }    span.scd   { color: @scd; }
+@sat:  #ba8431;     th.sat,  td.sat   { background-color: @sat; }    span.sat   { color: @sat; }
+@dc:   #ff5837;     th.dc,   td.dc    { background-color: @dc; }     span.dc    { color: @dc; }
+@ng:   #cea500;     th.ng,   td.ng    { background-color: @ng; }     span.ng    { color: @ng; }
 
-th.arduboy,      td.arduboy        { background-color: @arduboy; }
-th.gameandwatch, td.gameandwatch   { background-color: @gameandwatch; }
-th.gg,           td.gg             { background-color: @gg; }
-th.wonderswan,   td.wonderswan     { background-color: @wonderswan; }
-th.poke_mini,    td.poke_mini      { background-color: @poke_mini; }
-th.supervision,   td.supervision   { background-color: @supervision; }
 
-th.jtcps2,   td.jtcps2    { background-color: @jtcps2; }
-th.jtcps1,   td.jtcps1    { background-color: @jtcps1; }
-th.jts16b,   td.jts16b    { background-color: @jts16b; }
-th.jtkiwi,   td.jtkiwi    { background-color: @jtkiwi; }
-th.tecmo,    td.tecmo     { background-color: @tecmo; }
-th.jtaliens, td.jtaliens  { background-color: @jtaliens; }
-th.jtpang,   td.jtpang    { background-color: @jtpang; }
 
-span.nes   { color: @nes; }
-span.snes  { color: @snes; }
-span.n64   { color: @n64; }
-span.gc    { color: @gc; }
-span.wii   { color: @wii; }
-span.wiiu  { color: @wiiu; }
-span.sw    { color: @sw; }
-span.gb    { color: @gb; }
-span.gbc   { color: @gbc; }
-span.gba   { color: @gba; }
-span.nds   { color: @nds; }
-span.n3ds  { color: @n3ds; }
-span.ps1   { color: @ps1; }
-span.ps2   { color: @ps2; }
-span.ps3   { color: @ps3; }
-span.ps4   { color: @ps4; }
-span.ps5   { color: @ps5; }
-span.psp   { color: @psp; }
-span.psv   { color: @psv; }
-span.xbx   { color: @xbx; }
-span.x360  { color: @x360; }
-span.xone  { color: @xone; }
-span.xsx   { color: @xsx; }
-span.gen   { color: @gen; }
-span.scd   { color: @scd; }
-span.sat   { color: @sat; }
-span.dc    { color: @dc; }
-span.ng    { color: @ng; }
+@genesis:  #9a2121;     th.genesis,  td.genesis   { background-color: @genesis; }
+@pcecd:    #3c5abc;     th.pcecd,    td.pcecd     { background-color: @pcecd; }
+@pce:      #4058a5;     th.pce,      td.pce       { background-color: @pce; }
+@coleco:   #a7327c;     th.coleco,   td.coleco    { background-color: @coleco; }
+@a2600:    #a42d3b;     th.a2600,    td.a2600     { background-color: @a2600; }
+@a7800:    #971525;     th.a7800,    td.a7800     { background-color: @a7800; }
+@sg1000:   #3f24b4;     th.sg1000,   td.sg1000    { background-color: @sg1000; }
+@sms:      #2f32bd;     th.sms,      td.sms       { background-color: @sms; }
+@odyssey2: #ba351a;     th.odyssey2, td.odyssey2  { background-color: @odyssey2; }
+@vb:       #c01428;     th.vb,       td.vb        { background-color: @vb; }
+
+@arduboy:      #c90c0c;    th.arduboy,      td.arduboy        { background-color: @arduboy; }
+@gameandwatch: #d1551e;    th.gameandwatch, td.gameandwatch   { background-color: @gameandwatch; }
+@gg:           #1b44cb;    th.gg,           td.gg             { background-color: @gg; }
+@wonderswan:   #1b6abb;    th.wonderswan,   td.wonderswan     { background-color: @wonderswan; }
+@poke_mini:    #1c813b;    th.poke_mini,    td.poke_mini      { background-color: @poke_mini; }
+@supervision:  #097c47;    th.supervision,   td.supervision   { background-color: @supervision; }
+
+@jtcps2:   #bb9d10;    th.jtcps2,   td.jtcps2    { background-color: @jtcps2; }
+@jtcps1:   #b49b25;    th.jtcps1,   td.jtcps1    { background-color: @jtcps1; }
+@jts16b:   #2e3ad0;    th.jts16b,   td.jts16b    { background-color: @jts16b; }
+@jtkiwi:   #2267b4;    th.jtkiwi,   td.jtkiwi    { background-color: @jtkiwi; }
+@tecmo:    #d02e3a;    th.tecmo,    td.tecmo     { background-color: @tecmo; }
+@jtaliens: #1e6e9c;    th.jtaliens, td.jtaliens  { background-color: @jtaliens; }
+@jtpang:   #0558c8;    th.jtpang,   td.jtpang    { background-color: @jtpang; }
+
