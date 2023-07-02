@@ -1,17 +1,21 @@
 package com.schlock.website.pages.apps.pocket;
 
+import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.services.apps.pocket.PocketDataService;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 
 import javax.inject.Inject;
+import java.util.List;
 
 public class Index
 {
     private static final String POST_UUID = "curated-games-list-analogue-pocket";
 
     private static final String TITLE_KEY = "title";
+
+    private static final Integer STATS_MAX_RESULTS = 10;
 
     @Inject
     private PocketDataService pocketDataService;
@@ -65,13 +69,26 @@ public class Index
         return title;
     }
 
-
-
     public boolean isCoreSelected()
     {
         return selectedCore != null;
     }
 
+
+    public List<DataPanelData> getDevData()
+    {
+        return pocketDataService.getCountByMostCommonDeveloper(selectedCore, STATS_MAX_RESULTS);
+    }
+
+    public List<DataPanelData> getPubData()
+    {
+        return pocketDataService.getCountByMostCommonPublisher(selectedCore, STATS_MAX_RESULTS);
+    }
+
+    public List<DataPanelData> getYearData()
+    {
+        return pocketDataService.getCountByMostCommonYear(selectedCore, STATS_MAX_RESULTS);
+    }
 
 
     public String getConsole()

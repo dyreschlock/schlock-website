@@ -1,5 +1,7 @@
 package com.schlock.website.entities.apps.pocket;
 
+import org.apache.commons.lang.StringUtils;
+
 public class PocketGame
 {
     private String gameName;
@@ -10,6 +12,19 @@ public class PocketGame
     private String core;
     private String platform;
     private String fileHash;
+
+    private String year;
+
+
+    public String getYear()
+    {
+        if (year == null && StringUtils.isNotBlank(releaseDate))
+        {
+            year = releaseDate.substring(0, 4);
+        }
+        return year;
+    }
+
 
     public String getGameName()
     {

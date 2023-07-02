@@ -8,6 +8,8 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class CorePanel
@@ -37,7 +39,20 @@ public class CorePanel
 
     public List<PocketCore> getCores()
     {
-        return pocketDataService.getCoresByCategory(category);
+        List<PocketCore> cores = pocketDataService.getCoresByCategory(category);
+
+        Collections.sort(cores, new Comparator<PocketCore>()
+        {
+            public int compare(PocketCore o1, PocketCore o2)
+            {
+                Integer count1 = pocketDataService.getGamesByCore(o1).size();
+                Integer count2 = pocketDataService.getGamesByCore(o2).size();
+
+                return count2.compareTo(count1);
+            }
+        });
+
+        return cores;
     }
 
     public String getCurrentCoreNameHTML()

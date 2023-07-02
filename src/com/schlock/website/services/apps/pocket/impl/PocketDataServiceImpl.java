@@ -3,6 +3,7 @@ package com.schlock.website.services.apps.pocket.impl;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.entities.apps.pocket.PocketGame;
 import com.schlock.website.services.DeploymentContext;
@@ -11,10 +12,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class PocketDataServiceImpl implements PocketDataService
 {
@@ -46,6 +44,11 @@ public class PocketDataServiceImpl implements PocketDataService
 
     public List<PocketGame> getGamesByCore(PocketCore core)
     {
+        if (core == null)
+        {
+            return getGames();
+        }
+
         List<PocketGame> games = new ArrayList<PocketGame>();
 
         for(PocketGame game : getGames())
@@ -127,6 +130,119 @@ public class PocketDataServiceImpl implements PocketDataService
         return null;
     }
 
+    public List<DataPanelData> getCountByMostCommonDeveloper(PocketCore core, Integer maxResults)
+    {
+        Map<String, Integer> developerInfo = new HashMap<String, Integer>();
+
+        for(PocketGame game : getGamesByCore(core))
+        {
+            if (StringUtils.isNotBlank(game.getDeveloper()))
+            {
+                String dev = game.getDeveloper();
+                Integer count = developerInfo.get(dev);
+
+                if (count == null)
+                {
+                    count = 1;
+                }
+                else
+                {
+                    count++;
+                }
+
+                developerInfo.put(dev, count);
+            }
+        }
+        return createDataPanelData(developerInfo, maxResults);
+    }
+
+    public List<DataPanelData> getCountByMostCommonPublisher(PocketCore core, Integer maxResults)
+    {
+        Map<String, Integer> publisherInfo = new HashMap<String, Integer>();
+
+        for(PocketGame game : getGamesByCore(core))
+        {
+            if (StringUtils.isNotBlank(game.getPublisher()))
+            {
+                String dev = game.getPublisher();
+                Integer count = publisherInfo.get(dev);
+
+                if (count == null)
+                {
+                    count = 1;
+                }
+                else
+                {
+                    count++;
+                }
+
+                publisherInfo.put(dev, count);
+            }
+        }
+        return createDataPanelData(publisherInfo, maxResults);
+    }
+
+    public List<DataPanelData> getCountByMostCommonYear(PocketCore core, Integer maxResults)
+    {
+        Map<String, Integer> yearInfo = new HashMap<String, Integer>();
+
+        for(PocketGame game : getGamesByCore(core))
+        {
+            if (StringUtils.isNotBlank(game.getYear()))
+            {
+                String dev = game.getYear();
+                Integer count = yearInfo.get(dev);
+
+                if (count == null)
+                {
+                    count = 1;
+                }
+                else
+                {
+                    count++;
+                }
+
+                yearInfo.put(dev, count);
+            }
+        }
+        return createDataPanelData(yearInfo, maxResults);
+    }
+
+
+    private List<DataPanelData> createDataPanelData(Map<String, Integer> data, Integer maxResults)
+    {
+        List<DataPanelData> panelData = new ArrayList<DataPanelData>();
+        for(String dev : data.keySet())
+        {
+            Integer count = data.get(dev);
+
+            panelData.add(new DataPanelData(dev, count.toString()));
+        }
+
+        Collections.sort(panelData, new Comparator<DataPanelData>()
+        {
+            public int compare(DataPanelData o1, DataPanelData o2)
+            {
+                Integer count1 = Integer.parseInt(o1.getCount());
+                Integer count2 = Integer.parseInt(o2.getCount());
+
+                return count2.compareTo(count1);
+            }
+        });
+
+        List<DataPanelData> results = new ArrayList<DataPanelData>();
+        for(DataPanelData panel : panelData)
+        {
+            results.add(panel);
+            if (results.size() == maxResults)
+            {
+                return results;
+            }
+        }
+        return results;
+    }
+
+
     private List<PocketGame> loadGames()
     {
         String filepath = context.dataDirectory() + POCKET_DIR + GAMES_JSON_FILE;
@@ -197,7 +313,7 @@ public class PocketDataServiceImpl implements PocketDataService
             boolean containsGameForCore = containsGameForCore(core);
             if (containsGameForCore)
             {
-                newList.add(core);
+                newList.add(repairNumberNamespace(core));
             }
         }
         return newList;
@@ -213,6 +329,25 @@ public class PocketDataServiceImpl implements PocketDataService
             }
         }
         return false;
+    }
+
+    private PocketCore repairNumberNamespace(PocketCore core)
+    {
+        final String ATARI_2600 = "2600";
+        final String ATARI_7800 = "7800";
+
+        final String ATARI_2600_FIXED = "a2600";
+        final String ATARI_7800_FIXED = "a7800";
+
+        if (ATARI_2600.equalsIgnoreCase(core.getNamespace()))
+        {
+            core.setNamespace(ATARI_2600_FIXED);
+        }
+        if (ATARI_7800.equalsIgnoreCase(core.getNamespace()))
+        {
+            core.setNamespace(ATARI_7800_FIXED);
+        }
+        return core;
     }
 
     public List<String> getGameGenres()

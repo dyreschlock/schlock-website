@@ -1,5 +1,6 @@
 package com.schlock.website.services.apps.pocket;
 
+import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.entities.apps.pocket.PocketGame;
 
@@ -22,4 +23,11 @@ public interface PocketDataService
     PocketCore getCoreByNamespace(String namespace);
 
     List<String> getGameGenres();
+
+    List<DataPanelData> getCountByMostCommonDeveloper(PocketCore core, Integer maxResults);
+
+    List<DataPanelData> getCountByMostCommonPublisher(PocketCore core, Integer maxResults);
+
+    List<DataPanelData> getCountByMostCommonYear(PocketCore core, Integer maxResults);
+
 }
