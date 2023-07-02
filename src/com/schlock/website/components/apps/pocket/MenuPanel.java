@@ -4,7 +4,6 @@ import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.services.apps.pocket.PocketDataService;
 import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 
 import javax.inject.Inject;
@@ -22,15 +21,21 @@ public class MenuPanel
     private PocketDataService pocketDataService;
 
     @Parameter
-    @Property
     private PocketCore core;
 
     public String getTotalCount()
     {
         final String SPAN_HTML = "<span class=\"totalCount\">%s</span>";
 
-        int count = pocketDataService.getGames().size();
-
+        int count = 0;
+        if (core != null)
+        {
+            count = pocketDataService.getGamesByCore(core).size();
+        }
+        else
+        {
+            count = pocketDataService.getGames().size();
+        }
         return String.format(SPAN_HTML, Integer.toString(count));
     }
 
@@ -48,8 +53,15 @@ public class MenuPanel
 
         for(String genre : pocketDataService.getGameGenres())
         {
-            int count = pocketDataService.getGamesByGenre(genre).size();
-
+            int count = 0;
+            if (core != null)
+            {
+                count = pocketDataService.getGamesByCoreGenre(core, genre).size();
+            }
+            else
+            {
+                count = pocketDataService.getGamesByGenre(genre).size();
+            }
             data.add(new DataPanelData(genre, Integer.toString(count)));
         }
         return data;

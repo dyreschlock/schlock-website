@@ -3,6 +3,7 @@
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
         xmlns:g="tapestry-library:apps/games"
 >
+<body class="games">
     <div class="body">
         <h2><t:outputraw value="title" /></h2>
 
@@ -112,4 +113,5 @@
         </t:if>
 
     </div>
+</body>
 </html>

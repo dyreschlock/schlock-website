@@ -1,6 +1,7 @@
 
 
-@text_color: #444;
+@games_text_color: #444;
+@pocket_text_color: #f0f0f0;
 
 @border_color: #333;
 
@@ -37,9 +38,30 @@
 body
 {
     font-family: arial;
-    color: @text_color;
+}
 
+body.games
+{
+    color: @games_text_color;
     background-color: #ddd;
+
+    a   { color: @games_text_color; }
+
+    td.even   { background-color: #fff; }
+    td.odd    { background-color: #f4f4f4; }
+}
+
+body.pocket
+{
+    color: @pocket_text_color;
+    background-color: #666;
+
+    h2   { color: #fff; }
+    h2 a { color: #fff; }
+    a    { color: @pocket_text_color; }
+
+    td.even   { background-color: #555; }
+    td.odd    { background-color: #5f5f5f; }
 }
 
 h2
@@ -50,7 +72,6 @@ h2
 a
 {
     text-decoration: none;
-    color: @text_color;
 }
 
 a:hover
@@ -114,6 +135,22 @@ div.list
     width: 97%;
 }
 
+div.coreData
+{
+    padding: 12px;
+
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+img.core
+{
+    height: 130px;
+}
+
 table.platformData, table.gameList, table.hardwareList
 {
     width: 100%;
@@ -138,16 +175,6 @@ table.platformData, table.gameList, table.hardwareList
     td.empty
     {
         border: 0px;
-    }
-
-    td.even
-    {
-        background-color: #fff;
-    }
-
-    td.odd
-    {
-        background-color: #f4f4f4;
     }
 }
 
@@ -176,7 +203,10 @@ table.gameList, table.hardwareList
     td.condition      { width: 9%; }
     td.hardwareType   { width: 9%; }
 
+    td.genre          { width: 14%; }
+
     td.region         { width: 9%; }
+    td.core           { width: 5%; }
 }
 
 table.platformData

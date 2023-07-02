@@ -10,7 +10,6 @@
                 <th class="${core.namespace} publisher">${message:publisher}</th>
                 <th class="${core.namespace} releaseDate">${message:release-date}</th>
                 <th class="${core.namespace} genre">${message:genre}</th>
-                <th class="${core.namespace} core">${message:core}</th>
             </tr>
 
             <t:loop source="games" value="currentGame" index="currentIndex">
@@ -21,7 +20,6 @@
                     <td class="${evenOdd} publisher">${currentGame.publisher}</td>
                     <td class="${evenOdd} releaseDate">${currentGame.releaseDate}</td>
                     <td class="${evenOdd} genre">${currentGame.genre}</td>
-                    <td class="${evenOdd} core">${currentGame.core}</td>
                 </tr>
 
             </t:loop>

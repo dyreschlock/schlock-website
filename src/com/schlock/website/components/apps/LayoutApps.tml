@@ -43,7 +43,5 @@
             gtag('config', 'G-1KQ4DHX3L9');
     </script>
 
-    <body>
-        <t:body />
-    </body>
+    <t:body />
 </html>

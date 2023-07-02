@@ -53,7 +53,16 @@ public class Index
 
     public String getTitle()
     {
+        final String LINK_HTML = "<a href=\"%s\">%s</a>";
+
         String title = messages.get(TITLE_KEY);
+        if (selectedCore != null)
+        {
+            String link = Index.getPageLink(null);
+
+            title = String.format(LINK_HTML, link, title);
+        }
+
         if (selectedCore != null)
         {
             title += " // " + selectedCore.getName();

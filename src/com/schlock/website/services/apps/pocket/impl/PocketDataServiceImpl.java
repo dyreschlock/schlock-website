@@ -72,6 +72,21 @@ public class PocketDataServiceImpl implements PocketDataService
         return games;
     }
 
+    public List<PocketGame> getGamesByCoreGenre(PocketCore core, String genre)
+    {
+        List<PocketGame> games = new ArrayList<PocketGame>();
+
+        for(PocketGame game : getGames())
+        {
+            if (StringUtils.equalsIgnoreCase(core.getNamespace(), game.getCore()) &&
+                    StringUtils.equalsIgnoreCase(genre, game.getGenre()))
+            {
+                games.add(game);
+            }
+        }
+        return games;
+    }
+
     public List<PocketCore> getCores()
     {
         if (cachedCores.isEmpty())
