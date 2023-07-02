@@ -2,6 +2,15 @@
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 >
     <div class="coreData">
-        <img class="core" src="${imageSrc}" />
+        <table>
+            <td class="image"><img class="core" src="${imageSrc}" /></td>
+            <td class="data">
+                <div>${core.namespace}</div>
+                <div class="name">${core.name}</div>
+                <div>${core.manufacturer}</div>
+                <div>${core.year}</div>
+            </td>
+        </table>
+
     </div>
 </t:container>

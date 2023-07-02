@@ -1,4 +1,5 @@
 
+.clr { clear: both; }
 
 @games_text_color: #444;
 @pocket_text_color: #f0f0f0;
@@ -138,12 +139,47 @@ div.list
 div.coreData
 {
     padding: 12px;
+    padding-bottom: 0;
 
     margin-top: 0px;
     margin-bottom: 0px;
 
     margin-left: auto;
     margin-right: auto;
+
+    table, tbody, td, tr
+    {
+        padding: 0px;
+        margin: 0px;
+        border-spacing: 0px;
+    }
+
+    table
+    {
+        td.image
+        {
+            width: 40%;
+        }
+
+        td.data
+        {
+            width: 60%;
+            vertical-align: middle;
+
+            div.name
+            {
+                font-size: 24px;
+                font-weight: bold;
+                color: #fff;
+            }
+
+            div
+            {
+                padding: 5px;
+                padding-left: 20px;
+            }
+        }
+    }
 }
 
 img.core

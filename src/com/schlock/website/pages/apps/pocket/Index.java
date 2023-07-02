@@ -62,11 +62,6 @@ public class Index
 
             title = String.format(LINK_HTML, link, title);
         }
-
-        if (selectedCore != null)
-        {
-            title += " // " + selectedCore.getName();
-        }
         return title;
     }
 
