@@ -15,7 +15,8 @@ public class Index
 
     private static final String TITLE_KEY = "title";
 
-    private static final Integer STATS_MAX_RESULTS = 10;
+    private static final Integer STATS_FULL_MAX_RESULTS = 10;
+    private static final Integer STATS_HALF_MAX_RESULTS = 5;
 
     @Inject
     private PocketDataService pocketDataService;
@@ -77,17 +78,26 @@ public class Index
 
     public List<DataPanelData> getDevData()
     {
-        return pocketDataService.getCountByMostCommonDeveloper(selectedCore, STATS_MAX_RESULTS);
+        return pocketDataService.getCountByMostCommonDeveloper(selectedCore, getMaxResults());
     }
 
     public List<DataPanelData> getPubData()
     {
-        return pocketDataService.getCountByMostCommonPublisher(selectedCore, STATS_MAX_RESULTS);
+        return pocketDataService.getCountByMostCommonPublisher(selectedCore, getMaxResults());
     }
 
     public List<DataPanelData> getYearData()
     {
-        return pocketDataService.getCountByMostCommonYear(selectedCore, STATS_MAX_RESULTS);
+        return pocketDataService.getCountByMostCommonYear(selectedCore, getMaxResults());
+    }
+
+    private int getMaxResults()
+    {
+        if (selectedCore != null)
+        {
+            return STATS_HALF_MAX_RESULTS;
+        }
+        return STATS_FULL_MAX_RESULTS;
     }
 
 

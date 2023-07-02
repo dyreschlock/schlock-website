@@ -46,9 +46,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><g:datapanel title="message:most-common-dev" displayData="devData" /></td>
+                    <td><g:datapanel title="message:most-common-pub" displayData="pubData" /></td>
+                    <td><g:datapanel title="message:most-common-year" displayData="yearData" /></td>
                 </tr>
                 <tr>
                     <td class="data" colspan="3">
