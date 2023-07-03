@@ -5,6 +5,7 @@ import com.schlock.website.entities.apps.pocket.PocketGame;
 import com.schlock.website.services.apps.pocket.PocketDataService;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.List;
@@ -14,9 +15,15 @@ public class GamesPanel
     @Inject
     private PocketDataService pocketDataService;
 
+    @Inject
+    private Messages messages;
+
     @Parameter
     @Property
     private PocketCore core;
+
+    @Parameter
+    private String genre;
 
     @Property
     private PocketGame currentGame;
@@ -27,8 +34,19 @@ public class GamesPanel
 
     public List<PocketGame> getGames()
     {
-        return pocketDataService.getGamesByCore(core);
+        return pocketDataService.getGamesByCoreGenre(core, genre);
     }
+
+    public boolean isHasGenre()
+    {
+        return genre != null;
+    }
+
+    public String getGenreText()
+    {
+        return messages.get(genre);
+    }
+
 
     public String getEvenOdd()
     {

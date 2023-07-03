@@ -63,6 +63,11 @@ public class PocketDataServiceImpl implements PocketDataService
 
     public List<PocketGame> getGamesByGenre(String genreId)
     {
+        if (genreId == null)
+        {
+            return getGames();
+        }
+
         List<PocketGame> games = new ArrayList<PocketGame>();
 
         for(PocketGame game : getGames())
@@ -77,6 +82,15 @@ public class PocketDataServiceImpl implements PocketDataService
 
     public List<PocketGame> getGamesByCoreGenre(PocketCore core, String genreId)
     {
+        if (genreId == null)
+        {
+            return getGamesByCore(core);
+        }
+        if (core == null)
+        {
+            return getGamesByGenre(genreId);
+        }
+
         List<PocketGame> games = new ArrayList<PocketGame>();
 
         for(PocketGame game : getGames())

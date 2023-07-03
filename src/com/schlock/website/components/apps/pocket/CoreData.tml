@@ -6,7 +6,7 @@
             <td class="image"><img class="core" src="${imageSrc}" /></td>
             <td class="data">
                 <div>${core.namespace}</div>
-                <div class="name ${core.namespace}">${core.name}</div>
+                <div class="name">${core.name}</div>
                 <div>${core.manufacturer}</div>
                 <div>${core.year}</div>
             </td>

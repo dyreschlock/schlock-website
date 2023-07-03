@@ -41,18 +41,18 @@
                     <td rowspan="3">
                         <p:menupanel core="selectedCore" genre="selectedGenre" />
                     </td>
-                    <td class="data" colspan="3">
+                    <td class="data" height="50px" colspan="3">
                         <p:coredata core="selectedCore" />
                     </td>
                 </tr>
                 <tr>
-                    <td><g:datapanel title="message:most-common-dev" displayData="devData" /></td>
-                    <td><g:datapanel title="message:most-common-pub" displayData="pubData" /></td>
-                    <td><g:datapanel title="message:most-common-year" displayData="yearData" /></td>
+                    <td height="10px"><g:datapanel title="message:most-common-dev" displayData="devData" /></td>
+                    <td height="10px"><g:datapanel title="message:most-common-pub" displayData="pubData" /></td>
+                    <td height="10px"><g:datapanel title="message:most-common-year" displayData="yearData" /></td>
                 </tr>
                 <tr>
                     <td class="data" colspan="3">
-                        <p:gamespanel core="selectedCore" />
+                        <p:gamespanel core="selectedCore" genre="selectedGenre" />
                     </td>
                 </tr>
             </table>

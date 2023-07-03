@@ -2,6 +2,10 @@
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 >
     <div class="list">
+        <t:if test="hasGenre">
+            <div class="genre name">${genreText}</div>
+        </t:if>
+
         <table class="gameList">
 
             <tr>
