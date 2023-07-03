@@ -14,6 +14,7 @@ public class PocketGame
     private String fileHash;
 
     private String year;
+    private String genreId;
 
 
     public String getYear()
@@ -25,6 +26,14 @@ public class PocketGame
         return year;
     }
 
+    public String getGenreId()
+    {
+        if (StringUtils.isBlank(genreId))
+        {
+            genreId = genre.toLowerCase().replaceAll(" ", "");
+        }
+        return genreId;
+    }
 
     public String getGameName()
     {

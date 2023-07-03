@@ -27,6 +27,9 @@ public class Index
     @Property
     private PocketCore selectedCore;
 
+    @Property
+    private String selectedGenre;
+
     Object onActivate()
     {
         return onActivate(null);
@@ -35,6 +38,14 @@ public class Index
     Object onActivate(String parameter)
     {
         selectedCore = pocketDataService.getCoreByNamespace(parameter);
+
+        return true;
+    }
+
+    Object onActivate(String p1, String p2)
+    {
+        selectedCore = pocketDataService.getCoreByNamespace(p1);
+        selectedGenre = p2;
 
         return true;
     }
@@ -53,6 +64,10 @@ public class Index
         {
             title += " // " + selectedCore.getName();
         }
+        if (selectedGenre != null)
+        {
+            title += " // " + selectedGenre;
+        }
         return title;
     }
 
@@ -63,9 +78,14 @@ public class Index
         String title = messages.get(TITLE_KEY);
         if (selectedCore != null)
         {
-            String link = Index.getPageLink(null);
+            String link = Index.getPageLink(null, null);
 
             title = String.format(LINK_HTML, link, title);
+        }
+
+        if (selectedGenre != null)
+        {
+            title += " // " + messages.get(selectedGenre);
         }
         return title;
     }
@@ -127,7 +147,7 @@ public class Index
     }
 
 
-    public static String getPageLink(PocketCore core)
+    public static String getPageLink(PocketCore core, String genre)
     {
         String link = "/apps/pocket";
 
@@ -135,6 +155,11 @@ public class Index
         {
             link += "/" + core.getNamespace();
         }
+        if (genre != null)
+        {
+            link += "/" + genre;
+        }
         return link;
     }
 }
+

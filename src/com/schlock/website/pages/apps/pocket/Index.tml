@@ -39,7 +39,7 @@
             <table class="layout">
                 <tr>
                     <td rowspan="3">
-                        <p:menupanel core="selectedCore" />
+                        <p:menupanel core="selectedCore" genre="selectedGenre" />
                     </td>
                     <td class="data" colspan="3">
                         <p:coredata core="selectedCore" />

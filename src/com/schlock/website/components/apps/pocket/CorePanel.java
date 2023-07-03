@@ -59,7 +59,7 @@ public class CorePanel
     {
         String html = "<a href=\"%s\">%s</a>";
         String name = currentCore.getName();
-        String link = Index.getPageLink(currentCore);
+        String link = Index.getPageLink(currentCore, null);
 
         return String.format(html, link, name);
     }

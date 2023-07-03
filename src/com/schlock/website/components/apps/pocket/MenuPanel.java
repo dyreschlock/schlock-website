@@ -2,7 +2,9 @@ package com.schlock.website.components.apps.pocket;
 
 import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.pocket.PocketCore;
+import com.schlock.website.pages.apps.pocket.Index;
 import com.schlock.website.services.apps.pocket.PocketDataService;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.ioc.Messages;
 
@@ -22,6 +24,9 @@ public class MenuPanel
 
     @Parameter
     private PocketCore core;
+
+    @Parameter
+    private String genre;
 
     public String getTotalCount()
     {
@@ -51,18 +56,34 @@ public class MenuPanel
 
         List<DataPanelData> data = new ArrayList<DataPanelData>();
 
-        for(String genre : pocketDataService.getGameGenres())
+        for(String genreId : pocketDataService.getGameGenres())
         {
+            String genreText = messages.get(genreId);
+
             int count = 0;
             if (core != null)
             {
-                count = pocketDataService.getGamesByCoreGenre(core, genre).size();
+                count = pocketDataService.getGamesByCoreGenre(core, genreId).size();
             }
             else
             {
-                count = pocketDataService.getGamesByGenre(genre).size();
+                count = pocketDataService.getGamesByGenre(genreId).size();
             }
-            data.add(new DataPanelData(genre, Integer.toString(count)));
+
+            String link = null;
+            if (count > 0)
+            {
+                if(StringUtils.equalsIgnoreCase(genre, genreId))
+                {
+                    link = Index.getPageLink(core, null);
+                }
+                else
+                {
+                    link = Index.getPageLink(core, genreId);
+                }
+            }
+
+            data.add(new DataPanelData(genreText, Integer.toString(count), link));
         }
         return data;
     }
