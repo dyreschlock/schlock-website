@@ -39,6 +39,11 @@ public class Index
     {
         selectedCore = pocketDataService.getCoreByNamespace(parameter);
 
+        if (selectedCore == null)
+        {
+            selectedGenre = parameter;
+        }
+
         return true;
     }
 
@@ -76,7 +81,7 @@ public class Index
         final String LINK_HTML = "<a href=\"%s\">%s</a>";
 
         String title = messages.get(TITLE_KEY);
-        if (selectedCore != null)
+        if (selectedCore != null || selectedGenre != null)
         {
             String link = Index.getPageLink(null, null);
 
@@ -90,9 +95,19 @@ public class Index
         return title;
     }
 
+    public boolean isNothingSelected()
+    {
+        return selectedCore == null && selectedGenre == null;
+    }
+
     public boolean isCoreSelected()
     {
         return selectedCore != null;
+    }
+
+    public boolean isGenreNotCoreSelected()
+    {
+        return selectedCore == null && selectedGenre != null;
     }
 
 

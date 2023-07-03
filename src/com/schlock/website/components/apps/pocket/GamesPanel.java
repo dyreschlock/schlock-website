@@ -12,6 +12,10 @@ import java.util.List;
 
 public class GamesPanel
 {
+    private static final String ARCADE_GENERAL = "arcade";
+
+    private static final String BLANK = "blank";
+
     @Inject
     private PocketDataService pocketDataService;
 
@@ -35,6 +39,43 @@ public class GamesPanel
     public List<PocketGame> getGames()
     {
         return pocketDataService.getGamesByCoreGenre(core, genre);
+    }
+
+    public boolean isCoreSelected()
+    {
+        return core != null;
+    }
+
+    public String getCoreNamespace()
+    {
+        if (core == null)
+        {
+            return BLANK;
+        }
+        return core.getNamespace();
+    }
+
+    public String getCurrentGameCoreNamespace()
+    {
+        String name = currentGame.getCore();
+        PocketCore core = pocketDataService.getCoreByNamespace(currentGame.getCore());
+        if (core.isCategoryArcade())
+        {
+            return ARCADE_GENERAL;
+        }
+        return core.getNamespace();
+    }
+
+    public String getCurrentGameCoreText()
+    {
+        String namespace = getCurrentGameCoreNamespace();
+
+        String output = messages.get(namespace);
+        if (output.startsWith("[["))
+        {
+            output = namespace;
+        }
+        return output;
     }
 
     public boolean isHasGenre()

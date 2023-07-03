@@ -9,17 +9,31 @@
         <table class="gameList">
 
             <tr>
-                <th class="${core.namespace} name">${message:name}</th>
-                <th class="${core.namespace} developer">${message:developer}</th>
-                <th class="${core.namespace} publisher">${message:publisher}</th>
-                <th class="${core.namespace} releaseDate">${message:release-date}</th>
-                <th class="${core.namespace} genre">${message:genre}</th>
+
+                <t:if test="!coreSelected">
+                    <th class="${coreNamespace} name" colspan="2">${message:name}</th>
+                </t:if>
+                <t:if test="coreSelected">
+                    <th class="${coreNamespace} name">${message:name}</th>
+                </t:if>
+
+                <th class="${coreNamespace} developer">${message:developer}</th>
+                <th class="${coreNamespace} publisher">${message:publisher}</th>
+                <th class="${coreNamespace} releaseDate">${message:release-date}</th>
+                <th class="${coreNamespace} genre">${message:genre}</th>
             </tr>
 
             <t:loop source="games" value="currentGame" index="currentIndex">
 
                 <tr>
-                    <td class="${evenOdd} name">${currentGame.gameName}</td>
+                    <t:if test="!coreSelected">
+                        <td class="${currentGameCoreNamespace} platColor">${currentGameCoreText}</td>
+                        <td class="${evenOdd} name">${currentGame.gameName}</td>
+                    </t:if>
+                    <t:if test="coreSelected">
+                        <td class="${evenOdd} name">${currentGame.gameName}</td>
+                    </t:if>
+
                     <td class="${evenOdd} developer">${currentGame.developer}</td>
                     <td class="${evenOdd} publisher">${currentGame.publisher}</td>
                     <td class="${evenOdd} releaseDate">${currentGame.releaseDate}</td>

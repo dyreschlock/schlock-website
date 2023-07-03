@@ -14,6 +14,12 @@ public class PocketCore
     private static final String HOME = "home";
     private static final String ARCADE = "arcade";
 
+    protected final static String ATARI_2600 = "2600";
+    protected final static String ATARI_7800 = "7800";
+
+    protected final static String ATARI_2600_FIXED = "a2600";
+    protected final static String ATARI_7800_FIXED = "a7800";
+
     private String namespace;
     private String name;
     private String category;
@@ -32,8 +38,21 @@ public class PocketCore
         return String.format(IMAGE_LINK, coreType, this.namespace);
     }
 
+    public boolean isCategoryArcade()
+    {
+        return CAT_ARCADE.equalsIgnoreCase(getCategory());
+    }
+
     public String getNamespace()
     {
+        if (ATARI_2600.equalsIgnoreCase(namespace))
+        {
+            return ATARI_2600_FIXED;
+        }
+        if (ATARI_7800.equalsIgnoreCase(namespace))
+        {
+            return ATARI_7800_FIXED;
+        }
         return namespace;
     }
 

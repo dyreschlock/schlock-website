@@ -35,6 +35,21 @@ public class PocketGame
         return genreId;
     }
 
+    public String getCore()
+    {
+        if (PocketCore.ATARI_7800.equalsIgnoreCase(core))
+        {
+            return PocketCore.ATARI_7800_FIXED;
+        }
+        if (PocketCore.ATARI_2600.equalsIgnoreCase(core))
+        {
+            return PocketCore.ATARI_2600_FIXED;
+        }
+        return core;
+    }
+
+
+
     public String getGameName()
     {
         return gameName;
@@ -83,11 +98,6 @@ public class PocketGame
     public void setGenre(String genre)
     {
         this.genre = genre;
-    }
-
-    public String getCore()
-    {
-        return core;
     }
 
     public void setCore(String core)

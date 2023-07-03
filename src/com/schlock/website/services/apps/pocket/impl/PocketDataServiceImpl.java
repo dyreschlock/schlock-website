@@ -24,7 +24,7 @@ public class PocketDataServiceImpl implements PocketDataService
     private final DeploymentContext context;
 
     private List<PocketGame> cachedGames = new ArrayList<PocketGame>();
-    private List<PocketCore> cachedCores = new ArrayList<PocketCore>();
+    private Map<String, PocketCore> cachedCores = new HashMap<String, PocketCore>();
 
     private List<String> cachedGenres = new ArrayList<String>();
 
@@ -108,9 +108,13 @@ public class PocketDataServiceImpl implements PocketDataService
     {
         if (cachedCores.isEmpty())
         {
-            cachedCores = loadCores();
+            loadCoreMap();
         }
-        return cachedCores;
+
+        List<PocketCore> cores = new ArrayList<PocketCore>();
+        cores.addAll(cachedCores.values());
+
+        return cores;
     }
 
     public List<PocketCore> getCoresByCategory(String category)
@@ -129,19 +133,8 @@ public class PocketDataServiceImpl implements PocketDataService
 
     public PocketCore getCoreByNamespace(String namespace)
     {
-        if (StringUtils.isBlank(namespace))
-        {
-            return null;
-        }
-
-        for(PocketCore core : getCores())
-        {
-            if (StringUtils.equalsIgnoreCase(namespace, core.getNamespace()))
-            {
-                return core;
-            }
-        }
-        return null;
+        loadCoreMap();
+        return cachedCores.get(namespace);
     }
 
     public List<DataPanelData> getCountByMostCommonDeveloper(PocketCore core, Integer maxResults)
@@ -278,6 +271,18 @@ public class PocketDataServiceImpl implements PocketDataService
         return games;
     }
 
+    private void loadCoreMap()
+    {
+        List<PocketCore> coreList = loadCores();
+
+        cachedCores = new HashMap<String, PocketCore>();
+        for(PocketCore core : coreList)
+        {
+            cachedCores.put(core.getNamespace(), core);
+        }
+    }
+
+
     private List<PocketCore> loadCores()
     {
         String filepath = context.dataDirectory() + POCKET_DIR + CORES_JSON_FILE;
@@ -327,7 +332,7 @@ public class PocketDataServiceImpl implements PocketDataService
             boolean containsGameForCore = containsGameForCore(core);
             if (containsGameForCore)
             {
-                newList.add(repairNumberNamespace(core));
+                newList.add(core);
             }
         }
         return newList;
@@ -343,25 +348,6 @@ public class PocketDataServiceImpl implements PocketDataService
             }
         }
         return false;
-    }
-
-    private PocketCore repairNumberNamespace(PocketCore core)
-    {
-        final String ATARI_2600 = "2600";
-        final String ATARI_7800 = "7800";
-
-        final String ATARI_2600_FIXED = "a2600";
-        final String ATARI_7800_FIXED = "a7800";
-
-        if (ATARI_2600.equalsIgnoreCase(core.getNamespace()))
-        {
-            core.setNamespace(ATARI_2600_FIXED);
-        }
-        if (ATARI_7800.equalsIgnoreCase(core.getNamespace()))
-        {
-            core.setNamespace(ATARI_7800_FIXED);
-        }
-        return core;
     }
 
     public List<String> getGameGenres()
