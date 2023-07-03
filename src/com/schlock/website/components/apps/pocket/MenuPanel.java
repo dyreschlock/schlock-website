@@ -32,16 +32,21 @@ public class MenuPanel
     {
         final String SPAN_HTML = "<span class=\"totalCount\">%s</span>";
 
-        int count = 0;
-        if (core != null)
+        int totalCount = pocketDataService.getGamesByCore(core).size();
+
+        String output;
+        if (genre != null)
         {
-            count = pocketDataService.getGamesByCore(core).size();
+            int count = pocketDataService.getGamesByCoreGenre(core, genre).size();
+
+            output = String.format(SPAN_HTML, Integer.toString(count));
+            output += " / " + totalCount;
         }
         else
         {
-            count = pocketDataService.getGames().size();
+            output = String.format(SPAN_HTML, Integer.toString(totalCount));
         }
-        return String.format(SPAN_HTML, Integer.toString(count));
+        return output;
     }
 
 
@@ -59,16 +64,12 @@ public class MenuPanel
         for(String genreId : pocketDataService.getGameGenres())
         {
             String genreText = messages.get(genreId);
+            if (genreId.equalsIgnoreCase(genre))
+            {
+                genreText = String.format(SPAN_HTML, genreText);
+            }
 
-            int count = 0;
-            if (core != null)
-            {
-                count = pocketDataService.getGamesByCoreGenre(core, genreId).size();
-            }
-            else
-            {
-                count = pocketDataService.getGamesByGenre(genreId).size();
-            }
+            int count = pocketDataService.getGamesByCoreGenre(core, genreId).size();
 
             String link = null;
             if (count > 0)
