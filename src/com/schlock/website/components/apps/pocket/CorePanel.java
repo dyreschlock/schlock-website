@@ -6,6 +6,7 @@ import com.schlock.website.pages.apps.pocket.Index;
 import com.schlock.website.services.apps.pocket.PocketDataService;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.Collections;
@@ -14,11 +15,17 @@ import java.util.List;
 
 public class CorePanel
 {
+    private static final String ARCADE_TITLE_KEY = "arcade";
+    private static final String ARCADE_CORE_NAME_KEY = "arcade-cores";
+
     protected static final String EVEN = "even";
     protected static final String ODD = "odd";
 
     @Inject
     private PocketDataService pocketDataService;
+
+    @Inject
+    private Messages messages;
 
     @Parameter(required = true)
     private String category;
@@ -33,8 +40,18 @@ public class CorePanel
 
     public String getPanelTitle()
     {
+        if (isArcade())
+        {
+            return messages.get(ARCADE_TITLE_KEY);
+        }
+
         //TODO: NLS
         return category;
+    }
+
+    public boolean isArcade()
+    {
+        return PocketCore.CAT_ARCADE_MULTI.equals(category);
     }
 
     public List<PocketCore> getCores()
@@ -45,6 +62,15 @@ public class CorePanel
         {
             public int compare(PocketCore o1, PocketCore o2)
             {
+                if(o1.isFakeArcadeCore())
+                {
+                    return 1;
+                }
+                if (o2.isFakeArcadeCore())
+                {
+                    return -1;
+                }
+
                 Integer count1 = pocketDataService.getGamesByCore(o1).size();
                 Integer count2 = pocketDataService.getGamesByCore(o2).size();
 
@@ -70,6 +96,17 @@ public class CorePanel
         return Integer.toString(games.size());
     }
 
+    public String getArcadeGameCount()
+    {
+        List<PocketCore> arcadeCores = pocketDataService.getCoresByCategory(PocketCore.CAT_ARCADE);
+        int count = 0;
+        for(PocketCore core : arcadeCores)
+        {
+            count += pocketDataService.getGamesByCore(core).size();
+        }
+        return Integer.toString(count);
+    }
+
     public String getTotalCount()
     {
         int count = 0;
@@ -78,7 +115,6 @@ public class CorePanel
             List<PocketGame> games = pocketDataService.getGamesByCore(core);
             count += games.size();
         }
-
         return Integer.toString(count);
     }
 

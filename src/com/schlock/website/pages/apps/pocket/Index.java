@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Index
 {
-    private static final String POST_UUID = "curated-games-list-analogue-pocket";
+    private static final String POST_UUID = "analogue-pocket-curated-games";
 
     private static final String TITLE_KEY = "title";
 

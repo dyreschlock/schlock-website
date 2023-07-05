@@ -14,6 +14,9 @@ public class PocketCore
     private static final String HOME = "home";
     private static final String ARCADE = "arcade";
 
+    private static final String FAKE_ARCADE_NAME = "Single Arcade Cores";
+    private static final String FAKE_ARCADE_MANU = "Various Manufacturers";
+
     protected final static String ATARI_2600 = "2600";
     protected final static String ATARI_7800 = "7800";
 
@@ -29,8 +32,8 @@ public class PocketCore
     public String getImageLink()
     {
         String coreType = HOME;
-        if(StringUtils.equalsIgnoreCase(CAT_ARCADE, this.category) ||
-            StringUtils.equalsIgnoreCase(CAT_ARCADE_MULTI, this.category))
+        if (StringUtils.equalsIgnoreCase(CAT_ARCADE, this.category) ||
+                StringUtils.equalsIgnoreCase(CAT_ARCADE_MULTI, this.category))
         {
             coreType = ARCADE;
         }
@@ -41,6 +44,11 @@ public class PocketCore
     public boolean isCategoryArcade()
     {
         return CAT_ARCADE.equalsIgnoreCase(getCategory());
+    }
+
+    public boolean isFakeArcadeCore()
+    {
+        return ARCADE.equalsIgnoreCase(this.namespace);
     }
 
     public String getNamespace()
@@ -99,5 +107,16 @@ public class PocketCore
     public void setYear(String year)
     {
         this.year = year;
+    }
+
+    public static PocketCore createFakeArcadeCore()
+    {
+        PocketCore core = new PocketCore();
+        core.setName(FAKE_ARCADE_NAME);
+        core.setNamespace(ARCADE);
+        core.setCategory(CAT_ARCADE_MULTI);
+        core.setManufacturer(FAKE_ARCADE_MANU);
+
+        return core;
     }
 }

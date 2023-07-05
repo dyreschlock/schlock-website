@@ -51,6 +51,16 @@ public class PocketDataServiceImpl implements PocketDataService
 
         List<PocketGame> games = new ArrayList<PocketGame>();
 
+        if (core.isFakeArcadeCore())
+        {
+            for(PocketCore arcadeCore : getCoresByCategory(PocketCore.CAT_ARCADE))
+            {
+                List<PocketGame> arcadeGames = getGamesByCore(arcadeCore);
+                games.addAll(arcadeGames);
+            }
+            return games;
+        }
+
         for(PocketGame game : getGames())
         {
             if (StringUtils.equalsIgnoreCase(core.getNamespace(), game.getCore()))
@@ -92,6 +102,16 @@ public class PocketDataServiceImpl implements PocketDataService
         }
 
         List<PocketGame> games = new ArrayList<PocketGame>();
+
+        if (core.isFakeArcadeCore())
+        {
+            for(PocketCore arcadeCore : getCoresByCategory(PocketCore.CAT_ARCADE))
+            {
+                List<PocketGame> arcadeGames = getGamesByCoreGenre(arcadeCore, genreId);
+                games.addAll(arcadeGames);
+            }
+            return games;
+        }
 
         for(PocketGame game : getGames())
         {
@@ -295,6 +315,7 @@ public class PocketDataServiceImpl implements PocketDataService
         List<PocketCore> cores = gson.fromJson(jsonString, listOfCores);
 
         cores = filterCoresByGames(cores);
+        cores.add(PocketCore.createFakeArcadeCore());
 
         return cores;
     }

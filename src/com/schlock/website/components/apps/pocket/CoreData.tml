@@ -3,7 +3,9 @@
 >
     <div class="coreData">
         <table>
-            <td class="image"><img class="core" src="${imageSrc}" /></td>
+            <t:if test="hasImage">
+                <td class="image"><img class="core" src="${imageSrc}" /></td>
+            </t:if>
             <td class="data">
                 <div>${core.namespace}</div>
                 <div class="name">${core.name}</div>

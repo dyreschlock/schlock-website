@@ -15,4 +15,9 @@ public class CoreData
     {
         return core.getImageLink();
     }
+
+    public boolean isHasImage()
+    {
+        return !core.isFakeArcadeCore();
+    }
 }
