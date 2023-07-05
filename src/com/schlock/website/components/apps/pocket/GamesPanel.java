@@ -8,6 +8,8 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class GamesPanel
@@ -38,7 +40,15 @@ public class GamesPanel
 
     public List<PocketGame> getGames()
     {
-        return pocketDataService.getGamesByCoreGenre(core, genre);
+        List<PocketGame> games = pocketDataService.getGamesByCoreGenre(core, genre);
+        Collections.sort(games, new Comparator<PocketGame>()
+        {
+            public int compare(PocketGame o1, PocketGame o2)
+            {
+                return o1.getGameName().compareTo(o2.getGameName());
+            }
+        });
+        return games;
     }
 
     public boolean isCoreSelected()
