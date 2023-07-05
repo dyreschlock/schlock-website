@@ -8,39 +8,50 @@
 
         <table class="gameList">
 
-            <tr>
-
-                <t:if test="!coreSelected">
-                    <th class="${coreNamespace} name" colspan="2">${message:name}</th>
-                </t:if>
-                <t:if test="coreSelected">
-                    <th class="${coreNamespace} name">${message:name}</th>
-                </t:if>
-
-                <th class="${coreNamespace} developer">${message:developer}</th>
-                <th class="${coreNamespace} publisher">${message:publisher}</th>
-                <th class="${coreNamespace} releaseDate">${message:release-date}</th>
-                <th class="${coreNamespace} genre">${message:genre}</th>
-            </tr>
-
-            <t:loop source="games" value="currentGame" index="currentIndex">
+            <t:if test="imageView">
 
                 <tr>
-                    <t:if test="!coreSelected">
-                        <td class="${currentGameCoreNamespace} platColor">${currentGameCoreText}</td>
-                        <td class="${evenOdd} name">${currentGame.gameName}</td>
-                    </t:if>
-                    <t:if test="coreSelected">
-                        <td class="${evenOdd} name">${currentGame.gameName}</td>
-                    </t:if>
-
-                    <td class="${evenOdd} developer">${currentGame.developer}</td>
-                    <td class="${evenOdd} publisher">${currentGame.publisher}</td>
-                    <td class="${evenOdd} releaseDate">${currentGame.releaseDate}</td>
-                    <td class="${evenOdd} genre">${currentGame.genre}</td>
+                    <th class="${coreNamespace} allGames">${message:game-list}</th>
                 </tr>
 
-            </t:loop>
+            </t:if>
+            <t:if test="!imageView">
+
+                <tr>
+
+                    <t:if test="!coreSelected">
+                        <th class="${coreNamespace} name" colspan="2">${message:name}</th>
+                    </t:if>
+                    <t:if test="coreSelected">
+                        <th class="${coreNamespace} name">${message:name}</th>
+                    </t:if>
+
+                    <th class="${coreNamespace} developer">${message:developer}</th>
+                    <th class="${coreNamespace} publisher">${message:publisher}</th>
+                    <th class="${coreNamespace} releaseDate">${message:release-date}</th>
+                    <th class="${coreNamespace} genre">${message:genre}</th>
+                </tr>
+
+                <t:loop source="games" value="currentGame" index="currentIndex">
+
+                    <tr>
+                        <t:if test="!coreSelected">
+                            <td class="${currentGameCoreNamespace} platColor">${currentGameCoreText}</td>
+                            <td class="${evenOdd} name">${currentGame.gameName}</td>
+                        </t:if>
+                        <t:if test="coreSelected">
+                            <td class="${evenOdd} name">${currentGame.gameName}</td>
+                        </t:if>
+
+                        <td class="${evenOdd} developer">${currentGame.developer}</td>
+                        <td class="${evenOdd} publisher">${currentGame.publisher}</td>
+                        <td class="${evenOdd} releaseDate">${currentGame.releaseDate}</td>
+                        <td class="${evenOdd} genre">${currentGame.genre}</td>
+                    </tr>
+
+                </t:loop>
+
+            </t:if>
         </table>
     </div>
 </t:container>

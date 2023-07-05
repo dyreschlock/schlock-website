@@ -11,6 +11,8 @@ import java.util.List;
 
 public class Index
 {
+    private static final String IMAGE_VIEW_ID = "img";
+
     private static final String POST_UUID = "analogue-pocket-curated-games";
 
     private static final String TITLE_KEY = "title";
@@ -30,6 +32,9 @@ public class Index
     @Property
     private String selectedGenre;
 
+    @Property
+    private Boolean imageView;
+
     Object onActivate()
     {
         return onActivate(null);
@@ -37,20 +42,51 @@ public class Index
 
     Object onActivate(String parameter)
     {
-        selectedCore = pocketDataService.getCoreByNamespace(parameter);
-
-        if (selectedCore == null)
+        if (IMAGE_VIEW_ID.equalsIgnoreCase(parameter))
         {
-            selectedGenre = parameter;
+            imageView = true;
         }
+        else
+        {
+            imageView = false;
 
+            selectedCore = pocketDataService.getCoreByNamespace(parameter);
+            if (selectedCore == null)
+            {
+                selectedGenre = parameter;
+            }
+        }
         return true;
     }
 
     Object onActivate(String p1, String p2)
     {
-        selectedCore = pocketDataService.getCoreByNamespace(p1);
-        selectedGenre = p2;
+        /**
+         * Three scenarios:
+         * /img/core
+         * /img/genre
+         * /core/genre
+         */
+
+        if (IMAGE_VIEW_ID.equalsIgnoreCase(p1))
+        {
+            onActivate(p2);
+            imageView = true;
+        }
+        else
+        {
+            selectedCore = pocketDataService.getCoreByNamespace(p1);
+            selectedGenre = p2;
+        }
+
+        return true;
+    }
+
+    Object onActivate(String p1, String p2, String p3)
+    {
+        imageView = IMAGE_VIEW_ID.equalsIgnoreCase(p1);
+        selectedCore = pocketDataService.getCoreByNamespace(p2);
+        selectedGenre = p3;
 
         return true;
     }
@@ -83,7 +119,7 @@ public class Index
         String title = messages.get(TITLE_KEY);
         if (selectedCore != null || selectedGenre != null)
         {
-            String link = Index.getPageLink(null, null);
+            String link = Index.getPageLink(imageView,null, null);
 
             title = String.format(LINK_HTML, link, title);
         }
@@ -162,10 +198,14 @@ public class Index
     }
 
 
-    public static String getPageLink(PocketCore core, String genre)
+    public static String getPageLink(boolean imageView, PocketCore core, String genre)
     {
         String link = "/apps/pocket";
 
+        if (imageView)
+        {
+            link += "/" + IMAGE_VIEW_ID;
+        }
         if (core != null)
         {
             link += "/" + core.getNamespace();

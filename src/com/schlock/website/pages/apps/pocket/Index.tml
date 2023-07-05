@@ -12,17 +12,17 @@
             <table class="layout">
                 <tr>
                     <td rowspan="2">
-                        <p:menupanel core="selectedCore" />
+                        <p:menupanel core="selectedCore" imageView="imageView" />
                     </td>
                     <td>
-                        <p:corepanel category="console" />
+                        <p:corepanel category="console" imageView="imageView" />
                     </td>
                     <td>
-                        <p:corepanel category="handheld" />
-                        <p:corepanel category="computer" />
+                        <p:corepanel category="handheld" imageView="imageView" />
+                        <p:corepanel category="computer" imageView="imageView" />
                     </td>
                     <td>
-                        <p:corepanel category="arcadeMulti" />
+                        <p:corepanel category="arcadeMulti" imageView="imageView" />
                     </td>
                 </tr>
                 <tr>
@@ -39,7 +39,7 @@
             <table class="layout">
                 <tr>
                     <td rowspan="3">
-                        <p:menupanel core="selectedCore" genre="selectedGenre" />
+                        <p:menupanel core="selectedCore" genre="selectedGenre" imageView="imageView" />
                     </td>
                     <td class="data" height="50px" colspan="3">
                         <p:coredata core="selectedCore" />
@@ -52,7 +52,7 @@
                 </tr>
                 <tr>
                     <td class="data" colspan="3">
-                        <p:gamespanel core="selectedCore" genre="selectedGenre" />
+                        <p:gamespanel core="selectedCore" genre="selectedGenre" imageView="imageView" />
                     </td>
                 </tr>
             </table>
@@ -64,10 +64,10 @@
             <table class="layout">
                 <tr>
                     <td>
-                        <p:menupanel genre="selectedGenre" />
+                        <p:menupanel genre="selectedGenre" imageView="imageView" />
                     </td>
                     <td class="data" cosplan="3">
-                        <p:gamespanel core="selectedCore" genre="selectedGenre" />
+                        <p:gamespanel core="selectedCore" genre="selectedGenre" imageView="imageView" />
                     </td>
                 </tr>
             </table>

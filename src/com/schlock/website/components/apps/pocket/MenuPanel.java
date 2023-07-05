@@ -28,6 +28,9 @@ public class MenuPanel
     @Parameter
     private String genre;
 
+    @Parameter
+    private Boolean imageView;
+
     public String getTotalCount()
     {
         final String SPAN_HTML = "<span class=\"totalCount\">%s</span>";
@@ -76,11 +79,11 @@ public class MenuPanel
             {
                 if(StringUtils.equalsIgnoreCase(genre, genreId))
                 {
-                    link = Index.getPageLink(core, null);
+                    link = Index.getPageLink(imageView, core, null);
                 }
                 else
                 {
-                    link = Index.getPageLink(core, genreId);
+                    link = Index.getPageLink(imageView, core, genreId);
                 }
             }
 

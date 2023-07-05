@@ -31,6 +31,10 @@ public class GamesPanel
     @Parameter
     private String genre;
 
+    @Parameter
+    @Property
+    private Boolean imageView;
+
     @Property
     private PocketGame currentGame;
 

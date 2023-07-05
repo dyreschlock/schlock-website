@@ -30,6 +30,8 @@ public class CorePanel
     @Parameter(required = true)
     private String category;
 
+    @Parameter
+    private Boolean imageView;
 
     @Property
     private PocketCore currentCore;
@@ -85,7 +87,7 @@ public class CorePanel
     {
         String html = "<a href=\"%s\">%s</a>";
         String name = currentCore.getName();
-        String link = Index.getPageLink(currentCore, null);
+        String link = Index.getPageLink(imageView, currentCore, null);
 
         return String.format(html, link, name);
     }
