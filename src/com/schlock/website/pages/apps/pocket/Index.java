@@ -77,6 +77,7 @@ public class Index
         {
             selectedCore = pocketDataService.getCoreByNamespace(p1);
             selectedGenre = p2;
+            imageView = false;
         }
 
         return true;
