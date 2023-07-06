@@ -132,6 +132,20 @@ public class Index
         return title;
     }
 
+    public String getViewLinkText()
+    {
+        if (imageView)
+        {
+            return messages.get("view-data");
+        }
+        return messages.get("view-images");
+    }
+
+    public String getViewLinkLink()
+    {
+        return getPageLink(!imageView, selectedCore, selectedGenre);
+    }
+
     public boolean isNothingSelected()
     {
         return selectedCore == null && selectedGenre == null;

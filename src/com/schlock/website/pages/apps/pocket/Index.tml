@@ -6,7 +6,16 @@
 >
 <body class="pocket">
     <div class="body">
-        <h2><t:outputraw value="title" /></h2>
+        <div class="title">
+            <h2><t:outputraw value="title" /></h2>
+        </div>
+        <div class="viewLink">
+            <t:if test="!nothingSelected">
+                <div>
+                    <a href="${viewLinkLink}">${viewLinkText}</a>
+                </div>
+            </t:if>
+        </div>
 
         <t:if test="nothingSelected">
             <table class="layout">

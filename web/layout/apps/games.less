@@ -6,6 +6,13 @@
 
 @border_color: #333;
 
+@light_even: #fff;
+@light_odd:  #f4f4f4;
+
+@dark_even: #555;
+@dark_odd: #5f5f5f;
+
+
 body
 {
     font-family: arial;
@@ -18,8 +25,8 @@ body.games
 
     a   { color: @games_text_color; }
 
-    td.even   { background-color: #fff; }
-    td.odd    { background-color: #f4f4f4; }
+    td.even   { background-color: @light_even; }
+    td.odd    { background-color: @light_odd; }
 }
 
 body.pocket
@@ -31,8 +38,8 @@ body.pocket
     h2 a { color: #fff; }
     a    { color: @pocket_text_color; }
 
-    td.even   { background-color: #555; }
-    td.odd    { background-color: #5f5f5f; }
+    td.even   { background-color: @dark_even; }
+    td.odd    { background-color: @dark_odd; }
 
     span.zero { color: #999; }
 
@@ -103,6 +110,37 @@ div.panel, div.list
 
     margin-left: auto;
     margin-right: auto;
+}
+
+div.title
+{
+    position: relative;
+    float: left;
+    width: 70%;
+}
+
+div.viewLink
+{
+    position: relative;
+    float: right;
+    width: 25%;
+
+    text-align: right;
+
+    padding-top: 27px;
+
+    div
+    {
+        position: relative;
+        float: right;
+
+        padding: 2px;
+        width: 120px;
+        text-align: center;
+
+        border: 2px solid @border_color;
+        background-color: @dark_even;
+    }
 }
 
 div.panel
