@@ -24,10 +24,10 @@ public interface PocketDataService
 
     List<String> getGameGenres();
 
-    List<DataPanelData> getCountByMostCommonDeveloper(PocketCore core, Integer maxResults);
+    List<DataPanelData> getCountByMostCommonDeveloper(PocketCore core, String genre, Integer maxResults);
 
-    List<DataPanelData> getCountByMostCommonPublisher(PocketCore core, Integer maxResults);
+    List<DataPanelData> getCountByMostCommonPublisher(PocketCore core, String genre, Integer maxResults);
 
-    List<DataPanelData> getCountByMostCommonYear(PocketCore core, Integer maxResults);
+    List<DataPanelData> getCountByMostCommonYear(PocketCore core, String genre, Integer maxResults);
 
 }

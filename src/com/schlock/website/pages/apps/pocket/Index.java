@@ -149,22 +149,22 @@ public class Index
 
     public List<DataPanelData> getDevData()
     {
-        return pocketDataService.getCountByMostCommonDeveloper(selectedCore, getMaxResults());
+        return pocketDataService.getCountByMostCommonDeveloper(selectedCore, selectedGenre, getMaxResults());
     }
 
     public List<DataPanelData> getPubData()
     {
-        return pocketDataService.getCountByMostCommonPublisher(selectedCore, getMaxResults());
+        return pocketDataService.getCountByMostCommonPublisher(selectedCore, selectedGenre, getMaxResults());
     }
 
     public List<DataPanelData> getYearData()
     {
-        return pocketDataService.getCountByMostCommonYear(selectedCore, getMaxResults());
+        return pocketDataService.getCountByMostCommonYear(selectedCore, selectedGenre, getMaxResults());
     }
 
     private int getMaxResults()
     {
-        if (selectedCore != null)
+        if (selectedCore != null || selectedGenre != null)
         {
             return STATS_HALF_MAX_RESULTS;
         }

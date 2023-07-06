@@ -124,6 +124,15 @@ public class PocketDataServiceImpl implements PocketDataService
         return games;
     }
 
+    private List<PocketGame> getGamesByCoreOrGenre(PocketCore core, String genreId)
+    {
+        if (core != null)
+        {
+            return getGamesByCore(core);
+        }
+        return getGamesByGenre(genreId);
+    }
+
     public List<PocketCore> getCores()
     {
         if (cachedCores.isEmpty())
@@ -157,11 +166,17 @@ public class PocketDataServiceImpl implements PocketDataService
         return cachedCores.get(namespace);
     }
 
-    public List<DataPanelData> getCountByMostCommonDeveloper(PocketCore core, Integer maxResults)
+    public List<DataPanelData> getCountByMostCommonDeveloper(PocketCore core, String genre, Integer maxResults)
+    {
+        List<PocketGame> games = getGamesByCoreOrGenre(core, genre);
+        return getCountByMostCommonDeveloper(games, maxResults);
+    }
+
+    private List<DataPanelData> getCountByMostCommonDeveloper(List<PocketGame> games, Integer maxResults)
     {
         Map<String, Integer> developerInfo = new HashMap<String, Integer>();
 
-        for(PocketGame game : getGamesByCore(core))
+        for(PocketGame game : games)
         {
             if (StringUtils.isNotBlank(game.getDeveloper()))
             {
@@ -183,11 +198,17 @@ public class PocketDataServiceImpl implements PocketDataService
         return createDataPanelData(developerInfo, maxResults);
     }
 
-    public List<DataPanelData> getCountByMostCommonPublisher(PocketCore core, Integer maxResults)
+    public List<DataPanelData> getCountByMostCommonPublisher(PocketCore core, String genre, Integer maxResults)
+    {
+        List<PocketGame> games = getGamesByCoreOrGenre(core, genre);
+        return getCountByMostCommonPublisher(games, maxResults);
+    }
+
+    private List<DataPanelData> getCountByMostCommonPublisher(List<PocketGame> games, Integer maxResults)
     {
         Map<String, Integer> publisherInfo = new HashMap<String, Integer>();
 
-        for(PocketGame game : getGamesByCore(core))
+        for(PocketGame game : games)
         {
             if (StringUtils.isNotBlank(game.getPublisher()))
             {
@@ -209,11 +230,17 @@ public class PocketDataServiceImpl implements PocketDataService
         return createDataPanelData(publisherInfo, maxResults);
     }
 
-    public List<DataPanelData> getCountByMostCommonYear(PocketCore core, Integer maxResults)
+    public List<DataPanelData> getCountByMostCommonYear(PocketCore core, String genre, Integer maxResults)
+    {
+        List<PocketGame> games = getGamesByCoreOrGenre(core, genre);
+        return getCountByMostCommonYear(games, maxResults);
+    }
+
+    private List<DataPanelData> getCountByMostCommonYear(List<PocketGame> games, Integer maxResults)
     {
         Map<String, Integer> yearInfo = new HashMap<String, Integer>();
 
-        for(PocketGame game : getGamesByCore(core))
+        for(PocketGame game : games)
         {
             if (StringUtils.isNotBlank(game.getYear()))
             {
