@@ -13,6 +13,11 @@
                 <tr>
                     <th class="${coreNamespace} allGames">${message:game-list}</th>
                 </tr>
+                <tr>
+                    <td>
+                        <t:outputraw value="imageHTML" />
+                    </td>
+                </tr>
 
             </t:if>
             <t:if test="!imageView">

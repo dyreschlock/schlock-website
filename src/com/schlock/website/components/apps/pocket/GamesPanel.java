@@ -111,4 +111,26 @@ public class GamesPanel
         }
         return CorePanel.ODD;
     }
+
+
+    public String getImageHTML()
+    {
+        final String IMG_HTML = "<img src=\"%s\" alt=\"%s\" title=\"%s\" />";
+        final String IMG_LINK = "https://raw.githubusercontent.com/dyreschlock/dyreschlock.github.io/main/img/pocket/%s/%s.bmp";
+
+        String outputHTML = "";
+        for(PocketGame game : getGames())
+        {
+            String namespace = game.getPlatform();
+            String filehash = game.getFileHash();
+
+            String link = String.format(IMG_LINK, namespace, filehash);
+
+            String name = game.getGameName();
+
+            outputHTML += String.format(IMG_HTML, link, name, name);
+        }
+
+        return outputHTML;
+    }
 }
