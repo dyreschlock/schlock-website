@@ -3,6 +3,7 @@ package com.schlock.website.components.apps.pocket;
 import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.entities.apps.pocket.PocketGame;
 import com.schlock.website.services.apps.pocket.PocketDataService;
+import com.schlock.website.services.apps.pocket.PocketImageService;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
@@ -20,6 +21,9 @@ public class GamesPanel
 
     @Inject
     private PocketDataService pocketDataService;
+
+    @Inject
+    private PocketImageService pocketImageService;
 
     @Inject
     private Messages messages;
@@ -115,22 +119,9 @@ public class GamesPanel
 
     public String getImageHTML()
     {
-        final String IMG_HTML = "<img src=\"%s\" alt=\"%s\" title=\"%s\" />";
-        final String IMG_LINK = "https://raw.githubusercontent.com/dyreschlock/dyreschlock.github.io/main/img/pocket/%s/%s.bmp";
+        List<PocketGame> games = getGames();
 
-        String outputHTML = "";
-        for(PocketGame game : getGames())
-        {
-            String namespace = game.getPlatform();
-            String filehash = game.getFileHash();
-
-            String link = String.format(IMG_LINK, namespace, filehash);
-
-            String name = game.getGameName();
-
-            outputHTML += String.format(IMG_HTML, link, name, name);
-        }
-
+        String outputHTML = pocketImageService.generateImageHTMLFromGames(games);
         return outputHTML;
     }
 }

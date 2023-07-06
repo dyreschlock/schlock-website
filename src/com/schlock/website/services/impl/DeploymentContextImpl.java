@@ -146,6 +146,12 @@ public class DeploymentContextImpl implements DeploymentContext
         return outputDirectory;
     }
 
+    public String webOutputDirectory()
+    {
+        String outoutDirectory = getDeployProperties().getProperty(OUT_DIR_HTML_PARAM);
+        return outoutDirectory;
+    }
+
     public String coverImageLocationLocal()
     {
         String outputDirectory = getDeployProperties().getProperty(OUT_DIR_HTML_PARAM);
