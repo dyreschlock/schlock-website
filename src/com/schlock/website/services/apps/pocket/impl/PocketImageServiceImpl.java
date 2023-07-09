@@ -19,7 +19,7 @@ public class PocketImageServiceImpl implements PocketImageService
 
     private final DeploymentContext context;
 
-    private static final Integer STANDARD_LINE_HEIGHT = 140;
+    private static final Integer STANDARD_LINE_HEIGHT = 145;
     private static final Integer CELL_WIDTH = 863;
 
 
@@ -98,6 +98,15 @@ public class PocketImageServiceImpl implements PocketImageService
         Integer newHeight = STANDARD_LINE_HEIGHT;
 
         Double newWidth = originalWidth.doubleValue() * newHeight.doubleValue() / originalHeight.doubleValue();
+
+        if (newWidth / newHeight.doubleValue() > 1.5d)
+        {
+            newWidth = newWidth * 0.93d;
+        }
+        if (newWidth / newHeight.doubleValue() < 0.80d)
+        {
+            newWidth = newWidth * 1.08d;
+        }
 
         return newWidth.intValue();
     }
