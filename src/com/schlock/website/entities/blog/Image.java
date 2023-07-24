@@ -59,6 +59,12 @@ public class Image extends Persisted
         return parent != null;
     }
 
+    public boolean isSameImage(String imageName)
+    {
+        return (this.imageName.equals(imageName)) ||
+                (this.parent != null && this.parent.imageName.equals(imageName));
+    }
+
 
     public String getDirectory()
     {

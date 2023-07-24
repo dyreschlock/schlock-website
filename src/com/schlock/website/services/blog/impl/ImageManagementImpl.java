@@ -87,30 +87,29 @@ public class ImageManagementImpl implements ImageManagement
 
     private Integer getImageIndexInGallery(AbstractPost post, String imageLink)
     {
-        String[] linkParts = extractDirectoryGalleryFilenameFromLink(imageLink);
-        if (linkParts != null && post != null)
+        if (post == null || !post.isHasGallery())
         {
-            String galleryName = linkParts[1];
-            String imageName = linkParts[2];
+            return null;
+        }
 
-            if (post.getGalleryName().equals(galleryName))
+        String[] linkParts = extractDirectoryGalleryFilenameFromLink(imageLink);
+        if (linkParts == null)
+        {
+            return null;
+        }
+
+        String galleryName = linkParts[1];
+        String imageName = linkParts[2];
+
+        if (post.getGalleryName().equals(galleryName))
+        {
+            List<Image> images = getGalleryImages(post);
+            for(Integer i = 0; i < images.size(); i++)
             {
-                List<Image> images = getGalleryImages(post);
-                for(Integer i = 0; i < images.size(); i++)
+                Image image = images.get(i);
+                if (image.isSameImage(imageName))
                 {
-                    Image image = images.get(i);
-                    if (image.getImageName().equals(imageName))
-                    {
-                        return i;
-                    }
-                    else if (image.getParent() != null)
-                    {
-                        image = image.getParent();
-                        if (image.getImageName().equals(imageName))
-                        {
-                            return i;
-                        }
-                    }
+                    return i;
                 }
             }
         }
@@ -284,8 +283,6 @@ public class ImageManagementImpl implements ImageManagement
                 finishHTML += remainHTML.substring(0, index);
                 remainHTML = remainHTML.substring(index);
 
-                // <a | href="
-
                 index = PARAM.length();
 
                 String linkReference = remainHTML.substring(index, remainHTML.indexOf(QUOTE, index));
@@ -297,19 +294,12 @@ public class ImageManagementImpl implements ImageManagement
                 if (isImage(linkReference))
                 {
                     updatedLink = updateImageLink(linkReference);
-                    if (HREF_PARAM.equals(PARAM) && post != null && post.isHasGallery())
+
+                    Integer imageIndex = getImageIndexInGallery(post, linkReference);
+                    if (HREF_PARAM.equals(PARAM) && imageIndex != null)
                     {
                         // onclick="galleryClicked(1)"
-
-                        Integer imageIndex = getImageIndexInGallery(post, linkReference);
-                        if (imageIndex != null)
-                        {
-                            finishHTML += " onclick=\"galleryClicked(" + imageIndex.toString() + ")\"";
-                        }
-                        else
-                        {
-                            finishHTML += PARAM + updatedLink;
-                        }
+                        finishHTML += " onclick=\"galleryClicked(" + imageIndex + ")\"";
                     }
                     else
                     {
