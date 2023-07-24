@@ -3,7 +3,6 @@ package com.schlock.website.services.apps.pocket.impl;
 import com.schlock.website.entities.apps.pocket.PocketGame;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pocket.PocketImageService;
-import org.apache.commons.lang.StringUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -14,22 +13,17 @@ import java.util.List;
 public class PocketImageServiceImpl implements PocketImageService
 {
     private static final String IMG_LINK = "https://raw.githubusercontent.com/dyreschlock/dyreschlock.github.io/main/img/pocket/%s/%s.bmp";
-    private static final String IMG_HTML_OLD = "<img src=\"%s\" alt=\"%s\" title=\"%s\" />";
     private static final String IMG_HTML = "<img height=\"%s\" width=\"%s\" src=\"%s\" alt=\"%s\" title=\"%s\" />";
 
     private final DeploymentContext context;
 
-    private static final Integer STANDARD_LINE_HEIGHT = 145;
+    private static final Integer STANDARD_LINE_HEIGHT = 175;// 160;
     private static final Integer CELL_WIDTH = 863;
-
-
 
     public PocketImageServiceImpl(DeploymentContext context)
     {
         this.context = context;
     }
-
-
 
     public String generateImageHTMLFromGames(List<PocketGame> games)
     {
@@ -40,9 +34,9 @@ public class PocketImageServiceImpl implements PocketImageService
 
         for(PocketGame game : games)
         {
-            if (StringUtils.isNotBlank(game.getFileHash()))
+            Object[] imageEntry = createImageEntry(game);
+            if (imageEntry != null)
             {
-                Object[] imageEntry = createImageEntry(game);
                 currentImages.add(imageEntry);
 
                 int width = (Integer) imageEntry[2];
@@ -76,7 +70,7 @@ public class PocketImageServiceImpl implements PocketImageService
         }
         catch(Exception e)
         {
-            throw new RuntimeException(e);
+            return null;
         }
 
         Integer height = STANDARD_LINE_HEIGHT;
@@ -154,24 +148,5 @@ public class PocketImageServiceImpl implements PocketImageService
             imageHTML += imgTag;
         }
         return imageHTML;
-    }
-
-    public String generateImageHTMLFromGames2(List<PocketGame> games)
-    {
-        String outputHTML = "";
-        for(PocketGame game : games)
-        {
-            String filehash = game.getFileHash();
-            if (StringUtils.isNotBlank(filehash))
-            {
-                String platform = game.getPlatform();
-                String link = String.format(IMG_LINK, platform, filehash);
-
-                String name = game.getGameName();
-
-                outputHTML += String.format(IMG_HTML_OLD, link, name, name);
-            }
-        }
-        return outputHTML;
     }
 }
