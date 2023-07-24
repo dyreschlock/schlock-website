@@ -221,17 +221,17 @@ public class ImageManagementImpl implements ImageManagement
     private static final String HREF_PARAM = "href=\"";
 
 
-    public String updateImagesInHTML(String h)
+    public String updateImagesInHTML(AbstractPost post, String h)
     {
         String html = h;
 
-        html = updateImagesInHTML(IMG_TAG, SRC_PARAM, html);
-        html = updateImagesInHTML(A_TAG, HREF_PARAM, html);
+        html = updateImagesInHTML(IMG_TAG, SRC_PARAM, html, post);
+        html = updateImagesInHTML(A_TAG, HREF_PARAM, html, post);
 
         return html;
     }
 
-    private String updateImagesInHTML(final String TAG, final String PARAM, String h)
+    private String updateImagesInHTML(final String TAG, final String PARAM, String h, AbstractPost post)
     {
         final String QUOTE = "\"";
 

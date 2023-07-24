@@ -172,7 +172,7 @@ public class PostManagementImpl implements PostManagement
     public void setPostHTML(AbstractPost post)
     {
         String text = post.getBodyText();
-        String html = generatePostHTML(text);
+        String html = generatePostHTML(post, text);
         post.setBodyHTML(html);
 
         String keyString = post.getKeywordString();
@@ -264,6 +264,11 @@ public class PostManagementImpl implements PostManagement
 
     private String generatePostHTML(String tempText)
     {
+        return generatePostHTML(null, tempText);
+    }
+
+    private String generatePostHTML(AbstractPost post, String tempText)
+    {
         if (StringUtils.isBlank(tempText))
         {
             return tempText;
@@ -280,7 +285,7 @@ public class PostManagementImpl implements PostManagement
 
         html = wrapJapaneseTextInTags(html);
 
-        html = imageManagement.updateImagesInHTML(html);
+        html = imageManagement.updateImagesInHTML(post, html);
 
         return html;
     }
