@@ -85,6 +85,38 @@ public class ImageManagementImpl implements ImageManagement
         return galleryImages;
     }
 
+    private Integer getImageIndexInGallery(AbstractPost post, String imageLink)
+    {
+        String[] linkParts = extractDirectoryGalleryFilenameFromLink(imageLink);
+        if (linkParts != null && post != null)
+        {
+            String galleryName = linkParts[1];
+            String imageName = linkParts[2];
+
+            if (post.getGalleryName().equals(galleryName))
+            {
+                List<Image> images = getGalleryImages(post);
+                for(Integer i = 0; i < images.size(); i++)
+                {
+                    Image image = images.get(i);
+                    if (image.getImageName().equals(imageName))
+                    {
+                        return i;
+                    }
+                    else if (image.getParent() != null)
+                    {
+                        image = image.getParent();
+                        if (image.getImageName().equals(imageName))
+                        {
+                            return i;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     public void generateImageObjects()
     {
         Set<String> galleries = postDAO.getAllGalleryNames();
@@ -220,7 +252,6 @@ public class ImageManagementImpl implements ImageManagement
     private static final String A_TAG = "<a ";
     private static final String HREF_PARAM = "href=\"";
 
-
     public String updateImagesInHTML(AbstractPost post, String h)
     {
         String html = h;
@@ -248,30 +279,48 @@ public class ImageManagementImpl implements ImageManagement
             }
             else
             {
-                finishHTML += remainHTML.substring(0, index);
-                remainHTML = remainHTML.substring(index);
-
-                index = remainHTML.indexOf(PARAM) + PARAM.length();
+                index = remainHTML.indexOf(PARAM, index + TAG.length());
 
                 finishHTML += remainHTML.substring(0, index);
                 remainHTML = remainHTML.substring(index);
 
-                index = remainHTML.indexOf(QUOTE);
+                // <a | href="
 
-                String linkReference = remainHTML.substring(0, index);
+                index = PARAM.length();
+
+                String linkReference = remainHTML.substring(index, remainHTML.indexOf(QUOTE, index));
+
+                index = remainHTML.indexOf(linkReference) + linkReference.length();
                 remainHTML = remainHTML.substring(index);
 
                 String updatedLink;
                 if (isImage(linkReference))
                 {
                     updatedLink = updateImageLink(linkReference);
+                    if (HREF_PARAM.equals(PARAM) && post != null && post.isHasGallery())
+                    {
+                        // onclick="galleryClicked(1)"
+
+                        Integer imageIndex = getImageIndexInGallery(post, linkReference);
+                        if (imageIndex != null)
+                        {
+                            finishHTML += " onclick=\"galleryClicked(" + imageIndex.toString() + ")\"";
+                        }
+                        else
+                        {
+                            finishHTML += PARAM + updatedLink;
+                        }
+                    }
+                    else
+                    {
+                        finishHTML += PARAM + updatedLink;
+                    }
                 }
                 else
                 {
                     updatedLink = postManagement.updateLinkToModernReference(linkReference);
+                    finishHTML += PARAM + updatedLink;
                 }
-
-                finishHTML += updatedLink;
 
                 if (IMG_TAG.equals(TAG))
                 {
@@ -294,16 +343,35 @@ public class ImageManagementImpl implements ImageManagement
 
     private String updateImageLink(String link)
     {
-        String originalLink = link;
-
-        final String HTTP = "http";
-        final String SLASH = "/";
-
-        if (StringUtils.startsWith(originalLink, HTTP))
+        String[] linkParts = extractDirectoryGalleryFilenameFromLink(link);
+        if (linkParts == null)
         {
-            return originalLink;
+            return link;
         }
 
+        String directory = linkParts[0];
+        String galleryName = linkParts[1];
+        String imageName = linkParts[2];
+
+        Image image = imageDAO.getByDirectoryGalleryName(directory, galleryName, imageName);
+        if (image == null)
+        {
+            image = createImage(directory, galleryName, imageName);
+        }
+        return image.getImageLink();
+    }
+
+    private String[] extractDirectoryGalleryFilenameFromLink(String link)
+    {
+        final String HTTP = "http";
+        if (StringUtils.startsWith(link, HTTP))
+        {
+            return null;
+        }
+
+        String originalLink = link;
+
+        final String SLASH = "/";
         if (StringUtils.startsWith(originalLink, SLASH))
         {
             originalLink = originalLink.substring(1);
@@ -335,12 +403,12 @@ public class ImageManagementImpl implements ImageManagement
             throw new RuntimeException("image tag is weird with " + link);
         }
 
-        Image image = imageDAO.getByDirectoryGalleryName(directory, galleryName, imageName);
-        if (image == null)
-        {
-            image = createImage(directory, galleryName, imageName);
-        }
-        return image.getImageLink();
+        String[] linkParts = new String[3];
+        linkParts[0] = directory;
+        linkParts[1] = galleryName;
+        linkParts[2] = imageName;
+
+        return linkParts;
     }
 
     private boolean checkIfImageExists(String link)
