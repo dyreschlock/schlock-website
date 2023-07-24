@@ -41,6 +41,24 @@
                         let nextIndex = index +1;
                         showNextImageLink(nextIndex);
                     }
+
+                    addArrowListener(function(event)
+                    {
+                        if(event.keyCode == 37)
+                        {
+                            if(index != 0)
+                            {
+                                galleryClicked(index -1);
+                            }
+                        }
+                        if(event.keyCode == 39)
+                        {
+                            if(index != images.length -1)
+                            {
+                                galleryClicked(index +1);
+                            }
+                        }
+                    });
                 }
 
                 function setBackgroundImage(index)
@@ -111,6 +129,26 @@
                 {
                     document.getElementById("overlayImage").style.display = 'none';
                     document.getElementById("overlayBackground").style.display = 'none';
+                    removeArrowListener();
+                }
+
+                var currentHandler;
+
+                function addArrowListener(handler)
+                {
+                    removeArrowListener();
+                    currentHandler = handler;
+
+                    document.addEventListener("keydown", currentHandler);
+                }
+
+                function removeArrowListener()
+                {
+                    if(currentHandler != null)
+                    {
+                        document.removeEventListener("keydown", currentHandler);
+                    }
+                    currentHandler = null;
                 }
 
             </script>
