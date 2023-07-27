@@ -2,6 +2,7 @@ package com.schlock.website.components.apps.pokemon.unown;
 
 import com.schlock.website.entities.apps.pokemon.UnownEvent;
 import com.schlock.website.services.apps.pokemon.PokemonUnownService;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 
@@ -32,5 +33,15 @@ public class PokemonUnownEventsList
             return "attended";
         }
         return "";
+    }
+
+    public String getShinyAvailable()
+    {
+        String shiny = currentEvent.getShinyAvailable();
+        if (StringUtils.isNotBlank(shiny))
+        {
+            shiny = "★" + shiny;
+        }
+        return shiny;
     }
 }

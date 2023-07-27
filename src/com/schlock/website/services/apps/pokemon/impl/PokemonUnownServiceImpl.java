@@ -382,20 +382,18 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
 
     private static final String COMMA = ", ";
 
-    @Override
     public String getEventNamesForUnown(UnownPokemon pokemon)
     {
         List<String> names = new ArrayList<String>();
         for (UnownEvent event : pokemon.getEvents())
         {
-            String html = getEventNameHTML(event);
+            String html = getEventNameHTML(pokemon, event);
             names.add(html);
         }
 
         return StringUtils.join(names, COMMA);
     }
 
-    @Override
     public String getEventNamesForUnownByYear(UnownPokemon pokemon, String year)
     {
         List<String> names = new ArrayList<String>();
@@ -404,7 +402,7 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
             String eventYear = new SimpleDateFormat(YEAR_ONLY_DATE_FORMAT).format(event.getStartDate());
             if (year.equals(eventYear))
             {
-                String html = getEventNameHTML(event);
+                String html = getEventNameHTML(pokemon, event);
                 names.add(html);
             }
         }
@@ -412,11 +410,18 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
         return StringUtils.join(names, COMMA);
     }
 
-    private String getEventNameHTML(UnownEvent event)
+    private String getEventNameHTML(UnownPokemon pokemon, UnownEvent event)
     {
-        String spanStart = "<span class="+ event.getRegion().name() +" >";
-        String spanEnd = "</span>";
+        String spanTag = "<span class=\"%s\">%s</span>";
 
-        return spanStart + event.getEventName() + spanEnd;
+        String name = event.getEventName();
+        String cls = event.getRegion().name();
+        if (event.getShinyAvailable().contains(pokemon.getLetter()))
+        {
+            cls += " shiny";
+            name = "★" + name;
+        }
+
+        return String.format(spanTag, cls, name);
     }
 }

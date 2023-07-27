@@ -14,12 +14,12 @@
         </tr>
         <t:loop source="unownEvents" value="currentEvent">
 
-            <tr class="${eventCSS}">
+            <tr class="event ${eventCSS}">
                 <td>${currentEvent.startDateOutput}</td>
                 <td>${currentEvent.eventName}</td>
                 <td>${currentEvent.location}</td>
                 <td>${currentEvent.unownAvailable}</td>
-                <td>${currentEvent.shinyAvailable}</td>
+                <td>${shinyAvailable}</td>
             </tr>
 
         </t:loop>

@@ -40,9 +40,19 @@
             width: 350px;
         }
 
+        tr.event td
+        {
+            vertical-align: middle;
+        }
+
         .attended
         {
             font-weight: bold;
+        }
+
+        span.shiny
+        {
+            color: #6c1735;
         }
 
         span.NORTH_AMERICA  { background-color: #e4edfd; } /* blue */
