@@ -10,6 +10,7 @@ public class UnownEvent
 
     private String eventName;
     private String unownAvailable;
+    private String shinyAvailable;
 
     private String location;
     private WorldRegion region;
@@ -63,6 +64,16 @@ public class UnownEvent
     public void setUnownAvailable(String unownAvailable)
     {
         this.unownAvailable = unownAvailable;
+    }
+
+    public String getShinyAvailable()
+    {
+        return shinyAvailable;
+    }
+
+    public void setShinyAvailable(String shinyAvailable)
+    {
+        this.shinyAvailable = shinyAvailable;
     }
 
     public String getLocation()

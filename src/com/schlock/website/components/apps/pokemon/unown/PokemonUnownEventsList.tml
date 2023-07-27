@@ -10,6 +10,7 @@
             <th>${message:event}</th>
             <th>${message:location}</th>
             <th>${message:unown}</th>
+            <th>${message:shiny}</th>
         </tr>
         <t:loop source="unownEvents" value="currentEvent">
 
@@ -18,6 +19,7 @@
                 <td>${currentEvent.eventName}</td>
                 <td>${currentEvent.location}</td>
                 <td>${currentEvent.unownAvailable}</td>
+                <td>${currentEvent.shinyAvailable}</td>
             </tr>
 
         </t:loop>
