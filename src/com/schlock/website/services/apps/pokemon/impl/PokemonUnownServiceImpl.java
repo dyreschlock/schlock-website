@@ -330,6 +330,20 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
         return unowned;
     }
 
+    public List<UnownPokemon> getListOfUnownByLetterAndOwned()
+    {
+        List<UnownPokemon> owned = new ArrayList<UnownPokemon>();
+        for(UnownPokemon pokemon : getListOfUnownByLetter())
+        {
+            String letter = pokemon.getLetter();
+            if (CURRENT_UNOWN_POKEDEX.contains(letter))
+            {
+                owned.add(pokemon);
+            }
+        }
+        return owned;
+    }
+
     private static final String COMMA = ", ";
 
     @Override

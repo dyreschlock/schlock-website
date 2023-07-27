@@ -2,7 +2,14 @@
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 >
 
-    <p class="title">${title}</p>
+    <p class="title">
+        ${message:title} -
+        <input type="text" value="${unownAsString}" />
+    </p>
+
+    <p class="title">
+        ${message:missing} - <span id="missing">5</span>/28
+    </p>
 
     <table>
         <tr>

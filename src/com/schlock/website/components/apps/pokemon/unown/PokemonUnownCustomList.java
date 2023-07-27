@@ -6,7 +6,6 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class PokemonUnownCustomList
@@ -31,6 +30,16 @@ public class PokemonUnownCustomList
         return messages.format("title", count);
     }
 
+    public String getUnownAsString()
+    {
+        String currentUnown = "";
+
+        for(UnownPokemon unown : unownService.getListOfUnownByLetterAndOwned())
+        {
+            currentUnown += unown.getLetter();
+        }
+        return currentUnown;
+    }
 
     public List<UnownPokemon> getUnown()
     {
