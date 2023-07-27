@@ -18,7 +18,7 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
      * https://www.serebii.net/pokemongo/unownevents.shtml
      */
 
-    private final static String CURRENT_UNOWN_POKEDEX = "ABEFGHIJKLMNOPRSTUVWXY!";
+    public final static String CURRENT_UNOWN_POKEDEX = "ABEFGHIJKLMNOPRSTUVWXY!";
     private final static String HAVE_TO_TRADE =         "ACEFGHIJKLMNOPRSTUVWXY!";
     private final static String HAVE_SHINY =            "ABSTU";
 
@@ -311,37 +311,6 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
         });
 
         return listOfUnown;
-    }
-
-    public List<UnownPokemon> getListOfUnownByRarityAndNotOwned()
-    {
-        List<UnownPokemon> unown = getListOfUnownByRarity();
-
-        List<UnownPokemon> unowned = new ArrayList<UnownPokemon>();
-
-        for (UnownPokemon pokemon : unown)
-        {
-            String letter = pokemon.getLetter();
-            if (!CURRENT_UNOWN_POKEDEX.contains(letter))
-            {
-                unowned.add(pokemon);
-            }
-        }
-        return unowned;
-    }
-
-    public List<UnownPokemon> getListOfUnownByLetterAndOwned()
-    {
-        List<UnownPokemon> owned = new ArrayList<UnownPokemon>();
-        for(UnownPokemon pokemon : getListOfUnownByLetter())
-        {
-            String letter = pokemon.getLetter();
-            if (CURRENT_UNOWN_POKEDEX.contains(letter))
-            {
-                owned.add(pokemon);
-            }
-        }
-        return owned;
     }
 
     private static final String COMMA = ", ";

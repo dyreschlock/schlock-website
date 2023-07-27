@@ -13,9 +13,6 @@ public interface PokemonUnownService
     public List<UnownPokemon> getListOfUnownByLetter();
     public List<UnownPokemon> getListOfUnownByRarity();
 
-    public List<UnownPokemon> getListOfUnownByRarityAndNotOwned();
-    public List<UnownPokemon> getListOfUnownByLetterAndOwned();
-
     public String getEventNamesForUnown(UnownPokemon pokemon);
     public String getEventNamesForUnownByYear(UnownPokemon pokemon, String year);
 }

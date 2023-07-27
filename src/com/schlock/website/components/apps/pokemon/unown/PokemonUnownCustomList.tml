@@ -1,14 +1,64 @@
 <t:container
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 >
+    <script>
+
+        var ALL_UNOWN = "${allUnown}";
+
+        function updateUnownList(val)
+        {
+            var unown = ALL_UNOWN;
+            var newValue = "";
+
+            for(var i = 0; i != unown.length; i++)
+            {
+                var letter = unown.charAt(i);
+                var id = "unown" + letter;
+                if(letter == '?')
+                {
+                    id = "unownQu";
+                }
+                if(letter == '!')
+                {
+                    id = "unownEx";
+                }
+
+                if(val.toUpperCase().includes(letter))
+                {
+                    newValue = newValue + letter;
+                    hideElement(id);
+                }
+                else
+                {
+                    showElement(id);
+                }
+            }
+
+            document.getElementById("obtainedUnown").value = newValue;
+
+            var missingNumber = 28 - newValue.length;
+            document.getElementById("missing").innerHTML = missingNumber;
+        }
+
+        function hideElement(id)
+        {
+            document.getElementById(id).style.visibility = 'collapse';
+        }
+
+        function showElement(id)
+        {
+            document.getElementById(id).style.visibility = 'visible';
+        }
+
+    </script>
 
     <p class="title">
         ${message:title} -
-        <input type="text" value="${unownAsString}" />
+        <input type="text" id="obtainedUnown" oninput="updateUnownList(this.value)" value="${unownAsString}" />
     </p>
 
     <p class="title">
-        ${message:missing} - <span id="missing">5</span>/28
+        ${message:missing} - <span id="missing">${currentMissing}</span>/28
     </p>
 
     <table>
@@ -26,7 +76,7 @@
 
         <t:loop source="unown" value="currentUnown">
 
-            <tr>
+            <tr id="${currentUnownId}" style="${currentUnownCSS}">
                 <td>${currentUnown.eventCount}</td>
                 <td>${currentUnown.letter}</td>
 
