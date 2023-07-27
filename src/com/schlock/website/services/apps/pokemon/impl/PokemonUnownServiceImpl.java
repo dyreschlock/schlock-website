@@ -173,6 +173,10 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
             Arrays.asList("Go Fest 2023 New York", "ADIMNO!", "ADIMNO!", "8/18/2023", "8/21/2023", "New York", WorldRegion.NORTH_AMERICA),
             Arrays.asList("Go Fest 2023 Global", "ADIMNO", "ADIMNO", "8/26/2023", "8/27/2023", "Global", WorldRegion.GLOBAL),
 
+            Arrays.asList("City Safari Seoul", "SEO", "SEO", "10/7/2023", "10/8/2023", "Seoul, South Korea", WorldRegion.ASIA),
+            Arrays.asList("City Safari Barcelona", "BCN", "BCN", "10/13/2023", "10/14/2023", "Barcelona, Spain", WorldRegion.EUROPE),
+            Arrays.asList("City Safari Mexico", "MEX", "MEX", "11/4/2023", "11/5/2023", "Mexico City, Mexico", WorldRegion.NORTH_AMERICA),
+
             Arrays.asList("Megacon Live Dublin", "MD", "", "1/21/2023", "1/22/2023", "Dublin, Ireland", WorldRegion.EUROPE),
             Arrays.asList("Taipei Lanturn Festival", "FUL", "", "2/10/2023", "2/12/2023", "Taiwan", WorldRegion.ASIA),
             Arrays.asList("Insomnia Egypt", "IE", "", "2/16/2023", "2/18/2023", "Cairo, Egypt", WorldRegion.MIDDLE_EAST),
@@ -318,20 +322,9 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
 
     private static final String YEAR_ONLY_DATE_FORMAT = "yyyy";
 
-    private static final List<String> IGNORE_YEARS_OVERALL = Arrays.asList("2018", "2017");
-    private static final List<String> IGNORE_YEARS_SHINY = Arrays.asList("2019", "2018", "2017");
+    private static final List<String> IGNORE_YEARS = Arrays.asList("2019", "2018", "2017");
 
     public List<String> getEventYears()
-    {
-        return getEventYears(IGNORE_YEARS_OVERALL);
-    }
-
-    public List<String> getShinyEventYears()
-    {
-        return getEventYears(IGNORE_YEARS_SHINY);
-    }
-
-    public List<String> getEventYears(final List<String> IGNORE_YEARS)
     {
         List<String> years = new ArrayList<String>();
 

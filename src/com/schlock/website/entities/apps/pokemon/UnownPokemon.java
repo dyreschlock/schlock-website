@@ -1,6 +1,8 @@
 package com.schlock.website.entities.apps.pokemon;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class UnownPokemon implements Comparable<UnownPokemon>
@@ -35,6 +37,13 @@ public class UnownPokemon implements Comparable<UnownPokemon>
 
     public List<UnownEvent> getEvents()
     {
+        Collections.sort(events, new Comparator<UnownEvent>()
+        {
+            public int compare(UnownEvent o1, UnownEvent o2)
+            {
+                return o1.getStartDate().compareTo(o2.getStartDate());
+            }
+        });
         return events;
     }
 

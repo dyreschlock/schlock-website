@@ -8,7 +8,6 @@ import java.util.List;
 public interface PokemonUnownService
 {
     public List<String> getEventYears();
-    public List<String> getShinyEventYears();
 
     public List<UnownEvent> getListOfEvents();
     public List<UnownPokemon> getListOfUnownByLetter();

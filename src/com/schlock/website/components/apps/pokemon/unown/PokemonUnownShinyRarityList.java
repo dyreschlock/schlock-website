@@ -26,7 +26,7 @@ public class PokemonUnownShinyRarityList
 
     public List<String> getYears()
     {
-        return unownService.getShinyEventYears();
+        return unownService.getEventYears();
     }
 
     public String getEventsByCurrentYear()
