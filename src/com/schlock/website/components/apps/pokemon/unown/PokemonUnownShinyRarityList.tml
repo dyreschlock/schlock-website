@@ -1,0 +1,36 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+
+    <p class="title">${message:title}</p>
+
+    <table>
+        <tr>
+            <th>${message:count}</th>
+            <th>${message:letter}</th>
+
+            <t:loop source="years" value="currentYear">
+
+                <th>${currentYear}</th>
+
+            </t:loop>
+
+        </tr>
+
+        <t:loop source="unown" value="currentUnown">
+
+            <tr>
+                <td>${currentUnown.shinyCount}</td>
+                <td>${currentUnown.letter}</td>
+
+                <t:loop source="years" value="currentYear">
+
+                    <td class="years"><t:outputraw value="eventsByCurrentYear" /></td>
+
+                </t:loop>
+            </tr>
+
+        </t:loop>
+    </table>
+
+</t:container>

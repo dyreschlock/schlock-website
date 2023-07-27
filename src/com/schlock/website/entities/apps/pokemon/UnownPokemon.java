@@ -1,7 +1,5 @@
 package com.schlock.website.entities.apps.pokemon;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +11,7 @@ public class UnownPokemon implements Comparable<UnownPokemon>
     private final String letter;
 
     private final List<UnownEvent> events = new ArrayList<UnownEvent>();
+    private final List<UnownEvent> shinyEvents = new ArrayList<UnownEvent>();
 
     public UnownPokemon(String letter)
     {
@@ -24,6 +23,11 @@ public class UnownPokemon implements Comparable<UnownPokemon>
         return events.size();
     }
 
+    public int getShinyCount()
+    {
+        return shinyEvents.size();
+    }
+
     public String getLetter()
     {
         return letter;
@@ -32,6 +36,11 @@ public class UnownPokemon implements Comparable<UnownPokemon>
     public List<UnownEvent> getEvents()
     {
         return events;
+    }
+
+    public List<UnownEvent> getShinyEvents()
+    {
+        return shinyEvents;
     }
 
     public boolean isExclamationPoint()

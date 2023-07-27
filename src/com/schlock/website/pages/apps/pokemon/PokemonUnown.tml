@@ -72,6 +72,8 @@
 
     <u:PokemonUnownCustomList />
 
+    <!-- u:PokemonUnownShinyRarityList /-->
+
     <u:PokemonUnownRarityList />
 
     <u:PokemonUnownByLetterList />

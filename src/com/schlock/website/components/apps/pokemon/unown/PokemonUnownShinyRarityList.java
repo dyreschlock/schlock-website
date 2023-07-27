@@ -7,7 +7,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.List;
 
-public class PokemonUnownRarityList
+public class PokemonUnownShinyRarityList
 {
     @Inject
     private PokemonUnownService unownService;
@@ -21,16 +21,16 @@ public class PokemonUnownRarityList
 
     public List<UnownPokemon> getUnown()
     {
-        return unownService.getListOfUnownByRarity();
+        return unownService.getListOfUnownByShinyRarity();
     }
 
     public List<String> getYears()
     {
-        return unownService.getEventYears();
+        return unownService.getShinyEventYears();
     }
 
     public String getEventsByCurrentYear()
     {
-        return unownService.getEventNamesForUnownByYear(currentUnown, currentYear);
+        return unownService.getShinyEventNamesForUnownByYear(currentUnown, currentYear);
     }
 }

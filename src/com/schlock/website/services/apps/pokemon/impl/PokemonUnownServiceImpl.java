@@ -291,6 +291,11 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
 
             UnownPokemon pokemon = getUnownByLetter(letter);
             pokemon.getEvents().add(event);
+
+            if (event.getShinyAvailable().contains(letter))
+            {
+                pokemon.getShinyEvents().add(event);
+            }
         }
     }
 
@@ -313,9 +318,20 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
 
     private static final String YEAR_ONLY_DATE_FORMAT = "yyyy";
 
-    private static final List<String> IGNORE_YEARS = Arrays.asList("2018", "2017");
+    private static final List<String> IGNORE_YEARS_OVERALL = Arrays.asList("2018", "2017");
+    private static final List<String> IGNORE_YEARS_SHINY = Arrays.asList("2019", "2018", "2017");
 
     public List<String> getEventYears()
+    {
+        return getEventYears(IGNORE_YEARS_OVERALL);
+    }
+
+    public List<String> getShinyEventYears()
+    {
+        return getEventYears(IGNORE_YEARS_SHINY);
+    }
+
+    public List<String> getEventYears(final List<String> IGNORE_YEARS)
     {
         List<String> years = new ArrayList<String>();
 
@@ -362,7 +378,13 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
 
     public List<UnownPokemon> getListOfUnownByLetter()
     {
-        Collections.sort(listOfUnown);
+        Collections.sort(listOfUnown, new Comparator<UnownPokemon>()
+        {
+            public int compare(UnownPokemon o1, UnownPokemon o2)
+            {
+                return o1.getLetter().compareTo(o2.getLetter());
+            }
+        });
         return listOfUnown;
     }
 
@@ -377,6 +399,19 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
             }
         });
 
+        return listOfUnown;
+    }
+
+    public List<UnownPokemon> getListOfUnownByShinyRarity()
+    {
+        Collections.sort(listOfUnown, new Comparator<UnownPokemon>()
+        {
+            @Override
+            public int compare(UnownPokemon o1, UnownPokemon o2)
+            {
+                return o1.getShinyCount() - o2.getShinyCount();
+            }
+        });
         return listOfUnown;
     }
 
@@ -406,7 +441,21 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
                 names.add(html);
             }
         }
+        return StringUtils.join(names, COMMA);
+    }
 
+    public String getShinyEventNamesForUnownByYear(UnownPokemon pokemon, String year)
+    {
+        List<String> names = new ArrayList<String>();
+        for (UnownEvent event : pokemon.getShinyEvents())
+        {
+            String eventYear = new SimpleDateFormat(YEAR_ONLY_DATE_FORMAT).format(event.getStartDate());
+            if (year.equals(eventYear))
+            {
+                String html = getEventNameHTML(pokemon, event);
+                names.add(html);
+            }
+        }
         return StringUtils.join(names, COMMA);
     }
 
