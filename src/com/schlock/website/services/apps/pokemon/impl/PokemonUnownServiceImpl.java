@@ -148,7 +148,14 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
             Arrays.asList("Hoenn Tour, Las Vegas", "HOEN", "2/18/2023", "2/19/2023", "US", WorldRegion.NORTH_AMERICA),
             Arrays.asList("Hoenn Tour Global", "HEON", "2/25/2023", "2/25/2023", "Global", WorldRegion.GLOBAL, Boolean.TRUE),
 
-            Arrays.asList("Insomnia Gaming Festival", "IB", "4/7/2023", "4/10/20/23", "Birmingham, UK", WorldRegion.EUROPE)
+            Arrays.asList("Insomnia Gaming Festival", "IB", "4/7/2023", "4/10/20/23", "Birmingham, UK", WorldRegion.EUROPE),
+
+            Arrays.asList("Arraiá do Pokémon GO", "F", "6/24/2023", "7/2/2023", "Brazil", WorldRegion.SOUTH_AMERICA),
+
+            Arrays.asList("Go Fest 2023 Osaka", "ADIMNO!", "8/4/2023", "8/6/2023", "Japan", WorldRegion.JAPAN, Boolean.TRUE),
+            Arrays.asList("Go Fest 2023 London", "ADIMNO!", "8/4/2023", "8/7/2023", "London", WorldRegion.EUROPE),
+            Arrays.asList("Go Fest 2023 New York", "ADIMNO!", "8/18/2023", "8/21/2023", "New York", WorldRegion.NORTH_AMERICA),
+            Arrays.asList("Go Fest 2023 Global", "ADIMNO", "8/26/2023", "8/27/2023", "Global", WorldRegion.GLOBAL)
     };
 
     private List<UnownPokemon> listOfUnown = new ArrayList<UnownPokemon>();
