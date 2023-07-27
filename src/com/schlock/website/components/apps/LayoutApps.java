@@ -1,7 +1,6 @@
 package com.schlock.website.components.apps;
 
 import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -12,9 +11,6 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 public class LayoutApps
 {
-    @Inject
-    private CssCache cssCache;
-
     @Inject
     private Messages messages;
 
@@ -34,15 +30,13 @@ public class LayoutApps
     @Parameter(required = true)
     private String postUuid;
 
+    @Parameter
+    @Property
+    private String css;
 
     public String getWebsiteTitle()
     {
         return messages.get("website-title");
-    }
-
-    public String getCss()
-    {
-        return cssCache.getCssForGames();
     }
 
     private AbstractPost getGamesPost()

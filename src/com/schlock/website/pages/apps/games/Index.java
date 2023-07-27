@@ -4,6 +4,7 @@ import com.schlock.website.entities.apps.games.Condition;
 import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.games.Region;
 import com.schlock.website.entities.apps.games.VideoGamePlatform;
+import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.database.apps.games.VideoGamePlatformDAO;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import org.apache.commons.lang.StringUtils;
@@ -28,6 +29,9 @@ public class Index
 
     private static final int MAX_RESULTS_MAIN = 10;
     private static final int MAX_RESULTS_CONSOLE = 5;
+
+    @Inject
+    private CssCache cssCache;
 
     @Inject
     private Messages messages;
@@ -99,6 +103,10 @@ public class Index
     }
 
 
+    public String getCss()
+    {
+        return cssCache.getCssForGames();
+    }
 
     public String getGamesPostUuid()
     {

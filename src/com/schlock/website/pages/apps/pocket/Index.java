@@ -3,10 +3,11 @@ package com.schlock.website.pages.apps.pocket;
 import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.services.apps.pocket.PocketDataService;
+import com.schlock.website.services.blog.CssCache;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
-import javax.inject.Inject;
 import java.util.List;
 
 public class Index
@@ -22,6 +23,9 @@ public class Index
 
     @Inject
     private PocketDataService pocketDataService;
+
+    @Inject
+    private CssCache cssCache;
 
     @Inject
     private Messages messages;
@@ -93,6 +97,11 @@ public class Index
     }
 
 
+
+    public String getCss()
+    {
+        return cssCache.getCssForGames();
+    }
 
     public String getPostUuid()
     {
