@@ -8,6 +8,8 @@ public class RaidCounterInstance extends AbstractCounterInstance
     private double dps;
     private double tdo;
 
+    private double rank = 0.0;
+
     private int count = 1;
 
     public RaidCounterInstance(CounterPokemon counter, String fastMove, String chargeMove, double dps, double tdo)
@@ -24,16 +26,26 @@ public class RaidCounterInstance extends AbstractCounterInstance
         return Double.parseDouble(sValue);
     }
 
-    public double getDps4tdo()
+    public double getRank()
     {
-        double dps4 = dps * dps * dps * dps;
+        if (rank == 0.0)
+        {
+            double dps4tdo = dps * dps * dps * dps * tdo;
+            double overall_er = Math.pow(dps4tdo, 0.25) / 2.4;
 
-        return dps4 * tdo / 100000;
+//            rank = dps4tdo;
+
+//            double dps3tdo = Math.pow(dps, 3) * tdo;
+//            double overall_er = Math.pow(dps3tdo, 0.25);
+
+            rank = overall_er;
+        }
+        return rank;
     }
 
-    public String getDps4tdoFormat()
+    public String getFormattedRank()
     {
-        return String.format("%.2f", getDps4tdo());
+        return String.format("%.2f", getRank());
     }
 
     public boolean isMega()
@@ -75,7 +87,7 @@ public class RaidCounterInstance extends AbstractCounterInstance
         RaidCounterInstance that = (RaidCounterInstance) o;
 
         //higher tdo better
-        double compare = that.getDps4tdo() - this.getDps4tdo();
+        double compare = that.getRank() - this.getRank();
         if (compare == 0.0)
         {
             //lower level better

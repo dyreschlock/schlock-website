@@ -19,10 +19,16 @@
             padding: 2px;
             border-bottom: 1px solid #ddd;
 
-            width: 200px;
+            min-width: 110px;
         }
 
-        td.column4, td.column12
+        td span.label
+        {
+            font-size: 11px;
+            color: #646464;
+        }
+
+        td.column3, td.column8
         {
             border-right: 25px solid #fff;
         }
