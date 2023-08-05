@@ -7,6 +7,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 public class PokemonRaidCounter
 {
+    private static final String POST_UUID = "pokemon-go-raid-counters";
+
     @Inject
     private Messages messages;
 
@@ -46,7 +48,13 @@ public class PokemonRaidCounter
 
     public String getPageTitle()
     {
-        return messages.format("page-title", counterType.name().toLowerCase());
+        String type = messages.get(counterType.name().toLowerCase());
+        return messages.format("page-title", type);
+    }
+
+    public String getPostUuid()
+    {
+        return POST_UUID;
     }
 
     public CounterType getCounterType()
