@@ -48,21 +48,17 @@ public class PokemonDataServiceImpl implements PokemonDataService
             "Mega Heracross",
 
             "Mega Gallade",
-            "Mega Sableye",
             "Mega Mawile",
             "Mega Shapedo",
             "Mega Camerupt",
             "Mega Audino",
 
-            "Mega Tyranitar",
             "Mega Metagross",
             "Mega Garchomp",
             "Mega Lucario",
 
             "Mega Mewtwo X",
             "Mega Mewtwo Y",
-            "Mega Rayquaza",
-            "Mega Diancie",
 
             "White Kyurem",
             "Black Kyurem",
@@ -140,6 +136,12 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
     private void addMoveOverwrites()
     {
+        createGeomancy();
+        createObliviionWing();
+        createWaterShuriken();
+        createDragonAscent();
+        createMagmaStorm();
+
         //move updates september 2022
 //        createFairyWind();
 //        createDoubleKick();
@@ -165,11 +167,22 @@ public class PokemonDataServiceImpl implements PokemonDataService
 //        copyStatsCreateNewMove("Dark Void (OP)", "Dark", "Origin Pulse");
 //        addEliteMoveToPokemon("Darkrai", "Dark Void (OP)");
 
+        //Community Day Moves
         addEliteMoveToPokemon("Chandelure", "Poltergeist");
         addEliteMoveToPokemon("Greninja", "Hydro Cannon");
         addEliteMoveToPokemon("Delphox", "Blast Burn");
         addEliteMoveToPokemon("Chesnaught", "Frenzy Plant");
-//
+        addEliteMoveToPokemon("Haxorus", "Breaking Swipe");
+        addEliteMoveToPokemon("Poliwrath", "Counter");
+        addEliteMoveToPokemon("Politoed", "Ice Beam");
+
+        //Summer 2023 Signature Move additions
+        addEliteMoveToPokemon("Heatran", "Magma Storm");
+        addEliteMoveToPokemon("Xerneas", "Geomancy");
+        addEliteMoveToPokemon("Yveltal", "Oblivion Wing");
+        addEliteMoveToPokemon("Rayquaza", "Dragon Ascent");
+        addStandardMoveToPokemon("Greninja", "Water Shuriken");
+
 //        addEliteMoveToPokemon("Decidueye", "Frenzy Plant");
 //        addEliteMoveToPokemon("Incineroar", "Blast Burn");
 //        addEliteMoveToPokemon("Primarina", "Hydro Cannon");
@@ -275,89 +288,170 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
     private void createHighHorsepower()
     {
-        JSONObject object = new JSONObject();
-        object.put(PokemonMove.TITLE, "High Horsepower");
-        object.put(PokemonMove.TYPE, "Ground");
-        object.put(PokemonMove.CATEGORY, "Charge Move");
-        object.put(PokemonMove.POWER, 110);
-        object.put(PokemonMove.COOLDOWN, "1.6");
-        object.put(PokemonMove.ENERGY_GAIN, "0");
-        object.put(PokemonMove.ENERGY_COST, "-100");
-        object.put(PokemonMove.DODGE_WINDOW, "1.0 seconds");
-        object.put(PokemonMove.DAMAGE_WINDOW, "0.2 seconds");
-
-        object.put(PokemonMove.PVP_FAST_POWER, "");
-        object.put(PokemonMove.PVP_FAST_ENERGY, "");
-        object.put(PokemonMove.PVP_FAST_DURATION, "");
-
-        object.put(PokemonMove.PVP_CHARGE_DAMAGE, "100");
-        object.put(PokemonMove.PVP_CHARGE_ENERGY, "-60");
-
-        PokemonMove highHorsepower = PokemonMove.createFromJSON(object);
-
-        if (moveData.get(highHorsepower.getName()) != null)
-        {
-            throw new RuntimeException(highHorsepower.getName() + " already exists.");
-        }
-        moveData.put(highHorsepower.getName(), highHorsepower);
+        createChargeMove(
+                "High Horsepower",
+                "Ground",
+                110,
+                "1.6",
+                "-100",
+                "1.0 seconds",
+                "0.2 seconds",
+                "100",
+                "-60"
+        );
     }
 
     private void createShadowForce()
     {
+        // https://gamepress.gg/pokemongo/pokemon-move/shadow-force
+
+        createChargeMove(
+                "Shadow Force",
+                "Ghost",
+                140,
+                "1.9",
+                "-100",
+                "1.7 seconds",
+                "0.2 seconds",
+                "120",
+                "-100"
+        );
+    }
+
+    private void createObliviionWing()
+    {
+        // https://gamepress.gg/pokemongo/pokemon-move/oblivion-wing
+        createChargeMove(
+                "Oblivion Wing",
+                "Flying",
+                85,
+                "2.0",
+                "-50",
+                "1.5 seconds",
+                "0.5 seconds",
+                "85",
+                "-50"
+        );
+    }
+
+    private void createDragonAscent()
+    {
+        // https://gamepress.gg/pokemongo/pokemon-move/dragon-ascent
+        createChargeMove(
+                "Dragon Ascent",
+                "Flying",
+                140,
+                "3.50",
+                "-50",
+                "3.2 seconds",
+                "0.3 seconds",
+                "150",
+                "-70"
+        );
+    }
+
+    private void createMagmaStorm()
+    {
+        createChargeMove(
+                "Magma Storm",
+                "Fire",
+                75,
+                "2.50",
+                "-33",
+                "1.3 seconds",
+                "1.2 seconds",
+                "65",
+                "-40"
+        );
+    }
+
+    private void createChargeMove(String title,
+                                  String type,
+                                  int power,
+                                  String cooldown,
+                                  String energyCost, // full bar = -100 / half bar = -50 / three bars = -33
+                                  String dodgeWindow,
+                                  String damageWindow, // = Cooldown - Dodge Window
+                                  String pvpDamage,
+                                  String pvpEnergy)
+    {
         JSONObject object = new JSONObject();
-        object.put(PokemonMove.TITLE, "Shadow Force");
-        object.put(PokemonMove.TYPE, "Ghost");
+        object.put(PokemonMove.TITLE, title);
+        object.put(PokemonMove.TYPE, type);
         object.put(PokemonMove.CATEGORY, "Charge Move");
-        object.put(PokemonMove.POWER, 140);
-        object.put(PokemonMove.COOLDOWN, "1.9");
+        object.put(PokemonMove.POWER, power);
+        object.put(PokemonMove.COOLDOWN, cooldown);
         object.put(PokemonMove.ENERGY_GAIN, "0");
-        object.put(PokemonMove.ENERGY_COST, "-100");
-        object.put(PokemonMove.DODGE_WINDOW, "1.7 seconds");
-        object.put(PokemonMove.DAMAGE_WINDOW, "0.2 seconds");
+        object.put(PokemonMove.ENERGY_COST, energyCost);
+        object.put(PokemonMove.DODGE_WINDOW, dodgeWindow);
+        object.put(PokemonMove.DAMAGE_WINDOW, damageWindow);
 
         object.put(PokemonMove.PVP_FAST_POWER, "");
         object.put(PokemonMove.PVP_FAST_ENERGY, "");
         object.put(PokemonMove.PVP_FAST_DURATION, "");
 
-        object.put(PokemonMove.PVP_CHARGE_DAMAGE, "120");
-        object.put(PokemonMove.PVP_CHARGE_ENERGY, "-100");
+        object.put(PokemonMove.PVP_CHARGE_DAMAGE, pvpDamage);
+        object.put(PokemonMove.PVP_CHARGE_ENERGY, pvpEnergy);
 
-        PokemonMove shadowForce = PokemonMove.createFromJSON(object);
+        PokemonMove chargeMove = PokemonMove.createFromJSON(object);
 
-        if (moveData.get(shadowForce.getName()) != null)
+        if (moveData.get(chargeMove.getName()) != null)
         {
-            throw new RuntimeException(shadowForce.getName() + " already exists.");
+            throw new RuntimeException(chargeMove.getName() + " already exists.");
         }
-        moveData.put(shadowForce.getName(), shadowForce);
+        moveData.put(chargeMove.getName(), chargeMove);
+
+    }
+
+    private void createGeomancy()
+    {
+        // https://gamepress.gg/pokemongo/pokemon-move/geomancy
+        createFastMove(
+                "Geomancy",
+                "Fairy",
+                "20",
+                "1.50",
+                "14",
+                "0.50 seconds",
+                "1.00 seconds",
+                "4",
+                "13",
+                "1.5"
+        );
+    }
+
+    private void createWaterShuriken()
+    {
+        // https://gamepress.gg/pokemongo/pokemon-move/water-shuriken
+        createFastMove(
+                "Water Shuriken",
+                "Water",
+                "10",
+                "1.10",
+                "15",
+                "0.1 seconds",
+                "1.1 seconds",
+                "6",
+                "14",
+                "1.5"
+        );
     }
 
     private void createFairyWind()
     {
-        JSONObject object = new JSONObject();
-        object.put(PokemonMove.TITLE, "Fairy Wind");
-        object.put(PokemonMove.TYPE, "Fairy");
-        object.put(PokemonMove.CATEGORY, "Fast Move");
-        object.put(PokemonMove.POWER, "9");
-        object.put(PokemonMove.COOLDOWN, "0.97");
-        object.put(PokemonMove.ENERGY_GAIN, "13");
-        object.put(PokemonMove.ENERGY_COST, "0");
-        object.put(PokemonMove.DODGE_WINDOW, "0.37 seconds");
-        object.put(PokemonMove.DAMAGE_WINDOW, "0.60 seconds");
-
-        object.put(PokemonMove.PVP_FAST_POWER, "3");
-        object.put(PokemonMove.PVP_FAST_ENERGY, "9");
-        object.put(PokemonMove.PVP_FAST_DURATION, "1");
-
-        object.put(PokemonMove.PVP_CHARGE_DAMAGE, "");
-        object.put(PokemonMove.PVP_CHARGE_ENERGY, "");
-
-        PokemonMove fairyWind = PokemonMove.createFromJSON(object);
-
-        if (moveData.get(fairyWind.getName()) != null)
-        {
-            throw new RuntimeException(fairyWind.getName() + " already exists.");
-        }
-        moveData.put(fairyWind.getName(), fairyWind);
+        // https://gamepress.gg/pokemongo/pokemon-move/fairy-wind
+        createFastMove(
+                "Fairy Wind",
+                "Fairy",
+                "9",
+                "0.97",
+                "13",
+                "0.37 seconds",
+                "0.60 seconds",
+                "3",
+                "9",
+                "1"
+        );
     }
 
     private void createDoubleKick()
@@ -387,6 +481,44 @@ public class PokemonDataServiceImpl implements PokemonDataService
             throw new RuntimeException(doubleKick.getName() + " already exists.");
         }
         moveData.put(doubleKick.getName(), doubleKick);
+    }
+
+    private void createFastMove(String title,
+                                String type,
+                                String power,
+                                String cooldown,
+                                String energyDelta,
+                                String dodgeWindow, // Cooldown - Damage Window
+                                String damageWindow,
+                                String pvpPower,
+                                String pvpEnergy,
+                                String pvpDuration)
+    {
+        JSONObject object = new JSONObject();
+        object.put(PokemonMove.TITLE, title);
+        object.put(PokemonMove.TYPE, type);
+        object.put(PokemonMove.CATEGORY, "Fast Move");
+        object.put(PokemonMove.POWER, power);
+        object.put(PokemonMove.COOLDOWN, cooldown);
+        object.put(PokemonMove.ENERGY_GAIN, energyDelta);
+        object.put(PokemonMove.ENERGY_COST, "0");
+        object.put(PokemonMove.DODGE_WINDOW, dodgeWindow);
+        object.put(PokemonMove.DAMAGE_WINDOW, damageWindow);
+
+        object.put(PokemonMove.PVP_FAST_POWER, pvpPower);
+        object.put(PokemonMove.PVP_FAST_ENERGY, pvpEnergy);
+        object.put(PokemonMove.PVP_FAST_DURATION, pvpDuration);
+
+        object.put(PokemonMove.PVP_CHARGE_DAMAGE, "");
+        object.put(PokemonMove.PVP_CHARGE_ENERGY, "");
+
+        PokemonMove newFastMove = PokemonMove.createFromJSON(object);
+
+        if (moveData.get(newFastMove.getName()) != null)
+        {
+            throw new RuntimeException(newFastMove.getName() + " already exists.");
+        }
+        moveData.put(newFastMove.getName(), newFastMove);
     }
 
     private void createShadowPokemon(String pokemonName)

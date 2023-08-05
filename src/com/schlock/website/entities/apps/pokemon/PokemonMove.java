@@ -25,7 +25,7 @@ public class PokemonMove
 
     private int pvpFastEnergy;
     private int pvpFastPower;
-    private int pvpFastDuration;
+    private double pvpFastDuration;
 
     private PokemonMove()
     {
@@ -76,7 +76,7 @@ public class PokemonMove
         return pvpFastEnergy;
     }
 
-    protected int getPvpFastDuration()
+    protected double getPvpFastDuration()
     {
         return pvpFastDuration;
     }
@@ -229,7 +229,7 @@ public class PokemonMove
 
         move.pvpFastPower = getInt(object, PVP_FAST_POWER);
         move.pvpFastEnergy = getInt(object, PVP_FAST_ENERGY);
-        move.pvpFastDuration = getInt(object, PVP_FAST_DURATION);
+        move.pvpFastDuration = getDoubleIfExists(object, PVP_FAST_DURATION);
 
         move.pvpChargeDamage = getInt(object, PVP_CHARGE_DAMAGE);
         move.pvpChargeEnergy = getInt(object, PVP_CHARGE_ENERGY);
@@ -257,6 +257,16 @@ public class PokemonMove
             return 0 - Integer.parseInt(value.substring(1));
         }
         return Integer.parseInt(value);
+    }
+
+    private static double getDoubleIfExists(JSONObject object, String key)
+    {
+        String value = object.getString(key);
+        if (value.isEmpty())
+        {
+            return 0.0;
+        }
+        return object.getDouble(key);
     }
 
     public static PokemonMove copyMove(PokemonMove oldMove, String newName, String newType)
