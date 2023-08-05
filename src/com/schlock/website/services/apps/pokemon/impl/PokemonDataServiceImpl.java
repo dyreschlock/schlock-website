@@ -812,15 +812,14 @@ public class PokemonDataServiceImpl implements PokemonDataService
     private boolean isLegendary(PokemonData pokemon)
     {
         String pokemonName = pokemon.getName();
-        if (pokemon.isShadow())
+        if (pokemon.isShadow() || pokemon.isMega())
         {
-            pokemonName = pokemonName.substring(SHAODW.length()).trim();
+            int spaceIndex = pokemonName.indexOf(" ");
+            if (spaceIndex > 0)
+            {
+                pokemonName = pokemonName.substring(spaceIndex).trim();
+            }
         }
-        if (pokemon.isMega())
-        {
-            pokemonName = pokemonName.substring(MEGA.length()).trim();
-        }
-
         return getLegendaryBosses().contains(pokemonName);
     }
 
@@ -1013,7 +1012,8 @@ public class PokemonDataServiceImpl implements PokemonDataService
             "Shaymin (Land Forme)",
             "Shaymin (Sky Forme)",
             "Meloetta (Pirouette Forme)",
-            "Meloetta (Aria Forme)"
+            "Meloetta (Aria Forme)",
+            "Diancie"
     );
 
 
