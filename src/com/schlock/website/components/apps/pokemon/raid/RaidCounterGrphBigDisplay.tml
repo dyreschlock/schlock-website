@@ -1,0 +1,24 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <td class="counter ${pokemon.mainType} ${extraClass}">
+
+        <div class="container">
+            <div class="image" style="background-image: url(${pokemon.imageLink})">
+            </div>
+
+            <div class="pokemonDetails">
+                ${pokemon.name}<br/>
+
+                <span class="label">${message:level}</span>&nbsp;<b>${pokemon.level}</b><br/>
+                ${pokemon.fastMove}<br/>
+                ${pokemon.chargeMove}
+
+                <br/><span class="label">${message:dps}</span> ${pokemon.dps}
+                <br/><span class="label">${message:tdo}</span> ${pokemon.tdo}
+                <br/><span class="label">${message:rank}</span> ${pokemon.formattedRank}
+            </div>
+        </div>
+    </td>
+
+</t:container>

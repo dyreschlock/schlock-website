@@ -54,6 +54,18 @@ public class PokemonData
         return number;
     }
 
+    private static final String IMAGE_LINK = "https://raw.githubusercontent.com/dyreschlock/dyreschlock.github.io/main/img/pokemon/%s.png";
+
+    public String getImageLink()
+    {
+        return String.format(IMAGE_LINK, number);
+    }
+
+    public String getMainType()
+    {
+        return getType1().toLowerCase();
+    }
+
     public String getType1()
     {
         return type1;
@@ -314,8 +326,7 @@ public class PokemonData
             number = sanitizeNumberString(number);
             number = addLeadingZeroes(number);
             number = addVariantPrefixes(name, number);
-        }
-        catch(Exception e)
+        } catch (Exception e)
         {
             String message = "Pokemon (%s) has problems with its number";
             message = String.format(message, name);
@@ -330,7 +341,7 @@ public class PokemonData
     {
         String number = original;
 
-        while(!isNumber(number))
+        while (!isNumber(number))
         {
             number = number.substring(0, number.length() - 1);
         }
@@ -342,8 +353,7 @@ public class PokemonData
         try
         {
             int test = Integer.parseInt(str);
-        }
-        catch(Exception e)
+        } catch (Exception e)
         {
             return false;
         }
@@ -372,25 +382,20 @@ public class PokemonData
             if (name.endsWith(MEGA_X_NAME_SUFFIX))
             {
                 number = MEGA_X_NUMBER_PREMIX + number;
-            }
-            else
+            } else
             {
                 number = MEGA_NUMBER_PREFIX + number;
             }
-        }
-        else if (name.startsWith(ALOLA_NAME_PREFIX))
+        } else if (name.startsWith(ALOLA_NAME_PREFIX))
         {
             number = ALOLA_NUMBER_PREFIX + number;
-        }
-        else if (name.startsWith(GALAR_NAME_PREFIX))
+        } else if (name.startsWith(GALAR_NAME_PREFIX))
         {
             number = GALAR_NUMBER_PREFIX + number;
-        }
-        else if (name.startsWith(HISUI_NAME_PREFIX))
+        } else if (name.startsWith(HISUI_NAME_PREFIX))
         {
             number = HISUI_NUMBER_PREFIX + number;
-        }
-        else if (name.startsWith(PALDEA_NAME_PREFIX))
+        } else if (name.startsWith(PALDEA_NAME_PREFIX))
         {
             number = PALDEA_NUMBER_PREFIX + number;
         }

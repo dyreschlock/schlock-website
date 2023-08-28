@@ -2,6 +2,17 @@
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
         xmlns:r="tapestry-library:apps/pokemon/raid"
 >
-    hi
+    <table id="raidPokemon">
+        <t:loop source="legendaryPokemon" value="currentRaidBoss">
+            <tr>
+                <td class="raidBoss" style="background-image: url(${currentRaidBoss.imageLink})">
+                    ${currentRaidBoss.name}
+                </td>
+                <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
+                    <r:raidCounterGrphBigDisplay pokemon="currentCounterPokemon" extraClass="columnIndex" />
+                </t:loop>
+            </tr>
+        </t:loop>
+    </table>
 
 </t:container>
