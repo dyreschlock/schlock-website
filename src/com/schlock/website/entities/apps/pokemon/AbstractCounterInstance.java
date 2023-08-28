@@ -3,6 +3,7 @@ package com.schlock.website.entities.apps.pokemon;
 public abstract class AbstractCounterInstance implements Comparable<AbstractCounterInstance>
 {
     private String name;
+    private String number;
     protected String fastMove;
     protected String chargeMove;
 
@@ -19,6 +20,7 @@ public abstract class AbstractCounterInstance implements Comparable<AbstractCoun
     protected AbstractCounterInstance(CounterPokemon counter, String fastMove, String chargeMove)
     {
         this.name = counter.getName();
+        this.number = counter.getNumber();
         this.level = counter.getLevel();
         this.attackIV = counter.getAttackIV();
         this.defenseIV = counter.getDefenseIV();
@@ -29,6 +31,11 @@ public abstract class AbstractCounterInstance implements Comparable<AbstractCoun
     }
 
     public String getName() { return name; }
+
+    public String getNumber()
+    {
+        return number;
+    }
 
     public String getFastMove() { return fastMove; }
 

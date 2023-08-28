@@ -44,6 +44,11 @@ public abstract class AbstractPokemon
         return data.getName();
     }
 
+    public String getNumber()
+    {
+        return data.getNumber();
+    }
+
     public int getLevel()
     {
         return DEFAULT_LEVEL;

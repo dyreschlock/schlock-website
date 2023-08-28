@@ -8,6 +8,7 @@ import java.util.Set;
 public class PokemonData
 {
     private String name;
+    private String number;
     private String type1;
     private String type2;
 
@@ -46,6 +47,11 @@ public class PokemonData
     public String getName()
     {
         return name;
+    }
+
+    public String getNumber()
+    {
+        return number;
     }
 
     public String getType1()
@@ -176,6 +182,7 @@ public class PokemonData
     }
 
     private static final String TITLE = "title_1";
+    private static final String NUMBER = "number";
     private static final String TYPE = "field_pokemon_type";
 
     private static final String SHADOW = "field_shadow_pokemon_";
@@ -212,6 +219,7 @@ public class PokemonData
         PokemonData pokemon = new PokemonData();
 
         pokemon.name = object.getString(TITLE);
+        pokemon.number = getConvertedPokemonNumber(pokemon.name, object);
 
         String[] types = object.getString(TYPE).split(DELIM);
         pokemon.type1 = types[0].trim();
@@ -279,6 +287,116 @@ public class PokemonData
 
         return evoReqs != null && !evoReqs.isEmpty();
     }
+
+
+    private static final String MEGA_NUMBER_PREFIX = "m_";
+    private static final String MEGA_X_NUMBER_PREMIX = "mx_";
+    private static final String ALOLA_NUMBER_PREFIX = "a_";
+    private static final String GALAR_NUMBER_PREFIX = "g_";
+    private static final String HISUI_NUMBER_PREFIX = "h_";
+    private static final String PALDEA_NUMBER_PREFIX = "p_";
+
+    private static final String MEGA_NAME_PREFIX = "Mega ";
+    private static final String PRIMAL_NAME_PREFIX = "Primal ";
+    private static final String MEGA_X_NAME_SUFFIX = " X";
+    private static final String ALOLA_NAME_PREFIX = "Alolan ";
+    private static final String GALAR_NAME_PREFIX = "Galarian ";
+    private static final String HISUI_NAME_PREFIX = "Hisuian ";
+    private static final String PALDEA_NAME_PREFIX = "Paldean ";
+
+
+    private static String getConvertedPokemonNumber(String name, JSONObject object)
+    {
+        String number = object.getString(NUMBER);
+
+        try
+        {
+            number = sanitizeNumberString(number);
+            number = addLeadingZeroes(number);
+            number = addVariantPrefixes(name, number);
+        }
+        catch(Exception e)
+        {
+            String message = "Pokemon (%s) has problems with its number";
+            message = String.format(message, name);
+
+            throw new RuntimeException(message, e);
+        }
+
+        return number;
+    }
+
+    private static String sanitizeNumberString(String original) throws Exception
+    {
+        String number = original;
+
+        while(!isNumber(number))
+        {
+            number = number.substring(0, number.length() - 1);
+        }
+        return number;
+    }
+
+    private static boolean isNumber(String str)
+    {
+        try
+        {
+            int test = Integer.parseInt(str);
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private static String addLeadingZeroes(String number)
+    {
+        if (number.length() == 1)
+        {
+            return "00" + number;
+        }
+        if (number.length() == 2)
+        {
+            return "0" + number;
+        }
+        return number;
+    }
+
+    private static String addVariantPrefixes(String name, String original)
+    {
+        String number = original;
+
+        if (name.startsWith(MEGA_NAME_PREFIX) || name.startsWith(PRIMAL_NAME_PREFIX))
+        {
+            if (name.endsWith(MEGA_X_NAME_SUFFIX))
+            {
+                number = MEGA_X_NUMBER_PREMIX + number;
+            }
+            else
+            {
+                number = MEGA_NUMBER_PREFIX + number;
+            }
+        }
+        else if (name.startsWith(ALOLA_NAME_PREFIX))
+        {
+            number = ALOLA_NUMBER_PREFIX + number;
+        }
+        else if (name.startsWith(GALAR_NAME_PREFIX))
+        {
+            number = GALAR_NUMBER_PREFIX + number;
+        }
+        else if (name.startsWith(HISUI_NAME_PREFIX))
+        {
+            number = HISUI_NUMBER_PREFIX + number;
+        }
+        else if (name.startsWith(PALDEA_NAME_PREFIX))
+        {
+            number = PALDEA_NUMBER_PREFIX + number;
+        }
+        return number;
+    }
+
 
     private static final String SHADOW_PRETEXT = "Shadow ";
 
