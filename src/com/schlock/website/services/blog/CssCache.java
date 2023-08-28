@@ -9,4 +9,5 @@ public interface CssCache
 
     public String getCssForNotFibbage();
     public String getCssForGames();
+    public String getCssForPokemon();
 }

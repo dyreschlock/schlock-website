@@ -1,6 +1,7 @@
 package com.schlock.website.pages.apps.pokemon;
 
 import com.schlock.website.entities.apps.pokemon.CounterType;
+import com.schlock.website.services.blog.CssCache;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -8,6 +9,9 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 public class PokemonRaidCounter
 {
     private static final String POST_UUID = "pokemon-go-raid-counters";
+
+    @Inject
+    private CssCache cssCache;
 
     @Inject
     private Messages messages;
@@ -55,6 +59,11 @@ public class PokemonRaidCounter
     public String getPostUuid()
     {
         return POST_UUID;
+    }
+
+    public String getCss()
+    {
+        return cssCache.getCssForPokemon();
     }
 
     public CounterType getCounterType()

@@ -25,6 +25,7 @@ public class CssCacheImpl implements CssCache
     //apps
     private final static String NOT_FIBBAGE_CSS_FILE = "layout/apps/notfibbage.less";
     private final static String GAMES_CSS_FILE = "layout/apps/games.less";
+    private final static String POKEMON_CSS_FILE = "layout/apps/pokemon.less";
 
 
     private final Context context;
@@ -83,6 +84,13 @@ public class CssCacheImpl implements CssCache
     public String getCssForGames()
     {
         List<String> files = Arrays.asList(GAMES_CSS_FILE);
+
+        return createCss(files);
+    }
+
+    public String getCssForPokemon()
+    {
+        List<String> files = Arrays.asList(POKEMON_CSS_FILE);
 
         return createCss(files);
     }
