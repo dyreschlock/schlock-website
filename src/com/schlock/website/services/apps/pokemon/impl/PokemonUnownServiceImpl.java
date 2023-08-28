@@ -21,9 +21,9 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
      * https://pokemongo.fandom.com/wiki/Unown/Regional_Events
      */
 
-    public final static String CURRENT_UNOWN_POKEDEX = "ABEFGHIJKLMNOPRSTUVWXY!";
-    private final static String HAVE_TO_TRADE =         "ACEFGHIJKLMNOPRSTUVWXY!";
-    private final static String HAVE_SHINY =            "ABSTU";
+    public final static String CURRENT_UNOWN_POKEDEX = "ABDEFGHIJKLMNOPRSTUVWXY!";
+    private final static String HAVE_TO_TRADE =        "ABDEFGHIJKLMNOPRSTUVWXY!";
+    private final static String HAVE_SHINY =           "ABMISTU";
 
     private final static List[] UNOWN_EVENTS = {
             Arrays.asList("Chicago Go Fest 2017", "CHIAGO", "", "7/22/2017", "7/24/2017", "Chicago, IL, USA", WorldRegion.NORTH_AMERICA),
