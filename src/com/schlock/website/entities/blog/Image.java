@@ -61,8 +61,15 @@ public class Image extends Persisted
 
     public boolean isSameImage(String imageName)
     {
-        return (this.imageName.equals(imageName)) ||
-                (this.parent != null && this.parent.imageName.equals(imageName));
+        try
+        {
+            return (StringUtils.equalsIgnoreCase(this.imageName, imageName)) ||
+                    (this.parent != null && StringUtils.equalsIgnoreCase(this.parent.getImageName(), imageName));
+        }
+        catch(Exception e)
+        {
+            throw new RuntimeException("Broken images? " + this.imageName + " or " + imageName, e);
+        }
     }
 
 
