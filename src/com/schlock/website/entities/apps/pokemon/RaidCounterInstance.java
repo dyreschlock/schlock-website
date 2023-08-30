@@ -12,7 +12,7 @@ public class RaidCounterInstance extends AbstractCounterInstance
 
     private int count = 1;
 
-    public RaidCounterInstance(CounterPokemon counter, String fastMove, String chargeMove, double dps, double tdo)
+    public RaidCounterInstance(CounterPokemon counter, PokemonMove fastMove, PokemonMove chargeMove, double dps, double tdo)
     {
         super(counter, fastMove, chargeMove);
 

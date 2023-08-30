@@ -1,5 +1,6 @@
 package com.schlock.website.entities.apps.pokemon;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.json.JSONObject;
 
 import java.util.HashSet;
@@ -19,8 +20,6 @@ public class PokemonData
     private int baseDefense;
     private int baseStamina;
 
-    private int cp;
-
     private boolean hasEvolution;
 
     private Set<String> allFastMoveNames;
@@ -35,10 +34,6 @@ public class PokemonData
     private Set<PokemonMove> standardFastMoves;
     private Set<PokemonMove> standardChargeMoves;
 
-    private int lvl20;
-    private int lvl30;
-    private int lvl35;
-    private int lvl40;
 
     private PokemonData()
     {
@@ -61,9 +56,37 @@ public class PokemonData
         return String.format(IMAGE_LINK, number);
     }
 
-    public String getMainType()
+    public String getMainType(PokemonMove fastMove, PokemonMove chargeMove)
     {
-        return getType1().toLowerCase();
+        String type1 = getType1().toLowerCase();
+        String type2 = getType2();
+        if (type2 != null)
+        {
+            type2 = type2.toLowerCase();
+        }
+
+        String fastType = fastMove.getType().toLowerCase();
+        String chargeType = chargeMove.getType().toLowerCase();
+
+        if (StringUtils.equals(fastType, chargeType))
+        {
+            if (StringUtils.equals(type1, fastType))
+            {
+                return type1;
+            }
+            if (StringUtils.equals(type2, fastType))
+            {
+                return type2;
+            }
+        }
+//        return chargeType;
+
+        if (StringUtils.equals(type2, chargeType) || StringUtils.equals(type2, fastType))
+        {
+            return type2;
+        }
+
+        return type1;
     }
 
     public String getType1()
@@ -99,12 +122,6 @@ public class PokemonData
     public int getBaseStamina()
     {
         return baseStamina;
-    }
-
-
-    public int getCp()
-    {
-        return cp;
     }
 
     public boolean isHasEvolution()
@@ -173,25 +190,6 @@ public class PokemonData
         this.standardChargeMoves = standardChargeMoves;
     }
 
-    public int getLvl20()
-    {
-        return lvl20;
-    }
-
-    public int getLvl30()
-    {
-        return lvl30;
-    }
-
-    public int getLvl35()
-    {
-        return lvl35;
-    }
-
-    public int getLvl40()
-    {
-        return lvl40;
-    }
 
     private static final String TITLE = "title_1";
     private static final String NUMBER = "number";
@@ -246,18 +244,12 @@ public class PokemonData
         pokemon.baseAttack = object.getInt(ATTACK);
         pokemon.baseDefense = object.getInt(DEFENSE);
         pokemon.baseStamina = object.getInt(STAMINA);
-        pokemon.cp = object.getInt(CP);
 
         pokemon.allFastMoveNames = getSetStrings(object, FAST_MOVES, FAST_ELITE_MOVES, FAST_PURIFY_MOVES, FAST_LEGACY_MOVES, FAST_EX_MOVES);
         pokemon.allChargeMoveNames = getSetStrings(object, CHARGE_MOVES, CHARGE_ELITE_MOVES, CHARGE_PURIFY_MOVES, CHARGE_LEGACY_MOVES, CHARGE_EX_MOVES);
 
         pokemon.standardFastMoveNames = getSetStrings(object, FAST_MOVES);
         pokemon.standardChargeMoveNames = getSetStrings(object, CHARGE_MOVES, CHARGE_PURIFY_MOVES);
-
-        pokemon.lvl20 = object.getInt(LEVEL_20);
-        pokemon.lvl30 = object.getInt(LEVEL_30);
-        pokemon.lvl35 = object.getInt(LEVEL_35);
-        pokemon.lvl40 = object.getInt(LEVEL_40);
 
         pokemon.hasEvolution = isHasEvolution(object);
 
@@ -419,7 +411,6 @@ public class PokemonData
         newData.baseAttack = oldData.baseAttack;
         newData.baseDefense = oldData.baseDefense;
         newData.baseStamina = oldData.baseStamina;
-        newData.cp = oldData.cp;
 
         newData.allChargeMoveNames = oldData.allChargeMoveNames;
         newData.allFastMoveNames = oldData.allFastMoveNames;
@@ -432,11 +423,6 @@ public class PokemonData
 
         newData.standardChargeMoves = oldData.standardChargeMoves;
         newData.standardFastMoves = oldData.standardFastMoves;
-
-        newData.lvl20 = oldData.lvl20;
-        newData.lvl30 = oldData.lvl30;
-        newData.lvl35 = oldData.lvl35;
-        newData.lvl40 = oldData.lvl40;
 
         return newData;
     }

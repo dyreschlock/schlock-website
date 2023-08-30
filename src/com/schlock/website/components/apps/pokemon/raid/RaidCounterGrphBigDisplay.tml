@@ -11,8 +11,8 @@
                 ${pokemon.name}<br/>
 
                 <span class="label">${message:level}</span>&nbsp;<b>${pokemon.level}</b><br/>
-                ${pokemon.fastMove}<br/>
-                ${pokemon.chargeMove}
+                ● ${pokemon.fastMoveName}<br/>
+                ● ${pokemon.chargeMoveName}
 
                 <br/><span class="label">${message:dps}</span> ${pokemon.dps}
                 <br/><span class="label">${message:tdo}</span> ${pokemon.tdo}

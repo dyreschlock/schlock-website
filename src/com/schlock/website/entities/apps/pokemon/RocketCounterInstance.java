@@ -24,7 +24,7 @@ public class RocketCounterInstance extends AbstractCounterInstance
         this.power = power;
     }
 
-    public RocketCounterInstance(CounterPokemon counter, String fastMove, String chargeMove, double tdo, double activation)
+    public RocketCounterInstance(CounterPokemon counter, PokemonMove fastMove, PokemonMove chargeMove, double tdo, double activation)
     {
         super(counter, fastMove, chargeMove);
 

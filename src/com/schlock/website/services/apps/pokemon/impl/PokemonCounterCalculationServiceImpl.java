@@ -2,12 +2,10 @@ package com.schlock.website.services.apps.pokemon.impl;
 
 import com.schlock.website.entities.apps.pokemon.*;
 import com.schlock.website.services.apps.pokemon.PokemonCounterCalculationService;
-import com.schlock.website.services.apps.pokemon.PokemonDataService;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalculationService
 {
@@ -674,13 +672,10 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
         }
 
 
-        String fastName = fastMove.getName();
-        String chargeName = chargeMove.getName();
-
         AbstractCounterInstance counterInstance = null;
         if(battleMode.isRaid())
         {
-            counterInstance = new RaidCounterInstance(counter, fastName, chargeName, dps, tdo);
+            counterInstance = new RaidCounterInstance(counter, fastMove, chargeMove, dps, tdo);
         }
 
         if(battleMode.isRocket())
@@ -690,7 +685,7 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
              */
             double activation = Math.ceil(-chargeMove.getEnergyDelta(battleMode) / (fastMove.getEnergyDelta(battleMode))) * fastMove.getDuration(battleMode);
 
-            counterInstance = new RocketCounterInstance(counter, fastName, chargeName, tdo, activation);
+            counterInstance = new RocketCounterInstance(counter, fastMove, chargeMove, tdo, activation);
         }
 
         return counterInstance;

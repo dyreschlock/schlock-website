@@ -54,9 +54,9 @@ public abstract class AbstractPokemon
         return data.getImageLink();
     }
 
-    public String getMainType()
+    public String getMainType(PokemonMove fastMove, PokemonMove chargeMove)
     {
-        return data.getMainType();
+        return data.getMainType(fastMove, chargeMove);
     }
 
     public int getLevel()
