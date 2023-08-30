@@ -36,7 +36,6 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
             Arrays.asList("Tottori Safari Zone 2017", "SAKYU", "", "11/24/2017", "11/26/2017", "Tottori Sand Dunes, Japan", WorldRegion.JAPAN),
 
 
-
             Arrays.asList("Syndey RTX", "RTX", "", "2/3/2018", "2/3/2018", "Sydney, Australia", WorldRegion.AUSTRAILIA),
             Arrays.asList("Taiwan Safari Zone 2018", "CHIAYGXF", "", "2/26/2018", "3/3/2018", "Chiayi, Taiwan", WorldRegion.ASIA),
             Arrays.asList("South x South West 2018", "SXW", "", "3/8/2018", "3/15/2018", "Austin, TX, USA", WorldRegion.NORTH_AMERICA),
@@ -83,7 +82,6 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
             Arrays.asList("Tainan Safari Zone", "TAINZONE", "", "11/1/2018", "11/5/2018", "Tainan, Taiwan", WorldRegion.ASIA),
 
 
-
             Arrays.asList("Porto Alegre Safari Zone", "PORTALEG", "", "1/25/2019", "1/27/2019", "Porto Alegre, Brazil", WorldRegion.EUROPE),
             Arrays.asList("Japan Special Weekend (Softbank)", "SB", "", "2/23/2019", "2/23/2019", "Japan", WorldRegion.JAPAN),
             Arrays.asList("Games Developer Conference", "GDC", "", "3/18/2019", "3/22/2019", "San Francisco, CA, USA", WorldRegion.NORTH_AMERICA),
@@ -99,7 +97,6 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
             Arrays.asList("Montreal Safari Zone", "QUEBC", "", "9/20/2019", "9/22/2019", "Montreal, QB, Canada", WorldRegion.NORTH_AMERICA),
             Arrays.asList("New Taipei City Safari Zone", "NTPCSAFRI", "", "10/3/2019", "10/6/2019", "New Taipei City, Taiwan", WorldRegion.ASIA),
             Arrays.asList("Korea Pokemon Go Week", "AGRST", "", "11/14/2019", "11/17/2019", "Seoul, South Korea", WorldRegion.ASIA),
-
 
 
             Arrays.asList("St. Louis Safari Zone", "STLOUI", "", "3/27/2020", "3/29/2020", "St. Louis, MO, USA", WorldRegion.NORTH_AMERICA),
@@ -118,7 +115,6 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
             Arrays.asList("City Explorer Tainan", "C", "C", "11/22/2020", "11/22/2020", "Busan / Tainan", WorldRegion.ASIA),
 
 
-
             Arrays.asList("US Special Weekend (Verizon)", "V", "", "5/29/2021", "5/29/2021", "US", WorldRegion.NORTH_AMERICA),
             Arrays.asList("Mexico Special Weekend (7-Eleven)", "S", "", "5/29/2021", "5/29/2021", "Mexico", WorldRegion.NORTH_AMERICA),
             Arrays.asList("Japan Special Weekend (Yoshinoya)", "Y", "", "5/29/2021", "5/29/2021", "Japan", WorldRegion.JAPAN, Boolean.TRUE),
@@ -132,7 +128,6 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
             Arrays.asList("Japan Special Weekend (Family Mart)", "IRFM", "", "12/10/2021", "12/10/2021", "Japan", WorldRegion.JAPAN, Boolean.TRUE),
             Arrays.asList("Japan Special Weekend (Softbank)", "SPB", "", "12/11/2021", "12/11/2021", "Japan", WorldRegion.JAPAN),
             Arrays.asList("Japan Special Weekend (Itoen)", "IETL", "", "12/12/2021", "12/12/2021", "Japan", WorldRegion.JAPAN, Boolean.TRUE),
-
 
 
             Arrays.asList("Johto Tour", "GOTURJ", "GOTURJ", "2/26/2022", "2/27/2022", "Global", WorldRegion.GLOBAL, Boolean.TRUE),
@@ -164,7 +159,6 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
             Arrays.asList("DreamHackDE 2022", "DR", "", "12/15/2022", "12/18/2022", "Hannover, Germany", WorldRegion.EUROPE),
 
 
-
             Arrays.asList("Hoenn Tour, Las Vegas", "HOEN", "HOEN", "2/18/2023", "2/19/2023", "US", WorldRegion.NORTH_AMERICA),
             Arrays.asList("Hoenn Tour Global", "HEON", "HOEN", "2/25/2023", "2/25/2023", "Global", WorldRegion.GLOBAL, Boolean.TRUE),
 
@@ -172,6 +166,8 @@ public class PokemonUnownServiceImpl implements PokemonUnownService
             Arrays.asList("Go Fest 2023 London", "ADIMNO!", "ADIMNO!", "8/4/2023", "8/7/2023", "London", WorldRegion.EUROPE),
             Arrays.asList("Go Fest 2023 New York", "ADIMNO!", "ADIMNO!", "8/18/2023", "8/21/2023", "New York", WorldRegion.NORTH_AMERICA),
             Arrays.asList("Go Fest 2023 Global", "ADIMNO", "ADIMNO", "8/26/2023", "8/27/2023", "Global", WorldRegion.GLOBAL),
+
+            Arrays.asList("Paldea Ultra Unlock", "PALDE", "PALDE", "9/5/2023", "9/10/2023", "Globa", WorldRegion.GLOBAL, Boolean.TRUE),
 
             Arrays.asList("City Safari Seoul", "SEO", "SEO", "10/7/2023", "10/8/2023", "Seoul, South Korea", WorldRegion.ASIA),
             Arrays.asList("City Safari Barcelona", "BCN", "BCN", "10/13/2023", "10/14/2023", "Barcelona, Spain", WorldRegion.EUROPE),
