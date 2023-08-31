@@ -6,6 +6,7 @@ import com.schlock.website.services.apps.pokemon.PokemonCounterCalculationServic
 import com.schlock.website.services.apps.pokemon.PokemonCustomCounterPrimeService;
 import com.schlock.website.services.apps.pokemon.PokemonCustomCounterSecondService;
 import com.schlock.website.services.apps.pokemon.PokemonDataService;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 
@@ -654,8 +655,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
                 pokemonData.put(pokemon.getName(), pokemon);
 
                 Set<PokemonMove> allMoves = new HashSet<PokemonMove>();
-                allMoves.addAll(getMovesFromNames(pokemon.getAllFastMoveNames()));
-                allMoves.addAll(getMovesFromNames(pokemon.getAllChargeMoveNames()));
+                allMoves.addAll(getMovesFromNames(pokemon.getAllMoveNames()));
 
                 pokemon.setAllChargeMoves(new HashSet<PokemonMove>());
                 pokemon.setAllFastMoves(new HashSet<PokemonMove>());
@@ -673,8 +673,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
                 }
 
                 allMoves = new HashSet<PokemonMove>();
-                allMoves.addAll(getMovesFromNames(pokemon.getStandardFastMoveNames()));
-                allMoves.addAll(getMovesFromNames(pokemon.getStandardChargeMoveNames()));
+                allMoves.addAll(getMovesFromNames(pokemon.getStandardMoveNames()));
 
                 pokemon.setStandardFastMoves(new HashSet<PokemonMove>());
                 pokemon.setStandardChargeMoves(new HashSet<PokemonMove>());
@@ -697,14 +696,23 @@ public class PokemonDataServiceImpl implements PokemonDataService
         }
     }
 
-    private Set<PokemonMove> getMovesFromNames(Set<String> names)
+    private Set<PokemonMove> getMovesFromNames(String names)
     {
         Set<PokemonMove> moves = new HashSet<PokemonMove>();
-        for (String name : names)
+        if (StringUtils.isEmpty(names))
+        {
+            return moves;
+        }
+
+        for (String name : names.split(PokemonData.MOVE_DELIM))
         {
             if (!isIgnoreMove(name))
             {
                 PokemonMove move = moveData.get(name);
+                if (move == null)
+                {
+                    throw new RuntimeException("Move is missing: " + name);
+                }
                 moves.add(move);
             }
         }

@@ -4,7 +4,6 @@ import com.schlock.website.entities.Persisted;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.json.JSONObject;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class PokemonData extends Persisted
@@ -32,14 +31,8 @@ public class PokemonData extends Persisted
 
 
 
-    private Set<String> allFastMoveNames;
-    private Set<String> allChargeMoveNames;
-
     private Set<PokemonMove> allFastMoves;
     private Set<PokemonMove> allChargeMoves;
-
-    private Set<String> standardFastMoveNames;
-    private Set<String> standardChargeMoveNames;
 
     private Set<PokemonMove> standardFastMoves;
     private Set<PokemonMove> standardChargeMoves;
@@ -240,16 +233,6 @@ public class PokemonData extends Persisted
     }
 
 
-    public Set<String> getAllFastMoveNames()
-    {
-        return allFastMoveNames;
-    }
-
-    public Set<String> getAllChargeMoveNames()
-    {
-        return allChargeMoveNames;
-    }
-
     public Set<PokemonMove> getAllChargeMoves()
     {
         return allChargeMoves;
@@ -268,17 +251,6 @@ public class PokemonData extends Persisted
     public void setAllChargeMoves(Set<PokemonMove> allChargeMoves)
     {
         this.allChargeMoves = allChargeMoves;
-    }
-
-
-    public Set<String> getStandardFastMoveNames()
-    {
-        return standardFastMoveNames;
-    }
-
-    public Set<String> getStandardChargeMoveNames()
-    {
-        return standardChargeMoveNames;
     }
 
     public Set<PokemonMove> getStandardFastMoves()
@@ -327,7 +299,7 @@ public class PokemonData extends Persisted
 
     private static final String FIELD_EVOLUTION = "field_evolutions";
 
-    private static final String DELIM = ",";
+    public static final String MOVE_DELIM = ",";
 
     public static PokemonData createFromJSON(JSONObject object)
     {
@@ -336,7 +308,7 @@ public class PokemonData extends Persisted
         pokemon.name = object.getString(TITLE);
         pokemon.number = getConvertedPokemonNumber(pokemon.name, object);
 
-        String[] types = object.getString(TYPE).split(DELIM);
+        String[] types = object.getString(TYPE).split(MOVE_DELIM);
         pokemon.type1 = types[0].trim();
         if (types.length == 2)
         {
@@ -350,16 +322,18 @@ public class PokemonData extends Persisted
         pokemon.baseDefense = object.getInt(DEFENSE);
         pokemon.baseStamina = object.getInt(STAMINA);
 
-        pokemon.allFastMoveNames = getSetStrings(object, FAST_MOVES, FAST_ELITE_MOVES, FAST_PURIFY_MOVES, FAST_LEGACY_MOVES, FAST_EX_MOVES);
-        pokemon.allChargeMoveNames = getSetStrings(object, CHARGE_MOVES, CHARGE_ELITE_MOVES, CHARGE_PURIFY_MOVES, CHARGE_LEGACY_MOVES, CHARGE_EX_MOVES);
+        pokemon.allMoveNames = getSetStrings(object,
+                                                FAST_MOVES, FAST_ELITE_MOVES, FAST_PURIFY_MOVES, FAST_LEGACY_MOVES, FAST_EX_MOVES,
+                                                CHARGE_MOVES, CHARGE_ELITE_MOVES, CHARGE_PURIFY_MOVES, CHARGE_LEGACY_MOVES, CHARGE_EX_MOVES);
 
-        pokemon.standardFastMoveNames = getSetStrings(object, FAST_MOVES);
-        pokemon.standardChargeMoveNames = getSetStrings(object, CHARGE_MOVES, CHARGE_PURIFY_MOVES);
+        pokemon.standardMoveNames = getSetStrings(object, FAST_MOVES, CHARGE_MOVES, CHARGE_PURIFY_MOVES);
 
         pokemon.hasEvolution = isHasEvolution(object);
 
         return pokemon;
     }
+
+
 
 
     private static final String ON = "On";
@@ -372,22 +346,26 @@ public class PokemonData extends Persisted
         return ON.equalsIgnoreCase(value);
     }
 
-    private static Set<String> getSetStrings(JSONObject object, String... fieldKeys)
+    private static String getSetStrings(JSONObject object, String... fieldKeys)
     {
-        Set<String> set = new HashSet<String>();
+        String strings = "";
 
         for (String key : fieldKeys)
         {
             String values = object.getString(key);
-            for (String val : values.split(DELIM))
+            if (StringUtils.isNotEmpty(values))
             {
-                if (!val.isEmpty())
+                if (!strings.isEmpty())
                 {
-                    set.add(val.trim());
+                    strings += MOVE_DELIM + values;
+                }
+                else
+                {
+                    strings = values;
                 }
             }
         }
-        return set;
+        return strings.replaceAll(", ", ",");
     }
 
     private static boolean isHasEvolution(JSONObject object)
@@ -517,14 +495,11 @@ public class PokemonData extends Persisted
         newData.baseDefense = oldData.baseDefense;
         newData.baseStamina = oldData.baseStamina;
 
-        newData.allChargeMoveNames = oldData.allChargeMoveNames;
-        newData.allFastMoveNames = oldData.allFastMoveNames;
+        newData.allMoveNames = oldData.allMoveNames;
+        newData.allMoves = oldData.allMoves;
 
         newData.allChargeMoves = oldData.allChargeMoves;
         newData.allFastMoves = oldData.allFastMoves;
-
-        newData.standardChargeMoveNames = oldData.standardChargeMoveNames;
-        newData.standardFastMoveNames = oldData.standardFastMoveNames;
 
         newData.standardChargeMoves = oldData.standardChargeMoves;
         newData.standardFastMoves = oldData.standardFastMoves;
