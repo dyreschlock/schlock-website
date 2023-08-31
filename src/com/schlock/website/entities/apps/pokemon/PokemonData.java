@@ -1,14 +1,16 @@
 package com.schlock.website.entities.apps.pokemon;
 
+import com.schlock.website.entities.Persisted;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.json.JSONObject;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class PokemonData
+public class PokemonData extends Persisted
 {
     private String name;
+    private String nameId;
     private String number;
     private String type1;
     private String type2;
@@ -21,6 +23,14 @@ public class PokemonData
     private int baseStamina;
 
     private boolean hasEvolution;
+
+    private String allMoveNames;
+    private String standardMoveNames;
+
+    private Set<String> allMoves;
+    private Set<String> standardMoves;
+
+
 
     private Set<String> allFastMoveNames;
     private Set<String> allChargeMoveNames;
@@ -44,9 +54,29 @@ public class PokemonData
         return name;
     }
 
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getNameId()
+    {
+        return nameId;
+    }
+
+    public void setNameId(String nameId)
+    {
+        this.nameId = nameId;
+    }
+
     public String getNumber()
     {
         return number;
+    }
+
+    public void setNumber(String number)
+    {
+        this.number = number;
     }
 
     private static final String IMAGE_LINK = "https://raw.githubusercontent.com/dyreschlock/dyreschlock.github.io/main/img/pokemon/%s.png";
@@ -94,9 +124,19 @@ public class PokemonData
         return type1;
     }
 
+    public void setType1(String type1)
+    {
+        this.type1 = type1;
+    }
+
     public String getType2()
     {
         return type2;
+    }
+
+    public void setType2(String type2)
+    {
+        this.type2 = type2;
     }
 
     public boolean isShadow()
@@ -104,9 +144,19 @@ public class PokemonData
         return shadow;
     }
 
+    public void setShadow(boolean shadow)
+    {
+        this.shadow = shadow;
+    }
+
     public boolean isMega()
     {
         return mega;
+    }
+
+    public void setMega(boolean mega)
+    {
+        this.mega = mega;
     }
 
     public int getBaseAttack()
@@ -114,9 +164,19 @@ public class PokemonData
         return baseAttack;
     }
 
+    public void setBaseAttack(int baseAttack)
+    {
+        this.baseAttack = baseAttack;
+    }
+
     public int getBaseDefense()
     {
         return baseDefense;
+    }
+
+    public void setBaseDefense(int baseDefense)
+    {
+        this.baseDefense = baseDefense;
     }
 
     public int getBaseStamina()
@@ -124,10 +184,61 @@ public class PokemonData
         return baseStamina;
     }
 
+    public void setBaseStamina(int baseStamina)
+    {
+        this.baseStamina = baseStamina;
+    }
+
     public boolean isHasEvolution()
     {
         return hasEvolution;
     }
+
+    public void setHasEvolution(boolean hasEvolution)
+    {
+        this.hasEvolution = hasEvolution;
+    }
+
+    public String getAllMoveNames()
+    {
+        return allMoveNames;
+    }
+
+    public void setAllMoveNames(String allMoveNames)
+    {
+        this.allMoveNames = allMoveNames;
+    }
+
+    public String getStandardMoveNames()
+    {
+        return standardMoveNames;
+    }
+
+    public void setStandardMoveNames(String standardMoveNames)
+    {
+        this.standardMoveNames = standardMoveNames;
+    }
+
+    public Set<String> getAllMoves()
+    {
+        return allMoves;
+    }
+
+    public void setAllMoves(Set<String> allMoves)
+    {
+        this.allMoves = allMoves;
+    }
+
+    public Set<String> getStandardMoves()
+    {
+        return standardMoves;
+    }
+
+    public void setStandardMoves(Set<String> standardMoves)
+    {
+        this.standardMoves = standardMoves;
+    }
+
 
     public Set<String> getAllFastMoveNames()
     {
@@ -201,7 +312,6 @@ public class PokemonData
     private static final String ATTACK = "atk";
     private static final String DEFENSE = "def";
     private static final String STAMINA = "sta";
-    private static final String CP = "cp";
 
     private static final String FAST_MOVES = "field_primary_moves";
     private static final String FAST_ELITE_MOVES = "elite_fast_moves";
@@ -214,11 +324,6 @@ public class PokemonData
     private static final String CHARGE_PURIFY_MOVES = "purified_charge_moves";
     private static final String CHARGE_LEGACY_MOVES = "field_legacy_charge_moves";
     private static final String CHARGE_EX_MOVES = "charge_exclusive_moves";
-
-    private static final String LEVEL_20 = "lvl20";
-    private static final String LEVEL_30 = "lvl30";
-    private static final String LEVEL_35 = "lvl35";
-    private static final String LEVEL_40 = "lvl40";
 
     private static final String FIELD_EVOLUTION = "field_evolutions";
 

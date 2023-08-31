@@ -1,13 +1,15 @@
 package com.schlock.website.entities.apps.pokemon;
 
+import com.schlock.website.entities.Persisted;
 import org.apache.tapestry5.json.JSONObject;
 
-public class PokemonMove
+public class PokemonMove extends Persisted
 {
     private static final String FAST_MOVE = "Fast Move";
     private static final String CHARGE_MOVE = "Charge Move";
 
     private String name;
+    private String nameId;
     private String type;
     private String category;
 
@@ -36,9 +38,29 @@ public class PokemonMove
         return name;
     }
 
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getNameId()
+    {
+        return nameId;
+    }
+
+    public void setNameId(String nameId)
+    {
+        this.nameId = nameId;
+    }
+
     public String getType()
     {
         return type;
+    }
+
+    public void setType(String type)
+    {
+        this.type = type;
     }
 
     public String getCategory()
@@ -46,19 +68,19 @@ public class PokemonMove
         return category;
     }
 
-    public int getEnergyCost()
+    public void setCategory(String category)
     {
-        return energyCost;
+        this.category = category;
     }
 
-    public int getEnergyGain()
+    public int getPower()
     {
-        return energyGain;
+        return power;
     }
 
-    public String getDodgeWindow()
+    public void setPower(int power)
     {
-        return dodgeWindow;
+        this.power = power;
     }
 
     protected double getCooldown()
@@ -66,9 +88,59 @@ public class PokemonMove
         return cooldown;
     }
 
+    public void setCooldown(double cooldown)
+    {
+        this.cooldown = cooldown;
+    }
+
+    public int getEnergyGain()
+    {
+        return energyGain;
+    }
+
+    public void setEnergyGain(int energyGain)
+    {
+        this.energyGain = energyGain;
+    }
+
+    public int getEnergyCost()
+    {
+        return energyCost;
+    }
+
+    public void setEnergyCost(int energyCost)
+    {
+        this.energyCost = energyCost;
+    }
+
+    public String getDodgeWindow()
+    {
+        return dodgeWindow;
+    }
+
+    public void setDodgeWindow(String dodgeWindow)
+    {
+        this.dodgeWindow = dodgeWindow;
+    }
+
+    public String getDamageWindow()
+    {
+        return damageWindow;
+    }
+
+    public void setDamageWindow(String damageWindow)
+    {
+        this.damageWindow = damageWindow;
+    }
+
     protected int getPvpFastPower()
     {
         return pvpFastPower;
+    }
+
+    public void setPvpFastPower(int pvpFastPower)
+    {
+        this.pvpFastPower = pvpFastPower;
     }
 
     protected int getPvpFastEnergy()
@@ -76,9 +148,19 @@ public class PokemonMove
         return pvpFastEnergy;
     }
 
+    public void setPvpFastEnergy(int pvpFastEnergy)
+    {
+        this.pvpFastEnergy = pvpFastEnergy;
+    }
+
     protected double getPvpFastDuration()
     {
         return pvpFastDuration;
+    }
+
+    public void setPvpFastDuration(double pvpFastDuration)
+    {
+        this.pvpFastDuration = pvpFastDuration;
     }
 
     protected int getPvpChargeDamage()
@@ -86,9 +168,19 @@ public class PokemonMove
         return pvpChargeDamage;
     }
 
+    public void setPvpChargeDamage(int pvpChargeDamage)
+    {
+        this.pvpChargeDamage = pvpChargeDamage;
+    }
+
     protected int getPvpChargeEnergy()
     {
         return pvpChargeEnergy;
+    }
+
+    public void setPvpChargeEnergy(int pvpChargeEnergy)
+    {
+        this.pvpChargeEnergy = pvpChargeEnergy;
     }
 
     public boolean isChargeMove()

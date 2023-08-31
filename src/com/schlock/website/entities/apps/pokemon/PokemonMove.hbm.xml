@@ -1,0 +1,32 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field" >
+    <class name="com.schlock.website.entities.apps.pokemon.PokemonMove" table="go_moves">
+        <id name="id" unsaved-value="null">
+            <generator class="native" />
+        </id>
+
+        <property name="name" />
+        <property name="nameId" />
+        <property name="type" />
+        <property name="category" />
+
+        <property name="power" />
+        <property name="cooldown" />
+
+        <property name="energyGain" />
+        <property name="energyCost" />
+
+        <property name="dodgeWindow" />
+        <property name="damageWindow" />
+
+        <property name="pvpChargeEnergy" />
+        <property name="pvpChargeDamage" />
+
+        <property name="pvpFastEnergy" />
+        <property name="pvpFastPower" />
+        <property name="pvpFastDuration" />
+
+    </class>
+</hibernate-mapping>

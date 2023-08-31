@@ -1,0 +1,39 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field" >
+    <class name="com.schlock.website.entities.apps.pokemon.PokemonData" table="go_pokemon">
+        <id name="id" unsaved-value="null">
+            <generator class="native" />
+        </id>
+
+        <property name="name" />
+        <property name="nameId" />
+        <property name="number" />
+        <property name="type1" />
+        <property name="type2" />
+
+        <property name="shadow" />
+        <property name="mega" />
+
+        <property name="baseAttack" />
+        <property name="baseDefense" />
+        <property name="baseStamina" />
+
+        <property name="hasEvolution" />
+
+        <property name="allMoveNames" />
+        <property name="standardMoveNames" />
+
+        <set name="allMoves" cascade="none" lazy="true" table="go_poke_moves_all">
+            <key column="pokeId" />
+            <many-to-many class="com.schlock.website.entities.apps.pokemon.PokemonMove" column="moveId" />
+        </set>
+
+        <set name="standardMoves" cascade="none" lazy="true" table="go_poke_moves_standard">
+            <key column="pokeId" />
+            <many-to-many class="com.schlock.website.entities.apps.pokemon.PokemonMove" column="moveId" />
+        </set>
+
+    </class>
+</hibernate-mapping>
