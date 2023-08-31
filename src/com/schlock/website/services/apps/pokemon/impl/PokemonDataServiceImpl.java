@@ -129,8 +129,12 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
         this.deploymentContext = deploymentContext;
 
+        loadCpmJSON();
 //        updateDatabaseFromGamepress();
     }
+
+
+
 
     public void updateDatabaseFromGamepress()
     {
@@ -644,6 +648,26 @@ public class PokemonDataServiceImpl implements PokemonDataService
         }
     }
 
+    private void loadPokemonDataFromDatabase()
+    {
+        if (!pokemonData.isEmpty())
+        {
+            return;
+        }
+
+        List<PokemonData> allData = dataDAO.getAll();
+        for(PokemonData data : allData)
+        {
+            pokemonData.put(data.getName(), data);
+        }
+
+        List<PokemonMove> allMoves = moveDAO.getAll();
+        for(PokemonMove move : allMoves)
+        {
+            moveData.put(move.getName(), move);
+        }
+    }
+
     private void loadPokemonDataJSON()
     {
         if (!pokemonData.isEmpty())
@@ -709,6 +733,14 @@ public class PokemonDataServiceImpl implements PokemonDataService
         return moves;
     }
 
+
+
+
+
+
+
+
+
     private boolean isIgnoreMove(String name)
     {
         if (IGNORE_MOVES_POKEMON)
@@ -738,6 +770,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
     }
 
 
+
     public Double getCpmFromLevel(Integer level)
     {
         if (!cpmData.isEmpty())
@@ -762,16 +795,15 @@ public class PokemonDataServiceImpl implements PokemonDataService
         {
             return customSecondService.getCounterPokemon(battleMode);
         }
-        return getAllGeneralCounters(counterType, battleMode);
+        return getAllGeneralCounters(battleMode);
     }
 
-    private Collection<CounterPokemon> getAllGeneralCounters(CounterType counterType, BattleMode battleMode)
+    private Collection<CounterPokemon> getAllGeneralCounters(BattleMode battleMode)
     {
         if (pokemonData.isEmpty())
         {
-            loadPokemonDataJSON();
+            loadPokemonDataFromDatabase();
         }
-
 
         List<CounterPokemon> pokemon = new ArrayList<CounterPokemon>();
 
@@ -852,7 +884,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
     {
         if (pokemonData.isEmpty())
         {
-            loadPokemonDataJSON();
+            loadPokemonDataFromDatabase();
         }
         PokemonData data = pokemonData.get(name);
         if (data == null)
@@ -892,7 +924,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
         if (pokemonData.isEmpty())
         {
-            loadPokemonDataJSON();
+            loadPokemonDataFromDatabase();
         }
 
         PokemonData arceus = getDataByName(ARCEUS);
@@ -917,7 +949,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
         if (pokemonData.isEmpty())
         {
-            loadPokemonDataJSON();
+            loadPokemonDataFromDatabase();
         }
 
         for (RocketLeaderName leaderName : RocketLeaderName.values())
@@ -948,6 +980,11 @@ public class PokemonDataServiceImpl implements PokemonDataService
         if (!raidBosses.isEmpty())
         {
             return;
+        }
+
+        if (pokemonData.isEmpty())
+        {
+            loadPokemonDataFromDatabase();
         }
 
         for (String name : getRaidBossNames())
