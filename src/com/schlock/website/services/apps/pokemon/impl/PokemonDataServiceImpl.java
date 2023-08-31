@@ -654,41 +654,15 @@ public class PokemonDataServiceImpl implements PokemonDataService
                 PokemonData pokemon = PokemonData.createFromJSON(json);
                 pokemonData.put(pokemon.getName(), pokemon);
 
-                Set<PokemonMove> allMoves = new HashSet<PokemonMove>();
-                allMoves.addAll(getMovesFromNames(pokemon.getAllMoveNames()));
+                Set<PokemonMove> moves = new HashSet<PokemonMove>();
+                moves.addAll(getMovesFromNames(pokemon.getAllMoveNames()));
 
-                pokemon.setAllChargeMoves(new HashSet<PokemonMove>());
-                pokemon.setAllFastMoves(new HashSet<PokemonMove>());
+                pokemon.setAllMoves(moves);
 
-                for (PokemonMove move : allMoves)
-                {
-                    if (move.isFastMove())
-                    {
-                        pokemon.getAllFastMoves().add(move);
-                    }
-                    if (move.isChargeMove())
-                    {
-                        pokemon.getAllChargeMoves().add(move);
-                    }
-                }
+                moves = new HashSet<PokemonMove>();
+                moves.addAll(getMovesFromNames(pokemon.getStandardMoveNames()));
 
-                allMoves = new HashSet<PokemonMove>();
-                allMoves.addAll(getMovesFromNames(pokemon.getStandardMoveNames()));
-
-                pokemon.setStandardFastMoves(new HashSet<PokemonMove>());
-                pokemon.setStandardChargeMoves(new HashSet<PokemonMove>());
-
-                for (PokemonMove move : allMoves)
-                {
-                    if (move.isFastMove())
-                    {
-                        pokemon.getStandardFastMoves().add(move);
-                    }
-                    if (move.isChargeMove())
-                    {
-                        pokemon.getStandardChargeMoves().add(move);
-                    }
-                }
+                pokemon.setStandardMoves(moves);
             }
             catch (ClassCastException e)
             {

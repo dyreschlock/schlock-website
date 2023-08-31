@@ -4,6 +4,7 @@ import com.schlock.website.entities.Persisted;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.json.JSONObject;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class PokemonData extends Persisted
@@ -26,16 +27,8 @@ public class PokemonData extends Persisted
     private String allMoveNames;
     private String standardMoveNames;
 
-    private Set<String> allMoves;
-    private Set<String> standardMoves;
-
-
-
-    private Set<PokemonMove> allFastMoves;
-    private Set<PokemonMove> allChargeMoves;
-
-    private Set<PokemonMove> standardFastMoves;
-    private Set<PokemonMove> standardChargeMoves;
+    private Set<PokemonMove> allMoves;
+    private Set<PokemonMove> standardMoves;
 
 
     private PokemonData()
@@ -212,22 +205,22 @@ public class PokemonData extends Persisted
         this.standardMoveNames = standardMoveNames;
     }
 
-    public Set<String> getAllMoves()
+    public Set<PokemonMove> getAllMoves()
     {
         return allMoves;
     }
 
-    public void setAllMoves(Set<String> allMoves)
+    public void setAllMoves(Set<PokemonMove> allMoves)
     {
         this.allMoves = allMoves;
     }
 
-    public Set<String> getStandardMoves()
+    public Set<PokemonMove> getStandardMoves()
     {
         return standardMoves;
     }
 
-    public void setStandardMoves(Set<String> standardMoves)
+    public void setStandardMoves(Set<PokemonMove> standardMoves)
     {
         this.standardMoves = standardMoves;
     }
@@ -235,42 +228,54 @@ public class PokemonData extends Persisted
 
     public Set<PokemonMove> getAllChargeMoves()
     {
-        return allChargeMoves;
+        Set<PokemonMove> chargeMoves = new HashSet<PokemonMove>();
+        for(PokemonMove move : allMoves)
+        {
+            if (move.isChargeMove())
+            {
+                chargeMoves.add(move);
+            }
+        }
+        return chargeMoves;
     }
 
     public Set<PokemonMove> getAllFastMoves()
     {
-        return allFastMoves;
-    }
-
-    public void setAllFastMoves(Set<PokemonMove> allFastMoves)
-    {
-        this.allFastMoves = allFastMoves;
-    }
-
-    public void setAllChargeMoves(Set<PokemonMove> allChargeMoves)
-    {
-        this.allChargeMoves = allChargeMoves;
-    }
-
-    public Set<PokemonMove> getStandardFastMoves()
-    {
-        return standardFastMoves;
+        Set<PokemonMove> fastMoves = new HashSet<PokemonMove>();
+        for(PokemonMove move : allMoves)
+        {
+            if (move.isFastMove())
+            {
+                fastMoves.add(move);
+            }
+        }
+        return fastMoves;
     }
 
     public Set<PokemonMove> getStandardChargeMoves()
     {
-        return standardChargeMoves;
+        Set<PokemonMove> chargeMoves = new HashSet<PokemonMove>();
+        for(PokemonMove move : standardMoves)
+        {
+            if (move.isChargeMove())
+            {
+                chargeMoves.add(move);
+            }
+        }
+        return chargeMoves;
     }
 
-    public void setStandardFastMoves(Set<PokemonMove> standardFastMoves)
+    public Set<PokemonMove> getStandardFastMoves()
     {
-        this.standardFastMoves = standardFastMoves;
-    }
-
-    public void setStandardChargeMoves(Set<PokemonMove> standardChargeMoves)
-    {
-        this.standardChargeMoves = standardChargeMoves;
+        Set<PokemonMove> fastMoves = new HashSet<PokemonMove>();
+        for(PokemonMove move : standardMoves)
+        {
+            if (move.isFastMove())
+            {
+                fastMoves.add(move);
+            }
+        }
+        return fastMoves;
     }
 
 
@@ -497,12 +502,6 @@ public class PokemonData extends Persisted
 
         newData.allMoveNames = oldData.allMoveNames;
         newData.allMoves = oldData.allMoves;
-
-        newData.allChargeMoves = oldData.allChargeMoves;
-        newData.allFastMoves = oldData.allFastMoves;
-
-        newData.standardChargeMoves = oldData.standardChargeMoves;
-        newData.standardFastMoves = oldData.standardFastMoves;
 
         return newData;
     }
