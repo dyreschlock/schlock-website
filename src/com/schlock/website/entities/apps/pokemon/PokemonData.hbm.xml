@@ -22,8 +22,8 @@
 
         <property name="hasEvolution" />
 
-        <property name="allMoveNames" />
-        <property name="standardMoveNames" />
+        <property name="allMoveNames" length="1000000" />
+        <property name="standardMoveNames" length="1000000" />
 
         <set name="allMoves" cascade="none" lazy="true" table="go_poke_moves_all">
             <key column="pokeId" />

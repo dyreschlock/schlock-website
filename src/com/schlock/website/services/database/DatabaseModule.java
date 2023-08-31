@@ -15,6 +15,10 @@ import com.schlock.website.services.database.apps.kendo.ExamQuestionDAO;
 import com.schlock.website.services.database.apps.kendo.impl.ExamQuestionDAOImpl;
 import com.schlock.website.services.database.apps.notfibbage.NotFibbageQuestionDAO;
 import com.schlock.website.services.database.apps.notfibbage.impl.NotFibbageQuestionDAOImpl;
+import com.schlock.website.services.database.apps.pokemon.PokemonDataDAO;
+import com.schlock.website.services.database.apps.pokemon.PokemonMoveDAO;
+import com.schlock.website.services.database.apps.pokemon.impl.PokemonDataDAOImpl;
+import com.schlock.website.services.database.apps.pokemon.impl.PokemonMoveDAOImpl;
 import com.schlock.website.services.database.blog.*;
 import com.schlock.website.services.database.blog.impl.*;
 import org.apache.tapestry5.hibernate.HibernateConfigurer;
@@ -42,6 +46,9 @@ public class DatabaseModule
         binder.bind(VideoGameDAO.class, VideoGameDAOImpl.class);
         binder.bind(VideoGameHardwareDAO.class, VideoGameHardwareDAOImpl.class);
         binder.bind(VideoGamePlatformDAO.class, VideoGamePlatformDAOImpl.class);
+
+        binder.bind(PokemonDataDAO.class, PokemonDataDAOImpl.class);
+        binder.bind(PokemonMoveDAO.class, PokemonMoveDAOImpl.class);
     }
 
 

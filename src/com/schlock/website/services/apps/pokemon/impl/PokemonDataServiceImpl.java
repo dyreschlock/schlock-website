@@ -6,6 +6,8 @@ import com.schlock.website.services.apps.pokemon.PokemonCounterCalculationServic
 import com.schlock.website.services.apps.pokemon.PokemonCustomCounterPrimeService;
 import com.schlock.website.services.apps.pokemon.PokemonCustomCounterSecondService;
 import com.schlock.website.services.apps.pokemon.PokemonDataService;
+import com.schlock.website.services.database.apps.pokemon.PokemonDataDAO;
+import com.schlock.website.services.database.apps.pokemon.PokemonMoveDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
@@ -106,19 +108,32 @@ public class PokemonDataServiceImpl implements PokemonDataService
     private final PokemonCustomCounterSecondService customSecondService;
     private final PokemonCounterCalculationService calculationService;
 
+    private final PokemonDataDAO dataDAO;
+    private final PokemonMoveDAO moveDAO;
+
     private final DeploymentContext deploymentContext;
 
     public PokemonDataServiceImpl(PokemonCustomCounterPrimeService customPrimeService,
                                   PokemonCustomCounterSecondService customSecondService,
                                   PokemonCounterCalculationService calculationService,
+                                  PokemonDataDAO dataDAO,
+                                  PokemonMoveDAO moveDAO,
                                   DeploymentContext deploymentContext)
     {
         this.customPrimeService = customPrimeService;
         this.customSecondService = customSecondService;
         this.calculationService = calculationService;
 
+        this.dataDAO = dataDAO;
+        this.moveDAO = moveDAO;
+
         this.deploymentContext = deploymentContext;
 
+//        updateDatabaseFromGamepress();
+    }
+
+    public void updateDatabaseFromGamepress()
+    {
         loadCpmJSON();
         loadMovesJSON();
 
@@ -252,22 +267,16 @@ public class PokemonDataServiceImpl implements PokemonDataService
                 throw new RuntimeException("Move not found: " + moveName);
             }
 
-            if (move.isFastMove())
+            pokemon.getAllMoves().add(move);
+            pokemon.setAllMoveNames(pokemon.getAllMoveNames() + PokemonData.MOVE_DELIM + move.getName());
+
+            if (standard)
             {
-                pokemon.getAllFastMoves().add(move);
-                if (standard)
-                {
-                    pokemon.getStandardFastMoves().add(move);
-                }
+                pokemon.getStandardMoves().add(move);
+                pokemon.setStandardMoveNames(pokemon.getStandardMoveNames() + PokemonData.MOVE_DELIM + move.getName());
             }
-            if (move.isChargeMove())
-            {
-                pokemon.getAllChargeMoves().add(move);
-                if (standard)
-                {
-                    pokemon.getStandardChargeMoves().add(move);
-                }
-            }
+
+            dataDAO.save(pokemon);
         }
     }
 
@@ -402,6 +411,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
         }
         moveData.put(chargeMove.getName(), chargeMove);
 
+        moveDAO.save(chargeMove);
     }
 
     private void createGeomancy()
@@ -520,6 +530,8 @@ public class PokemonDataServiceImpl implements PokemonDataService
             throw new RuntimeException(newFastMove.getName() + " already exists.");
         }
         moveData.put(newFastMove.getName(), newFastMove);
+
+        moveDAO.save(newFastMove);
     }
 
     private void createShadowPokemon(String pokemonName)
@@ -623,6 +635,8 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
                 PokemonMove move = PokemonMove.createFromJSON(json);
                 moveData.put(move.getName(), move);
+
+                moveDAO.save(move);
             }
             catch (ClassCastException e)
             {
@@ -663,6 +677,8 @@ public class PokemonDataServiceImpl implements PokemonDataService
                 moves.addAll(getMovesFromNames(pokemon.getStandardMoveNames()));
 
                 pokemon.setStandardMoves(moves);
+
+                dataDAO.save(pokemon);
             }
             catch (ClassCastException e)
             {

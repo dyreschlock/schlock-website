@@ -7,17 +7,20 @@ import java.util.List;
 
 public interface PokemonDataService
 {
-    public List<RaidBossPokemon> getRaidBosses();
+    void updateDatabaseFromGamepress();
 
-    public List<RaidBossWithAttackingType> getRaidBossForEachAttackingType();
 
-    public List<RocketLeader> getRocketLeaders();
+    List<RaidBossPokemon> getRaidBosses();
 
-    public Collection<CounterPokemon> getCounterPokemon(CounterType type, BattleMode battleMode);
+    List<RaidBossWithAttackingType> getRaidBossForEachAttackingType();
 
-    public Double getCpmFromLevel(Integer level);
+    List<RocketLeader> getRocketLeaders();
 
-    public PokemonData getDataByName(String name);
+    Collection<CounterPokemon> getCounterPokemon(CounterType type, BattleMode battleMode);
 
-    public PokemonMove getMoveByName(String name);
+    Double getCpmFromLevel(Integer level);
+
+    PokemonData getDataByName(String name);
+
+    PokemonMove getMoveByName(String name);
 }
