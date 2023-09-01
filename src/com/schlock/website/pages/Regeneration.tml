@@ -54,6 +54,14 @@
                 <br/>
                 - <t:eventlink t:id="generateWebpFiles">Generate WebP Files from Images</t:eventlink><br/>
                 <br/>
+                <br/>
+                <h2>Update Pokemon Raid/Rocket Information</h2>
+                <br/>
+                - <t:eventlink t:id="reportPokemonGameMaster">Report differences - Database and Game Master</t:eventlink><br />
+                - <t:eventlink t:id="updateDatabaseGameMaster">Update database from Game Master</t:eventlink><br />
+                <br/>
+                - <t:eventlink t:id="reportPokemonGamepress">Report differences - Database and Gamepress</t:eventlink><br />
+                - <t:eventlink t:id="updateDatabaseGamepress">Update database from Gamepress</t:eventlink><br/>
             </div>
 
         </t:if>
