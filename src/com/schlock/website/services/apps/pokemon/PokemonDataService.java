@@ -7,9 +7,6 @@ import java.util.List;
 
 public interface PokemonDataService
 {
-    void updateDatabaseFromGamepress();
-
-
     List<RaidBossPokemon> getRaidBosses();
 
     List<RaidBossWithAttackingType> getRaidBossForEachAttackingType();

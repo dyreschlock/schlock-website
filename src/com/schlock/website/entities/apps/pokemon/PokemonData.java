@@ -264,7 +264,7 @@ public class PokemonData extends Persisted
         Set<PokemonMove> chargeMoves = new HashSet<PokemonMove>();
         for(PokemonMove move : allMoves)
         {
-            if (move.isChargeMove())
+            if (move.isChargeMove() && !move.isIgnore())
             {
                 chargeMoves.add(move);
             }
@@ -277,7 +277,7 @@ public class PokemonData extends Persisted
         Set<PokemonMove> fastMoves = new HashSet<PokemonMove>();
         for(PokemonMove move : allMoves)
         {
-            if (move.isFastMove())
+            if (move.isFastMove() && !move.isIgnore())
             {
                 fastMoves.add(move);
             }
@@ -290,7 +290,7 @@ public class PokemonData extends Persisted
         Set<PokemonMove> chargeMoves = new HashSet<PokemonMove>();
         for(PokemonMove move : standardMoves)
         {
-            if (move.isChargeMove())
+            if (move.isChargeMove() && !move.isIgnore())
             {
                 chargeMoves.add(move);
             }
@@ -303,7 +303,7 @@ public class PokemonData extends Persisted
         Set<PokemonMove> fastMoves = new HashSet<PokemonMove>();
         for(PokemonMove move : standardMoves)
         {
-            if (move.isFastMove())
+            if (move.isFastMove() && !move.isIgnore())
             {
                 fastMoves.add(move);
             }

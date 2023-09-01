@@ -47,9 +47,12 @@ public class ApplicationsModule
         binder.bind(PocketDataService.class, PocketDataServiceImpl.class);
         binder.bind(PocketImageService.class, PocketImageServiceImpl.class);
 
+        binder.bind(PokemonDataService.class, PokemonDataServiceImpl.class);
+        binder.bind(PokemonDataGamepressService.class, PokemonDataGamepressServiceImpl.class);
+        binder.bind(PokemonDataGameMasterService.class, PokemonDataGameMasterServiceImpl.class);
+
         binder.bind(PokemonRaidCounterService.class, PokemonRaidCounterServiceImpl.class);
         binder.bind(PokemonCounterCalculationService.class, PokemonCounterCalculationServiceImpl.class);
-        binder.bind(PokemonDataService.class, PokemonDataServiceImpl.class);
 
         binder.bind(PokemonCustomCounterPrimeService.class, PokemonCustomCounterPrimeServiceImpl.class);
         binder.bind(PokemonCustomCounterSecondService.class, PokemonCustomCounterSecondServiceImpl.class);
