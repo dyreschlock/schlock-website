@@ -13,6 +13,8 @@ public class PokemonMove extends Persisted
     private String type;
     private String category;
 
+    private boolean ignore;
+
     private int power;
     private double cooldown;
 
@@ -71,6 +73,16 @@ public class PokemonMove extends Persisted
     public void setCategory(String category)
     {
         this.category = category;
+    }
+
+    public boolean isIgnore()
+    {
+        return ignore;
+    }
+
+    public void setIgnore(boolean ignore)
+    {
+        this.ignore = ignore;
     }
 
     public int getPower()

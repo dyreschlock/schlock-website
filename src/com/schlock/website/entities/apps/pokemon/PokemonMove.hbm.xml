@@ -12,6 +12,8 @@
         <property name="type" />
         <property name="category" />
 
+        <property name="ignore" column="ignor" />
+
         <property name="power" />
         <property name="cooldown" />
 

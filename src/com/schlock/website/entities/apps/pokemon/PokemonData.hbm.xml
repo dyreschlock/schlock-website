@@ -20,7 +20,11 @@
         <property name="baseDefense" />
         <property name="baseStamina" />
 
-        <property name="hasEvolution" />
+        <property name="hasEvolution" column="hasEvo" />
+        
+        <property name="ignore" column="ignor" />
+        <property name="legendary" />
+        <property name="raidBoss" />
 
         <property name="allMoveNames" length="1000000" />
         <property name="standardMoveNames" length="1000000" />

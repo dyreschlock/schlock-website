@@ -47,47 +47,6 @@ public class PokemonDataServiceImpl implements PokemonDataService
             "Hidden Power"
     );
 
-    private final static List<String> IGNORE_POKEMON = Arrays.asList(
-            "Mega Heracross",
-
-            "Mega Gallade",
-            "Mega Mawile",
-            "Mega Shapedo",
-            "Mega Camerupt",
-            "Mega Audino",
-
-            "Mega Metagross",
-            "Mega Garchomp",
-            "Mega Lucario",
-
-            "Mega Mewtwo X",
-            "Mega Mewtwo Y",
-
-            "White Kyurem",
-            "Black Kyurem",
-
-            "Genesect - Burn Drive",
-            "Genesect - Douse Drive",
-            "Genesect - Chill Drive",
-            "Genesect - Shock Drive",
-
-            "Shaymin (Sky Forme)",
-            "Ash Greninja",
-
-            "Galarian Darmanitan (Zen Mode)",
-
-            "Zacian - Crowned Sword",
-            "Zamazenta - Crowned Shield",
-            "Eternamax Eternatus",
-            "Urshifu (Rapid Strike Style)",
-            "Urshifu (Single Strike Style)",
-            "Calyrex - Shadow Rider",
-            "Calyrex - Ice Rider"
-    );
-
-    private static final String SHAODW = "Shadow";
-    private static final String MEGA = "Mega";
-
     private static final String ARCEUS = "Arceus";
 
 
@@ -758,7 +717,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
     private boolean isIgnorePokemon(PokemonData pokemon)
     {
-        if (IGNORE_MOVES_POKEMON && IGNORE_POKEMON.contains(pokemon.getName()))
+        if (IGNORE_MOVES_POKEMON && pokemon.isIgnore())
         {
             return true;
         }
@@ -824,7 +783,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
                 if(battleMode.isRaid())
                 {
                     int highLevel = LEVEL_50;
-                    if (isLegendary(data))
+                    if(data.isLegendary())
                     {
                         highLevel = LEVEL_45;
                     }
@@ -837,20 +796,6 @@ public class PokemonDataServiceImpl implements PokemonDataService
             }
         }
         return pokemon;
-    }
-
-    private boolean isLegendary(PokemonData pokemon)
-    {
-        String pokemonName = pokemon.getName();
-        if (pokemon.isShadow() || pokemon.isMega())
-        {
-            int spaceIndex = pokemonName.indexOf(" ");
-            if (spaceIndex > 0)
-            {
-                pokemonName = pokemonName.substring(spaceIndex).trim();
-            }
-        }
-        return getLegendaryBosses().contains(pokemonName);
     }
 
     public List<RaidBossWithAttackingType> getRaidBossForEachAttackingType()
@@ -987,240 +932,11 @@ public class PokemonDataServiceImpl implements PokemonDataService
             loadPokemonDataFromDatabase();
         }
 
-        for (String name : getRaidBossNames())
+        List<PokemonData> bosses = dataDAO.getRaidBosses();
+        for(PokemonData boss : bosses)
         {
-            PokemonData data = pokemonData.get(name);
-            if (data == null)
-            {
-                throw new RuntimeException("Pokemon Not Found: " + name);
-            }
-            RaidBossPokemon raidBoss = RaidBossPokemon.createFromData(data);
-
+            RaidBossPokemon raidBoss = RaidBossPokemon.createFromData(boss);
             raidBosses.add(raidBoss);
         }
     }
-
-    private List<String> getRaidBossNames()
-    {
-        List<String> names = new ArrayList<String>();
-
-        //TODO: Add random bosses here
-//        names.add("");
-
-        names.addAll(GEN1_BOSSES);
-        names.addAll(GEN2_BOSSES);
-        names.addAll(GEN3_BOSSES);
-        names.addAll(GEN4_BOSSES);
-        names.addAll(GEN5_BOSSES);
-        names.addAll(GEN6_BOSSES);
-        names.addAll(GEN7_BOSSES);
-        names.addAll(GEN8_BOSSES);
-        names.addAll(GEN9_BOSSES);
-        names.addAll(MEGA_BOSSES);
-
-        return names;
-    }
-
-    private List<String> getLegendaryBosses()
-    {
-        List<String> legendary = new ArrayList<String>();
-        legendary.addAll(GEN1_BOSSES);
-        legendary.addAll(GEN2_BOSSES);
-        legendary.addAll(GEN3_BOSSES);
-        legendary.addAll(GEN4_BOSSES);
-        legendary.addAll(GEN5_BOSSES);
-        legendary.addAll(GEN6_BOSSES);
-        legendary.addAll(GEN7_BOSSES);
-        legendary.addAll(GEN8_BOSSES);
-        legendary.addAll(GEN9_BOSSES);
-        legendary.addAll(NONRAID_LEGENDARIES);
-
-        return legendary;
-    }
-
-    private static final List<String> NONRAID_LEGENDARIES = Arrays.asList(
-            "Hoopa (Confined)",
-            "Hoopa (Unbound)",
-            "Mew",
-            "Jirachu",
-            "Celebi",
-            "Shaymin (Land Forme)",
-            "Shaymin (Sky Forme)",
-            "Meloetta (Pirouette Forme)",
-            "Meloetta (Aria Forme)",
-            "Diancie"
-    );
-
-
-    private static final List<String> GEN1_BOSSES = Arrays.asList(
-            "Mewtwo",
-            "Armored Mewtwo",
-            "Articuno",
-            "Zapdos",
-            "Moltres",
-            "Galarian Articuno",
-            "Galarian Zapdos",
-            "Galarian Moltres"
-    );
-
-    private static final List<String> GEN2_BOSSES = Arrays.asList(
-            "Raikou",
-            "Entei",
-            "Suicune",
-            "Lugia",
-            "Ho-Oh"
-    );
-
-    private static final List<String> GEN3_BOSSES = Arrays.asList(
-            "Regirock",
-            "Regice",
-            "Registeel",
-            "Latias",
-            "Latios",
-            "Kyogre",
-            "Groudon",
-            "Rayquaza",
-            "Deoxys (Normal Forme)",
-            "Deoxys (Attack Forme)",
-            "Deoxys (Defense Forme)",
-            "Deoxys (Speed Forme)"
-    );
-
-    private static final List<String> GEN4_BOSSES = Arrays.asList(
-            "Uxie",
-            "Mesprit",
-            "Azelf",
-            "Dialga",
-            "Palkia",
-            "Heatran",
-            "Regigigas",
-            "Giratina (Altered Forme)",
-            "Giratina (Origin Forme)",
-            "Cresselia",
-            "Darkrai",
-            "Arceus"
-    );
-
-    private static final List<String> GEN5_BOSSES = Arrays.asList(
-            "Cobalion",
-            "Terrakion",
-            "Virizion",
-            "Tornadus (Incarnate Forme)",
-            "Tornadus (Therian Forme)",
-            "Thundurus  (Incarnate Forme)",
-            "Thundurus (Therian Forme)",
-            "Reshiram",
-            "Zekrom",
-            "Landorus (Incarnate Forme)",
-            "Landorus (Therian Forme)",
-            "Kyurem",
-            "White Kyurem",
-            "Black Kyurem",
-            "Keldeo",
-            "Genesect - Burn Drive",
-            "Genesect - Shock Drive",
-            "Genesect - Douse Drive",
-            "Genesect - Chill Drive"
-    );
-
-    private static final List<String> GEN6_BOSSES = Arrays.asList(
-            "Xerneas",
-            "Yveltal",
-            "Zygarde (50% Forme)",
-            "Zygarde (Complete Forme)",
-            "Volcanion",
-            "Hoopa (Unbound)"
-    );
-
-    private static final List<String> GEN7_BOSSES = Arrays.asList(
-            "Tapu Koko",
-            "Tapu Lele",
-            "Tapu Bulu",
-            "Tapu Fini",
-            "Solgaleo",
-            "Lunala",
-            "Nihilego",
-            "Buzzwole",
-            "Pheromosa",
-            "Xurkitree",
-            "Celesteela",
-            "Kartana",
-            "Guzzlord",
-            "Necrozma",
-            "Stakataka",
-            "Blacephalon",
-            "Zeraora"
-    );
-
-    private static final List<String> GEN8_BOSSES = Arrays.asList(
-            "Zacian - Hero of Many Battles",
-            "Zamazenta - Hero of Many Battles",
-            "Regieleki",
-            "Regidrago"
-    );
-
-    private static final List<String> GEN9_BOSSES = Arrays.asList(
-
-    );
-
-    private static final List<String> MEGA_BOSSES = Arrays.asList(
-            "Mega Venusaur",
-            "Mega Charizard X",
-            "Mega Charizard Y",
-            "Mega Blastoise",
-
-            "Mega Beedrill",
-            "Mega Pidgeot",
-            "Mega Gengar",
-            "Mega Slowbro",
-            "Mega Gyarados",
-            "Mega Aerodactyl",
-
-            "Mega Ampharos",
-            "Mega Houndoom",
-            "Mega Steelix",
-            "Mega Manectric",
-            "Mega Altaria",
-            "Mega Absol",
-            "Mega Abomasnow",
-            "Mega Lopunny",
-
-            "Mega Alakazam",
-            "Mega Kangaskhan",
-            "Mega Pinsir",
-            "Mega Heracross",
-            "Mega Scizor",
-
-            "Mega Blaziken",
-            "Mega Sceptile",
-            "Mega Swampert",
-
-            "Mega Gardevoir",
-            "Mega Gallade",
-            "Mega Audino",
-            "Mega Mawile",
-            "Mega Aggron",
-            "Mega Medicham",
-            "Mega Banette",
-            "Mega Sableye",
-            "Mega Sharpedo",
-            "Mega Camerupt",
-            "Mega Glalie",
-
-            "Mega Tyranitar",
-            "Mega Salamence",
-            "Mega Metagross",
-            "Mega Garchomp",
-            "Mega Lucario",
-
-            "Primal Groudon",
-            "Primal Kyogre",
-            "Mega Mewtwo X",
-            "Mega Mewtwo Y",
-            "Mega Latias",
-            "Mega Latios",
-            "Mega Rayquaza",
-            "Mega Diancie"
-    );
-
 }

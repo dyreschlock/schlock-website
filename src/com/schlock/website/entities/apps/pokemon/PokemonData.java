@@ -23,6 +23,9 @@ public class PokemonData extends Persisted
     private int baseStamina;
 
     private boolean hasEvolution;
+    private boolean ignore;
+    private boolean legendary;
+    private boolean raidBoss;
 
     private String allMoveNames;
     private String standardMoveNames;
@@ -183,6 +186,36 @@ public class PokemonData extends Persisted
     public void setHasEvolution(boolean hasEvolution)
     {
         this.hasEvolution = hasEvolution;
+    }
+
+    public boolean isIgnore()
+    {
+        return ignore;
+    }
+
+    public void setIgnore(boolean ignore)
+    {
+        this.ignore = ignore;
+    }
+
+    public boolean isLegendary()
+    {
+        return legendary;
+    }
+
+    public void setLegendary(boolean legendary)
+    {
+        this.legendary = legendary;
+    }
+
+    public boolean isRaidBoss()
+    {
+        return raidBoss;
+    }
+
+    public void setRaidBoss(boolean raidBoss)
+    {
+        this.raidBoss = raidBoss;
     }
 
     public String getAllMoveNames()
