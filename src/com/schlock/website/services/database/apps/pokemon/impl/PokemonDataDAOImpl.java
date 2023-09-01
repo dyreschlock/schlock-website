@@ -19,12 +19,36 @@ public class PokemonDataDAOImpl extends BaseDAOImpl<PokemonData> implements Poke
     public List<PokemonData> getRaidBosses()
     {
         String text = " select p " +
-                "from PokemonData p " +
-                "where p.raidBoss is true " +
-                "order by p.number asc ";
+                        "from PokemonData p " +
+                        "where p.raidBoss is true " +
+                        "order by p.number asc ";
 
         Query query = session.createQuery(text);
 
         return query.list();
+    }
+
+    public PokemonData getByName(String name)
+    {
+        String text = " select p " +
+                        " from PokemonData p " +
+                        " where p.name = :name ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("name", name);
+
+        return (PokemonData) singleResult(query);
+    }
+
+    public PokemonData getByNameId(String nameId)
+    {
+        String text = " select p " +
+                        " from PokemonData p " +
+                        " where p.nameId = :nameId ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("nameId", nameId);
+
+        return (PokemonData) singleResult(query);
     }
 }

@@ -8,4 +8,8 @@ import java.util.List;
 public interface PokemonDataDAO extends BaseDAO<PokemonData>
 {
     List<PokemonData> getRaidBosses();
+
+    PokemonData getByName(String name);
+
+    PokemonData getByNameId(String nameId);
 }

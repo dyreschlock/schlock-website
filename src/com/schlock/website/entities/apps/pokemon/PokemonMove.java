@@ -1,6 +1,7 @@
 package com.schlock.website.entities.apps.pokemon;
 
 import com.schlock.website.entities.Persisted;
+import com.schlock.website.services.apps.pokemon.impl.PokemonDataGameMasterServiceImpl;
 import org.apache.tapestry5.json.JSONObject;
 
 public class PokemonMove extends Persisted
@@ -311,7 +312,7 @@ public class PokemonMove extends Persisted
     public static final String PVP_CHARGE_ENERGY = "pvp_charge_energy";
 
 
-    public static PokemonMove createFromJSON(JSONObject object)
+    public static PokemonMove createFromGamepressJSON(JSONObject object)
     {
         PokemonMove move = new PokemonMove();
 
@@ -387,6 +388,158 @@ public class PokemonMove extends Persisted
         move.energyCost = oldMove.energyCost;
         move.dodgeWindow = oldMove.dodgeWindow;
         move.damageWindow = oldMove.damageWindow;
+
+        return move;
+    }
+
+
+
+    public void updateFromGameMasterStandardJSON(PokemonMove updates)
+    {
+        this.power = updates.power;
+        this.cooldown = updates.cooldown;
+
+        this.energyGain = updates.energyGain;
+        this.energyCost = updates.energyCost;
+
+        this.dodgeWindow = updates.dodgeWindow;
+        this.damageWindow = updates.damageWindow;
+    }
+
+    public void updateFromGameMasterCombatJSON(PokemonMove updates)
+    {
+        this.pvpChargeEnergy = updates.pvpChargeEnergy;
+        this.pvpChargeDamage = updates.pvpChargeDamage;
+
+        this.pvpFastEnergy = updates.pvpFastEnergy;
+        this.pvpFastPower = updates.pvpFastPower;
+        this.pvpFastDuration = updates.pvpFastDuration;
+    }
+
+
+    private static final String GM_TEMPLATE_ID = PokemonDataGameMasterServiceImpl.GM_TEMPLATE_ID;
+
+    public static final String GM_MOVE_TAG = "_MOVE_";
+
+
+    private static String getMoveNameId(JSONObject json)
+    {
+        String templateId = json.getString(GM_TEMPLATE_ID);
+
+        int index = templateId.indexOf(GM_MOVE_TAG) + GM_MOVE_TAG.length();
+
+        return templateId.substring(index);
+    }
+
+
+    /**
+     *     {
+     *         "templateId": "V0016_MOVE_DARK_PULSE",
+     *         "data": {
+     *             "templateId": "V0016_MOVE_DARK_PULSE",
+     *             "moveSettings": {
+     *                 "movementId": "DARK_PULSE",
+     *                 "animationId": 5,
+     *                 "pokemonType": "POKEMON_TYPE_DARK",
+     *                 "power": 80.0,
+     *                 "accuracyChance": 1.0,
+     *                 "criticalChance": 0.05,
+     *                 "staminaLossScalar": 0.08,
+     *                 "trainerLevelMin": 1,
+     *                 "trainerLevelMax": 100,
+     *                 "vfxName": "dark_pulse",
+     *                 "durationMs": 3000,
+     *                 "damageWindowStartMs": 1400,
+     *                 "damageWindowEndMs": 2300,
+     *                 "energyDelta": -50
+     *             }
+     *         }
+     *     },
+     *
+     *
+     *     {
+     *         "templateId": "V0264_MOVE_HEX_FAST",
+     *         "data": {
+     *             "templateId": "V0264_MOVE_HEX_FAST",
+     *             "moveSettings": {
+     *                 "movementId": "HEX_FAST",
+     *                 "animationId": 4,
+     *                 "pokemonType": "POKEMON_TYPE_GHOST",
+     *                 "power": 10.0,
+     *                 "accuracyChance": 1.0,
+     *                 "staminaLossScalar": 0.01,
+     *                 "trainerLevelMin": 1,
+     *                 "trainerLevelMax": 100,
+     *                 "vfxName": "hex_fast",
+     *                 "durationMs": 1200,
+     *                 "damageWindowStartMs": 1000,
+     *                 "damageWindowEndMs": 1200,
+     *                 "energyDelta": 16
+     *             }
+     *         }
+     *     },
+     */
+    public static PokemonMove createFromGameMasterStandardJSON(JSONObject json)
+    {
+        PokemonMove move = new PokemonMove();
+
+        move.nameId = getMoveNameId(json);
+
+
+//        this.power = updates.power;
+//        this.cooldown = updates.cooldown;
+//
+//        this.energyGain = updates.energyGain;
+//        this.energyCost = updates.energyCost;
+//
+//        this.dodgeWindow = updates.dodgeWindow;
+//        this.damageWindow = updates.damageWindow;
+
+        return move;
+    }
+
+    /**
+     *     {
+     *         "templateId": "COMBAT_V0016_MOVE_DARK_PULSE",
+     *         "data": {
+     *             "templateId": "COMBAT_V0016_MOVE_DARK_PULSE",
+     *             "combatMove": {
+     *                 "uniqueId": "DARK_PULSE",
+     *                 "type": "POKEMON_TYPE_DARK",
+     *                 "power": 80.0,
+     *                 "vfxName": "dark_pulse",
+     *                 "energyDelta": -50
+     *             }
+     *         }
+     *     },
+     *
+     *     {
+     *         "templateId": "COMBAT_V0264_MOVE_HEX_FAST",
+     *         "data": {
+     *             "templateId": "COMBAT_V0264_MOVE_HEX_FAST",
+     *             "combatMove": {
+     *                 "uniqueId": "HEX_FAST",
+     *                 "type": "POKEMON_TYPE_GHOST",
+     *                 "power": 6.0,
+     *                 "vfxName": "hex_fast",
+     *                 "durationTurns": 2,
+     *                 "energyDelta": 12
+     *             }
+     *         }
+     *     },
+     */
+    public static PokemonMove createFormGameMasterCombatJSON(JSONObject json)
+    {
+        PokemonMove move = new PokemonMove();
+
+        move.nameId = getMoveNameId(json);
+
+//        this.pvpChargeEnergy = updates.pvpChargeEnergy;
+//        this.pvpChargeDamage = updates.pvpChargeDamage;
+//
+//        this.pvpFastEnergy = updates.pvpFastEnergy;
+//        this.pvpFastPower = updates.pvpFastPower;
+//        this.pvpFastDuration = updates.pvpFastDuration;
 
         return move;
     }

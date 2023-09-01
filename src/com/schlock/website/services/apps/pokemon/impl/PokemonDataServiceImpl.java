@@ -236,27 +236,6 @@ public class PokemonDataServiceImpl implements PokemonDataService
         return data;
     }
 
-    private static final List<String> PREFERRED_TYPE_ORDER = Arrays.asList(
-            PokemonCounterCalculationServiceImpl.FIRE,
-            PokemonCounterCalculationServiceImpl.WATER,
-            PokemonCounterCalculationServiceImpl.ELECTRIC,
-            PokemonCounterCalculationServiceImpl.GRASS,
-            PokemonCounterCalculationServiceImpl.ICE,
-            PokemonCounterCalculationServiceImpl.FIGHTING,
-            PokemonCounterCalculationServiceImpl.POISON,
-            PokemonCounterCalculationServiceImpl.GROUND,
-            PokemonCounterCalculationServiceImpl.FLYING,
-            PokemonCounterCalculationServiceImpl.PSYCHIC,
-            PokemonCounterCalculationServiceImpl.BUG,
-            PokemonCounterCalculationServiceImpl.ROCK,
-            PokemonCounterCalculationServiceImpl.GHOST,
-            PokemonCounterCalculationServiceImpl.DRAGON,
-            PokemonCounterCalculationServiceImpl.DARK,
-            PokemonCounterCalculationServiceImpl.STEEL,
-            PokemonCounterCalculationServiceImpl.FAIRY,
-            PokemonCounterCalculationServiceImpl.NORMAL
-            );
-
     private void generateRaidBossWithAttackingType()
     {
         if (!raidBossesWithAttackingTypes.isEmpty())
@@ -272,11 +251,11 @@ public class PokemonDataServiceImpl implements PokemonDataService
         PokemonData arceus = getDataByName(ARCEUS);
 
         Map<String, String> attackingToDefendingTypes = calculationService.getMapOfAttackingTypeToWeakType();
-        for (String attackingType : PREFERRED_TYPE_ORDER)
+        for (PokemonType attackingType : PokemonType.preferredTypeOrder())
         {
-            String defendingType = attackingToDefendingTypes.get(attackingType);
+            String defendingType = attackingToDefendingTypes.get(attackingType.text());
 
-            RaidBossWithAttackingType typedArceus = RaidBossWithAttackingType.createFromData(arceus, defendingType, attackingType);
+            RaidBossWithAttackingType typedArceus = RaidBossWithAttackingType.createFromData(arceus, defendingType, attackingType.text());
 
             raidBossesWithAttackingTypes.add(typedArceus);
         }

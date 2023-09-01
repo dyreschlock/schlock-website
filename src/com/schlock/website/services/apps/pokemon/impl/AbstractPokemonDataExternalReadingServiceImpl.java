@@ -30,10 +30,17 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
     protected abstract void loadAllJSONdata();
 
     protected abstract PokemonMove getMoveFromDatabase(PokemonMove move);
+    protected abstract PokemonData getPokemonFromDatabase(PokemonData pokemon);
+
+    protected abstract boolean isIgnorePokemon(PokemonData pokemon);
+
+    protected abstract String getMoveIdentifier(PokemonMove move);
+    protected abstract String getPokemonIdentifier(PokemonData pokemon);
 
     public List<String> reportDifferences()
     {
         final String NEW_MOVE = "A new move was found in JSON: %s";
+        final String NEW_POKEMON = "A new pokemon was found in JSON: %s";
 
         loadAllJSONdata();
 
@@ -44,13 +51,36 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
             PokemonMove database = getMoveFromDatabase(json);
             if (database == null)
             {
-                messages.add(String.format(NEW_MOVE, json.getName()));
+                messages.add(String.format(NEW_MOVE, getMoveIdentifier(json)));
             }
             else
             {
 
             }
         }
+
+        int count = 0;
+        for(PokemonData json : pokemonData.values())
+        {
+            if (!isIgnorePokemon(json))
+            {
+                PokemonData database = getPokemonFromDatabase(json);
+                if (database == null)
+                {
+                    messages.add(String.format(NEW_POKEMON, getPokemonIdentifier(json)));
+                    count++;
+                }
+                else
+                {
+                    
+
+
+                }
+            }
+        }
+
+        messages.add("There are " + count + " pokemon not in database.");
+
         return messages;
     }
 
@@ -62,7 +92,7 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
 
     protected JSONArray readJSONArrayFromFile(String filename)
     {
-        String content = "";
+        StringBuilder content = new StringBuilder();
         try
         {
             String fileLocation = deploymentContext.dataDirectory() + POKEMON_DIR + filename;
@@ -73,7 +103,7 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
             String line = reader.readLine();
             while (line != null)
             {
-                content += line;
+                content.append(line);
 
                 line = reader.readLine();
             }
@@ -83,7 +113,7 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        return new JSONArray(content);
+        return new JSONArray(content.toString());
     }
 
 }

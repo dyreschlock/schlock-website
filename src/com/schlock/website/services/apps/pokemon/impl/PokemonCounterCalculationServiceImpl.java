@@ -21,24 +21,24 @@ public class PokemonCounterCalculationServiceImpl implements PokemonCounterCalcu
     private static final boolean BEST_FRIEND_BONUS_NO = false;
 
 
-    public static final String BUG = "Bug";
-    public static final String DARK = "Dark";
-    public static final String DRAGON = "Dragon";
-    public static final String ELECTRIC = "Electric";
-    public static final String FAIRY = "Fairy";
-    public static final String FIGHTING = "Fighting";
-    public static final String FIRE = "Fire";
-    public static final String FLYING = "Flying";
-    public static final String GHOST = "Ghost";
-    public static final String GRASS = "Grass";
-    public static final String GROUND = "Ground";
-    public static final String ICE = "Ice";
-    public static final String NORMAL = "Normal";
-    public static final String POISON = "Poison";
-    public static final String PSYCHIC = "Psychic";
-    public static final String ROCK = "Rock";
-    public static final String STEEL = "Steel";
-    public static final String WATER = "Water";
+    private static final String BUG = PokemonType.BUG.text();
+    private static final String DARK = PokemonType.DARK.text();
+    private static final String DRAGON = PokemonType.DRAGON.text();
+    private static final String ELECTRIC = PokemonType.ELECTRIC.text();
+    private static final String FAIRY = PokemonType.FAIRY.text();
+    private static final String FIGHTING = PokemonType.FIGHTING.text();
+    private static final String FIRE = PokemonType.FIRE.text();
+    private static final String FLYING = PokemonType.FLYING.text();
+    private static final String GHOST = PokemonType.GHOST.text();
+    private static final String GRASS = PokemonType.GRASS.text();
+    private static final String GROUND = PokemonType.GROUND.text();
+    private static final String ICE = PokemonType.ICE.text();
+    private static final String NORMAL = PokemonType.NORMAL.text();
+    private static final String POISON = PokemonType.POISON.text();
+    private static final String PSYCHIC = PokemonType.PSYCHIC.text();
+    private static final String ROCK = PokemonType.ROCK.text();
+    private static final String STEEL = PokemonType.STEEL.text();
+    private static final String WATER = PokemonType.WATER.text();
 
     private static final Double STRONG = 1.6;
     private static final Double NEUTRAL = 1.0;

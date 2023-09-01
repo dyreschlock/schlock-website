@@ -82,6 +82,26 @@ public class PokemonDataGamepressServiceImpl extends AbstractPokemonDataExternal
         return moveDAO.getByName(move.getName());
     }
 
+    protected PokemonData getPokemonFromDatabase(PokemonData pokemon)
+    {
+        return dataDAO.getByName(pokemon.getName());
+    }
+
+    protected String getMoveIdentifier(PokemonMove move)
+    {
+        return move.getName();
+    }
+
+    protected String getPokemonIdentifier(PokemonData pokemon)
+    {
+        return pokemon.getName();
+    }
+
+    protected boolean isIgnorePokemon(PokemonData pokemon)
+    {
+        return false;
+    }
+
     protected void loadAllJSONdata()
     {
         loadMovesJSON();
@@ -342,7 +362,7 @@ public class PokemonDataGamepressServiceImpl extends AbstractPokemonDataExternal
         object.put(PokemonMove.PVP_CHARGE_DAMAGE, pvpDamage);
         object.put(PokemonMove.PVP_CHARGE_ENERGY, pvpEnergy);
 
-        PokemonMove chargeMove = PokemonMove.createFromJSON(object);
+        PokemonMove chargeMove = PokemonMove.createFromGamepressJSON(object);
 
         if (moveData.get(chargeMove.getName()) != null)
         {
@@ -422,7 +442,7 @@ public class PokemonDataGamepressServiceImpl extends AbstractPokemonDataExternal
         object.put(PokemonMove.PVP_CHARGE_DAMAGE, "");
         object.put(PokemonMove.PVP_CHARGE_ENERGY, "");
 
-        PokemonMove doubleKick = PokemonMove.createFromJSON(object);
+        PokemonMove doubleKick = PokemonMove.createFromGamepressJSON(object);
 
         if (moveData.get(doubleKick.getName()) != null)
         {
@@ -460,7 +480,7 @@ public class PokemonDataGamepressServiceImpl extends AbstractPokemonDataExternal
         object.put(PokemonMove.PVP_CHARGE_DAMAGE, "");
         object.put(PokemonMove.PVP_CHARGE_ENERGY, "");
 
-        PokemonMove newFastMove = PokemonMove.createFromJSON(object);
+        PokemonMove newFastMove = PokemonMove.createFromGamepressJSON(object);
 
         if (moveData.get(newFastMove.getName()) != null)
         {
@@ -508,7 +528,7 @@ public class PokemonDataGamepressServiceImpl extends AbstractPokemonDataExternal
             {
                 JSONObject json = (JSONObject) obj;
 
-                PokemonMove move = PokemonMove.createFromJSON(json);
+                PokemonMove move = PokemonMove.createFromGamepressJSON(json);
                 moveData.put(move.getName(), move);
             }
             catch (ClassCastException e)
@@ -538,7 +558,7 @@ public class PokemonDataGamepressServiceImpl extends AbstractPokemonDataExternal
             {
                 JSONObject json = (JSONObject) obj;
 
-                PokemonData pokemon = PokemonData.createFromJSON(json);
+                PokemonData pokemon = PokemonData.createFromGamepressJSON(json);
                 pokemonData.put(pokemon.getName(), pokemon);
 
                 Set<PokemonMove> moves = new HashSet<PokemonMove>();
@@ -576,8 +596,4 @@ public class PokemonDataGamepressServiceImpl extends AbstractPokemonDataExternal
         }
         return moves;
     }
-
-
-
-
 }

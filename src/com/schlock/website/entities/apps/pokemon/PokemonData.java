@@ -1,6 +1,7 @@
 package com.schlock.website.entities.apps.pokemon;
 
 import com.schlock.website.entities.Persisted;
+import com.schlock.website.services.apps.pokemon.impl.PokemonDataGameMasterServiceImpl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.json.JSONObject;
 
@@ -339,7 +340,7 @@ public class PokemonData extends Persisted
 
     public static final String MOVE_DELIM = ",";
 
-    public static PokemonData createFromJSON(JSONObject object)
+    public static PokemonData createFromGamepressJSON(JSONObject object)
     {
         PokemonData pokemon = new PokemonData();
 
@@ -537,5 +538,123 @@ public class PokemonData extends Persisted
         newData.allMoves = oldData.allMoves;
 
         return newData;
+    }
+
+
+    private static final String GM_TEMPLATE_ID = PokemonDataGameMasterServiceImpl.GM_TEMPLATE_ID;
+
+    public static final String GM_POKEMON_TAG = "_POKEMON_";
+
+
+    private static String getPokemonNameId(JSONObject json)
+    {
+        String templateId = json.getString(GM_TEMPLATE_ID);
+
+        int index = templateId.indexOf(GM_POKEMON_TAG) + GM_POKEMON_TAG.length();
+
+        return templateId.substring(index);
+    }
+
+
+    /**
+     *     {
+     *         "templateId": "V0454_POKEMON_TOXICROAK",
+     *         "data": {
+     *             "templateId": "V0454_POKEMON_TOXICROAK",
+     *             "pokemonSettings": {
+     *                 "pokemonId": "TOXICROAK",
+     *                 "modelScale": 1.26,
+     *                 "type": "POKEMON_TYPE_POISON",
+     *                 "type2": "POKEMON_TYPE_FIGHTING",
+     *                 "camera": {
+     *                     "diskRadiusM": 0.378,
+     *                     "cylinderRadiusM": 0.7,
+     *                     "cylinderHeightM": 1.3,
+     *                     "shoulderModeScale": 0.5
+     *                 },
+     *                 "encounter": {
+     *                     "collisionRadiusM": 0.189,
+     *                     "collisionHeightM": 0.4,
+     *                     "collisionHeadRadiusM": 0.23,
+     *                     "movementType": "MOVEMENT_JUMP",
+     *                     "movementTimerS": 10.0,
+     *                     "jumpTimeS": 0.9,
+     *                     "attackTimerS": 29.0,
+     *                     "bonusCandyCaptureReward": 2,
+     *                     "bonusStardustCaptureReward": 200,
+     *                     "attackProbability": 0.25,
+     *                     "dodgeProbability": 0.25,
+     *                     "dodgeDurationS": 1.0,
+     *                     "dodgeDistance": 1.0,
+     *                     "cameraDistance": 4.0,
+     *                     "minPokemonActionFrequencyS": 0.2,
+     *                     "maxPokemonActionFrequencyS": 1.6,
+     *                     "bonusXlCandyCaptureReward": 1
+     *                 },
+     *                 "stats": {
+     *                     "baseStamina": 195,
+     *                     "baseAttack": 211,
+     *                     "baseDefense": 133
+     *                 },
+     *                 "quickMoves": [
+     *                     "POISON_JAB_FAST",
+     *                     "COUNTER_FAST"
+     *                 ],
+     *                 "cinematicMoves": [
+     *                     "DYNAMIC_PUNCH",
+     *                     "MUD_BOMB",
+     *                     "SLUDGE_BOMB"
+     *                 ],
+     *                 "animationTime": [
+     *                     1.9,
+     *                     0.6667,
+     *                     1.8,
+     *                     1.7667,
+     *                     0.0,
+     *                     2.4,
+     *                     0.8667,
+     *                     0.0
+     *                 ],
+     *                 "evolutionPips": 1,
+     *                 "pokedexHeightM": 1.3,
+     *                 "pokedexWeightKg": 44.4,
+     *                 "parentPokemonId": "CROAGUNK",
+     *                 "heightStdDev": 0.1625,
+     *                 "weightStdDev": 5.55,
+     *                 "familyId": "FAMILY_CROAGUNK",
+     *                 "candyToEvolve": 25,
+     *                 "kmBuddyDistance": 3.0,
+     *                 "modelHeight": 1.2,
+     *                 "modelScaleV2": 1.0,
+     *                 "buddyOffsetMale": [
+     *                     0.0,
+     *                     0.0,
+     *                     -61.5
+     *                 ],
+     *                 "buddyOffsetFemale": [
+     *                     0.0,
+     *                     0.0,
+     *                     -61.5
+     *                 ],
+     *                 "buddyScale": 19.0,
+     *                 "thirdMove": {
+     *                     "stardustToUnlock": 50000,
+     *                     "candyToUnlock": 50
+     *                 },
+     *                 "isTransferable": true,
+     *                 "isDeployable": true,
+     *                 "isTradable": true,
+     *                 "buddyGroupNumber": 2
+     *             }
+     *         }
+     *     },
+     */
+    public static PokemonData createFromGameMasterJSON(JSONObject json)
+    {
+        PokemonData data = new PokemonData();
+
+        data.nameId = getPokemonNameId(json);
+
+        return data;
     }
 }
