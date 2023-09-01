@@ -4,6 +4,8 @@ import com.schlock.website.entities.apps.pokemon.PokemonData;
 import com.schlock.website.entities.apps.pokemon.PokemonMove;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.PokemonDataGamepressService;
+import com.schlock.website.services.database.apps.pokemon.PokemonDataDAO;
+import com.schlock.website.services.database.apps.pokemon.PokemonMoveDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
@@ -30,14 +32,22 @@ public class PokemonDataGamepressServiceImpl implements PokemonDataGamepressServ
     private static final String CPM_FILE = "cpm.json";
 
 
+    private final PokemonDataDAO dataDAO;
+    private final PokemonMoveDAO moveDAO;
+
     private final DeploymentContext deploymentContext;
 
     private HashMap<String, PokemonMove> moveData = new HashMap<String, PokemonMove>();
     private HashMap<String, PokemonData> pokemonData = new HashMap<String, PokemonData>();
 
 
-    public PokemonDataGamepressServiceImpl(DeploymentContext deploymentContext)
+    public PokemonDataGamepressServiceImpl(PokemonDataDAO dataDAO,
+                                            PokemonMoveDAO moveDAO,
+                                            DeploymentContext deploymentContext)
     {
+        this.dataDAO = dataDAO;
+        this.moveDAO = moveDAO;
+
         this.deploymentContext = deploymentContext;
     }
 
@@ -78,7 +88,25 @@ public class PokemonDataGamepressServiceImpl implements PokemonDataGamepressServ
 
     public List<String> reportDifferences()
     {
-        return null;
+        final String NEW_MOVE = "A new move was found in JSON: %s";
+
+        loadAllJSONdata();
+
+        List<String> messages = new ArrayList<String>();
+
+        for(PokemonMove json : moveData.values())
+        {
+            PokemonMove database = moveDAO.getByName(json.getName());
+            if (database == null)
+            {
+                messages.add(String.format(NEW_MOVE, json.getName()));
+            }
+            else
+            {
+
+            }
+        }
+        return messages;
     }
 
     public void updateDatabase()
@@ -89,7 +117,7 @@ public class PokemonDataGamepressServiceImpl implements PokemonDataGamepressServ
 
 
 
-    public void updateDatabaseFromGamepress()
+    public void loadAllJSONdata()
     {
         loadMovesJSON();
         addMoveOverwrites();

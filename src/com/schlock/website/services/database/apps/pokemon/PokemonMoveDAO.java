@@ -5,4 +5,5 @@ import com.schlock.website.services.database.BaseDAO;
 
 public interface PokemonMoveDAO extends BaseDAO<PokemonMove>
 {
+    PokemonMove getByName(String name);
 }
