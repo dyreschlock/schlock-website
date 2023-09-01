@@ -16,11 +16,23 @@ public class PokemonMoveDAOImpl extends BaseDAOImpl<PokemonMove> implements Poke
     public PokemonMove getByName(String name)
     {
         String text = "select m " +
-                " from PokemonMove m " +
-                "where m.name = :name ";
+                        " from PokemonMove m " +
+                        "where m.name = :name ";
 
         Query query = session.createQuery(text);
         query.setParameter("name", name);
+
+        return (PokemonMove) singleResult(query);
+    }
+
+    public PokemonMove getByNameId(String nameId)
+    {
+        String text = " select m " +
+                        " from PokemonMove m " +
+                        " where m.nameId = :nameId ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("nameId", nameId);
 
         return (PokemonMove) singleResult(query);
     }

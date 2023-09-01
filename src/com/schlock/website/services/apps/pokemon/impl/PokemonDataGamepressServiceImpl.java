@@ -10,23 +10,21 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 
-import java.io.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Data Taken from : https://gamepress.gg/pokemongo/comprehensive-dps-spreadsheet
  */
-public class PokemonDataGamepressServiceImpl implements PokemonDataGamepressService
+public class PokemonDataGamepressServiceImpl extends AbstractPokemonDataExternalReadingServiceImpl implements PokemonDataGamepressService
 {
-    private static final String POKEMON_DIR = "pokemon-data/counter-data/";
-
     // https://gamepress.gg/sites/default/files/aggregatedjson/pokemon-data-full-en-PoGO.json
     private static final String POKEMON_FILE = "pokemon-data-full-en-PoGO.json";
 
     // https://gamepress.gg/sites/default/files/aggregatedjson/move-data-full-PoGO.json
     private static final String MOVE_FILE = "move-data-full-PoGO.json";
-
-    // https://gamepress.gg/sites/default/files/aggregatedjson/raid-boss-list-PoGO.json
 
     // https://gamepress.gg/pokemongo/assets/data/cpm.json
     private static final String CPM_FILE = "cpm.json";
@@ -35,20 +33,15 @@ public class PokemonDataGamepressServiceImpl implements PokemonDataGamepressServ
     private final PokemonDataDAO dataDAO;
     private final PokemonMoveDAO moveDAO;
 
-    private final DeploymentContext deploymentContext;
-
-    private HashMap<String, PokemonMove> moveData = new HashMap<String, PokemonMove>();
-    private HashMap<String, PokemonData> pokemonData = new HashMap<String, PokemonData>();
-
 
     public PokemonDataGamepressServiceImpl(PokemonDataDAO dataDAO,
                                             PokemonMoveDAO moveDAO,
                                             DeploymentContext deploymentContext)
     {
+        super(deploymentContext);
+
         this.dataDAO = dataDAO;
         this.moveDAO = moveDAO;
-
-        this.deploymentContext = deploymentContext;
     }
 
 
@@ -84,40 +77,12 @@ public class PokemonDataGamepressServiceImpl implements PokemonDataGamepressServ
         return cpmData;
     }
 
-
-
-    public List<String> reportDifferences()
+    protected PokemonMove getMoveFromDatabase(PokemonMove move)
     {
-        final String NEW_MOVE = "A new move was found in JSON: %s";
-
-        loadAllJSONdata();
-
-        List<String> messages = new ArrayList<String>();
-
-        for(PokemonMove json : moveData.values())
-        {
-            PokemonMove database = moveDAO.getByName(json.getName());
-            if (database == null)
-            {
-                messages.add(String.format(NEW_MOVE, json.getName()));
-            }
-            else
-            {
-
-            }
-        }
-        return messages;
+        return moveDAO.getByName(move.getName());
     }
 
-    public void updateDatabase()
-    {
-
-    }
-
-
-
-
-    public void loadAllJSONdata()
+    protected void loadAllJSONdata()
     {
         loadMovesJSON();
         addMoveOverwrites();
@@ -517,32 +482,6 @@ public class PokemonDataGamepressServiceImpl implements PokemonDataGamepressServ
         pokemonData.put(shadow.getName(), shadow);
     }
 
-
-    private JSONArray readJSONArrayFromFile(String filename)
-    {
-        String content = "";
-        try
-        {
-            String fileLocation = deploymentContext.dataDirectory() + POKEMON_DIR + filename;
-
-            InputStream in = new FileInputStream(fileLocation);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-            String line = reader.readLine();
-            while (line != null)
-            {
-                content += line;
-
-                line = reader.readLine();
-            }
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-        return new JSONArray(content);
-    }
 
 
     private boolean isInteger(Double number)
