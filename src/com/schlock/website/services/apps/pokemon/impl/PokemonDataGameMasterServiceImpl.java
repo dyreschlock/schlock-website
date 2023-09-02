@@ -193,13 +193,8 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
         }
 
         final String COSTUME = "_COSTUME_";
-        final String SPECIAL_SHADOW = "_S";
 
         if (StringUtils.contains(templateId, COSTUME))
-        {
-            return true;
-        }
-        if (StringUtils.endsWith(templateId, SPECIAL_SHADOW))
         {
             return true;
         }

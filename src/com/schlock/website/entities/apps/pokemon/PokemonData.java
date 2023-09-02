@@ -558,93 +558,66 @@ public class PokemonData extends Persisted
 
     /**
      *     {
-     *         "templateId": "V0454_POKEMON_TOXICROAK",
+     *         "templateId": "V0260_POKEMON_SWAMPERT",
      *         "data": {
-     *             "templateId": "V0454_POKEMON_TOXICROAK",
+     *             "templateId": "V0260_POKEMON_SWAMPERT",
      *             "pokemonSettings": {
-     *                 "pokemonId": "TOXICROAK",
-     *                 "modelScale": 1.26,
-     *                 "type": "POKEMON_TYPE_POISON",
-     *                 "type2": "POKEMON_TYPE_FIGHTING",
-     *                 "camera": {
-     *                     "diskRadiusM": 0.378,
-     *                     "cylinderRadiusM": 0.7,
-     *                     "cylinderHeightM": 1.3,
-     *                     "shoulderModeScale": 0.5
-     *                 },
-     *                 "encounter": {
-     *                     "collisionRadiusM": 0.189,
-     *                     "collisionHeightM": 0.4,
-     *                     "collisionHeadRadiusM": 0.23,
-     *                     "movementType": "MOVEMENT_JUMP",
-     *                     "movementTimerS": 10.0,
-     *                     "jumpTimeS": 0.9,
-     *                     "attackTimerS": 29.0,
-     *                     "bonusCandyCaptureReward": 2,
-     *                     "bonusStardustCaptureReward": 200,
-     *                     "attackProbability": 0.25,
-     *                     "dodgeProbability": 0.25,
-     *                     "dodgeDurationS": 1.0,
-     *                     "dodgeDistance": 1.0,
-     *                     "cameraDistance": 4.0,
-     *                     "minPokemonActionFrequencyS": 0.2,
-     *                     "maxPokemonActionFrequencyS": 1.6,
-     *                     "bonusXlCandyCaptureReward": 1
-     *                 },
+     *                 "pokemonId": "SWAMPERT",
+     *                 "modelScale": 0.78,
+     *                 "type": "POKEMON_TYPE_WATER",
+     *                 "type2": "POKEMON_TYPE_GROUND",
      *                 "stats": {
-     *                     "baseStamina": 195,
-     *                     "baseAttack": 211,
-     *                     "baseDefense": 133
+     *                     "baseStamina": 225,
+     *                     "baseAttack": 208,
+     *                     "baseDefense": 175
      *                 },
      *                 "quickMoves": [
-     *                     "POISON_JAB_FAST",
-     *                     "COUNTER_FAST"
+     *                     "MUD_SHOT_FAST",
+     *                     "WATER_GUN_FAST"
      *                 ],
      *                 "cinematicMoves": [
-     *                     "DYNAMIC_PUNCH",
-     *                     "MUD_BOMB",
-     *                     "SLUDGE_BOMB"
+     *                     "EARTHQUAKE",
+     *                     "SLUDGE_WAVE",
+     *                     "SURF",
+     *                     "MUDDY_WATER"
      *                 ],
-     *                 "animationTime": [
-     *                     1.9,
-     *                     0.6667,
-     *                     1.8,
-     *                     1.7667,
-     *                     0.0,
-     *                     2.4,
-     *                     0.8667,
-     *                     0.0
+     *                 "evolutionBranch": [
+     *                     {
+     *                         "temporaryEvolution": "TEMP_EVOLUTION_MEGA",
+     *                         "temporaryEvolutionEnergyCost": 200,
+     *                         "temporaryEvolutionEnergyCostSubsequent": 40
+     *                     }
      *                 ],
-     *                 "evolutionPips": 1,
-     *                 "pokedexHeightM": 1.3,
-     *                 "pokedexWeightKg": 44.4,
-     *                 "parentPokemonId": "CROAGUNK",
-     *                 "heightStdDev": 0.1625,
-     *                 "weightStdDev": 5.55,
-     *                 "familyId": "FAMILY_CROAGUNK",
-     *                 "candyToEvolve": 25,
-     *                 "kmBuddyDistance": 3.0,
-     *                 "modelHeight": 1.2,
-     *                 "modelScaleV2": 1.0,
-     *                 "buddyOffsetMale": [
-     *                     0.0,
-     *                     0.0,
-     *                     -61.5
-     *                 ],
-     *                 "buddyOffsetFemale": [
-     *                     0.0,
-     *                     0.0,
-     *                     -61.5
-     *                 ],
-     *                 "buddyScale": 19.0,
-     *                 "thirdMove": {
-     *                     "stardustToUnlock": 50000,
-     *                     "candyToUnlock": 50
+     *                 "shadow": {
+     *                     "purificationStardustNeeded": 3000,
+     *                     "purificationCandyNeeded": 3,
+     *                     "purifiedChargeMove": "RETURN",
+     *                     "shadowChargeMove": "FRUSTRATION"
      *                 },
-     *                 "isTransferable": true,
-     *                 "isDeployable": true,
-     *                 "isTradable": true,
-     *                 "buddyGroupNumber": 2
+     *                 "buddyGroupNumber": 3,
+     *                 "eliteCinematicMove": [
+     *                     "HYDRO_CANNON"
+     *                 ],
+     *                 "tempEvoOverrides": [
+     *                     {
+     *                         "tempEvoId": "TEMP_EVOLUTION_MEGA",
+     *                         "stats": {
+     *                             "baseStamina": 225,
+     *                             "baseAttack": 283,
+     *                             "baseDefense": 218
+     *                         },
+     *                         "averageHeightM": 1.9,
+     *                         "averageWeightKg": 102.0,
+     *                         "typeOverride1": "POKEMON_TYPE_WATER",
+     *                         "typeOverride2": "POKEMON_TYPE_GROUND",
+     *                         "camera": {
+     *                             "cylinderRadiusM": 1.15,
+     *                             "cylinderHeightM": 2.0
+     *                         },
+     *                         "raidBossDistanceOffset": 3.0
+     *                     }
+     *                 ],
+     *                 "buddyWalkedMegaEnergyAward": 15
      *             }
      *         }
      *     },
@@ -655,6 +628,39 @@ public class PokemonData extends Persisted
 
         data.nameId = getPokemonNameId(json);
 
+
+
+
+        data.ignore = false;
+        data.legendary = false;
+        data.raidBoss = false;
+
         return data;
     }
+
+    /**
+     *     private String name;
+     *     private String nameId;
+     *     private String number;
+     *     private String type1;
+     *     private String type2;
+     *
+     *     private boolean shadow;
+     *     private boolean mega;
+     *
+     *     private int baseAttack;
+     *     private int baseDefense;
+     *     private int baseStamina;
+     *
+     *     private boolean hasEvolution;
+     *     private boolean ignore;
+     *     private boolean legendary;
+     *     private boolean raidBoss;
+     *
+     *     private String allMoveNames;
+     *     private String standardMoveNames;
+     *
+     *     private Set<PokemonMove> allMoves;
+     *     private Set<PokemonMove> standardMoves;
+     */
 }

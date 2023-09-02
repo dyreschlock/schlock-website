@@ -72,7 +72,7 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
                 }
                 else
                 {
-                    
+
 
 
                 }
