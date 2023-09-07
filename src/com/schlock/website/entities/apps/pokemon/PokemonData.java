@@ -556,6 +556,19 @@ public class PokemonData extends Persisted
     }
 
 
+    private static final String DATA_TAG = "data";
+    private static final String SETTINGS_TAG = "pokemonSettings";
+
+    private static final String TYPE_1_TAG = "type";
+    private static final String TYPE_2_TAG = "type2";
+
+    private static final String STATS_TAG = "stats";
+    private static final String STAMINA_TAG = "baseStamina";
+    private static final String ATTACK_TAG = "baseAttack";
+    private static final String DEFENSE_TAG = "baseDefense";
+
+    private static final String EVOLUTION_TAG = "evolutionBranch";
+
     /**
      *     {
      *         "templateId": "V0260_POKEMON_SWAMPERT",
@@ -563,7 +576,6 @@ public class PokemonData extends Persisted
      *             "templateId": "V0260_POKEMON_SWAMPERT",
      *             "pokemonSettings": {
      *                 "pokemonId": "SWAMPERT",
-     *                 "modelScale": 0.78,
      *                 "type": "POKEMON_TYPE_WATER",
      *                 "type2": "POKEMON_TYPE_GROUND",
      *                 "stats": {
@@ -624,43 +636,62 @@ public class PokemonData extends Persisted
      */
     public static PokemonData createFromGameMasterJSON(JSONObject json)
     {
-        PokemonData data = new PokemonData();
+        PokemonData pokemon = new PokemonData();
 
-        data.nameId = getPokemonNameId(json);
+        pokemon.nameId = getPokemonNameId(json);
+
+        JSONObject data = json.getJSONObject(DATA_TAG);
+        JSONObject settings = data.getJSONObject(SETTINGS_TAG);
+
+        pokemon.type1 = getType(settings, TYPE_1_TAG);
+        pokemon.type2 = getType(settings, TYPE_2_TAG);
+
+        JSONObject stats = settings.getJSONObject(STATS_TAG);
+        pokemon.baseStamina = getInt(stats, STAMINA_TAG);
+        pokemon.baseAttack = getInt(stats, ATTACK_TAG);
+        pokemon.baseDefense = getInt(stats, DEFENSE_TAG);
 
 
 
+        pokemon.hasEvolution = settings.has(EVOLUTION_TAG);
 
-        data.ignore = false;
-        data.legendary = false;
-        data.raidBoss = false;
+        pokemon.shadow = false;
+        pokemon.mega = false;
 
-        return data;
+        pokemon.ignore = false;
+        pokemon.legendary = false;
+        pokemon.raidBoss = false;
+
+        return pokemon;
     }
 
     /**
-     *     private String name;
-     *     private String nameId;
-     *     private String number;
-     *     private String type1;
-     *     private String type2;
-     *
-     *     private boolean shadow;
-     *     private boolean mega;
-     *
-     *     private int baseAttack;
-     *     private int baseDefense;
-     *     private int baseStamina;
-     *
-     *     private boolean hasEvolution;
-     *     private boolean ignore;
-     *     private boolean legendary;
-     *     private boolean raidBoss;
-     *
-     *     private String allMoveNames;
-     *     private String standardMoveNames;
-     *
-     *     private Set<PokemonMove> allMoves;
-     *     private Set<PokemonMove> standardMoves;
+     * private boolean shadow;
+     * private boolean mega;
+     * <p>
+     * private String allMoveNames;
+     * private String standardMoveNames;
+     * <p>
+     * private Set<PokemonMove> allMoves;
+     * private Set<PokemonMove> standardMoves;
      */
+
+    private static String getType(JSONObject settingsJson, String tag)
+    {
+        if(settingsJson.has(tag))
+        {
+            String type = settingsJson.getString(tag);
+            return PokemonType.getTextByGamemasterTag(type);
+        }
+        return null;
+    }
+
+    private static int getInt(JSONObject json, String tag)
+    {
+        if (json.has(tag))
+        {
+            return json.getInt(tag);
+        }
+        return 0;
+    }
 }

@@ -45,6 +45,18 @@ public enum PokemonType
         return this.gamemasterTag;
     }
 
+    public static String getTextByGamemasterTag(String gmTag)
+    {
+        for(PokemonType type : values())
+        {
+            if (type.gamemasterTag.equals(gmTag))
+            {
+                return type.text;
+            }
+        }
+        return null;
+    }
+
     public static List<PokemonType> preferredTypeOrder()
     {
         return Arrays.asList(

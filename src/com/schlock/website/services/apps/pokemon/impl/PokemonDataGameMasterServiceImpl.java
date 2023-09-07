@@ -140,38 +140,45 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
                 JSONObject json = (JSONObject) obj;
 
                 String tempId = json.getString(GM_TEMPLATE_ID);
-                if (isPokemon(tempId) && !isIgnorePokemonId(tempId))
+                try
                 {
-                    PokemonData data = PokemonData.createFromGameMasterJSON(json);
-                    pokemonData.put(data.getNameId(), data);
-                }
-                else if (isMoveStandard(tempId))
-                {
-                    PokemonMove move = PokemonMove.createFromGameMasterStandardJSON(json);
+                    if (isPokemon(tempId) && !isIgnorePokemonId(tempId))
+                    {
+                        PokemonData data = PokemonData.createFromGameMasterJSON(json);
+                        pokemonData.put(data.getNameId(), data);
+                    }
+                    else if (isMoveStandard(tempId))
+                    {
+                        PokemonMove move = PokemonMove.createFromGameMasterStandardJSON(json);
 
-                    PokemonMove current = moveData.get(move.getNameId());
-                    if (current == null)
-                    {
-                        moveData.put(move.getNameId(), move);
+                        PokemonMove current = moveData.get(move.getNameId());
+                        if (current == null)
+                        {
+                            moveData.put(move.getNameId(), move);
+                        }
+                        else
+                        {
+                            current.updateFromGameMasterStandardJSON(move);
+                        }
                     }
-                    else
+                    else if (isMoveCombat(tempId))
                     {
-                        current.updateFromGameMasterStandardJSON(move);
+                        PokemonMove move = PokemonMove.createFormGameMasterCombatJSON(json);
+
+                        PokemonMove current = moveData.get(move.getNameId());
+                        if (current == null)
+                        {
+                            moveData.put(move.getNameId(), move);
+                        }
+                        else
+                        {
+                            current.updateFromGameMasterCombatJSON(move);
+                        }
                     }
                 }
-                else if (isMoveCombat(tempId))
+                catch(Exception e)
                 {
-                    PokemonMove move = PokemonMove.createFormGameMasterCombatJSON(json);
-
-                    PokemonMove current = moveData.get(move.getNameId());
-                    if (current == null)
-                    {
-                        moveData.put(move.getNameId(), move);
-                    }
-                    else
-                    {
-                        current.updateFromGameMasterCombatJSON(move);
-                    }
+                    throw new RuntimeException("Something wrong with " + tempId, e);
                 }
             }
             catch(ClassCastException e)

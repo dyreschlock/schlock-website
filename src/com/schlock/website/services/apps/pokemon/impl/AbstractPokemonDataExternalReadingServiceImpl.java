@@ -39,10 +39,19 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
 
     public List<String> reportDifferences()
     {
-        final String NEW_MOVE = "A new move was found in JSON: %s";
-        final String NEW_POKEMON = "A new pokemon was found in JSON: %s";
-
         loadAllJSONdata();
+
+        List<String> messages = new ArrayList<String>();
+        messages.addAll(reportMoveDifferences());
+        messages.addAll(reportPokemonDifferences());
+
+        return messages;
+    }
+
+    private List<String> reportMoveDifferences()
+    {
+        final String NEW_MOVE = "A new move was found in JSON: %s";
+
 
         List<String> messages = new ArrayList<String>();
 
@@ -55,9 +64,57 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
             }
             else
             {
+                String id = getMoveIdentifier(json);
+
+                String pvpChargeEnergy = reportStatDifference(id, "pvpChargeEnergy", database.getPvpChargeEnergy(), json.getPvpChargeEnergy());
+                if (pvpChargeEnergy != null)
+                {
+                    messages.add(pvpChargeEnergy);
+                }
+
+                String pvpChargeDamage = reportStatDifference(id, "pvpChargeDamage", database.getPvpChargeDamage(), json.getPvpChargeDamage());
+                if (pvpChargeDamage != null)
+                {
+                    messages.add(pvpChargeDamage);
+                }
+
+                String pvpFastEnergy = reportStatDifference(id, "pvpFastEnergy", database.getPvpFastEnergy(), json.getPvpFastEnergy());
+                if (pvpFastEnergy != null)
+                {
+                    messages.add(pvpFastEnergy);
+                }
+
+                String pvpFastPower = reportStatDifference(id, "pvpFastPower", database.getPvpFastPower(), json.getPvpFastPower());
+                if (pvpFastPower != null)
+                {
+                    messages.add(pvpFastPower);
+                }
+
+                String pvpFastDuration = reportStatDifference(id, "pvpFastDuration", database.getPvpFastDuration(), json.getPvpFastDuration());
+                if (pvpFastDuration != null)
+                {
+                    messages.add(pvpFastDuration);
+                }
+
+
+                //        this.pvpChargeEnergy = updates.pvpChargeEnergy;
+//        this.pvpChargeDamage = updates.pvpChargeDamage;
+//
+//        this.pvpFastEnergy = updates.pvpFastEnergy;
+//        this.pvpFastPower = updates.pvpFastPower;
+//        this.pvpFastDuration = updates.pvpFastDuration;
 
             }
         }
+
+        return messages;
+    }
+
+    private List<String> reportPokemonDifferences()
+    {
+        final String NEW_POKEMON = "A new pokemon was found in JSON: %s";
+
+        List<String> messages = new ArrayList<String>();
 
         int count = 0;
         for(PokemonData json : pokemonData.values())
@@ -72,7 +129,25 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
                 }
                 else
                 {
+                    String id = getPokemonIdentifier(json);
 
+                    String stamina = reportStatDifference(id, "Stamina", database.getBaseStamina(), json.getBaseStamina());
+                    if (stamina != null)
+                    {
+                        messages.add(stamina);
+                    }
+
+                    String attack = reportStatDifference(id, "Attack", database.getBaseAttack(), json.getBaseAttack());
+                    if (attack != null)
+                    {
+                        messages.add(attack);
+                    }
+
+                    String defense = reportStatDifference(id, "Defense", database.getBaseDefense(), json.getBaseDefense());
+                    if (defense != null)
+                    {
+                        messages.add(defense);
+                    }
 
 
                 }
@@ -83,6 +158,29 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
 
         return messages;
     }
+
+    private String reportStatDifference(String id, String stat, int oldValue, int newValue)
+    {
+        final String DIFFERENT_STATS = "%s has different %s: old=%s new=%s";
+
+        if (newValue != 0 && newValue != oldValue)
+        {
+            return String.format(DIFFERENT_STATS, id, stat, oldValue, newValue);
+        }
+        return null;
+    }
+
+    private String reportStatDifference(String id, String stat, double oldValue, double newValue)
+    {
+        final String DIFFERENT_STATS = "%s has different %s: old=%s new=%s";
+
+        if (newValue != 0 && newValue != oldValue)
+        {
+            return String.format(DIFFERENT_STATS, id, stat, oldValue, newValue);
+        }
+        return null;
+    }
+
 
     public void updateDatabase()
     {

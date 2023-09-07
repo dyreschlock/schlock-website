@@ -96,7 +96,7 @@ public class PokemonMove extends Persisted
         this.power = power;
     }
 
-    protected double getCooldown()
+    public double getCooldown()
     {
         return cooldown;
     }
@@ -146,7 +146,7 @@ public class PokemonMove extends Persisted
         this.damageWindow = damageWindow;
     }
 
-    protected int getPvpFastPower()
+    public int getPvpFastPower()
     {
         return pvpFastPower;
     }
@@ -156,7 +156,7 @@ public class PokemonMove extends Persisted
         this.pvpFastPower = pvpFastPower;
     }
 
-    protected int getPvpFastEnergy()
+    public int getPvpFastEnergy()
     {
         return pvpFastEnergy;
     }
@@ -166,7 +166,7 @@ public class PokemonMove extends Persisted
         this.pvpFastEnergy = pvpFastEnergy;
     }
 
-    protected double getPvpFastDuration()
+    public double getPvpFastDuration()
     {
         return pvpFastDuration;
     }
@@ -176,7 +176,7 @@ public class PokemonMove extends Persisted
         this.pvpFastDuration = pvpFastDuration;
     }
 
-    protected int getPvpChargeDamage()
+    public int getPvpChargeDamage()
     {
         return pvpChargeDamage;
     }
@@ -186,7 +186,7 @@ public class PokemonMove extends Persisted
         this.pvpChargeDamage = pvpChargeDamage;
     }
 
-    protected int getPvpChargeEnergy()
+    public int getPvpChargeEnergy()
     {
         return pvpChargeEnergy;
     }
@@ -350,8 +350,11 @@ public class PokemonMove extends Persisted
 
     private static int getInt(JSONObject object, String key)
     {
+        if (!object.has(key))
+        {
+            return 0;
+        }
         String value = object.getString(key);
-
         if (value.isEmpty())
         {
             return 0;
@@ -366,6 +369,10 @@ public class PokemonMove extends Persisted
 
     private static double getDoubleIfExists(JSONObject object, String key)
     {
+        if (!object.has(key))
+        {
+            return 0.0;
+        }
         String value = object.getString(key);
         if (value.isEmpty())
         {
@@ -432,6 +439,18 @@ public class PokemonMove extends Persisted
     }
 
 
+    private static final String DATA_TAG = "data";
+    private static final String SETTINGS_TAG = "moveSettings";
+    private static final String COMBAT_SETTINGS_TAG = "combatMove";
+
+    private static final String POKEMON_TYPE_TAG = "pokemonType";
+    private static final String TYPE_TAG = "type";
+
+    private static final String ENERGY_DELTA_TAG = "energyDelta";
+    private static final String POWER_TAG = "power";
+
+    private static final String DURATION_TURNS_TAG = "durationTurns";
+
     /**
      *     {
      *         "templateId": "V0016_MOVE_DARK_PULSE",
@@ -485,6 +504,11 @@ public class PokemonMove extends Persisted
 
         move.nameId = getMoveNameId(json);
 
+        JSONObject data = json.getJSONObject(DATA_TAG);
+        JSONObject settings = data.getJSONObject(SETTINGS_TAG);
+
+        move.type = getType(settings, POKEMON_TYPE_TAG);
+
 
 //        this.power = updates.power;
 //        this.cooldown = updates.cooldown;
@@ -534,6 +558,34 @@ public class PokemonMove extends Persisted
 
         move.nameId = getMoveNameId(json);
 
+        JSONObject data = json.getJSONObject(DATA_TAG);
+        JSONObject settings = data.getJSONObject(COMBAT_SETTINGS_TAG);
+
+        move.type = getType(settings, TYPE_TAG);
+
+        int energyDelta = getInt(settings, ENERGY_DELTA_TAG);
+        double power = getDoubleIfExists(settings, POWER_TAG);
+        if (energyDelta >= 0)
+        {
+            //fast move
+            move.pvpFastEnergy = energyDelta;
+            move.pvpFastPower = (int) power;
+            move.pvpFastDuration = getDoubleIfExists(settings, DURATION_TURNS_TAG);
+
+            move.pvpChargeEnergy = 0;
+            move.pvpChargeDamage = 0;
+        }
+        else
+        {
+            //charge move
+            move.pvpChargeEnergy = energyDelta;
+            move.pvpChargeDamage = (int) power;
+
+            move.pvpFastEnergy = 0;
+            move.pvpFastPower = 0;
+            move.pvpFastDuration = 0.0;
+        }
+
 //        this.pvpChargeEnergy = updates.pvpChargeEnergy;
 //        this.pvpChargeDamage = updates.pvpChargeDamage;
 //
@@ -542,5 +594,16 @@ public class PokemonMove extends Persisted
 //        this.pvpFastDuration = updates.pvpFastDuration;
 
         return move;
+    }
+
+
+    private static String getType(JSONObject settingsJson, String tag)
+    {
+        if(settingsJson.has(tag))
+        {
+            String type = settingsJson.getString(tag);
+            return PokemonType.getTextByGamemasterTag(type);
+        }
+        return null;
     }
 }
