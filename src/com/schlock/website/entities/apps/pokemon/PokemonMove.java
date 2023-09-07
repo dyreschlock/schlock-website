@@ -4,6 +4,8 @@ import com.schlock.website.entities.Persisted;
 import com.schlock.website.services.apps.pokemon.impl.PokemonDataGameMasterServiceImpl;
 import org.apache.tapestry5.json.JSONObject;
 
+import java.text.DecimalFormat;
+
 public class PokemonMove extends Persisted
 {
     private static final String FAST_MOVE = "Fast Move";
@@ -449,6 +451,10 @@ public class PokemonMove extends Persisted
     private static final String ENERGY_DELTA_TAG = "energyDelta";
     private static final String POWER_TAG = "power";
 
+    private static final String DAMAGE_WINDOW_START_TAG = "damageWindowStartMs";
+    private static final String DAMAGE_WINDOW_END_TAG = "damageWindowEndMs";
+    private static final String DURATION_TAG = "durationMs";
+
     private static final String DURATION_TURNS_TAG = "durationTurns";
 
     /**
@@ -508,6 +514,36 @@ public class PokemonMove extends Persisted
         JSONObject settings = data.getJSONObject(SETTINGS_TAG);
 
         move.type = getType(settings, POKEMON_TYPE_TAG);
+
+        int energyDelta = getInt(settings, ENERGY_DELTA_TAG);
+        move.power = (int) getDoubleIfExists(settings, POWER_TAG);
+
+        double damageWindowStart = getDoubleIfExists(settings, DAMAGE_WINDOW_START_TAG);
+        double damageWindowEnd = getDoubleIfExists(settings, DAMAGE_WINDOW_END_TAG);
+        double duration = getDoubleIfExists(settings, DURATION_TAG);
+
+        double damageWindow = damageWindowStart / 1000;
+        double dodgeWindow = (damageWindowEnd - damageWindowStart) / 1000;
+        double cooldown = duration / 1000;
+
+        move.dodgeWindow = new DecimalFormat("0.00").format(dodgeWindow) + " seconds";
+        move.damageWindow = new DecimalFormat("0.00").format(damageWindow) + " seconds";
+        move.cooldown = cooldown;
+
+        if (energyDelta >= 0)
+        {
+            //fast move
+
+            move.energyGain = energyDelta;
+            move.energyCost = 0;
+        }
+        else
+        {
+            //charge move
+
+            move.energyCost = energyDelta;
+            move.energyGain = 0;
+        }
 
 
 //        this.power = updates.power;

@@ -312,8 +312,8 @@ public class PokemonDataGamepressServiceImpl extends AbstractPokemonDataExternal
                 140,
                 "3.50",
                 "-50",
-                "3.2 seconds",
                 "0.3 seconds",
+                "3.2 seconds",
                 "150",
                 "-70"
         );
