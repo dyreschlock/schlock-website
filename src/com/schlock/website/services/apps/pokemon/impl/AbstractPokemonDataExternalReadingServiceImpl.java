@@ -385,7 +385,82 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
     {
         loadAllJSONdata();
 
+        final String CHARGE_ENERGY = "[Move] PVP Charge Energy changed for %s / old=%s new=%s";
+        final String CHARGE_DAMAGE = "[Move] PVP Charge Damage changed for %s / old=%s new=%s";
+        final String FAST_ENERGY = "[Move] PVP Fast Energy changed for %s / old=%s new=%s";
+        final String FAST_POWER = "[Move] PVP Fast Power changed for %s / old=%s new=%s";
+        final String FAST_DURATION = "[Move] PVP Fast Duration changed for %s / old=%s new=%s";
+
+        final String COUNT_MESSAGE = "[Move] %s PVP Stats have been changed.";
+        final String NO_MESSAGE = "[Move] No PVP Stats have been changed. No differences found.";
+
         List<String> messages = new ArrayList<String>();
+
+        for(PokemonMove jsonMove : moveData.values())
+        {
+            PokemonMove database = getMoveFromDatabase(jsonMove);
+            if (database != null)
+            {
+                if (jsonMove.getPvpChargeEnergy() != database.getPvpChargeEnergy())
+                {
+                    String message = String.format(CHARGE_ENERGY, jsonMove.getNameId(), database.getPvpChargeEnergy(), jsonMove.getPvpChargeEnergy());
+
+                    database.setPvpChargeEnergy(jsonMove.getPvpChargeEnergy());
+                    moveDAO.save(database);
+
+                    messages.add(message);
+                }
+
+                if (jsonMove.getPvpChargeDamage() != database.getPvpChargeDamage())
+                {
+                    String message = String.format(CHARGE_DAMAGE, jsonMove.getNameId(), database.getPvpChargeDamage(), jsonMove.getPvpChargeDamage());
+
+                    database.setPvpChargeDamage(jsonMove.getPvpChargeDamage());
+                    moveDAO.save(database);
+
+                    messages.add(message);
+                }
+
+                if (jsonMove.getPvpFastEnergy() != database.getPvpFastEnergy())
+                {
+                    String message = String.format(FAST_ENERGY, jsonMove.getNameId(), database.getPvpFastEnergy(), jsonMove.getPvpFastEnergy());
+
+                    database.setPvpFastEnergy(jsonMove.getPvpFastEnergy());
+                    moveDAO.save(database);
+
+                    messages.add(message);
+                }
+
+                if (jsonMove.getPvpFastPower() != database.getPvpFastPower())
+                {
+                    String message = String.format(FAST_POWER, jsonMove.getNameId(), database.getPvpFastPower(), jsonMove.getPvpFastPower());
+
+                    database.setPvpFastPower(jsonMove.getPvpFastPower());
+                    moveDAO.save(database);
+
+                    messages.add(message);
+                }
+
+                if (jsonMove.getPvpFastDuration() != database.getPvpFastDuration())
+                {
+                    String message = String.format(FAST_DURATION, jsonMove.getNameId(), database.getPvpFastDuration(), jsonMove.getPvpFastDuration());
+
+                    database.setPvpFastDuration(jsonMove.getPvpFastDuration());
+                    moveDAO.save(database);
+
+                    messages.add(message);
+                }
+            }
+        }
+
+        if (messages.size() > 0)
+        {
+            messages.add(String.format(COUNT_MESSAGE, messages.size()));
+        }
+        else
+        {
+            messages.add(NO_MESSAGE);
+        }
 
         return messages;
     }
