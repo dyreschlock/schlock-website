@@ -10,10 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExternalReadingServiceImpl implements PokemonDataGameMasterService
 {
@@ -21,17 +18,11 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
 
     public static final String GM_TEMPLATE_ID = "templateId";
 
-    private final PokemonDataDAO dataDAO;
-    private final PokemonMoveDAO moveDAO;
-
     public PokemonDataGameMasterServiceImpl(DeploymentContext deploymentContext,
                                                 PokemonDataDAO dataDAO,
                                                 PokemonMoveDAO moveDAO)
     {
-        super(deploymentContext);
-
-        this.dataDAO = dataDAO;
-        this.moveDAO = moveDAO;
+        super(deploymentContext, dataDAO, moveDAO);
     }
 
     protected PokemonMove getMoveFromDatabase(PokemonMove move)
@@ -128,6 +119,15 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
 
 
     protected void loadAllJSONdata()
+    {
+        if (pokemonData.isEmpty() && moveData.isEmpty())
+        {
+            createObjectFromJSON();
+            connectMovesToPokemon();
+        }
+    }
+
+    private void createObjectFromJSON()
     {
         JSONArray objects = readJSONArrayFromFile(GAME_MASTER_FILE);
 
@@ -242,4 +242,37 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
                 StringUtils.contains(templateId, MOVE_TAG);
     }
 
+
+    private void connectMovesToPokemon()
+    {
+        for(PokemonData data : pokemonData.values())
+        {
+            String standardMoveIds = data.getStandardMoveNames();
+            Set<PokemonMove> standardMoves = getMovesFromIds(standardMoveIds);
+
+            data.setStandardMoves(standardMoves);
+
+            String allMoveIds = data.getAllMoveNames();
+            Set<PokemonMove> allMoves = getMovesFromIds(allMoveIds);
+
+            data.setAllMoves(allMoves);
+        }
+    }
+
+    private Set<PokemonMove> getMovesFromIds(String moveNameIds)
+    {
+        Set<PokemonMove> moves = new HashSet<PokemonMove>();
+        for(String moveNameId : moveNameIds.split(","))
+        {
+            if (StringUtils.isNotEmpty(moveNameId.trim()))
+            {
+                PokemonMove move = moveData.get(moveNameId.trim());
+                if (move != null)
+                {
+                    moves.add(move);
+                }
+            }
+        }
+        return moves;
+    }
 }

@@ -58,10 +58,14 @@
                 <h2>Update Pokemon Raid/Rocket Information</h2>
                 <br/>
                 - <t:eventlink t:id="reportPokemonGameMaster">Report differences - Database and Game Master</t:eventlink><br />
-                - <t:eventlink t:id="updateDatabaseGameMaster">Update database from Game Master</t:eventlink><br />
+                - Moves: <t:eventlink t:id="updateMovesAddNew">Add New Moves</t:eventlink>
+                    / <t:eventlink t:id="updateMovesMainStats">Update Main Stats</t:eventlink>
+                    / <t:eventlink t:id="updateMovesPvpStats">Updates PVP Stats</t:eventlink><br/>
+                - Pokemon: <t:eventlink t:id="updatePokemonAddNew">Add New Pokemon</t:eventlink>
+                    / <t:eventlink t:id="updatePokemonStats">Update Stats</t:eventlink>
+                    / <t:eventlink t:id="updatePokemonMoves">Add New Moves</t:eventlink><br />
                 <br/>
                 - <t:eventlink t:id="reportPokemonGamepress">Report differences - Database and Gamepress</t:eventlink><br />
-                - <t:eventlink t:id="updateDatabaseGamepress">Update database from Gamepress</t:eventlink><br/>
             </div>
 
         </t:if>

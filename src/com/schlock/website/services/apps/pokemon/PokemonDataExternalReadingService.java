@@ -6,5 +6,13 @@ public interface PokemonDataExternalReadingService
 {
     List<String> reportDifferences();
 
-    void updateDatabase();
+    List<String> updateAll();
+
+    List<String> updateMovesAddNew();
+    List<String> updateMovesMainStats();
+    List<String> updateMovesPvpStats();
+
+    List<String> updatePokemonAddNew();
+    List<String> updatePokemonStats();
+    List<String> updatePokemonMoves();
 }

@@ -29,19 +29,11 @@ public class PokemonDataGamepressServiceImpl extends AbstractPokemonDataExternal
     // https://gamepress.gg/pokemongo/assets/data/cpm.json
     private static final String CPM_FILE = "cpm.json";
 
-
-    private final PokemonDataDAO dataDAO;
-    private final PokemonMoveDAO moveDAO;
-
-
-    public PokemonDataGamepressServiceImpl(PokemonDataDAO dataDAO,
-                                            PokemonMoveDAO moveDAO,
-                                            DeploymentContext deploymentContext)
+    public PokemonDataGamepressServiceImpl(DeploymentContext deploymentContext,
+                                           PokemonDataDAO dataDAO,
+                                           PokemonMoveDAO moveDAO)
     {
-        super(deploymentContext);
-
-        this.dataDAO = dataDAO;
-        this.moveDAO = moveDAO;
+        super(deploymentContext, dataDAO, moveDAO);
     }
 
 

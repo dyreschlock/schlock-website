@@ -141,27 +141,61 @@ public class Regeneration
     void onReportPokemonGameMaster()
     {
         List<String> messages = pokemonGameMasterService.reportDifferences();
+        outputMessages(messages);
+    }
 
+    @CommitAfter
+    void onUpdateMovesAddNew()
+    {
+        List<String> messages = pokemonGameMasterService.updateMovesAddNew();
+        outputMessages(messages);
+    }
+
+    @CommitAfter
+    void onUpdateMovesMainStats()
+    {
+        List<String> messages = pokemonGameMasterService.updateMovesMainStats();
+        outputMessages(messages);
+    }
+
+    @CommitAfter
+    void onUpdateMovesPvpStats()
+    {
+        List<String> messages = pokemonGameMasterService.updateMovesPvpStats();
+        outputMessages(messages);
+    }
+
+    @CommitAfter
+    void onUpdatePokemonAddNew()
+    {
+        List<String> messages = pokemonGameMasterService.updatePokemonAddNew();
+        outputMessages(messages);
+    }
+
+    @CommitAfter
+    void onUpdatePokemonStats()
+    {
+        List<String> messages = pokemonGameMasterService.updatePokemonStats();
+        outputMessages(messages);
+    }
+
+    @CommitAfter
+    void onUpdatePokemonMoves()
+    {
+        List<String> messages = pokemonGameMasterService.updatePokemonMoves();
+        outputMessages(messages);
+    }
+
+    private void outputMessages(List<String> messages)
+    {
         if (messages.isEmpty())
         {
-            System.out.println("There are no differences.");
+            System.out.println("There are no differences/changes.");
         }
 
         for(String message : messages)
         {
             System.out.println(message);
         }
-    }
-
-    @CommitAfter
-    void onUpdateDatabaseGamepress()
-    {
-        pokemonGamepressService.updateDatabase();
-    }
-
-    @CommitAfter
-    void onUpdateDatabaseGameMaster()
-    {
-        pokemonGameMasterService.updateDatabase();
     }
 }
