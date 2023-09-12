@@ -267,6 +267,11 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
         final String NEW_MOVE = "%s has a new %s move added: %s";
         final String OLD_MOVE = "%s has an old %s move removed: %s";
 
+        if (oldMoves.size() > 0)
+        {
+            return new ArrayList<String>();
+        }
+
         Set<String> sameMoves = new HashSet<String>();
         for(PokemonMove newMove : newMoves)
         {
@@ -564,7 +569,69 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
     {
         loadAllJSONdata();
 
+        final String NEW_STD_MOVE = "[Pokemon] %s has been given a new Standard move: %s";
+        final String NEW_ALL_MOVE = "[Pokemon] %s has been given a new All move: %s";
+
+        final String COUNT_MESSAGE = "[Pokemon] %s moves have been added to Pokemon.";
+        final String NO_MESSAGE = "[Pokemon] No new moves have been added. No differences found.";
+
         List<String> messages = new ArrayList<String>();
+
+        for(PokemonData jsonPoke : pokemonData.values())
+        {
+            PokemonData database = getPokemonFromDatabase(jsonPoke);
+            if (database != null)
+            {
+                if(database.getStandardMoves().size() == 0 && database.getAllMoves().size() == 0)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    for(PokemonMove fakeMove : jsonPoke.getAllMoves())
+                    {
+                        PokemonMove move = getMoveFromDatabase(fakeMove);
+
+                        database.getAllMoves().add(move);
+
+                        if (sb.length() > 0)
+                        {
+                            sb.append(",");
+                        }
+                        sb.append(move.getName());
+
+                        messages.add(String.format(NEW_ALL_MOVE, database.getNameId(), move.getNameId()));
+                    }
+                    database.setAllMoveNames(sb.toString());
+
+
+                    sb = new StringBuilder();
+                    for(PokemonMove fakeMove : jsonPoke.getStandardMoves())
+                    {
+                        PokemonMove move = getMoveFromDatabase(fakeMove);
+
+                        database.getStandardMoves().add(move);
+
+                        if (sb.length() > 0)
+                        {
+                            sb.append(",");
+                        }
+                        sb.append(move.getName());
+
+                        messages.add(String.format(NEW_STD_MOVE, database.getNameId(), move.getNameId()));
+                    }
+                    database.setStandardMoveNames(sb.toString());
+
+                    dataDAO.save(database);
+                }
+            }
+        }
+
+        if (messages.size() > 0)
+        {
+            messages.add(String.format(COUNT_MESSAGE, messages.size()));
+        }
+        else
+        {
+            messages.add(NO_MESSAGE);
+        }
 
         return messages;
     }
@@ -573,7 +640,61 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
     {
         loadAllJSONdata();
 
+        final String ATTACK = "[Pokemon] Attack has been updated for %s: old=%s new=%s";
+        final String DEFENSE = "[Pokemon] Defense has been updated for %s: old=%s new=%s";
+        final String STAMINA = "[Pokemon] Stamina has been updated for %s: old=%s new=%s";
+
+        final String COUNT_MESSAGE = "[Pokemon] %s stats have been updated for Pokemon.";
+        final String NO_MESSAGE = "[Pokemon] No stats have been changed. No differences found.";
+
         List<String> messages = new ArrayList<String>();
+
+        for(PokemonData jsonPoke : pokemonData.values())
+        {
+            PokemonData database = getPokemonFromDatabase(jsonPoke);
+            if (database != null)
+            {
+
+                if (jsonPoke.getBaseStamina() != 0 && jsonPoke.getBaseStamina() != database.getBaseStamina())
+                {
+                    String message = String.format(STAMINA, jsonPoke.getNameId(), database.getBaseStamina(), jsonPoke.getBaseStamina());
+
+                    database.setBaseStamina(jsonPoke.getBaseStamina());
+                    dataDAO.save(database);
+
+                    messages.add(message);
+                }
+
+                if (jsonPoke.getBaseAttack() != 0 && jsonPoke.getBaseAttack() != database.getBaseAttack())
+                {
+                    String message = String.format(ATTACK, jsonPoke.getNameId(), database.getBaseAttack(), jsonPoke.getBaseAttack());
+
+                    database.setBaseAttack(jsonPoke.getBaseAttack());
+                    dataDAO.save(database);
+
+                    messages.add(message);
+                }
+
+                if (jsonPoke.getBaseDefense() != 0 && jsonPoke.getBaseDefense() != database.getBaseDefense())
+                {
+                    String message = String.format(DEFENSE, jsonPoke.getNameId(), database.getBaseDefense(), jsonPoke.getBaseDefense());
+
+                    database.setBaseDefense(jsonPoke.getBaseDefense());
+                    dataDAO.save(database);
+
+                    messages.add(message);
+                }
+            }
+        }
+
+        if (messages.size() > 0)
+        {
+            messages.add(String.format(COUNT_MESSAGE, messages.size()));
+        }
+        else
+        {
+            messages.add(NO_MESSAGE);
+        }
 
         return messages;
     }
