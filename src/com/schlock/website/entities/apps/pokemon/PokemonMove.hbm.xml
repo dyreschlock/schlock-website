@@ -9,6 +9,7 @@
 
         <property name="name" />
         <property name="nameId" />
+        <property name="uuid" />
         <property name="type" />
         <property name="category" />
 

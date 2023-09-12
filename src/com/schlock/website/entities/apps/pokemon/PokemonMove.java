@@ -13,6 +13,7 @@ public class PokemonMove extends Persisted
 
     private String name;
     private String nameId;
+    private int uuid;
     private String type;
     private String category;
 
@@ -56,6 +57,16 @@ public class PokemonMove extends Persisted
     public void setNameId(String nameId)
     {
         this.nameId = nameId;
+    }
+
+    public int getUuid()
+    {
+        return uuid;
+    }
+
+    public void setUuid(int uuid)
+    {
+        this.uuid = uuid;
     }
 
     public String getType()
@@ -533,6 +544,7 @@ public class PokemonMove extends Persisted
         if (energyDelta >= 0)
         {
             //fast move
+            move.category = FAST_MOVE;
 
             move.energyGain = energyDelta;
             move.energyCost = 0;
@@ -540,6 +552,7 @@ public class PokemonMove extends Persisted
         else
         {
             //charge move
+            move.category = CHARGE_MOVE;
 
             move.energyCost = energyDelta;
             move.energyGain = 0;
@@ -604,6 +617,8 @@ public class PokemonMove extends Persisted
         if (energyDelta >= 0)
         {
             //fast move
+            move.category = FAST_MOVE;
+
             move.pvpFastEnergy = energyDelta;
             move.pvpFastPower = (int) power;
             move.pvpFastDuration = getDoubleIfExists(settings, DURATION_TURNS_TAG);
@@ -614,6 +629,8 @@ public class PokemonMove extends Persisted
         else
         {
             //charge move
+            move.category = CHARGE_MOVE;
+
             move.pvpChargeEnergy = energyDelta;
             move.pvpChargeDamage = (int) power;
 
