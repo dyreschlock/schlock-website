@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.json.JSONArray;
 
 import java.io.*;
+import java.lang.reflect.Method;
 import java.util.*;
 
 public abstract class AbstractPokemonDataExternalReadingServiceImpl implements PokemonDataExternalReadingService
@@ -267,11 +268,6 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
         final String NEW_MOVE = "%s has a new %s move added: %s";
         final String OLD_MOVE = "%s has an old %s move removed: %s";
 
-        if (oldMoves.size() > 0)
-        {
-            return new ArrayList<String>();
-        }
-
         Set<String> sameMoves = new HashSet<String>();
         for(PokemonMove newMove : newMoves)
         {
@@ -360,33 +356,18 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
             if (database == null)
             {
                 moveDAO.save(jsonMove);
-                String name = getMoveIdentifier(jsonMove);
-                messages.add(String.format(ADD_MESSAGE, name));
+
+                messages.add(String.format(ADD_MESSAGE, getMoveIdentifier(jsonMove)));
             }
         }
 
-        if (messages.size() > 0)
-        {
-            messages.add(String.format(COUNT_MESSAGE, messages.size()));
-        }
-        else
-        {
-            messages.add(NO_MESSAGE);
-        }
-
+        messages = addCountMessage(messages, COUNT_MESSAGE, NO_MESSAGE);
         return messages;
     }
 
     public List<String> updateMovesMainStats()
     {
         loadAllJSONdata();
-
-        final String DODGE_WINDOW = "[Move] Dodge Window changed for %s / old=%s new=%s";
-        final String DAMAGE_WINDOW = "[Move] Damage Window changed for %s / old=%s new=%s";
-        final String ENERGY_GAIN = "[Move] Energy Gain changed for %s / old=%s new=%s";
-        final String ENERGY_COST = "[Move] Energy Cost changed for %s / old=%s new=%s";
-        final String COOLDOWN = "[Move] Cooldown changed for %s / old=%s new=%s";
-        final String POWER = "[Move] Power changed for %s / old=%s new=%s";
 
         final String COUNT_MESSAGE = "[Move] %s Stats have been changed.";
         final String NO_MESSAGE = "[Move] No Standard Stats has been changed. No differences found.";
@@ -398,89 +379,24 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
             PokemonMove database = getMoveFromDatabase(jsonMove);
             if (database != null)
             {
-                if(StringUtils.isNotEmpty(jsonMove.getDodgeWindow()) && !StringUtils.equals(jsonMove.getDodgeWindow(), database.getDodgeWindow()))
-                {
-                    String message = String.format(DODGE_WINDOW, jsonMove.getNameId(), database.getDodgeWindow(), jsonMove.getDodgeWindow());
+                messages = updateStringFieldPokemonMove(messages, database, "DodgeWindow", jsonMove.getDodgeWindow());
+                messages = updateStringFieldPokemonMove(messages, database, "DamageWindow", jsonMove.getDamageWindow());
 
-                    database.setDodgeWindow(jsonMove.getDodgeWindow());
-                    moveDAO.save(database);
+                messages = updateIntegerFieldPokemonMove(messages, database, "EnergyGain", jsonMove.getEnergyGain());
+                messages = updateIntegerFieldPokemonMove(messages, database, "EnergyCost", jsonMove.getEnergyCost());
+                messages = updateIntegerFieldPokemonMove(messages, database, "Power", jsonMove.getPower());
 
-                    messages.add(message);
-                }
-
-                if(StringUtils.isNotEmpty(jsonMove.getDamageWindow()) && !StringUtils.equals(jsonMove.getDamageWindow(), database.getDamageWindow()))
-                {
-                    String message = String.format(DAMAGE_WINDOW, jsonMove.getNameId(), database.getDamageWindow(), jsonMove.getDamageWindow());
-
-                    database.setDamageWindow(jsonMove.getDamageWindow());
-                    moveDAO.save(database);
-
-                    messages.add(message);
-                }
-
-                if (jsonMove.getEnergyGain() != 0 && jsonMove.getEnergyGain() != database.getEnergyGain())
-                {
-                    String message = String.format(ENERGY_GAIN, jsonMove.getNameId(), database.getEnergyGain(), jsonMove.getEnergyGain());
-
-                    database.setEnergyGain(jsonMove.getEnergyGain());
-                    moveDAO.save(database);
-
-                    messages.add(message);
-                }
-
-                if (jsonMove.getEnergyCost() != 0 && jsonMove.getEnergyCost() != database.getEnergyCost())
-                {
-                    String message = String.format(ENERGY_COST, jsonMove.getNameId(), database.getEnergyCost(), jsonMove.getEnergyCost());
-
-                    database.setEnergyCost(jsonMove.getEnergyCost());
-                    moveDAO.save(database);
-
-                    messages.add(message);
-                }
-
-                if (jsonMove.getCooldown() != 0 && jsonMove.getCooldown() != database.getCooldown())
-                {
-                    String message = String.format(COOLDOWN, jsonMove.getNameId(), database.getCooldown(), jsonMove.getCooldown());
-
-                    database.setCooldown(jsonMove.getCooldown());
-                    moveDAO.save(database);
-
-                    messages.add(message);
-                }
-
-                if (jsonMove.getPower() != 0 && jsonMove.getPower() != database.getPower())
-                {
-                    String message = String.format(POWER, jsonMove.getNameId(), database.getPower(), jsonMove.getPower());
-
-                    database.setPower(jsonMove.getPower());
-                    moveDAO.save(database);
-
-                    messages.add(message);
-                }
+                messages = updateDoubleFieldPokemonMove(messages, database, "Cooldown", jsonMove.getCooldown());
             }
         }
 
-        if (messages.size() > 0)
-        {
-            messages.add(String.format(COUNT_MESSAGE, messages.size()));
-        }
-        else
-        {
-            messages.add(NO_MESSAGE);
-        }
-
+        messages = addCountMessage(messages, COUNT_MESSAGE, NO_MESSAGE);
         return messages;
     }
 
     public List<String> updateMovesPvpStats()
     {
         loadAllJSONdata();
-
-        final String CHARGE_ENERGY = "[Move] PVP Charge Energy changed for %s / old=%s new=%s";
-        final String CHARGE_DAMAGE = "[Move] PVP Charge Damage changed for %s / old=%s new=%s";
-        final String FAST_ENERGY = "[Move] PVP Fast Energy changed for %s / old=%s new=%s";
-        final String FAST_POWER = "[Move] PVP Fast Power changed for %s / old=%s new=%s";
-        final String FAST_DURATION = "[Move] PVP Fast Duration changed for %s / old=%s new=%s";
 
         final String COUNT_MESSAGE = "[Move] %s PVP Stats have been changed.";
         final String NO_MESSAGE = "[Move] No PVP Stats have been changed. No differences found.";
@@ -492,67 +408,15 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
             PokemonMove database = getMoveFromDatabase(jsonMove);
             if (database != null)
             {
-                if (jsonMove.getPvpChargeEnergy() != 0 && jsonMove.getPvpChargeEnergy() != database.getPvpChargeEnergy())
-                {
-                    String message = String.format(CHARGE_ENERGY, jsonMove.getNameId(), database.getPvpChargeEnergy(), jsonMove.getPvpChargeEnergy());
-
-                    database.setPvpChargeEnergy(jsonMove.getPvpChargeEnergy());
-                    moveDAO.save(database);
-
-                    messages.add(message);
-                }
-
-                if (jsonMove.getPvpChargeDamage() != 0 && jsonMove.getPvpChargeDamage() != database.getPvpChargeDamage())
-                {
-                    String message = String.format(CHARGE_DAMAGE, jsonMove.getNameId(), database.getPvpChargeDamage(), jsonMove.getPvpChargeDamage());
-
-                    database.setPvpChargeDamage(jsonMove.getPvpChargeDamage());
-                    moveDAO.save(database);
-
-                    messages.add(message);
-                }
-
-                if (jsonMove.getPvpFastEnergy() != 0 && jsonMove.getPvpFastEnergy() != database.getPvpFastEnergy())
-                {
-                    String message = String.format(FAST_ENERGY, jsonMove.getNameId(), database.getPvpFastEnergy(), jsonMove.getPvpFastEnergy());
-
-                    database.setPvpFastEnergy(jsonMove.getPvpFastEnergy());
-                    moveDAO.save(database);
-
-                    messages.add(message);
-                }
-
-                if (jsonMove.getPvpFastPower() != 0 && jsonMove.getPvpFastPower() != database.getPvpFastPower())
-                {
-                    String message = String.format(FAST_POWER, jsonMove.getNameId(), database.getPvpFastPower(), jsonMove.getPvpFastPower());
-
-                    database.setPvpFastPower(jsonMove.getPvpFastPower());
-                    moveDAO.save(database);
-
-                    messages.add(message);
-                }
-
-                if (jsonMove.getPvpFastDuration() != 0 && jsonMove.getPvpFastDuration() != database.getPvpFastDuration())
-                {
-                    String message = String.format(FAST_DURATION, jsonMove.getNameId(), database.getPvpFastDuration(), jsonMove.getPvpFastDuration());
-
-                    database.setPvpFastDuration(jsonMove.getPvpFastDuration());
-                    moveDAO.save(database);
-
-                    messages.add(message);
-                }
+                messages = updateIntegerFieldPokemonMove(messages, database, "PvpChargeEnergy", jsonMove.getPvpChargeEnergy());
+                messages = updateIntegerFieldPokemonMove(messages, database, "PvpChargeDamage", jsonMove.getPvpChargeDamage());
+                messages = updateIntegerFieldPokemonMove(messages, database, "PvpFastEnergy", jsonMove.getPvpFastEnergy());
+                messages = updateIntegerFieldPokemonMove(messages, database, "PvpFastPower", jsonMove.getPvpFastPower());
+                messages = updateDoubleFieldPokemonMove(messages, database, "PvpFastDuration", jsonMove.getPvpFastDuration());
             }
         }
 
-        if (messages.size() > 0)
-        {
-            messages.add(String.format(COUNT_MESSAGE, messages.size()));
-        }
-        else
-        {
-            messages.add(NO_MESSAGE);
-        }
-
+        messages = addCountMessage(messages, COUNT_MESSAGE, NO_MESSAGE);
         return messages;
     }
 
@@ -621,28 +485,23 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
 
                     dataDAO.save(database);
                 }
+                else
+                {
+
+
+
+
+                }
             }
         }
 
-        if (messages.size() > 0)
-        {
-            messages.add(String.format(COUNT_MESSAGE, messages.size()));
-        }
-        else
-        {
-            messages.add(NO_MESSAGE);
-        }
-
+        messages = addCountMessage(messages, COUNT_MESSAGE, NO_MESSAGE);
         return messages;
     }
 
     public List<String> updatePokemonStats()
     {
         loadAllJSONdata();
-
-        final String ATTACK = "[Pokemon] Attack has been updated for %s: old=%s new=%s";
-        final String DEFENSE = "[Pokemon] Defense has been updated for %s: old=%s new=%s";
-        final String STAMINA = "[Pokemon] Stamina has been updated for %s: old=%s new=%s";
 
         final String COUNT_MESSAGE = "[Pokemon] %s stats have been updated for Pokemon.";
         final String NO_MESSAGE = "[Pokemon] No stats have been changed. No differences found.";
@@ -654,39 +513,147 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
             PokemonData database = getPokemonFromDatabase(jsonPoke);
             if (database != null)
             {
-
-                if (jsonPoke.getBaseStamina() != 0 && jsonPoke.getBaseStamina() != database.getBaseStamina())
-                {
-                    String message = String.format(STAMINA, jsonPoke.getNameId(), database.getBaseStamina(), jsonPoke.getBaseStamina());
-
-                    database.setBaseStamina(jsonPoke.getBaseStamina());
-                    dataDAO.save(database);
-
-                    messages.add(message);
-                }
-
-                if (jsonPoke.getBaseAttack() != 0 && jsonPoke.getBaseAttack() != database.getBaseAttack())
-                {
-                    String message = String.format(ATTACK, jsonPoke.getNameId(), database.getBaseAttack(), jsonPoke.getBaseAttack());
-
-                    database.setBaseAttack(jsonPoke.getBaseAttack());
-                    dataDAO.save(database);
-
-                    messages.add(message);
-                }
-
-                if (jsonPoke.getBaseDefense() != 0 && jsonPoke.getBaseDefense() != database.getBaseDefense())
-                {
-                    String message = String.format(DEFENSE, jsonPoke.getNameId(), database.getBaseDefense(), jsonPoke.getBaseDefense());
-
-                    database.setBaseDefense(jsonPoke.getBaseDefense());
-                    dataDAO.save(database);
-
-                    messages.add(message);
-                }
+                messages = updateIntegerFieldPokemon(messages, database, "BaseStamina", jsonPoke.getBaseStamina());
+                messages = updateIntegerFieldPokemon(messages, database, "BaseAttack", jsonPoke.getBaseAttack());
+                messages = updateIntegerFieldPokemon(messages, database, "BaseDefense", jsonPoke.getBaseDefense());
             }
         }
 
+        messages = addCountMessage(messages, COUNT_MESSAGE, NO_MESSAGE);
+        return messages;
+    }
+
+
+    private List<String> updateIntegerFieldPokemon(List<String> messages, PokemonData target, final String fieldName, int newValue)
+    {
+        final String GETTER = "get" + fieldName;
+        final String SETTER = "set" + fieldName;
+
+        try
+        {
+            Method getter = target.getClass().getMethod(GETTER);
+            Object returnValue = getter.invoke(target);
+
+            int oldValue = ((Integer) returnValue).intValue();
+
+            if (newValue != 0 && newValue != oldValue)
+            {
+                final String MESSAGE = "[Pokemon] %s changed for %s / old=%s new=%s";
+                String message = String.format(MESSAGE, fieldName, target.getNameId(), oldValue, newValue);
+
+                Method setter = target.getClass().getMethod(SETTER, int.class);
+                setter.invoke(target, newValue);
+
+                dataDAO.save(target);
+
+                messages.add(message);
+            }
+            return messages;
+        }
+        catch(Exception e)
+        {
+            throw new RuntimeException("Something wrong with " + target.getNameId(), e);
+        }
+    }
+
+    private List<String> updateIntegerFieldPokemonMove(List<String> messages, PokemonMove target, final String fieldName, int newValue)
+    {
+        final String GETTER = "get" + fieldName;
+        final String SETTER = "set" + fieldName;
+
+        try
+        {
+            Method getter = target.getClass().getMethod(GETTER);
+            Object returnValue = getter.invoke(target);
+
+            int oldValue = ((Integer) returnValue).intValue();
+
+            if (newValue != 0 && newValue != oldValue)
+            {
+                final String MESSAGE = "[Move] %s changed for %s / old=%s new=%s";
+                String message = String.format(MESSAGE, fieldName, target.getNameId(), oldValue, newValue);
+
+                Method setter = target.getClass().getMethod(SETTER, int.class);
+                setter.invoke(target, newValue);
+
+                moveDAO.save(target);
+
+                messages.add(message);
+            }
+            return messages;
+        }
+        catch(Exception e)
+        {
+            throw new RuntimeException("Something wrong with " + target.getNameId(), e);
+        }
+    }
+
+    private List<String> updateDoubleFieldPokemonMove(List<String> messages, PokemonMove target, final String fieldName, double newValue)
+    {
+        final String GETTER = "get" + fieldName;
+        final String SETTER = "set" + fieldName;
+
+        try
+        {
+            Method getter = target.getClass().getMethod(GETTER);
+            Object returnValue = getter.invoke(target);
+
+            double oldValue = ((Double) returnValue).doubleValue();
+
+            if (newValue != 0 && newValue != oldValue)
+            {
+                final String MESSAGE = "[Move] %s changed for %s / old=%s new=%s";
+                String message = String.format(MESSAGE, fieldName, target.getNameId(), oldValue, newValue);
+
+                Method setter = target.getClass().getMethod(SETTER, double.class);
+                setter.invoke(target, newValue);
+
+                moveDAO.save(target);
+
+                messages.add(message);
+            }
+            return messages;
+        }
+        catch(Exception e)
+        {
+            throw new RuntimeException("Something wrong with " + target.getNameId(), e);
+        }
+    }
+
+    private List<String> updateStringFieldPokemonMove(List<String> messages, PokemonMove target, final String fieldName, String newValue)
+    {
+        final String GETTER = "get" + fieldName;
+        final String SETTER = "set" + fieldName;
+
+        try
+        {
+            Method getter = target.getClass().getMethod(GETTER);
+            Object returnValue = getter.invoke(target);
+
+            String oldValue = (String) returnValue;
+
+            if(StringUtils.isNotEmpty(newValue) && !StringUtils.equals(newValue, oldValue))
+            {
+                final String MESSAGE = "[Move] %s changed for %s / old=%s new=%s";
+                String message = String.format(MESSAGE, fieldName, target.getNameId(), oldValue, newValue);
+
+                Method setter = target.getClass().getMethod(SETTER, String.class);
+                setter.invoke(target, newValue);
+
+                moveDAO.save(target);
+
+                messages.add(message);
+            }
+            return messages;
+        }
+        catch(Exception e)
+        {
+            throw new RuntimeException("Something wrong with " + target.getNameId(), e);
+        }
+    }
+
+    private List<String> addCountMessage(List<String> messages, final String COUNT_MESSAGE, final String NO_MESSAGE)
+    {
         if (messages.size() > 0)
         {
             messages.add(String.format(COUNT_MESSAGE, messages.size()));
@@ -695,7 +662,6 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
         {
             messages.add(NO_MESSAGE);
         }
-
         return messages;
     }
 }
