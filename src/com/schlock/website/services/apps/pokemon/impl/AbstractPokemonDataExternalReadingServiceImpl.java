@@ -376,7 +376,93 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
     {
         loadAllJSONdata();
 
+        final String DODGE_WINDOW = "[Move] Dodge Window changed for %s / old=%s new=%s";
+        final String DAMAGE_WINDOW = "[Move] Damage Window changed for %s / old=%s new=%s";
+        final String ENERGY_GAIN = "[Move] Energy Gain changed for %s / old=%s new=%s";
+        final String ENERGY_COST = "[Move] Energy Cost changed for %s / old=%s new=%s";
+        final String COOLDOWN = "[Move] Cooldown changed for %s / old=%s new=%s";
+        final String POWER = "[Move] Power changed for %s / old=%s new=%s";
+
+        final String COUNT_MESSAGE = "[Move] %s Stats have been changed.";
+        final String NO_MESSAGE = "[Move] No Standard Stats has been changed. No differences found.";
+
         List<String> messages = new ArrayList<String>();
+
+        for(PokemonMove jsonMove : moveData.values())
+        {
+            PokemonMove database = getMoveFromDatabase(jsonMove);
+            if (database != null)
+            {
+                if(StringUtils.isNotEmpty(jsonMove.getDodgeWindow()) && !StringUtils.equals(jsonMove.getDodgeWindow(), database.getDodgeWindow()))
+                {
+                    String message = String.format(DODGE_WINDOW, jsonMove.getNameId(), database.getDodgeWindow(), jsonMove.getDodgeWindow());
+
+                    database.setDodgeWindow(jsonMove.getDodgeWindow());
+                    moveDAO.save(database);
+
+                    messages.add(message);
+                }
+
+                if(StringUtils.isNotEmpty(jsonMove.getDamageWindow()) && !StringUtils.equals(jsonMove.getDamageWindow(), database.getDamageWindow()))
+                {
+                    String message = String.format(DAMAGE_WINDOW, jsonMove.getNameId(), database.getDamageWindow(), jsonMove.getDamageWindow());
+
+                    database.setDamageWindow(jsonMove.getDamageWindow());
+                    moveDAO.save(database);
+
+                    messages.add(message);
+                }
+
+                if (jsonMove.getEnergyGain() != 0 && jsonMove.getEnergyGain() != database.getEnergyGain())
+                {
+                    String message = String.format(ENERGY_GAIN, jsonMove.getNameId(), database.getEnergyGain(), jsonMove.getEnergyGain());
+
+                    database.setEnergyGain(jsonMove.getEnergyGain());
+                    moveDAO.save(database);
+
+                    messages.add(message);
+                }
+
+                if (jsonMove.getEnergyCost() != 0 && jsonMove.getEnergyCost() != database.getEnergyCost())
+                {
+                    String message = String.format(ENERGY_COST, jsonMove.getNameId(), database.getEnergyCost(), jsonMove.getEnergyCost());
+
+                    database.setEnergyCost(jsonMove.getEnergyCost());
+                    moveDAO.save(database);
+
+                    messages.add(message);
+                }
+
+                if (jsonMove.getCooldown() != 0 && jsonMove.getCooldown() != database.getCooldown())
+                {
+                    String message = String.format(COOLDOWN, jsonMove.getNameId(), database.getCooldown(), jsonMove.getCooldown());
+
+                    database.setCooldown(jsonMove.getCooldown());
+                    moveDAO.save(database);
+
+                    messages.add(message);
+                }
+
+                if (jsonMove.getPower() != 0 && jsonMove.getPower() != database.getPower())
+                {
+                    String message = String.format(POWER, jsonMove.getNameId(), database.getPower(), jsonMove.getPower());
+
+                    database.setPower(jsonMove.getPower());
+                    moveDAO.save(database);
+
+                    messages.add(message);
+                }
+            }
+        }
+
+        if (messages.size() > 0)
+        {
+            messages.add(String.format(COUNT_MESSAGE, messages.size()));
+        }
+        else
+        {
+            messages.add(NO_MESSAGE);
+        }
 
         return messages;
     }
@@ -401,7 +487,7 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
             PokemonMove database = getMoveFromDatabase(jsonMove);
             if (database != null)
             {
-                if (jsonMove.getPvpChargeEnergy() != database.getPvpChargeEnergy())
+                if (jsonMove.getPvpChargeEnergy() != 0 && jsonMove.getPvpChargeEnergy() != database.getPvpChargeEnergy())
                 {
                     String message = String.format(CHARGE_ENERGY, jsonMove.getNameId(), database.getPvpChargeEnergy(), jsonMove.getPvpChargeEnergy());
 
@@ -411,7 +497,7 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
                     messages.add(message);
                 }
 
-                if (jsonMove.getPvpChargeDamage() != database.getPvpChargeDamage())
+                if (jsonMove.getPvpChargeDamage() != 0 && jsonMove.getPvpChargeDamage() != database.getPvpChargeDamage())
                 {
                     String message = String.format(CHARGE_DAMAGE, jsonMove.getNameId(), database.getPvpChargeDamage(), jsonMove.getPvpChargeDamage());
 
@@ -421,7 +507,7 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
                     messages.add(message);
                 }
 
-                if (jsonMove.getPvpFastEnergy() != database.getPvpFastEnergy())
+                if (jsonMove.getPvpFastEnergy() != 0 && jsonMove.getPvpFastEnergy() != database.getPvpFastEnergy())
                 {
                     String message = String.format(FAST_ENERGY, jsonMove.getNameId(), database.getPvpFastEnergy(), jsonMove.getPvpFastEnergy());
 
@@ -431,7 +517,7 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
                     messages.add(message);
                 }
 
-                if (jsonMove.getPvpFastPower() != database.getPvpFastPower())
+                if (jsonMove.getPvpFastPower() != 0 && jsonMove.getPvpFastPower() != database.getPvpFastPower())
                 {
                     String message = String.format(FAST_POWER, jsonMove.getNameId(), database.getPvpFastPower(), jsonMove.getPvpFastPower());
 
@@ -441,7 +527,7 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
                     messages.add(message);
                 }
 
-                if (jsonMove.getPvpFastDuration() != database.getPvpFastDuration())
+                if (jsonMove.getPvpFastDuration() != 0 && jsonMove.getPvpFastDuration() != database.getPvpFastDuration())
                 {
                     String message = String.format(FAST_DURATION, jsonMove.getNameId(), database.getPvpFastDuration(), jsonMove.getPvpFastDuration());
 
