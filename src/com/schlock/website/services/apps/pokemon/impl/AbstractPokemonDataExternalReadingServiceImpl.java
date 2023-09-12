@@ -80,83 +80,30 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
             {
                 String id = getMoveIdentifier(json);
 
-                String power = reportStatDifference(id, "power", database.getPower(), json.getPower());
-                if (power != null)
-                {
-                    messages.add(power);
-                    differentMainStats++;
-                }
+                int before = messages.size();
 
-                String cooldown = reportStatDifference(id, "cooldown", database.getCooldown(), json.getCooldown());
-                if (cooldown != null)
-                {
-                    messages.add(cooldown);
-                    differentMainStats++;
-                }
+                messages = reportStatDifference(messages, id, "power", database.getPower(), json.getPower());
+                messages = reportStatDifference(messages, id, "cooldown", database.getCooldown(), json.getCooldown());
+                messages = reportStatDifference(messages, id, "energyCost", database.getEnergyCost(), json.getEnergyCost());
+                messages = reportStatDifference(messages, id, "energyGain", database.getEnergyGain(), json.getEnergyGain());
+                messages = reportStatDifference(messages, id, "dodgeWindow", database.getDodgeWindow(), json.getDodgeWindow());
+                messages = reportStatDifference(messages, id, "damageWindow", database.getDamageWindow(), json.getDamageWindow());
 
-                String energyCost = reportStatDifference(id, "energyCost", database.getEnergyCost(), json.getEnergyCost());
-                if (energyCost != null)
-                {
-                    messages.add(energyCost);
-                    differentMainStats++;
-                }
+                int after = messages.size();
 
-                String energyGain = reportStatDifference(id, "energyGain", database.getEnergyGain(), json.getEnergyGain());
-                if (energyGain != null)
-                {
-                    messages.add(energyGain);
-                    differentMainStats++;
-                }
+                differentMainStats += (after - before);
 
-                String dodgeWindow = reportStatDifference(id, "dodgeWindow", database.getDodgeWindow(), json.getDodgeWindow());
-                if (dodgeWindow != null)
-                {
-                    messages.add(dodgeWindow);
-                    differentMainStats++;
-                }
+                before = messages.size();
 
-                String damageWindow = reportStatDifference(id, "damageWindow", database.getDamageWindow(), json.getDamageWindow());
-                if (damageWindow != null)
-                {
-                    messages.add(damageWindow);
-                    differentMainStats++;
-                }
+                messages = reportStatDifference(messages, id, "pvpChargeEnergy", database.getPvpChargeEnergy(), json.getPvpChargeEnergy());
+                messages = reportStatDifference(messages, id, "pvpChargeDamage", database.getPvpChargeDamage(), json.getPvpChargeDamage());
+                messages = reportStatDifference(messages, id, "pvpFastEnergy", database.getPvpFastEnergy(), json.getPvpFastEnergy());
+                messages = reportStatDifference(messages, id, "pvpFastPower", database.getPvpFastPower(), json.getPvpFastPower());
+                messages = reportStatDifference(messages, id, "pvpFastDuration", database.getPvpFastDuration(), json.getPvpFastDuration());
 
+                after = messages.size();
 
-                String pvpChargeEnergy = reportStatDifference(id, "pvpChargeEnergy", database.getPvpChargeEnergy(), json.getPvpChargeEnergy());
-                if (pvpChargeEnergy != null)
-                {
-                    messages.add(pvpChargeEnergy);
-                    differentPvpStats++;
-                }
-
-                String pvpChargeDamage = reportStatDifference(id, "pvpChargeDamage", database.getPvpChargeDamage(), json.getPvpChargeDamage());
-                if (pvpChargeDamage != null)
-                {
-                    messages.add(pvpChargeDamage);
-                    differentPvpStats++;
-                }
-
-                String pvpFastEnergy = reportStatDifference(id, "pvpFastEnergy", database.getPvpFastEnergy(), json.getPvpFastEnergy());
-                if (pvpFastEnergy != null)
-                {
-                    messages.add(pvpFastEnergy);
-                    differentPvpStats++;
-                }
-
-                String pvpFastPower = reportStatDifference(id, "pvpFastPower", database.getPvpFastPower(), json.getPvpFastPower());
-                if (pvpFastPower != null)
-                {
-                    messages.add(pvpFastPower);
-                    differentPvpStats++;
-                }
-
-                String pvpFastDuration = reportStatDifference(id, "pvpFastDuration", database.getPvpFastDuration(), json.getPvpFastDuration());
-                if (pvpFastDuration != null)
-                {
-                    messages.add(pvpFastDuration);
-                    differentPvpStats++;
-                }
+                differentPvpStats += (after - before);
             }
         }
 
@@ -190,26 +137,16 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
                 {
                     String id = getPokemonIdentifier(json);
 
-                    String stamina = reportStatDifference(id, "Stamina", database.getBaseStamina(), json.getBaseStamina());
-                    if (stamina != null)
-                    {
-                        messages.add(stamina);
-                        differentStats++;
-                    }
+                    int before = messages.size();
 
-                    String attack = reportStatDifference(id, "Attack", database.getBaseAttack(), json.getBaseAttack());
-                    if (attack != null)
-                    {
-                        messages.add(attack);
-                        differentStats++;
-                    }
+                    messages = reportStatDifference(messages, id, "Stamina", database.getBaseStamina(), json.getBaseStamina());
+                    messages = reportStatDifference(messages, id, "Attack", database.getBaseAttack(), json.getBaseAttack());
+                    messages = reportStatDifference(messages, id, "Defense", database.getBaseDefense(), json.getBaseDefense());
 
-                    String defense = reportStatDifference(id, "Defense", database.getBaseDefense(), json.getBaseDefense());
-                    if (defense != null)
-                    {
-                        messages.add(defense);
-                        differentStats++;
-                    }
+                    int after = messages.size();
+
+                    differentStats += (after - before);
+
 
                     List<String> standardMoves = reportDifferentMoves(id, "Standard", database.getStandardMoves(), json.getStandardMoves());
                     messages.addAll(standardMoves);
@@ -230,37 +167,37 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
         return messages;
     }
 
-    private String reportStatDifference(String id, String stat, int oldValue, int newValue)
+    private List<String> reportStatDifference(List<String> messages, String id, String stat, int oldValue, int newValue)
     {
         final String DIFFERENT_STATS = "%s has different %s: old=%s new=%s";
 
         if (newValue != 0 && newValue != oldValue)
         {
-            return String.format(DIFFERENT_STATS, id, stat, oldValue, newValue);
+            messages.add(String.format(DIFFERENT_STATS, id, stat, oldValue, newValue));
         }
-        return null;
+        return messages;
     }
 
-    private String reportStatDifference(String id, String stat, double oldValue, double newValue)
+    private List<String> reportStatDifference(List<String> messages, String id, String stat, double oldValue, double newValue)
     {
         final String DIFFERENT_STATS = "%s has different %s: old=%s new=%s";
 
         if (newValue != 0 && newValue != oldValue)
         {
-            return String.format(DIFFERENT_STATS, id, stat, oldValue, newValue);
+            messages.add(String.format(DIFFERENT_STATS, id, stat, oldValue, newValue));
         }
-        return null;
+        return messages;
     }
 
-    private String reportStatDifference(String id, String stat, String oldValue, String newValue)
+    private List<String> reportStatDifference(List<String> messages, String id, String stat, String oldValue, String newValue)
     {
         final String DIFFERENT_STATS = "%s has different %s: old=%s new=%s";
 
         if (!StringUtils.equals(newValue, oldValue))
         {
-            return String.format(DIFFERENT_STATS, id, stat, oldValue, newValue);
+            messages.add(String.format(DIFFERENT_STATS, id, stat, oldValue, newValue));
         }
-        return null;
+        return messages;
     }
 
     private List<String> reportDifferentMoves(String id, String stat, Set<PokemonMove> oldMoves, Set<PokemonMove> newMoves)
