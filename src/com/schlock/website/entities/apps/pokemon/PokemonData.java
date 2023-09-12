@@ -78,6 +78,26 @@ public class PokemonData extends Persisted
         return String.format(IMAGE_LINK, number);
     }
 
+    public int getSanitizedNumber()
+    {
+        String san = getNumber();
+        if (StringUtils.isNumeric(san))
+        {
+            return Integer.parseInt(san);
+        }
+
+        int region = san.indexOf("_");
+        if (region > 0)
+        {
+            san = san.split("_")[1];
+
+            return Integer.parseInt(san);
+        }
+
+        san = san.substring(0, san.length() - 1);
+        return Integer.parseInt(san);
+    }
+
     public String getMainType(PokemonMove fastMove, PokemonMove chargeMove)
     {
         String type1 = getType1().toLowerCase();

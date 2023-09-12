@@ -4,6 +4,7 @@ import com.schlock.website.entities.apps.pokemon.*;
 import com.schlock.website.services.apps.pokemon.*;
 import com.schlock.website.services.database.apps.pokemon.PokemonDataDAO;
 import com.schlock.website.services.database.apps.pokemon.PokemonMoveDAO;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 
@@ -22,8 +23,6 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
     private static final String ARCEUS = "Arceus";
 
-
-    private List<RaidBossPokemon> raidBosses = new ArrayList<RaidBossPokemon>();
 
     private List<RocketLeader> rocketLeaders = new ArrayList<RocketLeader>();
     private Map<String, RocketBossPokemon> rocketBosses = new HashMap<String, RocketBossPokemon>();
@@ -185,9 +184,53 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
     public List<RaidBossPokemon> getRaidBosses()
     {
-        if (raidBosses.isEmpty())
+        List<PokemonData> bosses = dataDAO.getRaidBosses();
+
+        Collections.sort(bosses, new Comparator<PokemonData>()
         {
-            generateRaidBosses();
+            final int O1_FIRST = -1;
+            final int O2_FIRST = 1;
+
+            public int compare(PokemonData o1, PokemonData o2)
+            {
+                if (o1.isMega() && !o2.isMega())
+                {
+                    return O2_FIRST;
+                }
+                if (!o1.isMega() && o2.isMega())
+                {
+                    return O1_FIRST;
+                }
+
+                int n1 = o1.getSanitizedNumber();
+                int n2 = o2.getSanitizedNumber();
+
+                int compare = n1 - n2;
+                if (compare != 0)
+                {
+                    return compare;
+                }
+
+                String num1 = o1.getNumber();
+                String num2 = o2.getNumber();
+
+                if (StringUtils.equals(num1, num2))
+                {
+                    return O1_FIRST;
+                }
+
+                if (StringUtils.isNumeric(num1))
+                {
+                    return O1_FIRST;
+                }
+                return O2_FIRST;
+            }
+        });
+
+        List<RaidBossPokemon> raidBosses = new ArrayList<RaidBossPokemon>();
+        for(PokemonData boss : bosses)
+        {
+            raidBosses.add(RaidBossPokemon.createFromData(boss));
         }
         return raidBosses;
     }
@@ -249,21 +292,6 @@ public class PokemonDataServiceImpl implements PokemonDataService
             }
 
             rocketLeaders.add(leader);
-        }
-    }
-
-    private void generateRaidBosses()
-    {
-        if (!raidBosses.isEmpty())
-        {
-            return;
-        }
-
-        List<PokemonData> bosses = dataDAO.getRaidBosses();
-        for(PokemonData boss : bosses)
-        {
-            RaidBossPokemon raidBoss = RaidBossPokemon.createFromData(boss);
-            raidBosses.add(raidBoss);
         }
     }
 }
