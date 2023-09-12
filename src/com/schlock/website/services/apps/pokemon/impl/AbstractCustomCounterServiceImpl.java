@@ -2,10 +2,10 @@ package com.schlock.website.services.apps.pokemon.impl;
 
 import com.schlock.website.entities.apps.pokemon.BattleMode;
 import com.schlock.website.entities.apps.pokemon.CounterPokemon;
-import com.schlock.website.entities.apps.pokemon.CounterType;
 import com.schlock.website.entities.apps.pokemon.PokemonData;
 import com.schlock.website.services.apps.pokemon.PokemonCustomCounterService;
 import com.schlock.website.services.apps.pokemon.PokemonDataService;
+import com.schlock.website.services.database.apps.pokemon.PokemonDataDAO;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,11 +14,14 @@ public abstract class AbstractCustomCounterServiceImpl implements PokemonCustomC
 {
     private final PokemonDataService dataService;
 
+    private final PokemonDataDAO pokemonDAO;
+
     private Set<CounterPokemon> customCounters = new HashSet<CounterPokemon>();
 
-    public AbstractCustomCounterServiceImpl(PokemonDataService dataService)
+    public AbstractCustomCounterServiceImpl(PokemonDataService dataService, PokemonDataDAO pokemonDAO)
     {
         this.dataService = dataService;
+        this.pokemonDAO = pokemonDAO;
 
         createCustomCounters();
     }
@@ -56,7 +59,7 @@ public abstract class AbstractCustomCounterServiceImpl implements PokemonCustomC
 
     protected void addCustom(String name, int level, int attackIV, int defenseIV, int staminaIV, String fastMoves, String chargeMoves)
     {
-        PokemonData data = dataService.getDataByName(name);
+        PokemonData data = pokemonDAO.getByName(name);
         double cpm = dataService.getCpmFromLevel(level);
 
         CounterPokemon counter = CounterPokemon.createCustom(data, level, cpm, attackIV, defenseIV, staminaIV, fastMoves, chargeMoves);

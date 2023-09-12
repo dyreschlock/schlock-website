@@ -30,9 +30,6 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
     private List<RaidBossWithAttackingType> raidBossesWithAttackingTypes = new ArrayList<RaidBossWithAttackingType>();
 
-    private HashMap<String, PokemonMove> moveData = new HashMap<String, PokemonMove>();
-    private HashMap<String, PokemonData> pokemonData = new HashMap<String, PokemonData>();
-
     private HashMap<Integer, Double> cpmData = new HashMap<Integer, Double>();
 
 
@@ -70,28 +67,6 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
         cpmData = gamepressService.getCpmData();
     }
-
-    private void loadPokemonDataFromDatabase()
-    {
-        if (!pokemonData.isEmpty())
-        {
-            return;
-        }
-
-        List<PokemonData> allData = dataDAO.getAll();
-        for(PokemonData data : allData)
-        {
-            pokemonData.put(data.getName(), data);
-        }
-
-        List<PokemonMove> allMoves = moveDAO.getAll();
-        for(PokemonMove move : allMoves)
-        {
-            moveData.put(move.getName(), move);
-        }
-    }
-
-
 
 
 
@@ -138,7 +113,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
     public PokemonMove getMoveByName(String name)
     {
-        return moveData.get(name);
+        return moveDAO.getByName(name);
     }
 
     public Collection<CounterPokemon> getCounterPokemon(CounterType counterType, BattleMode battleMode)
@@ -156,14 +131,9 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
     private Collection<CounterPokemon> getAllGeneralCounters(BattleMode battleMode)
     {
-        if (pokemonData.isEmpty())
-        {
-            loadPokemonDataFromDatabase();
-        }
-
         List<CounterPokemon> pokemon = new ArrayList<CounterPokemon>();
 
-        for (PokemonData data : pokemonData.values())
+        for (PokemonData data : dataDAO.getAll())
         {
             if(!isIgnorePokemon(data))
             {
@@ -224,11 +194,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
     public PokemonData getDataByName(String name)
     {
-        if (pokemonData.isEmpty())
-        {
-            loadPokemonDataFromDatabase();
-        }
-        PokemonData data = pokemonData.get(name);
+        PokemonData data = dataDAO.getByName(name);
         if (data == null)
         {
             throw new RuntimeException("Pokemon Not Found: " + name);
@@ -241,11 +207,6 @@ public class PokemonDataServiceImpl implements PokemonDataService
         if (!raidBossesWithAttackingTypes.isEmpty())
         {
             return;
-        }
-
-        if (pokemonData.isEmpty())
-        {
-            loadPokemonDataFromDatabase();
         }
 
         PokemonData arceus = getDataByName(ARCEUS);
@@ -266,11 +227,6 @@ public class PokemonDataServiceImpl implements PokemonDataService
         if (!rocketLeaders.isEmpty())
         {
             return;
-        }
-
-        if (pokemonData.isEmpty())
-        {
-            loadPokemonDataFromDatabase();
         }
 
         for (RocketLeaderName leaderName : RocketLeaderName.values())
@@ -301,11 +257,6 @@ public class PokemonDataServiceImpl implements PokemonDataService
         if (!raidBosses.isEmpty())
         {
             return;
-        }
-
-        if (pokemonData.isEmpty())
-        {
-            loadPokemonDataFromDatabase();
         }
 
         List<PokemonData> bosses = dataDAO.getRaidBosses();

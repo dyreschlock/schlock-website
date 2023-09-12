@@ -2,12 +2,13 @@ package com.schlock.website.services.apps.pokemon.impl;
 
 import com.schlock.website.services.apps.pokemon.PokemonCustomCounterSecondService;
 import com.schlock.website.services.apps.pokemon.PokemonDataService;
+import com.schlock.website.services.database.apps.pokemon.PokemonDataDAO;
 
 public class PokemonCustomCounterSecondServiceImpl extends AbstractCustomCounterServiceImpl implements PokemonCustomCounterSecondService
 {
-    public PokemonCustomCounterSecondServiceImpl(PokemonDataService dataService)
+    public PokemonCustomCounterSecondServiceImpl(PokemonDataService dataService, PokemonDataDAO pokemonDAO)
     {
-        super(dataService);
+        super(dataService, pokemonDAO);
     }
 
     protected void megas()
