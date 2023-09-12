@@ -3,9 +3,11 @@ package com.schlock.website.entities.apps.pokemon;
 import com.schlock.website.entities.Persisted;
 import com.schlock.website.services.apps.pokemon.impl.PokemonDataGameMasterServiceImpl;
 import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class PokemonData extends Persisted
@@ -569,6 +571,15 @@ public class PokemonData extends Persisted
 
     private static final String EVOLUTION_TAG = "evolutionBranch";
 
+    private static final String FAST_MOVES_TAG = "quickMoves";
+    private static final String CHARGE_MOVES_TAG = "cinematicMoves";
+
+    private static final String ELITE_FAST_MOVE_TAG = "eliteQuickMove";
+    private static final String ELITE_CHARGE_MOVE_TAG = "eliteCinematicMove";
+
+    private static final String SHADOW_TAG = "shadow";
+    private static final String PURIFIED_MOVE_TAG = "purifiedChargeMove";
+
     /**
      *     {
      *         "templateId": "V0260_POKEMON_SWAMPERT",
@@ -651,6 +662,18 @@ public class PokemonData extends Persisted
         pokemon.baseAttack = getInt(stats, ATTACK_TAG);
         pokemon.baseDefense = getInt(stats, DEFENSE_TAG);
 
+        StringBuilder moveNames = new StringBuilder();
+
+        appendStringsFromArray(moveNames, settings, FAST_MOVES_TAG);
+        appendStringsFromArray(moveNames, settings, CHARGE_MOVES_TAG);
+
+        pokemon.standardMoveNames = moveNames.toString();
+
+        appendStringsFromArray(moveNames, settings, ELITE_FAST_MOVE_TAG);
+        appendStringsFromArray(moveNames, settings, ELITE_CHARGE_MOVE_TAG);
+        appendShadowPurifiedMoves(moveNames, settings);
+
+        pokemon.allMoveNames = moveNames.toString();
 
 
         pokemon.hasEvolution = settings.has(EVOLUTION_TAG);
@@ -693,5 +716,47 @@ public class PokemonData extends Persisted
             return json.getInt(tag);
         }
         return 0;
+    }
+
+    private static StringBuilder appendStringsFromArray(StringBuilder sb, final JSONObject base, final String tag)
+    {
+        if (!base.has(tag))
+        {
+            return sb;
+        }
+
+        JSONArray jsonArray = base.getJSONArray(tag);
+
+        Iterator iter = jsonArray.iterator();
+        while(iter.hasNext())
+        {
+            Object name = iter.next();
+            if (name.getClass().isAssignableFrom(String.class))
+            {
+                String str = (String) name;
+                if (sb.capacity() != 0)
+                {
+                    sb.append(",");
+                }
+                sb.append(str);
+            }
+        }
+        return sb;
+    }
+
+    private static StringBuilder appendShadowPurifiedMoves(StringBuilder sb, final JSONObject base)
+    {
+        if (base.has(SHADOW_TAG))
+        {
+            JSONObject shadow = base.getJSONObject(SHADOW_TAG);
+            if (shadow.has(PURIFIED_MOVE_TAG))
+            {
+                String nameId = shadow.getString(PURIFIED_MOVE_TAG);
+
+                sb.append(",");
+                sb.append(nameId);
+            }
+        }
+        return sb;
     }
 }
