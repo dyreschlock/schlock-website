@@ -734,11 +734,20 @@ public class PokemonData extends Persisted
             if (name.getClass().isAssignableFrom(String.class))
             {
                 String str = (String) name;
-                if (sb.capacity() != 0)
+                if (sb.length() > 0)
                 {
                     sb.append(",");
                 }
                 sb.append(str);
+            }
+            if (name.getClass().isAssignableFrom(Integer.class))
+            {
+                Integer str = (Integer) name;
+                if (sb.length() > 0)
+                {
+                    sb.append(",");
+                }
+                sb.append(Integer.toString(str));
             }
         }
         return sb;

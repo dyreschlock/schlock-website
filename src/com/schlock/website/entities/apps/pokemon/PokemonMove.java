@@ -439,6 +439,7 @@ public class PokemonMove extends Persisted
 
     private static final String GM_TEMPLATE_ID = PokemonDataGameMasterServiceImpl.GM_TEMPLATE_ID;
 
+    public static final String GM_V_PRE = "V";
     public static final String GM_MOVE_TAG = "_MOVE_";
 
 
@@ -449,6 +450,21 @@ public class PokemonMove extends Persisted
         int index = templateId.indexOf(GM_MOVE_TAG) + GM_MOVE_TAG.length();
 
         return templateId.substring(index);
+    }
+
+    private static int getMoveUuid(JSONObject json)
+    {
+        String templateId = json.getString(GM_TEMPLATE_ID);
+
+        // V0016_MOVE_DARK_PULSE
+        // COMBAT_V0016_MOVE_DARK_PULSE
+
+        int start = templateId.indexOf(GM_V_PRE) +1;
+        int end = templateId.indexOf(GM_MOVE_TAG);
+
+        String uuid = templateId.substring(start, end);
+
+        return Integer.parseInt(uuid);
     }
 
 
@@ -520,6 +536,7 @@ public class PokemonMove extends Persisted
         PokemonMove move = new PokemonMove();
 
         move.nameId = getMoveNameId(json);
+        move.uuid = getMoveUuid(json);
 
         JSONObject data = json.getJSONObject(DATA_TAG);
         JSONObject settings = data.getJSONObject(SETTINGS_TAG);
@@ -557,17 +574,6 @@ public class PokemonMove extends Persisted
             move.energyCost = energyDelta;
             move.energyGain = 0;
         }
-
-
-//        this.power = updates.power;
-//        this.cooldown = updates.cooldown;
-//
-//        this.energyGain = updates.energyGain;
-//        this.energyCost = updates.energyCost;
-//
-//        this.dodgeWindow = updates.dodgeWindow;
-//        this.damageWindow = updates.damageWindow;
-
         return move;
     }
 
@@ -606,6 +612,7 @@ public class PokemonMove extends Persisted
         PokemonMove move = new PokemonMove();
 
         move.nameId = getMoveNameId(json);
+        move.uuid = getMoveUuid(json);
 
         JSONObject data = json.getJSONObject(DATA_TAG);
         JSONObject settings = data.getJSONObject(COMBAT_SETTINGS_TAG);
@@ -638,14 +645,6 @@ public class PokemonMove extends Persisted
             move.pvpFastPower = 0;
             move.pvpFastDuration = 0.0;
         }
-
-//        this.pvpChargeEnergy = updates.pvpChargeEnergy;
-//        this.pvpChargeDamage = updates.pvpChargeDamage;
-//
-//        this.pvpFastEnergy = updates.pvpFastEnergy;
-//        this.pvpFastPower = updates.pvpFastPower;
-//        this.pvpFastDuration = updates.pvpFastDuration;
-
         return move;
     }
 

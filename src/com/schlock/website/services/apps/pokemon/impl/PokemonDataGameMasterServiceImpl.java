@@ -267,6 +267,11 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
             if (StringUtils.isNotEmpty(moveNameId.trim()))
             {
                 PokemonMove move = moveData.get(moveNameId.trim());
+                if (move == null)
+                {
+                    move = getMoveByNumber(moveNameId.trim());
+                }
+
                 if (move != null)
                 {
                     moves.add(move);
@@ -274,5 +279,27 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
             }
         }
         return moves;
+    }
+
+    private PokemonMove getMoveByNumber(String moveNameId)
+    {
+        int uuid = 0;
+        try
+        {
+            uuid = Integer.parseInt(moveNameId);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+
+        for(PokemonMove move : moveData.values())
+        {
+            if (move.getUuid() == uuid)
+            {
+                return move;
+            }
+        }
+        return null;
     }
 }
