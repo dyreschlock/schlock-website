@@ -599,6 +599,7 @@ public class PokemonData extends Persisted
 
     private static final String SHADOW_TAG = "shadow";
     private static final String PURIFIED_MOVE_TAG = "purifiedChargeMove";
+    private static final String SHADOW_MOVE_TAG = "shadowChargeMove";
 
     /**
      *     {
@@ -682,6 +683,9 @@ public class PokemonData extends Persisted
         pokemon.baseAttack = getInt(stats, ATTACK_TAG);
         pokemon.baseDefense = getInt(stats, DEFENSE_TAG);
 
+        pokemon.shadow = StringUtils.endsWith(pokemon.nameId, "_S");
+        pokemon.mega = false;
+
         StringBuilder moveNames = new StringBuilder();
 
         appendStringsFromArray(moveNames, settings, FAST_MOVES_TAG);
@@ -691,15 +695,12 @@ public class PokemonData extends Persisted
 
         appendStringsFromArray(moveNames, settings, ELITE_FAST_MOVE_TAG);
         appendStringsFromArray(moveNames, settings, ELITE_CHARGE_MOVE_TAG);
-        appendShadowPurifiedMoves(moveNames, settings);
+        appendShadowPurifiedMoves(moveNames, settings, pokemon.shadow);
 
         pokemon.allMoveNames = moveNames.toString();
 
 
         pokemon.hasEvolution = settings.has(EVOLUTION_TAG);
-
-        pokemon.shadow = false;
-        pokemon.mega = false;
 
         pokemon.ignore = false;
         pokemon.legendary = false;
@@ -773,14 +774,21 @@ public class PokemonData extends Persisted
         return sb;
     }
 
-    private static StringBuilder appendShadowPurifiedMoves(StringBuilder sb, final JSONObject base)
+    private static StringBuilder appendShadowPurifiedMoves(StringBuilder sb, final JSONObject base, boolean isShadow)
     {
         if (base.has(SHADOW_TAG))
         {
             JSONObject shadow = base.getJSONObject(SHADOW_TAG);
-            if (shadow.has(PURIFIED_MOVE_TAG))
+            if (!isShadow && shadow.has(PURIFIED_MOVE_TAG))
             {
                 String nameId = shadow.getString(PURIFIED_MOVE_TAG);
+
+                sb.append(",");
+                sb.append(nameId);
+            }
+            if (isShadow && shadow.has(SHADOW_MOVE_TAG))
+            {
+                String nameId = shadow.getString(SHADOW_MOVE_TAG);
 
                 sb.append(",");
                 sb.append(nameId);
