@@ -193,13 +193,13 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
             public int compare(PokemonData o1, PokemonData o2)
             {
-                if (o1.isMega() && !o2.isMega())
-                {
-                    return O2_FIRST;
-                }
-                if (!o1.isMega() && o2.isMega())
+                if (o1.isLegendary() && !o2.isLegendary())
                 {
                     return O1_FIRST;
+                }
+                if (!o1.isLegendary() && o2.isLegendary())
+                {
+                    return O2_FIRST;
                 }
 
                 int n1 = o1.getSanitizedNumber();
