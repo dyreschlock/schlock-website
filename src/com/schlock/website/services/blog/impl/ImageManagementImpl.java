@@ -668,15 +668,25 @@ public class ImageManagementImpl implements ImageManagement
         final String INPUT_DIR =  "";
         final String OUTPUT_DIR = "";
 
+//        List<String> names = Arrays.asList("901b", "1017c", "1017h", "1017w");
+
         if (StringUtils.isNotBlank(INPUT_DIR) && StringUtils.isNotBlank(OUTPUT_DIR))
         {
-            for(int i = 906; i <= 1010; i++)
-            {
-                File oldImage = new File(INPUT_DIR + i + ".png");
-                File newImage = new File(OUTPUT_DIR + i + ".png");
+//            for(String name : names)
+//            {
+//                File oldImage = new File(INPUT_DIR + name + ".png");
+//                File newImage = new File(OUTPUT_DIR + name + ".png");
+//
+//                convertAndCopyImage(oldImage, newImage, IMAGE_WIDTH);
+//            }
 
-                convertAndCopyImage(oldImage, newImage, IMAGE_WIDTH);
-            }
+//            for(int i = 1011; i <= 1017; i++)
+//            {
+//                File oldImage = new File(INPUT_DIR + i + ".png");
+//                File newImage = new File(OUTPUT_DIR + i + ".png");
+//
+//                convertAndCopyImage(oldImage, newImage, IMAGE_WIDTH);
+//            }
         }
     }
 }
