@@ -601,6 +601,16 @@ public class PokemonData extends Persisted
     private static final String PURIFIED_MOVE_TAG = "purifiedChargeMove";
     private static final String SHADOW_MOVE_TAG = "shadowChargeMove";
 
+    private static final String TEMP_EVO_OVERRIDES_TAG = "tempEvoOverrides";
+    private static final String TEMP_EVO_ID = "tempEvoId";
+
+    private static final String TYPE_1_OVERRIDE_TAG = "typeOverride1";
+    private static final String TYPE_2_OVERRIDE_TAG = "typeOverride2";
+
+    private static final String MEGA_X_ID_SUFFIX = "_MEGA_X";
+    private static final String MEGA_ID_SUFFIX = "_MEGA";
+    private static final String PRIMAL_ID_SUFFIX = "_PRIMAL";
+
     /**
      *     {
      *         "templateId": "V0260_POKEMON_SWAMPERT",
@@ -709,16 +719,74 @@ public class PokemonData extends Persisted
         return pokemon;
     }
 
-    /**
-     * private boolean shadow;
-     * private boolean mega;
-     * <p>
-     * private String allMoveNames;
-     * private String standardMoveNames;
-     * <p>
-     * private Set<PokemonMove> allMoves;
-     * private Set<PokemonMove> standardMoves;
-     */
+    public static Set<PokemonData> createMegaFromGameMasterJSON(JSONObject json, PokemonData base)
+    {
+        Set<PokemonData> megas = new HashSet<PokemonData>();
+
+        if (base.shadow)
+        {
+            return megas;
+        }
+
+        JSONObject data = json.getJSONObject(DATA_TAG);
+        JSONObject settings = data.getJSONObject(SETTINGS_TAG);
+
+        if (!settings.has(TEMP_EVO_OVERRIDES_TAG))
+        {
+            return megas;
+        }
+
+        JSONArray evolutions = settings.getJSONArray(TEMP_EVO_OVERRIDES_TAG);
+        Iterator iter = evolutions.iterator();
+        while(iter.hasNext())
+        {
+            JSONObject evolution = (JSONObject) iter.next();
+            if (evolution.has(TEMP_EVO_ID))
+            {
+                PokemonData pokemon = new PokemonData();
+
+                pokemon.nameId = base.nameId;
+
+                String evoId = evolution.getString(TEMP_EVO_ID);
+                if (StringUtils.endsWith(evoId, PRIMAL_ID_SUFFIX))
+                {
+                    pokemon.nameId += PRIMAL_ID_SUFFIX;
+                }
+                else if(StringUtils.endsWith(evoId, MEGA_X_ID_SUFFIX))
+                {
+                    pokemon.nameId += MEGA_X_ID_SUFFIX;
+                }
+                else
+                {
+                    pokemon.nameId += MEGA_ID_SUFFIX;
+                }
+
+                pokemon.type1 = getType(evolution, TYPE_1_OVERRIDE_TAG);
+                pokemon.type2 = getType(evolution, TYPE_2_OVERRIDE_TAG);
+
+                JSONObject stats = evolution.getJSONObject(STATS_TAG);
+
+                pokemon.baseStamina = stats.getInt(STAMINA_TAG);
+                pokemon.baseAttack = stats.getInt(ATTACK_TAG);
+                pokemon.baseDefense = stats.getInt(DEFENSE_TAG);
+
+                pokemon.standardMoveNames = base.standardMoveNames;
+                pokemon.allMoveNames = base.allMoveNames;
+
+                pokemon.hasEvolution = base.hasEvolution;
+
+                pokemon.shadow = false;
+                pokemon.mega = true;
+
+                pokemon.ignore = false;
+                pokemon.legendary = false;
+                pokemon.raidBoss = false;
+
+                megas.add(pokemon);
+            }
+        }
+        return megas;
+    }
 
     private static String getType(JSONObject settingsJson, String tag)
     {

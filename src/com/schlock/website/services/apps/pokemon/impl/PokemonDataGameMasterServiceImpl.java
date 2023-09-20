@@ -144,8 +144,19 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
                 {
                     if (isPokemon(tempId) && !isIgnorePokemonId(tempId))
                     {
+                        // create direct pokemon
+                        // create shadow (if available)
+                        // create mega (if available)
+
                         PokemonData data = PokemonData.createFromGameMasterJSON(json);
                         pokemonData.put(data.getNameId(), data);
+
+                        Set<PokemonData> megas = PokemonData.createMegaFromGameMasterJSON(json, data);
+                        for(PokemonData mega : megas)
+                        {
+                            pokemonData.put(mega.getNameId(), mega);
+
+                        }
                     }
                     else if (isMoveStandard(tempId))
                     {
