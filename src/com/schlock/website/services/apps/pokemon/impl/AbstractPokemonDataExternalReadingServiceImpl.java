@@ -408,7 +408,7 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
             for(PokemonMove newMove : newMoves)
             {
                 String id = getMoveIdentifier(newMove);
-                if (!sameMoves.contains(id) && !StringUtils.equals(id, "RETURN"))
+                if (!sameMoves.contains(id))
                 {
                     PokemonMove move = getMoveFromDatabase(newMove);
                     pokemon.getAllMoves().add(move);
@@ -435,7 +435,7 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
             for(PokemonMove newMove : newMoves)
             {
                 String id = getMoveIdentifier(newMove);
-                if (!sameMoves.contains(id) && !StringUtils.equals(id, "RETURN"))
+                if (!sameMoves.contains(id))
                 {
                     PokemonMove move = getMoveFromDatabase(newMove);
                     pokemon.getStandardMoves().add(move);
