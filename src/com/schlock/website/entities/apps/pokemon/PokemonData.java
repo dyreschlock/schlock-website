@@ -610,6 +610,10 @@ public class PokemonData extends Persisted
     private static final String MEGA_X_ID_SUFFIX = "_MEGA_X";
     private static final String MEGA_ID_SUFFIX = "_MEGA";
     private static final String PRIMAL_ID_SUFFIX = "_PRIMAL";
+    private static final String SHADOW_SUFFIX = "_S";
+
+    private static final String RETURN_MOVE_ID = "RETURN";
+    private static final String FRUSTRATION_MOVE_ID = "FRUSTRATION";
 
     /**
      *     {
@@ -693,7 +697,7 @@ public class PokemonData extends Persisted
         pokemon.baseAttack = getInt(stats, ATTACK_TAG);
         pokemon.baseDefense = getInt(stats, DEFENSE_TAG);
 
-        pokemon.shadow = StringUtils.endsWith(pokemon.nameId, "_S");
+        pokemon.shadow = StringUtils.endsWith(pokemon.nameId, SHADOW_SUFFIX);
         pokemon.mega = false;
 
         StringBuilder moveNames = new StringBuilder();
@@ -713,6 +717,47 @@ public class PokemonData extends Persisted
         pokemon.hasEvolution = settings.has(EVOLUTION_TAG);
 
         pokemon.ignore = false;
+        pokemon.legendary = false;
+        pokemon.raidBoss = false;
+
+        return pokemon;
+    }
+
+    public static PokemonData createShadowFromGameMasterJSON(JSONObject json, PokemonData base)
+    {
+        if (base.shadow)
+        {
+            return null;
+        }
+
+        JSONObject data = json.getJSONObject(DATA_TAG);
+        JSONObject settings = data.getJSONObject(SETTINGS_TAG);
+
+        if (!settings.has(SHADOW_TAG))
+        {
+            return null;
+        }
+
+        PokemonData pokemon = new PokemonData();
+
+        pokemon.nameId = base.nameId + SHADOW_SUFFIX;
+
+        pokemon.type1 = base.type1;
+        pokemon.type2 = base.type2;
+
+        pokemon.baseStamina = base.baseStamina;
+        pokemon.baseAttack = base.baseAttack;
+        pokemon.baseDefense = base.baseDefense;
+
+        pokemon.shadow = true;
+        pokemon.mega = false;
+
+        pokemon.standardMoveNames = base.standardMoveNames;
+        pokemon.allMoveNames = base.allMoveNames.replaceAll(RETURN_MOVE_ID, FRUSTRATION_MOVE_ID);
+
+        pokemon.hasEvolution = base.hasEvolution;
+
+        pokemon.ignore = true;
         pokemon.legendary = false;
         pokemon.raidBoss = false;
 

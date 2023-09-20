@@ -81,8 +81,7 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
 
         if (StringUtils.contains(pokeId, NORMAL))
         {
-            int index = pokeId.indexOf(NORMAL);
-            String subId = pokeId.substring(0, index);
+            String subId = pokeId.replaceAll(NORMAL, "");
 
             PokemonData poke = dataDAO.getByNameId(subId);
             if (poke != null)
@@ -90,7 +89,22 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
                 return true;
             }
         }
+        else
+        {
+            String subId = pokeId + NORMAL;
+            if (pokemon.isShadow())
+            {
+                int index = pokeId.lastIndexOf("_S");
 
+                subId = pokeId.substring(0, index) + NORMAL + pokeId.substring(index);
+            }
+
+            PokemonData poke = dataDAO.getByNameId(subId);
+            if (poke != null)
+            {
+                return true;
+            }
+        }
 
 
         return false;
@@ -151,11 +165,16 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
                         PokemonData data = PokemonData.createFromGameMasterJSON(json);
                         pokemonData.put(data.getNameId(), data);
 
+                        PokemonData shadow = PokemonData.createShadowFromGameMasterJSON(json, data);
+                        if (shadow != null && pokemonData.get(shadow.getNameId()) == null)
+                        {
+                            pokemonData.put(shadow.getNameId(), shadow);
+                        }
+
                         Set<PokemonData> megas = PokemonData.createMegaFromGameMasterJSON(json, data);
                         for(PokemonData mega : megas)
                         {
                             pokemonData.put(mega.getNameId(), mega);
-
                         }
                     }
                     else if (isMoveStandard(tempId))
