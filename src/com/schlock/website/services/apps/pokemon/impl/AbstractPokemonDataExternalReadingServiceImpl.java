@@ -205,17 +205,7 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
         final String NEW_MOVE = "%s has a new %s move added: %s";
         final String OLD_MOVE = "%s has an old %s move removed: %s";
 
-        Set<String> sameMoves = new HashSet<String>();
-        for(PokemonMove newMove : newMoves)
-        {
-            for(PokemonMove oldMove : oldMoves)
-            {
-                if (StringUtils.equals(newMove.getNameId(), oldMove.getNameId()) && !sameMoves.contains(newMove.getNameId()))
-                {
-                    sameMoves.add(newMove.getNameId());
-                }
-            }
-        }
+        Set<String> sameMoves = getSameMoves(oldMoves, newMoves);
 
         List<String> messages = new ArrayList<String>();
         for(PokemonMove newMove : newMoves)
@@ -233,6 +223,25 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
             }
         }
         return messages;
+    }
+
+    private Set<String> getSameMoves(Set<PokemonMove> moveset1, Set<PokemonMove> moveset2)
+    {
+        Set<String> sameMoves = new HashSet<String>();
+        for(PokemonMove move1 : moveset1)
+        {
+            for(PokemonMove move2 : moveset2)
+            {
+                String id1 = getMoveIdentifier(move1);
+                String id2 = getMoveIdentifier(move2);
+
+                if (StringUtils.equals(id1, id2) && !sameMoves.contains(id1))
+                {
+                    sameMoves.add(id1);
+                }
+            }
+        }
+        return sameMoves;
     }
 
     protected JSONArray readJSONArrayFromFile(String filename)
@@ -370,9 +379,6 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
     {
         loadAllJSONdata();
 
-        final String NEW_STD_MOVE = "[Pokemon] %s has been given a new Standard move: %s";
-        final String NEW_ALL_MOVE = "[Pokemon] %s has been given a new All move: %s";
-
         final String COUNT_MESSAGE = "[Pokemon] %s moves have been added to Pokemon.";
         final String NO_MESSAGE = "[Pokemon] No new moves have been added. No differences found.";
 
@@ -383,57 +389,82 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
             PokemonData database = getPokemonFromDatabase(jsonPoke);
             if (database != null)
             {
-                if(database.getStandardMoves().size() == 0 && database.getAllMoves().size() == 0)
-                {
-                    StringBuilder sb = new StringBuilder();
-                    for(PokemonMove fakeMove : jsonPoke.getAllMoves())
-                    {
-                        PokemonMove move = getMoveFromDatabase(fakeMove);
-
-                        database.getAllMoves().add(move);
-
-                        if (sb.length() > 0)
-                        {
-                            sb.append(",");
-                        }
-                        sb.append(move.getName());
-
-                        messages.add(String.format(NEW_ALL_MOVE, database.getNameId(), move.getNameId()));
-                    }
-                    database.setAllMoveNames(sb.toString());
-
-
-                    sb = new StringBuilder();
-                    for(PokemonMove fakeMove : jsonPoke.getStandardMoves())
-                    {
-                        PokemonMove move = getMoveFromDatabase(fakeMove);
-
-                        database.getStandardMoves().add(move);
-
-                        if (sb.length() > 0)
-                        {
-                            sb.append(",");
-                        }
-                        sb.append(move.getName());
-
-                        messages.add(String.format(NEW_STD_MOVE, database.getNameId(), move.getNameId()));
-                    }
-                    database.setStandardMoveNames(sb.toString());
-
-                    dataDAO.save(database);
-                }
-                else
-                {
-
-
-
-
-                }
+                messages = addMissingStandardMoves(messages, database, jsonPoke.getStandardMoves());
+                messages = addMissingAllMoves(messages, database, jsonPoke.getAllMoves());
             }
         }
 
         messages = addCountMessage(messages, COUNT_MESSAGE, NO_MESSAGE);
         return messages;
+    }
+
+    private List<String> addMissingAllMoves(List<String> messages, PokemonData pokemon, Set<PokemonMove> newMoves)
+    {
+        final String NEW_ALL_MOVE = "[Pokemon] %s has been given a new All move: %s";
+
+        Set<String> sameMoves = getSameMoves(pokemon.getAllMoves(), newMoves);
+        if (newMoves.size() > sameMoves.size())
+        {
+            for(PokemonMove newMove : newMoves)
+            {
+                String id = getMoveIdentifier(newMove);
+                if (!sameMoves.contains(id) && !StringUtils.equals(id, "RETURN"))
+                {
+                    PokemonMove move = getMoveFromDatabase(newMove);
+                    pokemon.getAllMoves().add(move);
+
+                    messages.add(String.format(NEW_ALL_MOVE, pokemon.getNameId(), id));
+                }
+            }
+
+            String moveNames = getMoveNames(pokemon.getAllMoves());
+            pokemon.setAllMoveNames(moveNames);
+
+            dataDAO.save(pokemon);
+        }
+        return messages;
+    }
+
+    private List<String> addMissingStandardMoves(List<String> messages, PokemonData pokemon, Set<PokemonMove> newMoves)
+    {
+        final String NEW_STD_MOVE = "[Pokemon] %s has been given a new Standard move: %s";
+
+        Set<String> sameMoves = getSameMoves(pokemon.getStandardMoves(), newMoves);
+        if (newMoves.size() > sameMoves.size())
+        {
+            for(PokemonMove newMove : newMoves)
+            {
+                String id = getMoveIdentifier(newMove);
+                if (!sameMoves.contains(id) && !StringUtils.equals(id, "RETURN"))
+                {
+                    PokemonMove move = getMoveFromDatabase(newMove);
+                    pokemon.getStandardMoves().add(move);
+
+                    messages.add(String.format(NEW_STD_MOVE, pokemon.getNameId(), id));
+                }
+            }
+
+            String moveNames = getMoveNames(pokemon.getStandardMoves());
+            pokemon.setStandardMoveNames(moveNames);
+
+            dataDAO.save(pokemon);
+        }
+        return messages;
+    }
+
+    private String getMoveNames(Set<PokemonMove> moves)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for(PokemonMove move : moves)
+        {
+            if (sb.length() > 0)
+            {
+                sb.append(",");
+            }
+            sb.append(move.getName());
+        }
+        return sb.toString();
     }
 
     public List<String> updatePokemonStats()
