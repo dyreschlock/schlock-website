@@ -1,7 +1,6 @@
 package com.schlock.website.entities.apps.pokemon;
 
 import com.schlock.website.entities.Persisted;
-import com.schlock.website.services.apps.pokemon.impl.PokemonDataGameMasterServiceImpl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
@@ -563,23 +562,11 @@ public class PokemonData extends Persisted
     }
 
 
-    private static final String GM_TEMPLATE_ID = PokemonDataGameMasterServiceImpl.GM_TEMPLATE_ID;
-
-    public static final String GM_POKEMON_TAG = "_POKEMON_";
-
-
-    private static String getPokemonNameId(JSONObject json)
-    {
-        String templateId = json.getString(GM_TEMPLATE_ID);
-
-        int index = templateId.indexOf(GM_POKEMON_TAG) + GM_POKEMON_TAG.length();
-
-        return templateId.substring(index);
-    }
-
-
     private static final String DATA_TAG = "data";
     private static final String SETTINGS_TAG = "pokemonSettings";
+
+    private static final String POKEMON_ID_TAG = "pokemonId";
+    private static final String FORM_TAG = "form";
 
     private static final String TYPE_1_TAG = "type";
     private static final String TYPE_2_TAG = "type2";
@@ -608,6 +595,7 @@ public class PokemonData extends Persisted
     private static final String TYPE_2_OVERRIDE_TAG = "typeOverride2";
 
     private static final String MEGA_X_ID_SUFFIX = "_MEGA_X";
+    private static final String MEGA_Y_ID_SUFFIX = "_MEGA_Y";
     private static final String MEGA_ID_SUFFIX = "_MEGA";
     private static final String PRIMAL_ID_SUFFIX = "_PRIMAL";
     private static final String SHADOW_SUFFIX = "_S";
@@ -684,10 +672,18 @@ public class PokemonData extends Persisted
     {
         PokemonData pokemon = new PokemonData();
 
-        pokemon.nameId = getPokemonNameId(json);
-
         JSONObject data = json.getJSONObject(DATA_TAG);
         JSONObject settings = data.getJSONObject(SETTINGS_TAG);
+
+        pokemon.nameId = settings.getString(POKEMON_ID_TAG);
+        if (settings.has(FORM_TAG))
+        {
+            String formId = settings.getString(FORM_TAG);
+            if(!StringUtils.isNumeric(formId))
+            {
+                pokemon.nameId = formId;
+            }
+        }
 
         pokemon.type1 = getType(settings, TYPE_1_TAG);
         pokemon.type2 = getType(settings, TYPE_2_TAG);
@@ -800,6 +796,10 @@ public class PokemonData extends Persisted
                 else if(StringUtils.endsWith(evoId, MEGA_X_ID_SUFFIX))
                 {
                     pokemon.nameId += MEGA_X_ID_SUFFIX;
+                }
+                else if(StringUtils.endsWith(evoId, MEGA_Y_ID_SUFFIX))
+                {
+                    pokemon.nameId += MEGA_Y_ID_SUFFIX;
                 }
                 else
                 {

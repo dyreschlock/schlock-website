@@ -49,31 +49,86 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
     {
         final String NORMAL = "_NORMAL";
 
-        List<String> IGNORE_FORMS_COSTUMES = Arrays.asList(
-                "ARCEUS", "SILVALLY",
-                "KORAIDON", "MIRAIDON",
-                "SPEWPA", "SCATTERBUG", "VIVILLON", "FURFROU", "PYROAR", "DUDUNSPARCE",
-                "FLABEBE", "FLOETTE", "FLORGES", "DEERLING", "SAWSBUCK", "FRILLISH", "JELLICENT",
-                "SQUAWKABILLY", "MIMIKYU", "GASTRODON", "SHELLOS", "POLTEAGEIST", "SINISTEA", "MINIOR",
-                "TATSUGIRI", "MORPEKO", "TOXTRICITY", "BURMY", "MAUSHOLD", "BASCULIN",
-                "MAGEARNA", "KELDEO", "ZYGARDE",
-                "BULBASAUR", "VENUSAUR", "SQUIRTLE", "BLASTOISE", "CHARMANDER", "CHARIZARD",
-                "PIKACHU", "CUBCHOO", "BEARTIC", "DELIBIRD", "SLOWPOKE", "SLOWBRO", "SLOWKING",
-                "AERODACTYL");
+        List<String> IGNORE_ENTRIES = Arrays.asList(
+                "NIDORAN_NORMAL", "PYROAR_FEMALE", "FRILLISH_FEMALE", "JELLICENT_FEMALE"
+        );
 
+        List<String> IGNORE_FORMS = Arrays.asList(
+                "BLUE_STRIPED", "RED_STRIPED",
+                "EAST_SEA", "WEST_SEA",
+                "PLANT", "TRASH", "SANDY",
+                "STAR", "NATURAL", "DEBUTANTE", "PHARAOH", "HEART", "MATRON", "LA_REINE", "DANDY", "KABUKI", "DIAMOND",
+                "WHITE", "ORANGE", "BLUE", "RED", "ORANGE", "VIOLET", "YELLOW", "GREEN", "INDIGO",
+                "WINTER", "SPRING", "SUMMER", "AUTUMN",
+                "FANCY", "CONTINENTAL", "SAVANNA", "JUNGLE", "MODERN", "GARDEN", "MONSOON", "RIVER", "MEADOW", "MARINE",
+                "ELEGANT", "POLAR", "OCEAN", "ICY_SNOW", "TUNDRA", "ARCHIPELAGO", "SUN", "HIGH_PLAINS", "POKEBALL", "SANDSTORM",
+                "FAMILY_OF_THREE", "FAMILY_OF_FOUR",
+                "STRETCHY", "CURLY", "DROOPY",
+                "AMPED", "LOW_KEY",
+                "HANGRY", "FULL_BELLY",
+                "THREE", "TWO",
+                "ANTIQUE", "PHONY",
+                "BUSTED", "DISGUISED",
+                "ORDINARY",
+                "ORIGINAL_COLOR",
+                "RESOLUTE",
+                "ULTIMATE", "APEX",
+                "COMPLETE_TEN_PERCENT", "COMPLETE_FIFTY_PERCENT",
+                "TSHIRT_01", "TSHIRT_02", "FLYING_OKINAWA", "FLYING_02", "KARIYUSHI"
+        );
+
+        List<String> CONTAINS = Arrays.asList(
+                "2019", "2020", "2021", "2022", "2023", "2024", "2025"
+        );
+
+        List<String> ONLY_BASE_FORM = Arrays.asList(
+                "SILVALLY", "ARCEUS"
+        );
+
+        List<String> IGNORE_BASE_FORM = Arrays.asList(
+                "ZAMAZENTA", "ZACIAN", "URSHIFU",
+                "HOOPA", "MELOETTA", "THUNDURUS", "LANDORUS", "TORNADUS",
+                "GIRATINA", "SHAYMIN", "ZYGARDE",
+                "PALAFIN", "CHERRIM", "WORMADAM", "PUMPKABOO", "GOURGEIST", "WISHIWASHI", "DARMANITAN",
+                "ORICORIO", "LYCANROC", "INDEEDEE", "EISCUE"
+        );
 
         String pokeId = pokemon.getNameId();
 
-        for(String ignore : IGNORE_FORMS_COSTUMES)
+        for(String ignore : IGNORE_ENTRIES)
         {
-            if (StringUtils.startsWith(pokeId, ignore))
+            if (StringUtils.equals(pokeId, ignore) ||
+                    (pokemon.isShadow() && StringUtils.equals(pokeId, ignore + "_S")))
             {
                 return true;
             }
         }
-        for(String ignore : getIdBaseForms())
+        for(String ignore : IGNORE_FORMS)
         {
-            if (StringUtils.equals(pokeId, ignore))
+            if (StringUtils.endsWith(pokeId, "_" + ignore) ||
+                    (pokemon.isShadow() && StringUtils.endsWith(pokeId, "_" + ignore + "_S")))
+            {
+                return true;
+            }
+        }
+        for(String ignore : ONLY_BASE_FORM)
+        {
+            if (StringUtils.startsWith(pokeId, ignore + "_"))
+            {
+                return true;
+            }
+        }
+        for(String ignore : CONTAINS)
+        {
+            if (StringUtils.contains(pokeId, ignore))
+            {
+                return true;
+            }
+        }
+        for(String ignore : IGNORE_BASE_FORM)
+        {
+            if (StringUtils.equals(pokeId, ignore) ||
+                    (pokemon.isShadow() && StringUtils.equals(pokeId, ignore + "_S")))
             {
                 return true;
             }
@@ -109,23 +164,6 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
 
         return false;
     }
-
-    private List<String> getIdBaseForms()
-    {
-        List<String> baseIds = new ArrayList<String>();
-
-        for(String id : pokemonData.keySet())
-        {
-            if (StringUtils.contains(id, "_"))
-            {
-                String base = id.split("_")[0];
-                baseIds.add(base);
-            }
-        }
-        return baseIds;
-    }
-
-
 
 
 
@@ -239,7 +277,7 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
     }
 
 
-    private static final String POKEMON_TAG = PokemonData.GM_POKEMON_TAG;
+    private static final String POKEMON_TAG = "_POKEMON_";
     private static final String MOVE_TAG = PokemonMove.GM_MOVE_TAG;
     private static final String COMBAT_PREFIX = "COMBAT_V";
 
