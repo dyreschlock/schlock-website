@@ -10,7 +10,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.List;
 
-public class RaidCountersGraphical
+public class RaidCountersGeneral
 {
     @Inject
     private PokemonRaidCounterService counterService;

@@ -18,9 +18,15 @@
                 ● ${pokemon.fastMoveName}<br/>
                 ● ${pokemon.chargeMoveName}
 
-                <br/><span class="label">${message:dps}</span> ${pokemon.dps}
-                <br/><span class="label">${message:tdo}</span> ${pokemon.tdo}
-                <br/><span class="label">${message:rank}</span> ${pokemon.formattedRank}
+                <t:if test="displayCount">
+                    <br/><b>${pokemon.count}</b>
+                </t:if>
+
+                <t:if test="displayDpsDetails">
+                    <br/><span class="label">${message:dps}</span> ${pokemon.dps}
+                    <br/><span class="label">${message:tdo}</span> ${pokemon.tdo}
+                    <br/><span class="label">${message:rank}</span> ${pokemon.formattedRank}
+                </t:if>
             </div>
         </div>
     </td>

@@ -14,9 +14,6 @@
     <t:if test="counterType.custom">
         <r:raidcounterscustom />
     </t:if>
-    <t:if test="counterType.graphical">
-        <r:raidcountersgraphical />
-    </t:if>
 
 </body>
 </html>

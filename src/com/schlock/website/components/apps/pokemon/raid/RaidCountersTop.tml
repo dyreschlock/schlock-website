@@ -7,14 +7,14 @@
         <tr>
             <td class="name">${message:overall}</td>
             <t:loop source="overallTopCounterPokemon" value="currentCounterPokemon" index="currentIndex">
-                <r:raidCounterGrphBigDisplay pokemon="currentCounterPokemon" />
+                <r:raidCounterDisplay pokemon="currentCounterPokemon" />
             </t:loop>
         </tr>
         <tr>
             <t:loop source="raidBossForEachAttackingType" value="currentBoss" index="currentBossIndex">
                 <td class="name">${currentBoss.attackingType}</td>
                 <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
-                    <r:raidCounterGrphBigDisplay pokemon="currentCounterPokemon" />
+                    <r:raidCounterDisplay pokemon="currentCounterPokemon" />
                 </t:loop>
 
                 <t:if test="closeRow">

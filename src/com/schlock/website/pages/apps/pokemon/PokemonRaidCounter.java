@@ -22,10 +22,7 @@ public class PokemonRaidCounter
 
     Object onActivate()
     {
-        if (counterType == null)
-        {
-            this.counterType = CounterType.defaultType();
-        }
+        this.counterType = CounterType.defaultType();
         return true;
     }
 

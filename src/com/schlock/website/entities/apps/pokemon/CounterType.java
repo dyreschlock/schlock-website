@@ -2,12 +2,7 @@ package com.schlock.website.entities.apps.pokemon;
 
 public enum CounterType
 {
-    GRAPHICAL, GENERAL, CUSTOM, CUSTOM1, CUSTOM2, TOP;
-
-    public boolean isGraphical()
-    {
-        return GRAPHICAL.equals(this);
-    }
+    GENERAL, CUSTOM, CUSTOM1, CUSTOM2, TOP;
 
     public boolean isGeneral()
     {
@@ -26,7 +21,7 @@ public enum CounterType
 
     public int counterListSize()
     {
-        if (isGeneral() || isGraphical())
+        if (isGeneral())
         {
             return 30;
         }
@@ -35,6 +30,6 @@ public enum CounterType
 
     public static CounterType defaultType()
     {
-        return CounterType.GRAPHICAL;
+        return CounterType.GENERAL;
     }
 }

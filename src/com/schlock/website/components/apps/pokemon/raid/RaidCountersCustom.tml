@@ -8,7 +8,7 @@
             <tr>
                 <td class="name">${currentRaidBoss.name}</td>
                 <t:loop source="primeCounterPokemon" value="currentCounterPokemon" index="currentIndex">
-                    <r:raidCounterGrphBigDisplay pokemon="currentCounterPokemon" />
+                    <r:raidCounterDisplay pokemon="currentCounterPokemon" />
                 </t:loop>
 
                 <td>
@@ -23,7 +23,7 @@
                 </td>
 
                 <t:loop source="secondCounterPokemon" value="currentCounterPokemon" index="currentIndex">
-                    <r:raidCounterGrphBigDisplay pokemon="currentCounterPokemon" />
+                    <r:raidCounterDisplay pokemon="currentCounterPokemon" />
                 </t:loop>
 
             </tr>

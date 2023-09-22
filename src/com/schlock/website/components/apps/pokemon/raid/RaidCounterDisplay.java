@@ -6,7 +6,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-public class RaidCounterGrphBigDisplay
+public class RaidCounterDisplay
 {
     @Inject
     private Messages messages;
@@ -18,6 +18,14 @@ public class RaidCounterGrphBigDisplay
     @Parameter
     @Property
     private Integer number;
+
+    @Parameter
+    @Property
+    private Boolean displayCount = false;
+
+    @Parameter
+    @Property
+    private Boolean displayDpsDetails = true;
 
     @Parameter
     @Property
