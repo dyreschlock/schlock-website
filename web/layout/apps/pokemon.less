@@ -1,17 +1,18 @@
+@bg_color: #ddd;
+
 body
 {
     font-family: noto sans,sans-serif;
     font-size: 14px;
 
     color: #464646;
-    background-color: #ccc;
+    background-color: @bg_color;
 }
 
 td
 {
     padding: 3px;
-
-    min-width: 110px;
+    padding-bottom: 12px;
 }
 
 td span.label
@@ -20,21 +21,68 @@ td span.label
     color: #646464;
 }
 
-td.column3, td.column8
+td.column0, td.column3, td.column8
 {
-    border-right: 20px solid #ccc;
+    border-right: 12px solid @bg_color;
 }
 
 #raidPokemon
 {
+    td.header
+    {
+        div
+        {
+            border-radius: 12px;
+            background-color: #fff;
+            padding: 3px 10px;
+            font-weight: bold;
+        }
+    }
+
     td.raidBoss
     {
-        font-weight: bold;
-        font-size: 16px;
+        min-width: 150px;
+        height: 160px;
 
-        width: 140px;
+        div.container
+        {
+            border-radius: 12px;
 
-        background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            position: relative;
+
+            background-color: #fff;
+
+            div.image
+            {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 0;
+
+                background-repeat: no-repeat;
+                background-position: right 0px top 0px;
+            }
+
+            div.details
+            {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+
+                padding-left: 8px;
+                padding-bottom: 7px;
+
+                span.title
+                {
+                    font-weight: bold;
+                    font-size: 16px;
+                }
+            }
+        }
     }
 
     td.counter
@@ -62,7 +110,6 @@ td.column3, td.column8
                 opacity: 0.8;
                 background-repeat: no-repeat;
                 background-position: right -5px top -15px;
-
             }
 
             div.ranking
@@ -76,7 +123,7 @@ td.column3, td.column8
                 color: rgba(255, 255, 255, 0.3);
             }
 
-            div.pokemonDetails
+            div.details
             {
                 position: absolute;
                 color: #fff;
@@ -94,25 +141,47 @@ td.column3, td.column8
         }
     }
 
-    .normal {    background-color: #54573b; }
-    .fire {      background-color: #793d04; }
-    .water {     background-color: #364668; }
-    .grass {     background-color: #366424; }
-    .electric {  background-color: #7c690f; }
+    @normal:   #54573b;
+    @fire:     #793d04;
+    @water:    #364668;
+    @grass:    #366424;
+    @electric: #7c690f;
 
-    .ice {       background-color: #4a6f71; }
-    .fighting {  background-color: #680d00; }
-    .poison {    background-color: #52124e; }
-    .ground {    background-color: #706130; }
-    .flying {    background-color: #524867; }
+    @ice:      #4a6f71;
+    @fighting: #680d00;
+    @poison:   #52124e;
+    @ground:   #706130;
+    @flying:   #524867;
 
-    .psychic {   background-color: #7b2443; }
-    .bug {       background-color: #505e12; }
-    .rock {      background-color: #5d5310; }
-    .ghost {     background-color: #37254f; }
-    .dragon {    background-color: #302456; }
+    @psychic:  #7b2443;
+    @bug:      #505e12;
+    @rock:     #5d5310;
+    @ghost:    #37254f;
+    @dragon:   #302456;
 
-    .dark {      background-color: #3e2e23; }
-    .steel {     background-color: #5e5e6d; }
-    .fairy {     background-color: #7b4c58; }
+    @dark:     #3e2e23;
+    @steel:    #5e5e6d;
+    @fairy:    #7b4c58;
+
+    div.normal {    background-color: @normal; }   span.normal   { color: @normal; }
+    div.fire {      background-color: @fire; }     span.fire     { color: @fire; }
+    div.water {     background-color: @water; }    span.water    { color: @water; }
+    div.grass {     background-color: @grass; }    span.grass    { color: @grass; }
+    div.electric {  background-color: @electric; } span.electric { color: @electric; }
+
+    div.ice {       background-color: @ice; }      span.ice      { color: @ice; }
+    div.fighting {  background-color: @fighting; } span.fighting { color: @fighting; }
+    div.poison {    background-color: @poison; }   span.poison   { color: @poison; }
+    div.ground {    background-color: @ground; }   span.ground   { color: @ground; }
+    div.flying {    background-color: @flying; }   span.flying   { color: @flying; }
+
+    div.psychic {   background-color: @psychic; }  span.psychic  { color: @psychic; }
+    div.bug {       background-color: @bug; }      span.bug      { color: @bug; }
+    div.rock {      background-color: @rock; }     span.rock     { color: @rock; }
+    div.ghost {     background-color: @ghost; }    span.ghost    { color: @ghost; }
+    div.dragon {    background-color: @dragon; }   span.dragon   { color: @dragon; }
+
+    div.dark {      background-color: @dark; }     span.dark     { color: @dark; }
+    div.steel {     background-color: @steel; }    span.steel    { color: @steel; }
+    div.fairy {     background-color: @fairy; }    span.fairy    { color: @fairy; }
 }

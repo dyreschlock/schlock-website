@@ -15,7 +15,7 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 
     public static final int NUMBER_OF_MEGA_COUNTERS_PER_POKEMON = 3;
     public static final int NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON = 5;
-    private static final int NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON = 20;
+    public static final int NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON = 20;
 
     private static final int PARTY_LIMIT = 6;
 

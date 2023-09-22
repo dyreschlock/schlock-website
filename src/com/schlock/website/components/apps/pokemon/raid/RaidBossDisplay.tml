@@ -1,0 +1,17 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <td class="raidBoss column0">
+
+        <div class="container">
+            <div class="image" style="background-image: url(${raidBoss.imageLink})">
+            </div>
+
+            <div class="details">
+                <span class="title">${raidBoss.name}</span><br/>
+                <t:outputraw value="raidBossTypesHTML" />
+            </div>
+        </div>
+    </td>
+
+</t:container>

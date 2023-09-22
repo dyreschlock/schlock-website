@@ -3,11 +3,16 @@
         xmlns:r="tapestry-library:apps/pokemon/raid"
 >
     <table id="raidPokemon">
-        <t:loop source="legendaryPokemon" value="currentRaidBoss">
+        <tr>
+            <td class="header column0"><div>${message:raid-boss}</div></td>
+            <td class="header column3" colspan="${megaCounterNumber}"><div>${message:top-megas}</div></td>
+            <td class="header column8" colspan="${shadowCounterNumber}"><div>${message:top-shadows}</div></td>
+            <td class="header" colspan="${counterNumber}"><div>${message:top-counters}</div></td>
+        </tr>
+
+        <t:loop source="raidBosses" value="currentRaidBoss">
             <tr>
-                <td class="raidBoss" style="background-image: url(${currentRaidBoss.imageLink})">
-                    ${currentRaidBoss.name}
-                </td>
+                <r:raidBossDisplay raidBoss="currentRaidBoss" />
                 <t:loop source="counterPokemon" value="currentCounterPokemon" index="currentIndex">
                     <r:raidCounterDisplay pokemon="currentCounterPokemon" number="number" extraClass="columnIndex" />
                 </t:loop>

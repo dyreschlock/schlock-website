@@ -26,7 +26,7 @@ public class RaidCountersGeneral
 
 
 
-    public List<RaidBossPokemon> getLegendaryPokemon()
+    public List<RaidBossPokemon> getRaidBosses()
     {
         return counterService.getRaidBosses();
     }
@@ -34,6 +34,21 @@ public class RaidCountersGeneral
     public List<RaidCounterInstance> getCounterPokemon()
     {
         return counterService.getCounterPokemon(currentRaidBoss, CounterType.GENERAL);
+    }
+
+    public int getMegaCounterNumber()
+    {
+        return PokemonRaidCounterServiceImpl.NUMBER_OF_MEGA_COUNTERS_PER_POKEMON;
+    }
+
+    public int getShadowCounterNumber()
+    {
+        return PokemonRaidCounterServiceImpl.NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON;
+    }
+
+    public int getCounterNumber()
+    {
+        return PokemonRaidCounterServiceImpl.NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON;
     }
 
     public Integer getNumber()

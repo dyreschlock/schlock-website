@@ -11,7 +11,7 @@
                 <div class="ranking">${number}</div>
             </t:if>
 
-            <div class="pokemonDetails">
+            <div class="details">
                 ${pokemon.name}<br/>
 
                 <span class="label">${message:level}</span>&nbsp;<b>${pokemon.level}</b><br/>
