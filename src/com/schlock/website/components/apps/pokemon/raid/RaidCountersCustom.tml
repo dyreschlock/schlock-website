@@ -3,12 +3,12 @@
     xmlns:r="tapestry-library:apps/pokemon/raid"
 >
 
-    <table>
+    <table id="raidPokemon">
         <t:loop source="legendaryPokemon" value="currentRaidBoss">
             <tr>
                 <td class="name">${currentRaidBoss.name}</td>
                 <t:loop source="primeCounterPokemon" value="currentCounterPokemon" index="currentIndex">
-                    <r:raidCounterDisplay pokemon="currentCounterPokemon" displayDpsDetails="true" />
+                    <r:raidCounterGrphBigDisplay pokemon="currentCounterPokemon" />
                 </t:loop>
 
                 <td>
@@ -23,7 +23,7 @@
                 </td>
 
                 <t:loop source="secondCounterPokemon" value="currentCounterPokemon" index="currentIndex">
-                    <r:raidCounterDisplay pokemon="currentCounterPokemon" displayDpsDetails="true" />
+                    <r:raidCounterGrphBigDisplay pokemon="currentCounterPokemon" />
                 </t:loop>
 
             </tr>

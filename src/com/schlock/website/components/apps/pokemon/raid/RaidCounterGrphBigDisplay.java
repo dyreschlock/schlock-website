@@ -17,6 +17,14 @@ public class RaidCounterGrphBigDisplay
 
     @Parameter
     @Property
+    private Integer number;
+
+    @Parameter
+    @Property
     private String extraClass;
 
+    public boolean isHasNumber()
+    {
+        return number != null;
+    }
 }

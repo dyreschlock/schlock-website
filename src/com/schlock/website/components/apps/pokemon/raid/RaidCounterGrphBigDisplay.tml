@@ -1,11 +1,15 @@
 <t:container
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 >
-    <td class="counter ${pokemon.mainType} ${extraClass}">
+    <td class="counter ${extraClass}">
 
-        <div class="container">
+        <div class="container ${pokemon.mainType}">
             <div class="image" style="background-image: url(${pokemon.imageLink})">
             </div>
+
+            <t:if test="hasNumber">
+                <div class="ranking">${number}</div>
+            </t:if>
 
             <div class="pokemonDetails">
                 ${pokemon.name}<br/>
