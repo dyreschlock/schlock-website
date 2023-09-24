@@ -47,6 +47,7 @@
         <mapping resource="com/schlock/website/entities/apps/games/VideoGameHardware.hbm.xml" />
         <mapping resource="com/schlock/website/entities/apps/games/VideoGamePlatform.hbm.xml" />
 
+        <mapping resource="com/schlock/website/entities/apps/pokemon/PokemonCategory.hbm.xml" />
         <mapping resource="com/schlock/website/entities/apps/pokemon/PokemonData.hbm.xml" />
         <mapping resource="com/schlock/website/entities/apps/pokemon/PokemonMove.hbm.xml" />
     </session-factory>

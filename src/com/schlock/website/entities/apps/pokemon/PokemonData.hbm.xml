@@ -39,5 +39,10 @@
             <many-to-many class="com.schlock.website.entities.apps.pokemon.PokemonMove" column="moveId" />
         </set>
 
+        <set name="categories" cascade="none" lazy="true" table="go_poke_categories">
+            <key column="pokeId" />
+            <many-to-many class="com.schlock.website.entities.apps.pokemon.PokemonCategory" column="catId" />
+        </set>
+
     </class>
 </hibernate-mapping>

@@ -35,6 +35,7 @@ public class PokemonData extends Persisted
     private Set<PokemonMove> allMoves;
     private Set<PokemonMove> standardMoves;
 
+    private Set<PokemonCategory> categories;
 
     private PokemonData()
     {
@@ -280,6 +281,15 @@ public class PokemonData extends Persisted
         this.standardMoves = standardMoves;
     }
 
+    public Set<PokemonCategory> getCategories()
+    {
+        return categories;
+    }
+
+    public void setCategories(Set<PokemonCategory> categories)
+    {
+        this.categories = categories;
+    }
 
     public Set<PokemonMove> getAllChargeMoves()
     {
