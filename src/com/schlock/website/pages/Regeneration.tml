@@ -64,6 +64,7 @@
                 - Pokemon: <t:eventlink t:id="updatePokemonAddNew">Add New Pokemon</t:eventlink>
                     / <t:eventlink t:id="updatePokemonStats">Update Stats</t:eventlink>
                     / <t:eventlink t:id="updatePokemonMoves">Add New Moves</t:eventlink><br />
+                    / <t:eventlink t:id="updatePokemonCategories">Update Categories</t:eventlink><br />
                 <br/>
                 - <t:eventlink t:id="reportPokemonGamepress">Report differences - Database and Gamepress</t:eventlink><br />
             </div>

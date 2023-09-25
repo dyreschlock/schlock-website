@@ -15,8 +15,10 @@ import com.schlock.website.services.database.apps.kendo.ExamQuestionDAO;
 import com.schlock.website.services.database.apps.kendo.impl.ExamQuestionDAOImpl;
 import com.schlock.website.services.database.apps.notfibbage.NotFibbageQuestionDAO;
 import com.schlock.website.services.database.apps.notfibbage.impl.NotFibbageQuestionDAOImpl;
+import com.schlock.website.services.database.apps.pokemon.PokemonCategoryDAO;
 import com.schlock.website.services.database.apps.pokemon.PokemonDataDAO;
 import com.schlock.website.services.database.apps.pokemon.PokemonMoveDAO;
+import com.schlock.website.services.database.apps.pokemon.impl.PokemonCategoryDAOImpl;
 import com.schlock.website.services.database.apps.pokemon.impl.PokemonDataDAOImpl;
 import com.schlock.website.services.database.apps.pokemon.impl.PokemonMoveDAOImpl;
 import com.schlock.website.services.database.blog.*;
@@ -49,6 +51,7 @@ public class DatabaseModule
 
         binder.bind(PokemonDataDAO.class, PokemonDataDAOImpl.class);
         binder.bind(PokemonMoveDAO.class, PokemonMoveDAOImpl.class);
+        binder.bind(PokemonCategoryDAO.class, PokemonCategoryDAOImpl.class);
     }
 
 

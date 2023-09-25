@@ -91,7 +91,10 @@ public class PokemonData extends Persisted
         {
             san = san.split("_")[1];
 
-            return Integer.parseInt(san);
+            if (StringUtils.isNumeric(san))
+            {
+                return Integer.parseInt(san);
+            }
         }
 
         san = san.substring(0, san.length() - 1);
@@ -289,6 +292,14 @@ public class PokemonData extends Persisted
     public void setCategories(Set<PokemonCategory> categories)
     {
         this.categories = categories;
+    }
+
+    public void addCategory(PokemonCategory category)
+    {
+        if (!categories.contains(category))
+        {
+            categories.add(category);
+        }
     }
 
     public Set<PokemonMove> getAllChargeMoves()

@@ -1,9 +1,11 @@
 package com.schlock.website.services.apps.pokemon.impl;
 
+import com.schlock.website.entities.apps.pokemon.PokemonCategory;
 import com.schlock.website.entities.apps.pokemon.PokemonData;
 import com.schlock.website.entities.apps.pokemon.PokemonMove;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.PokemonDataGameMasterService;
+import com.schlock.website.services.database.apps.pokemon.PokemonCategoryDAO;
 import com.schlock.website.services.database.apps.pokemon.PokemonDataDAO;
 import com.schlock.website.services.database.apps.pokemon.PokemonMoveDAO;
 import org.apache.commons.lang.StringUtils;
@@ -18,11 +20,16 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
 
     public static final String GM_TEMPLATE_ID = "templateId";
 
+    private final PokemonCategoryDAO categoryDAO;
+
     public PokemonDataGameMasterServiceImpl(DeploymentContext deploymentContext,
+                                                PokemonCategoryDAO categoryDAO,
                                                 PokemonDataDAO dataDAO,
                                                 PokemonMoveDAO moveDAO)
     {
         super(deploymentContext, dataDAO, moveDAO);
+
+        this.categoryDAO = categoryDAO;
     }
 
     protected PokemonMove getMoveFromDatabase(PokemonMove move)
@@ -369,5 +376,70 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
             }
         }
         return null;
+    }
+
+
+
+    public void updatePokemonCategories()
+    {
+        PokemonCategory gen1 = categoryDAO.getByNameId("gen1");
+        PokemonCategory gen2 = categoryDAO.getByNameId("gen2");
+        PokemonCategory gen3 = categoryDAO.getByNameId("gen3");
+        PokemonCategory gen4 = categoryDAO.getByNameId("gen4");
+        PokemonCategory gen5 = categoryDAO.getByNameId("gen5");
+        PokemonCategory gen6 = categoryDAO.getByNameId("gen6");
+        PokemonCategory gen7 = categoryDAO.getByNameId("gen7");
+        PokemonCategory gen8 = categoryDAO.getByNameId("gen8");
+        PokemonCategory gen9 = categoryDAO.getByNameId("gen9");
+
+        PokemonCategory mega = categoryDAO.getByNameId("mega");
+
+        for(PokemonData data : dataDAO.getAll())
+        {
+            int number = data.getSanitizedNumber();
+            if (number >= 1 && number <= 151)
+            {
+                data.addCategory(gen1);
+            }
+            else if (number >= 152 && number <= 251)
+            {
+                data.addCategory(gen2);
+            }
+            else if (number >= 252 && number <= 386)
+            {
+                data.addCategory(gen3);
+            }
+            else if (number >= 387 && number <= 493)
+            {
+                data.addCategory(gen4);
+            }
+            else if (number >= 494 && number <= 649)
+            {
+                data.addCategory(gen5);
+            }
+            else if (number >= 650 && number <= 721)
+            {
+                data.addCategory(gen6);
+            }
+            else if (number >= 722 && number <= 809)
+            {
+                data.addCategory(gen7);
+            }
+            else if (number >= 810 && number <= 905)
+            {
+                data.addCategory(gen8);
+            }
+            else if (number >= 906 && number <= 1017)
+            {
+                data.addCategory(gen9);
+            }
+
+            if (data.isMega())
+            {
+                data.addCategory(mega);
+            }
+
+            dataDAO.save(data);
+        }
     }
 }

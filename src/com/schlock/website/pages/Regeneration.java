@@ -186,6 +186,12 @@ public class Regeneration
         outputMessages(messages);
     }
 
+    @CommitAfter
+    void onUpdatePokemonCategories()
+    {
+        pokemonGameMasterService.updatePokemonCategories();
+    }
+
     private void outputMessages(List<String> messages)
     {
         if (messages.isEmpty())
