@@ -1,6 +1,6 @@
 package com.schlock.website.entities.apps.pokemon;
 
-import java.util.Set;
+import java.util.*;
 
 public abstract class AbstractPokemon
 {
@@ -57,6 +57,21 @@ public abstract class AbstractPokemon
     public String getMainType(PokemonMove fastMove, PokemonMove chargeMove)
     {
         return data.getMainType(fastMove, chargeMove);
+    }
+
+    public List<PokemonCategory> getCategories()
+    {
+        List<PokemonCategory> categories = new ArrayList<PokemonCategory>();
+        categories.addAll(data.getCategories());
+
+        Collections.sort(categories, new Comparator<PokemonCategory>()
+        {
+            public int compare(PokemonCategory o1, PokemonCategory o2)
+            {
+                return o1.getId().compareTo(o2.getId());
+            }
+        });
+        return categories;
     }
 
     public int getLevel()

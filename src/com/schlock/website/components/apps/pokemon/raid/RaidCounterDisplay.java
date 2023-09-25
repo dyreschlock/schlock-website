@@ -35,4 +35,20 @@ public class RaidCounterDisplay
     {
         return number != null;
     }
+
+
+    public String getCategories()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for(String catId : pokemon.getCategoryIds())
+        {
+            if (sb.length() > 0)
+            {
+                sb.append("・");
+            }
+            sb.append(messages.get(catId));
+        }
+        return sb.toString();
+    }
 }

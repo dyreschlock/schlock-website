@@ -7,6 +7,10 @@
             <div class="image" style="background-image: url(${raidBoss.imageLink})">
             </div>
 
+            <div class="category">
+                ${categories}
+            </div>
+
             <div class="details">
                 <span class="title">${raidBoss.name}</span><br/>
                 <t:outputraw value="raidBossTypesHTML" />

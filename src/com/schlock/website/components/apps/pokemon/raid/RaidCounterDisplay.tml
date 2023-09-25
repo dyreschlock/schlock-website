@@ -11,6 +11,10 @@
                 <div class="ranking">${number}</div>
             </t:if>
 
+            <div class="category">
+                ${categories}
+            </div>
+
             <div class="details">
                 ${pokemon.name}<br/>
 

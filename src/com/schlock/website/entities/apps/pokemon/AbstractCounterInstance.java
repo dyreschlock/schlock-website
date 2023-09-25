@@ -1,5 +1,8 @@
 package com.schlock.website.entities.apps.pokemon;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class AbstractCounterInstance implements Comparable<AbstractCounterInstance>
 {
     private static final String ELITE_MOVE = "**";
@@ -19,6 +22,8 @@ public abstract class AbstractCounterInstance implements Comparable<AbstractCoun
     private int attackIV;
     private int defenseIV;
     private int staminaIV;
+
+    private List<String> categoryIds;
 
     protected AbstractCounterInstance()
     {
@@ -40,6 +45,19 @@ public abstract class AbstractCounterInstance implements Comparable<AbstractCoun
 
         this.chargeMove = chargeMove.getName();
         this.isEliteChargeMove = !counter.getStandardChargeMoves().contains(chargeMove);
+
+        this.categoryIds = getCategoryIds(counter);
+    }
+
+    private List<String> getCategoryIds(CounterPokemon counter)
+    {
+        List<String> ids = new ArrayList<String>();
+
+        for(PokemonCategory cat : counter.getCategories())
+        {
+            ids.add(cat.getNameId());
+        }
+        return ids;
     }
 
     public String getName() { return name; }
@@ -99,5 +117,10 @@ public abstract class AbstractCounterInstance implements Comparable<AbstractCoun
     public int getStaminaIV()
     {
         return staminaIV;
+    }
+
+    public List<String> getCategoryIds()
+    {
+        return categoryIds;
     }
 }
