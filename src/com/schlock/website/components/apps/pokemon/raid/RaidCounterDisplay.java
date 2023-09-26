@@ -36,6 +36,14 @@ public class RaidCounterDisplay
         return number != null;
     }
 
+    public String getShadowClass()
+    {
+        if (pokemon.isShadow())
+        {
+            return "shadow";
+        }
+        return "notShadow";
+    }
 
     public String getCategories()
     {
