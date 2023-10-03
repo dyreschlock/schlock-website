@@ -16,6 +16,8 @@ public class PostManagementImpl implements PostManagement
 
     private final static String VALID_UUID_CHARACTERS = "abcdefghijklmnopqrstuvwxyz1234567890";
     private final static int PREVIEW_LENGTH = 900;
+    private final static int POST_DESCRIPTION_LENGTH = 175;
+
 
     private final static String BREAK = "<break>";
 
@@ -210,29 +212,22 @@ public class PostManagementImpl implements PostManagement
         return newString;
     }
 
+    public String generatePostDescription(AbstractPost post)
+    {
+        String description = generatePostPreviewContent(post, POST_DESCRIPTION_LENGTH);
+        if (description != null)
+        {
+            description = description.replaceAll("\r\n\r\n", " ");
+            description = description.replaceAll("\r\n", " ");
+            description = description.replaceAll("\n\n", " ");
+            description = description.replaceAll("\n", " ");
+        }
+        return description;
+    }
+
     public String generatePostPreview(AbstractPost post)
     {
-        String tempText = post.getBlurb();
-        if (StringUtils.isBlank(tempText))
-        {
-            tempText = post.getBodyText();
-        }
-
-        int brake = 0;
-        if (StringUtils.containsIgnoreCase(tempText, BREAK))
-        {
-            brake = tempText.indexOf(BREAK);
-        }
-        else
-        {
-            brake = tempText.length();
-            if (brake > PREVIEW_LENGTH)
-            {
-                brake = PREVIEW_LENGTH;
-            }
-        }
-        tempText = tempText.substring(0, brake);
-
+        String tempText = generatePostPreviewContent(post, PREVIEW_LENGTH);
 
         int openTag = tempText.lastIndexOf("<");
         int closeTag = tempText.lastIndexOf(">");
@@ -249,6 +244,29 @@ public class PostManagementImpl implements PostManagement
 
         String html = generatePostHTML(tempText);
         return html;
+    }
+
+    private String generatePostPreviewContent(AbstractPost post, final int MAX_LENGTH)
+    {
+        String description = post.getBodyText();
+        if (StringUtils.isNotBlank(post.getBlurb()))
+        {
+            description = post.getBlurb();
+        }
+        if (StringUtils.contains(description, BREAK))
+        {
+            int breek = description.indexOf(BREAK);
+            description = description.substring(0, breek);
+        }
+        if (description != null && description.length() > MAX_LENGTH)
+        {
+            description = description.substring(0, MAX_LENGTH);
+
+            int lastSpace = description.lastIndexOf(" ");
+            description = description.substring(0, lastSpace);
+            description += "...";
+        }
+        return description;
     }
 
     private String closeTags(final String text, final String OPEN, final String CLOSE)
@@ -552,33 +570,6 @@ public class PostManagementImpl implements PostManagement
     {
         boolean notLocal = link.startsWith("http") && !link.contains("theschlock.com");
         return notLocal;
-    }
-
-    private static final Integer POST_DESCRIPTION_LENGTH = 175;
-
-    public String generatePostDescription(AbstractPost post)
-    {
-        String description = post.getBodyText();
-        if (StringUtils.isNotBlank(post.getBlurb()))
-        {
-            description = post.getBlurb();
-        }
-        if (description != null && description.length() > POST_DESCRIPTION_LENGTH)
-        {
-            description = description.substring(0, POST_DESCRIPTION_LENGTH);
-
-            description = description.replaceAll(BREAK, "");
-            description = description.replaceAll("\r\n\r\n", " ");
-            description = description.replaceAll("\r\n", " ");
-            description = description.replaceAll("\n\n", " ");
-            description = description.replaceAll("\n", " ");
-
-
-            int lastSpace = description.lastIndexOf(" ");
-            description = description.substring(0, lastSpace);
-            description += "...";
-        }
-        return description;
     }
 
     public String getStylizedHTMLTitle(AbstractPost post)
