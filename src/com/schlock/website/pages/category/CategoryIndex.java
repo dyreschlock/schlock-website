@@ -14,7 +14,6 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.*;
 
@@ -112,7 +111,7 @@ public class CategoryIndex
 
     public List<Post> getPosts()
     {
-        int postCount = 20;
+        int postCount = 21;
         boolean unpublished = viewState.isShowUnpublished();
         Long categoryId = currentCategory.getId();
 
