@@ -28,7 +28,16 @@ public class Post extends AbstractPost
     {
         if (number != null)
         {
-            return number.toString();
+            String num = number.toString();
+            if (num.length() == 1)
+            {
+                return "00" + num;
+            }
+            if (num.length() == 2)
+            {
+                return "0" + num;
+            }
+            return num;
         }
         return "";
     }
