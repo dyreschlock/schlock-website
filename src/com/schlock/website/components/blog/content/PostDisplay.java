@@ -1,9 +1,6 @@
 package com.schlock.website.components.blog.content;
 
 import com.schlock.website.entities.blog.*;
-import com.schlock.website.pages.Projects;
-import com.schlock.website.pages.category.CategoryIndex;
-import com.schlock.website.pages.lessons.LessonsIndex;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.LessonsManagement;
 import com.schlock.website.services.blog.PostManagement;
@@ -16,12 +13,13 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.List;
 
 public class PostDisplay
 {
+    private static final String POST_NUMBER_KEY = "post-number";
+
     @Parameter(required = true)
     @Property
     private AbstractPost post;
@@ -152,6 +150,23 @@ public class PostDisplay
         return post.getBodyHTML();
     }
 
+    public boolean isShowNumber()
+    {
+        if (post.isPost())
+        {
+            return ((Post) post).getNumber() != null;
+        }
+        return false;
+    }
+
+    public String getPostNumber()
+    {
+        if (post.isPost())
+        {
+            return messages.format(POST_NUMBER_KEY, ((Post) post).getDisplayNumber());
+        }
+        return null;
+    }
 
     public String getCreatedDate()
     {

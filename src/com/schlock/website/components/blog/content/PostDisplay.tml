@@ -11,6 +11,10 @@
         </h1>
         <t:if test="!post.page">
             <div id="headlineContent" class="postDate">
+                <t:if test="showNumber">
+                    ${postNumber}
+                    //
+                </t:if>
                 <time datetime="${createdDateHtmlTag}" itemprop="datePublished">
                     ${createdDate}
                 </time>

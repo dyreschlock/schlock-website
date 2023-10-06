@@ -24,6 +24,15 @@ public class Post extends AbstractPost
         return number;
     }
 
+    public String getDisplayNumber()
+    {
+        if (number != null)
+        {
+            return number.toString();
+        }
+        return "";
+    }
+
     public void setNumber(Integer number)
     {
         this.number = number;

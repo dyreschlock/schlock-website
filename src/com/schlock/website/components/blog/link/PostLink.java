@@ -2,18 +2,20 @@ package com.schlock.website.components.blog.link;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Page;
-import com.schlock.website.pages.Index;
+import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.Date;
 
 public class PostLink
 {
+    private static final String POST_NUMBER_KEY = "post-number";
+
     @Parameter(required = true)
     @Property
     private AbstractPost post;
@@ -28,6 +30,9 @@ public class PostLink
     @Inject
     private PostManagement postManagement;
 
+    @Inject
+    private Messages messages;
+
 
     public String getPostTitleHtml()
     {
@@ -35,6 +40,25 @@ public class PostLink
         String html = postManagement.wrapJapaneseTextInTags(title);
 
         return html;
+    }
+
+    public boolean isShowNumber()
+    {
+        if (post.isPost())
+        {
+            Post p = (Post) post;
+            return p.getNumber() != null;
+        }
+        return false;
+    }
+
+    public String getPostNumber()
+    {
+        if (post.isPost())
+        {
+            return messages.format(POST_NUMBER_KEY, ((Post) post).getDisplayNumber());
+        }
+        return null;
     }
 
     public String getCreatedDate()
