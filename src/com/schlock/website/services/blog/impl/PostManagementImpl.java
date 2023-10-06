@@ -184,6 +184,20 @@ public class PostManagementImpl implements PostManagement
         postDAO.save(post);
     }
 
+    public void regeneratePostNumbers()
+    {
+        List<Post> posts = postDAO.getAllVisibleByDate();
+
+        int count = 1;
+        for(Post post : posts)
+        {
+            post.setNumber(count);
+            postDAO.save(post);
+
+            count++;
+        }
+    }
+
     public String generateCommentHTML(String comment)
     {
         String output = comment.trim();

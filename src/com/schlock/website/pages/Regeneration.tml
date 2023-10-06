@@ -43,7 +43,9 @@
                 <br/>
                 <br/>
                 <h2><t:eventlink t:id="regenPostItems">Generate Post Items</t:eventlink></h2>
-                (It will do all four of the following, in order)<br/>
+                (It will do all five of the following, in order)<br/>
+                <br/>
+                - <t:eventlink t:id="regeneratePostNumbers">Regenerate Post Numbers</t:eventlink><br/>
                 <br/>
                 - <t:eventlink t:id="createPostPreviewImages">Create Post Preview Image Files</t:eventlink> (Images in Github for Metadata)<br/>
                 <br/>

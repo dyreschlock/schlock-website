@@ -107,6 +107,19 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return list;
     }
 
+    public List<Post> getAllVisibleByDate()
+    {
+        String text = "select p " +
+                " from Post p " +
+                " where p.publishedLevel > " + POST_NOT_VISIBLE + " " +
+                " order by p.created asc ";
+
+        Query query = session.createQuery(text);
+
+        List<Post> list = query.list();
+        return list;
+    }
+
     public Set<String> getAllGalleryNames()
     {
         String text = "select p.galleryName " +

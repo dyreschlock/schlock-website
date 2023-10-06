@@ -38,7 +38,7 @@ public class Regeneration
     /*
      * No slash at the beginning. Slash at the end.
      */
-    private static final String LOCATION = "";
+    private static final String LOCATION = "photo/230930_shirokimine/";
 
 
     @CommitAfter
@@ -85,10 +85,17 @@ public class Regeneration
     @CommitAfter
     void onRegenPostItems()
     {
+        onRegeneratePostNumbers();
         onCreatePostPreviewImages();
         onGenerateImageObjects();
         onRegenHTML();
         onGenerateWebpFiles();
+    }
+
+    @CommitAfter
+    void onRegeneratePostNumbers()
+    {
+        postManagement.regeneratePostNumbers();
     }
 
     @CommitAfter

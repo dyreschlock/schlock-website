@@ -10,39 +10,41 @@ import java.util.Set;
 
 public interface PostManagement
 {
-    public Post createPost(String postTitle, String postContent);
+    Post createPost(String postTitle, String postContent);
 
-    public Post createPost(Date created, String postTitle, String postContent);
+    Post createPost(Date created, String postTitle, String postContent);
 
-    public Date getUpdatedTime(Page page);
+    Date getUpdatedTime(Page page);
 
-    public void regenerateAllPostHTML();
+    void regenerateAllPostHTML();
 
-    public void setPostHTML(AbstractPost post);
+    void regeneratePostNumbers();
 
-    public String generateCommentHTML(String comment);
+    void setPostHTML(AbstractPost post);
 
-    public String updateLinkToModernReference(String link);
+    String generateCommentHTML(String comment);
 
-    public String generatePostPreview(AbstractPost post);
+    String updateLinkToModernReference(String link);
 
-    public String wrapJapaneseTextInTags(String html);
+    String generatePostPreview(AbstractPost post);
 
-    public String generatePostDescription(AbstractPost post);
+    String wrapJapaneseTextInTags(String html);
 
-    public String getStylizedHTMLTitle(AbstractPost post);
+    String generatePostDescription(AbstractPost post);
 
-    public List<Post> getTopPosts(Integer count, Long categoryId, Set<Long> excludeIds);
+    String getStylizedHTMLTitle(AbstractPost post);
 
-    public List<Post> getTopPosts(Integer count, Integer year, Integer month, Set<Long> excludeIds);
+    List<Post> getTopPosts(Integer count, Long categoryId, Set<Long> excludeIds);
 
-    public List<Post> getTopPosts(Integer count, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
+    List<Post> getTopPosts(Integer count, Integer year, Integer month, Set<Long> excludeIds);
 
-    public List<AbstractPost> getNextPosts(AbstractPost post);
+    List<Post> getTopPosts(Integer count, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
 
-    public List<AbstractPost> getPreviousPosts(AbstractPost post);
+    List<AbstractPost> getNextPosts(AbstractPost post);
 
-    public List<AbstractPost> getNextRelatedPosts(AbstractPost post);
+    List<AbstractPost> getPreviousPosts(AbstractPost post);
 
-    public List<AbstractPost> getPreviousRelatedPosts(AbstractPost post);
+    List<AbstractPost> getNextRelatedPosts(AbstractPost post);
+
+    List<AbstractPost> getPreviousRelatedPosts(AbstractPost post);
 }
