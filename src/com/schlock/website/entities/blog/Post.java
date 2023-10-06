@@ -2,6 +2,8 @@ package com.schlock.website.entities.blog;
 
 public class Post extends AbstractPost
 {
+    private Integer number;
+
     protected Post()
     {
     }
@@ -15,5 +17,15 @@ public class Post extends AbstractPost
     public boolean isPost()
     {
         return true;
+    }
+
+    public Integer getNumber()
+    {
+        return number;
+    }
+
+    public void setNumber(Integer number)
+    {
+        this.number = number;
     }
 }

@@ -41,6 +41,8 @@
         </list>
 
         <subclass name="com.schlock.website.entities.blog.Post">
+            <property name="number" column="num" />
+
             <subclass name="com.schlock.website.entities.blog.ClubPost">
                 <property name="eventDate" />
             </subclass>
