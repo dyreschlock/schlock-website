@@ -2,12 +2,18 @@
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
         xmlns:r="tapestry-library:apps/pokemon/raid"
 >
+
     <table id="raidPokemon">
         <tr>
-            <td class="header column0"><div>${message:raid-boss}</div></td>
-            <td class="header column3" colspan="${megaCounterNumber}"><div>${message:top-megas}</div></td>
-            <td class="header column8" colspan="${shadowCounterNumber}"><div>${message:top-shadows}</div></td>
-            <td class="header" colspan="${counterNumber}"><div>${message:top-counters}</div></td>
+            <td class="header column0">
+                <div class="box">
+                    <div class="bossTitle">${message:raid-boss}</div>
+                    <!-- r:raidbossfilters / -->
+                </div>
+            </td>
+            <td class="header column3" colspan="${megaCounterNumber}"><div class="box">${message:top-megas}</div></td>
+            <td class="header column8" colspan="${shadowCounterNumber}"><div class="box">${message:top-shadows}</div></td>
+            <td class="header" colspan="${counterNumber}"><div class="box">${message:top-counters}</div></td>
         </tr>
 
         <t:loop source="raidBosses" value="currentRaidBoss">

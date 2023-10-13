@@ -1,0 +1,23 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+
+    <div class="filters">
+        All ■
+    </div>
+
+    <!--
+    <div id="raidTitleBar">
+        <t:loop source="categories" value="currentCategory">
+
+            <div class="outer">
+                <div class="inner">
+                    ${currentCategoryText}
+                </div>
+            </div>
+
+        </t:loop>
+    </div>
+    -->
+
+</t:container>

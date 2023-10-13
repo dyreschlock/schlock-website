@@ -28,18 +28,72 @@ td.column0, td.column3, td.column8
     padding-right: 12px;
 }
 
+#raidTitleBar
+{
+    div.outer
+    {
+        width: 18px;
+
+        padding: 5px 19px 4px 5px;
+
+        display: inline-block;
+    }
+
+    div.inner
+    {
+        border-radius: 12px;
+        box-shadow: 1px 1px 15px @shadow_color_menu;
+
+        width: 100%;
+
+        background-color: #fff;
+        padding: 6px 7px;
+
+
+        text-align: center;
+    }
+}
+
 #raidPokemon
 {
     td.header
     {
-        div
+        div.box
         {
+            position: relative;
+
             border-radius: 12px;
             box-shadow: 1px 1px 15px @shadow_color_menu;
 
             background-color: #fff;
-            padding: 3px 10px;
+            padding: 6px 10px;
             font-weight: bold;
+        }
+
+        div.bossTitle
+        {
+            display: inline-block;
+
+            width: 69%;
+        }
+
+        div.filters
+        {
+            display: inline-block;
+
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            line-height: 29px;
+            padding-right: 7px;
+
+            width: 20%;
+            text-align: right;
+
+            font-size: 10px;
+            font-family: times;
+            font-weight: normal;
         }
     }
 
