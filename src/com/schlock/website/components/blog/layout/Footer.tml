@@ -26,21 +26,19 @@
 
         <div id="aboutMessage">
             <t:outputraw value="message:website-about" />
-            &nbsp;
-            <a title="${message:read-more}" href="/aboutme">${message:read-more}</a>
             <br/><br/>
             <div class="title">Email</div>
             ${message:website-email}
         </div>
 
         <div id="iconLinks">
-            <l:iconlink icon="rss" redirectUrl="rssUrl" altTitleText="${message:rssTitle}" />
             <l:iconlink icon="twitter" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
             <!-- l:iconlink icon="discord" redirectUrl="${message:discordUrl}" altTitleText="${message:discordTitle}" / -->
             <l:iconlink icon="twitch" redirectUrl="${message:twitchUrl}" altTitleText="${message:twitchTitle}" />
             <l:iconlink icon="youtube" redirectUrl="${message:youtube1Url}" altTitleText="${message:youtube1Title}" />
             <l:iconlink icon="github" redirectUrl="${message:githubUrl}" altTitleText="${message:githubTitle}" />
             <l:iconlink icon="ebay" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
+            <l:iconlink icon="seed" />
         </div>
 
     </div>

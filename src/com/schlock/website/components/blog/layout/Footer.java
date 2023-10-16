@@ -77,6 +77,11 @@ public class Footer
         return url;
     }
 
+    public Icon getSeed()
+    {
+        return Icon.SEED;
+    }
+
     public Icon getRss()
     {
         return Icon.RSS;

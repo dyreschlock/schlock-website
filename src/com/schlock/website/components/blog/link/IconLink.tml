@@ -2,10 +2,22 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
-    <a href="${redirectUrl}" target="_blank">
+    <t:if test="hasLink">
+
+        <a href="${redirectUrl}" target="_blank">
+            <div class="${iconClass}">
+                <img src="${iconUrl}" alt="${altTitleText}" title="${altTitleText}" />
+            </div>
+        </a>
+
+    </t:if>
+    <t:if test="!hasLink">
+
         <div class="${iconClass}">
             <img src="${iconUrl}" alt="${altTitleText}" title="${altTitleText}" />
         </div>
-    </a>
+
+    </t:if>
+
 
 </t:container>
