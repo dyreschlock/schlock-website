@@ -299,7 +299,7 @@ public class ImageManagementImpl implements ImageManagement
                     if (HREF_PARAM.equals(PARAM) && imageIndex != null)
                     {
                         // onclick="galleryClicked(1)"
-                        finishHTML += " onclick=\"galleryClicked(" + imageIndex + ")\"";
+                        finishHTML += " onclick=\"galleryClicked(" + imageIndex + ")";
                     }
                     else
                     {
