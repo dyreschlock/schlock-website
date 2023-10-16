@@ -1,6 +1,7 @@
 package com.schlock.website.pages;
 
 import com.schlock.website.entities.blog.Post;
+import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.ContentType;
 import org.apache.tapestry5.annotations.Property;
@@ -15,6 +16,9 @@ public class Feed
 {
     @Inject
     private PageRenderLinkSource linkSource;
+
+    @Inject
+    private PostManagement postManagement;
 
     @Inject
     private Messages messages;
@@ -33,6 +37,13 @@ public class Feed
 
         List<Post> posts = postDAO.getMostRecentPosts(postCount, false, null, null, null);
         return posts;
+    }
+
+    public String getCurrentPostBodyHTML()
+    {
+        postManagement.setPostHTML(currentPost);
+
+        return currentPost.getBodyHTML();
     }
 
     public String getCurrentPostURL()

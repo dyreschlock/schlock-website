@@ -11,7 +11,7 @@
 
             <item>
                 <title>${currentPost.title}</title>
-                <description>${currentPost.bodyHTML}</description>
+                <description>${currentPostBodyHTML}</description>
                 <link>${currentPostURL}</link>
             </item>
 
