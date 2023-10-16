@@ -3,6 +3,10 @@
 
 @linkcolor: #800;
 
+@backgroundcolor: #282828;
+@bodycolor: #fff;
+
+
 @red: #f00;
 @green: #3a3;
 @cyan: #0bb;
@@ -569,9 +573,25 @@ div.postLink
     {
         padding-top: 20px;
 
-        img
+        div.icon
         {
-            padding: 0 10px 0 0;
+            display: inline-block;
+
+            margin: 0 10px 0 0;
+
+            background-color: @bodycolor;
+            border-radius: 7px;
+
+            width: 30px;
+            height: 30px;
+
+            img
+            {
+                filter: brightness(15.6%);
+
+                width: 30px;
+                height: 30px;
+            }
         }
     }
 }
@@ -635,9 +655,23 @@ div.postLink
         font-size: 1.1em;
         padding-bottom: 15px;
     }
-    img
+    div.icon
     {
-        margin: 0 10px 5px 0;
+        display: inline-block;
+
+        margin: 0 10px 9px 0;
+
+        background-color: @backgroundcolor;
+        border-radius: 10px;
+
+        width: 50px;
+        height: 50px;
+
+        img
+        {
+            width: 50px;
+            height: 50px;
+        }
     }
     a
     {

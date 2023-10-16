@@ -3,7 +3,9 @@
     >
 
     <a href="${redirectUrl}" target="_blank">
-        <img src="${iconUrl}" alt="${altTitleText}" title="${altTitleText}" />
+        <div class="${iconClass}">
+            <img src="${iconUrl}" alt="${altTitleText}" title="${altTitleText}" />
+        </div>
     </a>
 
 </t:container>

@@ -27,52 +27,52 @@ public class AboutMe
 
     public Icon getRss()
     {
-        return Icon.RSS_DARK;
+        return Icon.RSS;
     }
 
     public Icon getTwitter()
     {
-        return Icon.TWITTER_DARK;
+        return Icon.TWITTER;
     }
 
     public Icon getYoutube()
     {
-        return Icon.YOUTUBE_DARK;
+        return Icon.YOUTUBE;
     }
 
     public Icon getStack()
     {
-        return Icon.STACK_DARK;
+        return Icon.STACK;
     }
 
     public Icon getGithub()
     {
-        return Icon.GITHUB_DARK;
+        return Icon.GITHUB;
     }
 
     public Icon getPsn()
     {
-        return Icon.PSN_DARK;
+        return Icon.PSN;
     }
 
     public Icon getXbox()
     {
-        return Icon.XBOX_DARK;
+        return Icon.XBOX;
     }
 
     public Icon getSteam()
     {
-        return Icon.STEAM_DARK;
+        return Icon.STEAM;
     }
 
     public Icon getEbay()
     {
-        return Icon.EBAY_DARK;
+        return Icon.EBAY;
     }
 
-    public Icon getDiscord() { return Icon.DISCORD_DARK; }
+    public Icon getDiscord() { return Icon.DISCORD; }
 
-    public Icon getTwitch() { return Icon.TWITCH_DARK; }
+    public Icon getTwitch() { return Icon.TWITCH; }
 
 
     private Page cachedPage;
