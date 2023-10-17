@@ -9,4 +9,6 @@ public interface DateFormatter
     public String htmlTagFormat(Date date);
 
     public String dayFormat(Date date);
+
+    public String rssFeedFormat(Date date);
 }

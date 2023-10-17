@@ -5,6 +5,7 @@
     <channel>
         <title>${message:website-title}</title>
         <description>${message:website-about}</description>
+        <lastBuildDate>${currentDate}</lastBuildDate>
         <link>${message:website-url}</link>
 
         <t:loop source="recentPosts" value="currentPost">
@@ -12,6 +13,8 @@
             <item>
                 <title>${currentPost.title}</title>
                 <description>${currentPostBodyHTML}</description>
+                <pubDate>${currentPostDate}</pubDate>
+                <guid>${currentPostURL}</guid>
                 <link>${currentPostURL}</link>
             </item>
 
