@@ -21,7 +21,14 @@ wget \
   --reject jpg,jpeg,png,gif,mpg,webp \
   --domains localhost \
   http://localhost:8084/
-#  http://localhost:8084/apps/pocket
+
+wget \
+  --recursive \
+  --no-host-directories \
+  --html-extension \
+  --reject jpg,jpeg,png,gif,mpg,webp \
+  --domains localhost \
+  http://localhost:8084/apps/pocket
 
 # find = finds all directories excluding .dot directories
 for dir in $(find . -mindepth 1 -type d -not \( -path "./.*" -prune \)) ; do
