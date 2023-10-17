@@ -113,6 +113,11 @@ public class DeploymentContextImpl implements DeploymentContext
     }
 
 
+    public String webDomain()
+    {
+        return getDeployProperties().getProperty(WEB_DOMAIN);
+    }
+
     public String googleCredentialsFilepath()
     {
         return getDeployProperties().getProperty(GOOGLE_CREDENTIALS_FILEPATH);

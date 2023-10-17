@@ -1,6 +1,7 @@
 package com.schlock.website.services.blog.impl;
 
 import com.schlock.website.entities.Icon;
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.IconManagement;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.codec.binary.Base64;
@@ -11,10 +12,13 @@ import java.io.IOException;
 
 public class IconManagementImpl implements IconManagement
 {
+    private DeploymentContext deploymentContext;
     private Context context;
 
-    public IconManagementImpl(Context context)
+    public IconManagementImpl(DeploymentContext deploymentContext,
+                              Context context)
     {
+        this.deploymentContext = deploymentContext;
         this.context = context;
     }
 
@@ -44,5 +48,11 @@ public class IconManagementImpl implements IconManagement
             }
         }
         return null;
+    }
+
+    public String getIconLink(Icon icon)
+    {
+        String link = deploymentContext.webDomain() + icon.getIconPath();
+        return link;
     }
 }

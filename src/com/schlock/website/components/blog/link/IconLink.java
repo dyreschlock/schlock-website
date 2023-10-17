@@ -23,7 +23,6 @@ public class IconLink
     @Inject
     private IconManagement iconManagement;
 
-
     public boolean isHasLink()
     {
         return StringUtils.isNotBlank(redirectUrl);
@@ -31,8 +30,7 @@ public class IconLink
 
     public String getIconUrl()
     {
-        String dataUrl = iconManagement.createBase64ImgLink(icon);
-        return dataUrl;
+        return iconManagement.getIconLink(icon);
     }
 
     public String getIconClass()

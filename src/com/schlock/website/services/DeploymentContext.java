@@ -21,6 +21,8 @@ public interface DeploymentContext
 
     public String googleCredentialsFilepath();
 
+    public String webDomain();
+
     public String webDirectory();
     public String dataDirectory();
 
