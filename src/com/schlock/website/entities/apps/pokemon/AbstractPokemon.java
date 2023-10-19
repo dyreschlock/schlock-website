@@ -44,6 +44,11 @@ public abstract class AbstractPokemon
         return data.getName();
     }
 
+    public String getNameId()
+    {
+        return data.getNameId();
+    }
+
     public String getNumber()
     {
         return data.getNumber();

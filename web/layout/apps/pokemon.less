@@ -2,14 +2,26 @@
 @shadow_color_menu: #ccc;
 @shadow_color_tile: #999;
 
+@text_color: #464646;
+
 body
 {
     font-family: noto sans,sans-serif;
     font-size: 14px;
 
-    color: #464646;
+    color: @text_color;
     background-color: @bg_color;
 }
+
+a
+{
+    color: @text_color;
+}
+a:link, a:visited
+{
+    text-decoration: none;
+}
+
 
 td
 {

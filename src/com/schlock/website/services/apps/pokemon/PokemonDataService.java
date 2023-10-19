@@ -9,6 +9,8 @@ public interface PokemonDataService
 {
     List<RaidBossPokemon> getRaidBosses();
 
+    RaidBossPokemon getRaidBossByNameId(String nameId);
+
     List<RaidBossWithAttackingType> getRaidBossForEachAttackingType();
 
     List<RocketLeader> getRocketLeaders();

@@ -10,6 +10,8 @@ import java.util.List;
 public interface PokemonRaidCounterService
 {
     public List<RaidBossPokemon> getRaidBosses();
+    public RaidBossPokemon getRaidBossByNameId(String nameId);
+
     public List<RaidBossWithAttackingType> getRaidBossForEachAttackingType();
 
     public List<RaidCounterInstance> getCounterPokemon(RaidBossPokemon legendary, CounterType type);

@@ -235,6 +235,17 @@ public class PokemonDataServiceImpl implements PokemonDataService
         return raidBosses;
     }
 
+    public RaidBossPokemon getRaidBossByNameId(String nameId)
+    {
+        PokemonData data = dataDAO.getByNameId(nameId);
+        if (data != null)
+        {
+            RaidBossPokemon boss = RaidBossPokemon.createFromData(data);
+            return boss;
+        }
+        return null;
+    }
+
     public PokemonData getDataByName(String name)
     {
         PokemonData data = dataDAO.getByName(name);

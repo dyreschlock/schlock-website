@@ -8,11 +8,16 @@
     <t:if test="counterType.top">
         <r:raidcounterstop />
     </t:if>
-    <t:if test="counterType.general">
-        <r:raidcountersgeneral />
-    </t:if>
     <t:if test="counterType.custom">
         <r:raidcounterscustom />
+    </t:if>
+    <t:if test="counterType.general">
+        <t:if test="raidBossSelected">
+            <r:raidcountersbossdetails selectedBoss="selectedBoss" />
+        </t:if>
+        <t:if test="!raidBossSelected">
+            <r:raidcountersgeneral />
+        </t:if>
     </t:if>
 
 </body>

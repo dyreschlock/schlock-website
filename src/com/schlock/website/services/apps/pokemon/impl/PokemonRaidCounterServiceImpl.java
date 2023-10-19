@@ -276,6 +276,11 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         return dataService.getRaidBosses();
     }
 
+    public RaidBossPokemon getRaidBossByNameId(String nameId)
+    {
+        return dataService.getRaidBossByNameId(nameId);
+    }
+
     public List<RaidBossWithAttackingType> getRaidBossForEachAttackingType()
     {
         return dataService.getRaidBossForEachAttackingType();

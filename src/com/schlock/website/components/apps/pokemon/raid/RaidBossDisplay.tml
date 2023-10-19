@@ -3,6 +3,7 @@
 >
     <td class="raidBoss column0">
 
+        <a href="${raidBossPageUrl}">
         <div class="container">
             <div class="image" style="background-image: url(${raidBoss.imageLink})">
             </div>
@@ -16,6 +17,8 @@
                 <t:outputraw value="raidBossTypesHTML" />
             </div>
         </div>
+        </a>
+
     </td>
 
 </t:container>
