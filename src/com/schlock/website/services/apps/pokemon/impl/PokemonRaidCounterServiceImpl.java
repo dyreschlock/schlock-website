@@ -37,39 +37,42 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
         this.dataService = dataService;
     }
 
-    private void generateRaidCounters(RaidBossPokemon raidBoss, CounterType counterType)
+    public void generateRaidCounters(RaidBossPokemon raidBoss, CounterType counterType)
     {
-        List<RaidCounterInstance> megaCounters = new ArrayList<RaidCounterInstance>();
-        List<RaidCounterInstance> shadowCounters = new ArrayList<RaidCounterInstance>();
-        List<RaidCounterInstance> regularCounters = new ArrayList<RaidCounterInstance>();
-
-        for (CounterPokemon counterPoke : dataService.getCounterPokemon(counterType, BattleMode.RAID))
+        if (!raidBoss.isCountersGenerated(counterType))
         {
-            List<RaidCounterInstance> counterInstances = new ArrayList<RaidCounterInstance>();
+            List<RaidCounterInstance> megaCounters = new ArrayList<RaidCounterInstance>();
+            List<RaidCounterInstance> shadowCounters = new ArrayList<RaidCounterInstance>();
+            List<RaidCounterInstance> regularCounters = new ArrayList<RaidCounterInstance>();
 
-            counterInstances.addAll(generateRaidCounters(raidBoss, counterPoke));
+            for (CounterPokemon counterPoke : dataService.getCounterPokemon(counterType, BattleMode.RAID))
+            {
+                List<RaidCounterInstance> counterInstances = new ArrayList<RaidCounterInstance>();
 
-            if (counterPoke.isMega())
-            {
-                megaCounters.addAll(counterInstances);
+                counterInstances.addAll(generateRaidCounters(raidBoss, counterPoke));
+
+                if (counterPoke.isMega())
+                {
+                    megaCounters.addAll(counterInstances);
+                }
+                else if (counterPoke.isShadow())
+                {
+                    shadowCounters.addAll(counterInstances);
+                }
+                else
+                {
+                    regularCounters.addAll(counterInstances);
+                }
             }
-            else if (counterPoke.isShadow())
-            {
-                shadowCounters.addAll(counterInstances);
-            }
-            else
-            {
-                regularCounters.addAll(counterInstances);
-            }
+
+            Collections.sort(megaCounters);
+            Collections.sort(shadowCounters);
+            Collections.sort(regularCounters);
+
+            raidBoss.setMegaCounters(counterType, megaCounters);
+            raidBoss.setShadowCounters(counterType, shadowCounters);
+            raidBoss.setRegularCounters(counterType, regularCounters);
         }
-
-        Collections.sort(megaCounters);
-        Collections.sort(shadowCounters);
-        Collections.sort(regularCounters);
-
-        raidBoss.setMegaCounters(counterType, subList(megaCounters, NUMBER_OF_MEGA_COUNTERS_PER_POKEMON));
-        raidBoss.setShadowCounters(counterType, subList(shadowCounters, NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON));
-        raidBoss.setRegularCounters(counterType, subList(regularCounters, NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON));
     }
 
     private List<RaidCounterInstance> subList(List<RaidCounterInstance> counters, int length)
@@ -295,22 +298,29 @@ public class PokemonRaidCounterServiceImpl implements PokemonRaidCounterService
 
         if(counterType.isCustom())
         {
+            List<RaidCounterInstance> shadowCounters = subList(boss.getShadowCounters(counterType), NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON);
+            List<RaidCounterInstance> regularCounters = subList(boss.getRegularCounters(counterType), NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON);
+
             List<RaidCounterInstance> counters = new ArrayList<RaidCounterInstance>();
 
             counters.add(boss.getMegaCounters(counterType).get(0));
-            counters.addAll(boss.getShadowCounters(counterType));
-            counters.addAll(boss.getRegularCounters(counterType));
+            counters.addAll(shadowCounters);
+            counters.addAll(regularCounters);
 
             Collections.sort(counters);
 
             return counters.subList(0, PARTY_LIMIT);
         }
 
+        List<RaidCounterInstance> megaCounters = subList(boss.getMegaCounters(counterType), NUMBER_OF_MEGA_COUNTERS_PER_POKEMON);
+        List<RaidCounterInstance> shadowCounters = subList(boss.getShadowCounters(counterType), NUMBER_OF_SHADOW_COUNTERS_PER_POKEMON);
+        List<RaidCounterInstance> regularCounters = subList(boss.getRegularCounters(counterType), NUMBER_OF_REGULAR_COUNTERS_PER_POKEMON);
+
         List<RaidCounterInstance> counters = new ArrayList<RaidCounterInstance>();
 
-        counters.addAll(boss.getMegaCounters(counterType));
-        counters.addAll(boss.getShadowCounters(counterType));
-        counters.addAll(boss.getRegularCounters(counterType));
+        counters.addAll(megaCounters);
+        counters.addAll(shadowCounters);
+        counters.addAll(regularCounters);
 
         return counters;
     }

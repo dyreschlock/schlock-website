@@ -2,6 +2,67 @@
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
         xmlns:r="tapestry-library:apps/pokemon/raid"
 >
+    <table id="raidPokemon">
+        <tr>
+            <td class="header returnLink">
 
-    ${selectedBoss.name}
+                <a href="${returnLink}">
+                    <div class="container">← ${message:back-link}</div>
+                </a>
+
+            </td>
+            <td class="header">
+                <!-- blank -->
+            </td>
+            <td class="header" colspan="${countersPerRow}">
+
+                <div class="container">${message:top-megas}</div>
+
+            </td>
+        </tr>
+        <tr>
+            <td class="raidBossBig column0" colspan="2" rowspan="4">
+                <div class="container">
+
+                    ${selectedBoss.name}
+
+                </div>
+            </td>
+
+            <t:loop source="megaCounters" value="currentCounterPokemon" index="currentIndex">
+                <r:raidCounterDisplay pokemon="currentCounterPokemon" number="number" />
+            </t:loop>
+
+
+        </tr>
+        <tr>
+            <td class="header" colspan="${countersPerRow}">
+                <div class="container">${message:top-shadows}</div>
+            </td>
+        </tr>
+        <tr>
+            <t:loop source="shadowCounters" value="currentCounterPokemon" index="currentIndex">
+                <r:raidCounterDisplay pokemon="currentCounterPokemon" number="number" />
+            </t:loop>
+        </tr>
+        <tr>
+            <td class="header" colspan="${countersPerRow}">
+                <div class="container">${message:top-generals}</div>
+            </td>
+        </tr>
+
+        <t:loop source="generalRowNumbers" value="currentRow">
+
+            <tr>
+                <td colspan="2">
+                    <!-- blank -->
+                </td>
+                <t:loop source="generalCounters" value="currentCounterPokemon" index="currentIndex">
+                    <r:raidCounterDisplay pokemon="currentCounterPokemon" number="number" />
+                </t:loop>
+            </tr>
+
+        </t:loop>
+    </table>
+
 </t:container>

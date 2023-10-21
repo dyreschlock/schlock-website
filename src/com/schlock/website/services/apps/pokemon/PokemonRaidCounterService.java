@@ -14,6 +14,8 @@ public interface PokemonRaidCounterService
 
     public List<RaidBossWithAttackingType> getRaidBossForEachAttackingType();
 
+    public void generateRaidCounters(RaidBossPokemon raidBoss, CounterType counterType);
+
     public List<RaidCounterInstance> getCounterPokemon(RaidBossPokemon legendary, CounterType type);
     public List<RaidCounterInstance> getTopMegaCounterPokemon(CounterType type);
     public List<RaidCounterInstance> getTopShadowCounterPokemon(CounterType type);

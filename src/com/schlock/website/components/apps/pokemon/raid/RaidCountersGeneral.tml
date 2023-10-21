@@ -6,14 +6,14 @@
     <table id="raidPokemon">
         <tr>
             <td class="header column0">
-                <div class="box">
+                <div class="container">
                     <div class="bossTitle">${message:raid-boss}</div>
                     <!-- r:raidbossfilters / -->
                 </div>
             </td>
-            <td class="header column3" colspan="${megaCounterNumber}"><div class="box">${message:top-megas}</div></td>
-            <td class="header column8" colspan="${shadowCounterNumber}"><div class="box">${message:top-shadows}</div></td>
-            <td class="header" colspan="${counterNumber}"><div class="box">${message:top-counters}</div></td>
+            <td class="header column3" colspan="${megaCounterNumber}"><div class="container">${message:top-megas}</div></td>
+            <td class="header column8" colspan="${shadowCounterNumber}"><div class="container">${message:top-shadows}</div></td>
+            <td class="header" colspan="${counterNumber}"><div class="container">${message:top-counters}</div></td>
         </tr>
 
         <t:loop source="raidBosses" value="currentRaidBoss">

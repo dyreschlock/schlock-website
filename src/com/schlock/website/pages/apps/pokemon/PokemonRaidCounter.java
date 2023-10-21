@@ -60,8 +60,12 @@ public class PokemonRaidCounter
 
     public String getPageTitle()
     {
-        String type = messages.get(counterType.name().toLowerCase());
-        return messages.format("page-title", type);
+        String param = messages.get(counterType.name().toLowerCase());
+        if (selectedBoss != null)
+        {
+            param = selectedBoss.getName();
+        }
+        return messages.format("page-title", param);
     }
 
     public String getPostUuid()
