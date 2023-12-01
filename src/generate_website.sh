@@ -47,8 +47,10 @@ for dir in $(find . -mindepth 1 -type d -not \( -path "./.*" -prune \)) ; do
     fi
 done
 
-cp "feed" "blog/index.xml"
 mv "feed" "feed.xml"
+
+mkdir "blog"
+cp "feed.xml" "blog/index.xml"
 
 echo "update complete"
 
