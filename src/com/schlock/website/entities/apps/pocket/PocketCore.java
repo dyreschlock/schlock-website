@@ -7,8 +7,9 @@ public class PocketCore
     public static final String CAT_CONSOLE = "Console";
     public static final String CAT_HANDHELD = "Handheld";
     public static final String CAT_COMPUTER = "Computer";
-    public static final String CAT_ARCADE = "Arcade";
-    public static final String CAT_ARCADE_MULTI = "Arcade Multi";
+    public static final String CAT_ARCADE_1 = "Arcade (Classic)";
+    public static final String CAT_ARCADE_2 = "Arcade (Modern)";
+    public static final String CAT_ARCADE_MULTI = "Arcade Systems";
 
     private static final String IMAGE_LINK = "https://raw.githubusercontent.com/dyreschlock/pocket-platform-images/main/pics/%s/%s.png";
     private static final String HOME = "home";
@@ -32,7 +33,8 @@ public class PocketCore
     public String getImageLink()
     {
         String coreType = HOME;
-        if (StringUtils.equalsIgnoreCase(CAT_ARCADE, this.category) ||
+        if (StringUtils.equalsIgnoreCase(CAT_ARCADE_1, this.category) ||
+                StringUtils.equalsIgnoreCase(CAT_ARCADE_2, this.category) ||
                 StringUtils.equalsIgnoreCase(CAT_ARCADE_MULTI, this.category))
         {
             coreType = ARCADE;
@@ -43,7 +45,7 @@ public class PocketCore
 
     public boolean isCategoryArcade()
     {
-        return CAT_ARCADE.equalsIgnoreCase(getCategory());
+        return CAT_ARCADE_1.equalsIgnoreCase(getCategory()) || CAT_ARCADE_2.equalsIgnoreCase(getCategory());
     }
 
     public boolean isFakeArcadeCore()

@@ -100,7 +100,7 @@ public class CorePanel
 
     public String getArcadeGameCount()
     {
-        List<PocketCore> arcadeCores = pocketDataService.getCoresByCategory(PocketCore.CAT_ARCADE);
+        List<PocketCore> arcadeCores = pocketDataService.getCoresByCategory(PocketCore.CAT_ARCADE_1, PocketCore.CAT_ARCADE_2);
         int count = 0;
         for(PocketCore core : arcadeCores)
         {

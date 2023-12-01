@@ -211,11 +211,6 @@ public class Index
         return PocketCore.CAT_COMPUTER;
     }
 
-    public String getArcade()
-    {
-        return PocketCore.CAT_ARCADE;
-    }
-
     public String getArcadeMulti()
     {
         return PocketCore.CAT_ARCADE_MULTI;

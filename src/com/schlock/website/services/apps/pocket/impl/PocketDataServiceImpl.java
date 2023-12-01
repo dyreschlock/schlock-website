@@ -53,7 +53,7 @@ public class PocketDataServiceImpl implements PocketDataService
 
         if (core.isFakeArcadeCore())
         {
-            for(PocketCore arcadeCore : getCoresByCategory(PocketCore.CAT_ARCADE))
+            for(PocketCore arcadeCore : getCoresByCategory(PocketCore.CAT_ARCADE_1, PocketCore.CAT_ARCADE_2))
             {
                 List<PocketGame> arcadeGames = getGamesByCore(arcadeCore);
                 games.addAll(arcadeGames);
@@ -105,7 +105,7 @@ public class PocketDataServiceImpl implements PocketDataService
 
         if (core.isFakeArcadeCore())
         {
-            for(PocketCore arcadeCore : getCoresByCategory(PocketCore.CAT_ARCADE))
+            for(PocketCore arcadeCore : getCoresByCategory(PocketCore.CAT_ARCADE_1, PocketCore.CAT_ARCADE_2))
             {
                 List<PocketGame> arcadeGames = getGamesByCoreGenre(arcadeCore, genreId);
                 games.addAll(arcadeGames);
@@ -148,11 +148,17 @@ public class PocketDataServiceImpl implements PocketDataService
 
     public List<PocketCore> getCoresByCategory(String category)
     {
+        return getCoresByCategory(category, "");
+    }
+
+    public List<PocketCore> getCoresByCategory(String cat1, String cat2)
+    {
         List<PocketCore> cores = new ArrayList<PocketCore>();
 
         for(PocketCore core : getCores())
         {
-            if (StringUtils.equalsIgnoreCase(category, core.getCategory()))
+            if (StringUtils.equalsIgnoreCase(cat1, core.getCategory()) ||
+                StringUtils.equalsIgnoreCase(cat2, core.getCategory()))
             {
                 cores.add(core);
             }
