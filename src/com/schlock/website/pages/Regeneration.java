@@ -3,6 +3,7 @@ package com.schlock.website.pages;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.PokemonDataGameMasterService;
 import com.schlock.website.services.apps.pokemon.PokemonDataGamepressService;
+import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
@@ -29,6 +30,8 @@ public class Regeneration
     @Inject
     private PokemonDataGameMasterService pokemonGameMasterService;
 
+    @Inject
+    private PlaystationService playstationService;
 
     public boolean isLocal()
     {
@@ -209,6 +212,35 @@ public class Regeneration
         for(String message : messages)
         {
             System.out.println(message);
+        }
+    }
+
+
+    @CommitAfter
+    void onCreateEntriesAction()
+    {
+        try
+        {
+            String drive = "SONY_ACTION";
+            playstationService.createEntriesForGames(drive);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @CommitAfter
+    void onCreateEntriesStory()
+    {
+        try
+        {
+            String drive = "SONY_STORY";
+            playstationService.createEntriesForGames(drive);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
         }
     }
 }

@@ -33,6 +33,9 @@ public interface DeploymentContext
     public String imageOutputDirectory();
     public String webOutputDirectory();
 
+    public String playstationDriveDirectory();
+    public String playstationDataDirectory();
+
     public String coverImageLocationLocal();
     public String coverImageLocationInternet();
 }

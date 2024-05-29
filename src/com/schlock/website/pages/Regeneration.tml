@@ -69,6 +69,12 @@
                     / <t:eventlink t:id="updatePokemonCategories">Update Categories</t:eventlink><br />
                 <br/>
                 - <t:eventlink t:id="reportPokemonGamepress">Report differences - Database and Gamepress</t:eventlink><br />
+                <br />
+                <br />
+                <h2>Update Playstation Data</h2>
+                <br />
+                - <t:eventlink t:id="createEntriesAction">Create from Action</t:eventlink>
+                   / <t:eventlink t:id="createEntriesStory">Create from Story</t:eventlink><br/>
             </div>
 
         </t:if>

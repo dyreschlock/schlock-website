@@ -24,6 +24,9 @@ public class DeploymentContextImpl implements DeploymentContext
     private static final String OUT_DIR_HTML_PARAM = "output.directory.html";
     private static final String OUT_DIR_PHOTO_PARAM = "output.directory.photos";
 
+    private static final String PS_DRIVE_PARAM = "playstation.directory.drive";
+    private static final String PS_DATA_PARAM = "playstation.directory.data";
+
     private static final String LOCAL = "local";
     private static final String HOSTED = "hosted";
 
@@ -155,6 +158,18 @@ public class DeploymentContextImpl implements DeploymentContext
     {
         String outoutDirectory = getDeployProperties().getProperty(OUT_DIR_HTML_PARAM);
         return outoutDirectory;
+    }
+
+    public String playstationDriveDirectory()
+    {
+        String playstationDrive = getDeployProperties().getProperty(PS_DRIVE_PARAM);
+        return playstationDrive;
+    }
+
+    public String playstationDataDirectory()
+    {
+        String playstationData = getDeployProperties().getProperty(PS_DATA_PARAM);
+        return playstationData;
     }
 
     public String coverImageLocationLocal()
