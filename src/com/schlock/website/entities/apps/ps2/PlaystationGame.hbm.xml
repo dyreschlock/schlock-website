@@ -1,0 +1,22 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field" >
+    <class name="com.schlock.website.entities.apps.ps2.PlaystationGame" table="playstation_game">
+        <id name="id" unsaved-value="null">
+            <generator class="native" />
+        </id>
+
+        <property name="gameId" column="game_id" not-null="true" />
+        <property name="gameName" column="name" not-null="true" />
+
+        <property name="platform" />
+        <property name="location" />
+
+        <property name="working" />
+
+        <property name="haveArt" />
+        <property name="haveCfg" />
+
+    </class>
+</hibernate-mapping>

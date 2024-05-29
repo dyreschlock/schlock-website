@@ -3,12 +3,12 @@ package com.schlock.website.services.database;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.database.apps.bingo.BingoOptionDAO;
 import com.schlock.website.services.database.apps.bingo.impl.BingoOptionDAOImpl;
+import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import com.schlock.website.services.database.apps.games.VideoGameHardwareDAO;
 import com.schlock.website.services.database.apps.games.VideoGamePlatformDAO;
-import com.schlock.website.services.database.apps.games.VideoGameDAO;
+import com.schlock.website.services.database.apps.games.impl.VideoGameDAOImpl;
 import com.schlock.website.services.database.apps.games.impl.VideoGameHardwareDAOImpl;
 import com.schlock.website.services.database.apps.games.impl.VideoGamePlatformDAOImpl;
-import com.schlock.website.services.database.apps.games.impl.VideoGameDAOImpl;
 import com.schlock.website.services.database.apps.japanese.KanjiDAO;
 import com.schlock.website.services.database.apps.japanese.impl.KanjiDAOImpl;
 import com.schlock.website.services.database.apps.kendo.ExamQuestionDAO;
@@ -21,8 +21,16 @@ import com.schlock.website.services.database.apps.pokemon.PokemonMoveDAO;
 import com.schlock.website.services.database.apps.pokemon.impl.PokemonCategoryDAOImpl;
 import com.schlock.website.services.database.apps.pokemon.impl.PokemonDataDAOImpl;
 import com.schlock.website.services.database.apps.pokemon.impl.PokemonMoveDAOImpl;
-import com.schlock.website.services.database.blog.*;
-import com.schlock.website.services.database.blog.impl.*;
+import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
+import com.schlock.website.services.database.apps.ps2.impl.PlaystationGameDAOImpl;
+import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.ImageDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
+import com.schlock.website.services.database.blog.PostDAO;
+import com.schlock.website.services.database.blog.impl.CategoryDAOImpl;
+import com.schlock.website.services.database.blog.impl.ImageDAOImpl;
+import com.schlock.website.services.database.blog.impl.KeywordDAOImpl;
+import com.schlock.website.services.database.blog.impl.PostDAOImpl;
 import org.apache.tapestry5.hibernate.HibernateConfigurer;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
@@ -52,6 +60,8 @@ public class DatabaseModule
         binder.bind(PokemonDataDAO.class, PokemonDataDAOImpl.class);
         binder.bind(PokemonMoveDAO.class, PokemonMoveDAOImpl.class);
         binder.bind(PokemonCategoryDAO.class, PokemonCategoryDAOImpl.class);
+
+        binder.bind(PlaystationGameDAO.class, PlaystationGameDAOImpl.class);
     }
 
 
