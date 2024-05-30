@@ -5,8 +5,12 @@ import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FilenameFilter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class PlaystationServiceImpl implements PlaystationService
 {
@@ -90,5 +94,71 @@ public class PlaystationServiceImpl implements PlaystationService
             }
         };
         return new File(folderPath).listFiles(filter).length != 0;
+    }
+
+
+    private static final String TITLE = "Title";
+    private static final String GENRE = "Genre";
+    private static final String RELEASE_DATE = "Release";
+    private static final String DEVELOPER = "Developer";
+    private static final String PUBLISHER = "Publisher";
+
+    private static final String DELIM = "=";
+
+    public void readConfigFiles() throws Exception
+    {
+        final String CFG_LOCATION = context.playstationDataDirectory() + CFG_FOLDER + "/";
+
+        for(PlaystationGame game : gameDAO.getAll())
+        {
+            if (game.isHaveCfg())
+            {
+                File cfgFile = new File(CFG_LOCATION + game.getGameId() + ".cfg");
+                if (cfgFile.exists())
+                {
+                    updateConfigProperties(game, cfgFile);
+                }
+            }
+        }
+    }
+
+    private void updateConfigProperties(PlaystationGame game, File configFile) throws Exception
+    {
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");  // 10-22-2001
+        BufferedReader reader = new BufferedReader(new FileReader(configFile));
+
+        String in;
+        while ((in = reader.readLine()) != null)
+        {
+            if (in.contains(DELIM))
+            {
+                int i = in.indexOf(DELIM);
+
+                String param = in.substring(0, i);
+                String data = in.substring(i + 1);
+
+                if (TITLE.equals(param) && game.getTitle() == null)
+                {
+                    game.setTitle(data);
+                }
+                else if (GENRE.equals(param) && game.getGenre() == null)
+                {
+                    game.setGenre(data);
+                }
+                else if (DEVELOPER.equals(param) && game.getDeveloper() == null)
+                {
+                    game.setDeveloper(data);
+                }
+                else if (PUBLISHER.equals(param) && game.getPublisher() == null)
+                {
+                    game.setPublisher(data);
+                }
+                else if (RELEASE_DATE.equals(param) && game.getReleaseDate() == null)
+                {
+                    Date date = format.parse(data);
+                    game.setReleaseDate(date);
+                }
+            }
+        }
     }
 }

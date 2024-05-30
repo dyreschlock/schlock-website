@@ -18,5 +18,11 @@
         <property name="haveArt" />
         <property name="haveCfg" />
 
+        <property name="title" />
+        <property name="genre" />
+        <property name="developer" />
+        <property name="publisher" />
+        <property name="releaseDate" />
+
     </class>
 </hibernate-mapping>

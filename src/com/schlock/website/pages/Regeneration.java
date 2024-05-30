@@ -243,4 +243,32 @@ public class Regeneration
             e.printStackTrace();
         }
     }
+
+    @CommitAfter
+    void onCreateEntriesMass()
+    {
+        try
+        {
+            String drive = "SONY_MASS";
+            playstationService.createEntriesForGames(drive);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @CommitAfter
+    void onReadConfigFiles()
+    {
+        try
+        {
+            playstationService.readConfigFiles();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 }

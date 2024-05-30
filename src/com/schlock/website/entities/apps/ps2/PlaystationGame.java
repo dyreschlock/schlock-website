@@ -3,6 +3,7 @@ package com.schlock.website.entities.apps.ps2;
 import com.schlock.website.entities.Persisted;
 
 import java.io.File;
+import java.util.Date;
 
 public class PlaystationGame extends Persisted
 {
@@ -17,6 +18,14 @@ public class PlaystationGame extends Persisted
 
     private boolean haveArt;
     private boolean haveCfg;
+
+    private String title;
+    private String genre;
+
+    private String developer;
+    private String publisher;
+
+    private Date releaseDate;
 
     public PlaystationGame()
     {
@@ -90,6 +99,56 @@ public class PlaystationGame extends Persisted
     public void setHaveCfg(boolean haveCfg)
     {
         this.haveCfg = haveCfg;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+    public String getGenre()
+    {
+        return genre;
+    }
+
+    public void setGenre(String genre)
+    {
+        this.genre = genre;
+    }
+
+    public String getDeveloper()
+    {
+        return developer;
+    }
+
+    public void setDeveloper(String developer)
+    {
+        this.developer = developer;
+    }
+
+    public String getPublisher()
+    {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher)
+    {
+        this.publisher = publisher;
+    }
+
+    public Date getReleaseDate()
+    {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate)
+    {
+        this.releaseDate = releaseDate;
     }
 
     public static PlaystationGame create(File file, String platform)
