@@ -6,6 +6,8 @@ import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.util.List;
+
 public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> implements PlaystationGameDAO
 {
     public PlaystationGameDAOImpl(Session session)
@@ -23,5 +25,17 @@ public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> impleme
         query.setParameter("gameId", gameId);
 
         return (PlaystationGame) singleResult(query);
+    }
+
+    public List<PlaystationGame> getGamesOnDrive(String drive)
+    {
+        String text = " select g " +
+                        " from PlaystationGame g " +
+                        " where g.drive = :drive ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("drive", drive);
+
+        return query.list();
     }
 }

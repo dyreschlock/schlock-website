@@ -259,6 +259,20 @@ public class Regeneration
     }
 
     @CommitAfter
+    void onVerifyGamesOnMass()
+    {
+        try
+        {
+            String drive = "SONY_MASS";
+            playstationService.verifyGamesOnDrive(drive);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @CommitAfter
     void onReadConfigFiles()
     {
         try
@@ -271,4 +285,28 @@ public class Regeneration
         }
     }
 
+    void onWriteConfigFiles()
+    {
+        try
+        {
+            playstationService.writeConfigFiles();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    void copyConfigFilesToMass()
+    {
+        try
+        {
+            String drive = "SONY_MASS";
+            playstationService.copyConfigFilesToDrive(drive);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

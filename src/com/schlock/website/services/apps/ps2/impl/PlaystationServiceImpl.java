@@ -11,18 +11,10 @@ import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class PlaystationServiceImpl implements PlaystationService
 {
-    private static final String PS2_FOLDER = "DVD";
-    private static final String PS1_FOLDER = "POPS";
-
-    private static final String PS2_PLATFORM = "PS2";
-    private static final String PS1_PLATFORM = "PS1";
-
-    private static final String ART_FOLDER = "ART";
-    private static final String CFG_FOLDER = "CFG";
-
     private final PlaystationGameDAO gameDAO;
 
     private final DeploymentContext context;
@@ -36,24 +28,24 @@ public class PlaystationServiceImpl implements PlaystationService
 
     public void createEntriesForGames(String driveName) throws Exception
     {
-        final String DRIVE_PATH = context.playstationDriveDirectory() + driveName;
-
-        createEntriesFromLocation(DRIVE_PATH, PS2_FOLDER, PS2_PLATFORM);
-        createEntriesFromLocation(DRIVE_PATH, PS1_FOLDER, PS1_PLATFORM);
+        createEntriesFromLocation(driveName, PlaystationGame.PS2_FOLDER, PlaystationGame.PS2_PLATFORM);
+        createEntriesFromLocation(driveName, PlaystationGame.PS1_FOLDER, PlaystationGame.PS1_PLATFORM);
     }
 
-    private void createEntriesFromLocation(String drivePath, String gameFolder, String platform)
+    private void createEntriesFromLocation(String driveName, String gameFolder, String platform)
     {
-        String location = drivePath + "/" + gameFolder;
+        final String DRIVE_PATH = context.playstationDriveDirectory() + driveName;
+
+        String location = DRIVE_PATH + "/" + gameFolder;
 
         FilenameFilter filenameFilter = new FilenameFilter()
         {
             public boolean accept(File dir, String name)
             {
-                final String ISO = ".iso";
-                final String VCD = ".vcd";
 
-                boolean filetypeOk = name.toLowerCase().endsWith(ISO) || name.toLowerCase().endsWith(VCD);
+                boolean filetypeOk =
+                        name.toLowerCase().endsWith(PlaystationGame.PS2_FILETYPE)
+                                || name.toLowerCase().endsWith(PlaystationGame.PS1_FILETYPE);
 
                 return !name.startsWith(".") && filetypeOk;
             }
@@ -69,32 +61,40 @@ public class PlaystationServiceImpl implements PlaystationService
                 game = gameData;
             }
 
-            boolean art = checkForFile(drivePath, ART_FOLDER, game);
-            boolean cfg = checkForFile(drivePath, CFG_FOLDER, game);
+            game.updateGameName(gameFile.getName());
+
+            String artFilepath = DRIVE_PATH + "/" + game.getArtRelativeFilepath();
+            String cfgFilepath = DRIVE_PATH + "/" + game.getCfgRelativeFilepath();
+
+            boolean art = new File(artFilepath).exists();
+            boolean cfg = new File(cfgFilepath).exists();
 
             game.setHaveArt(art);
             game.setHaveCfg(cfg);
 
-            String driveName = location.split("/")[2];
-            game.setLocation(driveName);
+            game.setDrive(driveName);
 
             gameDAO.save(game);
         }
     }
 
-    private boolean checkForFile(String drivePath, String folderName, final PlaystationGame game)
+    public void verifyGamesOnDrive(String driveName)
     {
-        String folderPath = drivePath + "/" + folderName;
+        final String DRIVE_PATH = context.playstationDriveDirectory() + driveName;
 
-        FilenameFilter filter = new FilenameFilter()
+        List<PlaystationGame> games = gameDAO.getGamesOnDrive(driveName);
+        for(PlaystationGame game : games)
         {
-            public boolean accept(File dir, String name)
+            String filepath = DRIVE_PATH + "/" + game.getGameRelativeFilepath();
+            if (!new File(filepath).exists())
             {
-                return name.startsWith(game.getGameId());
+                game.setDrive(null);
+
+                gameDAO.save(game);
             }
-        };
-        return new File(folderPath).listFiles(filter).length != 0;
+        }
     }
+
 
 
     private static final String TITLE = "Title";
@@ -107,7 +107,7 @@ public class PlaystationServiceImpl implements PlaystationService
 
     public void readConfigFiles() throws Exception
     {
-        final String CFG_LOCATION = context.playstationDataDirectory() + CFG_FOLDER + "/";
+        final String CFG_LOCATION = context.playstationDataDirectory() + PlaystationGame.CFG_FOLDER + "/";
 
         for(PlaystationGame game : gameDAO.getAll())
         {
@@ -160,5 +160,15 @@ public class PlaystationServiceImpl implements PlaystationService
                 }
             }
         }
+    }
+
+    public void writeConfigFiles() throws Exception
+    {
+
+    }
+
+    public void copyConfigFilesToDrive(String driveName) throws Exception
+    {
+
     }
 }

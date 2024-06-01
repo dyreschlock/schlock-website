@@ -7,12 +7,25 @@ import java.util.Date;
 
 public class PlaystationGame extends Persisted
 {
+    public static final String PS2_PLATFORM = "PS2";
+    public static final String PS1_PLATFORM = "PS1";
+
+    public static final String PS2_FOLDER = "DVD";
+    public static final String PS1_FOLDER = "POPS";
+    public static final String ART_FOLDER = "ART";
+    public static final String CFG_FOLDER = "CFG";
+
+    public static final String PS2_FILETYPE = ".iso";
+    public static final String PS1_FILETYPE = ".vcd";
+    public static final String ART_FILETYPE = "_COV.jpg";
+    public static final String CFG_FILETYPE = ".cfg";
+
     private String gameId;
 
     private String gameName;
 
     private String platform;
-    private String location;
+    private String drive;
 
     private String working;
 
@@ -30,6 +43,41 @@ public class PlaystationGame extends Persisted
     public PlaystationGame()
     {
     }
+
+    public boolean isPS2()
+    {
+        return PS2_PLATFORM.equals(this.platform);
+    }
+
+    public boolean isPS1()
+    {
+        return PS1_PLATFORM.equals(this.platform);
+    }
+
+    public String getGameRelativeFilepath()
+    {
+        if(isPS2())
+        {
+            return PS2_FOLDER + "/" + gameId + "." + gameName + PS2_FILETYPE;
+        }
+        return PS1_FOLDER + "/" + gameId + "." + gameName + PS1_FILETYPE;
+    }
+
+    public String getArtRelativeFilepath()
+    {
+        return ART_FOLDER + "/" + gameId + ART_FILETYPE;
+    }
+
+    public String getCfgRelativeFilepath()
+    {
+        return CFG_FOLDER + "/" + gameId + CFG_FILETYPE;
+    }
+
+    public void updateGameName(String currentFilename)
+    {
+        this.gameName = currentFilename.substring(12, currentFilename.length() - 4);
+    }
+
 
     public String getGameId()
     {
@@ -61,14 +109,14 @@ public class PlaystationGame extends Persisted
         this.platform = platform;
     }
 
-    public String getLocation()
+    public String getDrive()
     {
-        return location;
+        return drive;
     }
 
-    public void setLocation(String location)
+    public void setDrive(String drive)
     {
-        this.location = location;
+        this.drive = drive;
     }
 
     public String getWorking()

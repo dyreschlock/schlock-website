@@ -11,7 +11,7 @@
         <property name="gameName" column="name" not-null="true" />
 
         <property name="platform" />
-        <property name="location" />
+        <property name="drive" />
 
         <property name="working" />
 
