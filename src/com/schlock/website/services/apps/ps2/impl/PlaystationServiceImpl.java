@@ -5,13 +5,11 @@ import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FilenameFilter;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 public class PlaystationServiceImpl implements PlaystationService
 {
@@ -111,53 +109,57 @@ public class PlaystationServiceImpl implements PlaystationService
 
         for(PlaystationGame game : gameDAO.getAll())
         {
-            if (game.isHaveCfg())
+            File cfgFile = new File(CFG_LOCATION + game.getGameId() + ".cfg");
+            if (cfgFile.exists())
             {
-                File cfgFile = new File(CFG_LOCATION + game.getGameId() + ".cfg");
-                if (cfgFile.exists())
-                {
-                    updateConfigProperties(game, cfgFile);
-                }
+                loadPropertiesFromCFG(game, cfgFile);
             }
         }
     }
 
-    private void updateConfigProperties(PlaystationGame game, File configFile) throws Exception
+    private void loadPropertiesFromCFG(PlaystationGame game, File configFile) throws Exception
     {
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");  // 10-22-2001
-        BufferedReader reader = new BufferedReader(new FileReader(configFile));
+        InputStream in = new FileInputStream(configFile);
 
-        String in;
-        while ((in = reader.readLine()) != null)
+        Properties configuration = new Properties();
+        configuration.load(in);
+
+        String title = configuration.getProperty(TITLE);
+        if (game.getTitle() == null && title != null)
         {
-            if (in.contains(DELIM))
+            game.setTitle(title);
+        }
+
+        String genre = configuration.getProperty(GENRE);
+        if (game.getGenre() == null && genre != null)
+        {
+            game.setGenre(genre);
+        }
+
+        String developer = configuration.getProperty(DEVELOPER);
+        if (game.getDeveloper() == null && developer != null)
+        {
+            game.setDeveloper(developer);
+        }
+
+        String publisher = configuration.getProperty(PUBLISHER);
+        if (game.getPublisher() == null && publisher != null)
+        {
+            game.setPublisher(publisher);
+        }
+
+        String dateText = configuration.getProperty(RELEASE_DATE);
+        if (game.getReleaseDate() == null && dateText != null)
+        {
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");  // 10-22-2001
+
+            try
             {
-                int i = in.indexOf(DELIM);
-
-                String param = in.substring(0, i);
-                String data = in.substring(i + 1);
-
-                if (TITLE.equals(param) && game.getTitle() == null)
-                {
-                    game.setTitle(data);
-                }
-                else if (GENRE.equals(param) && game.getGenre() == null)
-                {
-                    game.setGenre(data);
-                }
-                else if (DEVELOPER.equals(param) && game.getDeveloper() == null)
-                {
-                    game.setDeveloper(data);
-                }
-                else if (PUBLISHER.equals(param) && game.getPublisher() == null)
-                {
-                    game.setPublisher(data);
-                }
-                else if (RELEASE_DATE.equals(param) && game.getReleaseDate() == null)
-                {
-                    Date date = format.parse(data);
-                    game.setReleaseDate(date);
-                }
+                Date date = format.parse(dateText);
+                game.setReleaseDate(date);
+            }
+            catch(Exception e)
+            {
             }
         }
     }
@@ -169,6 +171,38 @@ public class PlaystationServiceImpl implements PlaystationService
 
     public void copyConfigFilesToDrive(String driveName) throws Exception
     {
+        final String DATA_PATH = context.playstationDataDirectory();
+        final String DRIVE_PATH = context.playstationDriveDirectory() + driveName + "/";
 
+        List<PlaystationGame> games = gameDAO.getGamesOnDrive(driveName);
+        for (PlaystationGame game : games)
+        {
+            File sourceFile = new File(DATA_PATH + game.getCfgRelativeFilepath());
+            File destinationFile = new File(DRIVE_PATH + game.getCfgRelativeFilepath());
+
+            if (sourceFile.exists())
+            {
+                if (destinationFile.exists())
+                {
+                    destinationFile.delete();
+                }
+
+                copyFile(sourceFile, destinationFile);
+            }
+        }
+    }
+
+    private void copyFile(File source, File destination) throws Exception
+    {
+        InputStream in = new BufferedInputStream(new FileInputStream(source));
+        OutputStream out = new BufferedOutputStream(new FileOutputStream(destination));
+
+        byte[] buffer = new byte[1024];
+        int lengthRead;
+        while((lengthRead = in.read(buffer)) > 0)
+        {
+            out.write(buffer, 0, lengthRead);
+            out.flush();
+        }
     }
 }
