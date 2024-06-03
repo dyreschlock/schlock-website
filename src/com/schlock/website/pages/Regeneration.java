@@ -297,7 +297,7 @@ public class Regeneration
         }
     }
 
-    void copyConfigFilesToMass()
+    void onCopyConfigFilesToMass()
     {
         try
         {
