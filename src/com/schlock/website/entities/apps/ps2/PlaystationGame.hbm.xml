@@ -16,7 +16,6 @@
         <property name="working" />
 
         <property name="haveArt" />
-        <property name="haveCfg" />
 
         <property name="title" />
         <property name="genre" />

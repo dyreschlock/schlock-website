@@ -80,15 +80,6 @@ public class PlaystationServiceImpl implements PlaystationService
 
             game.updateGameName(gameFile.getName());
 
-            String artFilepath = DRIVE_PATH + "/" + game.getArtRelativeFilepath();
-            String cfgFilepath = DRIVE_PATH + "/" + game.getCfgRelativeFilepath();
-
-            boolean art = new File(artFilepath).exists();
-            boolean cfg = new File(cfgFilepath).exists();
-
-            game.setHaveArt(art);
-            game.setHaveCfg(cfg);
-
             String driveName = location.split("/")[2];
             game.setDrive(driveName);
 
@@ -158,6 +149,9 @@ public class PlaystationServiceImpl implements PlaystationService
             if (!destination.exists() && source.exists())
             {
                 copyFile(source, destination);
+
+                game.setHaveArt(true);
+                gameDAO.save(game);
             }
         }
     }

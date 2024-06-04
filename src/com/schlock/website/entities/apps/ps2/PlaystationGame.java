@@ -30,7 +30,6 @@ public class PlaystationGame extends Persisted
     private String working;
 
     private boolean haveArt;
-    private boolean haveCfg;
 
     private String title;
     private String genre;
@@ -146,16 +145,6 @@ public class PlaystationGame extends Persisted
     public void setHaveArt(boolean haveArt)
     {
         this.haveArt = haveArt;
-    }
-
-    public boolean isHaveCfg()
-    {
-        return haveCfg;
-    }
-
-    public void setHaveCfg(boolean haveCfg)
-    {
-        this.haveCfg = haveCfg;
     }
 
     public String getTitle()
@@ -291,7 +280,6 @@ public class PlaystationGame extends Persisted
 
         game.working = "";
         game.haveArt = false;
-        game.haveCfg = false;
 
         return game;
     }

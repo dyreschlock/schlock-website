@@ -247,6 +247,7 @@ public class Regeneration
         }
     }
 
+    @CommitAfter
     void onWriteArtFiles()
     {
         try
