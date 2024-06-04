@@ -17,7 +17,9 @@ import com.schlock.website.services.apps.pocket.impl.PocketDataServiceImpl;
 import com.schlock.website.services.apps.pocket.impl.PocketImageServiceImpl;
 import com.schlock.website.services.apps.pokemon.*;
 import com.schlock.website.services.apps.pokemon.impl.*;
+import com.schlock.website.services.apps.ps2.PlaystationPropertyService;
 import com.schlock.website.services.apps.ps2.PlaystationService;
+import com.schlock.website.services.apps.ps2.impl.PlaystationPropertyServiceImpl;
 import com.schlock.website.services.apps.ps2.impl.PlaystationServiceImpl;
 import com.schlock.website.services.apps.ranking.RankingService;
 import com.schlock.website.services.apps.ranking.impl.RankingServiceImpl;
@@ -63,5 +65,6 @@ public class ApplicationsModule
         binder.bind(PokemonUnownService.class, PokemonUnownServiceImpl.class);
 
         binder.bind(PlaystationService.class, PlaystationServiceImpl.class);
+        binder.bind(PlaystationPropertyService.class, PlaystationPropertyServiceImpl.class);
     }
 }

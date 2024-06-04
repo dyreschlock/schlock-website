@@ -2,37 +2,56 @@ package com.schlock.website.services.apps.ps2.impl;
 
 import com.schlock.website.entities.apps.ps2.PlaystationGame;
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.apps.ps2.PlaystationPropertyService;
 import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
 
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import java.util.Properties;
 
 public class PlaystationServiceImpl implements PlaystationService
 {
+    private final PlaystationPropertyService propService;
     private final PlaystationGameDAO gameDAO;
 
     private final DeploymentContext context;
 
-    public PlaystationServiceImpl(PlaystationGameDAO gameDAO,
-                                     DeploymentContext context)
+    public PlaystationServiceImpl(PlaystationPropertyService propService,
+                                    PlaystationGameDAO gameDAO,
+                                    DeploymentContext context)
     {
+        this.propService = propService;
         this.gameDAO = gameDAO;
         this.context = context;
     }
 
-    public void createEntriesForGames(String driveName) throws Exception
+    public void updateGameInventory()
     {
-        createEntriesFromLocation(driveName, PlaystationGame.PS2_FOLDER, PlaystationGame.PS2_PLATFORM);
-        createEntriesFromLocation(driveName, PlaystationGame.PS1_FOLDER, PlaystationGame.PS1_PLATFORM);
+        verifyGameInventory();
+
+        createEntriesFromLocation(PlaystationGame.PS2_FOLDER, PlaystationGame.PS2_PLATFORM);
+        createEntriesFromLocation(PlaystationGame.PS1_FOLDER, PlaystationGame.PS1_PLATFORM);
     }
 
-    private void createEntriesFromLocation(String driveName, String gameFolder, String platform)
+    public void verifyGameInventory()
     {
-        final String DRIVE_PATH = context.playstationDriveDirectory() + driveName;
+        final String DRIVE_PATH = context.playstationDriveDirectory();
+
+        for(PlaystationGame game : gameDAO.getAll())
+        {
+            String filepath = DRIVE_PATH + game.getGameRelativeFilepath();
+            if (!new File(filepath).exists())
+            {
+                game.setDrive(null);
+
+                gameDAO.save(game);
+            }
+        }
+    }
+
+    private void createEntriesFromLocation(String gameFolder, String platform)
+    {
+        final String DRIVE_PATH = context.playstationDriveDirectory();
 
         String location = DRIVE_PATH + "/" + gameFolder;
 
@@ -70,36 +89,14 @@ public class PlaystationServiceImpl implements PlaystationService
             game.setHaveArt(art);
             game.setHaveCfg(cfg);
 
+            String driveName = location.split("/")[2];
             game.setDrive(driveName);
 
             gameDAO.save(game);
         }
     }
 
-    public void verifyGamesOnDrive(String driveName)
-    {
-        final String DRIVE_PATH = context.playstationDriveDirectory() + driveName;
 
-        List<PlaystationGame> games = gameDAO.getGamesOnDrive(driveName);
-        for(PlaystationGame game : games)
-        {
-            String filepath = DRIVE_PATH + "/" + game.getGameRelativeFilepath();
-            if (!new File(filepath).exists())
-            {
-                game.setDrive(null);
-
-                gameDAO.save(game);
-            }
-        }
-    }
-
-
-
-    private static final String TITLE = "Title";
-    private static final String GENRE = "Genre";
-    private static final String RELEASE_DATE = "Release";
-    private static final String DEVELOPER = "Developer";
-    private static final String PUBLISHER = "Publisher";
 
     public void readConfigFiles() throws Exception
     {
@@ -115,7 +112,7 @@ public class PlaystationServiceImpl implements PlaystationService
                 Properties configuration = new Properties();
                 configuration.load(in);
 
-                loadPropertiesFromCFG(game, configuration);
+                propService.loadPropertiesFromCFG(game, configuration);
             }
         }
     }
@@ -136,7 +133,7 @@ public class PlaystationServiceImpl implements PlaystationService
                 configuration.load(in);
             }
 
-            writePropertiesFromGame(game, configuration);
+            propService.writePropertiesFromGame(game, configuration);
 
 
             File outputConfigFile = new File(DEST_DIR + game.getCfgRelativeFilepath());
@@ -147,84 +144,56 @@ public class PlaystationServiceImpl implements PlaystationService
         }
     }
 
-    private void loadPropertiesFromCFG(PlaystationGame game, Properties configuration)
-    {
-        String title = configuration.getProperty(TITLE);
-        if (game.getTitle() == null && title != null)
-        {
-            game.setTitle(title);
-        }
 
-        String genre = configuration.getProperty(GENRE);
-        if (game.getGenre() == null && genre != null)
-        {
-            game.setGenre(genre);
-        }
-
-        String developer = configuration.getProperty(DEVELOPER);
-        if (game.getDeveloper() == null && developer != null)
-        {
-            game.setDeveloper(developer);
-        }
-
-        String publisher = configuration.getProperty(PUBLISHER);
-        if (game.getPublisher() == null && publisher != null)
-        {
-            game.setPublisher(publisher);
-        }
-
-        String dateText = configuration.getProperty(RELEASE_DATE);
-        if (game.getReleaseDate() == null && dateText != null)
-        {
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");  // 10-22-2001
-
-            try
-            {
-                Date date = format.parse(dateText);
-                game.setReleaseDate(date);
-            }
-            catch(Exception e)
-            {
-            }
-        }
-    }
-
-    private void writePropertiesFromGame(PlaystationGame game, Properties configuration)
-    {
-        setProperty(configuration, TITLE, game.getTitle());
-        setProperty(configuration, GENRE, game.getGenre());
-        setProperty(configuration, DEVELOPER, game.getDeveloper());
-        setProperty(configuration, PUBLISHER, game.getPublisher());
-    }
-
-    private void setProperty(Properties configuration, String key, String value)
-    {
-        if (value != null)
-        {
-            configuration.setProperty(key, value);
-        }
-    }
-
-    public void copyConfigFilesToDrive(String driveName) throws Exception
+    public void writeArtFilesToLocal() throws Exception
     {
         final String DATA_PATH = context.playstationDataDirectory();
-        final String DRIVE_PATH = context.playstationDriveDirectory() + driveName + "/";
+        final String LOCAL_PATH = context.playstationLocalDirectory();
 
-        List<PlaystationGame> games = gameDAO.getGamesOnDrive(driveName);
-        for (PlaystationGame game : games)
+        for(PlaystationGame game : gameDAO.getAll())
         {
-            File sourceFile = new File(DATA_PATH + game.getCfgRelativeFilepath());
-            File destinationFile = new File(DRIVE_PATH + game.getCfgRelativeFilepath());
+            File source = new File(DATA_PATH + game.getArtRelativeFilepath());
+            File destination = new File(LOCAL_PATH + game.getArtRelativeFilepath());
 
-            if (sourceFile.exists())
+            if (!destination.exists() && source.exists())
             {
-                if (destinationFile.exists())
-                {
-                    destinationFile.delete();
-                }
-
-                copyFile(sourceFile, destinationFile);
+                copyFile(source, destination);
             }
+        }
+    }
+
+    public void copyLocalFilesToDrive() throws Exception
+    {
+        final String LOCAL_PATH = context.playstationLocalDirectory();
+        final String DRIVE_PATH = context.playstationDriveDirectory();
+
+        for (PlaystationGame game : gameDAO.getAll())
+        {
+            String sourceConfigPath = LOCAL_PATH + game.getCfgRelativeFilepath();
+            String destinationConfigPath = DRIVE_PATH + game.getCfgRelativeFilepath();
+
+            copyFile(sourceConfigPath, destinationConfigPath);
+
+            String sourceArtPath = LOCAL_PATH + game.getArtRelativeFilepath();
+            String destinationArtPath = DRIVE_PATH + game.getArtRelativeFilepath();
+
+            copyFile(sourceArtPath, destinationArtPath);
+        }
+    }
+
+    private void copyFile(String sourcePath, String destPath) throws Exception
+    {
+        File source = new File(sourcePath);
+        File destination = new File(destPath);
+
+        if (source.exists())
+        {
+            if (destination.exists())
+            {
+                destination.delete();
+            }
+
+            copyFile(source, destination);
         }
     }
 

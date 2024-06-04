@@ -217,59 +217,9 @@ public class Regeneration
 
 
     @CommitAfter
-    void onCreateEntriesAction()
+    void onUpdateGameInventory()
     {
-        try
-        {
-            String drive = "SONY_ACTION";
-            playstationService.createEntriesForGames(drive);
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    @CommitAfter
-    void onCreateEntriesStory()
-    {
-        try
-        {
-            String drive = "SONY_STORY";
-            playstationService.createEntriesForGames(drive);
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    @CommitAfter
-    void onCreateEntriesMass()
-    {
-        try
-        {
-            String drive = "SONY_MASS";
-            playstationService.createEntriesForGames(drive);
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    @CommitAfter
-    void onVerifyGamesOnMass()
-    {
-        try
-        {
-            String drive = "SONY_MASS";
-            playstationService.verifyGamesOnDrive(drive);
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
+        playstationService.updateGameInventory();
     }
 
     @CommitAfter
@@ -297,12 +247,23 @@ public class Regeneration
         }
     }
 
-    void onCopyConfigFilesToMass()
+    void onWriteArtFiles()
     {
         try
         {
-            String drive = "SONY_MASS";
-            playstationService.copyConfigFilesToDrive(drive);
+            playstationService.writeArtFilesToLocal();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    void onCopyLocalFilesToDrive()
+    {
+        try
+        {
+            playstationService.copyLocalFilesToDrive();
         }
         catch(Exception e)
         {
