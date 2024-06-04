@@ -24,3 +24,4 @@ google.credentials.filepath=
 
 playstation.directory.drive=
 playstation.directory.data=
+playstation.directory.local=

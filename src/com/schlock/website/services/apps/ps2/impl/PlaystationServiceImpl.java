@@ -101,29 +101,54 @@ public class PlaystationServiceImpl implements PlaystationService
     private static final String DEVELOPER = "Developer";
     private static final String PUBLISHER = "Publisher";
 
-    private static final String DELIM = "=";
-
     public void readConfigFiles() throws Exception
     {
-        final String CFG_LOCATION = context.playstationDataDirectory() + PlaystationGame.CFG_FOLDER + "/";
+        final String DATA_DIR = context.playstationDataDirectory();
 
         for(PlaystationGame game : gameDAO.getAll())
         {
-            File cfgFile = new File(CFG_LOCATION + game.getGameId() + ".cfg");
-            if (cfgFile.exists())
+            File configFile = new File(DATA_DIR + game.getCfgRelativeFilepath());
+            if (configFile.exists())
             {
-                loadPropertiesFromCFG(game, cfgFile);
+                InputStream in = new FileInputStream(configFile);
+
+                Properties configuration = new Properties();
+                configuration.load(in);
+
+                loadPropertiesFromCFG(game, configuration);
             }
         }
     }
 
-    private void loadPropertiesFromCFG(PlaystationGame game, File configFile) throws Exception
+    public void writeConfigFiles() throws Exception
     {
-        InputStream in = new FileInputStream(configFile);
+        final String DATA_DIR = context.playstationDataDirectory();
+        final String DEST_DIR = context.playstationLocalDirectory();
 
-        Properties configuration = new Properties();
-        configuration.load(in);
+        for(PlaystationGame game : gameDAO.getAll())
+        {
+            Properties configuration = new Properties();
 
+            File baseConfigFile = new File(DATA_DIR + game.getCfgRelativeFilepath());
+            if (baseConfigFile.exists())
+            {
+                InputStream in = new FileInputStream(baseConfigFile);
+                configuration.load(in);
+            }
+
+            writePropertiesFromGame(game, configuration);
+
+
+            File outputConfigFile = new File(DEST_DIR + game.getCfgRelativeFilepath());
+
+            OutputStream out = new FileOutputStream(outputConfigFile);
+
+            configuration.store(out, "CFG for Game: " + game.getGameId());
+        }
+    }
+
+    private void loadPropertiesFromCFG(PlaystationGame game, Properties configuration)
+    {
         String title = configuration.getProperty(TITLE);
         if (game.getTitle() == null && title != null)
         {
@@ -164,9 +189,20 @@ public class PlaystationServiceImpl implements PlaystationService
         }
     }
 
-    public void writeConfigFiles() throws Exception
+    private void writePropertiesFromGame(PlaystationGame game, Properties configuration)
     {
+        setProperty(configuration, TITLE, game.getTitle());
+        setProperty(configuration, GENRE, game.getGenre());
+        setProperty(configuration, DEVELOPER, game.getDeveloper());
+        setProperty(configuration, PUBLISHER, game.getPublisher());
+    }
 
+    private void setProperty(Properties configuration, String key, String value)
+    {
+        if (value != null)
+        {
+            configuration.setProperty(key, value);
+        }
     }
 
     public void copyConfigFilesToDrive(String driveName) throws Exception

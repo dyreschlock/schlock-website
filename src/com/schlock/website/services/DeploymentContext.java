@@ -35,6 +35,7 @@ public interface DeploymentContext
 
     public String playstationDriveDirectory();
     public String playstationDataDirectory();
+    public String playstationLocalDirectory();
 
     public String coverImageLocationLocal();
     public String coverImageLocationInternet();
