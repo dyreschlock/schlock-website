@@ -76,7 +76,7 @@
                 - <t:eventlink t:id="createEntriesMass">Create from Mass</t:eventlink>
                    / <t:eventlink t:id="verifyGamesOnMass">Verify Games on Mass</t:eventlink><br/>
                 - <t:eventlink t:id="readConfigFiles">Read Config Files</t:eventlink>
-                   / <t:eventlink t:id="writeConfigFile">Write Data to Config Files</t:eventlink>
+                   / <t:eventlink t:id="writeConfigFiles">Write Data to Config Files</t:eventlink>
                    --- <t:eventlink t:id="copyConfigFilesToMass">Copy Config Files to Mass</t:eventlink><br/>
             </div>
 
