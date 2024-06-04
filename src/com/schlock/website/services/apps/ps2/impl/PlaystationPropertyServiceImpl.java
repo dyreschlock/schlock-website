@@ -1,6 +1,6 @@
 package com.schlock.website.services.apps.ps2.impl;
 
-import com.schlock.website.entities.apps.ps2.PlaystationGame;
+import com.schlock.website.entities.apps.ps2.*;
 import com.schlock.website.services.apps.ps2.PlaystationPropertyService;
 
 import java.text.SimpleDateFormat;
@@ -26,6 +26,9 @@ public class PlaystationPropertyServiceImpl implements PlaystationPropertyServic
 
     private static final String VMODE = "Vmode";
     private static final String VMODE_TEXT = "VmodeText";
+
+    private static final String ASPECT = "Aspect";
+    private static final String ASPECT_TEXT = "AspectText";
 
     private static final String SCAN = "Scan";
     private static final String SCAN_TEXT = "ScanText";
@@ -65,6 +68,18 @@ public class PlaystationPropertyServiceImpl implements PlaystationPropertyServic
             game.setPublisher(publisher);
         }
 
+        String notes = configuration.getProperty(NOTES);
+        if (game.getNotes() == null && notes != null)
+        {
+            game.setNotes(notes);
+        }
+
+        String description = configuration.getProperty(DESCRIPTION);
+        if (game.getDeveloper() == null && description != null)
+        {
+            game.setDescription(description);
+        }
+
         String dateText = configuration.getProperty(RELEASE_DATE);
         if (game.getReleaseDate() == null && dateText != null)
         {
@@ -79,6 +94,41 @@ public class PlaystationPropertyServiceImpl implements PlaystationPropertyServic
             {
             }
         }
+
+        String aspectText = configuration.getProperty(ASPECT);
+        if (game.getAspect() == null && aspectText != null)
+        {
+            PlaystationGameAspect aspect = PlaystationGameAspect.getFromText(aspectText);
+            game.setAspect(aspect);
+        }
+
+        String playersText = configuration.getProperty(PLAYERS);
+        if (game.getPlayers() == null && playersText != null)
+        {
+            PlaystationGamePlayers players = PlaystationGamePlayers.getFromText(playersText);
+            game.setPlayers(players);
+        }
+
+        String vmodeText = configuration.getProperty(VMODE);
+        if (game.getVmode() == null && vmodeText != null)
+        {
+            PlaystationGameVmode vmode = PlaystationGameVmode.getFromText(vmodeText);
+            game.setVmode(vmode);
+        }
+
+        String scanText = configuration.getProperty(SCAN);
+        if (game.getScan() == null && scanText != null)
+        {
+            PlaystationGameScan scan = PlaystationGameScan.getFromText(scanText);
+            game.setScan(scan);
+        }
+
+        String parentalText = configuration.getProperty(PARENTAL);
+        if (game.getParental() == null && parentalText != null)
+        {
+            PlaystationGameParental parental = PlaystationGameParental.getFromText(parentalText);
+            game.setParental(parental);
+        }
     }
 
     public void writePropertiesFromGame(PlaystationGame game, Properties configuration)
@@ -87,6 +137,39 @@ public class PlaystationPropertyServiceImpl implements PlaystationPropertyServic
         setProperty(configuration, GENRE, game.getGenre());
         setProperty(configuration, DEVELOPER, game.getDeveloper());
         setProperty(configuration, PUBLISHER, game.getPublisher());
+
+        setProperty(configuration, NOTES, game.getNotes());
+        setProperty(configuration, DESCRIPTION, game.getDescription());
+
+        if (game.getAspect() != null)
+        {
+            setProperty(configuration, ASPECT, game.getAspect().aspect());
+            setProperty(configuration, ASPECT_TEXT, game.getAspect().aspectText());
+        }
+
+        if (game.getPlayers() != null)
+        {
+            setProperty(configuration, PLAYERS, game.getPlayers().players());
+            setProperty(configuration, PLAYERS_TEXT, game.getPlayers().playersText());
+        }
+
+        if (game.getVmode() != null)
+        {
+            setProperty(configuration, VMODE, game.getVmode().vmode());
+            setProperty(configuration, VMODE_TEXT, game.getVmode().vmodeText());
+        }
+
+        if (game.getScan() != null)
+        {
+            setProperty(configuration, SCAN, game.getScan().scan());
+            setProperty(configuration, SCAN_TEXT, game.getScan().scanText());
+        }
+
+        if (game.getParental() != null)
+        {
+            setProperty(configuration, PARENTAL, game.getParental().parental());
+            setProperty(configuration, PARENTAL_TEXT, game.getParental().parentalText());
+        }
 
         setProperty(configuration, CONFIG_VERSION, CONFIG_VERSION_VALUE);
         setProperty(configuration, CONFIG_SOURCE, CONFIG_SOURCE_VALUE);

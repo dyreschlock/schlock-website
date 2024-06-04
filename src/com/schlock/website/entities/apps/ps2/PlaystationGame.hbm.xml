@@ -24,5 +24,43 @@
         <property name="publisher" />
         <property name="releaseDate" />
 
+        <property name="aspect">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.schlock.website.entities.apps.ps2.PlaystationGameAspect</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+
+        <property name="players">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.schlock.website.entities.apps.ps2.PlaystationGamePlayers</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+
+        <property name="vmode">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.schlock.website.entities.apps.ps2.PlaystationGameVmode</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+
+        <property name="scan">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.schlock.website.entities.apps.ps2.PlaystationGameScan</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+
+        <property name="parental">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.schlock.website.entities.apps.ps2.PlaystationGameParental</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+
+        <property name="notes" />
+        <property name="description" />
+
     </class>
 </hibernate-mapping>

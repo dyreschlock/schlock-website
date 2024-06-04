@@ -40,6 +40,15 @@ public class PlaystationGame extends Persisted
 
     private Date releaseDate;
 
+    private PlaystationGameAspect aspect;
+    private PlaystationGamePlayers players;
+    private PlaystationGameVmode vmode;
+    private PlaystationGameScan scan;
+    private PlaystationGameParental parental;
+
+    private String notes;
+    private String description;
+
     public PlaystationGame()
     {
     }
@@ -197,6 +206,76 @@ public class PlaystationGame extends Persisted
     public void setReleaseDate(Date releaseDate)
     {
         this.releaseDate = releaseDate;
+    }
+
+    public PlaystationGameAspect getAspect()
+    {
+        return aspect;
+    }
+
+    public void setAspect(PlaystationGameAspect aspect)
+    {
+        this.aspect = aspect;
+    }
+
+    public PlaystationGamePlayers getPlayers()
+    {
+        return players;
+    }
+
+    public void setPlayers(PlaystationGamePlayers players)
+    {
+        this.players = players;
+    }
+
+    public PlaystationGameVmode getVmode()
+    {
+        return vmode;
+    }
+
+    public void setVmode(PlaystationGameVmode vmode)
+    {
+        this.vmode = vmode;
+    }
+
+    public PlaystationGameScan getScan()
+    {
+        return scan;
+    }
+
+    public void setScan(PlaystationGameScan scan)
+    {
+        this.scan = scan;
+    }
+
+    public PlaystationGameParental getParental()
+    {
+        return parental;
+    }
+
+    public void setParental(PlaystationGameParental parental)
+    {
+        this.parental = parental;
+    }
+
+    public String getNotes()
+    {
+        return notes;
+    }
+
+    public void setNotes(String notes)
+    {
+        this.notes = notes;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
     }
 
     public static PlaystationGame create(File file, String platform)
