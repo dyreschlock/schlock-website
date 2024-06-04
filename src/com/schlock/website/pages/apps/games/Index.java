@@ -16,7 +16,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Index
+public class    Index
 {
     private static final String GAMES_POST_UUID = "video-game-collection";
 

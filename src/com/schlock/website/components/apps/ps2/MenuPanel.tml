@@ -1,0 +1,22 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+        xmlns:g="tapestry-library:apps/games"
+>
+    <div class="panel">
+        <table class="platformData">
+            <tr>
+                <th class="outerTop outerLeft outerRight">
+                    ${message:total}
+                </th>
+            </tr>
+            <tr>
+                <td class="even outerBottom outerLeft outerRight">
+                    <t:outputraw value="totalCount" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <g:datapanel title="genreTitle" displayData="genreData" />
+
+</t:container>

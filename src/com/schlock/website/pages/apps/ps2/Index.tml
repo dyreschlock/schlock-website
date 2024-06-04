@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="apps/layoutapps" title="plainTitle" postUuid="postUuid" css="css"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:g="tapestry-library:apps/games"
+      xmlns:p="tapestry-library:apps/ps2"
+>
+<body class="pocket">
+    <div class="body">
+        <div class="title">
+            <h2><t:outputraw value="title" /></h2>
+        </div>
+        <div class="viewLink">
+            <t:if test="!nothingSelected">
+                <div>
+                    <a href="${viewLinkLink}">${viewLinkText}</a>
+                </div>
+            </t:if>
+        </div>
+
+        <t:if test="nothingSelected">
+            <table class="layout">
+                <tr>
+                    <td rowspan="2">
+                        <p:menupanel platform="selectedPlatform" imageView="imageView" />
+                    </td>
+                    <td>playstation 1</td>
+                    <td>playstation 2</td>
+                    <td>something else</td>
+                </tr>
+                <tr>
+                    <td>dev</td>
+                    <td>pub</td>
+                    <td>year</td>
+                </tr>
+            </table>
+        </t:if>
+
+        <t:if test="platformSelected">
+
+        </t:if>
+
+        <t:if test="genreNotPlatformSelected">
+
+        </t:if>
+    </div>
+</body>
+</html>

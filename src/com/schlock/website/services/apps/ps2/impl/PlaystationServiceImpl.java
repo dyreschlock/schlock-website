@@ -1,6 +1,7 @@
 package com.schlock.website.services.apps.ps2.impl;
 
 import com.schlock.website.entities.apps.ps2.PlaystationGame;
+import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.ps2.PlaystationPropertyService;
 import com.schlock.website.services.apps.ps2.PlaystationService;
@@ -29,8 +30,10 @@ public class PlaystationServiceImpl implements PlaystationService
     {
         verifyGameInventory();
 
-        createEntriesFromLocation(PlaystationGame.PS2_FOLDER, PlaystationGame.PS2_PLATFORM);
-        createEntriesFromLocation(PlaystationGame.PS1_FOLDER, PlaystationGame.PS1_PLATFORM);
+        for(PlaystationPlatform platform : PlaystationPlatform.values())
+        {
+            createEntriesFromLocation(platform);
+        }
     }
 
     public void verifyGameInventory()
@@ -49,11 +52,11 @@ public class PlaystationServiceImpl implements PlaystationService
         }
     }
 
-    private void createEntriesFromLocation(String gameFolder, String platform)
+    private void createEntriesFromLocation(final PlaystationPlatform platform)
     {
         final String DRIVE_PATH = context.playstationDriveDirectory();
 
-        String location = DRIVE_PATH + "/" + gameFolder;
+        String location = DRIVE_PATH + "/" + platform.folder();
 
         FilenameFilter filenameFilter = new FilenameFilter()
         {
@@ -61,8 +64,7 @@ public class PlaystationServiceImpl implements PlaystationService
             {
 
                 boolean filetypeOk =
-                        name.toLowerCase().endsWith(PlaystationGame.PS2_FILETYPE)
-                                || name.toLowerCase().endsWith(PlaystationGame.PS1_FILETYPE);
+                        name.toLowerCase().endsWith(platform.fileType());
 
                 return !name.startsWith(".") && filetypeOk;
             }

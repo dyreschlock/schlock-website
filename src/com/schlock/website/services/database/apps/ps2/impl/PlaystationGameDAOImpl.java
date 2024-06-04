@@ -27,14 +27,27 @@ public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> impleme
         return (PlaystationGame) singleResult(query);
     }
 
-    public List<PlaystationGame> getGamesOnDrive(String drive)
+    public List<PlaystationGame> getAvailableGames()
     {
         String text = " select g " +
                         " from PlaystationGame g " +
-                        " where g.drive = :drive ";
+                        " where g.drive != null ";
 
         Query query = session.createQuery(text);
-        query.setParameter("drive", drive);
+
+        return query.list();
+    }
+
+    public List<String> getAllGenres()
+    {
+        String text = " select g.genre " +
+                        " from PlaystationGame g " +
+                        " where g.drive != null " +
+                        " and g.genre != null " +
+                        " group by g.genre " +
+                        " order by g.genre asc ";
+
+        Query query = session.createQuery(text);
 
         return query.list();
     }
