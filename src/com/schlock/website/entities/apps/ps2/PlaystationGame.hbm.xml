@@ -10,7 +10,13 @@
         <property name="gameId" column="game_id" not-null="true" />
         <property name="gameName" column="name" not-null="true" />
 
-        <property name="platform" />
+        <property name="platform">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.schlock.website.entities.apps.ps2.PlaystationPlatform</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+
         <property name="drive" />
 
         <property name="working" />

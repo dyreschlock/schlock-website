@@ -7,16 +7,9 @@ import java.util.Date;
 
 public class PlaystationGame extends Persisted
 {
-    public static final String PS2_PLATFORM = "PS2";
-    public static final String PS1_PLATFORM = "PS1";
-
-    public static final String PS2_FOLDER = "DVD";
-    public static final String PS1_FOLDER = "POPS";
     public static final String ART_FOLDER = "ART";
     public static final String CFG_FOLDER = "CFG";
 
-    public static final String PS2_FILETYPE = ".iso";
-    public static final String PS1_FILETYPE = ".vcd";
     public static final String ART_FILETYPE = "_COV.jpg";
     public static final String CFG_FILETYPE = ".cfg";
 
@@ -24,7 +17,7 @@ public class PlaystationGame extends Persisted
 
     private String gameName;
 
-    private String platform;
+    private PlaystationPlatform platform;
     private String drive;
 
     private String working;
@@ -52,23 +45,12 @@ public class PlaystationGame extends Persisted
     {
     }
 
-    public boolean isPS2()
-    {
-        return PS2_PLATFORM.equals(this.platform);
-    }
-
-    public boolean isPS1()
-    {
-        return PS1_PLATFORM.equals(this.platform);
-    }
-
     public String getGameRelativeFilepath()
     {
-        if(isPS2())
-        {
-            return PS2_FOLDER + "/" + gameId + "." + gameName + PS2_FILETYPE;
-        }
-        return PS1_FOLDER + "/" + gameId + "." + gameName + PS1_FILETYPE;
+        String folder = platform.folder();
+        String fileType = platform.fileType();
+
+        return folder + "/" + gameId + "." + gameName + fileType;
     }
 
     public String getArtRelativeFilepath()
@@ -107,12 +89,12 @@ public class PlaystationGame extends Persisted
         this.gameName = gameName;
     }
 
-    public String getPlatform()
+    public PlaystationPlatform getPlatform()
     {
         return platform;
     }
 
-    public void setPlatform(String platform)
+    public void setPlatform(PlaystationPlatform platform)
     {
         this.platform = platform;
     }
@@ -267,7 +249,7 @@ public class PlaystationGame extends Persisted
         this.description = description;
     }
 
-    public static PlaystationGame create(File file, String platform)
+    public static PlaystationGame create(File file, PlaystationPlatform platform)
     {
         PlaystationGame game = new PlaystationGame();
 
