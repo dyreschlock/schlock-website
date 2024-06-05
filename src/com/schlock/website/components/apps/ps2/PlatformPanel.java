@@ -57,7 +57,20 @@ public class PlatformPanel
 
     public String getGamesCount()
     {
-        int count = gameDAO.getAvailableGamesByPlatformGenre(platform, genre).size();
-        return messages.format(COUNT_MESSAGE, count);
+        final String SPAN_HTML = "<span class=\"totalSubCount\">%s</span>";
+
+        int totalCount = gameDAO.getAvailableGamesByPlatformGenre(platform, null).size();
+
+        String output;
+        if (genre != null)
+        {
+            int count = gameDAO.getAvailableGamesByPlatformGenre(platform, genre).size();
+            output = String.format(SPAN_HTML, count) + " / " + totalCount;
+        }
+        else
+        {
+            output = String.format(SPAN_HTML, totalCount);
+        }
+        return messages.format(COUNT_MESSAGE, output);
     }
 }

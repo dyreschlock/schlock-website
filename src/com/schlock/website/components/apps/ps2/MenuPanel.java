@@ -38,9 +38,16 @@ public class MenuPanel
         int totalCount = gameDAO.getAvailableGames().size();
 
         String output;
-
-        output = String.format(SPAN_HTML, Integer.toString(totalCount));
-
+        if (platform != null || genre != null)
+        {
+            int count = gameDAO.getAvailableGamesByPlatformGenre(platform, genre).size();
+            output = String.format(SPAN_HTML, Integer.toString(count));
+            output += " / " + totalCount;
+        }
+        else
+        {
+            output = String.format(SPAN_HTML, Integer.toString(totalCount));
+        }
         return output;
     }
 

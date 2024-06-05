@@ -10,7 +10,9 @@
             </tr>
             <tr>
                 <td class="outerTop lowerLeft"></td>
-                <td class="even outerLeft outerBottom outerRight">${gamesCount}</td>
+                <td class="even outerLeft outerBottom outerRight">
+                    <t:outputraw value="gamesCount" />
+                </td>
             </tr>
         </table>
     </div>
