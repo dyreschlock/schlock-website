@@ -4,7 +4,7 @@
       xmlns:g="tapestry-library:apps/games"
       xmlns:p="tapestry-library:apps/ps2"
 >
-<body class="pocket">
+<body class="pocket ps">
     <div class="body">
         <div class="title">
             <h2><t:outputraw value="title" /></h2>
