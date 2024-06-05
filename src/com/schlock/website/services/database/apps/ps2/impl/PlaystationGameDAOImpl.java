@@ -1,6 +1,7 @@
 package com.schlock.website.services.database.apps.ps2.impl;
 
 import com.schlock.website.entities.apps.ps2.PlaystationGame;
+import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
 import org.hibernate.Query;
@@ -48,6 +49,57 @@ public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> impleme
                         " order by g.genre asc ";
 
         Query query = session.createQuery(text);
+
+        List<Object[]> results = query.list();
+        return convertCountResultsToString(results);
+    }
+
+    public List<String[]> getCountByMostCommonDeveloper(PlaystationPlatform platform, String genre, int maxResults)
+    {
+        return getCountByParameter("g.developer", platform, genre, maxResults);
+    }
+
+    public List<String[]> getCountByMostCommonPublisher(PlaystationPlatform platform, String genre, int maxResults)
+    {
+        return getCountByParameter("g.publisher", platform, genre, maxResults);
+    }
+
+    public List<String[]> getCountByMostCommonYear(PlaystationPlatform platform, String genre, int maxResults)
+    {
+        return getCountByParameter("year(g.releaseDate)", platform, genre, maxResults);
+    }
+
+    private List<String[]> getCountByParameter(String parameter, PlaystationPlatform platform, String genre, int maxResults)
+    {
+        String text = " select %s, count(g.id) " +
+                " from PlaystationGame g " +
+                " where %s is not null ";
+
+        if (platform != null)
+        {
+            text += " and g.platform = :platform ";
+        }
+        if (genre != null)
+        {
+            text += " and g.genre = :genre ";
+        }
+
+        text += " group by %s " +
+                " order by count(g.id) desc, %s asc ";
+
+        text = String.format(text, parameter, parameter, parameter, parameter);
+
+        Query query = session.createQuery(text);
+        query.setMaxResults(maxResults);
+
+        if (platform != null)
+        {
+            query.setParameter("platform", platform);
+        }
+        if (genre != null)
+        {
+            query.setParameter("genre", genre);
+        }
 
         List<Object[]> results = query.list();
         return convertCountResultsToString(results);

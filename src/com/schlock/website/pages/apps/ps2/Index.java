@@ -1,10 +1,14 @@
 package com.schlock.website.pages.apps.ps2;
 
+import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
 import com.schlock.website.services.blog.CssCache;
+import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+
+import java.util.List;
 
 public class Index
 {
@@ -22,6 +26,10 @@ public class Index
 
     @Inject
     private Messages messages;
+
+    @Inject
+    private PlaystationGameDAO gameDAO;
+
 
     @Property
     private PlaystationPlatform selectedPlatform;
@@ -162,6 +170,36 @@ public class Index
     {
         return selectedPlatform == null && selectedGenre != null;
     }
+
+
+    private int maxResults()
+    {
+        if (isNothingSelected())
+        {
+            return STATS_FULL_MAX_RESULTS;
+        }
+        return STATS_HALF_MAX_RESULTS;
+    }
+
+    public List<DataPanelData> getDevData()
+    {
+        List<String[]> devData = gameDAO.getCountByMostCommonDeveloper(selectedPlatform, selectedGenre, maxResults());
+        return DataPanelData.createPanelData(devData);
+    }
+
+    public List<DataPanelData> getPubData()
+    {
+        List<String[]> devData = gameDAO.getCountByMostCommonPublisher(selectedPlatform, selectedGenre, maxResults());
+        return DataPanelData.createPanelData(devData);
+    }
+
+    public List<DataPanelData> getYearData()
+    {
+        List<String[]> devData = gameDAO.getCountByMostCommonYear(selectedPlatform, selectedGenre, maxResults());
+        return DataPanelData.createPanelData(devData);
+    }
+
+
 
     public static String getPageLink(boolean imageView, PlaystationPlatform platform, String genre)
     {

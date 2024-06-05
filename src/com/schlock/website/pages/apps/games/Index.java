@@ -224,33 +224,21 @@ public class    Index
     public List<DataPanelData> getDevData()
     {
         List<String[]> devData = gameDAO.getCountByMostCommonDeveloper(selectedPlatform, maxResults());
-        return createPanelData(devData);
+        return DataPanelData.createPanelData(devData);
     }
 
     public List<DataPanelData> getPubData()
     {
         List<String[]> devData = gameDAO.getCountByMostCommonPublisher(selectedPlatform, maxResults());
-        return createPanelData(devData);
+        return DataPanelData.createPanelData(devData);
     }
 
     public List<DataPanelData> getYearData()
     {
         List<String[]> devData = gameDAO.getCountByMostCommonYear(selectedPlatform, maxResults());
-        return createPanelData(devData);
+        return DataPanelData.createPanelData(devData);
     }
 
-    private List<DataPanelData> createPanelData(List<String[]> results)
-    {
-        List<DataPanelData> data = new ArrayList<DataPanelData>();
-        for(String[] d : results)
-        {
-            String name = d[0];
-            String count = d[1];
-
-            data.add(new DataPanelData(name, count));
-        }
-        return data;
-    }
 
 
     public List<VideoGamePlatform> getPlatformsWithHardware()

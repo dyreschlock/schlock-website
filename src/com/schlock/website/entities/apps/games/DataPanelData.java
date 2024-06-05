@@ -2,6 +2,9 @@ package com.schlock.website.entities.apps.games;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DataPanelData
 {
     private String name;
@@ -40,4 +43,19 @@ public class DataPanelData
     {
         return StringUtils.isNotBlank(this.link);
     }
+
+
+    public static List<DataPanelData> createPanelData(List<String[]> results)
+    {
+        List<DataPanelData> data = new ArrayList<DataPanelData>();
+        for(String[] d : results)
+        {
+            String name = d[0];
+            String count = d[1];
+
+            data.add(new DataPanelData(name, count));
+        }
+        return data;
+    }
+
 }
