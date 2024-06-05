@@ -26,6 +26,7 @@ public class Index
     @Property
     private PlaystationPlatform selectedPlatform;
 
+    @Property
     private String selectedGenre;
 
     @Property
@@ -33,7 +34,11 @@ public class Index
 
     Object onActivate()
     {
-        return onActivate(null);
+        imageView = false;
+        selectedPlatform = null;
+        selectedGenre = null;
+
+        return true;
     }
 
     Object onActivate(String parameter)
@@ -49,7 +54,7 @@ public class Index
             selectedPlatform = PlaystationPlatform.getFromText(parameter);
             if (selectedPlatform == null)
             {
-                selectedGenre = parameter;
+                selectedGenre = messages.get(parameter);
             }
         }
         return true;
@@ -71,7 +76,7 @@ public class Index
         else
         {
             selectedPlatform = PlaystationPlatform.getFromText(p1);
-            selectedGenre = p2;
+            selectedGenre = messages.get(p2);
             imageView = false;
         }
         return true;
@@ -81,14 +86,9 @@ public class Index
     {
         imageView = IMAGE_VIEW_ID.equalsIgnoreCase(p1);
         selectedPlatform = PlaystationPlatform.getFromText(p2);
-        selectedGenre = p3;
+        selectedGenre = messages.get(p3);
 
         return true;
-    }
-
-    public String getSelectedGenre()
-    {
-        return messages.get(selectedGenre);
     }
 
     public String getCss()
@@ -111,7 +111,7 @@ public class Index
         }
         if (selectedGenre != null)
         {
-            title += " // " + messages.get(selectedGenre);
+            title += " // " + selectedGenre;
         }
         return title;
     }
@@ -129,7 +129,7 @@ public class Index
         }
         if (selectedGenre != null)
         {
-            title += " // " + messages.get(selectedGenre);
+            title += " // " + selectedGenre;
         }
         return title;
     }
