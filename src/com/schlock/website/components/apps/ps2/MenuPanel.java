@@ -2,6 +2,7 @@ package com.schlock.website.components.apps.ps2;
 
 import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
+import com.schlock.website.pages.apps.ps2.Index;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.ioc.Messages;
@@ -55,9 +56,13 @@ public class MenuPanel
 
         List<DataPanelData> data = new ArrayList<DataPanelData>();
 
-        for(String genre : gameDAO.getAllGenres())
+        for(String[] genre : gameDAO.getAllGenres())
         {
-            data.add(new DataPanelData(genre, "0"));
+            String name = genre[0];
+            String count = genre[1];
+            String link = Index.getPageLink(imageView, platform, name);
+
+            data.add(new DataPanelData(name, count, link));
         }
         return data;
     }

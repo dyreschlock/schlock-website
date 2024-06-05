@@ -26,7 +26,6 @@ public class Index
     @Property
     private PlaystationPlatform selectedPlatform;
 
-    @Property
     private String selectedGenre;
 
     @Property
@@ -45,6 +44,8 @@ public class Index
         }
         else
         {
+            imageView = false;
+
             selectedPlatform = PlaystationPlatform.getFromText(parameter);
             if (selectedPlatform == null)
             {
@@ -85,6 +86,10 @@ public class Index
         return true;
     }
 
+    public String getSelectedGenre()
+    {
+        return messages.get(selectedGenre);
+    }
 
     public String getCss()
     {
@@ -106,7 +111,7 @@ public class Index
         }
         if (selectedGenre != null)
         {
-            title += " // " + selectedGenre;
+            title += " // " + messages.get(selectedGenre);
         }
         return title;
     }
@@ -118,7 +123,7 @@ public class Index
         String title = messages.get(TITLE_KEY);
         if (selectedPlatform != null || selectedGenre != null)
         {
-            String link = getPageLink(imageView, null, null);
+            String link = Index.getPageLink(imageView, null, null);
 
             title = String.format(LINK_HTML, link, title);
         }
@@ -172,9 +177,9 @@ public class Index
         }
         if (genre != null)
         {
-            link += "/" + genre;
+            String genreStub = genre.replaceAll(" ", "").toLowerCase();
+            link += "/" + genreStub;
         }
-
         return link;
     }
 }

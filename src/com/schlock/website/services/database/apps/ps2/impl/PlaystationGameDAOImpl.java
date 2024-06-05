@@ -38,9 +38,9 @@ public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> impleme
         return query.list();
     }
 
-    public List<String> getAllGenres()
+    public List<String[]> getAllGenres()
     {
-        String text = " select g.genre " +
+        String text = " select g.genre, count(g.id) " +
                         " from PlaystationGame g " +
                         " where g.drive != null " +
                         " and g.genre != null " +
@@ -49,6 +49,7 @@ public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> impleme
 
         Query query = session.createQuery(text);
 
-        return query.list();
+        List<Object[]> results = query.list();
+        return convertCountResultsToString(results);
     }
 }

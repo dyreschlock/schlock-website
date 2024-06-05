@@ -40,7 +40,21 @@
         </t:if>
 
         <t:if test="genreNotPlatformSelected">
-
+            <table class="layout">
+                <tr>
+                    <td rowspan="2">
+                        <p:menupanel genre="selectedGenre" imageView="imageView" />
+                    </td>
+                    <td>dev</td>
+                    <td>pub</td>
+                    <td>year</td>
+                </tr>
+                <tr>
+                    <td class="data" colspan="3">
+                        data
+                    </td>
+                </tr>
+            </table>
         </t:if>
     </div>
 </body>

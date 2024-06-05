@@ -3,6 +3,7 @@ package com.schlock.website.services.database;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseDAOImpl<T> implements BaseDAO<T>
@@ -42,5 +43,23 @@ public abstract class BaseDAOImpl<T> implements BaseDAO<T>
     public void save(T obj)
     {
         session.save(obj);
+    }
+
+
+
+
+    protected List<String[]> convertCountResultsToString(List<Object[]> results)
+    {
+        List<String[]> data = new ArrayList<String[]>();
+        for(Object[] result : results)
+        {
+            String[] d = new String[2];
+
+            d[0] = result[0].toString();
+            d[1] = result[1].toString();
+
+            data.add(d);
+        }
+        return data;
     }
 }

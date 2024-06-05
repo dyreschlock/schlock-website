@@ -9,7 +9,6 @@ import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class VideoGameDAOImpl extends BaseDAOImpl<VideoGame> implements VideoGameDAO
@@ -113,20 +112,5 @@ public class VideoGameDAOImpl extends BaseDAOImpl<VideoGame> implements VideoGam
 
         List<Object[]> results = query.list();
         return convertCountResultsToString(results);
-    }
-
-    private List<String[]> convertCountResultsToString(List<Object[]> results)
-    {
-        List<String[]> data = new ArrayList<String[]>();
-        for(Object[] result : results)
-        {
-            String[] d = new String[2];
-
-            d[0] = result[0].toString();
-            d[1] = result[1].toString();
-
-            data.add(d);
-        }
-        return data;
     }
 }
