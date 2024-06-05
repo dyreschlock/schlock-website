@@ -81,6 +81,11 @@ a:hover
     font-weight: bold;
 }
 
+.dim
+{
+    opacity: 0.5;
+}
+
 div.body
 {
     margin-left: auto;
@@ -295,6 +300,11 @@ table.platformData
         background-color: #444;
     }
 
+    th.noBackground
+    {
+        background: 0;
+    }
+
     .outerTop
     {
         border-top: 2px solid @border_color;
@@ -318,6 +328,12 @@ table.platformData
     td.empty
     {
         border: 0px;
+    }
+
+    td.lowerLeft
+    {
+        border-left: 0;
+        border-bottom: 0;
     }
 
     td.name, th.name
@@ -352,7 +368,7 @@ th.blank,td.blank { background-color: #444; }
 @nds:  #6f32cc;     th.nds,  td.nds   { background-color: @nds; }    span.nds   { color: @nds; }
 @n3ds: #b132cc;     th.n3ds, td.n3ds  { background-color: @n3ds; }   span.n3ds  { color: @n3ds; }
 @ps1:  #4489ca;     th.ps1,  td.ps1   { background-color: @ps1; }    span.ps1   { color: @ps1; }
-@ps2:  #0000b8;     th.ps2,  td.ps2   { background-color: @ps2; }    span.ps2   { color: @ps2; }
+@ps2:  #2121b4;     th.ps2,  td.ps2   { background-color: @ps2; }    span.ps2   { color: @ps2; }
 @ps3:  #332cf4;     th.ps3,  td.ps3   { background-color: @ps3; }    span.ps3   { color: @ps3; }
 @ps4:  #0000f4;     th.ps4,  td.ps4   { background-color: @ps4; }    span.ps4   { color: @ps4; }
 @ps5:  #428fee;     th.ps5,  td.ps5   { background-color: @ps5; }    span.ps5   { color: @ps5; }

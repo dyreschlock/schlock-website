@@ -2,12 +2,27 @@ package com.schlock.website.components.apps.ps2;
 
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
 import com.schlock.website.pages.apps.ps2.Index;
+import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
 import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.ioc.Messages;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
 public class PlatformPanel
 {
+    private static final String COUNT_MESSAGE = "game-count";
+
+    @Inject
+    private PlaystationGameDAO gameDAO;
+
+    @Inject
+    private Messages messages;
+
+
     @Parameter
     private PlaystationPlatform platform;
+
+    @Parameter
+    private PlaystationPlatform selectedPlatform;
 
     @Parameter
     private String genre;
@@ -16,21 +31,33 @@ public class PlatformPanel
     private Boolean imageView;
 
 
-    public String getPs2Link()
+    public String getImageLink()
     {
-        if(PlaystationPlatform.PS2.equals(platform))
-        {
-            return Index.getPageLink(imageView, null, genre);
-        }
-        return Index.getPageLink(imageView, PlaystationPlatform.PS2, genre);
+        return platform.getImageLink();
     }
 
-    public String getPs1Link()
+    public String getPlatformLink()
     {
-        if (PlaystationPlatform.PS1.equals(platform))
+        if (platform.equals(selectedPlatform))
         {
             return Index.getPageLink(imageView, null, genre);
         }
-        return Index.getPageLink(imageView, PlaystationPlatform.PS1, genre);
+        return Index.getPageLink(imageView, platform, genre);
+    }
+
+    public String getImageCssClass()
+    {
+        if (selectedPlatform != null && !platform.equals(selectedPlatform))
+        {
+            return "dim";
+        }
+        return "";
+    }
+
+
+    public String getGamesCount()
+    {
+        int count = gameDAO.getAvailableGamesByPlatformGenre(platform, genre).size();
+        return messages.format(COUNT_MESSAGE, count);
     }
 }

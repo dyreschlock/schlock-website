@@ -1,0 +1,15 @@
+<t:container
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:p="tapestry-library:apps/ps2"
+>
+    <table>
+        <tr>
+            <td>
+                <p:platformpanel platform="ps2" selectedPlatform="selectedPlatform" genre="genre" imageView="imageView" />
+            </td>
+            <td>
+                <p:platformpanel platform="ps1" selectedPlatform="selectedPlatform" genre="genre" imageView="imageView" />
+            </td>
+        </tr>
+    </table>
+</t:container>

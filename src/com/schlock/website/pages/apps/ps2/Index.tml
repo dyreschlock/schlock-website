@@ -24,7 +24,7 @@
                         <p:menupanel platform="selectedPlatform" imageView="imageView" />
                     </td>
                     <td colspan="3">
-                        <p:platformpanel platform="selectedPlatform" genre="selectedGenre" imageView="imageView" />
+                        <p:platformbar selectedPlatform="selectedPlatform" genre="selectedGenre" imageView="imageView" />
                     </td>
                 </tr>
                 <tr>
@@ -42,7 +42,7 @@
                         <p:menupanel platform="selectedPlatform" genre="selectedGenre" imageView="imageView"/>
                     </td>
                     <td colspan="3">
-                        <p:platformpanel platform="selectedPlatform" genre="selectedGenre" imageView="imageView" />
+                        <p:platformbar selectedPlatform="selectedPlatform" genre="selectedGenre" imageView="imageView" />
                     </td>
                 </tr>
                 <tr>
@@ -65,7 +65,7 @@
                         <p:menupanel genre="selectedGenre" imageView="imageView" />
                     </td>
                     <td colspan="3">
-                        <p:platformpanel platform="selectedPlatform" genre="selectedGenre" imageView="imageView" />
+                        <p:platformbar selectedPlatform="selectedPlatform" genre="selectedGenre" imageView="imageView" />
                     </td>
                 </tr>
                 <tr>

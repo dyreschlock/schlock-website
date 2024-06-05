@@ -5,6 +5,8 @@ public enum PlaystationPlatform
     PS2("DVD", ".iso"),
     PS1("POPS", ".vcd");
 
+    private final String IMAGE_LINK = "https://raw.githubusercontent.com/dyreschlock/dyreschlock.github.io/main/img/%s.png";
+
     private final String folder;
     private final String filetype;
 
@@ -22,6 +24,12 @@ public enum PlaystationPlatform
     public String fileType()
     {
         return this.filetype;
+    }
+
+    public String getImageLink()
+    {
+        String imageLink = String.format(IMAGE_LINK, name().toLowerCase());
+        return imageLink;
     }
 
     public static PlaystationPlatform getFromText(String text)

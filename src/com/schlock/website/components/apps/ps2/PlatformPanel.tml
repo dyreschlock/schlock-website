@@ -1,15 +1,16 @@
 <t:container
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 >
-    <div class="something">
-        <table class="something">
+    <div class="panel">
+        <table class="platformData">
             <tr>
-                <td>
-                    <a href="${ps2Link}">${message:ps2}</a>
-                </td>
-                <td>
-                    <a href="${ps1Link}">${message:ps1}</a>
-                </td>
+                <th class="outerTop outerLeft outerRight noBackground" colspan="2">
+                    <a href="${platformLink}"><img class="${imageCssClass}" src="${imageLink}"/></a>
+                </th>
+            </tr>
+            <tr>
+                <td class="outerTop lowerLeft"></td>
+                <td class="even outerLeft outerBottom outerRight">${gamesCount}</td>
             </tr>
         </table>
     </div>
