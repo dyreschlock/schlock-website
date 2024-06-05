@@ -1,0 +1,16 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <div class="something">
+        <table class="something">
+            <tr>
+                <td>
+                    <a href="${ps2Link}">${message:ps2}</a>
+                </td>
+                <td>
+                    <a href="${ps1Link}">${message:ps1}</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</t:container>

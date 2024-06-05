@@ -23,9 +23,9 @@
                     <td rowspan="2">
                         <p:menupanel platform="selectedPlatform" imageView="imageView" />
                     </td>
-                    <td>playstation 1</td>
-                    <td>playstation 2</td>
-                    <td>something else</td>
+                    <td colspan="3">
+                        <p:platformpanel platform="selectedPlatform" genre="selectedGenre" imageView="imageView" />
+                    </td>
                 </tr>
                 <tr>
                     <td>dev</td>
@@ -36,15 +36,39 @@
         </t:if>
 
         <t:if test="platformSelected">
-
+            <table class="layout">
+                <tr>
+                    <td rowspan="3">
+                        <p:menupanel platform="selectedPlatform" genre="selectedGenre" imageView="imageView"/>
+                    </td>
+                    <td colspan="3">
+                        <p:platformpanel platform="selectedPlatform" genre="selectedGenre" imageView="imageView" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>dev</td>
+                    <td>pub</td>
+                    <td>year</td>
+                </tr>
+                <tr>
+                    <td class="data" colspan="3">
+                        data
+                    </td>
+                </tr>
+            </table>
         </t:if>
 
         <t:if test="genreNotPlatformSelected">
             <table class="layout">
                 <tr>
-                    <td rowspan="2">
+                    <td rowspan="3">
                         <p:menupanel genre="selectedGenre" imageView="imageView" />
                     </td>
+                    <td colspan="3">
+                        <p:platformpanel platform="selectedPlatform" genre="selectedGenre" imageView="imageView" />
+                    </td>
+                </tr>
+                <tr>
                     <td>dev</td>
                     <td>pub</td>
                     <td>year</td>
