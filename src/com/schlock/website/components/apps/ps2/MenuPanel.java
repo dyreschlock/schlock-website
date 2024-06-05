@@ -56,11 +56,17 @@ public class MenuPanel
 
         List<DataPanelData> data = new ArrayList<DataPanelData>();
 
-        for(String[] genre : gameDAO.getAllGenres())
+        for(String[] genreData : gameDAO.getAllGenres())
         {
-            String name = genre[0];
-            String count = genre[1];
+            String name = genreData[0];
+            String count = genreData[1];
             String link = Index.getPageLink(imageView, platform, name);
+
+            if (name.equalsIgnoreCase(genre))
+            {
+                name = String.format(SPAN_HTML, name);
+                link = Index.getPageLink(imageView, platform, null);
+            }
 
             data.add(new DataPanelData(name, count, link));
         }
