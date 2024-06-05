@@ -1,5 +1,6 @@
 package com.schlock.website.components.apps.pocket;
 
+import com.schlock.website.components.apps.games.DataPanel;
 import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.entities.apps.pocket.PocketGame;
 import com.schlock.website.services.apps.pocket.PocketDataService;
@@ -111,9 +112,9 @@ public class GamesPanel
     {
         if (currentIndex % 2 == 0)
         {
-            return CorePanel.EVEN;
+            return DataPanel.EVEN;
         }
-        return CorePanel.ODD;
+        return DataPanel.ODD;
     }
 
 

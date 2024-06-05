@@ -52,7 +52,7 @@
                 </tr>
                 <tr>
                     <td class="data" colspan="3">
-                        data
+                        <p:gamespanel platform="selectedPlatform" genre="selectedGenre" imageView="imageView" />
                     </td>
                 </tr>
             </table>
@@ -75,7 +75,7 @@
                 </tr>
                 <tr>
                     <td class="data" colspan="3">
-                        data
+                        <p:gamespanel platform="selectedPlatform" genre="selectedGenre" imageView="imageView" />
                     </td>
                 </tr>
             </table>

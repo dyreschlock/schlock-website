@@ -1,5 +1,6 @@
 package com.schlock.website.components.apps.pocket;
 
+import com.schlock.website.components.apps.games.DataPanel;
 import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.entities.apps.pocket.PocketGame;
 import com.schlock.website.pages.apps.pocket.Index;
@@ -17,9 +18,6 @@ public class CorePanel
 {
     private static final String ARCADE_TITLE_KEY = "arcade";
     private static final String ARCADE_CORE_NAME_KEY = "arcade-cores";
-
-    protected static final String EVEN = "even";
-    protected static final String ODD = "odd";
 
     @Inject
     private PocketDataService pocketDataService;
@@ -147,8 +145,8 @@ public class CorePanel
     {
         if (currentIndex % 2 == 0)
         {
-            return EVEN;
+            return DataPanel.EVEN;
         }
-        return ODD;
+        return DataPanel.ODD;
     }
 }

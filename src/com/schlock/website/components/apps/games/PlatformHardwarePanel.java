@@ -130,8 +130,8 @@ public class PlatformHardwarePanel
     {
         if (currentIndex % 2 == 0)
         {
-            return PlatformPanel.EVEN;
+            return DataPanel.EVEN;
         }
-        return PlatformPanel.ODD;
+        return DataPanel.ODD;
     }
 }

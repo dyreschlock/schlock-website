@@ -18,9 +18,6 @@ import java.util.List;
 
 public class PlatformPanel
 {
-    protected static final String EVEN = "even";
-    protected static final String ODD = "odd";
-
     @Inject
     private VideoGamePlatformDAO platformDAO;
 
@@ -177,8 +174,8 @@ public class PlatformPanel
     {
         if (currentIndex % 2 == 0)
         {
-            return EVEN;
+            return DataPanel.EVEN;
         }
-        return ODD;
+        return DataPanel.ODD;
     }
 }

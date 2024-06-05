@@ -39,6 +39,37 @@ public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> impleme
         return query.list();
     }
 
+    public List<PlaystationGame> getAvailableGamesByPlatformGenre(PlaystationPlatform platform, String genre)
+    {
+        String text = " select g " +
+                " from PlaystationGame g " +
+                " where g.drive != null ";
+
+        if (platform != null)
+        {
+            text += " and g.platform = :platform ";
+        }
+        if (genre != null)
+        {
+            text += " and g.genre = :genre ";
+        }
+
+        text += " order by g.title asc ";
+
+        Query query = session.createQuery(text);
+
+        if (platform != null)
+        {
+            query.setParameter("platform", platform);
+        }
+        if (genre != null)
+        {
+            query.setParameter("genre", genre);
+        }
+
+        return query.list();
+    }
+
     public List<String[]> getAllGenres()
     {
         String text = " select g.genre, count(g.id) " +

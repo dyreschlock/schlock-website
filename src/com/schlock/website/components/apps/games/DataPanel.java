@@ -8,6 +8,9 @@ import java.util.List;
 
 public class DataPanel
 {
+    public static final String EVEN = "even";
+    public static final String ODD = "odd";
+
     @Parameter(required = true)
     @Property
     private String title;
@@ -68,8 +71,8 @@ public class DataPanel
     {
         if (currentIndex % 2 == 0)
         {
-            return PlatformPanel.EVEN;
+            return EVEN;
         }
-        return PlatformPanel.ODD;
+        return ODD;
     }
 }

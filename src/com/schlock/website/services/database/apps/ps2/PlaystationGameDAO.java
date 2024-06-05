@@ -12,6 +12,8 @@ public interface PlaystationGameDAO extends BaseDAO<PlaystationGame>
 
     List<PlaystationGame> getAvailableGames();
 
+    List<PlaystationGame> getAvailableGamesByPlatformGenre(PlaystationPlatform platform, String genre);
+
     List<String[]> getAllGenres();
 
     List<String[]> getCountByMostCommonDeveloper(PlaystationPlatform platform, String genre, int maxResults);
