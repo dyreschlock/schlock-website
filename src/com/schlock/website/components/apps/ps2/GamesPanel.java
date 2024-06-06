@@ -3,6 +3,7 @@ package com.schlock.website.components.apps.ps2;
 import com.schlock.website.components.apps.games.DataPanel;
 import com.schlock.website.entities.apps.ps2.PlaystationGame;
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
+import com.schlock.website.services.apps.ps2.PlaystationImageService;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -14,6 +15,9 @@ import java.util.List;
 public class GamesPanel
 {
     private static final String BLANK = "blank";
+
+    @Inject
+    private PlaystationImageService imageService;
 
     @Inject
     private PlaystationGameDAO gameDAO;
@@ -82,5 +86,13 @@ public class GamesPanel
             return DataPanel.EVEN;
         }
         return DataPanel.ODD;
+    }
+
+    public String getImageHTML()
+    {
+        List<PlaystationGame> games = getGames();
+
+        String outputHTML = imageService.generateImageHTMLFromGames(games);
+        return outputHTML;
     }
 }

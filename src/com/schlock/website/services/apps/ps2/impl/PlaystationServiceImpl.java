@@ -142,15 +142,18 @@ public class PlaystationServiceImpl implements PlaystationService
     {
         final String DATA_PATH = context.playstationDataDirectory();
         final String LOCAL_PATH = context.playstationLocalDirectory();
+        final String WEB_PATH = context.webOutputDirectoryImageFolder() + "ps2/";
 
         for(PlaystationGame game : gameDAO.getAll())
         {
             File source = new File(DATA_PATH + game.getArtRelativeFilepath());
-            File destination = new File(LOCAL_PATH + game.getArtRelativeFilepath());
-
-            if (!destination.exists() && source.exists())
+            if (source.exists())
             {
-                copyFile(source, destination);
+                File localDest = new File(LOCAL_PATH + game.getArtRelativeFilepath());
+                copyFile(source, localDest);
+
+                File webDest = new File(WEB_PATH + game.getCoverImageFilename());
+                copyFile(source, webDest);
 
                 game.setHaveArt(true);
                 gameDAO.save(game);

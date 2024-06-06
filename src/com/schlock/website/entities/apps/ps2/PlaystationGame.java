@@ -1,11 +1,11 @@
 package com.schlock.website.entities.apps.ps2;
 
-import com.schlock.website.entities.Persisted;
+import com.schlock.website.entities.apps.pocket.ImagedGame;
 
 import java.io.File;
 import java.util.Date;
 
-public class PlaystationGame extends Persisted
+public class PlaystationGame extends ImagedGame
 {
     public static final String ART_FOLDER = "ART";
     public static final String CFG_FOLDER = "CFG";
@@ -53,9 +53,14 @@ public class PlaystationGame extends Persisted
         return folder + "/" + gameId + "." + gameName + fileType;
     }
 
+    public String getCoverImageFilename()
+    {
+        return gameId + ART_FILETYPE;
+    }
+
     public String getArtRelativeFilepath()
     {
-        return ART_FOLDER + "/" + gameId + ART_FILETYPE;
+        return ART_FOLDER + "/" + getCoverImageFilename();
     }
 
     public String getCfgRelativeFilepath()
@@ -67,6 +72,7 @@ public class PlaystationGame extends Persisted
     {
         this.gameName = currentFilename.substring(12, currentFilename.length() - 4);
     }
+
 
 
     public String getGameId()

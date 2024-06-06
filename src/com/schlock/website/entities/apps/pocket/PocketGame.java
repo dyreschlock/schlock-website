@@ -2,7 +2,7 @@ package com.schlock.website.entities.apps.pocket;
 
 import org.apache.commons.lang.StringUtils;
 
-public class PocketGame
+public class PocketGame extends ImagedGame
 {
     private String gameName;
     private String developer;
@@ -47,8 +47,6 @@ public class PocketGame
         }
         return core;
     }
-
-
 
     public String getGameName()
     {

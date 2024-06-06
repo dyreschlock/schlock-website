@@ -5,6 +5,7 @@ public interface DeploymentContext
     public static final String IMAGE_DIR = "image/";
     public static final String PHOTO_DIR = "photo/";
     public static final String COVER_DIR = "img/cover/";
+    public static final String IMG_DIR = "img/";
 
     public static final String MISC_DIR = "misc/";
     public static final String SPAMM_DIR = "spamm/";
@@ -32,6 +33,7 @@ public interface DeploymentContext
 
     public String imageOutputDirectory();
     public String webOutputDirectory();
+    public String webOutputDirectoryImageFolder();
 
     public String playstationDriveDirectory();
     public String playstationDataDirectory();

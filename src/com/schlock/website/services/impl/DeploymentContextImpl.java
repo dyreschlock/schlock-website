@@ -179,6 +179,12 @@ public class DeploymentContextImpl implements DeploymentContext
         return playstationLocal;
     }
 
+    public String webOutputDirectoryImageFolder()
+    {
+        String outputDirectory = getDeployProperties().getProperty(OUT_DIR_HTML_PARAM);
+        return outputDirectory + "/" + IMG_DIR;
+    }
+
     public String coverImageLocationLocal()
     {
         String outputDirectory = getDeployProperties().getProperty(OUT_DIR_HTML_PARAM);
