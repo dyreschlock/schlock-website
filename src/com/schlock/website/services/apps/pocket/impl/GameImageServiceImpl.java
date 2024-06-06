@@ -41,7 +41,7 @@ public abstract class GameImageServiceImpl<T extends ImagedGame>
             {
                 currentImages.add(imageEntry);
 
-                int width = (Integer) imageEntry[2];
+                int width = (Integer) imageEntry[3];
 
                 currentTotalWidth += width;
                 if (currentTotalWidth > CELL_WIDTH)
