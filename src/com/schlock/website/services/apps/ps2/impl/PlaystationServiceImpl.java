@@ -8,7 +8,10 @@ import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
 
 import java.io.*;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Properties;
+import java.util.TreeSet;
 
 public class PlaystationServiceImpl implements PlaystationService
 {
@@ -130,10 +133,17 @@ public class PlaystationServiceImpl implements PlaystationService
 
 
             File outputConfigFile = new File(DEST_DIR + game.getCfgRelativeFilepath());
-
             OutputStream out = new FileOutputStream(outputConfigFile);
 
-            configuration.store(out, "CFG for Game: " + game.getGameId());
+            Properties tmp = new Properties()
+            {
+                public synchronized Enumeration<Object> keys()
+                {
+                    return Collections.enumeration(new TreeSet<Object>(super.keySet()));
+                }
+            };
+            tmp.putAll(configuration);
+            tmp.store(out, "CFG for Game: " + game.getGameId());
         }
     }
 

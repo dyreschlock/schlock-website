@@ -13,7 +13,7 @@ public class PlaystationPropertyServiceImpl implements PlaystationPropertyServic
     private static final String GENRE = "Genre";
     private static final String RELEASE_DATE = "Release";
     private static final String DEVELOPER = "Developer";
-    private static final String PUBLISHER = "Publisher";
+//    private static final String PUBLISHER = "Publisher";
 
     private static final String RATING = "Rating";
     private static final String RATING_TEXT = "RatingText";
@@ -62,11 +62,11 @@ public class PlaystationPropertyServiceImpl implements PlaystationPropertyServic
             game.setDeveloper(developer);
         }
 
-        String publisher = configuration.getProperty(PUBLISHER);
-        if (game.getPublisher() == null && publisher != null)
-        {
-            game.setPublisher(publisher);
-        }
+//        String publisher = configuration.getProperty(PUBLISHER);
+//        if (game.getPublisher() == null && publisher != null)
+//        {
+//            game.setPublisher(publisher);
+//        }
 
         String notes = configuration.getProperty(NOTES);
         if (game.getNotes() == null && notes != null)
@@ -135,8 +135,14 @@ public class PlaystationPropertyServiceImpl implements PlaystationPropertyServic
     {
         setProperty(configuration, TITLE, game.getTitle());
         setProperty(configuration, GENRE, game.getGenre());
-        setProperty(configuration, DEVELOPER, game.getDeveloper());
-        setProperty(configuration, PUBLISHER, game.getPublisher());
+
+        String developer = game.getDeveloper();
+        String publisher = game.getPublisher();
+        if (developer != null && publisher != null && !developer.equalsIgnoreCase(game.getPublisher()))
+        {
+            developer += " / " + publisher;
+        }
+        setProperty(configuration, DEVELOPER, developer);
 
         setProperty(configuration, NOTES, game.getNotes());
         setProperty(configuration, DESCRIPTION, game.getDescription());
