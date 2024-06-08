@@ -18,7 +18,7 @@ public class Index
 
     private static final String TITLE_KEY = "title";
 
-    private static final Integer STATS_FULL_MAX_RESULTS = 20;
+    private static final Integer STATS_FULL_MAX_RESULTS = 18;
     private static final Integer STATS_HALF_MAX_RESULTS = 5;
 
     @Inject

@@ -7,6 +7,7 @@ import com.schlock.website.services.apps.ps2.PlaystationImageService;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.text.SimpleDateFormat;
@@ -21,6 +22,9 @@ public class GamesPanel
 
     @Inject
     private PlaystationGameDAO gameDAO;
+
+    @Inject
+    private Messages messages;
 
     @Parameter
     private PlaystationPlatform platform;
@@ -68,6 +72,17 @@ public class GamesPanel
     {
         return currentGame.getPlatform().name();
     }
+
+    public String getCurrentGameGenre()
+    {
+        if (currentGame.getGenre() != null)
+        {
+            String genre = currentGame.getGenre().toLowerCase().replaceAll(" ", "");
+            return messages.get(genre);
+        }
+        return "";
+    }
+
 
     public String getCurrentGameReleaseDate()
     {
