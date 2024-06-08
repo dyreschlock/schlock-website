@@ -7,9 +7,9 @@ public class PocketCore
     public static final String CAT_CONSOLE = "Console";
     public static final String CAT_HANDHELD = "Handheld";
     public static final String CAT_COMPUTER = "Computer";
-    public static final String CAT_ARCADE_1 = "Arcade (Classic)";
-    public static final String CAT_ARCADE_2 = "Arcade (Modern)";
-    public static final String CAT_ARCADE_MULTI = "Arcade Systems";
+    public static final String CAT_ARCADE_1 = "Arcade";
+    public static final String CAT_ARCADE_2 = "Arcade";
+    public static final String CAT_ARCADE_MULTI = "Arcade Multi";
 
     private static final String IMAGE_LINK = "https://raw.githubusercontent.com/dyreschlock/pocket-platform-images/main/pics/%s/%s.png";
     private static final String HOME = "home";
