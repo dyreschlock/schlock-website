@@ -28,6 +28,20 @@ public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> impleme
         return (PlaystationGame) singleResult(query);
     }
 
+    public PlaystationGame getByGameIdAndFilename(String gameId, String gameName)
+    {
+        String text = " select g " +
+                " from PlaystationGame g " +
+                " where g.gameId = :gameId " +
+                " and g.gameName = :gameName ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("gameId", gameId);
+        query.setParameter("gameName", gameName);
+
+        return (PlaystationGame) singleResult(query);
+    }
+
     public List<PlaystationGame> getAvailableGames()
     {
         String text = " select g " +

@@ -77,7 +77,7 @@ public class PlaystationServiceImpl implements PlaystationService
         {
             PlaystationGame gameData = PlaystationGame.create(gameFile, platform);
 
-            PlaystationGame game = gameDAO.getByGameId(gameData.getGameId());
+            PlaystationGame game = gameDAO.getByGameIdAndFilename(gameData.getGameId(), gameData.getGameName());
             if (game == null)
             {
                 game = gameData;

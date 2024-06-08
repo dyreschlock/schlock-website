@@ -10,6 +10,8 @@ public interface PlaystationGameDAO extends BaseDAO<PlaystationGame>
 {
     PlaystationGame getByGameId(String gameId);
 
+    PlaystationGame getByGameIdAndFilename(String gameId, String gameName);
+
     List<PlaystationGame> getAvailableGames();
 
     List<PlaystationGame> getAvailableGamesByPlatformGenre(PlaystationPlatform platform, String genre);
