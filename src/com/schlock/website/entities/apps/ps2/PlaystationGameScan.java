@@ -3,6 +3,7 @@ package com.schlock.website.entities.apps.ps2;
 public enum PlaystationGameScan
 {
     x240p("scan/240p", "240p"),
+    x240p1("scan/240p", "240p"), // Not 320x240
     x480i("scan/480i", "480i"),
     x480p("scan/480p", "480p"),
     x480p1("scan/480p1", "480p1"),
