@@ -106,7 +106,7 @@ public abstract class AbstractPost extends Persisted
     {
         List<PostCategory> top = new ArrayList<PostCategory>();
 
-        for (AbstractCategory category : getCategories())
+        for (AbstractCategory category : getAllPostCategories())
         {
             if (category.isTopCategory() && category.isPost())
             {
@@ -122,7 +122,7 @@ public abstract class AbstractPost extends Persisted
     {
         List<AbstractCategory> sub = new ArrayList<AbstractCategory>();
 
-        for (AbstractCategory category : getCategories())
+        for (AbstractCategory category : getAllPostCategories())
         {
             if (category.getParent() != null &&
                     category.getParent().getId().equals(top.getId()))
