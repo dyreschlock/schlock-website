@@ -98,6 +98,11 @@ public class PokemonData extends Persisted
         }
 
         san = san.substring(0, san.length() - 1);
+        if (StringUtils.isNumeric(san))
+        {
+            return Integer.parseInt(san);
+        }
+        san = san.substring(0, san.length() - 1);
         return Integer.parseInt(san);
     }
 
