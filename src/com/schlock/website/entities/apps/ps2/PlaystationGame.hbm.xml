@@ -22,6 +22,7 @@
         <property name="working" />
 
         <property name="haveArt" />
+        <property name="haveSave" />
 
         <property name="title" />
         <property name="genre" />

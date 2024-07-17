@@ -12,6 +12,8 @@ public interface PlaystationGameDAO extends BaseDAO<PlaystationGame>
 
     PlaystationGame getByGameIdAndFilename(String gameId, String gameName);
 
+    List<PlaystationGame> getAllWithSave();
+
     List<PlaystationGame> getAvailableGames();
 
     List<PlaystationGame> getAvailableGamesByPlatformGenre(PlaystationPlatform platform, String genre);

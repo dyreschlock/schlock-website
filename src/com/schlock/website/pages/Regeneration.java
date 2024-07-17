@@ -223,6 +223,12 @@ public class Regeneration
     }
 
     @CommitAfter
+    void onUpdateGameSaveFiles()
+    {
+        playstationService.updateGameSaveFiles();
+    }
+
+    @CommitAfter
     void onReadConfigFiles()
     {
         try

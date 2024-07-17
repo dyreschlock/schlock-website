@@ -42,6 +42,17 @@ public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> impleme
         return (PlaystationGame) singleResult(query);
     }
 
+    public List<PlaystationGame> getAllWithSave()
+    {
+        String text = "select g " +
+                        " from PlaystationGame g " +
+                        " where g.haveSave is true ";
+        
+        Query query = session.createQuery(text);
+
+        return query.list();
+    }
+
     public List<PlaystationGame> getAvailableGames()
     {
         String text = " select g " +

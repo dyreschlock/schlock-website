@@ -11,4 +11,6 @@ public interface PlaystationService
     void writeArtFilesToLocal() throws Exception;
 
     void copyLocalFilesToDrive() throws Exception;
+
+    void updateGameSaveFiles();
 }

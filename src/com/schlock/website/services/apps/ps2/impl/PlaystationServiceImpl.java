@@ -219,4 +219,66 @@ public class PlaystationServiceImpl implements PlaystationService
             out.flush();
         }
     }
+
+    public void updateGameSaveFiles()
+    {
+        updateCurrentGameSaves();
+        locateNewGameSaves();
+    }
+
+    private void updateCurrentGameSaves()
+    {
+        final String LOCAL_PATH = context.playstationLocalDirectory();
+
+        for(PlaystationGame game : gameDAO.getAllWithSave())
+        {
+            String filepath = LOCAL_PATH + game.getSaveFileRelativeFilepath();
+            File saveFolder = new File(filepath);
+
+            if (!saveFolder.exists())
+            {
+                game.setHaveSave(false);
+                gameDAO.save(game);
+            }
+        }
+    }
+
+    private void locateNewGameSaves()
+    {
+        final String MCP_PATH = context.playstationLocalDirectory() + PlaystationGame.SAVE_FOLDER + "/";
+
+        FilenameFilter saveFolderFormat = new FilenameFilter()
+        {
+            public boolean accept(File dir, String name)
+            {
+                return PlaystationGame.isGameIdMemcardFormat(name);
+            }
+        };
+
+        for(PlaystationPlatform platform : PlaystationPlatform.values())
+        {
+            String filepath = MCP_PATH + platform.name();
+            File saveFolder = new File(filepath);
+            for(File folder : saveFolder.listFiles(saveFolderFormat))
+            {
+                updateGameWithSaveFolder(folder);
+            }
+        }
+    }
+
+    private void updateGameWithSaveFolder(File saveFolder)
+    {
+        String gameId = PlaystationGame.getGameIdStandardFormat(saveFolder.getName());
+
+        PlaystationGame game = gameDAO.getByGameId(gameId);
+        if (game != null)
+        {
+            game.setHaveSave(true);
+            gameDAO.save(game);
+        }
+        else
+        {
+            System.out.println("Game not found:" + gameId);
+        }
+    }
 }

@@ -13,6 +13,8 @@ public class PlaystationGame extends ImagedGame
     public static final String ART_FILETYPE = "_COV.jpg";
     public static final String CFG_FILETYPE = ".cfg";
 
+    public static final String SAVE_FOLDER = "mcp2";
+
     private String gameId;
 
     private String gameName;
@@ -23,6 +25,7 @@ public class PlaystationGame extends ImagedGame
     private String working;
 
     private boolean haveArt;
+    private boolean haveSave;
 
     private String title;
     private String genre;
@@ -53,6 +56,14 @@ public class PlaystationGame extends ImagedGame
         return folder + "/" + gameId + "." + gameName + fileType;
     }
 
+    public String getSaveFileRelativeFilepath()
+    {
+        String platFolder = platform.name();
+        String saveFolder = getGameIdMemcardFormat(getGameId());
+
+        return SAVE_FOLDER + "/" + platFolder + "/" + saveFolder;
+    }
+
     public String getCoverImageFilename()
     {
         return gameId + ART_FILETYPE;
@@ -72,7 +83,6 @@ public class PlaystationGame extends ImagedGame
     {
         this.gameName = currentFilename.substring(12, currentFilename.length() - 4);
     }
-
 
 
     public String getGameId()
@@ -133,6 +143,16 @@ public class PlaystationGame extends ImagedGame
     public void setHaveArt(boolean haveArt)
     {
         this.haveArt = haveArt;
+    }
+
+    public boolean isHaveSave()
+    {
+        return haveSave;
+    }
+
+    public void setHaveSave(boolean haveSave)
+    {
+        this.haveSave = haveSave;
     }
 
     public String getTitle()
@@ -270,5 +290,48 @@ public class PlaystationGame extends ImagedGame
         game.haveArt = false;
 
         return game;
+    }
+
+    public static String getGameIdMemcardFormat(String standardFormat)
+    {
+        String gid = standardFormat;
+
+        gid = gid.replace("_", "-");
+        gid = gid.replace(".", "");
+
+        return gid;
+    }
+
+    public static String getGameIdStandardFormat(String memcardFormat)
+    {
+        String gid = memcardFormat;
+
+        int index = gid.indexOf("-");
+        gid = gid.substring(0, index) + "_" + gid.substring(index +1, index +4) + "." + gid.substring(index +4);
+
+        return gid;
+    }
+
+    public static boolean isGameIdMemcardFormat(String memcardFormat)
+    {
+        try
+        {
+            String id = memcardFormat;
+
+            int index = id.indexOf("-");
+            if (index < 0)
+            {
+                return false;
+            }
+
+            id = id.substring(index + 1);
+
+            Integer.parseInt(id);
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
+        return true;
     }
 }
