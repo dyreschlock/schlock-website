@@ -281,4 +281,17 @@ public class PlaystationServiceImpl implements PlaystationService
             System.out.println("Game not found:" + gameId);
         }
     }
+
+    public String getSaveFileLink(PlaystationGame game)
+    {
+        if (!game.isHaveSave())
+        {
+            return null;
+        }
+
+        final String LINK = "https://github.com/dyreschlock/ps2-opl-loadout/tree/master/";
+        String filepath = game.getSaveFileRelativeFilepath();
+
+        return LINK + filepath;
+    }
 }

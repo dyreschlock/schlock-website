@@ -4,6 +4,7 @@ import com.schlock.website.components.apps.games.DataPanel;
 import com.schlock.website.entities.apps.ps2.PlaystationGame;
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
 import com.schlock.website.services.apps.ps2.PlaystationImageService;
+import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -19,6 +20,9 @@ public class GamesPanel
 
     @Inject
     private PlaystationImageService imageService;
+
+    @Inject
+    private PlaystationService playstationService;
 
     @Inject
     private PlaystationGameDAO gameDAO;
@@ -109,5 +113,10 @@ public class GamesPanel
 
         String outputHTML = imageService.generateImageHTMLFromGames(games);
         return outputHTML;
+    }
+
+    public String getCurrentGameSaveFileLink()
+    {
+        return playstationService.getSaveFileLink(currentGame);
     }
 }

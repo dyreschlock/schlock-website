@@ -39,11 +39,13 @@
                     <tr>
                         <t:if test="!platformSelected">
                             <td class="${currentGamePlatformName} platColor">${currentGamePlatformText}</td>
-                            <td class="${evenOdd} name">${currentGame.title}</td>
                         </t:if>
-                        <t:if test="platformSelected">
-                            <td class="${evenOdd} name">${currentGame.title}</td>
-                        </t:if>
+                        <td class="${evenOdd} name">
+                            ${currentGame.title}
+                            <t:if test="currentgame.haveSave">
+                                <a href="${currentGameSaveFileLink}">■</a>
+                            </t:if>
+                        </td>
 
                         <td class="${evenOdd} developer">${currentGame.developer}</td>
                         <td class="${evenOdd} publisher">${currentGame.publisher}</td>
