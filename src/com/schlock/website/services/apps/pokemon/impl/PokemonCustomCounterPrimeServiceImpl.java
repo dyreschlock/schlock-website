@@ -339,6 +339,16 @@ public class PokemonCustomCounterPrimeServiceImpl extends AbstractCustomCounterS
 
     protected void ghostDarkSquad()
     {
+        addCustom("Mega Tyranitar", 50, 15, 13, 15, "Bite", "Brutal Swing");
+        addCustom("Shadow Tyranitar", 50, 14, 13, 12, "Bite", "Brutal Swing");
+
+        addCustom("Hydreigon", 50, 15, 15, 15, "Bite", "Brutal Swing");
+        addCustom("Hydreigon", 50, 15, 15, 15, "Bite", "Brutal Swing");
+        addCustom("Hydreigon", 50, 15, 15, 12, "Bite", "Brutal Swing");
+        addCustom("Hydreigon", 50, 14, 15, 12, "Bite", "Brutal Swing");
+
+        addCustom("Necrozma (Dawn Wings)", 40, 15, 10, 11, "Shadow Claw", "Moongeist Beam");
+
         addCustom("Tyranitar", 40, 12, 13, 15, "Bite", "Crunch");
 
         addCustom("Gengar", 50, 14, 14, 14, "Shadow Claw", "Shadow Ball, Shadow Punch");
@@ -350,9 +360,6 @@ public class PokemonCustomCounterPrimeServiceImpl extends AbstractCustomCounterS
         addCustom("Giratina (Origin Forme)", 40, 15, 14, 13, "Shadow Claw", "Shadow Ball, Shadow Force");
 
         addCustom("Darkrai", 40, 15, 15, 15, "Snarl", "Shadow Ball");
-
-        addCustom("Hydreigon", 50, 15, 15, 12, "Bite", "Brutal Swing");
-        addCustom("Hydreigon", 50, 14, 15, 12, "Bite", "Brutal Swing");
 
         addCustom("Deoxys (Attack Forme)", 34, 13, 15, 14);
     }
