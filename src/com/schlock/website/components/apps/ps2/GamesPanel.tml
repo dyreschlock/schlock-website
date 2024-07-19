@@ -43,7 +43,9 @@
                         <td class="${evenOdd} name">
                             ${currentGame.title}
                             <t:if test="currentgame.haveSave">
-                                <a href="${currentGameSaveFileLink}">■</a>
+                                <a href="${currentGameSaveFileLink}">
+                                    <img class="ps_mem" width="12" height="14" src="${iconSrc}" alt="${message:save}" title="${message:save}" />
+                                </a>
                             </t:if>
                         </td>
 

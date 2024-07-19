@@ -3,6 +3,7 @@ package com.schlock.website.entities;
 public enum Icon
 {
     SEED,
+    PS_MEM,
     RSS,
     TWITTER,
     YOUTUBE,
