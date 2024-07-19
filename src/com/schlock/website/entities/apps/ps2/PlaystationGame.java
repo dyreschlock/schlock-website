@@ -44,6 +44,8 @@ public class PlaystationGame extends ImagedGame
     private String notes;
     private String description;
 
+    private String postUUID;
+
     public PlaystationGame()
     {
     }
@@ -273,6 +275,16 @@ public class PlaystationGame extends ImagedGame
     public void setDescription(String description)
     {
         this.description = description;
+    }
+
+    public String getPostUUID()
+    {
+        return postUUID;
+    }
+
+    public void setPostUUID(String postUUID)
+    {
+        this.postUUID = postUUID;
     }
 
     public static PlaystationGame create(File file, PlaystationPlatform platform)

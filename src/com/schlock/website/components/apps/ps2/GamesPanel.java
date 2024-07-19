@@ -4,10 +4,13 @@ import com.schlock.website.components.apps.games.DataPanel;
 import com.schlock.website.entities.Icon;
 import com.schlock.website.entities.apps.ps2.PlaystationGame;
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.services.apps.ps2.PlaystationImageService;
 import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.blog.IconManagement;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
+import com.schlock.website.services.database.blog.PostDAO;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
@@ -22,6 +25,9 @@ public class GamesPanel
 
     @Inject
     private IconManagement iconManagement;
+
+    @Inject
+    private PostDAO postDAO;
 
     @Inject
     private PlaystationImageService imageService;
@@ -82,6 +88,33 @@ public class GamesPanel
         return currentGame.getPlatform().name();
     }
 
+    public String getCurrentGameTitle()
+    {
+        String title = currentGame.getTitle();
+        if (StringUtils.isNotBlank(currentGame.getPostUUID()))
+        {
+            AbstractPost post = postDAO.getByUuid(currentGame.getPostUUID());
+            if (post != null && post.isPublished())
+            {
+                String span = "<a href=\"%s\">%s</a>";
+
+                title = String.format(span, "/" + currentGame.getPostUUID(), title);
+            }
+        }
+        return title;
+    }
+
+
+    public String getCurrentGameSaveFileLink()
+    {
+        return playstationService.getSaveFileLink(currentGame);
+    }
+
+    public String getSaveIconSrc()
+    {
+        return iconManagement.getIconLink(Icon.PS_MEM);
+    }
+
     public String getCurrentGameGenre()
     {
         if (currentGame.getGenre() != null)
@@ -118,15 +151,5 @@ public class GamesPanel
 
         String outputHTML = imageService.generateImageHTMLFromGames(games);
         return outputHTML;
-    }
-
-    public String getCurrentGameSaveFileLink()
-    {
-        return playstationService.getSaveFileLink(currentGame);
-    }
-
-    public String getIconSrc()
-    {
-        return iconManagement.getIconLink(Icon.PS_MEM);
     }
 }

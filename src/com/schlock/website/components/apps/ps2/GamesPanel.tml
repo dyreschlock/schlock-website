@@ -41,10 +41,11 @@
                             <td class="${currentGamePlatformName} platColor">${currentGamePlatformText}</td>
                         </t:if>
                         <td class="${evenOdd} name">
-                            ${currentGame.title}
+                            <t:outputraw value="currentGameTitle" />
                             <t:if test="currentgame.haveSave">
+                                &nbsp;
                                 <a href="${currentGameSaveFileLink}">
-                                    <img class="ps_mem" width="12" height="14" src="${iconSrc}" alt="${message:save}" title="${message:save}" />
+                                    <img class="ps_mem" width="12" height="14" src="${saveIconSrc}" alt="${message:save}" title="${message:save}" />
                                 </a>
                             </t:if>
                         </td>

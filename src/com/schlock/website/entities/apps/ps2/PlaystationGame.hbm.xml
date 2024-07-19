@@ -68,5 +68,7 @@
         <property name="notes" />
         <property name="description" />
 
+        <property name="postUUID" />
+
     </class>
 </hibernate-mapping>
