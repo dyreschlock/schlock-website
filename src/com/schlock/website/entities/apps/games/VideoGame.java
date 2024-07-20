@@ -1,6 +1,7 @@
 package com.schlock.website.entities.apps.games;
 
 import com.schlock.website.entities.Persisted;
+import com.schlock.website.entities.apps.ps2.PlaystationGame;
 
 import java.util.Date;
 
@@ -16,11 +17,23 @@ public class VideoGame extends Persisted
     private Region region;
     private Condition condition;
 
+    private PlaystationGame playstationGame;
+
     private String postUUID;
 
     public VideoGame()
     {
     }
+
+    public boolean isHaveSave()
+    {
+        if (playstationGame != null)
+        {
+            return playstationGame.isHaveSave();
+        }
+        return false;
+    }
+
 
     public String getTitle() { return title; }
 
@@ -56,6 +69,16 @@ public class VideoGame extends Persisted
     public void setCondition(Condition condition)
     {
         this.condition = condition;
+    }
+
+    public PlaystationGame getPlaystationGame()
+    {
+        return playstationGame;
+    }
+
+    public void setPlaystationGame(PlaystationGame playstationGame)
+    {
+        this.playstationGame = playstationGame;
     }
 
     public String getPostUUID()

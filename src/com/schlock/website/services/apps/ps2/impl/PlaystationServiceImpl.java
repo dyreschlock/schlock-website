@@ -284,7 +284,7 @@ public class PlaystationServiceImpl implements PlaystationService
 
     public String getSaveFileLink(PlaystationGame game)
     {
-        if (!game.isHaveSave())
+        if (game == null || !game.isHaveSave())
         {
             return null;
         }

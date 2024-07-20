@@ -26,11 +26,17 @@
 
                     <t:if test="!platformSelected">
                         <td class="${currentGamePlatformCode} platColor">${currentGamePlatformCodeText}</td>
-                        <td class="${evenOdd} name"><t:outputraw value="currentGameTitle" /></td>
                     </t:if>
-                    <t:if test="platformSelected">
-                        <td class="${evenOdd} name"><t:outputraw value="currentGameTitle" /></td>
-                    </t:if>
+
+                    <td class="${evenOdd} name">
+                        <t:outputraw value="currentGameTitle" />
+                        <t:if test="currentGame.haveSave">
+                            &nbsp;
+                            <a href="${saveFileLink}">
+                                <img class="ps_mem" width="12" height="14" src="${saveIconSrc}" alt="${message:save}" title="${message:save}" />
+                            </a>
+                        </t:if>
+                    </td>
 
                     <td class="${evenOdd} developer">${currentGame.developer}</td>
                     <td class="${evenOdd} publisher">${currentGame.publisher}</td>

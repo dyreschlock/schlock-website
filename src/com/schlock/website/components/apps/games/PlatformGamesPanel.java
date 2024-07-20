@@ -1,10 +1,13 @@
 package com.schlock.website.components.apps.games;
 
+import com.schlock.website.entities.Icon;
 import com.schlock.website.entities.apps.games.Condition;
 import com.schlock.website.entities.apps.games.Region;
 import com.schlock.website.entities.apps.games.VideoGame;
 import com.schlock.website.entities.apps.games.VideoGamePlatform;
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.services.apps.ps2.PlaystationService;
+import com.schlock.website.services.blog.IconManagement;
 import com.schlock.website.services.database.apps.games.VideoGameDAO;
 import com.schlock.website.services.database.apps.games.VideoGamePlatformDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -19,6 +22,12 @@ import java.util.*;
 
 public class PlatformGamesPanel
 {
+    @Inject
+    private IconManagement iconManagement;
+
+    @Inject
+    private PlaystationService playstationService;
+
     @Inject
     private PostDAO postDAO;
 
@@ -126,6 +135,16 @@ public class PlatformGamesPanel
             }
         }
         return title;
+    }
+
+    public String getSaveFileLink()
+    {
+        return playstationService.getSaveFileLink(currentGame.getPlaystationGame());
+    }
+
+    public String getSaveIconSrc()
+    {
+        return iconManagement.getIconLink(Icon.PS_MEM);
     }
 
     public String getCurrentGamePlatformCodeText()

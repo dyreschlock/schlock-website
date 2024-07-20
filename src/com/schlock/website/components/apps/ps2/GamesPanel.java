@@ -130,7 +130,7 @@ public class GamesPanel
     {
         if (currentGame.getReleaseDate() != null)
         {
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             return format.format(currentGame.getReleaseDate());
         }
         return "";
