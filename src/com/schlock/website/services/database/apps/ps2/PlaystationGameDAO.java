@@ -14,9 +14,9 @@ public interface PlaystationGameDAO extends BaseDAO<PlaystationGame>
 
     List<PlaystationGame> getAllWithSave();
 
-    List<PlaystationGame> getAvailableGames();
+    List<PlaystationGame> getCombinedAvailableGames();
 
-    List<PlaystationGame> getAvailableGamesByPlatformGenre(PlaystationPlatform platform, String genre);
+    List<PlaystationGame> getCombinedAvailableGamesByPlatformGenre(PlaystationPlatform platform, String genre);
 
     List<String[]> getAllGenres();
 

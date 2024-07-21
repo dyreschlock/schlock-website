@@ -24,6 +24,8 @@ public class PlaystationGame extends ImagedGame
 
     private String working;
 
+    private boolean subDisc;
+
     private boolean haveArt;
     private boolean haveSave;
 
@@ -135,6 +137,16 @@ public class PlaystationGame extends ImagedGame
     public void setWorking(String working)
     {
         this.working = working;
+    }
+
+    public boolean isSubDisc()
+    {
+        return subDisc;
+    }
+
+    public void setSubDisc(boolean subDisc)
+    {
+        this.subDisc = subDisc;
     }
 
     public boolean isHaveArt()

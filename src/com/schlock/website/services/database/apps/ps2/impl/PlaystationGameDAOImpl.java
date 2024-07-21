@@ -53,22 +53,17 @@ public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> impleme
         return query.list();
     }
 
-    public List<PlaystationGame> getAvailableGames()
+    public List<PlaystationGame> getCombinedAvailableGames()
     {
-        String text = " select g " +
-                        " from PlaystationGame g " +
-                        " where g.drive != null ";
-
-        Query query = session.createQuery(text);
-
-        return query.list();
+        return getCombinedAvailableGamesByPlatformGenre(null, null);
     }
 
-    public List<PlaystationGame> getAvailableGamesByPlatformGenre(PlaystationPlatform platform, String genre)
+    public List<PlaystationGame> getCombinedAvailableGamesByPlatformGenre(PlaystationPlatform platform, String genre)
     {
         String text = " select g " +
                 " from PlaystationGame g " +
-                " where g.drive != null ";
+                " where g.drive != null " +
+                " and g.subDisc is false ";
 
         if (platform != null)
         {
@@ -100,6 +95,7 @@ public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> impleme
         String text = " select g.genre, count(g.id) " +
                         " from PlaystationGame g " +
                         " where g.drive != null " +
+                        " and g.subDisc is false " +
                         " and g.genre != null " +
                         " group by g.genre " +
                         " order by g.genre asc ";
@@ -129,7 +125,9 @@ public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> impleme
     {
         String text = " select %s, count(g.id) " +
                 " from PlaystationGame g " +
-                " where %s is not null ";
+                " where %s is not null " +
+                " and g.subDisc is false " +
+                " and g.drive != null ";
 
         if (platform != null)
         {

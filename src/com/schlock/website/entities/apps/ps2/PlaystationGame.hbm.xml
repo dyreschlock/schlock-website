@@ -20,6 +20,7 @@
         <property name="drive" />
 
         <property name="working" />
+        <property name="subDisc" />
 
         <property name="haveArt" />
         <property name="haveSave" />

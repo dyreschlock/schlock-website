@@ -60,7 +60,7 @@ public class GamesPanel
 
     public List<PlaystationGame> getGames()
     {
-        return gameDAO.getAvailableGamesByPlatformGenre(platform, genre);
+        return gameDAO.getCombinedAvailableGamesByPlatformGenre(platform, genre);
     }
 
 
@@ -90,7 +90,10 @@ public class GamesPanel
 
     public String getCurrentGameTitle()
     {
+        final String DISC_1 = " (Disc 1)";
+
         String title = currentGame.getTitle();
+        title = title.replace(DISC_1, "");
         if (StringUtils.isNotBlank(currentGame.getPostUUID()))
         {
             AbstractPost post = postDAO.getByUuid(currentGame.getPostUUID());

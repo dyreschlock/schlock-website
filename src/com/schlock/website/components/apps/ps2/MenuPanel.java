@@ -35,12 +35,12 @@ public class MenuPanel
     {
         final String SPAN_HTML = "<span class=\"totalCount\">%s</span>";
 
-        int totalCount = gameDAO.getAvailableGames().size();
+        int totalCount = gameDAO.getCombinedAvailableGames().size();
 
         String output;
         if (platform != null || genre != null)
         {
-            int count = gameDAO.getAvailableGamesByPlatformGenre(platform, genre).size();
+            int count = gameDAO.getCombinedAvailableGamesByPlatformGenre(platform, genre).size();
             output = String.format(SPAN_HTML, Integer.toString(count));
             output += " / " + totalCount;
         }

@@ -59,12 +59,12 @@ public class PlatformPanel
     {
         final String SPAN_HTML = "<span class=\"totalSubCount\">%s</span>";
 
-        int totalCount = gameDAO.getAvailableGamesByPlatformGenre(platform, null).size();
+        int totalCount = gameDAO.getCombinedAvailableGamesByPlatformGenre(platform, null).size();
 
         String output;
         if (genre != null)
         {
-            int count = gameDAO.getAvailableGamesByPlatformGenre(platform, genre).size();
+            int count = gameDAO.getCombinedAvailableGamesByPlatformGenre(platform, genre).size();
             output = String.format(SPAN_HTML, count) + " / " + totalCount;
         }
         else
