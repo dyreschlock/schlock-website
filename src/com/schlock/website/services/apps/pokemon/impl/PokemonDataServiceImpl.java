@@ -36,7 +36,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
     private final PokemonCustomCounterSecondService customSecondService;
     private final PokemonCounterCalculationService calculationService;
 
-    private final PokemonDataGamepressService gamepressService;
+    private final PokemonDataGameMasterService gameMasterService;
 
     private final PokemonDataDAO dataDAO;
     private final PokemonMoveDAO moveDAO;
@@ -44,14 +44,14 @@ public class PokemonDataServiceImpl implements PokemonDataService
     public PokemonDataServiceImpl(PokemonCustomCounterPrimeService customPrimeService,
                                   PokemonCustomCounterSecondService customSecondService,
                                   PokemonCounterCalculationService calculationService,
-                                  PokemonDataGamepressService gamepressService,
+                                  PokemonDataGameMasterService gameMasterService,
                                   PokemonDataDAO dataDAO,
                                   PokemonMoveDAO moveDAO)
     {
         this.customPrimeService = customPrimeService;
         this.customSecondService = customSecondService;
         this.calculationService = calculationService;
-        this.gamepressService = gamepressService;
+        this.gameMasterService = gameMasterService;
 
         this.dataDAO = dataDAO;
         this.moveDAO = moveDAO;
@@ -64,7 +64,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
             return;
         }
 
-        cpmData = gamepressService.getCpmData();
+        cpmData = gameMasterService.getCpmData();
     }
 
 

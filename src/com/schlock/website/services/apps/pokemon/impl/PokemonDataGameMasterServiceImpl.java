@@ -16,10 +16,11 @@ import java.util.*;
 
 public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExternalReadingServiceImpl implements PokemonDataGameMasterService
 {
-    private static final String GAME_MASTER_FILE = "latest.json";
+    private static final String GAME_MASTER_FILE = "latest/latest.json";
 
     public static final String GM_TEMPLATE_ID = "templateId";
 
+    private final DeploymentContext deploymentContext;
     private final PokemonCategoryDAO categoryDAO;
 
     public PokemonDataGameMasterServiceImpl(DeploymentContext deploymentContext,
@@ -27,8 +28,9 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
                                                 PokemonDataDAO dataDAO,
                                                 PokemonMoveDAO moveDAO)
     {
-        super(deploymentContext, dataDAO, moveDAO);
+        super(dataDAO, moveDAO);
 
+        this.deploymentContext = deploymentContext;
         this.categoryDAO = categoryDAO;
     }
 
@@ -188,7 +190,8 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
 
     private void createObjectFromJSON()
     {
-        JSONArray objects = readJSONArrayFromFile(GAME_MASTER_FILE);
+        String filepath = deploymentContext.pokemonLocalDirectory() + "/" + GAME_MASTER_FILE;
+        JSONArray objects = readJSONArrayFromFile(filepath);
 
         Iterator iter = objects.iterator();
         while(iter.hasNext())

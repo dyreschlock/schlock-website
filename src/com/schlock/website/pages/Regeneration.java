@@ -2,7 +2,6 @@ package com.schlock.website.pages;
 
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.PokemonDataGameMasterService;
-import com.schlock.website.services.apps.pokemon.PokemonDataGamepressService;
 import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
@@ -23,9 +22,6 @@ public class Regeneration
 
     @Inject
     private PostManagement postManagement;
-
-    @Inject
-    private PokemonDataGamepressService pokemonGamepressService;
 
     @Inject
     private PokemonDataGameMasterService pokemonGameMasterService;
@@ -130,21 +126,6 @@ public class Regeneration
         {
             e.printStackTrace();
 //            throw new RuntimeException(e);
-        }
-    }
-
-    void onReportPokemonGamepress()
-    {
-        List<String> messages = pokemonGamepressService.reportDifferences();
-
-        if (messages.isEmpty())
-        {
-            System.out.println("There are no differences.");
-        }
-
-        for(String message : messages)
-        {
-            System.out.println(message);
         }
     }
 

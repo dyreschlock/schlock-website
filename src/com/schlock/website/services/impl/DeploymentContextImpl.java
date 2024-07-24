@@ -20,13 +20,10 @@ public class DeploymentContextImpl implements DeploymentContext
 
     private static final String WEBDIR_PARAM = "webdirectory.location";
     private static final String DATADIR_PARAM = "datadirectory.location";
-
-    private static final String OUT_DIR_HTML_PARAM = "output.directory.html";
-    private static final String OUT_DIR_PHOTO_PARAM = "output.directory.photos";
+    private static final String GITHUBDIR_PARAM = "githubdirectory.location";
 
     private static final String PS_DRIVE_PARAM = "playstation.directory.drive";
     private static final String PS_DATA_PARAM = "playstation.directory.data";
-    private static final String PS_LOCAL_PARAM = "playstation.directory.local";
 
     private static final String LOCAL = "local";
     private static final String HOSTED = "hosted";
@@ -149,16 +146,25 @@ public class DeploymentContextImpl implements DeploymentContext
         return getDeployProperties().getProperty(DATADIR_PARAM + "." + context);
     }
 
+    public String githubDirectory()
+    {
+        String context = getContext();
+        return getDeployProperties().getProperty(GITHUBDIR_PARAM + "." + context);
+    }
+
     public String imageOutputDirectory()
     {
-        String outputDirectory = getDeployProperties().getProperty(OUT_DIR_PHOTO_PARAM);
-        return outputDirectory;
+        return githubDirectory() + PHOTOS_GITHUB_REPO;
     }
 
     public String webOutputDirectory()
     {
-        String outoutDirectory = getDeployProperties().getProperty(OUT_DIR_HTML_PARAM);
-        return outoutDirectory;
+        return githubDirectory() + HTML_GITHUB_REPO;
+    }
+
+    public String pokemonLocalDirectory()
+    {
+        return githubDirectory() + POKEGM_GITHUB_REPO;
     }
 
     public String playstationDriveDirectory()
@@ -175,20 +181,17 @@ public class DeploymentContextImpl implements DeploymentContext
 
     public String playstationLocalDirectory()
     {
-        String playstationLocal = getDeployProperties().getProperty(PS_LOCAL_PARAM);
-        return playstationLocal;
+        return githubDirectory() + PS2_GITHUB_REPO + "/";
     }
 
     public String webOutputDirectoryImageFolder()
     {
-        String outputDirectory = getDeployProperties().getProperty(OUT_DIR_HTML_PARAM);
-        return outputDirectory + "/" + IMG_DIR;
+        return webOutputDirectory() + "/" + IMG_DIR;
     }
 
     public String coverImageLocationLocal()
     {
-        String outputDirectory = getDeployProperties().getProperty(OUT_DIR_HTML_PARAM);
-        return outputDirectory + "/" + COVER_DIR;
+        return webOutputDirectory() + "/" + COVER_DIR;
     }
 
     public String coverImageLocationInternet()

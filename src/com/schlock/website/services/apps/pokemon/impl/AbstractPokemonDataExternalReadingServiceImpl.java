@@ -2,12 +2,12 @@ package com.schlock.website.services.apps.pokemon.impl;
 
 import com.schlock.website.entities.apps.pokemon.PokemonData;
 import com.schlock.website.entities.apps.pokemon.PokemonMove;
-import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.PokemonDataExternalReadingService;
 import com.schlock.website.services.database.apps.pokemon.PokemonDataDAO;
 import com.schlock.website.services.database.apps.pokemon.PokemonMoveDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.json.JSONArray;
+import org.apache.tapestry5.json.JSONObject;
 
 import java.io.*;
 import java.lang.reflect.Method;
@@ -15,26 +15,18 @@ import java.util.*;
 
 public abstract class AbstractPokemonDataExternalReadingServiceImpl implements PokemonDataExternalReadingService
 {
-    private static final String POKEMON_DIR = "pokemon-data/counter-data/";
-
-    private final DeploymentContext deploymentContext;
-
     protected final PokemonDataDAO dataDAO;
     protected final PokemonMoveDAO moveDAO;
 
     protected HashMap<String, PokemonMove> moveData = new HashMap<String, PokemonMove>();
     protected HashMap<String, PokemonData> pokemonData = new HashMap<String, PokemonData>();
 
-    public AbstractPokemonDataExternalReadingServiceImpl(DeploymentContext deploymentContext,
-                                                         PokemonDataDAO dataDAO,
+    public AbstractPokemonDataExternalReadingServiceImpl(PokemonDataDAO dataDAO,
                                                          PokemonMoveDAO moveDAO)
     {
-        this.deploymentContext = deploymentContext;
-
         this.dataDAO = dataDAO;
         this.moveDAO = moveDAO;
     }
-
 
 
     protected abstract void loadAllJSONdata();
@@ -46,6 +38,50 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
 
     protected abstract String getMoveIdentifier(PokemonMove move);
     protected abstract String getPokemonIdentifier(PokemonData pokemon);
+
+
+    private static final String CPM_FILE = "cpm.json";
+
+    private static final String LEVEL_FIELD = "name";
+    private static final String CPM_FIELD = "field_cp_multiplier";
+
+    public HashMap<Integer, Double> getCpmData()
+    {
+        HashMap<Integer, Double> cpmData = new HashMap<Integer, Double>();
+
+        InputStream in = this.getClass().getResourceAsStream(CPM_FILE);
+        JSONArray objects = readJSONArrayFromFile(in);
+
+        Iterator iter = objects.iterator();
+        while (iter.hasNext())
+        {
+            Object obj = iter.next();
+            try
+            {
+                JSONObject json = (JSONObject) obj;
+
+                Double level = json.getDouble(LEVEL_FIELD);
+                Double cpm = json.getDouble(CPM_FIELD);
+
+                if (isInteger(level))
+                {
+                    cpmData.put(level.intValue(), cpm);
+                }
+            }
+            catch (ClassCastException e)
+            {
+            }
+        }
+        return cpmData;
+    }
+
+    private boolean isInteger(Double number)
+    {
+        Integer intValue = number.intValue();
+        return number == intValue.doubleValue();
+    }
+
+
 
     public List<String> reportDifferences()
     {
@@ -244,14 +280,26 @@ public abstract class AbstractPokemonDataExternalReadingServiceImpl implements P
         return sameMoves;
     }
 
-    protected JSONArray readJSONArrayFromFile(String filename)
+    protected JSONArray readJSONArrayFromFile(String absoluteFilepath)
+    {
+        try
+        {
+            InputStream in = new FileInputStream(absoluteFilepath);
+
+            return readJSONArrayFromFile(in);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected JSONArray readJSONArrayFromFile(InputStream in)
     {
         StringBuilder content = new StringBuilder();
         try
         {
-            String fileLocation = deploymentContext.dataDirectory() + POKEMON_DIR + filename;
-
-            InputStream in = new FileInputStream(fileLocation);
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
             String line = reader.readLine();

@@ -6,6 +6,7 @@ hibernate.connection.password.local=
 
 webdirectory.location.local=
 datadirectory.location.local=
+githubdirectory.location.local=
 
 hibernate.connection.url.hosted=
 hibernate.connection.username.hosted=
@@ -13,15 +14,12 @@ hibernate.connection.password.hosted=
 
 webdirectory.location.hosted=
 datadirectory.location.hosted=
+githubdirectory.location.hosted=
 
 new.connection.username.hosted=
 new.connection.password.hosted=
-
-output.directory.html=
-output.directory.photos=
 
 google.credentials.filepath=
 
 playstation.directory.drive=
 playstation.directory.data=
-playstation.directory.local=

@@ -304,61 +304,6 @@ public class PokemonMove extends Persisted
 
 
 
-    public static final String TITLE = "title";
-    public static final String TYPE = "move_type";
-    public static final String CATEGORY = "move_category";
-
-    public static final String POWER = "power"; // Power is the same as Damage
-    public static final String COOLDOWN = "cooldown"; // Cooldown is the same as Duration
-
-    public static final String ENERGY_GAIN = "energy_gain";
-    public static final String ENERGY_COST = "energy_cost";
-
-    public static final String DODGE_WINDOW = "dodge_window"; // this is Damage End - Damage Start
-    public static final String DAMAGE_WINDOW = "damage_window"; // this is the same as Damage Start
-
-    public static final String PVP_FAST_POWER = "pvp_fast_power";
-    public static final String PVP_FAST_ENERGY = "pvp_fast_energy";
-    public static final String PVP_FAST_DURATION = "pvp_fast_duration";
-
-    public static final String PVP_CHARGE_DAMAGE = "pvp_charge_damage";
-    public static final String PVP_CHARGE_ENERGY = "pvp_charge_energy";
-
-
-    public static PokemonMove createFromGamepressJSON(JSONObject object)
-    {
-        PokemonMove move = new PokemonMove();
-
-        move.name = object.getString(TITLE);
-        move.type = object.getString(TYPE);
-        move.category = object.getString(CATEGORY);
-
-        move.power = object.getInt(POWER);
-        move.cooldown = object.getDouble(COOLDOWN);
-        move.energyGain = getInt(object, ENERGY_GAIN);
-        move.energyCost = getInt(object, ENERGY_COST);
-        if (move.energyCost > 0)
-        {
-            move.energyCost = -move.energyCost;
-        }
-
-        move.dodgeWindow = object.getString(DODGE_WINDOW);
-        move.damageWindow = object.getString(DAMAGE_WINDOW);
-
-        move.pvpFastPower = getInt(object, PVP_FAST_POWER);
-        move.pvpFastEnergy = getInt(object, PVP_FAST_ENERGY);
-        move.pvpFastDuration = getDoubleIfExists(object, PVP_FAST_DURATION);
-
-        move.pvpChargeDamage = getInt(object, PVP_CHARGE_DAMAGE);
-        move.pvpChargeEnergy = getInt(object, PVP_CHARGE_ENERGY);
-        if (move.pvpChargeEnergy > 0)
-        {
-            move.pvpChargeEnergy = -move.pvpChargeEnergy;
-        }
-
-        return move;
-    }
-
     private static final String NEGATIVE = "-";
 
     private static int getInt(JSONObject object, String key)

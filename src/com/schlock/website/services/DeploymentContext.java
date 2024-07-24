@@ -2,43 +2,50 @@ package com.schlock.website.services;
 
 public interface DeploymentContext
 {
-    public static final String IMAGE_DIR = "image/";
-    public static final String PHOTO_DIR = "photo/";
-    public static final String COVER_DIR = "img/cover/";
-    public static final String IMG_DIR = "img/";
+    String IMAGE_DIR = "image/";
+    String PHOTO_DIR = "photo/";
+    String COVER_DIR = "img/cover/";
+    String IMG_DIR = "img/";
 
-    public static final String MISC_DIR = "misc/";
-    public static final String SPAMM_DIR = "spamm/";
-    public static final String PAGE_DIR = "pages/";
+    String MISC_DIR = "misc/";
+    String SPAMM_DIR = "spamm/";
+    String PAGE_DIR = "pages/";
 
+    String HTML_GITHUB_REPO = "dyreschlock.github.io";
+    String PHOTOS_GITHUB_REPO = "dyreschlock.github.photos";
+    String PS2_GITHUB_REPO = "ps2-opl-loadout";
+    String POKEGM_GITHUB_REPO = "game_masters";
 
-    public boolean isLocal();
+    boolean isLocal();
 
-    public boolean isAcceptedUrlReferrer(String referrer);
+    boolean isAcceptedUrlReferrer(String referrer);
 
-    public boolean isAcceptedUserAgent(String userAgent);
+    boolean isAcceptedUserAgent(String userAgent);
 
-    public String getHibernateProperty(String name);
+    String getHibernateProperty(String name);
 
-    public String googleCredentialsFilepath();
+    String googleCredentialsFilepath();
 
-    public String webDomain();
+    String webDomain();
 
-    public String webDirectory();
-    public String dataDirectory();
+    String webDirectory();
+    String dataDirectory();
+    String githubDirectory();
 
-    public String photoLocation();
+    String photoLocation();
 
-    public String imageLocation();
+    String imageLocation();
 
-    public String imageOutputDirectory();
-    public String webOutputDirectory();
-    public String webOutputDirectoryImageFolder();
+    String imageOutputDirectory();
+    String webOutputDirectory();
+    String webOutputDirectoryImageFolder();
 
-    public String playstationDriveDirectory();
-    public String playstationDataDirectory();
-    public String playstationLocalDirectory();
+    String pokemonLocalDirectory();
 
-    public String coverImageLocationLocal();
-    public String coverImageLocationInternet();
+    String playstationDriveDirectory();
+    String playstationDataDirectory();
+    String playstationLocalDirectory();
+
+    String coverImageLocationLocal();
+    String coverImageLocationInternet();
 }
