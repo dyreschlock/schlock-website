@@ -7,7 +7,12 @@
             <generator class="native" />
         </id>
 
-        <property name="account" />
+        <property name="account" >
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.schlock.website.entities.apps.pokemon.CustomCounterPokemonAccount</param>
+                <param name="type">12</param>
+            </type>
+        </property>
 
         <property name="name" />
 

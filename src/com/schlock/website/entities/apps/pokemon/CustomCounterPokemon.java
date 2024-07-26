@@ -4,10 +4,7 @@ import com.schlock.website.entities.Persisted;
 
 public class CustomCounterPokemon extends Persisted
 {
-    public static final String PRIME = "Prime";
-    public static final String SECOND = "Second";
-
-    private String account;
+    private CustomCounterPokemonAccount account;
 
     private String name;
 
@@ -19,12 +16,12 @@ public class CustomCounterPokemon extends Persisted
     private String fastMoves;
     private String chargeMoves;
 
-    public String getAccount()
+    public CustomCounterPokemonAccount getAccount()
     {
         return account;
     }
 
-    public void setAccount(String account)
+    public void setAccount(CustomCounterPokemonAccount account)
     {
         this.account = account;
     }
