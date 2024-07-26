@@ -50,6 +50,7 @@
         <mapping resource="com/schlock/website/entities/apps/pokemon/PokemonCategory.hbm.xml" />
         <mapping resource="com/schlock/website/entities/apps/pokemon/PokemonData.hbm.xml" />
         <mapping resource="com/schlock/website/entities/apps/pokemon/PokemonMove.hbm.xml" />
+        <mapping resource="com/schlock/website/entities/apps/pokemon/CustomCounterPokemon.hbm.xml" />
 
         <mapping resource="com/schlock/website/entities/apps/ps2/PlaystationGame.hbm.xml" />
     </session-factory>

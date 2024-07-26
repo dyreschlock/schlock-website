@@ -1,0 +1,23 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field" >
+    <class name="com.schlock.website.entities.apps.pokemon.CustomCounterPokemon" table="go_pokemon_custom">
+        <id name="id" unsaved-value="null">
+            <generator class="native" />
+        </id>
+
+        <property name="account" />
+
+        <property name="name" />
+
+        <property name="level" />
+        <property name="attackIV" />
+        <property name="defenseIV" />
+        <property name="staminaIV" />
+
+        <property name="fastMoves" />
+        <property name="chargeMoves" />
+
+    </class>
+</hibernate-mapping>
