@@ -2,14 +2,14 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping default-access="field" >
-    <class name="com.schlock.website.entities.apps.pokemon.CustomCounterPokemon" table="go_pokemon_custom">
+    <class name="com.schlock.website.entities.apps.pokemon.PokemonCustomCounter" table="go_pokemon_custom">
         <id name="id" unsaved-value="null">
             <generator class="native" />
         </id>
 
         <property name="account" >
             <type name="org.hibernate.type.EnumType">
-                <param name="enumClass">com.schlock.website.entities.apps.pokemon.CustomCounterPokemonAccount</param>
+                <param name="enumClass">com.schlock.website.entities.apps.pokemon.PokemonCustomCounterAccount</param>
                 <param name="type">12</param>
             </type>
         </property>

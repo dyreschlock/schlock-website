@@ -1,10 +1,9 @@
 package com.schlock.website.services.apps.pokemon.impl;
 
-import com.schlock.website.entities.apps.pokemon.BattleMode;
-import com.schlock.website.entities.apps.pokemon.CounterPokemon;
-import com.schlock.website.entities.apps.pokemon.PokemonData;
+import com.schlock.website.entities.apps.pokemon.*;
 import com.schlock.website.services.apps.pokemon.PokemonCustomCounterService;
 import com.schlock.website.services.apps.pokemon.PokemonDataService;
+import com.schlock.website.services.database.apps.pokemon.PokemonCustomCounterDAO;
 import com.schlock.website.services.database.apps.pokemon.PokemonDataDAO;
 
 import java.util.HashSet;
@@ -14,63 +13,46 @@ public abstract class AbstractCustomCounterServiceImpl implements PokemonCustomC
 {
     private final PokemonDataService dataService;
 
+    private final PokemonCustomCounterDAO counterDAO;
     private final PokemonDataDAO pokemonDAO;
 
     private Set<CounterPokemon> customCounters = new HashSet<CounterPokemon>();
 
-    public AbstractCustomCounterServiceImpl(PokemonDataService dataService, PokemonDataDAO pokemonDAO)
+    public AbstractCustomCounterServiceImpl(PokemonDataService dataService,
+                                            PokemonCustomCounterDAO counterDAO,
+                                            PokemonDataDAO pokemonDAO)
     {
         this.dataService = dataService;
+        this.counterDAO = counterDAO;
         this.pokemonDAO = pokemonDAO;
-
-        createCustomCounters();
     }
 
-
-    private void createCustomCounters()
+    private void createCustomCounters(PokemonCustomCounterAccount account)
     {
-        megas();
-        shadows();
-        rocketCounters();
+        for (PokemonCustomCounter custom : counterDAO.getByAccount(account))
+        {
+            String name = custom.getName();
+            int level = custom.getLevel();
+            int attackIV = custom.getAttackIV();
+            int defenseIV = custom.getDefenseIV();
+            int staminaIV = custom.getStaminaIV();
 
-        fireSquad();
-        waterSquad();
-        grassSquad();
-        electricSquad();
+            String fastMoves = custom.getFastMoves();
+            String chargeMoves = custom.getChargeMoves();
 
-        iceSquad();
-        rockSquad();
-        groundSquad();
+            PokemonData data = pokemonDAO.getByName(name);
+            double cpm = dataService.getCpmFromLevel(level);
 
-        dragonSquad();
-
-        psychicSquad();
-        ghostDarkSquad();
-        fightSquad();
-
-        metalPoisonSquad();
-        flightSquad();
+            CounterPokemon counter = CounterPokemon.createCustom(data, level, cpm, attackIV, defenseIV, staminaIV, fastMoves, chargeMoves);
+            customCounters.add(counter);
+        }
     }
 
-    protected void addCustom(String name, int level, int attackIV, int defenseIV, int staminaIV)
-    {
-        addCustom(name, level, attackIV , defenseIV, staminaIV, null, null);
-    }
-
-    protected void addCustom(String name, int level, int attackIV, int defenseIV, int staminaIV, String fastMoves, String chargeMoves)
-    {
-        PokemonData data = pokemonDAO.getByName(name);
-        double cpm = dataService.getCpmFromLevel(level);
-
-        CounterPokemon counter = CounterPokemon.createCustom(data, level, cpm, attackIV, defenseIV, staminaIV, fastMoves, chargeMoves);
-        customCounters.add(counter);
-    }
-
-    public Set<CounterPokemon> getCounterPokemon(BattleMode battleMode)
+    public Set<CounterPokemon> getCounterPokemon(PokemonCustomCounterAccount account, BattleMode battleMode)
     {
         if (customCounters.isEmpty())
         {
-            createCustomCounters();
+            createCustomCounters(account);
         }
 
         if(battleMode.isRocket())
@@ -87,26 +69,4 @@ public abstract class AbstractCustomCounterServiceImpl implements PokemonCustomC
         }
         return customCounters;
     }
-
-    abstract protected void megas();
-    abstract protected void shadows();
-    abstract protected void rocketCounters();
-
-    abstract protected void fireSquad();
-    abstract protected void waterSquad();
-    abstract protected void grassSquad();
-    abstract protected void electricSquad();
-
-    abstract protected void iceSquad();
-    abstract protected void rockSquad();
-    abstract protected void groundSquad();
-
-    abstract protected void dragonSquad();
-
-    abstract protected void psychicSquad();
-    abstract protected void ghostDarkSquad();
-    abstract protected void fightSquad();
-
-    abstract protected void metalPoisonSquad();
-    abstract protected void flightSquad();
 }

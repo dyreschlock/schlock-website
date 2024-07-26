@@ -1,6 +1,6 @@
 package com.schlock.website.entities.apps.pokemon;
 
-public enum CustomCounterPokemonAccount
+public enum PokemonCustomCounterAccount
 {
     PRIME,
     SECOND;

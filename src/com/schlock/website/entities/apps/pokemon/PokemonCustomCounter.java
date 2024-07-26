@@ -2,9 +2,9 @@ package com.schlock.website.entities.apps.pokemon;
 
 import com.schlock.website.entities.Persisted;
 
-public class CustomCounterPokemon extends Persisted
+public class PokemonCustomCounter extends Persisted
 {
-    private CustomCounterPokemonAccount account;
+    private PokemonCustomCounterAccount account;
 
     private String name;
 
@@ -16,12 +16,12 @@ public class CustomCounterPokemon extends Persisted
     private String fastMoves;
     private String chargeMoves;
 
-    public CustomCounterPokemonAccount getAccount()
+    public PokemonCustomCounterAccount getAccount()
     {
         return account;
     }
 
-    public void setAccount(CustomCounterPokemonAccount account)
+    public void setAccount(PokemonCustomCounterAccount account)
     {
         this.account = account;
     }

@@ -7,5 +7,5 @@ import java.util.Set;
 
 public interface PokemonCustomCounterService
 {
-    public Set<CounterPokemon> getCounterPokemon(BattleMode battleMode);
+    Set<CounterPokemon> getCounterPokemon(BattleMode battleMode);
 }
