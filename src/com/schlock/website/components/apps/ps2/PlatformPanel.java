@@ -3,6 +3,7 @@ package com.schlock.website.components.apps.ps2;
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
 import com.schlock.website.pages.apps.ps2.Index;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -64,7 +65,15 @@ public class PlatformPanel
         String output;
         if (genre != null)
         {
-            int count = gameDAO.getCombinedAvailableGamesByPlatformGenre(platform, genre).size();
+            int count;
+            if (StringUtils.equals(Index.SAVES_GENRE_KEY, genre))
+            {
+                count = gameDAO.getCombinedAvailableGamesWithSaves(platform).size();
+            }
+            else
+            {
+                count = gameDAO.getCombinedAvailableGamesByPlatformGenre(platform, genre).size();
+            }
             output = String.format(SPAN_HTML, count) + " / " + totalCount;
         }
         else

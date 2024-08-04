@@ -5,6 +5,7 @@ import com.schlock.website.entities.Icon;
 import com.schlock.website.entities.apps.ps2.PlaystationGame;
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.pages.apps.ps2.Index;
 import com.schlock.website.services.apps.ps2.PlaystationImageService;
 import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.blog.IconManagement;
@@ -60,6 +61,10 @@ public class GamesPanel
 
     public List<PlaystationGame> getGames()
     {
+        if (StringUtils.equals(Index.SAVES_GENRE_KEY, genre))
+        {
+            return gameDAO.getCombinedAvailableGamesWithSaves(platform);
+        }
         return gameDAO.getCombinedAvailableGamesByPlatformGenre(platform, genre);
     }
 

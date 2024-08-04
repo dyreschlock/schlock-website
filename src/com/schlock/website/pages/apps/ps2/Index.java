@@ -4,6 +4,7 @@ import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
 import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -20,6 +21,8 @@ public class Index
 
     private static final Integer STATS_FULL_MAX_RESULTS = 18;
     private static final Integer STATS_HALF_MAX_RESULTS = 5;
+
+    public static final String SAVES_GENRE_KEY = "saves";
 
     @Inject
     private CssCache cssCache;
@@ -62,7 +65,7 @@ public class Index
             selectedPlatform = PlaystationPlatform.getFromText(parameter);
             if (selectedPlatform == null)
             {
-                selectedGenre = messages.get(parameter);
+                selectedGenre = getGenre(parameter);
             }
         }
         return true;
@@ -84,7 +87,7 @@ public class Index
         else
         {
             selectedPlatform = PlaystationPlatform.getFromText(p1);
-            selectedGenre = messages.get(p2);
+            selectedGenre = getGenre(p2);
             imageView = false;
         }
         return true;
@@ -92,11 +95,24 @@ public class Index
 
     Object onActivate(String p1, String p2, String p3)
     {
+        /**
+         * /img/platform/genre
+         */
+
         imageView = IMAGE_VIEW_ID.equalsIgnoreCase(p1);
         selectedPlatform = PlaystationPlatform.getFromText(p2);
-        selectedGenre = messages.get(p3);
+        selectedGenre = getGenre(p3);
 
         return true;
+    }
+
+    private String getGenre(String parameter)
+    {
+        if (StringUtils.equals(SAVES_GENRE_KEY, parameter))
+        {
+            return SAVES_GENRE_KEY;
+        }
+        return messages.get(parameter);
     }
 
     public String getCss()
@@ -119,7 +135,12 @@ public class Index
         }
         if (selectedGenre != null)
         {
-            title += " // " + selectedGenre;
+            String genre = selectedGenre;
+            if (StringUtils.equals(SAVES_GENRE_KEY, genre))
+            {
+                genre = messages.get(genre);
+            }
+            title += " // " + genre;
         }
         return title;
     }
@@ -137,7 +158,12 @@ public class Index
         }
         if (selectedGenre != null)
         {
-            title += " // " + selectedGenre;
+            String genre = selectedGenre;
+            if (StringUtils.equals(SAVES_GENRE_KEY, genre))
+            {
+                genre = messages.get(genre);
+            }
+            title += " // " + genre;
         }
         return title;
     }
@@ -183,20 +209,44 @@ public class Index
 
     public List<DataPanelData> getDevData()
     {
-        List<String[]> devData = gameDAO.getCountByMostCommonDeveloper(selectedPlatform, selectedGenre, maxResults());
+        List<String[]> devData;
+        if (StringUtils.equals(Index.SAVES_GENRE_KEY, selectedGenre))
+        {
+            devData = gameDAO.getCountWithSavesByMostCommonDeveloper(selectedPlatform, maxResults());
+        }
+        else
+        {
+            devData = gameDAO.getCountByMostCommonDeveloper(selectedPlatform, selectedGenre, maxResults());
+        }
         return DataPanelData.createPanelData(devData);
     }
 
     public List<DataPanelData> getPubData()
     {
-        List<String[]> devData = gameDAO.getCountByMostCommonPublisher(selectedPlatform, selectedGenre, maxResults());
-        return DataPanelData.createPanelData(devData);
+        List<String[]> pubData;
+        if (StringUtils.equals(Index.SAVES_GENRE_KEY, selectedGenre))
+        {
+            pubData = gameDAO.getCountWithSavesByMostCommonPublisher(selectedPlatform, maxResults());
+        }
+        else
+        {
+            pubData = gameDAO.getCountByMostCommonPublisher(selectedPlatform, selectedGenre, maxResults());
+        }
+        return DataPanelData.createPanelData(pubData);
     }
 
     public List<DataPanelData> getYearData()
     {
-        List<String[]> devData = gameDAO.getCountByMostCommonYear(selectedPlatform, selectedGenre, maxResults());
-        return DataPanelData.createPanelData(devData);
+        List<String[]> yearData;
+        if (StringUtils.equals(Index.SAVES_GENRE_KEY, selectedGenre))
+        {
+            yearData = gameDAO.getCountWithSavesByMostCommonYear(selectedPlatform, maxResults());
+        }
+        else
+        {
+            yearData = gameDAO.getCountByMostCommonYear(selectedPlatform, selectedGenre, maxResults());
+        }
+        return DataPanelData.createPanelData(yearData);
     }
 
 

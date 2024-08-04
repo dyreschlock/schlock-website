@@ -61,9 +61,9 @@ public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> impleme
     public List<PlaystationGame> getCombinedAvailableGamesByPlatformGenre(PlaystationPlatform platform, String genre)
     {
         String text = " select g " +
-                " from PlaystationGame g " +
-                " where g.drive != null " +
-                " and g.subDisc is false ";
+                        " from PlaystationGame g " +
+                        " where g.drive != null " +
+                        " and g.subDisc is false ";
 
         if (platform != null)
         {
@@ -90,38 +90,88 @@ public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> impleme
         return query.list();
     }
 
-    public List<String[]> getAllGenres()
+    public List<PlaystationGame> getCombinedAvailableGamesWithSaves(PlaystationPlatform platform)
+    {
+        String text = "select g " +
+                " from PlaystationGame g " +
+                " where g.drive != null " +
+                " and g.subDisc is false " +
+                " and g.haveSave is true ";
+
+        if (platform != null)
+        {
+            text += " and g.platform = :platform ";
+        }
+
+        text += " order by g.title asc ";
+
+        Query query = session.createQuery(text);
+        if (platform != null)
+        {
+            query.setParameter("platform", platform);
+        }
+
+        return query.list();
+    }
+
+    public List<String[]> getAllGenres(PlaystationPlatform platform)
     {
         String text = " select g.genre, count(g.id) " +
                         " from PlaystationGame g " +
                         " where g.drive != null " +
                         " and g.subDisc is false " +
-                        " and g.genre != null " +
-                        " group by g.genre " +
-                        " order by g.genre asc ";
+                        " and g.genre != null ";
+
+        if (platform != null)
+        {
+            text += " and g.platform = :platform ";
+        }
+
+        text += " group by g.genre ";
+        text += " order by g.genre asc ";
 
         Query query = session.createQuery(text);
+
+        if (platform != null)
+        {
+            query.setParameter("platform", platform);
+        }
 
         List<Object[]> results = query.list();
         return convertCountResultsToString(results);
     }
 
+    public List<String[]> getCountWithSavesByMostCommonDeveloper(PlaystationPlatform platform, int maxResults)
+    {
+        return getCountByParameter("g.developer", platform, null, true, maxResults);
+    }
+
+    public List<String[]> getCountWithSavesByMostCommonPublisher(PlaystationPlatform platform, int maxResults)
+    {
+        return getCountByParameter("g.publisher", platform, null, true, maxResults);
+    }
+
+    public List<String[]> getCountWithSavesByMostCommonYear(PlaystationPlatform platform, int maxResults)
+    {
+        return getCountByParameter("year(g.releaseDate)", platform, null, true, maxResults);
+    }
+
     public List<String[]> getCountByMostCommonDeveloper(PlaystationPlatform platform, String genre, int maxResults)
     {
-        return getCountByParameter("g.developer", platform, genre, maxResults);
+        return getCountByParameter("g.developer", platform, genre, false, maxResults);
     }
 
     public List<String[]> getCountByMostCommonPublisher(PlaystationPlatform platform, String genre, int maxResults)
     {
-        return getCountByParameter("g.publisher", platform, genre, maxResults);
+        return getCountByParameter("g.publisher", platform, genre, false, maxResults);
     }
 
     public List<String[]> getCountByMostCommonYear(PlaystationPlatform platform, String genre, int maxResults)
     {
-        return getCountByParameter("year(g.releaseDate)", platform, genre, maxResults);
+        return getCountByParameter("year(g.releaseDate)", platform, genre, false, maxResults);
     }
 
-    private List<String[]> getCountByParameter(String parameter, PlaystationPlatform platform, String genre, int maxResults)
+    private List<String[]> getCountByParameter(String parameter, PlaystationPlatform platform, String genre, boolean saves, int maxResults)
     {
         String text = " select %s, count(g.id) " +
                 " from PlaystationGame g " +
@@ -136,6 +186,10 @@ public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> impleme
         if (genre != null)
         {
             text += " and g.genre = :genre ";
+        }
+        if (saves)
+        {
+            text += " and g.haveSave is true ";
         }
 
         text += " group by %s " +

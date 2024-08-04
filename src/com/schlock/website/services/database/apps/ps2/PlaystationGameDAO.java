@@ -16,15 +16,21 @@ public interface PlaystationGameDAO extends BaseDAO<PlaystationGame>
 
     List<PlaystationGame> getCombinedAvailableGames();
 
+    List<PlaystationGame> getCombinedAvailableGamesWithSaves(PlaystationPlatform platform);
+
     List<PlaystationGame> getCombinedAvailableGamesByPlatformGenre(PlaystationPlatform platform, String genre);
 
-    List<String[]> getAllGenres();
+    List<String[]> getAllGenres(PlaystationPlatform platform);
+
+    List<String[]> getCountWithSavesByMostCommonDeveloper(PlaystationPlatform platform, int maxResults);
+
+    List<String[]> getCountWithSavesByMostCommonPublisher(PlaystationPlatform platform, int maxResults);
+
+    List<String[]> getCountWithSavesByMostCommonYear(PlaystationPlatform platform, int maxResults);
 
     List<String[]> getCountByMostCommonDeveloper(PlaystationPlatform platform, String genre, int maxResults);
 
     List<String[]> getCountByMostCommonPublisher(PlaystationPlatform platform, String genre, int maxResults);
 
     List<String[]> getCountByMostCommonYear(PlaystationPlatform platform, String genre, int maxResults);
-
-
 }

@@ -5,13 +5,21 @@
     <div class="panel">
         <table class="platformData">
             <tr>
-                <th class="outerTop outerLeft outerRight">
+                <th class="outerTop outerLeft outerRight" colspan="2">
                     ${message:total}
                 </th>
             </tr>
             <tr>
-                <td class="even outerBottom outerLeft outerRight">
+                <td class="even outerLeft outerRight" colspan="2">
                     <t:outputraw value="totalCount" />
+                </td>
+            </tr>
+            <tr>
+                <td class="name odd outerLeft outerBottom">
+                    <t:outputraw value="savesTitle" />
+                </td>
+                <td class="count odd outerRight outerBottom">
+                    <t:outputraw value="savesCount" />
                 </td>
             </tr>
         </table>

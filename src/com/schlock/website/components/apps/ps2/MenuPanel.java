@@ -4,6 +4,7 @@ import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
 import com.schlock.website.pages.apps.ps2.Index;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -40,7 +41,15 @@ public class MenuPanel
         String output;
         if (platform != null || genre != null)
         {
-            int count = gameDAO.getCombinedAvailableGamesByPlatformGenre(platform, genre).size();
+            int count;
+            if (StringUtils.equals(Index.SAVES_GENRE_KEY, genre))
+            {
+                count = gameDAO.getCombinedAvailableGamesWithSaves(platform).size();
+            }
+            else
+            {
+                count = gameDAO.getCombinedAvailableGamesByPlatformGenre(platform, genre).size();
+            }
             output = String.format(SPAN_HTML, Integer.toString(count));
             output += " / " + totalCount;
         }
@@ -51,6 +60,26 @@ public class MenuPanel
         return output;
     }
 
+    public String getSavesTitle()
+    {
+        final String SPAN_HTML = "<span class=\"bold\">%s</span>";
+        final String A_HTML = "<a href=\"%s\">%s</a>";
+
+        String link = Index.getPageLink(imageView, platform, Index.SAVES_GENRE_KEY);
+        String output = messages.get(Index.SAVES_GENRE_KEY);
+        if (StringUtils.equals(Index.SAVES_GENRE_KEY, genre))
+        {
+            link = Index.getPageLink(imageView, platform, null);
+            output = String.format(SPAN_HTML, output);
+        }
+        return String.format(A_HTML, link, output);
+    }
+
+    public String getSavesCount()
+    {
+        int count = gameDAO.getCombinedAvailableGamesWithSaves(platform).size();
+        return Integer.toString(count);
+    }
 
     public String getGenreTitle()
     {
@@ -63,7 +92,7 @@ public class MenuPanel
 
         List<DataPanelData> data = new ArrayList<DataPanelData>();
 
-        for(String[] genreData : gameDAO.getAllGenres())
+        for(String[] genreData : gameDAO.getAllGenres(platform))
         {
             String name = genreData[0];
             String count = genreData[1];

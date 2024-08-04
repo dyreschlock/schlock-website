@@ -170,6 +170,11 @@ public class PlaystationPropertyServiceImpl implements PlaystationPropertyServic
             setProperty(configuration, SCAN, game.getScan().scan());
             setProperty(configuration, SCAN_TEXT, game.getScan().scanText());
         }
+        else if(PlaystationPlatform.PS2.equals(game.getPlatform()))
+        {
+            setProperty(configuration, SCAN, PlaystationGameScan.x480i.scan());
+            setProperty(configuration, SCAN_TEXT, PlaystationGameScan.x480i.scanText());
+        }
 
         if (game.getParental() != null)
         {

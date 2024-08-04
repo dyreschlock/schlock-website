@@ -133,6 +133,10 @@ public class PlaystationServiceImpl implements PlaystationService
 
 
             File outputConfigFile = new File(DEST_DIR + game.getCfgRelativeFilepath());
+            if (outputConfigFile.exists())
+            {
+                outputConfigFile.delete();
+            }
             OutputStream out = new FileOutputStream(outputConfigFile);
 
             Properties tmp = new Properties()
