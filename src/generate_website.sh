@@ -2,6 +2,8 @@
 
 source _load_properties.sh
 
+output_directory_html="${githubdirectory_location_local}${github_html_repo}";
+
 cd ${output_directory_html}
 
 # Install with brew install wget

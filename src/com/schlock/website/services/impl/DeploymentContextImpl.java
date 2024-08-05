@@ -25,6 +25,11 @@ public class DeploymentContextImpl implements DeploymentContext
     private static final String PS_DRIVE_PARAM = "playstation.directory.drive";
     private static final String PS_DATA_PARAM = "playstation.directory.data";
 
+    private static final String GITHUB_HTML_PARAM = "github.html.repo";
+    private static final String GITHUB_PHOTOS_PARAM = "github.photos.repo";
+    private static final String GITHUB_PS2_PARAM = "github.ps2.repo";
+    private static final String GITHUB_POKEMON_PARAM = "github.pokemon.repo";
+
     private static final String LOCAL = "local";
     private static final String HOSTED = "hosted";
 
@@ -154,17 +159,20 @@ public class DeploymentContextImpl implements DeploymentContext
 
     public String imageOutputDirectory()
     {
-        return githubDirectory() + PHOTOS_GITHUB_REPO;
+        String photoRepo = getDeployProperties().getProperty(GITHUB_PHOTOS_PARAM);
+        return githubDirectory() + photoRepo;
     }
 
     public String webOutputDirectory()
     {
-        return githubDirectory() + HTML_GITHUB_REPO;
+        String htmlRepo = getDeployProperties().getProperty(GITHUB_HTML_PARAM);
+        return githubDirectory() + htmlRepo;
     }
 
     public String pokemonLocalDirectory()
     {
-        return githubDirectory() + POKEGM_GITHUB_REPO;
+        String pokemonRepo = getDeployProperties().getProperty(GITHUB_POKEMON_PARAM);
+        return githubDirectory() + pokemonRepo;
     }
 
     public String playstationDriveDirectory()
@@ -181,7 +189,8 @@ public class DeploymentContextImpl implements DeploymentContext
 
     public String playstationLocalDirectory()
     {
-        return githubDirectory() + PS2_GITHUB_REPO + "/";
+        String ps2Repo = getDeployProperties().getProperty(GITHUB_PS2_PARAM);
+        return githubDirectory() + ps2Repo + "/";
     }
 
     public String webOutputDirectoryImageFolder()

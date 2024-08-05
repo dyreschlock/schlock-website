@@ -23,3 +23,8 @@ google.credentials.filepath=
 
 playstation.directory.drive=
 playstation.directory.data=
+
+github.html.repo=
+github.photos.repo=
+github.ps2.repo=
+github.pokemon.repo=
