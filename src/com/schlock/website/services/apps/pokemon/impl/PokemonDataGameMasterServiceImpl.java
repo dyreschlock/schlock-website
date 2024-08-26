@@ -91,7 +91,7 @@ public class PokemonDataGameMasterServiceImpl extends AbstractPokemonDataExterna
         );
 
         List<String> ONLY_BASE_FORM = Arrays.asList(
-                "SILVALLY", "ARCEUS"
+                "SILVALLY", "ARCEUS", "UNOWN", "SPINDA"
         );
 
         List<String> IGNORE_BASE_FORM = Arrays.asList(
