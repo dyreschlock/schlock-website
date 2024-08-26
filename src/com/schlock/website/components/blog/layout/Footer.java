@@ -5,6 +5,7 @@ import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
+import com.schlock.website.pages.AboutMe;
 import com.schlock.website.pages.Feed;
 import com.schlock.website.services.database.blog.PostDAO;
 import com.schlock.website.services.database.blog.impl.PostDAOImpl;
@@ -74,6 +75,12 @@ public class Footer
     public String getRssUrl()
     {
         String url = linkSource.createPageRenderLink(Feed.class).toURI();
+        return url;
+    }
+
+    public String getAboutMeUrl()
+    {
+        String url = linkSource.createPageRenderLink(AboutMe.class).toURI();
         return url;
     }
 
