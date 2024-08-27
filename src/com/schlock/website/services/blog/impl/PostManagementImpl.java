@@ -360,12 +360,12 @@ public class PostManagementImpl implements PostManagement
         html = html.replaceAll("<strong>", "<b>");
         html = html.replaceAll("</strong>", "</b>");
 
-        html = tagReplacement(html, "<p><b>", "</b>", "</p>", "<div class='title'>", "</div>");
-        html = tagReplacement(html, "<p><br/><b>", "</b>", "</p>", "<div class='title'>", "</div>");
+        html = tagReplacement(html, "<p><b>", "</b>", "</p>", "<div class='title'><b>", "</b></div>");
+        html = tagReplacement(html, "<p><br/><b>", "</b>", "</p>", "<div class='title'><b>", "</b></div>");
 
-        html = tagReplacement(html, "<p><b>", "</b>", "<br/>", "<div class='title'>", "</div><p>");
+        html = tagReplacement(html, "<p><b>", "</b>", "<br/>", "<div class='title'><b>", "</b></div><p>");
 
-        html = tagReplacement(html, "<p><span style=\"font-weight: bold\">", "</span>", "</p>", "<div class='title'>", "</div>");
+        html = tagReplacement(html, "<p><span style=\"font-weight: bold\">", "</span>", "</p>", "<div class='title'><b>", "</b></div>");
 
         return html;
     }
