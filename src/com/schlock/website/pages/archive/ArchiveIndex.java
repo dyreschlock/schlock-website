@@ -235,4 +235,18 @@ public class ArchiveIndex
         }
         return title;
     }
+
+    public String getPageUrl()
+    {
+        String url = linkSource.createPageRenderLink(ArchiveIndex.class).toURI();
+        if (year != null)
+        {
+            url += "/" + year;
+        }
+        if (month != null)
+        {
+            url += "/" + month;
+        }
+        return url;
+    }
 }

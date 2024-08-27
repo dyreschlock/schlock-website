@@ -2,6 +2,7 @@ package com.schlock.website.components.blog;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
+import com.schlock.website.pages.Feed;
 import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
@@ -10,15 +11,22 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 public class LayoutBlog
 {
+    @Inject
+    private PageRenderLinkSource linkSource;
+
     @Parameter
     @Property
     private AbstractPost post;
 
     @Parameter
     private String pageName;
+
+    @Parameter
+    private String pageUrl;
 
     @Inject
     private ImageManagement imageManagement;
@@ -60,6 +68,20 @@ public class LayoutBlog
         return name;
     }
 
+    public String getPageUrl()
+    {
+        String url = "";
+        if (StringUtils.isNotBlank(pageUrl))
+        {
+            url = pageUrl;
+        }
+        else if (post != null)
+        {
+            url = "/" + post.getUuid();
+        }
+        return url;
+    }
+
     public boolean isHasDescription()
     {
         String description = getPostDescription();
@@ -94,6 +116,12 @@ public class LayoutBlog
             imageUrl = imageManagement.getPostPreviewMetadataLink(post);
         }
         return imageUrl;
+    }
+
+    public String getRssUrl()
+    {
+        String url = linkSource.createPageRenderLink(Feed.class).toURI();
+        return url;
     }
 
     public String getPrimaryCss()

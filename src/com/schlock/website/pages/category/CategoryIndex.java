@@ -39,6 +39,7 @@ public class CategoryIndex
     private PostDAO postDAO;
 
 
+    @Property
     private AbstractCategory category;
 
     @Property

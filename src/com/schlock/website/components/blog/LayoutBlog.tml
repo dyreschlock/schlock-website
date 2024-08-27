@@ -9,6 +9,8 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="p:domain_verify" content="8b58e68bd24b01d551284566abf39d9a"/>
+        <link rel="alternate" type="application/rss+xml" title="${message:website-title}" href="${rssUrl}" />
+        <link rel="canonical" href="${pageUrl}" />
 
         <title>${title}</title>
 
@@ -19,6 +21,7 @@
         <meta property="og:site_name" content="${websiteTitle}" />
         <meta property="og:title" itemprop="name" content="${pageTitle}" />
         <meta property="twitter:title" name="twitter:title" itemprop="name" content="${pageTitle}" />
+        <meta property="og:url" content="${pageUrl}" />
 
         <t:if test="hasDescription">
             <meta name="description" content="${postDescription}" />
