@@ -51,9 +51,8 @@ public class Feed
 
     public String getCurrentPostBodyHTML()
     {
-        postManagement.setPostHTML(currentPost);
-
-        return currentPost.getBodyHTML();
+        String html = postManagement.generatePostHTML(currentPost, true);
+        return html;
     }
 
     public String getCurrentPostURL()

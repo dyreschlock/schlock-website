@@ -16,7 +16,7 @@ public interface ImageManagement
 
     void generateImageObjects();
 
-    String updateImagesInHTML(AbstractPost post, String html);
+    String updateImagesInHTML(AbstractPost post, String html, boolean useGalleryLink);
 
     void createPostPreviewImages();
 

@@ -167,21 +167,16 @@ public class PostManagementImpl implements PostManagement
     {
         for(AbstractPost post : postDAO.getAll())
         {
-            setPostHTML(post);
+            String text = post.getBodyText();
+            String html = generatePostHTML(post, text, false);
+            post.setBodyHTML(html);
+
+            String keyString = post.getKeywordString();
+            List<Keyword> keywords = keywordManagement.generateKeywords(keyString);
+            post.setKeywords(keywords);
+
+            postDAO.save(post);
         }
-    }
-
-    public void setPostHTML(AbstractPost post)
-    {
-        String text = post.getBodyText();
-        String html = generatePostHTML(post, text);
-        post.setBodyHTML(html);
-
-        String keyString = post.getKeywordString();
-        List<Keyword> keywords = keywordManagement.generateKeywords(keyString);
-        post.setKeywords(keywords);
-
-        postDAO.save(post);
     }
 
     public void regeneratePostNumbers()
@@ -294,12 +289,19 @@ public class PostManagementImpl implements PostManagement
         return text;
     }
 
-    private String generatePostHTML(String tempText)
+    public String generatePostHTML(AbstractPost post, boolean rssFeed)
     {
-        return generatePostHTML(null, tempText);
+        String text = post.getBodyText();
+        String html = generatePostHTML(post, text, rssFeed);
+        return html;
     }
 
-    private String generatePostHTML(AbstractPost post, String tempText)
+    private String generatePostHTML(String tempText)
+    {
+        return generatePostHTML(null, tempText, false);
+    }
+
+    private String generatePostHTML(AbstractPost post, String tempText, boolean rssFeed)
     {
         if (StringUtils.isBlank(tempText))
         {
@@ -317,7 +319,8 @@ public class PostManagementImpl implements PostManagement
 
         html = wrapJapaneseTextInTags(html);
 
-        html = imageManagement.updateImagesInHTML(post, html);
+        boolean useGalleryLink = !rssFeed;
+        html = imageManagement.updateImagesInHTML(post, html, useGalleryLink);
 
         return html;
     }

@@ -145,9 +145,8 @@ public class PostDisplay
 
     public String getPostBodyHTML()
     {
-        postManagement.setPostHTML(post);
-
-        return post.getBodyHTML();
+        String html = postManagement.generatePostHTML(post, false);
+        return html;
     }
 
     public boolean isShowNumber()

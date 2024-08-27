@@ -251,17 +251,17 @@ public class ImageManagementImpl implements ImageManagement
     private static final String A_TAG = "<a ";
     private static final String HREF_PARAM = "href=\"";
 
-    public String updateImagesInHTML(AbstractPost post, String h)
+    public String updateImagesInHTML(AbstractPost post, String h, boolean useGalleryLink)
     {
         String html = h;
 
-        html = updateImagesInHTML(IMG_TAG, SRC_PARAM, html, post);
-        html = updateImagesInHTML(A_TAG, HREF_PARAM, html, post);
+        html = updateImagesInHTML(IMG_TAG, SRC_PARAM, html, post, useGalleryLink);
+        html = updateImagesInHTML(A_TAG, HREF_PARAM, html, post, useGalleryLink);
 
         return html;
     }
 
-    private String updateImagesInHTML(final String TAG, final String PARAM, String h, AbstractPost post)
+    private String updateImagesInHTML(final String TAG, final String PARAM, String h, AbstractPost post, boolean useGalleryLink)
     {
         final String QUOTE = "\"";
 
@@ -296,7 +296,7 @@ public class ImageManagementImpl implements ImageManagement
                     updatedLink = updateImageLink(linkReference);
 
                     Integer imageIndex = getImageIndexInGallery(post, linkReference);
-                    if (HREF_PARAM.equals(PARAM) && imageIndex != null)
+                    if (HREF_PARAM.equals(PARAM) && imageIndex != null && useGalleryLink)
                     {
                         // onclick="galleryClicked(1)"
                         finishHTML += " onclick=\"galleryClicked(" + imageIndex + ")";

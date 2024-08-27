@@ -20,17 +20,17 @@ public interface PostManagement
 
     void regeneratePostNumbers();
 
-    void setPostHTML(AbstractPost post);
-
     String generateCommentHTML(String comment);
 
-    String updateLinkToModernReference(String link);
+    String generatePostHTML(AbstractPost post, boolean rssFeed);
 
     String generatePostPreview(AbstractPost post);
 
-    String wrapJapaneseTextInTags(String html);
-
     String generatePostDescription(AbstractPost post);
+
+    String updateLinkToModernReference(String link);
+
+    String wrapJapaneseTextInTags(String html);
 
     String getStylizedHTMLTitle(AbstractPost post);
 
