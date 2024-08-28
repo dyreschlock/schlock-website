@@ -28,8 +28,14 @@
         <meta property="twitter:image" name="twitter:image" itemprop="image primaryImageOfPage" content="${coverImageUrl}" />
         <meta property="twitter:card" name="twitter:card" content="summary_large_image" />
 
-        <link rel="shortcut icon" href="/icons/favicon.ico" type="image/x-icon"/>
-        <link rel="icon" href="/icons/favicon.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" href="/icons/favicon.ico" type="image/x-icon" sizes="32x32"/>
+        <link rel="icon" href="/icons/favicon.ico" type="image/x-icon" sizes="32x32"/>
+        <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/icons/fav-180.png" />
+        <link rel="manifest" href="/manifest.json" />
+
+        <meta name="msvalidate.01" content="8069B9BD0BB6551BBE39825401178C01" />
+
         <style>${css}</style>
     </head>
 

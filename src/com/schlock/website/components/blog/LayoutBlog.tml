@@ -45,6 +45,8 @@
         <link rel="apple-touch-icon" href="/icons/fav-180.png" />
         <link rel="manifest" href="/manifest.json" />
 
+        <meta name="msvalidate.01" content="8069B9BD0BB6551BBE39825401178C01" />
+
         <style>${primaryCss}</style>
     </head>
 
