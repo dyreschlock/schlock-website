@@ -16,7 +16,7 @@ public class PostManagementImpl implements PostManagement
 
     private final static String VALID_UUID_CHARACTERS = "abcdefghijklmnopqrstuvwxyz1234567890";
     private final static int PREVIEW_LENGTH = 900;
-    private final static int POST_DESCRIPTION_LENGTH = 175;
+    private final static int POST_DESCRIPTION_LENGTH = 160;
 
 
     private final static String BREAK = "<break>";
