@@ -49,6 +49,7 @@ for dir in $(find . -mindepth 1 -type d -not \( -path "./.*" -prune \)) ; do
     fi
 done
 
+mv "manifest" "manifest.json"
 mv "feed" "feed.xml"
 
 mkdir "blog"

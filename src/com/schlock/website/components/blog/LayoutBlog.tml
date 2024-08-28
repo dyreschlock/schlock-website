@@ -41,6 +41,10 @@
 
         <link rel="shortcut icon" href="/icons/favicon.ico" type="image/x-icon"/>
         <link rel="icon" href="/icons/favicon.ico" type="image/x-icon"/>
+
+        <link rel="apple-touch-icon" href="/icons/fav-180.png" />
+        <link rel="manifest" href="/manifest" />
+
         <style>${primaryCss}</style>
     </head>
 
