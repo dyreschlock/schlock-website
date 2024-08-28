@@ -1,5 +1,6 @@
 package com.schlock.website.pages;
 
+import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.PostManagement;
@@ -12,6 +13,7 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @ContentType(value="application/rss+xml")
 public class Feed
@@ -35,6 +37,9 @@ public class Feed
     @Property
     private Post currentPost;
 
+    @Property
+    private AbstractCategory currentCategory;
+
 
     public List<Post> getRecentPosts()
     {
@@ -42,6 +47,11 @@ public class Feed
 
         List<Post> posts = postDAO.getMostRecentPosts(postCount, false, null, null, null);
         return posts;
+    }
+
+    public Set<AbstractCategory> getCategories()
+    {
+        return currentPost.getCategories();
     }
 
     public String getCurrentDate()

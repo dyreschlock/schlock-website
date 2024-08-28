@@ -5,8 +5,11 @@
     <channel>
         <title>${message:website-title}</title>
         <description>${message:website-about}</description>
+        <language>en-us</language>
+        <pubDate>${currentDate}</pubDate>
         <lastBuildDate>${currentDate}</lastBuildDate>
         <link>${message:website-url}</link>
+        <category>Japan / Games / Other Stuff</category>
 
         <t:loop source="recentPosts" value="currentPost">
 
@@ -16,6 +19,9 @@
                 <pubDate>${currentPostDate}</pubDate>
                 <guid>${currentPostURL}</guid>
                 <link>${currentPostURL}</link>
+                <t:loop source="categories" value="currentCategory">
+                    <category>${currentCategory.name}</category>
+                </t:loop>
             </item>
 
         </t:loop>

@@ -26,8 +26,10 @@ public class Manifest
                 "description", description,
                 "start_url", url,
                 "lang", "en-US",
+                "dir", "ltr",
                 "theme_color", "#2c2c2c",
-                "background_color", "#fafafa"
+                "background_color", "#fafafa",
+                "display", "minimal-ui"
         );
 
         json.put("icons", getIcons());
