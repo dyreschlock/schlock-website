@@ -25,7 +25,9 @@ public class Manifest
                 "short_name", title,
                 "description", description,
                 "start_url", url,
-                "lang", "en-US"
+                "lang", "en-US",
+                "theme_color", "#2c2c2c",
+                "background_color", "#fafafa"
         );
 
         json.put("icons", getIcons());
