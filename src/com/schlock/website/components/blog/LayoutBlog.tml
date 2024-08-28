@@ -43,7 +43,7 @@
         <link rel="icon" href="/icons/favicon.ico" type="image/x-icon" sizes="32x32"/>
         <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/icons/fav-180.png" />
-        <link rel="manifest" href="/manifest" />
+        <link rel="manifest" href="/manifest.json" />
 
         <style>${primaryCss}</style>
     </head>

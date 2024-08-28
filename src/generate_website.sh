@@ -32,6 +32,10 @@ wget \
   --domains localhost \
   http://localhost:8084/apps/pocket
 
+wget \
+  --no-host-directories \
+  http://localhost:8084/manifest
+
 # find = finds all directories excluding .dot directories
 for dir in $(find . -mindepth 1 -type d -not \( -path "./.*" -prune \)) ; do
 
@@ -49,8 +53,8 @@ for dir in $(find . -mindepth 1 -type d -not \( -path "./.*" -prune \)) ; do
     fi
 done
 
-mv "manifest" "manifest.json"
 mv "feed" "feed.xml"
+mv "manifest" "manifest.json"
 
 mkdir "blog"
 cp "feed.xml" "blog/index.xml"
