@@ -79,6 +79,13 @@ public class LayoutBlog
         {
             url = "/" + post.getUuid();
         }
+
+        String domain = messages.get("website-url");
+        if (StringUtils.isNotBlank(url) && !url.startsWith(domain))
+        {
+            url = domain + url.substring(1);
+        }
+
         return url;
     }
 
