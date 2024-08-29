@@ -3,7 +3,7 @@
     >
     <div class="miniPost">
 
-        <a title="${post.title}" href="/${post.uuid}">
+        <a class="title" title="${post.title}" href="/${post.uuid}">
             <h1><t:outputraw value="postTitleHtml" /></h1>
         </a>
         <t:if test="showDateLinks">
