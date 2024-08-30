@@ -314,6 +314,10 @@ public class PostManagementImpl implements PostManagement
         html = changeLineBreaksToHtmlTags(html);
         html = changePostTitlesForCss(html);
         html = changeImagesAndLinksToLocal(html);
+        if(rssFeed)
+        {
+            html = changeLinksToAbsolute(html);
+        }
 
         html = removeBreaksFromBetweenHtmlCode(html);
 
@@ -441,6 +445,14 @@ public class PostManagementImpl implements PostManagement
         return html;
     }
 
+    private String changeLinksToAbsolute(String h)
+    {
+        String html = h;
+
+        html = html.replaceAll("href=\"/", "href=\"http://theschlock.com/");
+
+        return html;
+    }
 
     private String removeBreaksFromBetweenHtmlCode(String h)
     {
