@@ -5,10 +5,10 @@
     lang="en"
     >
     <head>
-        <meta charset="utf-8"/>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <meta charset="utf-8" http-equiv="content-type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="p:domain_verify" content="8b58e68bd24b01d551284566abf39d9a"/>
+        <meta name="msvalidate.01" content="8069B9BD0BB6551BBE39825401178C01" />
 
         <title>${title}</title>
 
@@ -34,8 +34,6 @@
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
         <link rel="manifest" href="/manifest.json" />
-
-        <meta name="msvalidate.01" content="8069B9BD0BB6551BBE39825401178C01" />
 
         <style>${css}</style>
     </head>
