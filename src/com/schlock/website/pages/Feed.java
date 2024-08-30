@@ -54,6 +54,14 @@ public class Feed
         return currentPost.getCategories();
     }
 
+    public String getDescription()
+    {
+        String description = messages.get("website-about");
+        description = description.replaceAll("<b>", "");
+        description = description.replaceAll("</b>", "");
+        return description;
+    }
+
     public String getCurrentDate()
     {
         return dateFormatter.rssFeedFormat(new Date());

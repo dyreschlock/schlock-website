@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0"
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:atom="http://www.w3.org/2005/Atom"
     >
     <channel>
         <title>${message:website-title}</title>
-        <description>${message:website-about}</description>
+        <description>${description}</description>
         <language>en-us</language>
         <pubDate>${currentDate}</pubDate>
         <lastBuildDate>${currentDate}</lastBuildDate>
         <link>${message:website-url}</link>
+        <atom:link href="${message:website-url}feed.xml" rel="self" type="application/rss+xml" />
         <category>Japan / Games / Other Stuff</category>
 
         <t:loop source="recentPosts" value="currentPost">

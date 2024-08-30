@@ -29,7 +29,7 @@ public class DateFormatterImpl implements DateFormatter
 
     public String rssFeedFormat(Date date)
     {
-        return format(RSS_FORMAT, date) + " JST";
+        return format(RSS_FORMAT, date) + " +0900";
     }
 
     private String format(String format, Date date)
