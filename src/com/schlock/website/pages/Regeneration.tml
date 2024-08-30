@@ -21,12 +21,18 @@
             {
                 margin-left: auto;
                 margin-right: auto;
-                width: 700px;
+                width: 1200px;
             }
 
             h2
             {
                 margin-bottom: 0px;
+            }
+
+            td
+            {
+                text-align: left;
+                vertical-align: top;
             }
 
         </style>
@@ -35,48 +41,75 @@
 
         <t:if test="local">
             <div>
-                <h2><t:eventlink t:id="processImageDirectory">Process Image Directory</t:eventlink></h2>
-                (It will do both of the following, in order)<br/>
-                <br/>
-                - <t:eventlink t:id="sanitizeImages">Remove all Invalid Characters From Image Filenames</t:eventlink><br/>
-                - <t:eventlink t:id="generateThumbnails">Generate Thumbnails for Directory</t:eventlink><br/>
-                <br/>
-                <br/>
-                <h2><t:eventlink t:id="regenPostItems">Generate Post Items</t:eventlink></h2>
-                (It will do all five of the following, in order)<br/>
-                <br/>
-                - <t:eventlink t:id="regeneratePostNumbers">Regenerate Post Numbers</t:eventlink><br/>
-                <br/>
-                - <t:eventlink t:id="createPostPreviewImages">Create Post Preview Image Files</t:eventlink> (Images in Github for Metadata)<br/>
-                <br/>
-                - <t:eventlink t:id="generateImageObjects">Find and Create Image Objects from Gallery Images</t:eventlink><br/>
-                - <t:eventlink t:id="regenHtml">Regenerate all AbstractPost HTML</t:eventlink><br/>
-                --- This will find all post images linked but not in the gallery<br/>
-                --- It will also generate keyword objects<br/>
-                <br/>
-                - <t:eventlink t:id="generateWebpFiles">Generate WebP Files from Images</t:eventlink><br/>
-                <br/>
-                <br/>
-                <h2>Update Pokemon Raid/Rocket Information</h2>
-                <br/>
-                - <t:eventlink t:id="reportPokemonGameMaster">Report differences - Database and Game Master</t:eventlink><br />
-                - Moves: <t:eventlink t:id="updateMovesAddNew">Add New Moves</t:eventlink>
-                    / <t:eventlink t:id="updateMovesMainStats">Update Main Stats</t:eventlink>
-                    / <t:eventlink t:id="updateMovesPvpStats">Updates PVP Stats</t:eventlink><br/>
-                - Pokemon: <t:eventlink t:id="updatePokemonAddNew">Add New Pokemon</t:eventlink>
-                    / <t:eventlink t:id="updatePokemonStats">Update Stats</t:eventlink>
-                    / <t:eventlink t:id="updatePokemonMoves">Add New Moves</t:eventlink><br />
-                    / <t:eventlink t:id="updatePokemonCategories">Update Categories</t:eventlink><br />
-                <br />
-                <br />
-                <h2>Update Playstation Data</h2>
-                <br />
-                - <t:eventlink t:id="updateGameInventory">Update List of Games from Drive</t:eventlink>
-                   --- <t:eventlink t:id="updateGameSaveFiles">Locate / Update Save Files</t:eventlink><br/>
-                - <t:eventlink t:id="readConfigFiles">Read Config Files from Data</t:eventlink>
-                   / <t:eventlink t:id="writeConfigFiles">Write Config Files to Local</t:eventlink>
-                   --- <t:eventlink t:id="writeArtFiles">Write Art Images to Local</t:eventlink><br />
-                - <t:eventlink t:id="copyLocalFilesToDrive">Copy Local Files to Drive</t:eventlink><br/>
+                <table>
+                    <tr>
+                        <td width="500px">
+
+                            <h2><t:eventlink t:id="processImageDirectory">Process Image Directory</t:eventlink></h2>
+                            (It will do both of the following, in order)<br/>
+                            <br/>
+                            - <t:eventlink t:id="sanitizeImages">Remove all Invalid Characters From Image Filenames</t:eventlink><br/>
+                            - <t:eventlink t:id="generateThumbnails">Generate Thumbnails for Directory</t:eventlink><br/>
+                            <br/>
+                            <br/>
+                            <h2><t:eventlink t:id="regenPostItems">Generate Post Items</t:eventlink></h2>
+                            (It will do all five of the following, in order)<br/>
+                            <br/>
+                            - <t:eventlink t:id="regeneratePostNumbers">Regenerate Post Numbers</t:eventlink><br/>
+                            <br/>
+                            - <t:eventlink t:id="createPostPreviewImages">Create Post Preview Image Files</t:eventlink> (Images in Github for Metadata)<br/>
+                            <br/>
+                            - <t:eventlink t:id="generateImageObjects">Find and Create Image Objects from Gallery Images</t:eventlink><br/>
+                            - <t:eventlink t:id="regenHtml">Regenerate all AbstractPost HTML</t:eventlink><br/>
+                            --- This will find all post images linked but not in the gallery<br/>
+                            --- It will also generate keyword objects<br/>
+                            <br/>
+                            - <t:eventlink t:id="generateWebpFiles">Generate WebP Files from Images</t:eventlink><br/>
+                            <br/>
+                            <br/>
+
+                        </td>
+                        <td width="700px">
+
+                            <h2>Update Pokemon Raid/Rocket Information</h2>
+                            <br/>
+                            - <t:eventlink t:id="reportPokemonGameMaster">Report differences - Database and Game Master</t:eventlink><br />
+
+                            - Moves: <t:eventlink t:id="updateMovesAddNew">Add New Moves</t:eventlink>
+                            / <t:eventlink t:id="updateMovesMainStats">Update Main Stats</t:eventlink>
+                            / <t:eventlink t:id="updateMovesPvpStats">Updates PVP Stats</t:eventlink><br/>
+
+                            - Pokemon: <t:eventlink t:id="updatePokemonAddNew">Add New Pokemon</t:eventlink>
+                            / <t:eventlink t:id="updatePokemonStats">Update Stats</t:eventlink>
+                            / <t:eventlink t:id="updatePokemonMoves">Add New Moves</t:eventlink>
+                            / <t:eventlink t:id="updatePokemonCategories">Update Categories</t:eventlink><br />
+                            <br />
+                            <br />
+                            <h2>Update Playstation Data</h2>
+                            <br />
+                            - <t:eventlink t:id="updateGameInventory">Update List of Games from Drive</t:eventlink>
+                            --- <t:eventlink t:id="updateGameSaveFiles">Locate / Update Save Files</t:eventlink><br/>
+                            - <t:eventlink t:id="readConfigFiles">Read Config Files from Data</t:eventlink>
+                            / <t:eventlink t:id="writeConfigFiles">Write Config Files to Local</t:eventlink>
+                            --- <t:eventlink t:id="writeArtFiles">Write Art Images to Local</t:eventlink><br />
+                            - <t:eventlink t:id="copyLocalFilesToDrive">Copy Local Files to Drive</t:eventlink><br/>
+                            <br />
+                            <br />
+                            <h2>Website Validation / Optimization</h2>
+                            <br />
+                            - <a href="https://github.com/dyreschlock/schlock-website/issues/7">Github Issue #7 - Speed Up!</a><br />
+                            - Markup Validation: <a href="https://validator.w3.org/">https://validator.w3.org/</a><br />
+                            - Overall Validation: <a href="https://www.validbot.com/">https://www.validbot.com/</a><br />
+                            - Overall Validation: <a href="https://pagespeed.web.dev/">https://pagespeed.web.dev/</a><br />
+                            - Performance / Structure: <a href="https://gtmetrix.com/">https://gtmetrix.com/</a><br/>
+                            - Search Analytics: <a href="https://search.google.com/search-console/performance/search-analytics">https://search.google.com/search-analytics</a><br/>
+                            - Visitation Analytics: <a href="https://analytics.google.com/">https://analytics.google.com/</a><br />
+                            <br/>
+                            <br/>
+
+                        </td>
+                    </tr>
+                </table>
             </div>
 
         </t:if>
