@@ -26,6 +26,9 @@ public class LayoutBlog
     private String pageName;
 
     @Parameter
+    private String pageDescription;
+
+    @Parameter
     private String pageUrl;
 
     @Inject
@@ -101,6 +104,10 @@ public class LayoutBlog
         {
             String description = postManagement.generatePostDescription(post);
             return description;
+        }
+        if (StringUtils.isNotBlank(pageDescription))
+        {
+            return pageDescription;
         }
         return null;
     }

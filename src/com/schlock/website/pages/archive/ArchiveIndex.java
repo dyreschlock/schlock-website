@@ -236,6 +236,21 @@ public class ArchiveIndex
         return title;
     }
 
+    public String getPageDescription()
+    {
+        String description = "";
+        if (year != null || month != null)
+        {
+            String date = archiveManagement.getIterationTitle(year, month);
+            description = messages.format("description", date);
+        }
+        else
+        {
+            description = messages.get("archive");
+        }
+        return description;
+    }
+
     public String getPageUrl()
     {
         String url = linkSource.createPageRenderLink(ArchiveIndex.class).toURI();

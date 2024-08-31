@@ -221,4 +221,20 @@ public class CategoryIndex
         }
         return title;
     }
+
+    public String getPageDescription()
+    {
+        String description = "";
+        if (category != null)
+        {
+            description = messages.get("description") + " ";
+            if (!category.isTopCategory())
+            {
+                AbstractCategory parent = category.getParent();
+                description += parent.getName() + " / ";
+            }
+            description += category.getName();
+        }
+        return description;
+    }
 }
