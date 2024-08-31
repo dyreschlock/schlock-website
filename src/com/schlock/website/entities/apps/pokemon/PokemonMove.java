@@ -272,7 +272,9 @@ public class PokemonMove extends Persisted
         double duration = 0.0;
         if(battleMode.isRaid())
         {
-            duration = getCooldown() * 1000;
+            //duration = getCooldown() * 1000;
+            double round = Math.round(getCooldown() * 2) / 2.0;
+            duration = round * 1000;
         }
         if(battleMode.isRocket())
         {
