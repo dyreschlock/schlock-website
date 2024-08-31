@@ -4,7 +4,7 @@
 
     <div class="title">
         <a href="/">
-            <h1>${message:website-title}</h1>
+            <span>${message:website-title}</span>
         </a>
     </div>
     <div class="links">
