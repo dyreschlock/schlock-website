@@ -2,6 +2,7 @@
 <html
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:c="tapestry-library:blog/content"
     xmlns:l="tapestry-library:blog/layout"
     lang="en"
     >
@@ -48,6 +49,7 @@
         <link rel="manifest" href="/manifest.json" />
 
         <style>${primaryCss}</style>
+        <c:imageGalleryScript post="post" />
     </head>
 
     <!-- Google tag (gtag.js) -->
@@ -69,6 +71,7 @@
 
             </div>
         </div></div></div>
+        <div id="overlayMenuBackground" class="overlayBackground" style="display: none;"></div>
         </header>
 
         <nav id="nav" role="navigation">

@@ -346,7 +346,7 @@ span.cyan
 }
 
 
-#overlayBackground, #overlayImage
+div.overlayBackground, #overlayImage
 {
     width: 100%;
     height: 100%;
@@ -354,11 +354,15 @@ span.cyan
     left: 0;
     position: fixed;
 }
-#overlayBackground
+div.overlayBackground
 {
     z-index: 100;
     opacity: 0.8;
     background-color: #000;
+}
+#overlayMenuBackground
+{
+    z-index: 80;
 }
 #overlayImage
 {

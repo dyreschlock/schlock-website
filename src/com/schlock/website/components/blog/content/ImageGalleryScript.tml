@@ -1,0 +1,153 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <t:if test="post.hasGallery">
+        <script>
+
+            const images = [];
+            const linkImages = [];
+            const comments = [];
+
+            ${imageDataJS}
+
+            function galleryClicked(index)
+            {
+                document.getElementById("overlayImage").style.display = 'block';
+                document.getElementById("overlayImageBackground").style.display = 'block';
+
+                setBackgroundImage(index);
+                setImageLink(index);
+                setImageCommentText(index);
+
+                if(index == 0)
+                {
+                    hidePreviousImageLink();
+                }
+                else
+                {
+                    let prevIndex = index -1;
+                    showPreviousImageLink(prevIndex);
+                }
+
+                if(index == images.length -1)
+                {
+                    hideNextImageLink();
+                }
+                else
+                {
+                    let nextIndex = index +1;
+                    showNextImageLink(nextIndex);
+                }
+
+                addArrowListener(function(event)
+                {
+                    if(event.keyCode == 37)
+                    {
+                        if(index != 0)
+                        {
+                            galleryClicked(index -1);
+                        }
+                    }
+                    if(event.keyCode == 39)
+                    {
+                        if(index != images.length -1)
+                        {
+                            galleryClicked(index +1);
+                        }
+                    }
+                });
+            }
+
+            function setBackgroundImage(index)
+            {
+                let link = images[index];
+                document.getElementById("overlayImage").style.backgroundImage = "url("+link+")";
+            }
+
+            function setImageLink(index)
+            {
+                let link = linkImages[index];
+                document.getElementById("imageLink").innerHTML = link;
+                document.getElementById("imageLink").href = link;
+            }
+
+            function setImageCommentText(index)
+            {
+                let comment = comments[index];
+
+                document.getElementById("imageCommentText").innerHTML = comment;
+                if(Boolean(comment))
+                {
+                    document.getElementById("imageComment").style.display = 'block';
+                }
+                else
+                {
+                    document.getElementById("imageComment").style.display = 'none';
+                }
+            }
+
+            function showPreviousImageLink(index)
+            {
+                document.getElementById("previousImage").style.display = 'table';
+                document.getElementById("previousImageAnchor1").onclick = function()
+                {
+                    galleryClicked(index);
+                };
+                document.getElementById("previousImageAnchor2").onclick = function()
+                {
+                    galleryClicked(index);
+                };
+            }
+
+            function showNextImageLink(index)
+            {
+                document.getElementById("nextImage").style.display = 'table';
+                document.getElementById("nextImageAnchor1").onclick = function()
+                {
+                    galleryClicked(index);
+                };
+                document.getElementById("nextImageAnchor2").onclick = function()
+                {
+                    galleryClicked(index);
+                };
+            }
+
+            function hidePreviousImageLink()
+            {
+                document.getElementById("previousImage").style.display = 'none';
+            }
+
+            function hideNextImageLink()
+            {
+                document.getElementById("nextImage").style.display = 'none';
+            }
+
+            function closeOverlay()
+            {
+                document.getElementById("overlayImage").style.display = 'none';
+                document.getElementById("overlayImageBackground").style.display = 'none';
+                removeArrowListener();
+            }
+
+            var currentHandler;
+
+            function addArrowListener(handler)
+            {
+                removeArrowListener();
+                currentHandler = handler;
+
+                document.addEventListener("keydown", currentHandler);
+            }
+
+            function removeArrowListener()
+            {
+                if(currentHandler != null)
+                {
+                    document.removeEventListener("keydown", currentHandler);
+                }
+                currentHandler = null;
+            }
+
+        </script>
+    </t:if>
+</t:container>
