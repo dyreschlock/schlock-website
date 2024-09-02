@@ -1,7 +1,6 @@
 <t:container
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
-
     <div class="title">
         <a href="/">
             <span>${message:website-title}</span>
@@ -16,6 +15,13 @@
         /
         <a title="${message:about-me}" href="/aboutme">${message:about-me}</a>
     </div>
+    <div class="menu">
+        <a title="${message:menu}" onclick="menuClicked()">☰</a>
+    </div>
     <br class="clr" />
+
+    <div id="overlayMenu" style="display: none;">
+
+    </div>
 
 </t:container>
