@@ -24,6 +24,12 @@ public class ImageGalleryScript
     private PostManagement postManagement;
 
 
+
+    public boolean isPostHasGallery()
+    {
+        return post != null && post.isHasGallery();
+    }
+
     private List<Image> getGalleryImages()
     {
         return imageManagement.getGalleryImages(post);
