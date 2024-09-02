@@ -1,0 +1,68 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <script>
+
+        let menuOpen = false;
+
+        function menuClicked()
+        {
+            if(menuOpen)
+            {
+                document.getElementById("overlayMenuBackground").style.display = 'none';
+                document.getElementById("overlayMenu").style.display = 'none';
+            }
+            else
+            {
+                document.getElementById("overlayMenuBackground").style.display = 'block';
+                document.getElementById("overlayMenu").style.display = 'block';
+            }
+            menuOpen = !menuOpen;
+        }
+
+
+        const blogLinks = [];
+
+        ${blogDataJS}
+
+        function randomClicked()
+        {
+            let randomIndex = Math.floor(Math.random() * (blogLinks.length -1));
+            let randomIndex2 = Math.floor(Math.random() * (blogLinks.length -1));
+
+            if(isGreaterThan(randomIndex2, randomIndex))
+            {
+                randomIndex = randomIndex2;
+            }
+
+            location.href = "/" + blogLinks[randomIndex];
+        }
+
+        // cannot use greater than or less than operators because of tapestry
+        // cannot use the AND operator either.
+
+        function isGreaterThan(n1, n2)
+        {
+            let number1 = n1;
+            let number2 = n2;
+
+            while(true)
+            {
+                number1--;
+                number2--;
+
+                if(number1 == 0)
+                {
+                    return false;
+                }
+                if(number2 == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+    </script>
+
+</t:container>

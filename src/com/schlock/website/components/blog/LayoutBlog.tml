@@ -49,6 +49,8 @@
         <link rel="manifest" href="/manifest.json" />
 
         <style>${primaryCss}</style>
+
+        <l:headerScript />
         <c:imageGalleryScript post="post" />
     </head>
 

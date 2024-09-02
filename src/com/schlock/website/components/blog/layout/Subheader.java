@@ -38,29 +38,10 @@ public class Subheader
     private Integer currentIndex;
 
 
-    public String getBlogDataJS()
-    {
-        String code = "";
-
-        List<String> uuids = postDAO.getAllPublishedUuids();
-        for(int i = 0; i < uuids.size(); i++)
-        {
-            String index = Integer.toString(i);
-            String uuid = uuids.get(i);
-
-            String postcode = String.format("blogLinks[%s] = \"%s\";\n", index, uuid);
-
-            code += postcode;
-        }
-        return code;
-    }
-
-
     public boolean isHasBoth()
     {
         return isHasNext() && isHasPrevious();
     }
-
 
     public boolean isHasPrevious()
     {
