@@ -21,7 +21,31 @@
     <br class="clr" />
 
     <div id="overlayMenu" style="display: none;">
+        <div class="menuLinks">
+            <a title="${message:home}" href="/">${message:home}</a> //
+        </div>
+        <div class="menuLinks">
+            <a title="${message:archive}" href="/archive">${message:archive}</a> //
+        </div>
+        <div class="menuLinks">
+            <a title="${message:projects}" href="/projects">${message:projects}</a> //
+        </div>
+        <div class="menuLinks">
+            <a title="${message:about-me}" href="/aboutme">${message:about-me}</a> //
+        </div>
+        <br class="clr" />
+        <div class="menuSubheaderLinks">
+            <div class="categoryTitle">${message:categories}</div>
+            <t:loop source="categories" value="currentCategory">
+                <div class="menuSubLinks">
+                    <a title="${currentCategory.name}" href="/category/${currentCategory.uuid}">${currentCategory.name}</a> //
+                </div>
+            </t:loop>
 
+            <div class="menuSubLinks">
+                <a title="${message:random}" onclick="randomClicked()">${message:random}</a> //
+            </div>
+        </div>
     </div>
 
 </t:container>

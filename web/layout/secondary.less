@@ -5,6 +5,9 @@
 @textcolor: #2b2b2b;
 
 @backgroundcolor: #282828;
+
+@subheaderMenuColor: #464646;
+
 @bodycolor: #fff;
 
 
@@ -466,7 +469,57 @@ div.overlayBackground
         }
     }
 }
+#overlayMenu
+{
+    z-index: 120px;
 
+    width: 150px;
+    top: 44px;
+    right: 0;
+    position: fixed;
+
+    background-color: @backgroundcolor;
+
+    font-family: @font2;
+    text-align: right;
+
+    a:hover
+    {
+        text-decoration: underline;
+    }
+
+    div.menuLinks
+    {
+        float: right;
+        position: relative;
+        width: 100%;
+
+        padding: 8px 20px;
+    }
+
+    div.menuSubheaderLinks
+    {
+        background-color: @subheaderMenuColor;
+        font-size: 0.8em;
+
+        float: right;
+        position: relative;
+        width: 116px;
+
+        margin: 8px;
+        padding: 8px;
+
+        div.categoryTitle
+        {
+            text-align: left;
+            padding: 0 4px;
+        }
+        div.menuSubLinks
+        {
+            padding: 8px 4px;
+        }
+    }
+}
 
 #previousNext
 {
