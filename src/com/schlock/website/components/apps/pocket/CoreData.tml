@@ -7,7 +7,7 @@
                 <td class="image"><img class="core" src="${imageSrc}" /></td>
             </t:if>
             <td class="data">
-                <div>${core.namespace}</div>
+                <div>${core.platformId}</div>
                 <div class="name">${core.name}</div>
                 <div>${core.manufacturer}</div>
                 <div>${core.year}</div>

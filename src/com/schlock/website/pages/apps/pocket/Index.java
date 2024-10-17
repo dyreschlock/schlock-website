@@ -54,7 +54,7 @@ public class Index
         {
             imageView = false;
 
-            selectedCore = pocketDataService.getCoreByNamespace(parameter);
+            selectedCore = pocketDataService.getCoreByPlatformId(parameter);
             if (selectedCore == null)
             {
                 selectedGenre = parameter;
@@ -79,7 +79,7 @@ public class Index
         }
         else
         {
-            selectedCore = pocketDataService.getCoreByNamespace(p1);
+            selectedCore = pocketDataService.getCoreByPlatformId(p1);
             selectedGenre = p2;
             imageView = false;
         }
@@ -90,7 +90,7 @@ public class Index
     Object onActivate(String p1, String p2, String p3)
     {
         imageView = IMAGE_VIEW_ID.equalsIgnoreCase(p1);
-        selectedCore = pocketDataService.getCoreByNamespace(p2);
+        selectedCore = pocketDataService.getCoreByPlatformId(p2);
         selectedGenre = p3;
 
         return true;
@@ -227,7 +227,7 @@ public class Index
         }
         if (core != null)
         {
-            link += "/" + core.getNamespace();
+            link += "/" + core.getPlatformId();
         }
         if (genre != null)
         {

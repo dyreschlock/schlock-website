@@ -65,34 +65,34 @@ public class GamesPanel
         return core != null;
     }
 
-    public String getCoreNamespace()
+    public String getCorePlatformId()
     {
         if (core == null)
         {
             return BLANK;
         }
-        return core.getNamespace();
+        return core.getPlatformId();
     }
 
-    public String getCurrentGameCoreNamespace()
+    public String getCurrentGameCorePlatformId()
     {
         String name = currentGame.getCore();
-        PocketCore core = pocketDataService.getCoreByNamespace(currentGame.getCore());
+        PocketCore core = pocketDataService.getCoreByPlatformId(currentGame.getCore());
         if (core.isCategoryArcade())
         {
             return ARCADE_GENERAL;
         }
-        return core.getNamespace();
+        return core.getPlatformId();
     }
 
     public String getCurrentGameCoreText()
     {
-        String namespace = getCurrentGameCoreNamespace();
+        String platformId = getCurrentGameCorePlatformId();
 
-        String output = messages.get(namespace);
+        String output = messages.get(platformId);
         if (output.startsWith("[["))
         {
-            output = namespace;
+            output = platformId;
         }
         return output;
     }

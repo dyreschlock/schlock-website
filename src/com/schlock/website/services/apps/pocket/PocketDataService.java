@@ -22,7 +22,7 @@ public interface PocketDataService
 
     List<PocketCore> getCoresByCategory(String cat1, String cat2);
 
-    PocketCore getCoreByNamespace(String namespace);
+    PocketCore getCoreByPlatformId(String platformId);
 
     List<String> getGameGenres();
 

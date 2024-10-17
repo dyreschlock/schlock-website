@@ -11,7 +11,7 @@
             <t:if test="imageView">
 
                 <tr>
-                    <th class="${coreNamespace} allGames">${message:game-list}</th>
+                    <th class="${corePlatformId} allGames">${message:game-list}</th>
                 </tr>
                 <tr>
                     <td class="gameImages">
@@ -25,23 +25,23 @@
                 <tr>
 
                     <t:if test="!coreSelected">
-                        <th class="${coreNamespace} name" colspan="2">${message:name}</th>
+                        <th class="${corePlatformId} name" colspan="2">${message:name}</th>
                     </t:if>
                     <t:if test="coreSelected">
-                        <th class="${coreNamespace} name">${message:name}</th>
+                        <th class="${corePlatformId} name">${message:name}</th>
                     </t:if>
 
-                    <th class="${coreNamespace} developer">${message:developer}</th>
-                    <th class="${coreNamespace} publisher">${message:publisher}</th>
-                    <th class="${coreNamespace} releaseDate">${message:release-date}</th>
-                    <th class="${coreNamespace} genre">${message:genre}</th>
+                    <th class="${corePlatformId} developer">${message:developer}</th>
+                    <th class="${corePlatformId} publisher">${message:publisher}</th>
+                    <th class="${corePlatformId} releaseDate">${message:release-date}</th>
+                    <th class="${corePlatformId} genre">${message:genre}</th>
                 </tr>
 
                 <t:loop source="games" value="currentGame" index="currentIndex">
 
                     <tr>
                         <t:if test="!coreSelected">
-                            <td class="${currentGameCoreNamespace} platColor">${currentGameCoreText}</td>
+                            <td class="${currentGameCorePlatformId} platColor">${currentGameCoreText}</td>
                             <td class="${evenOdd} name">${currentGame.gameName}</td>
                         </t:if>
                         <t:if test="coreSelected">

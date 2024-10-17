@@ -24,7 +24,7 @@ public class PocketCore
     protected final static String ATARI_2600_FIXED = "a2600";
     protected final static String ATARI_7800_FIXED = "a7800";
 
-    private String namespace;
+    private String platformId;
     private String name;
     private String category;
     private String manufacturer;
@@ -40,7 +40,7 @@ public class PocketCore
             coreType = ARCADE;
         }
 
-        return String.format(IMAGE_LINK, coreType, this.namespace);
+        return String.format(IMAGE_LINK, coreType, this.platformId);
     }
 
     public boolean isCategoryArcade()
@@ -50,25 +50,25 @@ public class PocketCore
 
     public boolean isFakeArcadeCore()
     {
-        return ARCADE.equalsIgnoreCase(this.namespace);
+        return ARCADE.equalsIgnoreCase(this.platformId);
     }
 
-    public String getNamespace()
+    public String getPlatformId()
     {
-        if (ATARI_2600.equalsIgnoreCase(namespace))
+        if (ATARI_2600.equalsIgnoreCase(platformId))
         {
             return ATARI_2600_FIXED;
         }
-        if (ATARI_7800.equalsIgnoreCase(namespace))
+        if (ATARI_7800.equalsIgnoreCase(platformId))
         {
             return ATARI_7800_FIXED;
         }
-        return namespace;
+        return platformId;
     }
 
-    public void setNamespace(String namespace)
+    public void setPlatformId(String platformId)
     {
-        this.namespace = namespace;
+        this.platformId = platformId;
     }
 
     public String getName()
@@ -115,7 +115,7 @@ public class PocketCore
     {
         PocketCore core = new PocketCore();
         core.setName(FAKE_ARCADE_NAME);
-        core.setNamespace(ARCADE);
+        core.setPlatformId(ARCADE);
         core.setCategory(CAT_ARCADE_MULTI);
         core.setManufacturer(FAKE_ARCADE_MANU);
 

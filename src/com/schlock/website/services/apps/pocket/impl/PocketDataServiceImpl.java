@@ -63,7 +63,7 @@ public class PocketDataServiceImpl implements PocketDataService
 
         for(PocketGame game : getGames())
         {
-            if (StringUtils.equalsIgnoreCase(core.getNamespace(), game.getCore()))
+            if (StringUtils.equalsIgnoreCase(core.getPlatformId(), game.getCore()))
             {
                 games.add(game);
             }
@@ -115,7 +115,7 @@ public class PocketDataServiceImpl implements PocketDataService
 
         for(PocketGame game : getGames())
         {
-            if (StringUtils.equalsIgnoreCase(core.getNamespace(), game.getCore()) &&
+            if (StringUtils.equalsIgnoreCase(core.getPlatformId(), game.getCore()) &&
                     StringUtils.equalsIgnoreCase(genreId, game.getGenreId()))
             {
                 games.add(game);
@@ -166,10 +166,10 @@ public class PocketDataServiceImpl implements PocketDataService
         return cores;
     }
 
-    public PocketCore getCoreByNamespace(String namespace)
+    public PocketCore getCoreByPlatformId(String platformId)
     {
         loadCoreMap();
-        return cachedCores.get(namespace);
+        return cachedCores.get(platformId);
     }
 
     public List<DataPanelData> getCountByMostCommonDeveloper(PocketCore core, String genre, Integer maxResults)
@@ -331,7 +331,7 @@ public class PocketDataServiceImpl implements PocketDataService
         cachedCores = new HashMap<String, PocketCore>();
         for(PocketCore core : coreList)
         {
-            cachedCores.put(core.getNamespace(), core);
+            cachedCores.put(core.getPlatformId(), core);
         }
     }
 
@@ -396,7 +396,7 @@ public class PocketDataServiceImpl implements PocketDataService
     {
         for(PocketGame game : getGames())
         {
-            if (StringUtils.equalsIgnoreCase(game.getCore(), core.getNamespace()))
+            if (StringUtils.equalsIgnoreCase(game.getCore(), core.getPlatformId()))
             {
                 return true;
             }
