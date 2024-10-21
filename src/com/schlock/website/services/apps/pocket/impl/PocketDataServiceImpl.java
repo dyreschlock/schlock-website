@@ -77,8 +77,8 @@ public class PocketDataServiceImpl implements PocketDataService
             {
                 if (core.isFakeArcadeCore())
                 {
-                    core_ok = StringUtils.equalsIgnoreCase(PocketCore.CAT_ARCADE_1, game.getCore()) ||
-                                StringUtils.equalsIgnoreCase(PocketCore.CAT_ARCADE_2, game.getCore());
+                    core_ok = StringUtils.equalsIgnoreCase(PocketCore.CAT_ARCADE_1, game.getPlatform()) ||
+                                StringUtils.equalsIgnoreCase(PocketCore.CAT_ARCADE_2, game.getPlatform());
                 }
                 else
                 {

@@ -178,7 +178,7 @@ public class Index
         String title = messages.get(TITLE_KEY);
         if (selectedCore != null || selectedGenre != null)
         {
-            String link = Index.getPageLink(imageView, null,null, null);
+            String link = Index.getPageLink(imageView, selectedDevice,null, null);
 
             title = String.format(LINK_HTML, link, title);
         }

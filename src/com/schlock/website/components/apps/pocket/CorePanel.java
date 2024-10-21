@@ -89,7 +89,7 @@ public class CorePanel
     {
         String html = "<a href=\"%s\">%s</a>";
         String name = currentCore.getName();
-        String link = Index.getPageLink(imageView, null, currentCore, null);
+        String link = Index.getPageLink(imageView, device, currentCore, null);
 
         return String.format(html, link, name);
     }
@@ -124,7 +124,7 @@ public class CorePanel
         int count = 0;
         for(PocketCore core : getCores())
         {
-            List<PocketGame> games = pocketDataService.getGamesByCore(core);
+            List<PocketGame> games = pocketDataService.getGamesByDeviceCoreGenre(device, core, null);
             count += games.size();
         }
         return Integer.toString(count);
