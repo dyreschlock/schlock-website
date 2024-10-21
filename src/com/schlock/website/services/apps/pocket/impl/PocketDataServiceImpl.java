@@ -1,9 +1,9 @@
 package com.schlock.website.services.apps.pocket.impl;
 
 import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import com.schlock.website.entities.apps.games.DataPanelData;
+import com.schlock.website.entities.apps.pocket.Device;
 import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.entities.apps.pocket.PocketGame;
 import com.schlock.website.services.DeploymentContext;
@@ -308,7 +308,15 @@ public class PocketDataServiceImpl implements PocketDataService
         String filepath = context.dataDirectory() + POCKET_DIR + GAMES_JSON_FILE;
         String jsonString = readFileContents(filepath);
 
-        Gson gson = new GsonBuilder().create();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Device.class, new JsonDeserializer<Device>()
+                {
+                    public Device deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
+                    {
+                        return Device.value(json.getAsString());
+                    }
+                })
+                .create();
 
         Type listOfGames = new TypeToken<ArrayList<PocketGame>>(){}.getType();
 

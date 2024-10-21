@@ -2,6 +2,8 @@ package com.schlock.website.entities.apps.pocket;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.List;
+
 public class PocketGame extends ImagedGame
 {
     private String gameName;
@@ -9,9 +11,12 @@ public class PocketGame extends ImagedGame
     private String publisher;
     private String releaseDate;
     private String genre;
+    private String coreName;
     private String core;
     private String platform;
     private String fileHash;
+
+    private List<Device> devices;
 
     private String year;
     private String genreId;
@@ -98,6 +103,16 @@ public class PocketGame extends ImagedGame
         this.genre = genre;
     }
 
+    public String getCoreName()
+    {
+        return coreName;
+    }
+
+    public void setCoreName(String coreName)
+    {
+        this.coreName = coreName;
+    }
+
     public void setCore(String core)
     {
         this.core = core;
@@ -121,5 +136,15 @@ public class PocketGame extends ImagedGame
     public void setFileHash(String fileHash)
     {
         this.fileHash = fileHash;
+    }
+
+    public List<Device> getDevices()
+    {
+        return devices;
+    }
+
+    public void setDevices(List<Device> devices)
+    {
+        this.devices = devices;
     }
 }

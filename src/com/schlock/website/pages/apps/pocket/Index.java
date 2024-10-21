@@ -1,6 +1,7 @@
 package com.schlock.website.pages.apps.pocket;
 
 import com.schlock.website.entities.apps.games.DataPanelData;
+import com.schlock.website.entities.apps.pocket.Device;
 import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.services.apps.pocket.PocketDataService;
 import com.schlock.website.services.blog.CssCache;
@@ -37,6 +38,9 @@ public class Index
     private String selectedGenre;
 
     @Property
+    private Device selectedDevice;
+
+    @Property
     private Boolean imageView;
 
     Object onActivate()
@@ -54,10 +58,14 @@ public class Index
         {
             imageView = false;
 
-            selectedCore = pocketDataService.getCoreByPlatformId(parameter);
-            if (selectedCore == null)
+            selectedDevice = Device.value(parameter);
+            if (selectedDevice == null)
             {
-                selectedGenre = parameter;
+                selectedCore = pocketDataService.getCoreByPlatformId(parameter);
+                if (selectedCore == null)
+                {
+                    selectedGenre = parameter;
+                }
             }
         }
         return true;
@@ -66,9 +74,14 @@ public class Index
     Object onActivate(String p1, String p2)
     {
         /**
-         * Three scenarios:
+         * Six scenarios:
+         * /img/device
          * /img/core
          * /img/genre
+         *
+         * /device/core
+         * /device/genre
+         *
          * /core/genre
          */
 
@@ -79,19 +92,55 @@ public class Index
         }
         else
         {
-            selectedCore = pocketDataService.getCoreByPlatformId(p1);
-            selectedGenre = p2;
+            if(Device.value(p1) != null)
+            {
+                onActivate(p2);
+                selectedDevice = Device.valueOf(p1);
+            }
+            else
+            {
+                selectedDevice = null;
+                selectedCore = pocketDataService.getCoreByPlatformId(p1);
+                selectedGenre = p2;
+            }
             imageView = false;
         }
-
         return true;
     }
 
     Object onActivate(String p1, String p2, String p3)
     {
-        imageView = IMAGE_VIEW_ID.equalsIgnoreCase(p1);
-        selectedCore = pocketDataService.getCoreByPlatformId(p2);
-        selectedGenre = p3;
+        /**
+         * Four scenarios:
+         *
+         * /img/device/core
+         * /img/device/genre
+         * /img/core/genre
+         *
+         * /device/core/genre
+         */
+
+        if (IMAGE_VIEW_ID.equalsIgnoreCase(p1))
+        {
+            onActivate(p2, p3);
+            imageView = true;
+        }
+        else
+        {
+            selectedDevice = Device.value(p1);
+            selectedCore = pocketDataService.getCoreByPlatformId(p2);
+            selectedGenre = p3;
+            imageView = false;
+        }
+        return true;
+    }
+
+    Object onActivate(String p1, String p2, String p3, String p4)
+    {
+        imageView = true;
+        selectedDevice = Device.value(p2);
+        selectedCore = pocketDataService.getCoreByPlatformId(p3);
+        selectedGenre = p4;
 
         return true;
     }
@@ -129,7 +178,7 @@ public class Index
         String title = messages.get(TITLE_KEY);
         if (selectedCore != null || selectedGenre != null)
         {
-            String link = Index.getPageLink(imageView,null, null);
+            String link = Index.getPageLink(imageView, null,null, null);
 
             title = String.format(LINK_HTML, link, title);
         }
@@ -152,7 +201,7 @@ public class Index
 
     public String getViewLinkLink()
     {
-        return getPageLink(!imageView, selectedCore, selectedGenre);
+        return getPageLink(!imageView, selectedDevice, selectedCore, selectedGenre);
     }
 
     public boolean isNothingSelected()
@@ -217,13 +266,17 @@ public class Index
     }
 
 
-    public static String getPageLink(boolean imageView, PocketCore core, String genre)
+    public static String getPageLink(boolean imageView, Device device, PocketCore core, String genre)
     {
         String link = "/apps/pocket";
 
         if (imageView)
         {
             link += "/" + IMAGE_VIEW_ID;
+        }
+        if (device != null)
+        {
+            link += "/" + device.name().toLowerCase();
         }
         if (core != null)
         {

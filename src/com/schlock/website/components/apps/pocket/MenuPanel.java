@@ -79,11 +79,11 @@ public class MenuPanel
             {
                 if(StringUtils.equalsIgnoreCase(genre, genreId))
                 {
-                    link = Index.getPageLink(imageView, core, null);
+                    link = Index.getPageLink(imageView, null, core, null);
                 }
                 else
                 {
-                    link = Index.getPageLink(imageView, core, genreId);
+                    link = Index.getPageLink(imageView, null, core, genreId);
                 }
             }
 
