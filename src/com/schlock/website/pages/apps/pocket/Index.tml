@@ -21,7 +21,7 @@
             <table class="layout">
                 <tr>
                     <td rowspan="2">
-                        <p:menupanel core="selectedCore" imageView="imageView" />
+                        <p:menupanel device="selectedDevice" core="selectedCore" imageView="imageView" />
                     </td>
                     <td>
                         <p:corepanel category="console" imageView="imageView" />
@@ -48,7 +48,7 @@
             <table class="layout">
                 <tr>
                     <td rowspan="3">
-                        <p:menupanel core="selectedCore" genre="selectedGenre" imageView="imageView" />
+                        <p:menupanel device="selectedDevice" core="selectedCore" genre="selectedGenre" imageView="imageView" />
                     </td>
                     <td class="data" height="50px" colspan="3">
                         <p:coredata core="selectedCore" />
@@ -73,7 +73,7 @@
             <table class="layout">
                 <tr>
                     <td rowspan="2">
-                        <p:menupanel genre="selectedGenre" imageView="imageView" />
+                        <p:menupanel device="selectedDevice" genre="selectedGenre" imageView="imageView" />
                     </td>
                     <td height="10px"><g:datapanel title="message:most-common-dev" displayData="devData" /></td>
                     <td height="10px"><g:datapanel title="message:most-common-pub" displayData="pubData" /></td>

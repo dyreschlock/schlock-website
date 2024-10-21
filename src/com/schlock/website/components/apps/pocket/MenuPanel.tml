@@ -17,6 +17,8 @@
         </table>
     </div>
 
+    <g:datapanel title="deviceTitle" displayData="deviceData" />
+
     <g:datapanel title="genreTitle" displayData="genreData" />
 
 </t:container>
