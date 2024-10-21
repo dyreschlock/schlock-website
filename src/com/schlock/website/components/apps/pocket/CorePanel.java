@@ -108,17 +108,6 @@ public class CorePanel
         return html;
     }
 
-    public String getArcadeGameCount()
-    {
-        List<PocketCore> arcadeCores = pocketDataService.getCoresByCategory(PocketCore.CAT_ARCADE_1, PocketCore.CAT_ARCADE_2);
-        int count = 0;
-        for(PocketCore core : arcadeCores)
-        {
-            count += pocketDataService.getGamesByCore(core).size();
-        }
-        return Integer.toString(count);
-    }
-
     public String getTotalCount()
     {
         int count = 0;

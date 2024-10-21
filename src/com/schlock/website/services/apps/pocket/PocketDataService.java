@@ -13,10 +13,6 @@ public interface PocketDataService
 
     List<PocketGame> getGamesByCore(PocketCore core);
 
-    List<PocketGame> getGamesByGenre(String genre);
-
-    List<PocketGame> getGamesByCoreGenre(PocketCore core, String genre);
-
     List<PocketGame> getGamesByDeviceCoreGenre(Device device, PocketCore core, String genre);
 
     List<PocketCore> getCores();
@@ -29,10 +25,10 @@ public interface PocketDataService
 
     List<String> getGameGenres();
 
-    List<DataPanelData> getCountByMostCommonDeveloper(PocketCore core, String genre, Integer maxResults);
+    List<DataPanelData> getCountByMostCommonDeveloper(Device device, PocketCore core, String genre, Integer maxResults);
 
-    List<DataPanelData> getCountByMostCommonPublisher(PocketCore core, String genre, Integer maxResults);
+    List<DataPanelData> getCountByMostCommonPublisher(Device device, PocketCore core, String genre, Integer maxResults);
 
-    List<DataPanelData> getCountByMostCommonYear(PocketCore core, String genre, Integer maxResults);
+    List<DataPanelData> getCountByMostCommonYear(Device device, PocketCore core, String genre, Integer maxResults);
 
 }

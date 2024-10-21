@@ -222,17 +222,17 @@ public class Index
 
     public List<DataPanelData> getDevData()
     {
-        return pocketDataService.getCountByMostCommonDeveloper(selectedCore, selectedGenre, getMaxResults());
+        return pocketDataService.getCountByMostCommonDeveloper(selectedDevice, selectedCore, selectedGenre, getMaxResults());
     }
 
     public List<DataPanelData> getPubData()
     {
-        return pocketDataService.getCountByMostCommonPublisher(selectedCore, selectedGenre, getMaxResults());
+        return pocketDataService.getCountByMostCommonPublisher(selectedDevice, selectedCore, selectedGenre, getMaxResults());
     }
 
     public List<DataPanelData> getYearData()
     {
-        return pocketDataService.getCountByMostCommonYear(selectedCore, selectedGenre, getMaxResults());
+        return pocketDataService.getCountByMostCommonYear(selectedDevice, selectedCore, selectedGenre, getMaxResults());
     }
 
     private int getMaxResults()

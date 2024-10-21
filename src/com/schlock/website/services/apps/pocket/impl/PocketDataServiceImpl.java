@@ -47,16 +47,6 @@ public class PocketDataServiceImpl implements PocketDataService
         return getGamesByDeviceCoreGenre(null, core, null);
     }
 
-    public List<PocketGame> getGamesByGenre(String genreId)
-    {
-        return getGamesByDeviceCoreGenre(null, null, genreId);
-    }
-
-    public List<PocketGame> getGamesByCoreGenre(PocketCore core, String genreId)
-    {
-        return getGamesByDeviceCoreGenre(null, core, genreId);
-    }
-
     public List<PocketGame> getGamesByDeviceCoreGenre(Device device, PocketCore core, String genre)
     {
         List<PocketGame> games = new ArrayList<PocketGame>();
@@ -94,13 +84,13 @@ public class PocketDataServiceImpl implements PocketDataService
         return games;
     }
 
-    private List<PocketGame> getGamesByCoreOrGenre(PocketCore core, String genreId)
+    private List<PocketGame> getGamesByCoreOrGenre(Device device, PocketCore core, String genreId)
     {
         if (core != null)
         {
-            return getGamesByCore(core);
+            return getGamesByDeviceCoreGenre(device, core, null);
         }
-        return getGamesByGenre(genreId);
+        return getGamesByDeviceCoreGenre(device, null, genreId);
     }
 
     public List<PocketCore> getCores()
@@ -142,9 +132,9 @@ public class PocketDataServiceImpl implements PocketDataService
         return cachedCores.get(platformId);
     }
 
-    public List<DataPanelData> getCountByMostCommonDeveloper(PocketCore core, String genre, Integer maxResults)
+    public List<DataPanelData> getCountByMostCommonDeveloper(Device device, PocketCore core, String genre, Integer maxResults)
     {
-        List<PocketGame> games = getGamesByCoreOrGenre(core, genre);
+        List<PocketGame> games = getGamesByCoreOrGenre(device, core, genre);
         return getCountByMostCommonDeveloper(games, maxResults);
     }
 
@@ -174,9 +164,9 @@ public class PocketDataServiceImpl implements PocketDataService
         return createDataPanelData(developerInfo, maxResults);
     }
 
-    public List<DataPanelData> getCountByMostCommonPublisher(PocketCore core, String genre, Integer maxResults)
+    public List<DataPanelData> getCountByMostCommonPublisher(Device device, PocketCore core, String genre, Integer maxResults)
     {
-        List<PocketGame> games = getGamesByCoreOrGenre(core, genre);
+        List<PocketGame> games = getGamesByCoreOrGenre(device, core, genre);
         return getCountByMostCommonPublisher(games, maxResults);
     }
 
@@ -206,9 +196,9 @@ public class PocketDataServiceImpl implements PocketDataService
         return createDataPanelData(publisherInfo, maxResults);
     }
 
-    public List<DataPanelData> getCountByMostCommonYear(PocketCore core, String genre, Integer maxResults)
+    public List<DataPanelData> getCountByMostCommonYear(Device device, PocketCore core, String genre, Integer maxResults)
     {
-        List<PocketGame> games = getGamesByCoreOrGenre(core, genre);
+        List<PocketGame> games = getGamesByCoreOrGenre(device, core, genre);
         return getCountByMostCommonYear(games, maxResults);
     }
 

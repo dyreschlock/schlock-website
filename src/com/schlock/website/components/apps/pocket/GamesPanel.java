@@ -1,6 +1,7 @@
 package com.schlock.website.components.apps.pocket;
 
 import com.schlock.website.components.apps.games.DataPanel;
+import com.schlock.website.entities.apps.pocket.Device;
 import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.entities.apps.pocket.PocketGame;
 import com.schlock.website.services.apps.pocket.PocketDataService;
@@ -30,6 +31,9 @@ public class GamesPanel
     private Messages messages;
 
     @Parameter
+    private Device device;
+
+    @Parameter
     @Property
     private PocketCore core;
 
@@ -49,7 +53,7 @@ public class GamesPanel
 
     public List<PocketGame> getGames()
     {
-        List<PocketGame> games = pocketDataService.getGamesByCoreGenre(core, genre);
+        List<PocketGame> games = pocketDataService.getGamesByDeviceCoreGenre(device, core, genre);
         Collections.sort(games, new Comparator<PocketGame>()
         {
             public int compare(PocketGame o1, PocketGame o2)
