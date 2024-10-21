@@ -95,7 +95,7 @@ public class Index
             if(Device.value(p1) != null)
             {
                 onActivate(p2);
-                selectedDevice = Device.valueOf(p1);
+                selectedDevice = Device.value(p1);
             }
             else
             {
