@@ -43,4 +43,6 @@ public interface DeploymentContext
 
     String coverImageLocationLocal();
     String coverImageLocationInternet();
+
+    String discordWebhookURL();
 }

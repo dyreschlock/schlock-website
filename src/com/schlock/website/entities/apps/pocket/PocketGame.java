@@ -22,6 +22,11 @@ public class PocketGame extends ImagedGame
     private String genreId;
 
 
+    public String getUniqueName()
+    {
+        return gameName + " (" + coreName + ")";
+    }
+
     public String getYear()
     {
         if (year == null && StringUtils.isNotBlank(releaseDate))

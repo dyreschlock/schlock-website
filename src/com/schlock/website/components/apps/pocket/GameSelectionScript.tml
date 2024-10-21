@@ -1,0 +1,21 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <script>
+
+        function selectGame(gameTitle)
+        {
+            var webHookURL = "${webhookUrl}";
+            var message = "!game " + gameTitle;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", webHookURL, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({
+                'content': message,
+                'username':'Schlock Web',
+            }));
+        }
+
+    </script>
+</t:container>

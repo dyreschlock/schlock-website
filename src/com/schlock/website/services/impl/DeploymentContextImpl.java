@@ -30,6 +30,8 @@ public class DeploymentContextImpl implements DeploymentContext
     private static final String GITHUB_PS2_PARAM = "github.ps2.repo";
     private static final String GITHUB_POKEMON_PARAM = "github.pokemon.repo";
 
+    private static final String DISCORD_WEBHOOK_PARAM = "discord.webhook";
+
     private static final String LOCAL = "local";
     private static final String HOSTED = "hosted";
 
@@ -207,5 +209,10 @@ public class DeploymentContextImpl implements DeploymentContext
     {
         String domain = getDeployProperties().getProperty(WEB_DOMAIN);
         return domain + COVER_DIR;
+    }
+
+    public String discordWebhookURL()
+    {
+        return getDeployProperties().getProperty(DISCORD_WEBHOOK_PARAM);
     }
 }

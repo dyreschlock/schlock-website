@@ -2,6 +2,7 @@
 <html
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:g="tapestry-library:apps/pocket"
     lang="en"
     >
     <head>
@@ -36,6 +37,8 @@
         <link rel="manifest" href="/manifest.json" />
 
         <style>${css}</style>
+
+        <g:gameSelectionScript />
     </head>
 
     <!-- Google tag (gtag.js) -->

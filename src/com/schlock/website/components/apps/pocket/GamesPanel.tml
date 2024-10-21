@@ -42,11 +42,10 @@
                     <tr>
                         <t:if test="!coreSelected">
                             <td class="${currentGameCorePlatformId} platColor">${currentGameCoreText}</td>
-                            <td class="${evenOdd} name">${currentGame.gameName}</td>
                         </t:if>
-                        <t:if test="coreSelected">
-                            <td class="${evenOdd} name">${currentGame.gameName}</td>
-                        </t:if>
+                        <td class="${evenOdd} name">
+                            <span onclick="selectGame('${currentGame.uniqueName}')">${currentGame.gameName}</span>
+                        </td>
 
                         <td class="${evenOdd} developer">${currentGame.developer}</td>
                         <td class="${evenOdd} publisher">${currentGame.publisher}</td>
