@@ -58,6 +58,18 @@ public class PocketGame extends ImagedGame
         return core;
     }
 
+    public boolean isOnMister()
+    {
+        for(Device device : devices)
+        {
+            if (device == Device.MISTER)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public String getGameName()
     {
         return gameName;

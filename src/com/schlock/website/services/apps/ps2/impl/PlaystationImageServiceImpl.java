@@ -17,6 +17,11 @@ public class PlaystationImageServiceImpl extends GameImageServiceImpl<Playstatio
         return game.getTitle();
     }
 
+    protected String uniqueNameUsedForGameSelection(PlaystationGame game)
+    {
+        return null;
+    }
+
     protected String imageLink(PlaystationGame game)
     {
         final String IMG_LINK = "https://raw.githubusercontent.com/dyreschlock/dyreschlock.github.io/main/img/ps2/%s";

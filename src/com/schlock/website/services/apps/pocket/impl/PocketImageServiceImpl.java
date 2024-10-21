@@ -16,6 +16,15 @@ public class PocketImageServiceImpl extends GameImageServiceImpl<PocketGame> imp
         return game.getGameName();
     }
 
+    protected String uniqueNameUsedForGameSelection(PocketGame game)
+    {
+        if (game.isOnMister())
+        {
+            return game.getUniqueName();
+        }
+        return null;
+    }
+
     protected String imageLink(PocketGame game)
     {
         final String IMG_LINK = "https://raw.githubusercontent.com/dyreschlock/dyreschlock.github.io/main/img/pocket/%s/%s.bmp";

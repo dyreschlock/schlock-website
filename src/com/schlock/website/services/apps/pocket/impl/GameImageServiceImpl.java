@@ -23,6 +23,8 @@ public abstract class GameImageServiceImpl<T extends ImagedGame>
 
     protected abstract String displayName(T game);
 
+    protected abstract String uniqueNameUsedForGameSelection(T game);
+
     protected abstract String imageLink(T game);
 
     protected abstract String imageFilepath(T game);
@@ -74,17 +76,18 @@ public abstract class GameImageServiceImpl<T extends ImagedGame>
         }
 
         String displayName = displayName(game);
+        String uniqueName = uniqueNameUsedForGameSelection(game);
         String link = imageLink(game);
 
         Integer height = STANDARD_LINE_HEIGHT;
         Integer width = getScaledWidth(image);
 
-
-        Object[] imageEntry = new Object[4];
+        Object[] imageEntry = new Object[5];
         imageEntry[0] = displayName;
         imageEntry[1] = link;
         imageEntry[2] = height;
         imageEntry[3] = width;
+        imageEntry[4] = uniqueName;
 
         return imageEntry;
     }
@@ -112,7 +115,10 @@ public abstract class GameImageServiceImpl<T extends ImagedGame>
 
     private String serializeImagesIntoHTML(List<Object[]> images, Integer currentTotalWidth)
     {
+        //                            <span onclick="selectGame('${currentGame.uniqueName}')">${currentGame.gameName}</span>
+
         final String IMG_HTML = "<img height=\"%s\" width=\"%s\" src=\"%s\" alt=\"%s\" title=\"%s\" />";
+        final String IMG_HTML_ONCLICK = "<img height=\"%s\" width=\"%s\" src=\"%s\" alt=\"%s\" title=\"%s\" onclick=\"selectGame('%s')\" />";
 
         Double newHeight = STANDARD_LINE_HEIGHT.doubleValue() / currentTotalWidth.doubleValue() * CELL_WIDTH.doubleValue();
         boolean finalRow = false;
@@ -133,6 +139,7 @@ public abstract class GameImageServiceImpl<T extends ImagedGame>
             String imgLink = (String) image[1];
             Integer originalHeight = (Integer) image[2];
             Integer originalWidth = (Integer) image[3];
+            String uniqueName = (String) image[4];
 
             Double newWidth = originalWidth.doubleValue() / originalHeight.doubleValue() * newHeight;
 
@@ -145,7 +152,15 @@ public abstract class GameImageServiceImpl<T extends ImagedGame>
                 width += CELL_WIDTH.intValue() - imagesTotalWidth;
             }
 
-            String imgTag = String.format(IMG_HTML, height, width, imgLink, displayName, displayName);
+            String imgTag;
+            if (uniqueName == null)
+            {
+                imgTag = String.format(IMG_HTML, height, width, imgLink, displayName, displayName);
+            }
+            else
+            {
+                imgTag = String.format(IMG_HTML_ONCLICK, height, width, imgLink, displayName, displayName, uniqueName);
+            }
 
             imageHTML += imgTag;
         }

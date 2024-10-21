@@ -44,7 +44,12 @@
                             <td class="${currentGameCorePlatformId} platColor">${currentGameCoreText}</td>
                         </t:if>
                         <td class="${evenOdd} name">
-                            <span onclick="selectGame('${currentGame.uniqueName}')">${currentGame.gameName}</span>
+                            <t:if test="currentGame.onMister">
+                                <span onclick="selectGame('${currentGame.uniqueName}')">${currentGame.gameName}</span>
+                            </t:if>
+                            <t:if test="!currentGame.onMister">
+                                <span>${currentGame.gameName}</span>
+                            </t:if>
                         </td>
 
                         <td class="${evenOdd} developer">${currentGame.developer}</td>
