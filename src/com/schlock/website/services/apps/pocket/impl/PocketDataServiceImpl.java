@@ -44,79 +44,49 @@ public class PocketDataServiceImpl implements PocketDataService
 
     public List<PocketGame> getGamesByCore(PocketCore core)
     {
-        if (core == null)
-        {
-            return getGames();
-        }
-
-        List<PocketGame> games = new ArrayList<PocketGame>();
-
-        if (core.isFakeArcadeCore())
-        {
-            for(PocketCore arcadeCore : getCoresByCategory(PocketCore.CAT_ARCADE_1, PocketCore.CAT_ARCADE_2))
-            {
-                List<PocketGame> arcadeGames = getGamesByCore(arcadeCore);
-                games.addAll(arcadeGames);
-            }
-            return games;
-        }
-
-        for(PocketGame game : getGames())
-        {
-            if (StringUtils.equalsIgnoreCase(core.getPlatformId(), game.getCore()))
-            {
-                games.add(game);
-            }
-        }
-        return games;
+        return getGamesByDeviceCoreGenre(null, core, null);
     }
 
     public List<PocketGame> getGamesByGenre(String genreId)
     {
-        if (genreId == null)
-        {
-            return getGames();
-        }
-
-        List<PocketGame> games = new ArrayList<PocketGame>();
-
-        for(PocketGame game : getGames())
-        {
-            if (StringUtils.equalsIgnoreCase(genreId, game.getGenreId()))
-            {
-                games.add(game);
-            }
-        }
-        return games;
+        return getGamesByDeviceCoreGenre(null, null, genreId);
     }
 
     public List<PocketGame> getGamesByCoreGenre(PocketCore core, String genreId)
     {
-        if (genreId == null)
-        {
-            return getGamesByCore(core);
-        }
-        if (core == null)
-        {
-            return getGamesByGenre(genreId);
-        }
+        return getGamesByDeviceCoreGenre(null, core, genreId);
+    }
 
+    public List<PocketGame> getGamesByDeviceCoreGenre(Device device, PocketCore core, String genre)
+    {
         List<PocketGame> games = new ArrayList<PocketGame>();
-
-        if (core.isFakeArcadeCore())
-        {
-            for(PocketCore arcadeCore : getCoresByCategory(PocketCore.CAT_ARCADE_1, PocketCore.CAT_ARCADE_2))
-            {
-                List<PocketGame> arcadeGames = getGamesByCoreGenre(arcadeCore, genreId);
-                games.addAll(arcadeGames);
-            }
-            return games;
-        }
-
         for(PocketGame game : getGames())
         {
-            if (StringUtils.equalsIgnoreCase(core.getPlatformId(), game.getCore()) &&
-                    StringUtils.equalsIgnoreCase(genreId, game.getGenreId()))
+            boolean device_ok = device == null ||
+                                game.getDevices().contains(device);
+
+            boolean genre_ok = StringUtils.isBlank(genre) ||
+                                StringUtils.equalsIgnoreCase(genre, game.getGenreId());
+
+            boolean core_ok;
+            if (core == null)
+            {
+                core_ok = true;
+            }
+            else
+            {
+                if (core.isFakeArcadeCore())
+                {
+                    core_ok = StringUtils.equalsIgnoreCase(PocketCore.CAT_ARCADE_1, game.getCore()) ||
+                                StringUtils.equalsIgnoreCase(PocketCore.CAT_ARCADE_2, game.getCore());
+                }
+                else
+                {
+                    core_ok = StringUtils.equalsIgnoreCase(core.getPlatformId(), game.getCore());
+                }
+            }
+
+            if (device_ok && core_ok && genre_ok)
             {
                 games.add(game);
             }
