@@ -1,6 +1,7 @@
 package com.schlock.website.components.apps.pocket;
 
 import com.schlock.website.components.apps.games.DataPanel;
+import com.schlock.website.entities.apps.pocket.Device;
 import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.entities.apps.pocket.PocketGame;
 import com.schlock.website.pages.apps.pocket.Index;
@@ -30,6 +31,9 @@ public class CorePanel
 
     @Parameter
     private Boolean imageView;
+
+    @Parameter
+    private Device device;
 
     @Property
     private PocketCore currentCore;
@@ -90,10 +94,18 @@ public class CorePanel
         return String.format(html, link, name);
     }
 
-    public String getCurrentCoreGameCount()
+    public String getCurrentCoreGameCountHTML()
     {
-        List<PocketGame> games = pocketDataService.getGamesByCore(currentCore);
-        return Integer.toString(games.size());
+
+        List<PocketGame> games = pocketDataService.getGamesByDeviceCoreGenre(device, currentCore, null);
+        String html = Integer.toString(games.size());
+
+        if (games.size() == 0)
+        {
+            final String SPAN = "<span class=\"zero\">%s</span>";
+            html = String.format(SPAN, html);
+        }
+        return html;
     }
 
     public String getArcadeGameCount()

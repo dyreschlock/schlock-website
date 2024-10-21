@@ -1,6 +1,7 @@
 package com.schlock.website.services.apps.pocket;
 
 import com.schlock.website.entities.apps.games.DataPanelData;
+import com.schlock.website.entities.apps.pocket.Device;
 import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.entities.apps.pocket.PocketGame;
 
@@ -15,6 +16,8 @@ public interface PocketDataService
     List<PocketGame> getGamesByGenre(String genre);
 
     List<PocketGame> getGamesByCoreGenre(PocketCore core, String genre);
+
+    List<PocketGame> getGamesByDeviceCoreGenre(Device device, PocketCore core, String genre);
 
     List<PocketCore> getCores();
 

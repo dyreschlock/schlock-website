@@ -24,14 +24,14 @@
                         <p:menupanel device="selectedDevice" core="selectedCore" imageView="imageView" />
                     </td>
                     <td>
-                        <p:corepanel category="console" imageView="imageView" />
+                        <p:corepanel category="console" imageView="imageView" device="selectedDevice" />
                     </td>
                     <td>
-                        <p:corepanel category="handheld" imageView="imageView" />
-                        <p:corepanel category="computer" imageView="imageView" />
+                        <p:corepanel category="handheld" imageView="imageView" device="selectedDevice" />
+                        <p:corepanel category="computer" imageView="imageView" device="selectedDevice" />
                     </td>
                     <td>
-                        <p:corepanel category="arcadeMulti" imageView="imageView" />
+                        <p:corepanel category="arcadeMulti" imageView="imageView" device="selectedDevice" />
                     </td>
                 </tr>
                 <tr>

@@ -18,7 +18,9 @@ public class MenuPanel
     private static final String GENRE_TITLE_KEY = "genre";
     private static final String DEVICE_TITLE_KEY = "device";
 
-    private final String BOLD_SPAN_HTML = "<span class=\"bold\">%s</span>";
+    private final String SPAN_HTML = "<span class=\"%s\">%s</span>";
+    private final String SELECTED = "bold";
+    private final String UNSELECTED = "zero";
 
     @Inject
     private Messages messages;
@@ -72,13 +74,16 @@ public class MenuPanel
         {
             String key = d.name().toLowerCase();
             String displayText = messages.get(key);
-            if (d == device)
+            if (device != null && d == device)
             {
-                displayText = String.format(BOLD_SPAN_HTML, displayText);
+                displayText = String.format(SPAN_HTML, SELECTED, displayText);
+            }
+            else if (device != null)
+            {
+                displayText = String.format(SPAN_HTML, UNSELECTED, displayText);
             }
 
-            //TODO
-            int count = 1;
+            int count = pocketDataService.getGamesByDeviceCoreGenre(d, core, genre).size();
 
             String link = null;
             if (count > 0)
@@ -112,10 +117,10 @@ public class MenuPanel
             String genreText = messages.get(genreId);
             if (genreId.equalsIgnoreCase(genre))
             {
-                genreText = String.format(BOLD_SPAN_HTML, genreText);
+                genreText = String.format(SPAN_HTML, SELECTED, genreText);
             }
 
-            int count = pocketDataService.getGamesByCoreGenre(core, genreId).size();
+            int count = pocketDataService.getGamesByDeviceCoreGenre(device, core, genreId).size();
 
             String link = null;
             if (count > 0)

@@ -15,7 +15,9 @@
                     <td class="name ${outerLeftCss} ${currentCore.platformId}">
                         <t:outputraw value="currentCoreNameHTML" />
                     </td>
-                    <td class="count ${outerRightCss} ${evenOdd}">${currentCoreGameCount}</td>
+                    <td class="count ${outerRightCss} ${evenOdd}">
+                        <t:outputraw value="currentCoreGameCountHTML" />
+                    </td>
                 </tr>
             </t:loop>
 
