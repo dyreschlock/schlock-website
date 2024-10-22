@@ -15,7 +15,7 @@ public class Index
 {
     private static final String IMAGE_VIEW_ID = "img";
 
-    private static final String POST_UUID = "analogue-pocket-curated-games";
+    private static final String POST_UUID = "digital-retro-game-library";
 
     private static final String TITLE_KEY = "title";
 
