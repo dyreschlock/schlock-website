@@ -281,7 +281,6 @@ public class PocketDataServiceImpl implements PocketDataService
         Type listOfGames = new TypeToken<ArrayList<PocketGame>>(){}.getType();
 
         List<PocketGame> games = gson.fromJson(jsonString, listOfGames);
-
         Collections.sort(games, new Comparator<PocketGame>()
         {
             public int compare(PocketGame o1, PocketGame o2)
@@ -289,7 +288,30 @@ public class PocketDataServiceImpl implements PocketDataService
                 return o1.getGameName().compareTo(o2.getGameName());
             }
         });
+
+        games = removeMultiDiscGames(games);
         return games;
+    }
+
+    private List<PocketGame> removeMultiDiscGames(List<PocketGame> games)
+    {
+        final String DISC_PREFIX = " (Disc ";
+        final String DISC_1 = " (Disc 1)";
+
+        List<PocketGame> output = new ArrayList<PocketGame>();
+
+        for(PocketGame game : games)
+        {
+            String name = game.getGameName();
+            if (!StringUtils.containsIgnoreCase(name, DISC_PREFIX) || StringUtils.containsIgnoreCase(name, DISC_1))
+            {
+                name = name.replace(DISC_1, "");
+                game.setGameName(name);
+
+                output.add(game);
+            }
+        }
+        return output;
     }
 
     private void loadCoreMap()
