@@ -37,7 +37,7 @@ public class Regeneration
     /*
      * No slash at the beginning. Slash at the end.
      */
-    private static final String LOCATION = "photo/240802_imperial/";
+    private static final String LOCATION = "";
 
 
     @CommitAfter
