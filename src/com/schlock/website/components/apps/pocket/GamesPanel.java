@@ -101,6 +101,16 @@ public class GamesPanel
         return output;
     }
 
+    public String getCurrentGameGenreText()
+    {
+        String output = messages.get(currentGame.getGenreId());
+        if (output.startsWith("[["))
+        {
+            output = currentGame.getGenre();
+        }
+        return output;
+    }
+
     public boolean isHasGenre()
     {
         return genre != null;

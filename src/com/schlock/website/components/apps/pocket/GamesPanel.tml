@@ -55,7 +55,7 @@
                         <td class="${evenOdd} developer">${currentGame.developer}</td>
                         <td class="${evenOdd} publisher">${currentGame.publisher}</td>
                         <td class="${evenOdd} releaseDate">${currentGame.releaseDate}</td>
-                        <td class="${evenOdd} genre">${currentGame.genre}</td>
+                        <td class="${evenOdd} genre">${currentGameGenreText}</td>
                     </tr>
 
                 </t:loop>
