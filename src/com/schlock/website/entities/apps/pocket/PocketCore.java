@@ -20,9 +20,11 @@ public class PocketCore
 
     protected final static String ATARI_2600 = "2600";
     protected final static String ATARI_7800 = "7800";
+    protected final static String PC_486 = "486pc";
 
     protected final static String ATARI_2600_FIXED = "a2600";
     protected final static String ATARI_7800_FIXED = "a7800";
+    protected final static String PC_486_FIXED = "pc486";
 
     private String platformId;
     private String name;
@@ -62,6 +64,10 @@ public class PocketCore
         if (ATARI_7800.equalsIgnoreCase(platformId))
         {
             return ATARI_7800_FIXED;
+        }
+        if (PC_486.equalsIgnoreCase(platformId))
+        {
+            return PC_486_FIXED;
         }
         return platformId;
     }

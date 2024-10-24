@@ -55,6 +55,10 @@ public class PocketGame extends ImagedGame
         {
             return PocketCore.ATARI_2600_FIXED;
         }
+        if (PocketCore.PC_486.equalsIgnoreCase(core))
+        {
+            return PocketCore.PC_486_FIXED;
+        }
         return core;
     }
 
