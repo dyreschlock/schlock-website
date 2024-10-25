@@ -14,7 +14,8 @@ public enum Icon
     STEAM,
     EBAY,
     DISCORD,
-    TWITCH;
+    TWITCH,
+    BLUESKY;
 
 
     public String getIconPath()

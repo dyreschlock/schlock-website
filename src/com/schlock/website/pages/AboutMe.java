@@ -74,6 +74,11 @@ public class AboutMe
 
     public Icon getTwitch() { return Icon.TWITCH; }
 
+    public Icon getBluesky()
+    {
+        return Icon.BLUESKY;
+    }
+
 
     private Page cachedPage;
 
