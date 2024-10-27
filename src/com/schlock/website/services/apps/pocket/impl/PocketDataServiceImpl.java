@@ -67,8 +67,16 @@ public class PocketDataServiceImpl implements PocketDataService
             {
                 if (core.isFakeArcadeCore())
                 {
-                    core_ok = StringUtils.equalsIgnoreCase(PocketCore.CAT_ARCADE_1, game.getPlatform()) ||
-                                StringUtils.equalsIgnoreCase(PocketCore.CAT_ARCADE_2, game.getPlatform());
+                    String gameCore = game.getCore();
+                    String gameCoreCat = null;
+                    if (gameCore != null)
+                    {
+                        gameCoreCat = getCoreByPlatformId(gameCore).getCategory();
+                    }
+
+                    core_ok = gameCoreCat == null ||
+                                StringUtils.equalsIgnoreCase(PocketCore.CAT_ARCADE_1, gameCoreCat) ||
+                                StringUtils.equalsIgnoreCase(PocketCore.CAT_ARCADE_2, gameCoreCat);
                 }
                 else
                 {
@@ -129,6 +137,10 @@ public class PocketDataServiceImpl implements PocketDataService
     public PocketCore getCoreByPlatformId(String platformId)
     {
         loadCoreMap();
+        if (platformId == null)
+        {
+            return null;
+        }
         return cachedCores.get(platformId);
     }
 
@@ -316,12 +328,15 @@ public class PocketDataServiceImpl implements PocketDataService
 
     private void loadCoreMap()
     {
-        List<PocketCore> coreList = loadCores();
-
-        cachedCores = new HashMap<String, PocketCore>();
-        for(PocketCore core : coreList)
+        if (cachedCores.isEmpty())
         {
-            cachedCores.put(core.getPlatformId(), core);
+            List<PocketCore> coreList = loadCores();
+
+            cachedCores = new HashMap<String, PocketCore>();
+            for(PocketCore core : coreList)
+            {
+                cachedCores.put(core.getPlatformId(), core);
+            }
         }
     }
 

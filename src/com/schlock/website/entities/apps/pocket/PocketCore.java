@@ -2,6 +2,9 @@ package com.schlock.website.entities.apps.pocket;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class PocketCore
 {
     public static final String CAT_CONSOLE = "Console";
@@ -10,6 +13,10 @@ public class PocketCore
     public static final String CAT_ARCADE_1 = "Arcade";
     public static final String CAT_ARCADE_2 = "Arcade";
     public static final String CAT_ARCADE_MULTI = "Arcade Multi";
+
+    private static final List<String> DEMOTE_MULTI_CORE_TO_SINGLE = Arrays.asList("Konami Turtles",
+                                                                                    "Konami Aliens",
+                                                                                    "Tecmo (Rygar)");
 
     private static final String IMAGE_LINK = "https://raw.githubusercontent.com/dyreschlock/pocket-platform-images/main/pics/%s/%s.png";
     private static final String HOME = "home";
@@ -45,14 +52,14 @@ public class PocketCore
         return String.format(IMAGE_LINK, coreType, this.platformId);
     }
 
-    public boolean isCategoryArcade()
+    public boolean isCategorySingleArcade()
     {
         return CAT_ARCADE_1.equalsIgnoreCase(getCategory()) || CAT_ARCADE_2.equalsIgnoreCase(getCategory());
     }
 
     public boolean isFakeArcadeCore()
     {
-        return ARCADE.equalsIgnoreCase(this.platformId);
+        return ARCADE.equalsIgnoreCase(getPlatformId());
     }
 
     public String getPlatformId()
@@ -77,6 +84,20 @@ public class PocketCore
         this.platformId = platformId;
     }
 
+    public String getCategory()
+    {
+        if (DEMOTE_MULTI_CORE_TO_SINGLE.contains(this.name))
+        {
+            return CAT_ARCADE_1;
+        }
+        return category;
+    }
+
+    public void setCategory(String category)
+    {
+        this.category = category;
+    }
+
     public String getName()
     {
         return name;
@@ -85,16 +106,6 @@ public class PocketCore
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    public String getCategory()
-    {
-        return category;
-    }
-
-    public void setCategory(String category)
-    {
-        this.category = category;
     }
 
     public String getManufacturer()

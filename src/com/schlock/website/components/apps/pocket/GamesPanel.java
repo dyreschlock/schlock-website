@@ -82,7 +82,7 @@ public class GamesPanel
     {
         String name = currentGame.getCore();
         PocketCore core = pocketDataService.getCoreByPlatformId(currentGame.getCore());
-        if (core == null || core.isCategoryArcade())
+        if (core == null || core.isCategorySingleArcade())
         {
             return ARCADE_GENERAL;
         }
