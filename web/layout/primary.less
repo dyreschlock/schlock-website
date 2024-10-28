@@ -32,6 +32,9 @@
 @rainbow_gre_light: #c3e3c3;
 @rainbow_oli_light: #d9e3c3;
 
+@error_bgcolor: #00a;
+@error_txcolor: #fff;
+@error_hlcolor: #bbb;
 
 @app_width: 1024px;
 
@@ -75,6 +78,64 @@ code, pre
     background-color: @subheadercolor;
     border-radius: 6px;
 }
+
+.error
+{
+    #blogFullBody, #blogBody
+    {
+        background-color: @error_bgcolor;
+    }
+
+    #blogBody
+    {
+        border: 0;
+    }
+
+    #subheaderFullBody
+    {
+        display: none;
+    }
+
+    #errorMessage
+    {
+        padding-top: 230px;
+        padding-bottom: 150px;
+
+        color: @error_txcolor;
+
+        font-family: 'Perfect DOS VGA 437','Fixedsys';
+        font-size: 18pt;
+        letter-spacing: -1px;
+        line-height: 24px;
+
+        p
+        {
+            text-align: center;
+
+            margin: 0px;
+        }
+
+        .header
+        {
+            width: 200px;
+
+            background-color: @error_hlcolor;
+            color: @error_bgcolor;
+        }
+
+        a
+        {
+            color: @error_txcolor;
+        }
+
+        a:hover
+        {
+            text-decoration: underline;
+        }
+    }
+}
+
+
 
 #headerFullBody, #subheaderFullBody, #blogFullBody, #footerFullyBody
 {
@@ -258,6 +319,8 @@ code, pre
         margin: 0 15px;
     }
 }
+
+
 
 
 

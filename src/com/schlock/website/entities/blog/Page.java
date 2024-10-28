@@ -8,6 +8,7 @@ public class Page extends AbstractPost
     public static final String CLUB_UUID = "club";
     public static final String LESSON_PLANS_UUID = "lessons";
     public static final String PROJECTS_UUID = "projects";
+    public static final String ERROR_PAGE_UUID = "errorpage";
 
 
     public boolean isPage()

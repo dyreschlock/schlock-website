@@ -89,7 +89,7 @@ public class CorePanel
     {
         List<PocketGame> games = pocketDataService.getGamesByDeviceCoreGenre(device, currentCore, null);
         String output = currentCore.getName();
-        
+
         if (games.size() > 0)
         {
             String html = "<a href=\"%s\">%s</a>";

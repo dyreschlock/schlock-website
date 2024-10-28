@@ -2,6 +2,7 @@ package com.schlock.website.components.blog;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
+import com.schlock.website.entities.blog.Page;
 import com.schlock.website.pages.Feed;
 import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.blog.ImageManagement;
@@ -141,5 +142,15 @@ public class LayoutBlog
     public String getPrimaryCss()
     {
         return cssCache.getAllCss();
+    }
+
+    public String getExtraCSS()
+    {
+        String extra = "";
+        if (post != null && Page.ERROR_PAGE_UUID.equals(post.getUuid()))
+        {
+            extra = "error";
+        }
+        return extra;
     }
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="blog/layoutblog" post="page"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <div id="errorMessage">
+
+        <p><span class="header"> Internet </span></p>
+        <br/>
+        An error has occurred. To continue:<br/>
+        <br/>
+        Click Above or Below to return to the site, or<br/>
+        <br/>
+        Close the application and restart your browser. If you do this,<br/>
+        you will lose any unsaved information in all open tabs.<br/>
+        <br/>
+        Error: 404<br/>
+        <br/>
+        <p>Click <a href="/">somewhere</a> to continue _</p>
+        <br/>
+    </div>
+</html>

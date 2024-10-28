@@ -59,6 +59,8 @@ mv "manifest" "manifest.json"
 mkdir "blog"
 cp "feed.xml" "blog/index.xml"
 
+cp "errorpage.html" "404.html"
+
 echo "update complete"
 
 exit 0
