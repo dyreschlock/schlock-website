@@ -87,16 +87,21 @@ public class CorePanel
 
     public String getCurrentCoreNameHTML()
     {
-        String html = "<a href=\"%s\">%s</a>";
-        String name = currentCore.getName();
-        String link = Index.getPageLink(imageView, device, currentCore, null);
+        List<PocketGame> games = pocketDataService.getGamesByDeviceCoreGenre(device, currentCore, null);
+        String output = currentCore.getName();
+        
+        if (games.size() > 0)
+        {
+            String html = "<a href=\"%s\">%s</a>";
+            String link = Index.getPageLink(imageView, device, currentCore, null);
 
-        return String.format(html, link, name);
+            output = String.format(html, link, output);
+        }
+        return output;
     }
 
     public String getCurrentCoreGameCountHTML()
     {
-
         List<PocketGame> games = pocketDataService.getGamesByDeviceCoreGenre(device, currentCore, null);
         String html = Integer.toString(games.size());
 
