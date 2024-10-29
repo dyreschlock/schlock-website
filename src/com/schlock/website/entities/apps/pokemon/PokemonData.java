@@ -19,6 +19,7 @@ public class PokemonData extends Persisted
 
     private boolean shadow;
     private boolean mega;
+    private boolean dynamax;
 
     private int baseAttack;
     private int baseDefense;
@@ -177,6 +178,16 @@ public class PokemonData extends Persisted
     public void setMega(boolean mega)
     {
         this.mega = mega;
+    }
+
+    public boolean isDynamax()
+    {
+        return dynamax;
+    }
+
+    public void setDynamax(boolean dynamax)
+    {
+        this.dynamax = dynamax;
     }
 
     public int getBaseAttack()
