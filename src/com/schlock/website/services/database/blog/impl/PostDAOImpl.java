@@ -456,14 +456,28 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
     public List<AbstractPost> getAllProjectsByCategory(boolean withUnpublished, Long categoryId)
     {
+        return getAllByCategoryClass(ProjectCategory.class, withUnpublished, categoryId);
+    }
+
+    public List<AbstractPost> getAllCoursesByCategory(Long categoryId)
+    {
+        return getAllByCategoryClass(CourseCategory.class, true, categoryId);
+    }
+
+    private List<AbstractPost> getAllByCategoryClass(Class categoryClass, boolean withUnpublished, Long categoryId)
+    {
         String text = "select distinct p " +
                         " from AbstractPost p " +
                         " join p.categories c " +
-                        " where c.class = '" + ProjectCategory.class.getCanonicalName() + "' ";
+                        " where c.class = '" + categoryClass.getCanonicalName() + "' ";
+
+        int publishLevel = POST_UNPUBLISHED;
         if (!withUnpublished)
         {
-            text += " and p.publishedLevel >= " + POST_PUBLISHED + " ";
+            publishLevel = POST_PUBLISHED;
         }
+        text += " and p.publishedLevel >= " + publishLevel + " ";
+
         if (categoryId != null)
         {
             text += " and c.id = :categoryId ";

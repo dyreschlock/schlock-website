@@ -12,75 +12,77 @@ public interface PostDAO extends BaseDAO<AbstractPost>
     public static final int MIN_RECENT = 2;
     public static final int ONLY_ONE = 1;
 
-    public AbstractPost getByUuid(String uuid);
+    AbstractPost getByUuid(String uuid);
 
-    public AbstractPost getByWpid(String wpid);
+    AbstractPost getByWpid(String wpid);
 
-    public AbstractPost getByMtid(String mtid);
+    AbstractPost getByMtid(String mtid);
 
-    public AbstractPost getByGalleryName(String galleryName);
+    AbstractPost getByGalleryName(String galleryName);
 
-    public List<AbstractPost> getAllWithGallery();
+    List<AbstractPost> getAllWithGallery();
 
-    public Set<String> getAllUuids();
+    Set<String> getAllUuids();
 
-    public List<String> getAllPublishedUuids();
+    List<String> getAllPublishedUuids();
 
-    public List<Post> getAllVisibleByDate();
+    List<Post> getAllVisibleByDate();
 
-    public Set<String> getAllGalleryNames();
-
-
-    public Post getMostRecentFrontPagePost(Long categoryId);
-
-    public Post getMostRecentPost(boolean withUnpublished, Long categoryId);
+    Set<String> getAllGalleryNames();
 
 
-    public List<Post> getMostRecentPostsWithGallery(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
+    Post getMostRecentFrontPagePost(Long categoryId);
+
+    Post getMostRecentPost(boolean withUnpublished, Long categoryId);
 
 
-    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId);
-
-    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId);
+    List<Post> getMostRecentPostsWithGallery(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
 
 
-    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
+    List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId);
 
-    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
-
-
-    public Post getNextPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
-
-    public List<AbstractPost> getNextPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts);
-
-    public Post getPreviousPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
-
-    public List<AbstractPost> getPreviousPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts);
+    List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId);
 
 
-    public List<Integer> getAllYears(boolean withUnpublished);
+    List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
 
-    public List<Integer> getMonths(Integer year, boolean withUnpublished);
-
-    public List<List<Integer>> getYearsMonthsByCategory(boolean withUnpublished, Long categoryId);
+    List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
 
 
-    public List<Page> getAllPages(boolean withUnpublished);
+    Post getNextPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
 
-    public AbstractPost getMostRecentProject(boolean withUnpublished);
+    List<AbstractPost> getNextPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts);
 
-    public List<AbstractPost> getAllProjectsByCategory(boolean withUnpublished, Long categoryId);
+    Post getPreviousPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
 
-    public ClubPost getMostRecentClubPost(boolean withUnpublished);
-
-    public List<ClubPost> getAllClubPosts(boolean withUnpublished);
-
-    public LessonPost getMostRecentLessonPost(boolean withUnpublished);
-
-    public List<LessonPost> getAllLessonPosts(boolean withUnpublished);
+    List<AbstractPost> getPreviousPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts);
 
 
-    public List<LessonPost> getByYearGradeLessonKeyword(String year, String grade, String lesson);
+    List<Integer> getAllYears(boolean withUnpublished);
 
-    public List<LessonPost> getByYearGradeLessonKeyword(String year, List<String> grade, String lesson);
+    List<Integer> getMonths(Integer year, boolean withUnpublished);
+
+    List<List<Integer>> getYearsMonthsByCategory(boolean withUnpublished, Long categoryId);
+
+
+    List<Page> getAllPages(boolean withUnpublished);
+
+    AbstractPost getMostRecentProject(boolean withUnpublished);
+
+    List<AbstractPost> getAllProjectsByCategory(boolean withUnpublished, Long categoryId);
+
+    List<AbstractPost> getAllCoursesByCategory(Long categoryId);
+
+    ClubPost getMostRecentClubPost(boolean withUnpublished);
+
+    List<ClubPost> getAllClubPosts(boolean withUnpublished);
+
+    LessonPost getMostRecentLessonPost(boolean withUnpublished);
+
+    List<LessonPost> getAllLessonPosts(boolean withUnpublished);
+
+
+    List<LessonPost> getByYearGradeLessonKeyword(String year, String grade, String lesson);
+
+    List<LessonPost> getByYearGradeLessonKeyword(String year, List<String> grade, String lesson);
 }

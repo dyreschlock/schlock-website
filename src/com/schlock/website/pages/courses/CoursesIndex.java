@@ -1,8 +1,8 @@
 package com.schlock.website.pages.courses;
 
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.CourseCategory;
 import com.schlock.website.entities.blog.Page;
-import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Property;
@@ -26,7 +26,7 @@ public class CoursesIndex
     private Integer currentIndex;
 
     @Property
-    private Post currentPost;
+    private AbstractPost currentPost;
 
 
     public List<CourseCategory> getCategories()
@@ -34,13 +34,13 @@ public class CoursesIndex
         return categoryDAO.getCourseInOrder();
     }
 
-    public List<Post> getCategoryCourses()
+    public List<AbstractPost> getCategoryCourses()
     {
         int postCount = 21;
         Long catId = currentCategory.getId();
         boolean unpublished = true;
 
-        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, null, null, catId);
+        List<AbstractPost> posts = postDAO.getAllCoursesByCategory(catId);
         return posts;
     }
 

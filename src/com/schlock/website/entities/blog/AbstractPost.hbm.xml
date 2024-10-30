@@ -52,10 +52,10 @@
                 <property name="lessonPlanLink" />
                 <property name="flashCardsLink" />
             </subclass>
-
-            <subclass name="com.schlock.website.entities.blog.CoursePage" />
         </subclass>
 
-        <subclass name="com.schlock.website.entities.blog.Page"/>
+        <subclass name="com.schlock.website.entities.blog.Page">
+            <subclass name="com.schlock.website.entities.blog.CoursePage" />
+        </subclass>
     </class>
 </hibernate-mapping>
