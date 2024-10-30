@@ -7,8 +7,11 @@
         <t:if test="showNumber">
             <div class="postNumber">${postNumber}</div>
         </t:if>
+        <t:if test="post.coursePage">
+            <div class="postNumber">${postYear}</div>
+        </t:if>
         <h2><t:outputraw value="postTitleHtml" /></h2>
-        <t:if test="!post.page">
+        <t:if test="displayDate">
             <div class="postDate">${createdDate}</div>
         </t:if>
         <t:if test="hasUpdatedTime">

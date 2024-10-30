@@ -4,11 +4,13 @@ import java.util.Date;
 
 public interface DateFormatter
 {
-    public String dateFormat(Date date);
+    String dateFormat(Date date);
 
-    public String htmlTagFormat(Date date);
+    String htmlTagFormat(Date date);
 
-    public String dayFormat(Date date);
+    String dayFormat(Date date);
 
-    public String rssFeedFormat(Date date);
+    String yearFormat(Date date);
+
+    String rssFeedFormat(Date date);
 }

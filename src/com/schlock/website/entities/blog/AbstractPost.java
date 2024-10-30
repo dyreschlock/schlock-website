@@ -74,7 +74,7 @@ public abstract class AbstractPost extends Persisted
         return false;
     }
 
-    public boolean isCoursePost()
+    public boolean isCoursePage()
     {
         return false;
     }

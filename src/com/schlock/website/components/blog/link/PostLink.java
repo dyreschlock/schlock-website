@@ -24,6 +24,9 @@ public class PostLink
     @Property
     private String cssClass;
 
+    @Parameter(value = "true")
+    private boolean displayDate;
+
     @Inject
     private DateFormatter dateFormat;
 
@@ -59,6 +62,16 @@ public class PostLink
             return messages.format(POST_NUMBER_KEY, ((Post) post).getDisplayNumber());
         }
         return null;
+    }
+
+    public String getPostYear()
+    {
+        return dateFormat.yearFormat(post.getCreated());
+    }
+
+    public boolean isDisplayDate()
+    {
+        return !post.isCoursePage() && !post.isPage();
     }
 
     public String getCreatedDate()

@@ -2,21 +2,30 @@
 <html t:type="blog/layoutblog" post="page"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:c="tapestry-library:blog/content"
+      xmlns:l="tapestry-library:blog/link"
       >
 
-    <c:postdisplay post="page" cssClass="blogPost">
+    <c:postdisplay post="page" cssClass="archive courses">
+        <div class="postBody columns">
+            <t:loop source="categories" value="currentCategory" index="currentIndex">
 
-        <t:loop source="categories" value="currentCategory">
+                <div class="column ${extraCatCss}">
 
-            ${currentCategory.name}<br/>
 
-            <t:loop source="categoryCourses" value="currentPost">
+                    <div class="title clr">
+                        ${currentCategory.name}
+                    </div>
 
-                ${currentPost.title}<br/>
+                    <t:loop source="categoryCourses" value="currentPost">
 
+                        <l:postlink post="currentPost" />
+
+                    </t:loop>
+                </div>
             </t:loop>
-        </t:loop>
-
+            <br class="clr" />
+            <br class="clr" />
+        </div>
     </c:postdisplay>
 
 </html>

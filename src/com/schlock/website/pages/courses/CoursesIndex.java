@@ -23,6 +23,9 @@ public class CoursesIndex
     private CourseCategory currentCategory;
 
     @Property
+    private Integer currentIndex;
+
+    @Property
     private Post currentPost;
 
 
@@ -45,6 +48,20 @@ public class CoursesIndex
 
 
 
+
+    public String getExtraCatCss()
+    {
+        String extraCss = "";
+        if ((currentIndex + 1) % 2 == 0)
+        {
+            extraCss += " twoColumnLast";
+        }
+        else
+        {
+            extraCss += " clr";
+        }
+        return extraCss;
+    }
 
     public Page getPage()
     {
