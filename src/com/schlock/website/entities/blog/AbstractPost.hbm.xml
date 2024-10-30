@@ -48,11 +48,14 @@
             </subclass>
 
             <subclass name="com.schlock.website.entities.blog.LessonPost">
+                <many-to-one name="coursePage" column="courseId" class="com.schlock.website.entities.blog.CoursePage" />
                 <property name="lessonPlanLink" />
                 <property name="flashCardsLink" />
             </subclass>
+
+            <subclass name="com.schlock.website.entities.blog.CoursePage" />
         </subclass>
 
-        <subclass name="com.schlock.website.entities.blog.Page" />
+        <subclass name="com.schlock.website.entities.blog.Page"/>
     </class>
 </hibernate-mapping>

@@ -1,6 +1,7 @@
 package com.schlock.website.services.database.blog.impl;
 
 import com.schlock.website.entities.blog.AbstractCategory;
+import com.schlock.website.entities.blog.CourseCategory;
 import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.blog.ProjectCategory;
 import com.schlock.website.services.database.BaseDAOImpl;
@@ -84,6 +85,16 @@ public class CategoryDAOImpl extends BaseDAOImpl<AbstractCategory> implements Ca
 
         Query query = session.createQuery(text);
         query.setLong("categoryId", categoryId);
+
+        return query.list();
+    }
+
+    public List<CourseCategory> getCourseInOrder()
+    {
+        String text = "from CourseCategory " +
+                        " order by ordering ";
+
+        Query query = session.createQuery(text);
 
         return query.list();
     }

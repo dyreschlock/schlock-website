@@ -2,12 +2,24 @@ package com.schlock.website.entities.blog;
 
 public class LessonPost extends Post
 {
+    private CoursePage coursePage;
+
     private String lessonPlanLink;
     private String flashCardsLink;
 
     public boolean isLessonPost()
     {
         return true;
+    }
+
+    public CoursePage getCoursePage()
+    {
+        return coursePage;
+    }
+
+    public void setCoursePage(CoursePage coursePage)
+    {
+        this.coursePage = coursePage;
     }
 
     public String getLessonPlanLink()

@@ -1,6 +1,7 @@
 package com.schlock.website.services.database.blog;
 
 import com.schlock.website.entities.blog.AbstractCategory;
+import com.schlock.website.entities.blog.CourseCategory;
 import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.blog.ProjectCategory;
 import com.schlock.website.services.database.BaseDAO;
@@ -9,15 +10,17 @@ import java.util.List;
 
 public interface CategoryDAO extends BaseDAO<AbstractCategory>
 {
-    public AbstractCategory getByUuid(Class cls, String uuid);
+    AbstractCategory getByUuid(Class cls, String uuid);
 
-    public PostCategory getFirstCategory();
+    PostCategory getFirstCategory();
 
-    public List<PostCategory> getTopInOrder();
+    List<PostCategory> getTopInOrder();
 
-    public List<PostCategory> getSubInOrder(Long categoryId);
+    List<PostCategory> getSubInOrder(Long categoryId);
 
-    public List<ProjectCategory> getTopProjectInOrder();
+    List<ProjectCategory> getTopProjectInOrder();
 
-    public List<ProjectCategory> getSubProjectInOrder(Long categoryId);
+    List<ProjectCategory> getSubProjectInOrder(Long categoryId);
+
+    List<CourseCategory> getCourseInOrder();
 }

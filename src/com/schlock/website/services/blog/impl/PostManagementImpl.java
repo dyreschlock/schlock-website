@@ -145,7 +145,7 @@ public class PostManagementImpl implements PostManagement
                 ClubPost recent = postDAO.getMostRecentClubPost(true);
                 updatedTime = recent.getCreated();
             }
-            if (page.isAlt())
+            if (page.isCourseRelated())
             {
                 LessonPost recent = postDAO.getMostRecentLessonPost(true);
                 updatedTime = recent.getCreated();

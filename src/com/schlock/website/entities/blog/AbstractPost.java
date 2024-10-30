@@ -74,6 +74,11 @@ public abstract class AbstractPost extends Persisted
         return false;
     }
 
+    public boolean isCoursePost()
+    {
+        return false;
+    }
+
     public boolean isProject()
     {
         for (AbstractCategory category : getCategories())

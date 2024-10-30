@@ -6,6 +6,7 @@ public class Page extends AbstractPost
 {
     public static final String ABOUT_ME_UUID = "aboutme";
     public static final String CLUB_UUID = "club";
+    public static final String COURSE_LIST_UUID = "courses";
     public static final String LESSON_PLANS_UUID = "lessons";
     public static final String PROJECTS_UUID = "projects";
     public static final String ERROR_PAGE_UUID = "errorpage";
@@ -22,9 +23,10 @@ public class Page extends AbstractPost
         return StringUtils.equalsIgnoreCase(getUuid(), CLUB_UUID);
     }
 
-    public boolean isAlt()
+    public boolean isCourseRelated()
     {
-        return StringUtils.equalsIgnoreCase(getUuid(), LESSON_PLANS_UUID);
+        return StringUtils.equalsIgnoreCase(getUuid(), LESSON_PLANS_UUID) ||
+                StringUtils.equalsIgnoreCase(getUuid(), COURSE_LIST_UUID);
     }
 
     public boolean isProjects()

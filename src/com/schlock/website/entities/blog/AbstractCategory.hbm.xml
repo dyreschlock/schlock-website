@@ -16,5 +16,6 @@
 
         <subclass name="com.schlock.website.entities.blog.PostCategory" />
         <subclass name="com.schlock.website.entities.blog.ProjectCategory" />
+        <subclass name="com.schlock.website.entities.blog.CourseCategory" />
     </class>
 </hibernate-mapping>

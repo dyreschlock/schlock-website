@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="blog/layoutblog" post="page"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:c="tapestry-library:blog/content"
+      >
+
+    <c:postdisplay post="page" cssClass="blogPost">
+
+        <t:loop source="categories" value="currentCategory">
+
+            ${currentCategory.name}<br/>
+
+            <t:loop source="categoryCourses" value="currentPost">
+
+                ${currentPost.title}<br/>
+
+            </t:loop>
+        </t:loop>
+
+    </c:postdisplay>
+
+</html>
