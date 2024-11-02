@@ -10,6 +10,8 @@ public class Image extends Persisted
     public static final String WEBP_FOLDER_NAME = "webp";
     public static final String WEBP_FILE_EXT = ".webp";
 
+    public static final String SVG_FILE_EXT = ".svg";
+
     private String directory;
     private String galleryName;
     private String imageName;
@@ -45,6 +47,10 @@ public class Image extends Persisted
 
     public String getWebpFilename()
     {
+        if (imageName.toLowerCase().endsWith(SVG_FILE_EXT))
+        {
+            return imageName;
+        }
         String name = imageName.substring(0, imageName.lastIndexOf("."));
         return name + WEBP_FILE_EXT;
     }

@@ -2,12 +2,12 @@ package com.schlock.website.services.blog;
 
 public interface CssCache
 {
-    public String getPrimaryCss();
-    public String getSecondaryCss();
+    String getPrimaryCss();
+    String getSecondaryCss();
 
-    public String getAllCss();
+    String getAllCss(String blogPostUUid);
 
-    public String getCssForNotFibbage();
-    public String getCssForGames();
-    public String getCssForPokemon();
+    String getCssForNotFibbage();
+    String getCssForGames();
+    String getCssForPokemon();
 }

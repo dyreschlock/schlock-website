@@ -22,6 +22,10 @@ public class CssCacheImpl implements CssCache
     private final static List<String> SECONDARY_CSS_FILES =
             Arrays.asList("layout/secondary.less", "layout/layout.css");
 
+    //extras
+    private final static String NINTENDO_MUSEUM_UUID = "nintendo-museum";
+    private final static String NINTENDO_CSS_FILE = "layout/extra/nintendo-museum.less";
+
     //apps
     private final static String NOT_FIBBAGE_CSS_FILE = "layout/apps/notfibbage.less";
     private final static String GAMES_CSS_FILE = "layout/apps/games.less";
@@ -58,12 +62,24 @@ public class CssCacheImpl implements CssCache
         return cachedSecondary;
     }
 
-    public String getAllCss()
+    public String getAllCss(String blogPostUUid)
     {
         String primary = getPrimaryCss();
         String secondary = getSecondaryCss();
 
-        return primary + secondary;
+        String extra = getExtraCSS(blogPostUUid);
+
+        return primary + secondary + extra;
+    }
+
+    private String getExtraCSS(String blogPostUUid)
+    {
+        String extraCss = "";
+        if (NINTENDO_MUSEUM_UUID.equals(blogPostUUid))
+        {
+            extraCss = createCss(NINTENDO_CSS_FILE);
+        }
+        return extraCss;
     }
 
     public String getCssForNotFibbage()
@@ -83,16 +99,17 @@ public class CssCacheImpl implements CssCache
 
     public String getCssForGames()
     {
-        List<String> files = Arrays.asList(GAMES_CSS_FILE);
-
-        return createCss(files);
+        return createCss(GAMES_CSS_FILE);
     }
 
     public String getCssForPokemon()
     {
-        List<String> files = Arrays.asList(POKEMON_CSS_FILE);
+        return createCss(POKEMON_CSS_FILE);
+    }
 
-        return createCss(files);
+    private String createCss(String file)
+    {
+        return createCss(Arrays.asList(file));
     }
 
     private String createCss(final List<String> cssFiles)
@@ -140,9 +157,12 @@ public class CssCacheImpl implements CssCache
     private String convertLessToCss(String less)
     {
         LessEngine engine = new LessEngine();
+
         try
         {
-            String css = engine.compile(less, true);
+            String css = engine.compile(less);
+
+            css = css.replaceAll("unicode-range: -9", "unicode-range: U+0030-0039");
             return css;
         }
         catch (LessException e)

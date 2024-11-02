@@ -1,0 +1,152 @@
+@museum_border_color: #d5d5d5;
+@museum_img_bg_color: #f2f2f2;
+@text_color: #3c3c3c;
+
+ul.museum-list
+{
+    font-family: itc-avant-garde-gothic-pro, Noto Sans JP, sans-serif;
+
+    @font-face
+    {
+        font-family: itc-avant-garde-gothic-pro;
+        src: url(https://use.typekit.net/af/578a9d/00000000000000007735ba14/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("woff2"),
+                url(https://use.typekit.net/af/578a9d/00000000000000007735ba14/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("woff"),
+                url(https://use.typekit.net/af/578a9d/00000000000000007735ba14/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("opentype");
+        font-display: auto;
+        font-style: normal;
+        font-weight: 700;
+        font-stretch: normal;
+        unicode-range: 0030-0039;
+    }
+
+    @font-face
+    {
+        font-family: itc-avant-garde-gothic-pro;
+        src: url(https://use.typekit.net/af/6161d4/00000000000000007735ba1e/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff2"),
+                url(https://use.typekit.net/af/6161d4/00000000000000007735ba1e/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff"),
+                url(https://use.typekit.net/af/6161d4/00000000000000007735ba1e/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("opentype");
+        font-display: auto;
+        font-style: normal;
+        font-weight: 500;
+        font-stretch: normal;
+        unicode-range: 0030-0039;
+    }
+
+    @font-face
+    {
+        font-family: itc-avant-garde-gothic-pro;
+        src: url(https://use.typekit.net/af/b89a53/00000000000000007735ba1d/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3) format("woff2"),
+                url(https://use.typekit.net/af/b89a53/00000000000000007735ba1d/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3) format("woff"),
+                url(https://use.typekit.net/af/b89a53/00000000000000007735ba1d/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3) format("opentype");
+        font-display: auto;
+        font-style: normal;
+        font-weight: 300;
+        font-stretch: normal;
+        unicode-range: 0030-0039;
+    }
+
+    font-size: .9rem;
+    font-weight: 700 !important;
+
+    -webkit-font-smoothing: antialiased;
+
+    color: @text_color;
+
+    border: .1rem solid @museum_border_color;
+
+    width: 80%;
+    margin: 0% 10%;
+    padding: 0;
+
+    list-style-type: none;
+    list-style: none;
+
+    b
+    {
+        font-weight: 900 !important;
+    }
+
+    li.museum-header
+    {
+        display: flex;
+        align-items: center;
+
+        height: 3rem;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        border-bottom: .1rem solid @museum_border_color;
+    }
+
+    li.item
+    {
+        display: flex;
+
+        padding-top: 1.0rem;
+
+        div.img
+        {
+            background-color: @museum_img_bg_color;
+
+            margin-left: 1.0rem;
+        }
+
+        div.content
+        {
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+
+            margin-left: 1.0rem;
+            padding: 1.5rem 0;
+
+            p:nth-of-type(2)
+            {
+                margin-top: 1.0rem;
+
+                font-size: 1.0rem !important;
+            }
+        }
+    }
+
+    li.item:nth-of-type(3)
+    {
+        border-top: initial !important;
+    }
+
+    li.item+[class*=item]
+    {
+        padding: 1.0rem 0;
+        margin: 0 1.0rem;
+
+        border-top: .1rem solid @museum_border_color;
+    }
+
+    li.column
+    {
+        flex-flow: column !important;
+    }
+
+    li.data
+    {
+        justify-content: space-between;
+    }
+
+    p
+    {
+        line-height: 100% !important;
+        margin: 0;
+    }
+
+    p.title
+    {
+        margin-top: 1.0rem;
+
+        text-align: center;
+        font-size: 1.0rem !important;
+    }
+
+    p.content
+    {
+        text-align: right;
+    }
+}

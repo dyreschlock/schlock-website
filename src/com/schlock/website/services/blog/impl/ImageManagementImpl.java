@@ -328,7 +328,8 @@ public class ImageManagementImpl implements ImageManagement
                     (link.endsWith("jpg") ||
                         link.endsWith("jpeg") ||
                         link.endsWith("png") ||
-                        link.endsWith("gif"));
+                        link.endsWith("gif")) ||
+                        link.endsWith("svg");
     }
 
     private String updateImageLink(String link)
