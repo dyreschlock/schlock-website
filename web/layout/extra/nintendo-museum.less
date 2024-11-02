@@ -124,11 +124,47 @@ ul.museum-list
     li.column
     {
         flex-flow: column !important;
+
+        img
+        {
+            width: 50%;
+            margin-right: auto !important;
+            margin-left: auto !important;
+        }
     }
 
     li.data
     {
         justify-content: space-between;
+    }
+
+    li.game
+    {
+        div.img
+        {
+            max-width: 25%;
+        }
+    }
+
+    li.photos
+    {
+        flex-flow: column !important;
+
+        div
+        {
+            display: flex;
+            flex-flow: row !important;
+
+            a
+            {
+                margin: 1.0rem 1.0rem 0 0;
+            }
+
+            a:nth-of-type(3)
+            {
+                margin-right: 0;
+            }
+        }
     }
 
     p
