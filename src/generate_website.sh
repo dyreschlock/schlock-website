@@ -16,21 +16,39 @@ cd ${output_directory_html}
 # --domains : restrict download to localhost only
 ## http://localhost:8084/ <-- this is the website (this website) to fetch
 
-wget \
-  --recursive \
-  --no-host-directories \
-  --html-extension \
-  --reject jpg,jpeg,png,gif,mpg,webp \
-  --domains localhost \
-  http://localhost:8084/
 
 wget \
   --recursive \
   --no-host-directories \
+  --timestamping \
+  --no-if-modified-since \
+  --no-use-server-timestamps \
   --html-extension \
   --reject jpg,jpeg,png,gif,mpg,webp \
   --domains localhost \
   http://localhost:8084/apps/pocket
+
+wget \
+  --recursive \
+  --no-host-directories \
+  --timestamping \
+  --no-if-modified-since \
+  --no-use-server-timestamps \
+  --html-extension \
+  --reject jpg,jpeg,png,gif,mpg,webp \
+  --domains localhost \
+  http://localhost:8084/apps/ps2
+
+wget \
+  --recursive \
+  --no-host-directories \
+  --timestamping \
+  --no-if-modified-since \
+  --no-use-server-timestamps \
+  --html-extension \
+  --reject jpg,jpeg,png,gif,mpg,webp \
+  --domains localhost \
+  http://localhost:8084
 
 wget \
   --no-host-directories \
