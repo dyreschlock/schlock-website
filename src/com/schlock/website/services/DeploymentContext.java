@@ -45,4 +45,6 @@ public interface DeploymentContext
     String coverImageLocationInternet();
 
     String discordWebhookURL();
+
+    boolean isCachingPokemonRaidCounters();
 }

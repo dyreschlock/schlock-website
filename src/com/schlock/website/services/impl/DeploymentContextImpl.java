@@ -32,6 +32,8 @@ public class DeploymentContextImpl implements DeploymentContext
 
     private static final String DISCORD_WEBHOOK_PARAM = "discord.webhook";
 
+    private static final String CACHING_POKEMON_RAIDCOUNTERS = "cache.pokemon.raidcounters";
+
     private static final String LOCAL = "local";
     private static final String HOSTED = "hosted";
 
@@ -58,19 +60,24 @@ public class DeploymentContextImpl implements DeploymentContext
     {
         if(deployProperties == null)
         {
-            InputStream in = getClass().getResourceAsStream("/deploy.properties");
-
-            deployProperties = new Properties();
-            try
-            {
-                deployProperties.load(in);
-            }
-            catch (IOException e)
-            {
-                throw new RuntimeException(e);
-            }
+            loadProperties("/deploy.properties");
         }
         return deployProperties;
+    }
+
+    private void loadProperties(String file)
+    {
+        InputStream in = getClass().getResourceAsStream(file);
+
+        deployProperties = new Properties();
+        try
+        {
+            deployProperties.load(in);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -214,5 +221,12 @@ public class DeploymentContextImpl implements DeploymentContext
     public String discordWebhookURL()
     {
         return getDeployProperties().getProperty(DISCORD_WEBHOOK_PARAM);
+    }
+
+
+    public boolean isCachingPokemonRaidCounters()
+    {
+        String value = getDeployProperties().getProperty(CACHING_POKEMON_RAIDCOUNTERS);
+        return Boolean.getBoolean(value);
     }
 }

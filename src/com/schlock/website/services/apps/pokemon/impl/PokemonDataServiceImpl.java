@@ -1,6 +1,7 @@
 package com.schlock.website.services.apps.pokemon.impl;
 
 import com.schlock.website.entities.apps.pokemon.*;
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.*;
 import com.schlock.website.services.database.apps.pokemon.PokemonDataDAO;
 import com.schlock.website.services.database.apps.pokemon.PokemonMoveDAO;
@@ -24,6 +25,8 @@ public class PokemonDataServiceImpl implements PokemonDataService
     private static final String ARCEUS = "Arceus";
 
 
+    private List<RaidBossPokemon> cachedRaidBosses = new ArrayList<>();
+
     private List<RocketLeader> rocketLeaders = new ArrayList<RocketLeader>();
     private Map<String, RocketBossPokemon> rocketBosses = new HashMap<String, RocketBossPokemon>();
 
@@ -41,12 +44,15 @@ public class PokemonDataServiceImpl implements PokemonDataService
     private final PokemonDataDAO dataDAO;
     private final PokemonMoveDAO moveDAO;
 
+    private final DeploymentContext context;
+
     public PokemonDataServiceImpl(PokemonCustomCounterPrimeService customPrimeService,
                                   PokemonCustomCounterSecondService customSecondService,
                                   PokemonCounterCalculationService calculationService,
                                   PokemonDataGameMasterService gameMasterService,
                                   PokemonDataDAO dataDAO,
-                                  PokemonMoveDAO moveDAO)
+                                  PokemonMoveDAO moveDAO,
+                                  DeploymentContext context)
     {
         this.customPrimeService = customPrimeService;
         this.customSecondService = customSecondService;
@@ -55,6 +61,8 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
         this.dataDAO = dataDAO;
         this.moveDAO = moveDAO;
+
+        this.context = context;
     }
 
     private void loadCpmData()
@@ -184,6 +192,11 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
     public List<RaidBossPokemon> getRaidBosses()
     {
+        if (context.isCachingPokemonRaidCounters() && !cachedRaidBosses.isEmpty())
+        {
+            return cachedRaidBosses;
+        }
+
         List<PokemonData> bosses = dataDAO.getRaidBosses();
 
         Collections.sort(bosses, new Comparator<PokemonData>()
@@ -227,12 +240,12 @@ public class PokemonDataServiceImpl implements PokemonDataService
             }
         });
 
-        List<RaidBossPokemon> raidBosses = new ArrayList<RaidBossPokemon>();
+        cachedRaidBosses = new ArrayList<>();
         for(PokemonData boss : bosses)
         {
-            raidBosses.add(RaidBossPokemon.createFromData(boss));
+            cachedRaidBosses.add(RaidBossPokemon.createFromData(boss));
         }
-        return raidBosses;
+        return cachedRaidBosses;
     }
 
     public RaidBossPokemon getRaidBossByNameId(String nameId)

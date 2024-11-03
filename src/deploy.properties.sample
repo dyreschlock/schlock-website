@@ -1,5 +1,7 @@
 web.domain=
 
+cache.pokemon.raidcounters=true
+
 hibernate.connection.url.local=
 hibernate.connection.username.local=
 hibernate.connection.password.local=
