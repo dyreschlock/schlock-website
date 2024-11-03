@@ -78,6 +78,7 @@ public class CssCacheImpl implements CssCache
         if (NINTENDO_MUSEUM_UUID.equals(blogPostUUid))
         {
             extraCss = createCss(NINTENDO_CSS_FILE);
+            extraCss = extraCss.replaceAll("unicode-range: -9", "unicode-range: U+0030-0039");
         }
         return extraCss;
     }
@@ -161,8 +162,6 @@ public class CssCacheImpl implements CssCache
         try
         {
             String css = engine.compile(less);
-
-            css = css.replaceAll("unicode-range: -9", "unicode-range: U+0030-0039");
             return css;
         }
         catch (LessException e)
