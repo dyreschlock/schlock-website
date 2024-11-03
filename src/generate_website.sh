@@ -11,18 +11,21 @@ cd ${output_directory_html}
 ## wget
 # --recursive : go through the entire website
 # --no-host-directories : output pages directly into the directory rather than a 'localhost/8084' folder
+# --timestamping : don't download multiples of the same file. (might now work) (the following 2 flags are used with it)
 # --html-extension : write html files as html files
 # --reject : do not download any images
 # --domains : restrict download to localhost only
-## http://localhost:8084/ <-- this is the website (this website) to fetch
+# http://localhost:8084/ <-- this is the website (this website) to fetch
+## wget doesn't actually get everything so /apps/pocket and /apps/ps2 are also added
 
+start_timestamp=$(date +"%Y-%m-%d %H:%M:%S")
 
 wget \
   --recursive \
   --no-host-directories \
   --timestamping \
-  --no-if-modified-since \
-  --no-use-server-timestamps \
+    --no-if-modified-since \
+    --no-use-server-timestamps \
   --html-extension \
   --reject jpg,jpeg,png,gif,mpg,webp \
   --domains localhost \
@@ -59,6 +62,8 @@ cp "feed.xml" "blog/index.xml"
 
 cp "errorpage.html" "404.html"
 
-echo "update complete"
+end_timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+
+echo "Update Complete -- Start time: $start_timestamp -- End time: $end_timestamp"
 
 exit 0
