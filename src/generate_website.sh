@@ -26,29 +26,9 @@ wget \
   --html-extension \
   --reject jpg,jpeg,png,gif,mpg,webp \
   --domains localhost \
-  http://localhost:8084/apps/pocket
-
-wget \
-  --recursive \
-  --no-host-directories \
-  --timestamping \
-  --no-if-modified-since \
-  --no-use-server-timestamps \
-  --html-extension \
-  --reject jpg,jpeg,png,gif,mpg,webp \
-  --domains localhost \
+  http://localhost:8084 \
+  http://localhost:8084/apps/pocket \
   http://localhost:8084/apps/ps2
-
-wget \
-  --recursive \
-  --no-host-directories \
-  --timestamping \
-  --no-if-modified-since \
-  --no-use-server-timestamps \
-  --html-extension \
-  --reject jpg,jpeg,png,gif,mpg,webp \
-  --domains localhost \
-  http://localhost:8084
 
 wget \
   --no-host-directories \
