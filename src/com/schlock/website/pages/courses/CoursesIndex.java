@@ -2,9 +2,11 @@ package com.schlock.website.pages.courses;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.CourseCategory;
+import com.schlock.website.entities.blog.CoursePage;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 
 import javax.inject.Inject;
@@ -29,6 +31,44 @@ public class CoursesIndex
     private AbstractPost currentPost;
 
 
+    @Persist
+    private CoursePage selectedPage;
+
+
+    Object onActivate()
+    {
+        return onActivate(null);
+    }
+
+    Object onActivate(String parameter)
+    {
+        this.selectedPage = null;
+
+        AbstractPost post = postDAO.getByUuid(parameter);
+        if (post != null && post.isCoursePage())
+        {
+            this.selectedPage = (CoursePage) post;
+        }
+        return true;
+    }
+
+
+    public Page getPage()
+    {
+        if (selectedPage != null)
+        {
+            return selectedPage;
+        }
+        return (Page) postDAO.getByUuid(Page.COURSE_LIST_UUID);
+    }
+
+    public boolean isCourseSelected()
+    {
+        return selectedPage != null;
+    }
+
+
+
     public List<CourseCategory> getCategories()
     {
         return categoryDAO.getCourseInOrder();
@@ -45,10 +85,6 @@ public class CoursesIndex
     }
 
 
-
-
-
-
     public String getExtraCatCss()
     {
         String extraCss = "";
@@ -61,10 +97,5 @@ public class CoursesIndex
             extraCss += " clr";
         }
         return extraCss;
-    }
-
-    public Page getPage()
-    {
-        return (Page) postDAO.getByUuid(Page.COURSE_LIST_UUID);
     }
 }

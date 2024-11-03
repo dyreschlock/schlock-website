@@ -1,31 +1,44 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html t:type="blog/layoutblog" post="page"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-      xmlns:c="tapestry-library:blog/content"
+      xmlns:b="tapestry-library:blog/content"
       xmlns:l="tapestry-library:blog/link"
+      xmlns:c="tapestry-library:courses"
       >
 
-    <c:postdisplay post="page" cssClass="archive courses">
-        <div class="postBody columns">
-            <t:loop source="categories" value="currentCategory" index="currentIndex">
+    <b:postdisplay post="page" cssClass="archive courses">
 
-                <div class="column ${extraCatCss}">
+        <t:if test="!courseSelected">
+
+            <div class="postBody columns">
+                <t:loop source="categories" value="currentCategory" index="currentIndex">
+
+                    <div class="column ${extraCatCss}">
 
 
-                    <div class="title clr">
-                        ${currentCategory.name}
+                        <div class="title clr">
+                            ${currentCategory.name}
+                        </div>
+
+                        <t:loop source="categoryCourses" value="currentPost">
+
+                            <l:postlink post="currentPost" />
+
+                        </t:loop>
                     </div>
+                </t:loop>
+                <br class="clr" />
+                <br class="clr" />
+            </div>
+        </t:if>
 
-                    <t:loop source="categoryCourses" value="currentPost">
+        <c:EnglishComm1st2nd page="page" />
+        <c:EnglishComm3rd4th page="page" />
+        <c:EnglishComm5th    page="page" />
+        <c:EnglishComm6th    page="page" />
+        <c:EnglishCram5th6th page="page" />
 
-                        <l:postlink post="currentPost" />
 
-                    </t:loop>
-                </div>
-            </t:loop>
-            <br class="clr" />
-            <br class="clr" />
-        </div>
-    </c:postdisplay>
 
+    </b:postdisplay>
 </html>

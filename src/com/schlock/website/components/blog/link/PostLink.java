@@ -37,6 +37,16 @@ public class PostLink
     private Messages messages;
 
 
+    public String getPostLink()
+    {
+        String href = "/";
+        if (post.isCoursePage())
+        {
+            href += "courses/";
+        }
+        return href + post.getUuid();
+    }
+
     public String getPostTitleHtml()
     {
         String title = post.getTitle();

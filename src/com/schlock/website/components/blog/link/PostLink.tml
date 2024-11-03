@@ -3,7 +3,7 @@
     >
 
     <div class="postLink ${cssClass}">
-        <a title="${post.title}" href="/${post.uuid}"></a>
+        <a title="${post.title}" href="${postLink}"></a>
         <t:if test="showNumber">
             <div class="postNumber">${postNumber}</div>
         </t:if>
