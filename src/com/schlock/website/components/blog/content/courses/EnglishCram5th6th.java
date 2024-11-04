@@ -1,4 +1,4 @@
-package com.schlock.website.components.courses;
+package com.schlock.website.components.blog.content.courses;
 
 public class EnglishCram5th6th extends CoursePageDisplay
 {

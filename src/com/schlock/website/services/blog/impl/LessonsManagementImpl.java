@@ -31,8 +31,8 @@ public class LessonsManagementImpl implements LessonsManagement
     {
         List<String> years = new ArrayList<String>();
 //        years.add(HEISEI28);
-        years.add(HEISEI27);
-        years.add(HEISEI26);
+//        years.add(HEISEI27);
+//        years.add(HEISEI26);
         years.add(HEISEI25);
 
         return years;

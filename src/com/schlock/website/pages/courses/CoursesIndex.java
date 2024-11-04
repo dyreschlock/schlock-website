@@ -4,6 +4,7 @@ import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.CourseCategory;
 import com.schlock.website.entities.blog.CoursePage;
 import com.schlock.website.entities.blog.Page;
+import com.schlock.website.services.blog.LessonsManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Persist;
@@ -14,6 +15,9 @@ import java.util.List;
 
 public class CoursesIndex
 {
+    @Inject
+    private LessonsManagement lessonManagement;
+
     @Inject
     private CategoryDAO categoryDAO;
 
@@ -32,6 +36,7 @@ public class CoursesIndex
 
 
     @Persist
+    @Property
     private CoursePage selectedPage;
 
 
@@ -49,6 +54,8 @@ public class CoursesIndex
         {
             this.selectedPage = (CoursePage) post;
         }
+
+        lessonManagement.resetPostCache();
         return true;
     }
 
@@ -67,7 +74,15 @@ public class CoursesIndex
         return selectedPage != null;
     }
 
+    public boolean isUseGradeDisplay()
+    {
+        return selectedPage != null && selectedPage.isLessonCourse();
+    }
 
+    public boolean isUseCustomDisplay()
+    {
+        return selectedPage != null && !selectedPage.isLessonCourse();
+    }
 
     public List<CourseCategory> getCategories()
     {

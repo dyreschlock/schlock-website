@@ -1,44 +1,49 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html t:type="blog/layoutblog" post="page"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-      xmlns:b="tapestry-library:blog/content"
+      xmlns:c="tapestry-library:blog/content"
       xmlns:l="tapestry-library:blog/link"
-      xmlns:c="tapestry-library:courses"
-      >
+      xmlns:co="tapestry-library:blog/content/courses"
+      xmlns:le="tapestry-library:blog/content/lessons"
+     >
 
-    <b:postdisplay post="page" cssClass="archive courses">
+    <t:if test="!courseSelected">
 
-        <t:if test="!courseSelected">
-
+        <c:postdisplay post="page" cssClass="courses archive">
             <div class="postBody columns">
                 <t:loop source="categories" value="currentCategory" index="currentIndex">
 
                     <div class="column ${extraCatCss}">
-
-
                         <div class="title clr">
                             ${currentCategory.name}
                         </div>
 
                         <t:loop source="categoryCourses" value="currentPost">
-
                             <l:postlink post="currentPost" />
-
                         </t:loop>
                     </div>
                 </t:loop>
                 <br class="clr" />
                 <br class="clr" />
             </div>
-        </t:if>
+        </c:postdisplay>
+    </t:if>
 
-        <c:EnglishComm1st2nd page="page" />
-        <c:EnglishComm3rd4th page="page" />
-        <c:EnglishComm5th    page="page" />
-        <c:EnglishComm6th    page="page" />
-        <c:EnglishCram5th6th page="page" />
+    <t:if test="useGradeDisplay">
+        <c:postdisplay post="page" cssClass="lessons blogPost">
+            <div class="postBody">
+                <le:gradedisplay grade="selectedPage.grade" year="selectedPage.year" />
+            </div>
+        </c:postdisplay>
+    </t:if>
 
+    <t:if test="useCustomDisplay">
+        <c:postdisplay post="page" cssClass="courses">
+            <div class="postBody">
 
+                <co:EnglishCram5th6th page="page" />
 
-    </b:postdisplay>
+            </div>
+        </c:postdisplay>
+    </t:if>
 </html>

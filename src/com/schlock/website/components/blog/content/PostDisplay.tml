@@ -90,6 +90,14 @@
         </div>
 
         <t:body />
+
+        <t:if test="post.coursePage">
+            <div class="postBody">
+                <div class="returnLink">
+                    // <a href="/courses">${message:return-to-courses}</a>
+                </div>
+            </div>
+        </t:if>
     </div>
 
     <t:if test="post.hasGallery">

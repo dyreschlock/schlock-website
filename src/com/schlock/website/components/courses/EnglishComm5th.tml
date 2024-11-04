@@ -1,7 +1,0 @@
-<t:container
-        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
->
-    <t:if test="displayContent">
-        5th
-    </t:if>
-</t:container>

@@ -7,76 +7,79 @@ import java.util.List;
 
 public interface LessonsManagement
 {
-    public static final String SIXTH_GRADE = "sixth";
-    public static final String FIFTH_GRADE = "fifth";
-    public static final String FOURTH_GRADE = "fourth";
-    public static final String THIRD_GRADE = "third";
-    public static final String SECOND_GRADE = "second";
-    public static final String FIRST_GRADE = "first";
+    String SIXTH_GRADE = "sixth";
+    String FIFTH_GRADE = "fifth";
+    String FOURTH_GRADE = "fourth";
+    String THIRD_GRADE = "third";
+    String SECOND_GRADE = "second";
+    String FIRST_GRADE = "first";
 
-    public static final String HI_FRIENDS_PREFIX = "hi-friends-";
-    public static final String CONJUNCTION = "+";
-    public static final String LESSONS_PREFIX = "lesson-";
+    String HI_FRIENDS_PREFIX = "hi-friends-";
+    String CONJUNCTION = "+";
+    String LESSONS_PREFIX = "lesson-";
 
-    public static final String SPECIAL_TAG = "special";
-    public static final String SELF_INTRO = "self-intro";
-    public static final String CHRISTMAS = "christmas";
+    String SPECIAL_TAG = "special";
+    String SELF_INTRO = "self-intro";
+    String CHRISTMAS = "christmas";
 
-    public static final String LESSON_1_1 = "lesson-1-1";
-    public static final String LESSON_1_2 = "lesson-1-2";
-    public static final String LESSON_1 = "lesson-1";
-    public static final String LESSON_2 = "lesson-2";
-    public static final String LESSON_3 = "lesson-3";
-    public static final String LESSON_4 = "lesson-4";
-    public static final String LESSON_5 = "lesson-5";
-    public static final String LESSON_6 = "lesson-6";
-    public static final String LESSON_7 = "lesson-7";
-    public static final String LESSON_8 = "lesson-8";
-    public static final String LESSON_9 = "lesson-9";
+    String LESSON_1_1 = "lesson-1-1";
+    String LESSON_1_2 = "lesson-1-2";
+    String LESSON_1 = "lesson-1";
+    String LESSON_2 = "lesson-2";
+    String LESSON_3 = "lesson-3";
+    String LESSON_4 = "lesson-4";
+    String LESSON_5 = "lesson-5";
+    String LESSON_6 = "lesson-6";
+    String LESSON_7 = "lesson-7";
+    String LESSON_8 = "lesson-8";
+    String LESSON_9 = "lesson-9";
 
-    public static final String FULL_DOWNLOAD = "year-download";
-    public static final String SYLLABUS = "syllabus";
+    String FULL_DOWNLOAD = "year-download";
+    String SYLLABUS = "syllabus";
 
-    public static final String HEISEI25 = "h25";
-    public static final String HEISEI26 = "h26";
-    public static final String HEISEI27 = "h27";
-    public static final String HEISEI28 = "h28";
+    String HEISEI25 = "h25";
+    String HEISEI26 = "h26";
+    String HEISEI27 = "h27";
+    String HEISEI28 = "h28";
 
-    public static final String LESSON_PLAN_FOLDER = "lesson_plans";
-    public static final String FLASH_CARDS_FOLDER = "flash_cards";
+    String FAKE_YEAR = "course";
 
-
-    public List<String> getYears();
-
-    public List<String> getGrades();
-
-    public List<String> getDisplayGrades();
-
-    public List<String> getLessons(String grade, String year);
-
-    public List<String> getYearlyItems(String grade);
-
-    public List<String> getSpecialLessons(String grade, String year);
+    String LESSON_PLAN_FOLDER = "lesson_plans";
+    String FLASH_CARDS_FOLDER = "flash_cards";
 
 
-    public LessonPost getPost(String lesson, String grade, String year);
 
-    public void resetPostCache();
+    List<String> getYears();
 
+    List<String> getGrades();
 
-    public String getGrade(String... parameters);
+    List<String> getDisplayGrades();
 
-    public String getYear(String... parameters);
+    List<String> getLessons(String grade, String year);
 
-    public String getLesson(String grade, String year, String... parameters);
+    List<String> getYearlyItems(String grade);
 
-
-    public List<String> getGrades(AbstractPost post);
-
-    public String getYear(AbstractPost post);
+    List<String> getSpecialLessons(String grade, String year);
 
 
-    public String getLessonPlanImageLink(AbstractPost post);
+    LessonPost getPost(String lesson, String grade, String year);
 
-    public String getFlashCardImageLink(AbstractPost post);
+    void resetPostCache();
+
+
+    String getGrade(String... parameters);
+
+    String getYear(String... parameters);
+
+    String getLesson(String grade, String year, String... parameters);
+
+
+    List<String> getGrades(AbstractPost post);
+
+    String getYear(AbstractPost post);
+
+
+    String getLessonPlanImageLink(AbstractPost post);
+
+    String getFlashCardImageLink(AbstractPost post);
 }

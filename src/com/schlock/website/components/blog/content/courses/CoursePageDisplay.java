@@ -1,4 +1,4 @@
-package com.schlock.website.components.courses;
+package com.schlock.website.components.blog.content.courses;
 
 import com.schlock.website.entities.blog.Page;
 import org.apache.commons.lang.StringUtils;
