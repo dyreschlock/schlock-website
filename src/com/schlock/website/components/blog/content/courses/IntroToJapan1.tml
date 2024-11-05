@@ -1,0 +1,67 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+    <t:if test="displayContent">
+
+
+        <table>
+            <tr>
+                <th class="col1"></th>
+                <th class="col2">Lesson Contents</th>
+                <th class="col3">Pages</th>
+                <th class="col4">Materials</th>
+            </tr>
+
+            <tr>
+                <td class="top title" rowspan="2">#0</td>
+                <td class="top">Overall Explanation / Greetings / Basic Words / Numbers / Time</td>
+                <td class="top">Genki I p.18-31, 34-37</td>
+                <td class="top">Workbook I p. 13-15</td>
+            </tr>
+            <tr>
+                <td>Hiragana</td>
+                <td>Genki I p.290-293</td>
+                <td>Workbook I p.121-127</td>
+            </tr>
+            <tr>
+                <td class="links" colspan="4">
+                    <a href="https://drive.google.com/file/d/1g7kUPniOQ75Mj0NlJZJf-7AgXWKgSsXt/view?usp=drive_link">Flashcards</a> /
+                    <a href="https://drive.google.com/file/d/1g5QDmPHLd6bQmhHI3KoLw8p8T4YFdLAu/view?usp=drive_link">Writing Practice</a> /
+                    <a href="https://drive.google.com/file/d/1g2H8dGCSJt_Z_mchvwtVlkELQjxTkhly/view?usp=drive_link">Pronunciation Practice</a> /
+                    <a href="https://drive.google.com/file/d/1gCQR3Wl7eDSzBcez7XJkedIZg8T32vl1/view?usp=drive_link">Reading Writing Words</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="bottom title">#1</td>
+                <td class="bottom">Grammar with です / Possesive の</td>
+                <td class="bottom">Genki I p.38-57</td>
+                <td class="bottom">Workbook I p.16-21</td>
+            </tr>
+
+            <tr>
+                <td class="top title" rowspan="2">#2</td>
+                <td class="top">これ、それ、あれ / Prices / Negatives</td>
+                <td class="top">Genki I p.58-83</td>
+                <td class="top">Workbook I p. 25-31</td>
+            </tr>
+            <tr>
+                <td class="bottom">Katakana</td>
+                <td class="bottom">Genki I p.294-297</td>
+                <td class="bottom">Workbook I p.128-132</td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="top"></td>
+                <td class="top"></td>
+                <td class="top"></td>
+                <td class="top"></td>
+            </tr>
+        </table>
+
+
+        <br class="clr" />
+    </t:if>
+</t:container>

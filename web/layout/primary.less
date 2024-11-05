@@ -515,6 +515,60 @@ code, pre
     {
         font-weight: normal !important;
     }
+
+    table
+    {
+        font-size: 0.8em;
+        border-spacing: 0px;
+
+        th, td
+        {
+            padding: 10px 0;
+            border: 0px;
+            line-height: 1.0em;
+        }
+
+        th
+        {
+            font-family: @font2;
+        }
+
+        tr td:last-child
+        {
+            text-align: right;
+        }
+
+        th.col1 { width: 3%; }
+        th.col2 { width: 61%; }
+        th.col3 { width: 18%; }
+        th.col4 { width: 18%; text-align: center; }
+
+        td.title
+        {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        td.top
+        {
+            padding-top: 20px;
+            border-top: 1px solid @subheadercolor;
+        }
+
+        td.bottom
+        {
+            padding-bottom: 20px;
+        }
+
+        td.links
+        {
+            font-family: @font2;
+            font-size: 0.9em;
+            text-align: right;
+
+            padding-top: 5px;
+        }
+    }
 }
 
 #postContent.archive
