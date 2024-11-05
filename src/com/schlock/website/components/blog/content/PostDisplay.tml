@@ -46,12 +46,17 @@
                     </t:loop>
                 </t:if>
 
-                <t:if test="lesson">
+                <t:if test="lessonDisplay">
                     //
                     <a class="${lessonCssClass}" title="${lessonYearKeyword}" href="/lessons/${lessonYearKeyword}"><t:outputraw value="lessonYearText" /></a>
                     <t:loop source="grades" value="currentGrade">
                         .<a class="${lessonCssClass}" title="${currentGrade}" href="/lessons/${lessonYearKeyword}/${currentGrade}"><t:outputraw value="lessonGrade" /></a>
                     </t:loop>
+                </t:if>
+
+                <t:if test="courseDisplay">
+                    //
+                    <a class="${lessonCssClass}" title="${coursePageTitle}" href="/courses/${coursePageUuid}">${coursePageTitle}</a>
                 </t:if>
             </div>
         </t:if>

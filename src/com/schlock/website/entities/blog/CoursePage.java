@@ -49,6 +49,6 @@ public class CoursePage extends Page
 
     public String getYear()
     {
-        return LessonsManagement.HEISEI25;
+        return LessonsManagement.FAKE_YEAR;
     }
 }

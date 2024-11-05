@@ -104,13 +104,22 @@ public class PostDisplay
         return css;
     }
 
-    public boolean isLesson()
+    public boolean isLessonDisplay()
     {
-        return post.isLessonPost();
+        return post.isLessonPost() && post.getCoursePage() == null;
+    }
+
+    public boolean isCourseDisplay()
+    {
+        return post.isLessonPost() && post.getCoursePage() != null;
     }
 
     public String getLessonCssClass()
     {
+        if (isCourseDisplay())
+        {
+            return "h27";
+        }
         String y = lessonManagement.getYear(post);
         return y;
     }
@@ -135,13 +144,23 @@ public class PostDisplay
         return lessonManagement.getGrades(post);
     }
 
-
     public String getLessonGrade()
     {
         String text = messages.get(currentGrade);
         String html = postManagement.wrapJapaneseTextInTags(text);
         return html;
     }
+
+    public String getCoursePageUuid()
+    {
+        return (post.getCoursePage() != null) ? post.getCoursePage().getUuid() : null;
+    }
+
+    public String getCoursePageTitle()
+    {
+        return (post.getCoursePage() != null) ? post.getCoursePage().getTitle() : null;
+    }
+
 
     public String getPostBodyHTML()
     {

@@ -1,14 +1,13 @@
 package com.schlock.website.components.blog.content.lessons;
 
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.blog.LessonPost;
-import com.schlock.website.pages.Index;
 import com.schlock.website.services.blog.LessonsManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.List;
 
@@ -95,6 +94,21 @@ public class LessonDisplay
 
     public String getLessonYear()
     {
+        if (StringUtils.equalsIgnoreCase(LessonsManagement.FAKE_YEAR, year))
+        {
+            LessonPost post = getPost();
+            if (post != null)
+            {
+                for(Keyword keyword : post.getKeywords())
+                {
+                    if (StringUtils.startsWithIgnoreCase(keyword.getName(), "h2"))
+                    {
+                        return getTitle(keyword.getName());
+                    }
+                }
+            }
+            return getTitle(LessonsManagement.HEISEI26);
+        }
         return getTitle(year);
     }
 

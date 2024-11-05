@@ -177,6 +177,7 @@ public abstract class AbstractPost extends Persisted
         return StringUtils.isNotBlank(galleryName) && showGallery;
     }
 
+    public CoursePage getCoursePage() { return null; }
     public String getLessonPlanLink() { return null; }
     public String getFlashCardsLink() { return null; }
 
