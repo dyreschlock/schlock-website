@@ -523,9 +523,9 @@ code, pre
 
         th, td
         {
-            padding: 10px 0;
+            padding: 2px 0;
             border: 0px;
-            line-height: 1.0em;
+            line-height: 1.5em;
         }
 
         th
@@ -538,10 +538,10 @@ code, pre
             text-align: right;
         }
 
-        th.col1 { width: 3%; }
-        th.col2 { width: 61%; }
-        th.col3 { width: 18%; }
-        th.col4 { width: 18%; text-align: center; }
+        th.col1 { width: 5%; }
+        th.col2 { width: 57%; }
+        th.col3 { width: 19%; }
+        th.col4 { width: 19%; text-align: center; }
 
         td.title
         {
@@ -557,7 +557,12 @@ code, pre
 
         td.bottom
         {
-            padding-bottom: 20px;
+            padding-bottom: 20px !important;
+        }
+
+        td:not(.links) a
+        {
+            font-weight: 600;
         }
 
         td.links
@@ -566,7 +571,7 @@ code, pre
             font-size: 0.9em;
             text-align: right;
 
-            padding-top: 5px;
+            padding-bottom: 10px;
         }
     }
 }
