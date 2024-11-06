@@ -1,33 +1,76 @@
 package com.schlock.website.components.blog.content.courses;
 
 import com.schlock.website.entities.blog.Page;
-import org.apache.commons.lang.StringUtils;
+import com.schlock.website.services.blog.PostManagement;
 import org.apache.tapestry5.annotations.Parameter;
 
-public abstract class CoursePageDisplay
+import javax.inject.Inject;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+public class CoursePageDisplay
 {
     @Parameter(required = true)
     private Page page;
 
-    protected abstract String getPageUuid();
+    @Inject
+    private PostManagement postManagement;
+
 
     public boolean isDisplayContent()
     {
-        String pageUuid = getPageUuid();
-        String selectedUuid = (page != null) ? page.getUuid() : null;
+        if (page != null)
+        {
+            try
+            {
+                String htmlFile = page.getUuid() + ".html";
+                URL url = this.getClass().getResource(htmlFile);
 
-        return StringUtils.equalsIgnoreCase(pageUuid, selectedUuid);
+                return new File(url.toURI()).exists();
+            }
+            catch (URISyntaxException e)
+            {
+            }
+        }
+        return false;
+    }
+
+    public String getHtmlContents()
+    {
+        String html = "";
+        if (page != null)
+        {
+            String htmlFile = page.getUuid() + ".html";
+
+            String contents = readFileContents(htmlFile);
+            html = postManagement.generatePostHTML(contents);
+        }
+        return html;
     }
 
 
-
-    public Page getPage()
+    private String readFileContents(String filepath)
     {
-        return page;
-    }
+        String content = "";
+        try
+        {
+            InputStream in = this.getClass().getResourceAsStream(filepath);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-    public void setPage(Page page)
-    {
-        this.page = page;
+            String line = reader.readLine();
+            while (line != null)
+            {
+                content += line;
+
+                line = reader.readLine();
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return content;
     }
 }

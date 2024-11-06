@@ -22,6 +22,8 @@ public interface PostManagement
 
     String generateCommentHTML(String comment);
 
+    String generatePostHTML(String htmlContents);
+
     String generatePostHTML(AbstractPost post, boolean rssFeed);
 
     String generatePostPreview(AbstractPost post);

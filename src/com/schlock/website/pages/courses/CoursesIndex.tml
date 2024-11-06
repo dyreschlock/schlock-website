@@ -41,9 +41,7 @@
         <c:postdisplay post="page" cssClass="courses">
             <div class="postBody">
 
-                <co:EnglishCram5th6th page="page" />
-
-                <co:IntroToJapan1 page="page" />
+                <co:CoursePageDisplay page="page" />
 
             </div>
         </c:postdisplay>

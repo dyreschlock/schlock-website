@@ -296,9 +296,9 @@ public class PostManagementImpl implements PostManagement
         return html;
     }
 
-    private String generatePostHTML(String tempText)
+    public String generatePostHTML(String htmlContents)
     {
-        return generatePostHTML(null, tempText, false);
+        return generatePostHTML(null, htmlContents, false);
     }
 
     private String generatePostHTML(AbstractPost post, String tempText, boolean rssFeed)
