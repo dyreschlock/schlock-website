@@ -6,7 +6,6 @@ import org.apache.tapestry5.annotations.Parameter;
 
 import javax.inject.Inject;
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 public class CoursePageDisplay
@@ -29,7 +28,7 @@ public class CoursePageDisplay
 
                 return new File(url.toURI()).exists();
             }
-            catch (URISyntaxException e)
+            catch (Exception e)
             {
             }
         }
