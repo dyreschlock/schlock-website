@@ -99,6 +99,11 @@ public class Footer
         return Icon.TWITTER;
     }
 
+    public Icon getBlueSky()
+    {
+        return Icon.BLUESKY;
+    }
+
     public Icon getYoutube()
     {
         return Icon.YOUTUBE;
