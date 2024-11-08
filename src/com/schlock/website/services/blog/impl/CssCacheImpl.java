@@ -15,6 +15,7 @@ import java.util.List;
 
 public class CssCacheImpl implements CssCache
 {
+    private final static String LESS_VARIABLES_FILE = "layout/variables.less";
     private final static String PRIMARY_CSS_FILE = "layout/primary.less";
     private final static String SECONDARY_CSS_FILE = "layout/secondary.less";
 
@@ -39,8 +40,7 @@ public class CssCacheImpl implements CssCache
 
     private final Context context;
 
-    private String cachedPrimary;
-    private String cachedSecondary;
+    private String cached;
 
     private String cachedNotFibbage;
 
@@ -49,32 +49,16 @@ public class CssCacheImpl implements CssCache
         this.context = context;
     }
 
-    public String getPrimaryCss()
-    {
-        if (StringUtils.isBlank(cachedPrimary))
-        {
-            cachedPrimary = createCss(PRIMARY_CSS_FILE);
-        }
-        return cachedPrimary;
-    }
-
-    public String getSecondaryCss()
-    {
-        if (StringUtils.isBlank(cachedSecondary))
-        {
-            cachedSecondary = createCss(SECONDARY_CSS_FILE);
-        }
-        return cachedSecondary;
-    }
-
     public String getAllCss(String blogPostUUid)
     {
-        String primary = getPrimaryCss();
-        String secondary = getSecondaryCss();
+        if (StringUtils.isBlank(cached))
+        {
+            cached = createCss(Arrays.asList(LESS_VARIABLES_FILE, PRIMARY_CSS_FILE, SECONDARY_CSS_FILE));
+        }
 
         String extra = getExtraCSS(blogPostUUid);
 
-        return primary + secondary + extra;
+        return cached + extra;
     }
 
     private String getExtraCSS(String blogPostUUid)
@@ -104,7 +88,7 @@ public class CssCacheImpl implements CssCache
     {
         if (StringUtils.isBlank(cachedNotFibbage))
         {
-            List<String> files = Arrays.asList(PRIMARY_CSS_FILE, SECONDARY_CSS_FILE, NOT_FIBBAGE_CSS_FILE);
+            List<String> files = Arrays.asList(LESS_VARIABLES_FILE, PRIMARY_CSS_FILE, SECONDARY_CSS_FILE, NOT_FIBBAGE_CSS_FILE);
             cachedNotFibbage = createCss(files);
         }
         return cachedNotFibbage;
