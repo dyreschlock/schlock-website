@@ -141,12 +141,7 @@ public class LayoutBlog
 
     public String getPrimaryCss()
     {
-        String uuid = "";
-        if (post != null)
-        {
-            uuid = post.getUuid();
-        }
-        return cssCache.getAllCss(uuid);
+        return cssCache.getAllCss(post);
     }
 
     public String getExtraCSS()

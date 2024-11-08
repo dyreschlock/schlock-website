@@ -2,6 +2,8 @@ package com.schlock.website.services.blog.impl;
 
 import com.asual.lesscss.LessEngine;
 import com.asual.lesscss.LessException;
+import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Page;
 import com.schlock.website.services.blog.CssCache;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.services.Context;
@@ -10,6 +12,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class CssCacheImpl implements CssCache
 {
@@ -19,16 +23,14 @@ public class CssCacheImpl implements CssCache
 
     //extras
     private final static String NINTENDO_MUSEUM_UUID = "nintendo-museum";
-    private final static String NINTENDO_CSS_FILE = "layout/extra/nintendo-museum.less";
 
-    private final static String ERROR_PAGE_UUID = "errorpage";
-    private final static String ERROR_PAGE_CSS_FILE = "layout/extra/error.less";
+    private final static List<String> BLOG_UUID_WITH_EXTRA_CSS =
+                                                    Arrays.asList(Page.ABOUT_ME_UUID,
+                                                                    Page.CLUB_UUID,
+                                                                    Page.ERROR_PAGE_UUID,
+                                                                    NINTENDO_MUSEUM_UUID);
 
-    private final static String CLUB_PAGE_UUID = "club";
-    private final static String CLUB_PAGE_CSS_FILE = "layout/extra/club.less";
-
-    private final static String ABOUT_ME_UUID = "aboutme";
-    private final static String ABOUT_ME_CSS_FILE = "layout/extra/aboutme.less";
+    private final static String EXTRA_CSS_FILE = "layout/extra/%s.less";
 
     //apps
     private final static String NOT_FIBBAGE_CSS_FILE = "layout/apps/notfibbage.less";
@@ -47,39 +49,42 @@ public class CssCacheImpl implements CssCache
         this.context = context;
     }
 
-    public String getAllCss(String blogPostUUid)
+    public String getAllCss(AbstractPost post)
     {
         if (StringUtils.isBlank(cached))
         {
             cached = createCss(LESS_VARIABLES_FILE, PRIMARY_CSS_FILE, SECONDARY_CSS_FILE);
         }
 
-        String extra = getExtraCSS(blogPostUUid);
-
-        return cached + extra;
+        String css = cached;
+        if (post != null)
+        {
+            css += getExtraCSS(post);
+        }
+        return css;
     }
 
-    private String getExtraCSS(String blogPostUUid)
+    private String getExtraCSS(AbstractPost post)
     {
-        String extraCss = "";
-        if (NINTENDO_MUSEUM_UUID.equals(blogPostUUid))
+        if (post == null)
         {
-            extraCss = createExtraCss(NINTENDO_CSS_FILE);
-            extraCss = extraCss.replaceAll("unicode-range: -9", "unicode-range: U+0030-0039");
+            return "";
         }
-        else if (ERROR_PAGE_UUID.equals(blogPostUUid))
+
+        String uuid = post.getUuid();
+
+        if (BLOG_UUID_WITH_EXTRA_CSS.contains(uuid))
         {
-            extraCss = createExtraCss(ERROR_PAGE_CSS_FILE);
+            String file = String.format(EXTRA_CSS_FILE, uuid);
+            String extraCss = createExtraCss(file);
+
+            if (NINTENDO_MUSEUM_UUID.equals(uuid))
+            {
+                extraCss = extraCss.replaceAll("unicode-range: -9", "unicode-range: U+0030-0039");
+            }
+            return extraCss;
         }
-        else if(CLUB_PAGE_UUID.equals(blogPostUUid))
-        {
-            extraCss = createExtraCss(CLUB_PAGE_CSS_FILE);
-        }
-        else if(ABOUT_ME_UUID.equals(blogPostUUid))
-        {
-            extraCss = createExtraCss(ABOUT_ME_CSS_FILE);
-        }
-        return extraCss;
+        return "";
     }
 
     private String createExtraCss(String file)

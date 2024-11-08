@@ -1,8 +1,10 @@
 package com.schlock.website.services.blog;
 
+import com.schlock.website.entities.blog.AbstractPost;
+
 public interface CssCache
 {
-    String getAllCss(String blogPostUUid);
+    String getAllCss(AbstractPost post);
 
     String getCssForNotFibbage();
     String getCssForGames();
