@@ -26,11 +26,13 @@ public class CssCacheImpl implements CssCache
 
     private final static List<String> BLOG_UUID_WITH_EXTRA_CSS =
                                                     Arrays.asList(Page.ABOUT_ME_UUID,
+                                                                    Page.PROJECTS_UUID,
                                                                     Page.CLUB_UUID,
                                                                     Page.ERROR_PAGE_UUID,
                                                                     NINTENDO_MUSEUM_UUID,
                                                                     "the-secret-of-crystania",
-                                                                    "history-of-kiyomi-schools-part-2");
+                                                                    "history-of-kiyomi-schools-part-2",
+                                                                    "dune");
 
     private final static String EXTRA_CSS_FILE = "layout/extra/%s.less";
 
