@@ -29,7 +29,8 @@ public class CssCacheImpl implements CssCache
                                                                     Page.CLUB_UUID,
                                                                     Page.ERROR_PAGE_UUID,
                                                                     NINTENDO_MUSEUM_UUID,
-                                                                    "the-secret-of-crystania");
+                                                                    "the-secret-of-crystania",
+                                                                    "history-of-kiyomi-schools-part-2");
 
     private final static String EXTRA_CSS_FILE = "layout/extra/%s.less";
 
