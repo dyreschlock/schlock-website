@@ -28,7 +28,8 @@ public class CssCacheImpl implements CssCache
                                                     Arrays.asList(Page.ABOUT_ME_UUID,
                                                                     Page.CLUB_UUID,
                                                                     Page.ERROR_PAGE_UUID,
-                                                                    NINTENDO_MUSEUM_UUID);
+                                                                    NINTENDO_MUSEUM_UUID,
+                                                                    "the-secret-of-crystania");
 
     private final static String EXTRA_CSS_FILE = "layout/extra/%s.less";
 
