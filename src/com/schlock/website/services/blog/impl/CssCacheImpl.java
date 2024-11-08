@@ -26,6 +26,15 @@ public class CssCacheImpl implements CssCache
     private final static String NINTENDO_MUSEUM_UUID = "nintendo-museum";
     private final static String NINTENDO_CSS_FILE = "layout/extra/nintendo-museum.less";
 
+    private final static String ERROR_PAGE_UUID = "errorpage";
+    private final static String ERROR_PAGE_CSS_FILE = "layout/extra/error.less";
+
+    private final static String CLUB_PAGE_UUID = "club";
+    private final static String CLUB_PAGE_CSS_FILE = "layout/extra/club.less";
+
+    private final static String ABOUT_ME_UUID = "aboutme";
+    private final static String ABOUT_ME_CSS_FILE = "layout/extra/aboutme.less";
+
     //apps
     private final static String NOT_FIBBAGE_CSS_FILE = "layout/apps/notfibbage.less";
     private final static String GAMES_CSS_FILE = "layout/apps/games.less";
@@ -79,6 +88,18 @@ public class CssCacheImpl implements CssCache
         {
             extraCss = createCss(NINTENDO_CSS_FILE);
             extraCss = extraCss.replaceAll("unicode-range: -9", "unicode-range: U+0030-0039");
+        }
+        else if (ERROR_PAGE_UUID.equals(blogPostUUid))
+        {
+            extraCss = createCss(ERROR_PAGE_CSS_FILE);
+        }
+        else if(CLUB_PAGE_UUID.equals(blogPostUUid))
+        {
+            extraCss = createCss(CLUB_PAGE_CSS_FILE);
+        }
+        else if(ABOUT_ME_UUID.equals(blogPostUUid))
+        {
+            extraCss = createCss(ABOUT_ME_CSS_FILE);
         }
         return extraCss;
     }

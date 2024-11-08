@@ -1,0 +1,81 @@
+@font2: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+
+@backgroundcolor: #282828;
+
+@linkcolor: #CB4350;
+
+#aboutMe
+{
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 10px;
+
+    #email, #resume1, #resume2, #internetLinks, #gameLinks, #buyLinks, #codeLinks
+    {
+        float: left;
+        position: relative;
+
+        padding-bottom: 10px;
+    }
+    #email, #resume1, #resume2, #gameLinks, #buyLinks
+    {
+        width: 31%;
+        padding-right: 3%;
+    }
+    #internetLinks
+    {
+        width: 65%;
+        padding-right: 3%;
+    }
+    #resume2, #codeLinks
+    {
+        width: 30%;
+        padding-right: 0;
+    }
+    div.title
+    {
+        font-family: @font2;
+        font-weight: bold;
+        padding-bottom: 10px;
+    }
+    div.details
+    {
+        font-size: 1.1em;
+        padding-bottom: 15px;
+    }
+    div.icon
+    {
+        display: inline-block;
+
+        margin: 0 10px 9px 0;
+
+        background-color: @backgroundcolor;
+        border-radius: 10px;
+
+        width: 50px;
+        height: 50px;
+
+        img
+        {
+            width: 50px;
+            height: 50px;
+        }
+    }
+    a
+    {
+        color: @linkcolor;
+    }
+}
+
+/* iphone viewport size */
+@media all and (max-width: 767px)
+{
+    #aboutMe
+    {
+        #internetLinks, #gameLinks, #buyLinks, #codeLinks
+        {
+            width: 90%;
+            padding-right: 0;
+        }
+    }
+}

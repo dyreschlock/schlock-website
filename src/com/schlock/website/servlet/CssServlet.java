@@ -13,7 +13,7 @@ public class CssServlet extends AbstractHttpServlet
 {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        String css = "";css().getSecondaryCss();
+        String css = "";//css().getSecondaryCss();
 
         byte[] bytes = css.getBytes();
 
