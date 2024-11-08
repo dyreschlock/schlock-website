@@ -10,8 +10,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 public class CssCacheImpl implements CssCache
 {
@@ -53,7 +51,7 @@ public class CssCacheImpl implements CssCache
     {
         if (StringUtils.isBlank(cached))
         {
-            cached = createCss(Arrays.asList(LESS_VARIABLES_FILE, PRIMARY_CSS_FILE, SECONDARY_CSS_FILE));
+            cached = createCss(LESS_VARIABLES_FILE, PRIMARY_CSS_FILE, SECONDARY_CSS_FILE);
         }
 
         String extra = getExtraCSS(blogPostUUid);
@@ -66,30 +64,34 @@ public class CssCacheImpl implements CssCache
         String extraCss = "";
         if (NINTENDO_MUSEUM_UUID.equals(blogPostUUid))
         {
-            extraCss = createCss(NINTENDO_CSS_FILE);
+            extraCss = createExtraCss(NINTENDO_CSS_FILE);
             extraCss = extraCss.replaceAll("unicode-range: -9", "unicode-range: U+0030-0039");
         }
         else if (ERROR_PAGE_UUID.equals(blogPostUUid))
         {
-            extraCss = createCss(ERROR_PAGE_CSS_FILE);
+            extraCss = createExtraCss(ERROR_PAGE_CSS_FILE);
         }
         else if(CLUB_PAGE_UUID.equals(blogPostUUid))
         {
-            extraCss = createCss(CLUB_PAGE_CSS_FILE);
+            extraCss = createExtraCss(CLUB_PAGE_CSS_FILE);
         }
         else if(ABOUT_ME_UUID.equals(blogPostUUid))
         {
-            extraCss = createCss(ABOUT_ME_CSS_FILE);
+            extraCss = createExtraCss(ABOUT_ME_CSS_FILE);
         }
         return extraCss;
+    }
+
+    private String createExtraCss(String file)
+    {
+        return createCss(LESS_VARIABLES_FILE, file);
     }
 
     public String getCssForNotFibbage()
     {
         if (StringUtils.isBlank(cachedNotFibbage))
         {
-            List<String> files = Arrays.asList(LESS_VARIABLES_FILE, PRIMARY_CSS_FILE, SECONDARY_CSS_FILE, NOT_FIBBAGE_CSS_FILE);
-            cachedNotFibbage = createCss(files);
+            cachedNotFibbage = createCss(LESS_VARIABLES_FILE, PRIMARY_CSS_FILE, SECONDARY_CSS_FILE, NOT_FIBBAGE_CSS_FILE);
         }
         return cachedNotFibbage;
     }
@@ -104,12 +106,7 @@ public class CssCacheImpl implements CssCache
         return createCss(POKEMON_CSS_FILE);
     }
 
-    private String createCss(String file)
-    {
-        return createCss(Arrays.asList(file));
-    }
-
-    private String createCss(final List<String> cssFiles)
+    private String createCss(String... cssFiles)
     {
         String css = "";
 
