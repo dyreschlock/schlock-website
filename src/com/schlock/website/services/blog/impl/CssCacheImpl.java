@@ -10,17 +10,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class CssCacheImpl implements CssCache
 {
-    private final static List<String> PRIMARY_CSS_FILES =
-            Arrays.asList("layout/primary.less");
-
-    private final static List<String> SECONDARY_CSS_FILES =
-            Arrays.asList("layout/secondary.less", "layout/layout.css");
+    private final static String PRIMARY_CSS_FILE = "layout/primary.less";
+    private final static String SECONDARY_CSS_FILE = "layout/secondary.less";
 
     //extras
     private final static String NINTENDO_MUSEUM_UUID = "nintendo-museum";
@@ -57,7 +53,7 @@ public class CssCacheImpl implements CssCache
     {
         if (StringUtils.isBlank(cachedPrimary))
         {
-            cachedPrimary = createCss(PRIMARY_CSS_FILES);
+            cachedPrimary = createCss(PRIMARY_CSS_FILE);
         }
         return cachedPrimary;
     }
@@ -66,7 +62,7 @@ public class CssCacheImpl implements CssCache
     {
         if (StringUtils.isBlank(cachedSecondary))
         {
-            cachedSecondary = createCss(SECONDARY_CSS_FILES);
+            cachedSecondary = createCss(SECONDARY_CSS_FILE);
         }
         return cachedSecondary;
     }
@@ -108,12 +104,7 @@ public class CssCacheImpl implements CssCache
     {
         if (StringUtils.isBlank(cachedNotFibbage))
         {
-            List<String> files = new ArrayList<String>();
-
-            files.addAll(PRIMARY_CSS_FILES);
-            files.addAll(SECONDARY_CSS_FILES);
-            files.add(NOT_FIBBAGE_CSS_FILE);
-
+            List<String> files = Arrays.asList(PRIMARY_CSS_FILE, SECONDARY_CSS_FILE, NOT_FIBBAGE_CSS_FILE);
             cachedNotFibbage = createCss(files);
         }
         return cachedNotFibbage;
