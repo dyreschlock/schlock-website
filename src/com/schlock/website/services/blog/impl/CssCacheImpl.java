@@ -3,6 +3,7 @@ package com.schlock.website.services.blog.impl;
 import com.asual.lesscss.LessEngine;
 import com.asual.lesscss.LessException;
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.CoursePage;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.services.blog.CssCache;
 import org.apache.commons.lang.StringUtils;
@@ -30,6 +31,7 @@ public class CssCacheImpl implements CssCache
                                                                     Page.CLUB_UUID,
                                                                     Page.ERROR_PAGE_UUID,
                                                                     AbstractPost.KENDO_UUID,
+                                                                    AbstractPost.SUBTITLES_UUID,
                                                                     NINTENDO_MUSEUM_UUID,
                                                                     "the-secret-of-crystania",
                                                                     "history-of-kiyomi-schools-part-2",
@@ -80,9 +82,7 @@ public class CssCacheImpl implements CssCache
 
         if (BLOG_UUID_WITH_EXTRA_CSS.contains(uuid))
         {
-            String file = String.format(EXTRA_CSS_FILE, uuid);
-            String extraCss = createExtraCss(file);
-
+            String extraCss = createExtraCss(uuid);
             if (NINTENDO_MUSEUM_UUID.equals(uuid))
             {
                 extraCss = extraCss.replaceAll("unicode-range: -9", "unicode-range: U+0030-0039");
@@ -92,15 +92,20 @@ public class CssCacheImpl implements CssCache
 
         if (post.isHasLessonLinks())
         {
-            String file = String.format(EXTRA_CSS_FILE, Page.LESSON_PLANS_UUID);
-            return createExtraCss(file);
+            return createExtraCss(Page.LESSON_PLANS_UUID);
+        }
+
+        if (post instanceof CoursePage)
+        {
+            return createExtraCss(Page.COURSE_LIST_UUID);
         }
 
         return "";
     }
 
-    private String createExtraCss(String file)
+    private String createExtraCss(String uuid)
     {
+        String file = String.format(EXTRA_CSS_FILE, uuid);
         return createCss(LESS_VARIABLES_FILE, file);
     }
 
