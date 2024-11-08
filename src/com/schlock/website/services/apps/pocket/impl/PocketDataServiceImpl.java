@@ -16,6 +16,8 @@ import java.util.*;
 
 public class PocketDataServiceImpl implements PocketDataService
 {
+    public final static int MOST_COMMON_MAX_RESULTS = 15;
+
     private final static String POCKET_DIR = "pocket-utils/";
 
     private final static String GAMES_JSON_FILE = "games.json";
@@ -27,6 +29,13 @@ public class PocketDataServiceImpl implements PocketDataService
     private Map<String, PocketCore> cachedCores = new HashMap<String, PocketCore>();
 
     private List<String> cachedGenres = new ArrayList<String>();
+
+    private Map<String, List<PocketGame>> cachedSearches = new HashMap<>();
+
+    private Map<String, List<DataPanelData>> cachedMostCommonDeveloper = new HashMap<>();
+    private Map<String, List<DataPanelData>> cachedMostCommonPublisher = new HashMap<>();
+    private Map<String, List<DataPanelData>> cachedMostCommonYear = new HashMap<>();
+
 
     public PocketDataServiceImpl(DeploymentContext context)
     {
@@ -42,6 +51,15 @@ public class PocketDataServiceImpl implements PocketDataService
         return cachedGames;
     }
 
+    private String createGameSearchCacheKey(Device device, PocketCore core, String genre)
+    {
+        String key = "";
+        key += (device != null) ? device.name() : "null";
+        key += (core != null) ? core.getPlatformId() : "null";
+        key += (genre != null) ? genre : "null";
+        return key;
+    }
+
     public List<PocketGame> getGamesByCore(PocketCore core)
     {
         return getGamesByDeviceCoreGenre(null, core, null);
@@ -49,6 +67,12 @@ public class PocketDataServiceImpl implements PocketDataService
 
     public List<PocketGame> getGamesByDeviceCoreGenre(Device device, PocketCore core, String genre)
     {
+        String key = createGameSearchCacheKey(device, core, genre);
+        if (cachedSearches.containsKey(key))
+        {
+            return cachedSearches.get(key);
+        }
+
         List<PocketGame> games = new ArrayList<PocketGame>();
         for(PocketGame game : getGames())
         {
@@ -89,6 +113,8 @@ public class PocketDataServiceImpl implements PocketDataService
                 games.add(game);
             }
         }
+
+        cachedSearches.put(key, games);
         return games;
     }
 
@@ -146,8 +172,17 @@ public class PocketDataServiceImpl implements PocketDataService
 
     public List<DataPanelData> getCountByMostCommonDeveloper(Device device, PocketCore core, String genre, Integer maxResults)
     {
-        List<PocketGame> games = getGamesByCoreOrGenre(device, core, genre);
-        return getCountByMostCommonDeveloper(games, maxResults);
+        String key = createGameSearchCacheKey(device, core, genre);
+
+        List<DataPanelData> results = cachedMostCommonDeveloper.get(key);
+        if (results == null)
+        {
+            List<PocketGame> games = getGamesByCoreOrGenre(device, core, genre);
+            results = getCountByMostCommonDeveloper(games, MOST_COMMON_MAX_RESULTS);
+
+            cachedMostCommonDeveloper.put(key, results);
+        }
+        return subList(results, maxResults);
     }
 
     private List<DataPanelData> getCountByMostCommonDeveloper(List<PocketGame> games, Integer maxResults)
@@ -178,8 +213,17 @@ public class PocketDataServiceImpl implements PocketDataService
 
     public List<DataPanelData> getCountByMostCommonPublisher(Device device, PocketCore core, String genre, Integer maxResults)
     {
-        List<PocketGame> games = getGamesByCoreOrGenre(device, core, genre);
-        return getCountByMostCommonPublisher(games, maxResults);
+        String key = createGameSearchCacheKey(device, core, genre);
+
+        List<DataPanelData> results = cachedMostCommonPublisher.get(key);
+        if (results == null)
+        {
+            List<PocketGame> games = getGamesByCoreOrGenre(device, core, genre);
+            results = getCountByMostCommonPublisher(games, MOST_COMMON_MAX_RESULTS);
+
+            cachedMostCommonPublisher.put(key, results);
+        }
+        return subList(results, maxResults);
     }
 
     private List<DataPanelData> getCountByMostCommonPublisher(List<PocketGame> games, Integer maxResults)
@@ -210,8 +254,17 @@ public class PocketDataServiceImpl implements PocketDataService
 
     public List<DataPanelData> getCountByMostCommonYear(Device device, PocketCore core, String genre, Integer maxResults)
     {
-        List<PocketGame> games = getGamesByCoreOrGenre(device, core, genre);
-        return getCountByMostCommonYear(games, maxResults);
+        String key = createGameSearchCacheKey(device, core, genre);
+
+        List<DataPanelData> results = cachedMostCommonYear.get(key);
+        if (results == null)
+        {
+            List<PocketGame> games = getGamesByCoreOrGenre(device, core, genre);
+            results = getCountByMostCommonYear(games, MOST_COMMON_MAX_RESULTS);
+
+            cachedMostCommonYear.put(key, results);
+        }
+        return subList(results, maxResults);
     }
 
     private List<DataPanelData> getCountByMostCommonYear(List<PocketGame> games, Integer maxResults)
@@ -272,6 +325,15 @@ public class PocketDataServiceImpl implements PocketDataService
             }
         }
         return results;
+    }
+
+    private List subList(List list, int results)
+    {
+        if (list.size() < results)
+        {
+            return list;
+        }
+        return list.subList(0, results);
     }
 
 

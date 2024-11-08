@@ -4,6 +4,7 @@ import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.pocket.Device;
 import com.schlock.website.entities.apps.pocket.PocketCore;
 import com.schlock.website.services.apps.pocket.PocketDataService;
+import com.schlock.website.services.apps.pocket.impl.PocketDataServiceImpl;
 import com.schlock.website.services.blog.CssCache;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
@@ -19,8 +20,8 @@ public class Index
 
     private static final String TITLE_KEY = "title";
 
-    private static final Integer STATS_FULL_MAX_RESULTS = 15;
-    private static final Integer STATS_HALF_MAX_RESULTS = 5;
+    public static final Integer STATS_FULL_MAX_RESULTS = PocketDataServiceImpl.MOST_COMMON_MAX_RESULTS;
+    public static final Integer STATS_HALF_MAX_RESULTS = 5;
 
     @Inject
     private PocketDataService pocketDataService;
