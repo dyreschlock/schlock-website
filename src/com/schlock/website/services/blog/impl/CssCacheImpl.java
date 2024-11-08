@@ -52,6 +52,8 @@ public class CssCacheImpl implements CssCache
     private String cached;
 
     private String cachedNotFibbage;
+    private String cachedGames;
+    private String cachedPokemon;
 
     public CssCacheImpl(Context context)
     {
@@ -128,12 +130,20 @@ public class CssCacheImpl implements CssCache
 
     public String getCssForGames()
     {
-        return createCss(GAMES_CSS_FILE);
+        if (StringUtils.isBlank(cachedGames))
+        {
+            cachedGames = createCss(GAMES_CSS_FILE);
+        }
+        return cachedGames;
     }
 
     public String getCssForPokemon()
     {
-        return createCss(POKEMON_CSS_FILE);
+        if (StringUtils.isBlank(cachedPokemon))
+        {
+            cachedPokemon = createCss(POKEMON_CSS_FILE);
+        }
+        return cachedPokemon;
     }
 
     private String createCss(String... cssFiles)
