@@ -1,0 +1,116 @@
+#lessonMaterials
+{
+    padding-top: 60px;
+
+    div.material
+    {
+        position: relative;
+
+        width: 40%;
+
+        height: 180px;
+        max-height: 180px;
+        min-height: 180px;
+
+        border: 1px solid #333;
+
+        background-color: #fff;
+        background-size: 90%;
+        background-repeat: no-repeat;
+
+        a
+        {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            z-index: 10;
+        }
+
+        span
+        {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background-color: #fff;
+            opacity: 0.5;
+
+            z-index: 0;
+        }
+
+        div.title
+        {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+
+            font-family: @font2;
+            font-weight: bold;
+            font-size: 1.3em;
+
+            z-index: 5;
+        }
+    }
+    div.plan
+    {
+        background-position: top center;
+
+        float: left;
+
+        margin-left: 3%;
+    }
+    div.cards
+    {
+        background-position: center;
+
+        float: right;
+
+        margin-right: 3%;
+    }
+    div.material:hover
+    {
+        span
+        {
+            opacity: 0;
+        }
+    }
+}
+
+/* iphone viewport size */
+@media all and (max-width: 767px)
+{
+    #lessonMaterials
+    {
+        padding-top: 20px;
+
+        div.material
+        {
+            height: 115px;
+            max-height: 115px;
+            min-height: 115px;
+        }
+    }
+}
+
+/* ipad viewport size */
+@media all and (min-width: 768px) and (max-width: 1000px)
+{
+
+    #lessonMaterials
+    {
+        div.material
+        {
+            height: 140px;
+            max-height: 140px;
+            min-height: 140px;
+        }
+    }
+}

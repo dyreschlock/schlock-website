@@ -181,6 +181,10 @@ public abstract class AbstractPost extends Persisted
     public String getLessonPlanLink() { return null; }
     public String getFlashCardsLink() { return null; }
 
+    public boolean isHasLessonLinks()
+    {
+        return StringUtils.isNotBlank(getLessonPlanLink()) || StringUtils.isNotBlank(getFlashCardsLink());
+    }
 
 
     public String getWpid()

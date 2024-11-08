@@ -199,7 +199,7 @@ public class PostDisplay
 
     public boolean isHasLinks()
     {
-        return isHasFlashCards() || isHasLessonPlan();
+        return post.isHasLessonLinks();
     }
 
     public boolean isHasLessonPlan()

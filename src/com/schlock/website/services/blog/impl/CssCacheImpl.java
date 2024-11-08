@@ -29,6 +29,7 @@ public class CssCacheImpl implements CssCache
                                                                     Page.PROJECTS_UUID,
                                                                     Page.CLUB_UUID,
                                                                     Page.ERROR_PAGE_UUID,
+                                                                    AbstractPost.KENDO_UUID,
                                                                     NINTENDO_MUSEUM_UUID,
                                                                     "the-secret-of-crystania",
                                                                     "history-of-kiyomi-schools-part-2",
@@ -88,6 +89,13 @@ public class CssCacheImpl implements CssCache
             }
             return extraCss;
         }
+
+        if (post.isHasLessonLinks())
+        {
+            String file = String.format(EXTRA_CSS_FILE, Page.LESSON_PLANS_UUID);
+            return createExtraCss(file);
+        }
+
         return "";
     }
 
