@@ -30,6 +30,8 @@ public class CssCacheImpl implements CssCache
                                                                     Page.PROJECTS_UUID,
                                                                     Page.CLUB_UUID,
                                                                     Page.ERROR_PAGE_UUID,
+                                                                    Page.COURSE_LIST_UUID,
+                                                                    Page.LESSON_PLANS_UUID,
                                                                     AbstractPost.KENDO_UUID,
                                                                     AbstractPost.SUBTITLES_UUID,
                                                                     NINTENDO_MUSEUM_UUID,
@@ -97,16 +99,22 @@ public class CssCacheImpl implements CssCache
 
         if (post instanceof CoursePage)
         {
-            return createExtraCss(Page.COURSE_LIST_UUID);
+            return createExtraCss(Page.COURSE_LIST_UUID, Page.LESSON_PLANS_UUID);
         }
 
         return "";
     }
 
-    private String createExtraCss(String uuid)
+    private String createExtraCss(String... uuid)
     {
-        String file = String.format(EXTRA_CSS_FILE, uuid);
-        return createCss(LESS_VARIABLES_FILE, file);
+        String[] files = new String[uuid.length+1];
+
+        files[0] = LESS_VARIABLES_FILE;
+        for(int i = 0; i < uuid.length; i++)
+        {
+            files[i + 1] = String.format(EXTRA_CSS_FILE, uuid[i]);
+        }
+        return createCss(files);
     }
 
     public String getCssForNotFibbage()
