@@ -41,6 +41,10 @@ public class CssCacheImpl implements CssCache
 
     private final static String EXTRA_CSS_FILE = "layout/extra/%s.less";
 
+    //fonts
+    private final static String NOTO_SANS_FONT = "layout/font/NotoSansJP.css";
+    private final static String PERFECT_DOS_VGA_FONT = "layout/font/PerfectDOS-VGA-437.css";
+
     //apps
     private final static String NOT_FIBBAGE_CSS_FILE = "layout/apps/notfibbage.less";
     private final static String GAMES_CSS_FILE = "layout/apps/games.less";
@@ -86,10 +90,19 @@ public class CssCacheImpl implements CssCache
 
         if (BLOG_UUID_WITH_EXTRA_CSS.contains(uuid))
         {
-            String extraCss = createExtraCss(uuid);
+            String extraCss = "";
             if (NINTENDO_MUSEUM_UUID.equals(uuid))
             {
+                extraCss = createExtraCss(NOTO_SANS_FONT, uuid);
                 extraCss = extraCss.replaceAll("unicode-range: -9", "unicode-range: U+0030-0039");
+            }
+            else if (Page.ERROR_PAGE_UUID.equals(uuid))
+            {
+                extraCss = createExtraCss(PERFECT_DOS_VGA_FONT, uuid);
+            }
+            else
+            {
+                extraCss = createExtraCss(uuid);
             }
             return extraCss;
         }
@@ -194,7 +207,7 @@ public class CssCacheImpl implements CssCache
 
         try
         {
-            String css = engine.compile(less);
+            String css = engine.compile(less, true);
             return css;
         }
         catch (LessException e)
