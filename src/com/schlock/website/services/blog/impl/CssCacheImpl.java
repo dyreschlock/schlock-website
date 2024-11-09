@@ -12,7 +12,6 @@ import org.apache.tapestry5.services.Context;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -88,23 +87,17 @@ public class CssCacheImpl implements CssCache
 
         String uuid = post.getUuid();
 
-        if (BLOG_UUID_WITH_EXTRA_CSS.contains(uuid))
+        if (NINTENDO_MUSEUM_UUID.equals(uuid))
         {
-            String extraCss = "";
-            if (NINTENDO_MUSEUM_UUID.equals(uuid))
-            {
-                extraCss = createExtraCss(NOTO_SANS_FONT, uuid);
-                extraCss = extraCss.replaceAll("unicode-range: -9", "unicode-range: U+0030-0039");
-            }
-            else if (Page.ERROR_PAGE_UUID.equals(uuid))
-            {
-                extraCss = createExtraCss(PERFECT_DOS_VGA_FONT, uuid);
-            }
-            else
-            {
-                extraCss = createExtraCss(uuid);
-            }
-            return extraCss;
+            String fontCss = getFileAsString(NOTO_SANS_FONT);
+            String extraCss = createExtraCss(uuid).replaceAll("unicode-range:-9", "unicode-range:U+0030-0039");
+
+            return fontCss + extraCss;
+        }
+
+        if (Page.ERROR_PAGE_UUID.equals(uuid))
+        {
+            return createExtraCss(PERFECT_DOS_VGA_FONT, uuid);
         }
 
         if (post.isHasLessonLinks())
@@ -117,17 +110,27 @@ public class CssCacheImpl implements CssCache
             return createExtraCss(Page.COURSE_LIST_UUID, Page.LESSON_PLANS_UUID);
         }
 
+        //somewhat catch-all / individual special pages should come before this
+        if (BLOG_UUID_WITH_EXTRA_CSS.contains(uuid))
+        {
+            return createExtraCss(uuid);
+        }
         return "";
     }
 
-    private String createExtraCss(String... uuid)
+    private String createExtraCss(String... filenames)
     {
-        String[] files = new String[uuid.length+1];
+        String[] files = new String[filenames.length+1];
 
         files[0] = LESS_VARIABLES_FILE;
-        for(int i = 0; i < uuid.length; i++)
+        for(int i = 0; i < filenames.length; i++)
         {
-            files[i + 1] = String.format(EXTRA_CSS_FILE, uuid[i]);
+            String file = filenames[i];
+            if (!file.startsWith("layout"))
+            {
+                file = String.format(EXTRA_CSS_FILE, file);
+            }
+            files[i +1] = file;
         }
         return createCss(files);
     }
@@ -162,17 +165,9 @@ public class CssCacheImpl implements CssCache
     private String createCss(String... cssFiles)
     {
         String css = "";
-
-        try
+        for (String file : cssFiles)
         {
-            for (String file : cssFiles)
-            {
-                css += getFileAsString(file);
-            }
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException(e);
+            css += getFileAsString(file);
         }
 
         css = convertLessToCss(css);
@@ -181,24 +176,31 @@ public class CssCacheImpl implements CssCache
         return css;
     }
 
-    private String getFileAsString(String path) throws IOException
+    private String getFileAsString(String path)
     {
-        String css = "";
-
-        File resource = context.getRealFile(path);
-        if (resource.exists())
+        try
         {
-            BufferedReader io = new BufferedReader(new FileReader(resource));
+            String css = "";
 
-            String line = io.readLine();
-            while (line != null)
+            File resource = context.getRealFile(path);
+            if (resource.exists())
             {
-                css += StringUtils.trim(line);
+                BufferedReader io = new BufferedReader(new FileReader(resource));
 
-                line = io.readLine();
+                String line = io.readLine();
+                while (line != null)
+                {
+                    css += StringUtils.trim(line);
+
+                    line = io.readLine();
+                }
             }
+            return css;
         }
-        return css;
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     private String convertLessToCss(String less)
