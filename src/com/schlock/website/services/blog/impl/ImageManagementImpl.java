@@ -314,6 +314,7 @@ public class ImageManagementImpl implements ImageManagement
 
                 if (IMG_TAG.equals(TAG))
                 {
+                    finishHTML += "\" loading=\"lazy";
                     finishHTML += "\" alt=\"" + updatedLink;
                 }
                 finishHTML += "\" title=\"" + updatedLink;
