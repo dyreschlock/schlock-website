@@ -6,6 +6,7 @@ import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONArray;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -269,21 +271,54 @@ public class RegenerationIndex
 
 
 
-    public String getPocketImagesDownloads()
+    @Property
+    private Object[] currentData;
+
+    public String getCurrentDataName()
     {
-        int downloads = getDownloadsFromRepo("pocket-platform-images");
-        return Integer.toString(downloads);
+        return (String) currentData[0];
     }
 
-    public String getPocketExtrasDownloads()
+    public String getCurrentDataCount()
     {
-        int downloads = getDownloadsFromRepo("pocket-extras");
-        return Integer.toString(downloads);
+        Integer count = (Integer) currentData[1];
+        return Integer.toString(count);
     }
 
-    private int getDownloadsFromRepo(String repoName)
+    public String getCurrentDataReleases()
+    {
+        Integer releases = (Integer) currentData[2];
+        return Integer.toString(releases);
+    }
+
+    public String getCurrentDataAverage()
+    {
+        Integer count = (Integer) currentData[1];
+        Integer releases = (Integer) currentData[2];
+
+        double average = count.doubleValue() / releases.doubleValue();
+
+        return String.format("%.2f", average);
+    }
+
+    private List<Object[]> downloadData;
+
+    public List<Object[]> getDownloadData()
+    {
+        if (downloadData == null)
+        {
+            Object[] images = getDownloadsFromRepo("pocket-platform-images");
+            Object[] extras = getDownloadsFromRepo("pocket-extras");
+
+            downloadData = Arrays.asList(images, extras);
+        }
+        return downloadData;
+    }
+
+    private Object[] getDownloadsFromRepo(String repoName)
     {
         int downloads = 0;
+        int releases = 0;
 
         final String API_URL = "https://api.github.com/repos/dyreschlock/%s/releases?per_page=100";
 
@@ -305,8 +340,15 @@ public class RegenerationIndex
 
                 downloads += count;
             }
+            releases++;
         }
-        return downloads;
+
+        Object[] output = new Object[3];
+        output[0] = repoName;
+        output[1] = downloads;
+        output[2] = releases;
+
+        return output;
     }
 
     private JSONArray readJSONArrayFromUrl(String url)

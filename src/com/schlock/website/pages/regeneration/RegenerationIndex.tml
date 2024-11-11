@@ -35,6 +35,11 @@
                 vertical-align: top;
             }
 
+            table.downloads td
+            {
+                padding: 0 5px;
+            }
+
         </style>
     </head>
     <body>
@@ -109,9 +114,17 @@
                             <br/>
                             <h2>Github Downloads</h2>
                             <br />
-                            <table>
-                                <tr><td><i>pocket-platform-images</i></td><td>${pocketImagesDownloads}</td></tr>
-                                <tr><td><i>pocket-extras</i></td><td>${pocketExtrasDownloads}</td></tr>
+                            <table class="downloads">
+                                <t:loop source="downloadData" value="currentData">
+                                    <tr>
+                                        <td><i>${currentDataName}</i></td>
+                                        <td>${currentDataCount}</td>
+                                        <td><i>releases</i></td>
+                                        <td>${currentDataReleases}</td>
+                                        <td><i>average</i></td>
+                                        <td>${currentDataAverage}</td>
+                                    </tr>
+                                </t:loop>
                             </table>
 
                         </td>
