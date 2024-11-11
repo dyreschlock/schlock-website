@@ -107,6 +107,12 @@
                             - Visitation Analytics: <a href="https://analytics.google.com/">https://analytics.google.com/</a><br />
                             <br/>
                             <br/>
+                            <h2>Github Downloads</h2>
+                            <br />
+                            <table>
+                                <tr><td><i>pocket-platform-images</i></td><td>${pocketImagesDownloads}</td></tr>
+                                <tr><td><i>pocket-extras</i></td><td>${pocketExtrasDownloads}</td></tr>
+                            </table>
 
                         </td>
                     </tr>

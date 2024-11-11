@@ -1,4 +1,4 @@
-package com.schlock.website.pages;
+package com.schlock.website.pages.regeneration;
 
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.PokemonDataGameMasterService;
@@ -8,11 +8,18 @@ import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.json.JSONArray;
+import org.apache.tapestry5.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Iterator;
 import java.util.List;
 
-public class Regeneration
+public class RegenerationIndex
 {
     @Inject
     private DeploymentContext deploymentContext;
@@ -37,7 +44,7 @@ public class Regeneration
     /*
      * No slash at the beginning. Slash at the end.
      */
-    private static final String LOCATION = "";
+    private static final String LOCATION = "photo/241114_ghibli_warehouse/";
 
 
     @CommitAfter
@@ -256,6 +263,74 @@ public class Regeneration
         catch(Exception e)
         {
             e.printStackTrace();
+        }
+    }
+
+
+
+
+    public String getPocketImagesDownloads()
+    {
+        int downloads = getDownloadsFromRepo("pocket-platform-images");
+        return Integer.toString(downloads);
+    }
+
+    public String getPocketExtrasDownloads()
+    {
+        int downloads = getDownloadsFromRepo("pocket-extras");
+        return Integer.toString(downloads);
+    }
+
+    private int getDownloadsFromRepo(String repoName)
+    {
+        int downloads = 0;
+
+        final String API_URL = "https://api.github.com/repos/dyreschlock/%s/releases?per_page=100";
+
+        String apiCall = String.format(API_URL, repoName);
+        JSONArray contents = readJSONArrayFromUrl(apiCall);
+
+        Iterator releaseIter = contents.iterator();
+        while(releaseIter.hasNext())
+        {
+            JSONObject release = (JSONObject) releaseIter.next();
+            JSONArray assets = release.getJSONArray("assets");
+
+            Iterator assetIter = assets.iterator();
+            while(assetIter.hasNext())
+            {
+                JSONObject asset = (JSONObject) assetIter.next();
+
+                int count = asset.getInt("download_count");
+
+                downloads += count;
+            }
+        }
+        return downloads;
+    }
+
+    private JSONArray readJSONArrayFromUrl(String url)
+    {
+        try
+        {
+            URL website = new URL(url);
+            URLConnection connection = website.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            StringBuilder response = new StringBuilder();
+
+            String inputLine;
+            while ((inputLine = in.readLine()) != null)
+            {
+                response.append(inputLine);
+            }
+            in.close();
+
+            return new JSONArray(response.toString());
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
         }
     }
 }
