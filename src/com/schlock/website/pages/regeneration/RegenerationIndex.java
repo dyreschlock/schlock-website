@@ -340,7 +340,12 @@ public class RegenerationIndex
 
                 downloads += count;
             }
-            releases++;
+
+            String releaseTag = release.getString("tag_name");
+            if (StringUtils.endsWith(releaseTag, ".0"))
+            {
+                releases++;
+            }
         }
 
         Object[] output = new Object[3];
