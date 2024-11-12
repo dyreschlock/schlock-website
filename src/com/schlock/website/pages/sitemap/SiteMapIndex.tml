@@ -10,8 +10,7 @@
     </url>
 
 
-
-    <t:loop source="projectPages" value="currentPage">
+    <t:loop source="directoryPages" value="currentPage">
         <url>
             <loc>${domain}${currentPage}</loc>
             <lastmod>${currentTime}</lastmod>
