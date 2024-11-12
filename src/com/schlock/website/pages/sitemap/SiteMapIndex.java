@@ -1,21 +1,25 @@
 package com.schlock.website.pages.sitemap;
 
-import com.schlock.website.entities.blog.PostCategory;
-import com.schlock.website.entities.blog.ProjectCategory;
+import com.schlock.website.entities.blog.*;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.PostArchiveManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 public class SiteMapIndex
 {
+    @Inject
+    private PostDAO postDAO;
+
     @Inject
     private CategoryDAO categoryDAO;
 
@@ -56,7 +60,69 @@ public class SiteMapIndex
     //course pages
     //regular pages
 
+    public List<String> getAllPostsAndPages()
+    {
+        List<String> posts = new ArrayList<>();
 
+        posts.addAll(getPosts());
+        posts.addAll(getPages());
+        posts.addAll(getCoursePages());
+        return posts;
+    }
+
+
+    private List<String> getPosts()
+    {
+        List<String> pages = new ArrayList<>();
+
+        Integer allPosts = null;
+        boolean unpublished = false;
+        Integer allYears = null;
+        Integer allMonths = null;
+        Long allCategories = null;
+
+        List<Post> posts = postDAO.getMostRecentPosts(allPosts, unpublished, allYears, allMonths, allCategories);
+
+        for(Post post : posts)
+        {
+            pages.add(post.getUuid() + ".html");
+        }
+        return pages;
+    }
+
+    private List<String> getPages()
+    {
+        List<String> skip = Arrays.asList("courses", "projects");
+
+        List<String> pages = new ArrayList<>();
+
+        for(Page page : postDAO.getAllPages(false))
+        {
+            String pageUuid = page.getUuid();
+            if (!skip.contains(pageUuid))
+            {
+                pages.add(pageUuid + ".html");
+            }
+        }
+        return pages;
+    }
+
+    private List<String> getCoursePages()
+    {
+        final String COURSES = "courses";
+
+        List<String> pages = new ArrayList<>();
+        pages.add(COURSES + "/index.html");
+
+        for(CourseCategory cat : categoryDAO.getCourseInOrder())
+        {
+            for(AbstractPost page : postDAO.getAllCoursesByCategory(cat.getId()))
+            {
+                pages.add(COURSES + "/" + page.getUuid() + ".html");
+            }
+        }
+        return pages;
+    }
 
 
     public List<String> getDirectoryPages()
@@ -74,8 +140,8 @@ public class SiteMapIndex
         final String ARCHIVE = "archive";
 
         List<String> pages = new ArrayList<>();
-
         pages.add(ARCHIVE + "/index.html");
+
         for(String year : archiveManagement.getYearlyMonthlyIterations(null, null))
         {
             pages.add(ARCHIVE + "/" + year + "/index.html");

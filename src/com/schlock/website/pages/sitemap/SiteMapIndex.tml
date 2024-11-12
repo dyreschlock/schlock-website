@@ -9,6 +9,13 @@
         <priority>1.0</priority>
     </url>
 
+    <t:loop source="allPostsAndPages" value="currentPage">
+        <url>
+            <loc>${domain}${currentPage}</loc>
+            <lastmod>${currentTime}</lastmod>
+            <priority>0.9</priority>
+        </url>
+    </t:loop>
 
     <t:loop source="directoryPages" value="currentPage">
         <url>
