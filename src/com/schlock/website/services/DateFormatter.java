@@ -8,6 +8,8 @@ public interface DateFormatter
 
     String htmlTagFormat(Date date);
 
+    String w3DateFormat(Date date);
+
     String dayFormat(Date date);
 
     String yearFormat(Date date);

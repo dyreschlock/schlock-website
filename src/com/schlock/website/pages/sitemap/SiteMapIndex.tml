@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    >
+    <url>
+        <loc>${domain}</loc>
+        <lastmod>${currentTime}</lastmod>
+        <priority>1.0</priority>
+    </url>
+
+
+
+    <t:loop source="projectPages" value="currentPage">
+        <url>
+            <loc>${domain}${currentPage}</loc>
+            <lastmod>${currentTime}</lastmod>
+            <priority>0.5</priority>
+        </url>
+    </t:loop>
+</urlset>

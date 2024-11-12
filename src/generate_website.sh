@@ -15,6 +15,7 @@ cd ${output_directory_html}
 # --html-extension : write html files as html files
 # --reject : do not download any images
 # --domains : restrict download to localhost only
+# -e robots=off : ignores robots.txt
 # http://localhost:8084/ <-- this is the website (this website) to fetch
 ## wget doesn't actually get everything so /apps/pocket and /apps/ps2 are also added
 
@@ -29,13 +30,15 @@ wget \
   --html-extension \
   --reject jpg,jpeg,png,gif,mpg,webp \
   --domains localhost \
+  -e robots=off \
   http://localhost:8084 \
   http://localhost:8084/apps/pocket \
   http://localhost:8084/apps/ps2
 
 wget \
   --no-host-directories \
-  http://localhost:8084/manifest
+  http://localhost:8084/manifest \
+  http://localhost:8084/sitemap
 
 # find = finds all directories excluding .dot directories
 for dir in $(find . -mindepth 1 -type d -not \( -path "./.*" -prune \)) ; do
@@ -55,6 +58,7 @@ for dir in $(find . -mindepth 1 -type d -not \( -path "./.*" -prune \)) ; do
 done
 
 mv "feed" "feed.xml"
+mv "sitemap" "sitemap.xml"
 mv "manifest" "manifest.json"
 
 mkdir "blog"
