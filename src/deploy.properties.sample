@@ -22,6 +22,7 @@ new.connection.username.hosted=
 new.connection.password.hosted=
 
 google.credentials.filepath=
+indexnow.api.key=
 
 playstation.directory.drive=
 playstation.directory.data=

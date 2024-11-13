@@ -28,7 +28,7 @@ public class SitemapManagementImpl implements SitemapManagement
     }
 
 
-    public List<String> getAllUrls()
+    public List<String> getAllUrlsToIndex()
     {
         List<String> urls = new ArrayList<>();
 

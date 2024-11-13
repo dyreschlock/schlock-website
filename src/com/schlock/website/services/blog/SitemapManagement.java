@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface SitemapManagement
 {
-    List<String> getAllUrls();
+    List<String> getAllUrlsToIndex();
 
     List<String> getPostsAndPages();
 

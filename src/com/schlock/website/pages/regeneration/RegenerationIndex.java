@@ -5,6 +5,7 @@ import com.schlock.website.services.apps.pokemon.PokemonDataGameMasterService;
 import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
+import com.schlock.website.services.blog.SitemapManagement;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
@@ -15,8 +16,11 @@ import org.apache.tapestry5.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +29,9 @@ public class RegenerationIndex
 {
     @Inject
     private DeploymentContext deploymentContext;
+
+    @Inject
+    private SitemapManagement sitemapManagement;
 
     @Inject
     private ImageManagement imageManagement;
@@ -376,6 +383,57 @@ public class RegenerationIndex
             return new JSONArray(response.toString());
         }
         catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    void onPostToIndexNow()
+    {
+        final String DOMAIN = deploymentContext.webDomain();
+
+        JSONArray urls = new JSONArray();
+
+        urls.put(DOMAIN);
+        for(String url : sitemapManagement.getAllUrlsToIndex())
+        {
+            urls.put(DOMAIN + url);
+        }
+
+        if (urls.length() > 0)
+        {
+            postToIndexNow(urls);
+        }
+    }
+
+    private void postToIndexNow(JSONArray urlList)
+    {
+        String apikey = deploymentContext.indexnowApiKey();
+
+        JSONObject contents = new JSONObject();
+        contents.put("host", deploymentContext.webDomain());
+        contents.put("key", apikey);
+        contents.put("keyLocation", deploymentContext.webDomain() + apikey + ".txt");
+        contents.put("urlList", urlList);
+
+        byte[] output = contents.toString().getBytes(StandardCharsets.UTF_8);
+        int length = output.length;
+
+        try
+        {
+            HttpURLConnection http = (HttpURLConnection) new URL("api.indexnow.org").openConnection();
+            http.setRequestMethod("http");
+            http.setDoOutput(true);
+            http.setFixedLengthStreamingMode(length);
+            http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            http.connect();
+            try(OutputStream os = http.getOutputStream())
+            {
+                os.write(output);
+            }
+        }
+        catch(Exception e)
         {
             throw new RuntimeException(e);
         }

@@ -20,6 +20,7 @@ public interface DeploymentContext
     String getHibernateProperty(String name);
 
     String googleCredentialsFilepath();
+    String indexnowApiKey();
 
     String webDomain();
 
