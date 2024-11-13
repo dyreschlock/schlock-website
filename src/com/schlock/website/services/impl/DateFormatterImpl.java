@@ -12,7 +12,7 @@ public class DateFormatterImpl implements DateFormatter
     private static final String DAY_FORMAT = "MMMMM d";
     private static final String YEAR_FORMAT = "yyyy";
     private static final String RSS_FORMAT = "EEE, dd MMM yyyy hh:mm:ss";
-    private static final String W3_FORMAT = "YYYY-MM-DD'T'hh:mm:ss'+08:00'";
+    private static final String W3_FORMAT = "YYYY-MM-dd'T'hh:mm:ss'+08:00'";
 
     public String dateFormat(Date date)
     {
