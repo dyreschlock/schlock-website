@@ -13,10 +13,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -403,7 +400,7 @@ public class RegenerationIndex
 
         if (urls.length() > 0)
         {
-            postToIndexNow(urls);
+//            postToIndexNow(urls);
         }
     }
 
@@ -422,8 +419,8 @@ public class RegenerationIndex
 
         try
         {
-            HttpURLConnection http = (HttpURLConnection) new URL("api.indexnow.org").openConnection();
-            http.setRequestMethod("http");
+            HttpURLConnection http = (HttpURLConnection) new URL("https://bing.com/indexnow").openConnection();
+            http.setRequestMethod("POST");
             http.setDoOutput(true);
             http.setFixedLengthStreamingMode(length);
             http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -432,6 +429,19 @@ public class RegenerationIndex
             {
                 os.write(output);
             }
+
+
+            StringBuilder resp = new StringBuilder();
+            Reader in = new BufferedReader(new InputStreamReader(http.getInputStream(), "UTF-8"));
+
+            int c = in.read();
+            while(c >= 0)
+            {
+                resp.append((char) c);
+
+                c = in.read();
+            }
+            System.out.println("Response from Post: " + resp.toString());
         }
         catch(Exception e)
         {
