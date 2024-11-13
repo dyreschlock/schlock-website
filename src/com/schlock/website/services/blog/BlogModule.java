@@ -14,6 +14,7 @@ public class BlogModule
         binder.bind(PostArchiveManagement.class, PostArchiveManagementImpl.class);
         binder.bind(LessonsManagement.class, LessonsManagementImpl.class);
         binder.bind(KeywordManagement.class, KeywordManagementImpl.class);
+        binder.bind(SitemapManagement.class, SitemapManagementImpl.class);
 
         binder.bind(CssCache.class, CssCacheImpl.class);
 
