@@ -4,6 +4,7 @@ import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.pages.Feed;
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
@@ -40,6 +41,9 @@ public class LayoutBlog
 
     @Inject
     private CssCache cssCache;
+
+    @Inject
+    private DeploymentContext context;
 
     @Inject
     private Messages messages;
@@ -84,7 +88,7 @@ public class LayoutBlog
             url = "/" + post.getUuid();
         }
 
-        String domain = messages.get("website-url");
+        String domain = context.webDomain();
         if (StringUtils.isNotBlank(url) && !url.startsWith(domain))
         {
             url = domain + url.substring(1);
