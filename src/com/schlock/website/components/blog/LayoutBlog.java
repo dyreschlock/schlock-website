@@ -85,7 +85,11 @@ public class LayoutBlog
         }
         else if (post != null)
         {
-            url = "/" + post.getUuid();
+            if (post.isCoursePage())
+            {
+                url = "/courses";
+            }
+            url += "/" + post.getUuid();
         }
 
         String domain = context.webDomain();
