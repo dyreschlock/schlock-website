@@ -4,7 +4,7 @@
     <div class="miniPost">
 
         <a class="title" title="${post.title}" href="/${post.uuid}">
-            <h1><t:outputraw value="postTitleHtml" /></h1>
+            <h2><t:outputraw value="postTitleHtml" /></h2>
         </a>
         <t:if test="showDateLinks">
             <div class="postDate">
