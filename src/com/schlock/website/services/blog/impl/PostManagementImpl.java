@@ -669,54 +669,18 @@ public class PostManagementImpl implements PostManagement
      */
     public List<Post> getTopPosts(final Integer LIMIT, Integer year, Integer month, Long categoryId, final Set<Long> EXCLUDE)
     {
-        List<Post> posts = new ArrayList<Post>();
+        List<Post> posts = new ArrayList<>();
 
         boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
         int count = LIMIT;
 
-        int MIN = 1;
-        if (LIMIT == 0)
-        {
-            MIN = 0;
-        }
-
-        Set<Long> excludeIds = new HashSet<Long>();
+        Set<Long> excludeIds = new HashSet<>();
         excludeIds.addAll(EXCLUDE);
 
 
-        List<Post> gallery = postDAO.getMostRecentPostsWithGallery(1, unpublished, year, month, categoryId, excludeIds);
-        for (Post post : gallery)
-        {
-            posts.add(post);
-
-            excludeIds.add(post.getId());
-
-            count--;
-            MIN--;
-        }
-
-        if (count == 0)
-        {
-            return posts;
-        }
-
-//        List<Post> pinnedGallery = postDAO.getMostRecentPinnedPostsWithGallery(MIN, unpublished, year, month, categoryId, excludeIds);
-//        for (Post post : pinnedGallery)
-//        {
-//            posts.add(post);
-//
-//            excludeIds.add(post.getId());
-//
-//            count--;
-//        }
-//
-//        if (count == 0)
-//        {
-//            return posts;
-//        }
-
-        List<Post> pinned = postDAO.getMostRecentPinnedPosts(count, unpublished, year, month, categoryId, excludeIds);
-        for (Post post : pinned)
+        //ONE most recent normal post with gallery
+        List<Post> results = postDAO.getMostRecentPostsWithGallery(1, unpublished, year, month, categoryId, excludeIds);
+        for (Post post : results)
         {
             posts.add(post);
 
@@ -730,8 +694,41 @@ public class PostManagementImpl implements PostManagement
             return posts;
         }
 
-        List<Post> recent = postDAO.getMostRecentPosts(count, unpublished, year, month, categoryId, excludeIds);
-        for (Post post : recent)
+        //all most recent promoted posts
+        results = postDAO.getMostRecentPinnedPosts(count, unpublished, year, month, categoryId, excludeIds);
+        for (Post post : results)
+        {
+            posts.add(post);
+
+            excludeIds.add(post.getId());
+
+            count--;
+        }
+
+        if (count == 0)
+        {
+            return posts;
+        }
+
+        //remaining most recent posts with gallery
+        results = postDAO.getMostRecentPostsWithGallery(count, unpublished, year, month, categoryId, excludeIds);
+        for (Post post : results)
+        {
+            posts.add(post);
+
+            excludeIds.add(post.getId());
+
+            count--;
+        }
+
+        if (count == 0)
+        {
+            return posts;
+        }
+
+        //all other remaining posts without galleries
+        results = postDAO.getMostRecentPosts(count, unpublished, year, month, categoryId, excludeIds);
+        for (Post post : results)
         {
             posts.add(post);
 
