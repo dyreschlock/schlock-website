@@ -14,7 +14,7 @@
                 <t:loop source="categories" value="currentCategory" index="currentIndex">
 
                     <div class="column ${extraCatCss}">
-                        <div class="title clr">
+                        <div class="title clr" style="text-align: left;">
                             ${currentCategory.name}
                         </div>
 
