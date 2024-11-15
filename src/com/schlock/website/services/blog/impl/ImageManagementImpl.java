@@ -268,7 +268,7 @@ public class ImageManagementImpl implements ImageManagement
     {
         final String QUOTE = "\"";
 
-        String finishHTML = "";
+        StringBuilder finishHTML = new StringBuilder();
         String remainHTML = h;
 
         while(StringUtils.isNotBlank(remainHTML))
@@ -276,14 +276,14 @@ public class ImageManagementImpl implements ImageManagement
             int index = remainHTML.indexOf(TAG);
             if (index == -1)
             {
-                finishHTML += remainHTML;
+                finishHTML.append(remainHTML);
                 remainHTML = "";
             }
             else
             {
                 index = remainHTML.indexOf(PARAM, index + TAG.length());
 
-                finishHTML += remainHTML.substring(0, index);
+                finishHTML.append(remainHTML.substring(0, index));
                 remainHTML = remainHTML.substring(index);
 
                 index = PARAM.length();
@@ -302,28 +302,33 @@ public class ImageManagementImpl implements ImageManagement
                     if (HREF_PARAM.equals(PARAM) && imageIndex != null && useGalleryLink)
                     {
                         // onclick="galleryClicked(1)"
-                        finishHTML += " onclick=\"galleryClicked(" + imageIndex + ")";
+                        String onClick = " onclick=\"galleryClicked(" + imageIndex + ")";
+                        finishHTML.append(onClick);
                     }
                     else
                     {
-                        finishHTML += PARAM + updatedLink;
+                        finishHTML.append(PARAM + updatedLink);
                     }
                 }
                 else
                 {
                     updatedLink = postManagement.updateLinkToModernReference(linkReference);
-                    finishHTML += PARAM + updatedLink;
+                    finishHTML.append(PARAM + updatedLink);
                 }
 
                 if (IMG_TAG.equals(TAG))
                 {
-                    finishHTML += "\" loading=\"lazy";
-                    finishHTML += "\" alt=\"" + updatedLink;
+                    String lazyLoad = "\" loading=\"lazy";
+                    String altTag = "\" alt=\"" + updatedLink;
+
+                    finishHTML.append(lazyLoad).append(altTag);
                 }
-                finishHTML += "\" title=\"" + updatedLink;
+
+                String titleTag = "\" title=\"" + updatedLink;
+                finishHTML.append(titleTag);
             }
         }
-        return finishHTML;
+        return finishHTML.toString();
     }
 
     private boolean isImage(String link)

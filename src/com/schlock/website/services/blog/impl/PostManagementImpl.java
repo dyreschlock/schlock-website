@@ -331,7 +331,7 @@ public class PostManagementImpl implements PostManagement
 
     private String changeLineBreaksToHtmlTags(String h)
     {
-        String html = "";
+        StringBuilder sb = new StringBuilder();
 
         String[] paragraphs = h.split("\r\n\r\n");
         for (int i = 0; i < paragraphs.length; i++)
@@ -343,14 +343,18 @@ public class PostManagementImpl implements PostManagement
 
                 if (StringUtils.containsIgnoreCase(p, "<img src"))
                 {
-                    html += "<p class='img'>" + p + "</p>";
+                    String html = "<p class='img'>" + p + "</p>";
+                    sb.append(html);
                 }
                 else
                 {
-                    html += "<p>" + p + "</p>";
+                    String html = "<p>" + p + "</p>";
+                    sb.append(html);
                 }
             }
         }
+
+        String html = sb.toString();
 
         html = html.replaceAll("\r\n", "<br/>");
         html = html.replaceAll("\n", "<br/>");
@@ -399,15 +403,15 @@ public class PostManagementImpl implements PostManagement
                 int p_end = start + html.substring(start).indexOf(FIND_END_P2);
                 if (p_end == (end + FIND_END_P1.length()))
                 {
-                    String newHtml = "";
+                    StringBuilder newHtml = new StringBuilder();
 
-                    newHtml += html.substring(0, start);
-                    newHtml += REPLACE_START;
-                    newHtml += html.substring(start + FIND_START.length(), end);
-                    newHtml += REPLACE_END;
-                    newHtml += html.substring(end + FIND_END.length());
+                    newHtml.append(html.substring(0, start));
+                    newHtml.append(REPLACE_START);
+                    newHtml.append(html.substring(start + FIND_START.length(), end));
+                    newHtml.append(REPLACE_END);
+                    newHtml.append(html.substring(end + FIND_END.length()));
 
-                    html = newHtml;
+                    html = newHtml.toString();
                 }
                 else
                 {
@@ -588,8 +592,6 @@ public class PostManagementImpl implements PostManagement
                 return "/" + post.getUuid();
             }
         }
-
-
 
         System.out.println("[Non-Image] " + originalLink);
         return originalLink;
