@@ -49,18 +49,38 @@ public class CoursePageDisplay
     }
 
 
+    private final String TABLE_START = "<table";
+    private final String TABLE_END = "</table>";
+
+    private final String NEW_LINE = "\r\n";
+
     private String readFileContents(String filepath)
     {
-        String content = "";
+        StringBuilder content = new StringBuilder();
         try
         {
             InputStream in = this.getClass().getResourceAsStream(filepath);
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
+            boolean withinTable = false;
+
             String line = reader.readLine();
             while (line != null)
             {
-                content += line;
+                if (line.startsWith(TABLE_START))
+                {
+                    withinTable = true;
+                }
+                if (line.startsWith(TABLE_END))
+                {
+                    withinTable = false;
+                }
+
+                content.append(line);
+                if (!withinTable)
+                {
+                    content.append(NEW_LINE);
+                }
 
                 line = reader.readLine();
             }
@@ -70,6 +90,6 @@ public class CoursePageDisplay
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        return content;
+        return content.toString();
     }
 }

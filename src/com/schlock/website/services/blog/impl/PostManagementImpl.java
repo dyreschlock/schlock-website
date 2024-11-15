@@ -341,16 +341,20 @@ public class PostManagementImpl implements PostManagement
             {
                 String p = paragraphs2[j];
 
+                String html;
                 if (StringUtils.containsIgnoreCase(p, "<img src"))
                 {
-                    String html = "<p class='img'>" + p + "</p>";
-                    sb.append(html);
+                    html = "<p class='img'>" + p + "</p>";
+                }
+                else if(StringUtils.containsIgnoreCase(p, "<table"))
+                {
+                    html = p;
                 }
                 else
                 {
-                    String html = "<p>" + p + "</p>";
-                    sb.append(html);
+                    html = "<p>" + p + "</p>";
                 }
+                sb.append(html);
             }
         }
 
