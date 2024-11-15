@@ -251,10 +251,13 @@ public class ImageManagementImpl implements ImageManagement
     private static final String A_TAG = "<a ";
     private static final String HREF_PARAM = "href=\"";
 
+    private static final String ALT_TEXT = "alt=\"\"";
+
     public String updateImagesInHTML(AbstractPost post, String h, boolean useGalleryLink)
     {
         String html = h;
 
+        html = html.replaceAll(ALT_TEXT, "");
         html = updateImagesInHTML(IMG_TAG, SRC_PARAM, html, post, useGalleryLink);
         html = updateImagesInHTML(A_TAG, HREF_PARAM, html, post, useGalleryLink);
 
