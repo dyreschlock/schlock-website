@@ -8,11 +8,13 @@ import java.util.Set;
 
 public interface PostDAO extends BaseDAO<AbstractPost>
 {
-    public static final int TOP_RECENT = 4;
-    public static final int MIN_RECENT = 2;
-    public static final int ONLY_ONE = 1;
+    int TOP_RECENT = 4;
+    int MIN_RECENT = 2;
+    int ONLY_ONE = 1;
 
     AbstractPost getByUuid(String uuid);
+
+    List<AbstractPost> getAllByUuid(String uuid);
 
     AbstractPost getByWpid(String wpid);
 

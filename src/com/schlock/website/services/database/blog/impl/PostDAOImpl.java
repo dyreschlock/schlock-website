@@ -44,6 +44,17 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return (AbstractPost) list.get(0);
     }
 
+    public List<AbstractPost> getAllByUuid(String uuid)
+    {
+        String text = "from AbstractPost p " +
+                        " where p.uuid = :uuid ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("uuid", uuid);
+
+        return query.list();
+    }
+
     public AbstractPost getByWpid(String wpid)
     {
         String text = "from AbstractPost p where p.wpid = :wpid";

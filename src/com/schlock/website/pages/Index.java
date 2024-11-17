@@ -92,12 +92,21 @@ public class Index
         {
             boolean unpublished = viewState.isShowUnpublished();
 
-            AbstractPost post = postDAO.getByUuid(parameter);
-            if (post == null)
+            AbstractPost requested = null;
+
+            List<AbstractPost> posts = postDAO.getAllByUuid(parameter);
+            for(AbstractPost post : posts)
             {
-                post = postDAO.getMostRecentPost(unpublished, null);
+                if (!post.isCoursePage())
+                {
+                    requested = post;
+                }
             }
-            currentPost = post;
+            if (posts.isEmpty())
+            {
+                requested = postDAO.getMostRecentPost(unpublished, null);
+            }
+            currentPost = requested;
         }
 
         return true;

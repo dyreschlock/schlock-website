@@ -549,10 +549,13 @@ public class PostManagementImpl implements PostManagement
         }
 
         String possibleUUID = originalLink.substring(1);
-        AbstractPost post = postDAO.getByUuid(possibleUUID);
-        if (post != null)
+        List<AbstractPost> posts = postDAO.getAllByUuid(possibleUUID);
+        for(AbstractPost post : posts)
         {
-            return originalLink;
+            if (!post.isCoursePage())
+            {
+                return originalLink;
+            }
         }
 
         if (originalLink.endsWith("events.html"))
@@ -566,7 +569,7 @@ public class PostManagementImpl implements PostManagement
             String galleryName = originalLink.substring(PHOTO_LINK.length());
             galleryName = galleryName.split("/")[0];
 
-            post = postDAO.getByGalleryName(galleryName);
+            AbstractPost post = postDAO.getByGalleryName(galleryName);
             if(post != null)
             {
                 return "/" + post.getUuid();
@@ -577,7 +580,7 @@ public class PostManagementImpl implements PostManagement
         if (originalLink.startsWith(WORDPRESS_PREFIX))
         {
             String wpid = originalLink.substring(WORDPRESS_PREFIX.length());
-            post = postDAO.getByWpid(wpid);
+            AbstractPost post = postDAO.getByWpid(wpid);
             if (post != null)
             {
                 return "/" + post.getUuid();
@@ -590,7 +593,7 @@ public class PostManagementImpl implements PostManagement
             String galleryName = originalLink.substring(CLUB_LINK.length());
             galleryName = galleryName.split("/")[0];
 
-            post = postDAO.getByGalleryName(galleryName);
+            AbstractPost post = postDAO.getByGalleryName(galleryName);
             if (post != null)
             {
                 return "/" + post.getUuid();

@@ -49,10 +49,13 @@ public class CoursesIndex
     {
         this.selectedPage = null;
 
-        AbstractPost post = postDAO.getByUuid(parameter);
-        if (post != null && post.isCoursePage())
+        List<AbstractPost> posts = postDAO.getAllByUuid(parameter);
+        for(AbstractPost post : posts)
         {
-            this.selectedPage = (CoursePage) post;
+            if (post.isCoursePage())
+            {
+                this.selectedPage = (CoursePage) post;
+            }
         }
 
         lessonManagement.resetPostCache();
