@@ -1,0 +1,10 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <t:if test="hasJavascript">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" />
+        <script>
+            ${javascript}
+        </script>
+    </t:if>
+</t:container>

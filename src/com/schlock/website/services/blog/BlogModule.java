@@ -17,6 +17,7 @@ public class BlogModule
         binder.bind(SitemapManagement.class, SitemapManagementImpl.class);
 
         binder.bind(CssCache.class, CssCacheImpl.class);
+        binder.bind(JavaScriptCache.class, JavaScriptCacheImpl.class);
 
         binder.bind(ConvertWordpress.class, ConvertWordpressImpl.class);
     }

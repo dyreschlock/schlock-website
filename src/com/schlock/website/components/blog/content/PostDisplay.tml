@@ -114,4 +114,6 @@
         <hr class="clr" />
         <c:postpreviousnext post="post" />
     </t:if>
+
+    <c:customjavascript post="post" />
 </t:container>
