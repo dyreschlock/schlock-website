@@ -577,9 +577,11 @@ public class PostManagementImpl implements PostManagement
         }
 
         final String WORDPRESS_PREFIX = "/blog/?p=";
-        if (originalLink.startsWith(WORDPRESS_PREFIX))
+        final String WORDPRESS_PREFIX_TYPO = "/blog?p=";
+        if (originalLink.startsWith(WORDPRESS_PREFIX) || originalLink.startsWith(WORDPRESS_PREFIX_TYPO))
         {
-            String wpid = originalLink.substring(WORDPRESS_PREFIX.length());
+            int index = originalLink.indexOf("p=");
+            String wpid = originalLink.substring(index + 2);
             AbstractPost post = postDAO.getByWpid(wpid);
             if (post != null)
             {
