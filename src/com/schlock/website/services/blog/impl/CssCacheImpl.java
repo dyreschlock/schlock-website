@@ -24,6 +24,7 @@ public class CssCacheImpl implements CssCache
     //extras
     private final static String NINTENDO_MUSEUM_UUID = "nintendo-museum";
     private final static String CULTURE_SHOCK_UUID = "culture-shock";
+    private final static String GHIBLI_PARK_UUID = "ghibli-park";
 
     private final static List<String> BLOG_UUID_WITH_EXTRA_CSS =
                                                     Arrays.asList(Page.ABOUT_ME_UUID,
@@ -36,6 +37,7 @@ public class CssCacheImpl implements CssCache
                                                                     AbstractPost.SUBTITLES_UUID,
                                                                     NINTENDO_MUSEUM_UUID,
                                                                     CULTURE_SHOCK_UUID,
+                                                                    GHIBLI_PARK_UUID,
                                                                     "the-secret-of-crystania",
                                                                     "history-of-kiyomi-schools-part-2",
                                                                     "dune");
