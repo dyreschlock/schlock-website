@@ -6,6 +6,7 @@ public interface CssCache
 {
     String getAllCss(AbstractPost post);
 
+    String getCssForTwitter();
     String getCssForNotFibbage();
     String getCssForGames();
     String getCssForPokemon();

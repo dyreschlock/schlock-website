@@ -53,11 +53,13 @@ public class CssCacheImpl implements CssCache
     private final static String GAMES_CSS_FILE = "layout/apps/games.less";
     private final static String POKEMON_CSS_FILE = "layout/apps/pokemon.less";
 
+    private final static String TWITTER_CSS_FILE = "layout/apps/twitter.less";
 
     private final Context context;
 
     private String cached;
 
+    private String cachedTwitter;
     private String cachedNotFibbage;
     private String cachedGames;
     private String cachedPokemon;
@@ -137,6 +139,15 @@ public class CssCacheImpl implements CssCache
             files[i +1] = file;
         }
         return createCss(files);
+    }
+
+    public String getCssForTwitter()
+    {
+        if (StringUtils.isBlank(cachedTwitter))
+        {
+            cachedTwitter = createCss(LESS_VARIABLES_FILE, TWITTER_CSS_FILE);
+        }
+        return cachedTwitter;
     }
 
     public String getCssForNotFibbage()

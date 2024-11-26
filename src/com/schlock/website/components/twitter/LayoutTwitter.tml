@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    lang="en"
+>
+    <head>
+        <meta charset="utf-8" http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="p:domain_verify" content="8b58e68bd24b01d551284566abf39d9a"/>
+        <meta name="msvalidate.01" content="8069B9BD0BB6551BBE39825401178C01" />
+
+        <title>${title}</title>
+
+        <meta name="theme-color" content="#282828" />
+        <meta name="msapplication-TileColor" content="#282828" />
+        <meta name="apple-mobile-web-app-title" content="${websiteTitle}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="${websiteTitle}" />
+        <meta property="og:title" itemprop="name" content="${title}" />
+        <meta property="twitter:title" name="twitter:title" itemprop="name" content="${title}" />
+        <meta property="og:url" content="${pageUrl}" />
+
+        <meta name="description" content="${description}" />
+        <meta property="og:description" content="${description}" />
+        <meta property="og:image:alt" content="${description}" />
+        <meta property="twitter:description" name="twitter:description" content="${description}" />
+
+        <meta property="og:image" itemprop="image primaryImageOfPage" content="${coverImageUrl}" />
+        <meta property="twitter:image" name="twitter:image" itemprop="image primaryImageOfPage" content="${coverImageUrl}" />
+        <meta property="twitter:card" name="twitter:card" content="summary_large_image" />
+
+        <link rel="alternate" type="application/rss+xml" title="${message:website-title}" href="${rssUrl}" />
+        <link rel="canonical" href="${pageUrl}" />
+
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" sizes="32x32"/>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="32x32"/>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+        <link rel="manifest" href="/manifest.json" />
+
+        <style>${css}</style>
+    </head>
+
+    <t:body />
+</html>
