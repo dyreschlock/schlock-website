@@ -31,13 +31,20 @@
                     </t:loop>
                 </span>
 
-                <t:loop source="topCategories" value="currentCategory">
-                    //
-                    <a title="${currentCategory.name}" href="/category/${currentCategory.uuid}">${currentCategory.name}</a>
-                    <t:loop source="subcategories" value="currentSubcategory">
-                        .<a title="${currentSubcategory.name}" href="/category/${currentSubcategory.uuid}">${currentSubcategory.name}</a>
+                <t:if test="hasCategories">
+                    <t:loop source="topCategories" value="currentCategory">
+                        //
+                        <a title="${currentCategory.name}" href="/category/${currentCategory.uuid}">${currentCategory.name}</a>
+                        <t:loop source="subcategories" value="currentSubcategory">
+                            <a title="${currentSubcategory.name}" href="/category/${currentSubcategory.uuid}">/${currentSubcategory.name}</a>
+                        </t:loop>
                     </t:loop>
-                </t:loop>
+
+                    <t:loop source="extraCategories" value="currentCategory">
+                        //
+                        <a title="${currentCategory.name}" href="/category/${currentCategory.uuid}">${currentCategory.name}</a>
+                    </t:loop>
+                </t:if>
 
                 <t:if test="project">
                     <t:loop source="projectCategories" value="currentCategory">

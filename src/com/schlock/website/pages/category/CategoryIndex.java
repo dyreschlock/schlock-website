@@ -215,7 +215,7 @@ public class CategoryIndex
             {
                 AbstractCategory parent = category.getParent();
 
-                title += parent.getName() + " .";
+                title += parent.getName() + " /";
             }
             title += category.getName();
         }

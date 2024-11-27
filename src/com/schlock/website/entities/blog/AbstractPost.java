@@ -109,7 +109,7 @@ public abstract class AbstractPost extends Persisted
 
     public List<PostCategory> getTopPostCategories()
     {
-        List<PostCategory> top = new ArrayList<PostCategory>();
+        List<PostCategory> top = new ArrayList<>();
 
         for (AbstractCategory category : getAllPostCategories())
         {
@@ -125,7 +125,7 @@ public abstract class AbstractPost extends Persisted
 
     public List<AbstractCategory> getSubcategories(AbstractCategory top)
     {
-        List<AbstractCategory> sub = new ArrayList<AbstractCategory>();
+        List<AbstractCategory> sub = new ArrayList<>();
 
         for (AbstractCategory category : getAllPostCategories())
         {
@@ -140,9 +140,28 @@ public abstract class AbstractPost extends Persisted
         return sub;
     }
 
+    public List<AbstractCategory> getExtraCategories()
+    {
+        List<AbstractCategory> extra = new ArrayList<>();
+
+        List<PostCategory> top = getTopPostCategories();
+        for(AbstractCategory cat : getCategories())
+        {
+            if (cat.isPost() && !cat.isTopCategory())
+            {
+                AbstractCategory parent = cat.getParent();
+                if (!top.contains(parent))
+                {
+                    extra.add(cat);
+                }
+            }
+        }
+        return extra;
+    }
+
     public List<PostCategory> getAllPostCategories()
     {
-        List<PostCategory> cat = new ArrayList<PostCategory>();
+        List<PostCategory> cat = new ArrayList<>();
 
         for (AbstractCategory category : getCategories())
         {
@@ -158,7 +177,7 @@ public abstract class AbstractPost extends Persisted
 
     public List<ProjectCategory> getProjectCategories()
     {
-        List<ProjectCategory> cat = new ArrayList<ProjectCategory>();
+        List<ProjectCategory> cat = new ArrayList<>();
 
         for (AbstractCategory category : getCategories())
         {

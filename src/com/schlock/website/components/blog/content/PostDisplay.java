@@ -72,6 +72,11 @@ public class PostDisplay
         return html;
     }
 
+    public boolean isHasCategories()
+    {
+        return !post.getCategories().isEmpty();
+    }
+
     public List<PostCategory> getTopCategories()
     {
         return post.getTopPostCategories();
@@ -80,6 +85,11 @@ public class PostDisplay
     public List<AbstractCategory> getSubcategories()
     {
         return post.getSubcategories(currentCategory);
+    }
+
+    public List<AbstractCategory> getExtraCategories()
+    {
+        return post.getExtraCategories();
     }
 
     public boolean isProject()
