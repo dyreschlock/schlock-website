@@ -4,6 +4,77 @@
       xmlns:tw="tapestry-library:twitter"
 >
 <body>
-    hey hey
+    <div id="profile-banner-sticky">
+        <div id="profile-banner-div">
+            <img id="profile-banner" src="/images/twitter_bg.jpg" />
+        </div>
+    </div>
+
+    <div id="profile-nav">
+        <div class="container">
+            <div class="content">
+                <div class="cell" id="profile-nav-left-cell">
+                    <div id="nav-profile-info">
+                        <a href="#">
+                            <img id="nav-profile-avatar" width="36" height="36" src="/images/twitter_icon36.png" />
+                        </a>
+                        <div id="nav-profile-info-text">
+                            <a href="#" class="pin-a">
+                                <span id="nav-profile-name">${message:name}</span>
+                            </a>
+                            <br/>
+                            <a href="#" class="piu-a" id="npu-a">
+                                <span id="nav-profile-username">${message:username}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cell" id="profile-nav-center-cell">
+                <div id="profile-stats">
+                    <a class="profile-stat profile-stat-active" id="profile-stat-tweets-link" href="#">
+                        <span class="profile-stat-text">Tweets</span>
+                        <span class="profile-stat-value">${tweetCount}</span>
+                    </a>
+                </div>
+            </div>
+            <div class="cell" id="profile-nav-right-cell">
+
+            </div>
+        </div>
+    </div>
+
+    <div id="fake-react-root">
+        <main class="container">
+            <div class="content">
+                <div class="cell" id="left-cell">
+                    <div id="profile-info">
+                        <a id="profile-avatar-link" target="_blank">
+                            <img id="profile-avatar" width="200" height="200" src="/images/twitter_icon400.png" />
+                        </a>
+                        <br/>
+                    </div>
+                    <div id="profile-info-text">
+                        <a class="pin-a">
+                            <h1 id="profile-name">${message:name}</h1>
+                        </a>
+                        <a class="piu-a">
+                            <div id="profile-username">${message:username}</div>
+                        </a>
+                        <div id="profile-bio">
+                            <t:outputraw value="description" />
+                        </div>
+                        <div id="profile-additional">
+                            <span class="profile-additional-thing profile-additional-location">${message:location}</span>
+                            <a class="profile-additional-thing profile-additional-url" href="${message:website}">${message:website}</a>
+                            <span class="profile-additional-thing profile-additional-joined">${message:joined}</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
 </body>
 </html>

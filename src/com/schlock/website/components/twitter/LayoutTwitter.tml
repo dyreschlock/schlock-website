@@ -39,7 +39,7 @@
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
         <link rel="manifest" href="/manifest.json" />
 
-        <style>${css}</style>
+        <style><t:outputraw value="css" /></style>
     </head>
 
     <t:body />

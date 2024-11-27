@@ -1,0 +1,334 @@
+@font-face {
+    font-family: "rosetta-icons-Regular";
+    src: url("https://db.onlinewebfonts.com/t/4041d7e2922d5226c9e8244e92fd10b9.eot");
+    src: url("https://db.onlinewebfonts.com/t/4041d7e2922d5226c9e8244e92fd10b9.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/4041d7e2922d5226c9e8244e92fd10b9.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/4041d7e2922d5226c9e8244e92fd10b9.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/4041d7e2922d5226c9e8244e92fd10b9.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/4041d7e2922d5226c9e8244e92fd10b9.svg#rosetta-icons-Regular")format("svg");
+}
+
+@font: "JustBird", Arial;
+@icon_font: "rosetta-icons-Regular";
+
+@bg_color: #f5f8fa;
+@border_color: #e1e8ed;
+
+@link_color: #0033b0;
+
+@almost_black: #292f33;
+@darker_gray: #66757f;
+@light_gray: #8899a6;
+
+body
+{
+    font-family: @font;
+    background-color: @bg_color;
+    margin: 0;
+}
+
+#profile-banner-sticky
+{
+    position: sticky;
+    top: -400px;
+    z-index: 16;
+}
+
+#profile-banner-div
+{
+    height: fit-content;
+    overflow: hidden;
+}
+
+#profile-banner
+{
+    width: 100vw;
+    object-fit: cover;
+    position: relative;
+    height: 500px;
+}
+
+#profile-nav
+{
+    background-color: @bg_color;
+    border-bottom: 1px solid @border_color;
+    height: 60px;
+    margin-bottom: 8px;
+    position: sticky;
+    bottom: 5px;
+    top: 70px;
+    z-index: 20;
+    padding-left: calc(100vw - 100%);
+}
+
+#profile-nav-left-cell
+{
+    height: fit-content;
+    margin-right: 10px;
+    margin-left: 10px;
+    width: 302px;
+}
+
+#profile-nav-center-cell
+{
+    width: 566px;
+    bottom: 27px;
+    position: relative;
+}
+
+#profile-nav-right-cell
+{
+    height: fit-content;
+    margin-right: 10px;
+    width: 272px;
+}
+
+#nav-profile-info
+{
+    margin-top: 11px;
+    margin-left: 10px;
+    height: 39px;
+    overflow: hidden;
+    width: 200px;
+    display: flex;
+    opacity: 0;
+    transition: 0.35s;
+}
+
+#nav-profile-avatar
+{
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+#nav-profile-info-text
+{
+    display: inline-block;
+    position: relative;
+    bottom: 2px;
+}
+
+#nav-profile-name
+{
+    font-weight: 700;
+    font-size: 18px;
+    color: @almost_black;
+}
+
+#nav-profile-username
+{
+    color: @darker_gray;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+#profile-stats
+{
+    display: inline-flex;
+    position: relative;
+    opacity: 1;
+}
+
+#profile-info
+{
+    position: relative;
+    bottom: 250px;
+    z-index: 21;
+    color: @almost_black;
+}
+
+#profile-avatar
+{
+    border: 5px solid @bg_color;
+    background-color: @bg_color;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px @light_gray;
+    user-select: none;
+    cursor: pointer;
+}
+
+#profile-info-text
+{
+    margin-top: 10px;
+    margin-left: 5px;
+    padding-right: 20px;
+    position: relative;
+    bottom: 255px;
+    color: @almost_black;
+}
+
+#profile-name
+{
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    word-wrap: break-word;
+    margin: 0;
+    text-rendering: optimizeLegibility;
+    overflow: hidden;
+}
+
+#profile-username
+{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    display: block;
+    margin-bottom: 10px;
+    width: fit-content;
+}
+
+#profile-bio
+{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow: hidden;
+}
+
+#fake-react-root
+{
+    padding-left: calc(-100% + 100vw);
+}
+
+#npu-a
+{
+    bottom: 3px;
+    position: relative;
+}
+
+#left-cell
+{
+    top: 55px;
+    position: relative;
+    height: fit-content;
+    margin-right: 10px;
+    margin-left: 10px;
+    width: 302px;
+}
+
+.container
+{
+    margin: 0 auto;
+    max-width: 1190px;
+    height: 60px;
+}
+
+.content
+{
+    display: inline-flex;
+}
+
+.cell
+{
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+a
+{
+    color: @link_color;
+    text-decoration: none;
+}
+
+a:-webkit-any-link
+{
+    cursor: pointer;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+    text-rendering: optimizeLegibility;
+}
+
+.pin-a
+{
+    text-decoration: none !important;
+}
+
+.pin-a, .tweet-nav-active
+{
+    color: @almost_black;
+}
+
+.piu-a
+{
+    width: fit-content;
+    display: block;
+    color: @light_gray;
+}
+
+.profile-stat:hover, .profile-stat-active
+{
+    text-decoration: none;
+    box-shadow: 0px -7px 0px -4px @link_color inset;
+    transition: 0.2s;
+}
+
+.profile-stat-active > .profile-stat-value
+{
+    color: @almost_black;
+}
+
+.profile-stat
+{
+    display: grid;
+    text-align: center;
+    padding: 12px;
+    padding-bottom: 13px;
+}
+
+.profile-stat-text
+{
+    font-size: 11px;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    transition: color .15s ease-in-out;
+    color: @darker_gray;
+}
+
+.profile-stat-value
+{
+    font-size: 18px;
+    padding-top: 3px;
+    font-weight: 500;
+    transition: 0s;
+}
+
+.profile-additional-thing
+{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    display: block;
+}
+
+.profile-additional-location:before
+{
+    content: "\f031";
+}
+
+.profile-additional-url:before
+{
+    content: "\f098";
+}
+
+.profile-additional-joined:before
+{
+    content: "\f177";
+}
+
+.profile-additional-thing:before
+{
+    margin-right: 5px;
+    vertical-align: sub;
+    color: @light_gray;
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    font: 18px @icon_font;
+}

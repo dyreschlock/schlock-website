@@ -145,7 +145,7 @@ public class CssCacheImpl implements CssCache
     {
         if (StringUtils.isBlank(cachedTwitter))
         {
-            cachedTwitter = createCss(LESS_VARIABLES_FILE, TWITTER_CSS_FILE);
+            cachedTwitter = createCss(TWITTER_CSS_FILE);
         }
         return cachedTwitter;
     }
