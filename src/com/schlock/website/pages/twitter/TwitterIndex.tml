@@ -33,7 +33,7 @@
             <div class="cell" id="profile-nav-center-cell">
                 <div id="profile-stats">
                     <a class="profile-stat profile-stat-active" id="profile-stat-tweets-link" href="#">
-                        <span class="profile-stat-text">Tweets</span>
+                        <span class="profile-stat-text">${message:tweets}</span>
                         <span class="profile-stat-value">${tweetCount}</span>
                     </a>
                 </div>
@@ -44,37 +44,70 @@
         </div>
     </div>
 
-    <div id="fake-react-root">
-        <main class="container">
-            <div class="content">
-                <div class="cell" id="left-cell">
-                    <div id="profile-info">
-                        <a id="profile-avatar-link" target="_blank">
-                            <img id="profile-avatar" width="200" height="200" src="/images/twitter_icon400.png" />
-                        </a>
-                        <br/>
-                    </div>
-                    <div id="profile-info-text">
-                        <a class="pin-a">
-                            <h1 id="profile-name">${message:name}</h1>
-                        </a>
-                        <a class="piu-a">
-                            <div id="profile-username">${message:username}</div>
-                        </a>
-                        <div id="profile-bio">
-                            <t:outputraw value="description" />
-                        </div>
-                        <div id="profile-additional">
-                            <span class="profile-additional-thing profile-additional-location">${message:location}</span>
-                            <a class="profile-additional-thing profile-additional-url" href="${message:website}">${message:website}</a>
-                            <span class="profile-additional-thing profile-additional-joined">${message:joined}</span>
-                        </div>
+    <div id="fake-react-root"><main class="container"><div class="content">
+        <div class="cell" id="left-cell">
+            <div id="profile-info">
+                <a id="profile-avatar-link" target="_blank">
+                    <img id="profile-avatar" width="200" height="200" src="/images/twitter_icon400.png" />
+                </a>
+                <br/>
+            </div>
+            <div id="profile-info-text">
+                <a class="pin-a">
+                    <h1 id="profile-name">${message:name}</h1>
+                </a>
+                <a class="piu-a">
+                    <div id="profile-username">${message:username}</div>
+                </a>
+                <div id="profile-bio">
+                    <t:outputraw value="description" />
+                </div>
+                <div id="profile-additional">
+                    <span class="profile-additional-thing profile-additional-location">${message:location}</span>
+                    <a class="profile-additional-thing profile-additional-url" href="${message:website}">${message:website}</a>
+                    <span class="profile-additional-thing profile-additional-joined">${message:joined}</span>
+                </div>
 
-                    </div>
+            </div>
+        </div>
+
+        <div class="cell" id="center-cell">
+            <div id="tweet-nav">
+                <a id="tweet-nav-tweets" class="tweet-nav-active" href="#">${message:tweets}</a>
+                <a id="tweet-nav-media" href="#">${message:photos}</a>
+            </div>
+            <section>
+                <div><div><div id="timeline">
+
+
+
+                </div></div></div>
+            </section>
+        </div>
+
+        <div class="cell" id="right-cell">
+            <div id="wtf" class="box">
+                <h1>${message:you-may-also-like}</h1>
+                <br/>
+                <br/>
+                <div class="wtf-list">
+
+
+
                 </div>
             </div>
-        </main>
-    </div>
+            <div id="trends" class="box">
+                <h1>${message:trends}</h1>
+                <br/>
+                <br/>
+                <div class="trends-list">
+
+
+
+                </div>
+            </div>
+        </div>
+    </div></main></div>
 
 </body>
 </html>

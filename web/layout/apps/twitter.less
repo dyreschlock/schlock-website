@@ -11,7 +11,8 @@
 @font: "JustBird", Arial;
 @icon_font: "rosetta-icons-Regular";
 
-@bg_color: #f5f8fa;
+@bg_color: white;
+@dark_bg_color: #f5f8fa;
 @border_color: #e1e8ed;
 
 @link_color: #0033b0;
@@ -23,7 +24,7 @@
 body
 {
     font-family: @font;
-    background-color: @bg_color;
+    background-color: @dark_bg_color;
     margin: 0;
 }
 
@@ -190,6 +191,54 @@ body
     overflow: hidden;
 }
 
+#tweet-nav
+{
+    background-color: @bg_color;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-left: 1px solid @border_color;
+    border-right: 1px solid @border_color;
+    border-top: 1px solid @border_color;
+    word-break: keep-all;
+    display: flex;
+}
+
+#tweet-nav *
+{
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 1;
+    padding: 15px 15px 12px;
+}
+
+#timeline
+{
+    width: 590px;
+    margin-bottom: 10px;
+}
+
+#wtf
+{
+    padding: 10px;
+    max-weight: 280px;
+}
+
+#trends
+{
+    margin-top: 10px;
+    padding: 15px;
+}
+
+#wtf > h1, #trends h1, .nice-header
+{
+    margin: 0;
+    display: inline-block;
+    font-size: 18px;
+    color: @darker_gray;
+    font-weight: 300;
+}
+
 #fake-react-root
 {
     padding-left: calc(-100% + 100vw);
@@ -211,6 +260,14 @@ body
     width: 302px;
 }
 
+#right-cell
+{
+    top: 140px;
+    height: fit-content;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .container
 {
     margin: 0 auto;
@@ -227,6 +284,13 @@ body
 {
     box-sizing: border-box;
     display: inline-block;
+}
+
+.box
+{
+    background-color: @bg_color;
+    border-radius: 5px;
+    border: 1px solid @border_color;
 }
 
 a
@@ -331,4 +395,11 @@ h1, h2, h3, h4, h5, h6
     width: 20px;
     text-align: center;
     font: 18px @icon_font;
+}
+
+.wtf-user
+{
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 5px;
 }
