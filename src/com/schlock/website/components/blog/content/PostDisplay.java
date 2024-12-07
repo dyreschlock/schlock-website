@@ -2,6 +2,7 @@ package com.schlock.website.components.blog.content;
 
 import com.schlock.website.entities.blog.*;
 import com.schlock.website.services.DateFormatter;
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.LessonsManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
@@ -27,6 +28,9 @@ public class PostDisplay
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     @Property
     private String cssClass;
+
+    @Inject
+    private DeploymentContext context;
 
     @Inject
     private LessonsManagement lessonManagement;
@@ -70,6 +74,11 @@ public class PostDisplay
         String html = postManagement.wrapJapaneseTextInTags(title);
 
         return html;
+    }
+
+    public String getWebUrl()
+    {
+        return context.webDomain();
     }
 
     public boolean isHasCategories()

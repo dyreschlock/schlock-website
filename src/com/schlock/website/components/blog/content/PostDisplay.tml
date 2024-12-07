@@ -20,7 +20,7 @@
                 </time>
                 <span class="hidden" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
                     <span itemprop="name">
-                        <a title="${message:author}" href="${message:website-url}" itemprop="url" rel="author">${message:author}</a>
+                        <a title="${message:author}" href="${webUrl}" itemprop="url" rel="author">${message:author}</a>
                     </span>
                 </span>
                 <span class="hidden">

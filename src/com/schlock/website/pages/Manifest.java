@@ -1,5 +1,6 @@
 package com.schlock.website.pages;
 
+import com.schlock.website.services.DeploymentContext;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONArray;
@@ -9,12 +10,15 @@ import org.apache.tapestry5.util.TextStreamResponse;
 public class Manifest
 {
     @Inject
+    private DeploymentContext context;
+
+    @Inject
     private Messages messages;
 
     Object onActivate() {
 
         String title = messages.get("website-title");
-        String url = messages.get("website-url");
+        String url = context.webDomain();
 
         String description = messages.get("website-about");
         description = description.replace("<b>", "");

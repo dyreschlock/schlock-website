@@ -3,6 +3,7 @@ package com.schlock.website.pages;
 import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DateFormatter;
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.ContentType;
@@ -28,6 +29,9 @@ public class Feed
     private DateFormatter dateFormatter;
 
     @Inject
+    private DeploymentContext context;
+
+    @Inject
     private Messages messages;
 
     @Inject
@@ -40,6 +44,11 @@ public class Feed
     @Property
     private AbstractCategory currentCategory;
 
+
+    public String getWebUrl()
+    {
+        return context.webDomain();
+    }
 
     public List<Post> getRecentPosts()
     {
@@ -78,9 +87,7 @@ public class Feed
         String uuid = currentPost.getUuid();
         String redirect = linkSource.createPageRenderLinkWithContext(Index.class, uuid).toURI();
 
-        String url = messages.get("website-url");
-
-        return url + redirect.substring(1);
+        return getWebUrl() + redirect.substring(1);
     }
 
     public String getCurrentPostDate()

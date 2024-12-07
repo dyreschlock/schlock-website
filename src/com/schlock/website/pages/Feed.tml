@@ -9,8 +9,8 @@
         <language>en-us</language>
         <pubDate>${currentDate}</pubDate>
         <lastBuildDate>${currentDate}</lastBuildDate>
-        <link>${message:website-url}</link>
-        <atom:link href="${message:website-url}feed.xml" rel="self" type="application/rss+xml" />
+        <link>${webUrl}</link>
+        <atom:link href="${webUrl}feed.xml" rel="self" type="application/rss+xml" />
         <category>Japan / Games / Other Stuff</category>
 
         <t:loop source="recentPosts" value="currentPost">
