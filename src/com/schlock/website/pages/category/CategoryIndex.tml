@@ -12,6 +12,8 @@
 
             <l:postpreviewlink post="mostRecent" cssClass="'primaryPost'" />
 
+            <p class="description"><t:outputraw value="categoryDescription" /></p>
+
             <t:loop source="categories" value="currentCategory">
 
                 <t:if test="!pageCategory">

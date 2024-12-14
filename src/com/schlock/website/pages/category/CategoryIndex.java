@@ -227,6 +227,12 @@ public class CategoryIndex
         String description = "";
         if (category != null)
         {
+            description = category.getDescription();
+            if (StringUtils.isNotBlank(description))
+            {
+                return description;
+            }
+
             description = messages.get("description") + " ";
             if (!category.isTopCategory())
             {
@@ -235,6 +241,15 @@ public class CategoryIndex
             }
             description += category.getName();
         }
+        return description;
+    }
+
+    public String getCategoryDescription()
+    {
+        String description = getPageDescription();
+
+        description = description.replace(". ", ".<br/>");
+
         return description;
     }
 }

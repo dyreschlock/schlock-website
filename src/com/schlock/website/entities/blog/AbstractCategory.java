@@ -45,6 +45,7 @@ public abstract class AbstractCategory extends Persisted
 
     private AbstractCategory parent;
 
+    private String description;
 
     public boolean isTopCategory()
     {
@@ -100,5 +101,15 @@ public abstract class AbstractCategory extends Persisted
     public void setParent(AbstractCategory parent)
     {
         this.parent = parent;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
     }
 }
