@@ -6,10 +6,9 @@ import com.schlock.website.entities.blog.ProjectCategory;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.List;
@@ -23,6 +22,10 @@ public class ProjectsIndex
 
     @Inject
     private PostDAO postDAO;
+
+    @Inject
+    private Messages messages;
+
 
     @Persist
     private ProjectCategory category;
@@ -39,8 +42,6 @@ public class ProjectsIndex
     @Property
     private int currentIndex;
 
-    @InjectComponent
-    private Zone postZone;
 
 
     Object onActivate()
@@ -158,5 +159,19 @@ public class ProjectsIndex
             cachedPage = (Page) postDAO.getByUuid(Page.PROJECTS_UUID);
         }
         return cachedPage;
+    }
+
+    public String getPageTitle()
+    {
+        return getPage().getTitle();
+    }
+
+    public String getPageDescription()
+    {
+        if (category != null)
+        {
+            return category.getDescription();
+        }
+        return messages.get("description");
     }
 }
