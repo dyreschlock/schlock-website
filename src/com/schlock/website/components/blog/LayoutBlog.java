@@ -109,12 +109,12 @@ public class LayoutBlog
 
     public String getPostDescription()
     {
+        String description = "";
         if (post != null)
         {
-            String description = postManagement.generatePostDescription(post);
-            return description;
+            description = postManagement.generatePostDescription(post);
         }
-        if (StringUtils.isNotBlank(pageDescription))
+        if (StringUtils.isBlank(description) && StringUtils.isNotBlank(pageDescription))
         {
             return pageDescription;
         }

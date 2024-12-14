@@ -32,6 +32,8 @@
                 <br class="clr" />
             </div>
 
+            <p class="description"><t:outputraw value="pageDescription" /></p>
+
             <div class="projectPosts columns">
                 <t:loop source="projects" value="currentPage" index="currentIndex">
                     <div class="column ${extraPostCss}">
@@ -40,5 +42,5 @@
                 </t:loop>
             </div>
         </t:zone>
-    </div>>
+    </div>
 </html>
