@@ -3,15 +3,12 @@ package com.schlock.website.components.blog.content;
 import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.ProjectCategory;
-import com.schlock.website.pages.Index;
-import com.schlock.website.pages.Projects;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.schlock.website.pages;
+package com.schlock.website.pages.projects;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Page;
@@ -14,7 +14,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.List;
 
-public class Projects
+public class ProjectsIndex
 {
     private static final String NULL = "NULL";
 
