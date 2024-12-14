@@ -12,6 +12,8 @@
 
             <l:postpreviewlink post="mostRecent" cssClass="'primaryPost'" />
 
+            <p class="description"><t:outputraw value="pageDescription" /></p>
+
             <t:loop source="iterations" value="currentIteration">
 
                 <a href="${currentIterationUrlChain}">
