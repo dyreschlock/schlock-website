@@ -65,6 +65,7 @@ mkdir "blog"
 cp "feed.xml" "blog/index.xml"
 
 cp "errorpage.html" "404.html"
+cp "index.html" "index2.html"
 
 end_timestamp=$(date +"%Y-%m-%d %H:%M:%S")
 
