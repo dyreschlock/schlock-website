@@ -1,16 +1,21 @@
 package com.schlock.website.services.blog;
 
-import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Post;
 
 import java.util.List;
 
 public interface TodayArchiveManagement
 {
-    AbstractPost getMostRecent(String dateString);
+    Post getMostRecent(String dateString);
 
     List<String> getYears(String dateString);
 
-    List<AbstractPost> getPosts(String dateString, String year);
+    List<Post> getPosts(String dateString, String year);
 
-    List<AbstractPost> getPreviewPosts(String dateString, String year);
+    List<Post> getPreviewPosts(String dateString, String year);
+
+
+    String getNextDayString(String dateString);
+
+    String getPreviousDayString(String dateString);
 }

@@ -1,6 +1,7 @@
 package com.schlock.website.pages.today;
 
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.TodayArchiveManagement;
 import org.apache.commons.lang.StringUtils;
@@ -32,7 +33,7 @@ public class TodayIndex
     private String currentYear;
 
     @Property
-    private AbstractPost currentPost;
+    private Post currentPost;
 
 
     Object onActivate()
@@ -65,12 +66,12 @@ public class TodayIndex
         return archiveManagement.getYears(dateString);
     }
 
-    public List<AbstractPost> getPosts()
+    public List<Post> getPosts()
     {
         return archiveManagement.getPosts(dateString, currentYear);
     }
 
-    public List<AbstractPost> getPreviewPosts()
+    public List<Post> getPreviewPosts()
     {
         return archiveManagement.getPreviewPosts(dateString, currentYear);
     }
@@ -99,7 +100,50 @@ public class TodayIndex
     public String getPageUrl()
     {
         String url = linkSource.createPageRenderLink(TodayIndex.class).toURI();
+        if (isDaySelected())
+        {
+            url += "/" + dateString;
+        }
+        return url;
+    }
 
+
+    public String getNextDayLink()
+    {
+        String nextDate = archiveManagement.getNextDayString(dateString);
+
+        String url = getReturnLink() + "/" + nextDate;
+        return url;
+    }
+
+    public String getNextDayLabel()
+    {
+        String nextDate = archiveManagement.getNextDayString(dateString);
+        String nextText = dateFormatter.todayPrintFormat(nextDate);
+
+        return messages.format("view-posts", nextText);
+    }
+
+    public String getPreviousDayLink()
+    {
+        String previousDate = archiveManagement.getPreviousDayString(dateString);
+
+        String url = getReturnLink() + "/" + previousDate;
+        return url;
+    }
+
+    public String getPreviousDayLabel()
+    {
+        String previousDate = archiveManagement.getPreviousDayString(dateString);
+        String previousText = dateFormatter.todayPrintFormat(previousDate);
+
+        return messages.format("view-posts", previousText);
+    }
+
+
+    public String getReturnLink()
+    {
+        String url = linkSource.createPageRenderLink(TodayIndex.class).toURI();
         return url;
     }
 }

@@ -1,6 +1,7 @@
 package com.schlock.website.services.blog.impl;
 
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.TodayArchiveManagement;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -16,6 +17,8 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
 
     private Map<String, Map<String, List<String>>> postsByDateByYear;
 
+    private List<String> cachedOrderedDates;
+
     public TodayArchiveManagementImpl(DateFormatter dateFormatter,
                                         PostDAO postDAO)
     {
@@ -25,20 +28,19 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
     }
 
 
-    public AbstractPost getMostRecent(String dateString)
+    public Post getMostRecent(String dateString)
     {
         return getPostsByDate(dateString).get(0);
     }
 
-    private List<AbstractPost> getPostsByDate(String dateString)
+    private List<Post> getPostsByDate(String dateString)
     {
         List<String> uuids = getUuidsByDate(dateString);
 
-        List<AbstractPost> posts = postDAO.getByUuid(uuids);
-        Collections.sort(posts, new Comparator<AbstractPost>()
+        List<Post> posts = postDAO.getPostsByUuid(uuids);
+        Collections.sort(posts, new Comparator<Post>()
         {
-            @Override
-            public int compare(AbstractPost o1, AbstractPost o2)
+            public int compare(Post o1, Post o2)
             {
                 return o2.getCreated().compareTo(o1.getCreated());
             }
@@ -86,7 +88,7 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
         return years;
     }
 
-    public List<AbstractPost> getPosts(String dateString, String year)
+    public List<Post> getPosts(String dateString, String year)
     {
         if (postsByDateByYear == null)
         {
@@ -94,10 +96,10 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
         }
 
         List<String> uuids = postsByDateByYear.get(dateString).get(year);
-        return postDAO.getByUuid(uuids);
+        return postDAO.getPostsByUuid(uuids);
     }
 
-    public List<AbstractPost> getPreviewPosts(String dateString, String year)
+    public List<Post> getPreviewPosts(String dateString, String year)
     {
         List<String> years = getYears(dateString);
 
@@ -108,15 +110,75 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
 
         List<String> uuids = postsByDateByYear.get(dateString).get(year);
 
-        return postDAO.getByUuid(uuids.subList(0, 1));
+        return postDAO.getPostsByUuid(uuids.subList(0, 1));
     }
+
+
+    public String getNextDayString(String dateString)
+    {
+        if (postsByDateByYear == null)
+        {
+            generateCachedMap();
+        }
+
+        List<String> dates = getOrderedDates();
+
+        int index = dates.indexOf(dateString);
+        if (index == dates.size() - 1)
+        {
+            return dates.get(0);
+        }
+        return dates.get(index + 1);
+    }
+
+    public String getPreviousDayString(String dateString)
+    {
+        if (postsByDateByYear == null)
+        {
+            generateCachedMap();
+        }
+
+        List<String> dates = getOrderedDates();
+
+        int index = dates.indexOf(dateString);
+        if (index == 0)
+        {
+            return dates.get(dates.size() -1);
+        }
+        return dates.get(index - 1);
+    }
+
+    private List<String> getOrderedDates()
+    {
+        if (cachedOrderedDates == null)
+        {
+            List<String> dates = new ArrayList<>();
+            dates.addAll(postsByDateByYear.keySet());
+
+            Collections.sort(dates, new Comparator<String>()
+            {
+                public int compare(String o1, String o2)
+                {
+                    Date date1 = dateFormatter.todayArchiveFormat(o1);
+                    Date date2 = dateFormatter.todayArchiveFormat(o2);
+
+                    return date1.compareTo(date2);
+                }
+            });
+
+            cachedOrderedDates = dates;
+        }
+        return cachedOrderedDates;
+    }
+
+
 
     private void generateCachedMap()
     {
         postsByDateByYear = new HashMap<>();
 
-        List<AbstractPost> posts = postDAO.getAllPublished();
-        for(AbstractPost post : posts)
+        List<Post> posts = postDAO.getAllPublished();
+        for(Post post : posts)
         {
             String uuid = post.getUuid();
             String dateString = dateFormatter.todayArchiveFormat(post.getCreated());

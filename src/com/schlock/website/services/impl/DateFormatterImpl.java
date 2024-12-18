@@ -56,19 +56,23 @@ public class DateFormatterImpl implements DateFormatter
         return f.format(date);
     }
 
-
-    public String todayPrintFormat(String dateString)
+    public Date todayArchiveFormat(String dateString)
     {
         try
         {
             SimpleDateFormat f = new SimpleDateFormat(TODAY_FORMAT);
             Date date = f.parse(dateString);
-
-            return dayFormat(date);
+            return date;
         }
         catch (Exception e)
         {
             throw new RuntimeException(e);
         }
+    }
+
+    public String todayPrintFormat(String dateString)
+    {
+        Date date = todayArchiveFormat(dateString);
+        return dayFormat(date);
     }
 }

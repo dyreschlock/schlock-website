@@ -14,7 +14,7 @@ public interface PostDAO extends BaseDAO<AbstractPost>
 
     AbstractPost getByUuid(String uuid);
 
-    List<AbstractPost> getByUuid(List<String> uuids);
+    List<Post> getPostsByUuid(List<String> uuids);
 
     List<AbstractPost> getAllByUuid(String uuid);
 
@@ -30,7 +30,7 @@ public interface PostDAO extends BaseDAO<AbstractPost>
 
     List<String> getAllPublishedUuids();
 
-    List<AbstractPost> getAllPublished();
+    List<Post> getAllPublished();
 
     List<Post> getAllVisibleByDate();
 

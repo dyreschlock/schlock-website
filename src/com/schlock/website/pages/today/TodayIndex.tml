@@ -13,7 +13,14 @@
 
                 <l:postpreviewlink post="mostRecent" cssClass="'primaryPost'" />
 
-                <p class="description"><t:outputraw value="pageDescription" /></p>
+                <div class="daySelect">
+                    <a href="${previousDayLink}">${previousDayLabel}</a>
+                    //
+                    <a href="${returnLink}">${message:return}</a>
+                    //
+                    <a href="${nextDayLink}">${nextDayLabel}</a>
+                </div>
+
 
                 <t:loop source="years" value="currentYear">
 
@@ -37,7 +44,6 @@
 
                     <br class="clr" />
                 </t:loop>
-
             </t:if>
 
             <t:if test="!daySelected">

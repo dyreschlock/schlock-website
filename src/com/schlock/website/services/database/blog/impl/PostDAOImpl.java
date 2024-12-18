@@ -55,10 +55,11 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
-    public List<AbstractPost> getByUuid(List<String> uuids)
+    public List<Post> getPostsByUuid(List<String> uuids)
     {
-        String text = " from AbstractPost p " +
-                        " where p.uuid in (:uuids) ";
+        String text = " from Post p " +
+                        " where p.uuid in (:uuids) " +
+                        " order by p.created desc ";
 
         Query query = session.createQuery(text);
         query.setParameterList("uuids", uuids);
@@ -127,10 +128,10 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
-    public List<AbstractPost> getAllPublished()
+    public List<Post> getAllPublished()
     {
         String text = "select p " +
-                        " from AbstractPost p " +
+                        " from Post p " +
                         " where p.publishedLevel >= " + POST_PUBLISHED + " " +
                         " order by p.created asc ";
 

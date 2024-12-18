@@ -18,5 +18,7 @@ public interface DateFormatter
 
     String todayArchiveFormat(Date date);
 
+    Date todayArchiveFormat(String dateString);
+
     String todayPrintFormat(String dateString);
 }
