@@ -31,6 +31,9 @@ public class TodayIndex
     @Property
     private String currentYear;
 
+    @Property
+    private AbstractPost currentPost;
+
 
     Object onActivate()
     {
@@ -62,6 +65,15 @@ public class TodayIndex
         return archiveManagement.getYears(dateString);
     }
 
+    public List<AbstractPost> getPosts()
+    {
+        return archiveManagement.getPosts(dateString, currentYear);
+    }
+
+    public List<AbstractPost> getPreviewPosts()
+    {
+        return archiveManagement.getPreviewPosts(dateString, currentYear);
+    }
 
 
     public String getPageTitle()

@@ -4,6 +4,7 @@ import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.TodayArchiveManagement;
 import com.schlock.website.services.database.blog.PostDAO;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 
@@ -31,11 +32,6 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
 
     private List<AbstractPost> getPostsByDate(String dateString)
     {
-        if (postsByDateByYear == null)
-        {
-            generateCachedMap();
-        }
-
         List<String> uuids = getUuidsByDate(dateString);
 
         List<AbstractPost> posts = postDAO.getByUuid(uuids);
@@ -49,6 +45,23 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
         });
 
         return posts;
+    }
+
+    private List<String> getUuidsByDate(String dateString)
+    {
+        if (postsByDateByYear == null)
+        {
+            generateCachedMap();
+        }
+
+        Map<String, List<String>> postsByYear = postsByDateByYear.get(dateString);
+
+        List<String> uuids = new ArrayList<>();
+        for(List<String> posts : postsByYear.values())
+        {
+            uuids.addAll(posts);
+        }
+        return uuids;
     }
 
     public List<String> getYears(String dateString)
@@ -73,21 +86,29 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
         return years;
     }
 
-    private List<String> getUuidsByDate(String dateString)
+    public List<AbstractPost> getPosts(String dateString, String year)
     {
         if (postsByDateByYear == null)
         {
             generateCachedMap();
         }
 
-        Map<String, List<String>> postsByYear = postsByDateByYear.get(dateString);
+        List<String> uuids = postsByDateByYear.get(dateString).get(year);
+        return postDAO.getByUuid(uuids);
+    }
 
-        List<String> uuids = new ArrayList<>();
-        for(List<String> posts : postsByYear.values())
+    public List<AbstractPost> getPreviewPosts(String dateString, String year)
+    {
+        List<String> years = getYears(dateString);
+
+        if (StringUtils.equals(year, years.get(0)))
         {
-            uuids.addAll(posts);
+            return Collections.EMPTY_LIST;
         }
-        return uuids;
+
+        List<String> uuids = postsByDateByYear.get(dateString).get(year);
+
+        return postDAO.getByUuid(uuids.subList(0, 1));
     }
 
     private void generateCachedMap()

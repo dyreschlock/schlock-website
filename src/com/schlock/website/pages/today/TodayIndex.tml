@@ -20,13 +20,17 @@
                     <div class="title clr">${currentYear}</div>
 
                     <div class="categoryPosts">
-
+                        <t:loop source="posts" value="currentPost">
+                            <l:postlink post="currentPost" cssClass="'archive'" />
+                        </t:loop>
 
                         <br class="clr" />
                     </div>
 
                     <div class="postPreviews">
-
+                        <t:loop source="previewPosts" value="currentPost">
+                            <l:postpreviewlink post="currentPost" cssClass="'secondaryPost'" />
+                        </t:loop>
 
                         <br class="clr" />
                     </div>

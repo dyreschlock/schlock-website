@@ -9,4 +9,8 @@ public interface TodayArchiveManagement
     AbstractPost getMostRecent(String dateString);
 
     List<String> getYears(String dateString);
+
+    List<AbstractPost> getPosts(String dateString, String year);
+
+    List<AbstractPost> getPreviewPosts(String dateString, String year);
 }
