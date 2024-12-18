@@ -36,6 +36,8 @@
             <a title="${currentCategory.name}" href="/category/${currentCategory.uuid}">${currentCategory.name}</a>
         </t:loop>
         /
+        <a title="${message:today}" href="/today">${message:today}</a>
+        /
         <a title="${message:random}" onclick="randomClicked()">${message:random}</a>
     </div>
     <br class="clr" />
