@@ -12,6 +12,7 @@ public class BlogModule
         binder.bind(PostManagement.class, PostManagementImpl.class);
         binder.bind(ImageManagement.class, ImageManagementImpl.class);
         binder.bind(PostArchiveManagement.class, PostArchiveManagementImpl.class);
+        binder.bind(TodayArchiveManagement.class, TodayArchiveManagementImpl.class);
         binder.bind(LessonsManagement.class, LessonsManagementImpl.class);
         binder.bind(KeywordManagement.class, KeywordManagementImpl.class);
         binder.bind(SitemapManagement.class, SitemapManagementImpl.class);

@@ -118,7 +118,7 @@ public class LayoutBlog
         {
             return pageDescription;
         }
-        return null;
+        return description;
     }
 
     public boolean isHasCoverImage()

@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="blog/layoutblog" pageName="pageTitle" pageDescription="pageDescription" pageUrl="pageUrl"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:l="tapestry-library:blog/link"
+    >
+    <div id="postContent" class="archive">
+
+        <h1 id="headline">${pageTitle}</h1>
+
+        <div class="postBody">
+
+            <t:if test="daySelected">
+
+                <l:postpreviewlink post="mostRecent" cssClass="'primaryPost'" />
+
+
+            </t:if>
+
+            <t:if test="!daySelected">
+
+                January 1st 2nd 3rd 4th 5th 6th 7th 8th 9th 10th 11th 12th 13th 14th 15th 16th 17th 18th 19th 20th 21st 22nd 23rd 24th 25th 26th 27th 28th 29th 30th 31st
+
+            </t:if>
+        </div>
+    </div>
+</html>

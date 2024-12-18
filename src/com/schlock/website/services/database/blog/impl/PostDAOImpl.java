@@ -55,6 +55,17 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
+    public List<AbstractPost> getByUuid(List<String> uuids)
+    {
+        String text = " from AbstractPost p " +
+                        " where p.uuid in (:uuids) ";
+
+        Query query = session.createQuery(text);
+        query.setParameterList("uuids", uuids);
+
+        return query.list();
+    }
+
     public AbstractPost getByWpid(String wpid)
     {
         String text = "from AbstractPost p where p.wpid = :wpid";
@@ -108,14 +119,23 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
     public List<String> getAllPublishedUuids()
     {
         String text = "select p.uuid " +
-                " from AbstractPost p " +
-                " where p.publishedLevel >= " + POST_PUBLISHED + " " +
-                " order by p.created asc ";
+                        " from AbstractPost p " +
+                        " where p.publishedLevel >= " + POST_PUBLISHED + " " +
+                        " order by p.created asc ";
 
         Query query = session.createQuery(text);
+        return query.list();
+    }
 
-        List<String> list = query.list();
-        return list;
+    public List<AbstractPost> getAllPublished()
+    {
+        String text = "select p " +
+                        " from AbstractPost p " +
+                        " where p.publishedLevel >= " + POST_PUBLISHED + " " +
+                        " order by p.created asc ";
+
+        Query query = session.createQuery(text);
+        return query.list();
     }
 
     public List<Post> getAllVisibleByDate()
