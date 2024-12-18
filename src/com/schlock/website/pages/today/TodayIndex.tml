@@ -13,6 +13,26 @@
 
                 <l:postpreviewlink post="mostRecent" cssClass="'primaryPost'" />
 
+                <p class="description"><t:outputraw value="pageDescription" /></p>
+
+                <t:loop source="years" value="currentYear">
+
+                    <div class="title clr">${currentYear}</div>
+
+                    <div class="categoryPosts">
+
+
+                        <br class="clr" />
+                    </div>
+
+                    <div class="postPreviews">
+
+
+                        <br class="clr" />
+                    </div>
+
+                    <br class="clr" />
+                </t:loop>
 
             </t:if>
 

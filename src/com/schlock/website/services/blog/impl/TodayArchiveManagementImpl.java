@@ -13,7 +13,7 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
 
     private final PostDAO postDAO;
 
-    private Map<String, List<String>> postsByDate;
+    private Map<String, Map<String, List<String>>> postsByDateByYear;
 
     public TodayArchiveManagementImpl(DateFormatter dateFormatter,
                                         PostDAO postDAO)
@@ -29,14 +29,14 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
         return getPostsByDate(dateString).get(0);
     }
 
-    public List<AbstractPost> getPostsByDate(String dateString)
+    private List<AbstractPost> getPostsByDate(String dateString)
     {
-        if (postsByDate == null)
+        if (postsByDateByYear == null)
         {
             generateCachedMap();
         }
 
-        List<String> uuids = postsByDate.get(dateString);
+        List<String> uuids = getUuidsByDate(dateString);
 
         List<AbstractPost> posts = postDAO.getByUuid(uuids);
         Collections.sort(posts, new Comparator<AbstractPost>()
@@ -51,11 +51,48 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
         return posts;
     }
 
+    public List<String> getYears(String dateString)
+    {
+        if (postsByDateByYear == null)
+        {
+            generateCachedMap();
+        }
 
+        List<String> years = new ArrayList<>();
+        years.addAll(postsByDateByYear.get(dateString).keySet());
+
+        Collections.sort(years, new Comparator<String>()
+        {
+            @Override
+            public int compare(String o1, String o2)
+            {
+                return o2.compareTo(o1);
+            }
+        });
+
+        return years;
+    }
+
+    private List<String> getUuidsByDate(String dateString)
+    {
+        if (postsByDateByYear == null)
+        {
+            generateCachedMap();
+        }
+
+        Map<String, List<String>> postsByYear = postsByDateByYear.get(dateString);
+
+        List<String> uuids = new ArrayList<>();
+        for(List<String> posts : postsByYear.values())
+        {
+            uuids.addAll(posts);
+        }
+        return uuids;
+    }
 
     private void generateCachedMap()
     {
-        postsByDate = new HashMap<>();
+        postsByDateByYear = new HashMap<>();
 
         List<AbstractPost> posts = postDAO.getAllPublished();
         for(AbstractPost post : posts)
@@ -63,17 +100,43 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
             String uuid = post.getUuid();
             String dateString = dateFormatter.todayArchiveFormat(post.getCreated());
 
-            if (postsByDate.containsKey(dateString))
+            if (postsByDateByYear.containsKey(dateString))
             {
-                postsByDate.get(dateString).add(uuid);
+                String year = getYear(post.getCreated());
+                if(postsByDateByYear.get(dateString).containsKey(year))
+                {
+                    postsByDateByYear.get(dateString).get(year).add(uuid);
+                }
+                else
+                {
+                    List<String> uuids = new ArrayList<>();
+                    uuids.add(uuid);
+
+                    postsByDateByYear.get(dateString).put(year, uuids);
+                }
             }
             else
             {
                 List<String> uuids = new ArrayList<>();
                 uuids.add(uuid);
 
-                postsByDate.put(dateString, uuids);
+                String year = getYear(post.getCreated());
+
+                Map<String, List<String>> postsByYear = new HashMap<>();
+                postsByYear.put(year, uuids);
+
+                postsByDateByYear.put(dateString, postsByYear);
             }
         }
+    }
+
+    private String getYear(Date date)
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+
+        int year = cal.get(Calendar.YEAR);
+
+        return Integer.toString(year);
     }
 }

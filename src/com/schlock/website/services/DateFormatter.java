@@ -17,4 +17,6 @@ public interface DateFormatter
     String rssFeedFormat(Date date);
 
     String todayArchiveFormat(Date date);
+
+    String todayPrintFormat(String dateString);
 }

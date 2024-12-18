@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TodayArchiveManagement
 {
-    List<AbstractPost> getPostsByDate(String dateString);
-
     AbstractPost getMostRecent(String dateString);
+
+    List<String> getYears(String dateString);
 }
