@@ -14,6 +14,8 @@ public interface TodayArchiveManagement
 
     List<String> getYears(String dateString);
 
+    int getPostCount(String dateString);
+
     List<Post> getPosts(String dateString, String year);
 
     List<Post> getPreviewPosts(String dateString, String year);

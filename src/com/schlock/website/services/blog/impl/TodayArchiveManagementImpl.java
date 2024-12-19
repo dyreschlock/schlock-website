@@ -59,6 +59,13 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
         return getPostsByDate(dateString).get(0);
     }
 
+    public int getPostCount(String dateString)
+    {
+        List<String> uuids = getUuidsByDate(dateString);
+
+        return uuids.size();
+    }
+
     private List<Post> getPostsByDate(String dateString)
     {
         List<String> uuids = getUuidsByDate(dateString);
@@ -80,6 +87,11 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
         if (postsByDateByYear == null)
         {
             generateCachedMap();
+        }
+
+        if (!postsByDateByYear.containsKey(dateString))
+        {
+            return Collections.EMPTY_LIST;
         }
 
         Map<String, List<String>> postsByYear = postsByDateByYear.get(dateString);

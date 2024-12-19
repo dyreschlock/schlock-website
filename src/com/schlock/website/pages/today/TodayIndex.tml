@@ -13,7 +13,7 @@
 
                 <l:postpreviewlink post="mostRecent" cssClass="'primaryPost'" />
 
-                <div class="daySelect">
+                <div class="daySelection">
                     <a href="${previousDayLink}">${previousDayLabel}</a>
                     //
                     <a href="${returnLink}">${message:return}</a>
@@ -55,17 +55,23 @@
                     <t:loop source="days" value="currentDay">
 
 
-
-
-                        ${currentDayTitle} /
-
-                        
-
+                        <div class="dayOfMonth">
+                            <div class="day">
+                                ${currentDayTitle}
+                            </div>
+                            <div class="count">
+                                ${dayCount}
+                            </div>
+                        </div>
 
 
                     </t:loop>
                 </t:loop>
             </t:if>
+
+            <br class="clr" />
+            <br class="clr" />
+            <br class="clr" />
         </div>
     </div>
 </html>

@@ -118,6 +118,14 @@ public class TodayIndex
         return day + "th";
     }
 
+    public String getDayCount()
+    {
+        String date = currentMonth + "-" + currentDay;
+        int count = archiveManagement.getPostCount(date);
+
+        return Integer.toString(count);
+    }
+
 
     public String getPageTitle()
     {
