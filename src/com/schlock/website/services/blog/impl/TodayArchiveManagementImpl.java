@@ -1,6 +1,5 @@
 package com.schlock.website.services.blog.impl;
 
-import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.TodayArchiveManagement;
@@ -26,6 +25,33 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
 
         this.postDAO = postDAO;
     }
+
+    public List<String> getAllMonths()
+    {
+        return Arrays.asList("jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec");
+    }
+
+    public List<String> getAllDays(String month)
+    {
+        int y = 2024;
+        int m = getAllMonths().indexOf(month);
+        int d = 1;
+
+        List<String> days = new ArrayList<>();
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(y, m, d);
+
+        while(cal.get(Calendar.MONTH) == m)
+        {
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            days.add(Integer.toString(day));
+
+            cal.add(Calendar.DATE, 1);
+        }
+        return days;
+    }
+
 
 
     public Post getMostRecent(String dateString)

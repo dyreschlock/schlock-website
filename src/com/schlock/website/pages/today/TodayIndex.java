@@ -10,6 +10,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import javax.inject.Inject;
+import java.util.Arrays;
 import java.util.List;
 
 public class TodayIndex
@@ -34,6 +35,12 @@ public class TodayIndex
 
     @Property
     private Post currentPost;
+
+    @Property
+    private String currentMonth;
+
+    @Property
+    private String currentDay;
 
 
     Object onActivate()
@@ -74,6 +81,41 @@ public class TodayIndex
     public List<Post> getPreviewPosts()
     {
         return archiveManagement.getPreviewPosts(dateString, currentYear);
+    }
+
+
+    public List<String> getMonths()
+    {
+        return archiveManagement.getAllMonths();
+    }
+
+    public String getCurrentMonthTitle()
+    {
+        return messages.get(currentMonth);
+    }
+
+    public List<String> getDays()
+    {
+        return archiveManagement.getAllDays(currentMonth);
+    }
+
+    public String getCurrentDayTitle()
+    {
+        String day = currentDay;
+
+        if (Arrays.asList("1", "21", "31").contains(day))
+        {
+            return day + "st";
+        }
+        if (Arrays.asList("2", "22").contains(day))
+        {
+            return day + "nd";
+        }
+        if (Arrays.asList("3", "23").contains(day))
+        {
+            return day + "rd";
+        }
+        return day + "th";
     }
 
 

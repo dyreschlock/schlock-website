@@ -6,6 +6,10 @@ import java.util.List;
 
 public interface TodayArchiveManagement
 {
+    List<String> getAllMonths();
+
+    List<String> getAllDays(String month);
+
     Post getMostRecent(String dateString);
 
     List<String> getYears(String dateString);
