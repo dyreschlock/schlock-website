@@ -3,6 +3,7 @@ package com.schlock.website.pages.today;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DateFormatter;
+import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.TodayArchiveManagement;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
@@ -26,6 +27,10 @@ public class TodayIndex
 
     @Inject
     private TodayArchiveManagement archiveManagement;
+
+    @Inject
+    private ImageManagement imageManagement;
+
 
     private String dateString;
 
@@ -116,6 +121,27 @@ public class TodayIndex
             return day + "rd";
         }
         return day + "th";
+    }
+
+    public String getCurrentDayImageLink()
+    {
+        String date = currentMonth + "-" + currentDay;
+        List<String> uuids = archiveManagement.getUuidsByDate(date);
+
+        if(uuids.isEmpty())
+        {
+            return "";
+        }
+
+        String uuid = uuids.get(0);
+        return imageManagement.getPostPreviewMetadataLink(uuid);
+    }
+
+    public String getCurrentDayLink()
+    {
+        String date = currentMonth + "-" + currentDay;
+
+        return getReturnLink() + "/" + date;
     }
 
     public String getDayCount()

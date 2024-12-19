@@ -10,11 +10,15 @@ public interface TodayArchiveManagement
 
     List<String> getAllDays(String month);
 
+
     Post getMostRecent(String dateString);
 
     List<String> getYears(String dateString);
 
     int getPostCount(String dateString);
+
+    List<String> getUuidsByDate(String dateString);
+
 
     List<Post> getPosts(String dateString, String year);
 

@@ -54,14 +54,18 @@
 
                     <t:loop source="days" value="currentDay">
 
-
                         <div class="dayOfMonth">
-                            <div class="day">
-                                ${currentDayTitle}
-                            </div>
-                            <div class="count">
-                                ${dayCount}
-                            </div>
+                            <div class="backgroundImage" style="background-image: url(${currentDayImageLink})" />
+
+                            <a href="${currentDayLink}">
+
+                                <div class="day">
+                                    ${currentDayTitle}
+                                </div>
+                                <div class="count">
+                                    ${dayCount}
+                                </div>
+                            </a>
                         </div>
 
 

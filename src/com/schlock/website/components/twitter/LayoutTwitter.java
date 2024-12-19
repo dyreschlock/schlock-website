@@ -49,8 +49,7 @@ public class LayoutTwitter
 
     public String getCoverImageUrl()
     {
-        AbstractPost post = postDAO.getByUuid(POST_UUID);
-        return imageManagement.getPostPreviewMetadataLink(post);
+        return imageManagement.getPostPreviewMetadataLink(POST_UUID);
     }
 
     public String getPageUrl()

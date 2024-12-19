@@ -54,9 +54,7 @@ public class LayoutApps
 
     public String getCoverImageUrl()
     {
-        AbstractPost post = getGamesPost();
-
-        String imageUrl = imageManagement.getPostPreviewMetadataLink(post);
+        String imageUrl = imageManagement.getPostPreviewMetadataLink(postUuid);
         return imageUrl;
     }
 }

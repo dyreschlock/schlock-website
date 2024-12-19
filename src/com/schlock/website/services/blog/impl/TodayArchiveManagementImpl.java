@@ -82,7 +82,7 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
         return posts;
     }
 
-    private List<String> getUuidsByDate(String dateString)
+    public List<String> getUuidsByDate(String dateString)
     {
         if (postsByDateByYear == null)
         {

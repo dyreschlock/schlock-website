@@ -438,6 +438,8 @@ table td .left { text-align: left; }
 
     div.dayOfMonth
     {
+        height: 50px;
+
         width: 8.72%;
         margin: 0.5%;
 
@@ -449,6 +451,33 @@ table td .left { text-align: left; }
         text-align: center;
         padding: 13px 5px;
 
+
+        div.backgroundImage
+        {
+            opacity: 0.6;
+
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+
+        a
+        {
+            padding: 13px 5px;
+
+            opacity: 1;
+
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+
         div.day
         {
             font-family: @font2;
@@ -459,6 +488,14 @@ table td .left { text-align: left; }
 
             font-size: 0.9em;
             padding-top: 5px;
+        }
+    }
+
+    div.dayOfMonth:hover
+    {
+        div.backgroundImage
+        {
+            opacity: 1;
         }
     }
 }

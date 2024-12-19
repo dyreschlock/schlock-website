@@ -455,14 +455,12 @@ public class ImageManagementImpl implements ImageManagement
 
 
 
-    public String getPostPreviewMetadataLink(AbstractPost post)
+    public String getPostPreviewMetadataLink(String uuid)
     {
         String link = "";
-        if (post != null)
+        if (StringUtils.isNotBlank(uuid))
         {
-            String uuid = post.getUuid();
             String coverUrlBase = deploymentContext.coverImageLocationInternet();
-
             link = coverUrlBase + uuid + ".jpg";
         }
         return link;

@@ -136,7 +136,8 @@ public class LayoutBlog
         String imageUrl = "";
         if (post != null)
         {
-            imageUrl = imageManagement.getPostPreviewMetadataLink(post);
+            String uuid = post.getUuid();
+            imageUrl = imageManagement.getPostPreviewMetadataLink(uuid);
         }
         return imageUrl;
     }
