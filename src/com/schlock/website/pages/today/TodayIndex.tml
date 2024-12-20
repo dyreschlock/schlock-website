@@ -57,7 +57,19 @@
                         <div class="dayOfMonth">
                             <div class="backgroundImage" style="background-image: url(${currentDayImageLink})" />
 
-                            <a href="${currentDayLink}">
+                            <t:if test="hasPosts">
+                                <a href="${currentDayLink}">
+
+                                    <div class="day ${dropShadow}">
+                                        ${currentDayTitle}
+                                    </div>
+                                    <div class="count ${dropShadow}">
+                                        ${dayCount}
+                                    </div>
+                                </a>
+                            </t:if>
+
+                            <t:if test="!hasPosts">
 
                                 <div class="day">
                                     ${currentDayTitle}
@@ -65,10 +77,10 @@
                                 <div class="count">
                                     ${dayCount}
                                 </div>
-                            </a>
+
+                            </t:if>
+
                         </div>
-
-
                     </t:loop>
                 </t:loop>
             </t:if>

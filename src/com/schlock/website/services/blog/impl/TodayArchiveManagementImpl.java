@@ -82,6 +82,20 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
         return postsByDateByYear.get(dateString).getPreviewPost();
     }
 
+    public boolean isHasPreviewPost(String dateString)
+    {
+        if (postsByDateByYear == null)
+        {
+            generateCachedMap();
+        }
+
+        if (!postsByDateByYear.containsKey(dateString))
+        {
+            return false;
+        }
+        return postsByDateByYear.get(dateString).isHasPreviewPost();
+    }
+
     public int getPostCount(String dateString)
     {
         List<String> uuids = getUuidsByDate(dateString);
@@ -265,6 +279,11 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
                 return previewPost;
             }
             return mostRecent;
+        }
+
+        public boolean isHasPreviewPost()
+        {
+            return StringUtils.isNotBlank(previewPost);
         }
 
         public String getPreviewPost(String year)

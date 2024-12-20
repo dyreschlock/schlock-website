@@ -476,15 +476,34 @@ table td .left { text-align: left; }
             top: 0;
             bottom: 0;
             z-index: 1;
+
+            div.day, div.count
+            {
+                opacity: 1;
+            }
+
+            div.count
+            {
+                color: @linkcolor;
+                font-weight: 600;
+            }
+
+            .drop_shadow
+            {
+                @drop_shadow_color: #aaa;
+                text-shadow: 1px 0 0 @drop_shadow_color, 0 -1px 0 @drop_shadow_color, 0 1px 0 @drop_shadow_color, -1px 0 0 @drop_shadow_color;
+            }
         }
 
         div.day
         {
+            opacity: 0.3;
+
             font-family: @font2;
         }
         div.count
         {
-            color: @linkcolor;
+            opacity: 0.3;
 
             font-size: 0.9em;
             padding-top: 5px;

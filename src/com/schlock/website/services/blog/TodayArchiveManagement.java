@@ -15,6 +15,8 @@ public interface TodayArchiveManagement
 
     String getPreviewPostUuid(String dateString);
 
+    boolean isHasPreviewPost(String dateString);
+
     List<String> getYears(String dateString);
 
     int getPostCount(String dateString);

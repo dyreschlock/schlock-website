@@ -123,9 +123,14 @@ public class TodayIndex
         return day + "th";
     }
 
+    private String getCurrentDateString()
+    {
+        return currentMonth + "-" + currentDay;
+    }
+
     public String getCurrentDayImageLink()
     {
-        String date = currentMonth + "-" + currentDay;
+        String date = getCurrentDateString();
         String uuid = archiveManagement.getPreviewPostUuid(date);
 
         return imageManagement.getPostPreviewMetadataLink(uuid);
@@ -133,17 +138,35 @@ public class TodayIndex
 
     public String getCurrentDayLink()
     {
-        String date = currentMonth + "-" + currentDay;
+        return getReturnLink() + "/" + getCurrentDateString();
+    }
 
-        return getReturnLink() + "/" + date;
+    public boolean isHasPosts()
+    {
+        String date = getCurrentDateString();
+        int count = archiveManagement.getPostCount(date);
+
+        return count > 0;
     }
 
     public String getDayCount()
     {
-        String date = currentMonth + "-" + currentDay;
+        String date = getCurrentDateString();
         int count = archiveManagement.getPostCount(date);
 
         return Integer.toString(count);
+    }
+
+    public String getDropShadow()
+    {
+        String date = getCurrentDateString();
+
+        boolean hasPreview = archiveManagement.isHasPreviewPost(date);
+        if (hasPreview)
+        {
+            return "drop_shadow";
+        }
+        return "";
     }
 
 
