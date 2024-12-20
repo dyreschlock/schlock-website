@@ -449,7 +449,7 @@ table td .left { text-align: left; }
         border: 1px solid @subheadercolor;
 
         text-align: center;
-        padding: 13px 5px;
+        padding: 13px 5px 20px;
 
 
         div.backgroundImage
@@ -466,7 +466,7 @@ table td .left { text-align: left; }
 
         a
         {
-            padding: 13px 5px;
+            padding: 13px 5px 15px;
 
             opacity: 1;
 
@@ -480,23 +480,30 @@ table td .left { text-align: left; }
             div.day, div.count
             {
                 opacity: 1;
+
+                padding-top: 2px;
+
+                -webkit-text-stroke-color: #333;
+                -webkit-text-stroke: 0.5px;
+            }
+
+            div.day
+            {
+                font-size: 1.2em;
             }
 
             div.count
             {
                 color: @linkcolor;
                 font-weight: 600;
-            }
-
-            .drop_shadow
-            {
-                @drop_shadow_color: #aaa;
-                text-shadow: 1px 0 0 @drop_shadow_color, 0 -1px 0 @drop_shadow_color, 0 1px 0 @drop_shadow_color, -1px 0 0 @drop_shadow_color;
+                font-size: 1.1em;
             }
         }
 
         div.day
         {
+            padding-top: 5px;
+
             opacity: 0.3;
 
             font-family: @font2;

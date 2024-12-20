@@ -157,18 +157,6 @@ public class TodayIndex
         return Integer.toString(count);
     }
 
-    public String getDropShadow()
-    {
-        String date = getCurrentDateString();
-
-        boolean hasPreview = archiveManagement.isHasPreviewPost(date);
-        if (hasPreview)
-        {
-            return "drop_shadow";
-        }
-        return "";
-    }
-
 
     public String getPageTitle()
     {

@@ -60,10 +60,10 @@
                             <t:if test="hasPosts">
                                 <a href="${currentDayLink}">
 
-                                    <div class="day ${dropShadow}">
+                                    <div class="day">
                                         ${currentDayTitle}
                                     </div>
-                                    <div class="count ${dropShadow}">
+                                    <div class="count">
                                         ${dayCount}
                                     </div>
                                 </a>
