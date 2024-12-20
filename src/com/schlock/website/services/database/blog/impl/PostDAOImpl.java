@@ -133,7 +133,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         String text = "select p " +
                         " from Post p " +
                         " where p.publishedLevel >= " + POST_PUBLISHED + " " +
-                        " order by p.created asc ";
+                        " order by p.created desc ";
 
         Query query = session.createQuery(text);
         return query.list();

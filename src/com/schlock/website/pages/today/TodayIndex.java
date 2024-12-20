@@ -70,7 +70,7 @@ public class TodayIndex
 
     public AbstractPost getMostRecent()
     {
-        return archiveManagement.getMostRecent(dateString);
+        return archiveManagement.getPreviewPost(dateString);
     }
 
     public List<String> getYears()
@@ -126,14 +126,8 @@ public class TodayIndex
     public String getCurrentDayImageLink()
     {
         String date = currentMonth + "-" + currentDay;
-        List<String> uuids = archiveManagement.getUuidsByDate(date);
+        String uuid = archiveManagement.getPreviewPostUuid(date);
 
-        if(uuids.isEmpty())
-        {
-            return "";
-        }
-
-        String uuid = uuids.get(0);
         return imageManagement.getPostPreviewMetadataLink(uuid);
     }
 

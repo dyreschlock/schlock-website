@@ -1,7 +1,9 @@
 package com.schlock.website.services.blog.impl;
 
+import com.schlock.website.entities.blog.Image;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DateFormatter;
+import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.TodayArchiveManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
@@ -10,17 +12,21 @@ import java.util.*;
 
 public class TodayArchiveManagementImpl implements TodayArchiveManagement
 {
+    private final ImageManagement imageManagement;
+
     private final DateFormatter dateFormatter;
 
     private final PostDAO postDAO;
 
-    private Map<String, Map<String, List<String>>> postsByDateByYear;
+    private Map<String, CachedDatePosts> postsByDateByYear;
 
     private List<String> cachedOrderedDates;
 
-    public TodayArchiveManagementImpl(DateFormatter dateFormatter,
+    public TodayArchiveManagementImpl(ImageManagement imageManagement,
+                                        DateFormatter dateFormatter,
                                         PostDAO postDAO)
     {
+        this.imageManagement = imageManagement;
         this.dateFormatter = dateFormatter;
 
         this.postDAO = postDAO;
@@ -54,9 +60,26 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
 
 
 
-    public Post getMostRecent(String dateString)
+    public Post getPreviewPost(String dateString)
     {
-        return getPostsByDate(dateString).get(0);
+        String uuid = getPreviewPostUuid(dateString);
+
+        List<Post> posts = postDAO.getPostsByUuid(Arrays.asList(uuid));
+        return posts.get(0);
+    }
+
+    public String getPreviewPostUuid(String dateString)
+    {
+        if (postsByDateByYear == null)
+        {
+            generateCachedMap();
+        }
+
+        if (!postsByDateByYear.containsKey(dateString))
+        {
+            return null;
+        }
+        return postsByDateByYear.get(dateString).getPreviewPost();
     }
 
     public int getPostCount(String dateString)
@@ -64,22 +87,6 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
         List<String> uuids = getUuidsByDate(dateString);
 
         return uuids.size();
-    }
-
-    private List<Post> getPostsByDate(String dateString)
-    {
-        List<String> uuids = getUuidsByDate(dateString);
-
-        List<Post> posts = postDAO.getPostsByUuid(uuids);
-        Collections.sort(posts, new Comparator<Post>()
-        {
-            public int compare(Post o1, Post o2)
-            {
-                return o2.getCreated().compareTo(o1.getCreated());
-            }
-        });
-
-        return posts;
     }
 
     public List<String> getUuidsByDate(String dateString)
@@ -94,14 +101,7 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
             return Collections.EMPTY_LIST;
         }
 
-        Map<String, List<String>> postsByYear = postsByDateByYear.get(dateString);
-
-        List<String> uuids = new ArrayList<>();
-        for(List<String> posts : postsByYear.values())
-        {
-            uuids.addAll(posts);
-        }
-        return uuids;
+        return postsByDateByYear.get(dateString).getAllUuids();
     }
 
     public List<String> getYears(String dateString)
@@ -111,19 +111,7 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
             generateCachedMap();
         }
 
-        List<String> years = new ArrayList<>();
-        years.addAll(postsByDateByYear.get(dateString).keySet());
-
-        Collections.sort(years, new Comparator<String>()
-        {
-            @Override
-            public int compare(String o1, String o2)
-            {
-                return o2.compareTo(o1);
-            }
-        });
-
-        return years;
+        return postsByDateByYear.get(dateString).getYears(dateString);
     }
 
     public List<Post> getPosts(String dateString, String year)
@@ -133,32 +121,29 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
             generateCachedMap();
         }
 
-        List<String> uuids = postsByDateByYear.get(dateString).get(year);
+        List<String> uuids = postsByDateByYear.get(dateString).getUuids(year);
         return postDAO.getPostsByUuid(uuids);
     }
 
     public List<Post> getPreviewPosts(String dateString, String year)
-    {
-        List<String> years = getYears(dateString);
-
-        if (StringUtils.equals(year, years.get(0)))
-        {
-            return Collections.EMPTY_LIST;
-        }
-
-        List<String> uuids = postsByDateByYear.get(dateString).get(year);
-
-        return postDAO.getPostsByUuid(uuids.subList(0, 1));
-    }
-
-
-    public String getNextDayString(String dateString)
     {
         if (postsByDateByYear == null)
         {
             generateCachedMap();
         }
 
+        String uuid = postsByDateByYear.get(dateString).getPreviewPost(year);
+
+        if (StringUtils.isBlank(uuid))
+        {
+            return Collections.EMPTY_LIST;
+        }
+        return postDAO.getPostsByUuid(Arrays.asList(uuid));
+    }
+
+
+    public String getNextDayString(String dateString)
+    {
         List<String> dates = getOrderedDates();
 
         int index = dates.indexOf(dateString);
@@ -171,11 +156,6 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
 
     public String getPreviousDayString(String dateString)
     {
-        if (postsByDateByYear == null)
-        {
-            generateCachedMap();
-        }
-
         List<String> dates = getOrderedDates();
 
         int index = dates.indexOf(dateString);
@@ -190,6 +170,11 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
     {
         if (cachedOrderedDates == null)
         {
+            if (postsByDateByYear == null)
+            {
+                generateCachedMap();
+            }
+
             List<String> dates = new ArrayList<>();
             dates.addAll(postsByDateByYear.keySet());
 
@@ -218,46 +203,114 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
         List<Post> posts = postDAO.getAllPublished();
         for(Post post : posts)
         {
-            String uuid = post.getUuid();
             String dateString = dateFormatter.todayArchiveFormat(post.getCreated());
 
-            if (postsByDateByYear.containsKey(dateString))
+            if (!postsByDateByYear.containsKey(dateString))
             {
-                String year = getYear(post.getCreated());
-                if(postsByDateByYear.get(dateString).containsKey(year))
-                {
-                    postsByDateByYear.get(dateString).get(year).add(uuid);
-                }
-                else
-                {
-                    List<String> uuids = new ArrayList<>();
-                    uuids.add(uuid);
-
-                    postsByDateByYear.get(dateString).put(year, uuids);
-                }
+                postsByDateByYear.put(dateString, new CachedDatePosts());
             }
-            else
-            {
-                List<String> uuids = new ArrayList<>();
-                uuids.add(uuid);
-
-                String year = getYear(post.getCreated());
-
-                Map<String, List<String>> postsByYear = new HashMap<>();
-                postsByYear.put(year, uuids);
-
-                postsByDateByYear.put(dateString, postsByYear);
-            }
+            postsByDateByYear.get(dateString).addPost(post);
         }
     }
 
-    private String getYear(Date date)
+    private class CachedDatePosts
     {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
+        private Map<String, List<String>> postsByYear;
 
-        int year = cal.get(Calendar.YEAR);
+        private String previewPost;
+        private String mostRecent;
 
-        return Integer.toString(year);
+        public CachedDatePosts()
+        {
+            postsByYear = new HashMap<>();
+        }
+
+
+        public List<String> getYears(String dateString)
+        {
+            List<String> years = new ArrayList<>();
+            years.addAll(postsByYear.keySet());
+
+            Collections.sort(years, new Comparator<String>()
+            {
+                @Override
+                public int compare(String o1, String o2)
+                {
+                    return o2.compareTo(o1);
+                }
+            });
+
+            return years;
+        }
+
+        public List<String> getUuids(String year)
+        {
+            return postsByYear.get(year);
+        }
+
+        public List<String> getAllUuids()
+        {
+            List<String> uuids = new ArrayList<>();
+            for(List<String> posts : postsByYear.values())
+            {
+                uuids.addAll(posts);
+            }
+            return uuids;
+        }
+
+        public String getPreviewPost()
+        {
+            if (StringUtils.isNotBlank(previewPost))
+            {
+                return previewPost;
+            }
+            return mostRecent;
+        }
+
+        public String getPreviewPost(String year)
+        {
+            List<String> posts = postsByYear.get(year);
+
+            if (posts.isEmpty())
+            {
+                return null;
+            }
+            return posts.get(0);
+        }
+
+
+
+        public void addPost(Post post)
+        {
+            String year = getYear(post.getCreated());
+            if (!postsByYear.containsKey(year))
+            {
+                postsByYear.put(year, new ArrayList<String>());
+            }
+
+            String uuid = post.getUuid();
+            postsByYear.get(year).add(uuid);
+
+            Image coverImage = imageManagement.getPostImage(post);
+            if (coverImage != null && previewPost == null)
+            {
+                previewPost = uuid;
+            }
+
+            if (mostRecent == null)
+            {
+                mostRecent = uuid;
+            }
+        }
+
+        private String getYear(Date date)
+        {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+
+            int year = cal.get(Calendar.YEAR);
+
+            return Integer.toString(year);
+        }
     }
 }

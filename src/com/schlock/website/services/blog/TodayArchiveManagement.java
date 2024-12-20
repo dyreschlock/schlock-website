@@ -11,7 +11,9 @@ public interface TodayArchiveManagement
     List<String> getAllDays(String month);
 
 
-    Post getMostRecent(String dateString);
+    Post getPreviewPost(String dateString);
+
+    String getPreviewPostUuid(String dateString);
 
     List<String> getYears(String dateString);
 
