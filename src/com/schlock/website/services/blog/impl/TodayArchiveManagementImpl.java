@@ -194,15 +194,21 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
         String currentMonth = dateString.split("-")[0];
         int currentDay = Integer.parseInt(dateString.split("-")[1]);
 
+        boolean foundMonth = false;
         for(String date : getOrderedDates())
         {
             if (date.startsWith(currentMonth))
             {
+                foundMonth = true;
                 int day = Integer.parseInt(date.split("-")[1]);
                 if (day > currentDay)
                 {
                     return date;
                 }
+            }
+            else if (foundMonth)
+            {
+                return date;
             }
         }
         return getOrderedDates().get(0);
