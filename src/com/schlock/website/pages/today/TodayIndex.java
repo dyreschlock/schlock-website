@@ -108,7 +108,7 @@ public class TodayIndex
         return archiveManagement.getAllDays(currentMonth);
     }
 
-    public String getCurrentDayTitle()
+    public String getCurrentDayNumber()
     {
         String day = currentDay;
 
@@ -125,6 +125,12 @@ public class TodayIndex
             return day + "rd";
         }
         return day + "th";
+    }
+
+    public String getCurrentDayTitle()
+    {
+        String date = dateFormatter.todayPrintFormat(getCurrentDateString());
+        return messages.format("view-posts", date);
     }
 
     private String getCurrentDateString()
