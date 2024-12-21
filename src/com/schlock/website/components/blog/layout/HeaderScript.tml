@@ -63,6 +63,24 @@
             return false;
         }
 
+
+
+        const months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+
+        function todayClicked()
+        {
+            var currentTime = new Date();
+            var day = currentTime.getDate();
+            var month = currentTime.getMonth();
+
+            var dateString = months[month] + "-" + day;
+
+            location.href = "/today/" + dateString;
+        }
+
+
+
+
     </script>
 
 </t:container>

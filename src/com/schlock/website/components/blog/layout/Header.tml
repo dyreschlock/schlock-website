@@ -43,6 +43,10 @@
             </t:loop>
 
             <div class="menuSubLinks">
+                <a title="${message:today}" onclick="todayClicked()">${message:today}</a> //
+            </div>
+
+            <div class="menuSubLinks">
                 <a title="${message:random}" onclick="randomClicked()">${message:random}</a> //
             </div>
         </div>
