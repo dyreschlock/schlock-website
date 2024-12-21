@@ -66,7 +66,7 @@
                             <div class="backgroundImage" style="background-image: url(${currentDayImageLink})" />
 
                             <t:if test="hasPosts">
-                                <a href="${currentDayLink}" title="${currentDayTitle}" alt="${currentDayTitle}">
+                                <a class="daySelection" href="${currentDayLink}" title="${currentDayTitle}" alt="${currentDayTitle}">
 
                                     <div class="day">
                                         ${currentDayNumber}
@@ -78,6 +78,7 @@
                             </t:if>
 
                             <t:if test="!hasPosts">
+                                <a href="${currentDayLink}" title="${currentDayTitle}" alt="${currentDayTitle}"/>
 
                                 <div class="day">
                                     ${currentDayNumber}
