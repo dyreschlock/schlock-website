@@ -3,6 +3,7 @@ package com.schlock.website.services.blog.impl;
 import com.schlock.website.entities.blog.*;
 import com.schlock.website.services.blog.PostArchiveManagement;
 import com.schlock.website.services.blog.SitemapManagement;
+import com.schlock.website.services.blog.TodayArchiveManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 
@@ -12,15 +13,18 @@ import java.util.List;
 
 public class SitemapManagementImpl implements SitemapManagement
 {
+    private final TodayArchiveManagement calendarArchiveManagement;
     private final PostArchiveManagement archiveManagement;
 
     private final CategoryDAO categoryDAO;
     private final PostDAO postDAO;
 
-    public SitemapManagementImpl(PostArchiveManagement archiveManagement,
+    public SitemapManagementImpl(TodayArchiveManagement calendarArchiveManagement,
+                                 PostArchiveManagement archiveManagement,
                                  CategoryDAO categoryDAO,
                                  PostDAO postDAO)
     {
+        this.calendarArchiveManagement = calendarArchiveManagement;
         this.archiveManagement = archiveManagement;
 
         this.categoryDAO = categoryDAO;
@@ -111,6 +115,7 @@ public class SitemapManagementImpl implements SitemapManagement
         pages.addAll(getArchivePages());
         pages.addAll(getCategoryPages());
         pages.addAll(getProjectPages());
+        pages.addAll(getCalendarPages());
         return pages;
     }
 
@@ -168,6 +173,24 @@ public class SitemapManagementImpl implements SitemapManagement
             for(ProjectCategory sub : categoryDAO.getSubProjectInOrder(cat.getId()))
             {
                 pages.add(PROJECTS + "/" + sub.getUuid() + ".html");
+            }
+        }
+        return pages;
+    }
+
+    private List<String> getCalendarPages()
+    {
+        final String TODAY = "today";
+
+        List<String> pages = new ArrayList<>();
+        pages.add(TODAY + "/index.html");
+
+        for(String month : calendarArchiveManagement.getAllMonths())
+        {
+            for(String day : calendarArchiveManagement.getAllDays(month))
+            {
+                String dateStringPage = month + "-" + day + ".html";
+                pages.add(TODAY + "/" + dateStringPage);
             }
         }
         return pages;
