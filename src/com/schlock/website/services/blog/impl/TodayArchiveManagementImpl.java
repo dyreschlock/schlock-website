@@ -60,6 +60,20 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
 
 
 
+
+    public boolean isDayExists(String dateString)
+    {
+        if (postsByDateByYear == null)
+        {
+            generateCachedMap();
+        }
+        return postsByDateByYear.get(dateString) != null;
+    }
+
+
+
+
+
     public Post getPreviewPost(String dateString)
     {
         String uuid = getPreviewPostUuid(dateString);
@@ -151,7 +165,11 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
         {
             return dates.get(0);
         }
-        return dates.get(index + 1);
+        if (index != -1)
+        {
+            return dates.get(index + 1);
+        }
+        return getNextDate(dateString);
     }
 
     public String getPreviousDayString(String dateString)
@@ -163,7 +181,31 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
         {
             return dates.get(dates.size() -1);
         }
-        return dates.get(index - 1);
+        if (index != -1)
+        {
+            return dates.get(index - 1);
+        }
+        String date = getNextDate(dateString);
+        return getPreviousDayString(date);
+    }
+
+    private String getNextDate(String dateString)
+    {
+        String currentMonth = dateString.split("-")[0];
+        int currentDay = Integer.parseInt(dateString.split("-")[1]);
+
+        for(String date : getOrderedDates())
+        {
+            if (date.startsWith(currentMonth))
+            {
+                int day = Integer.parseInt(date.split("-")[1]);
+                if (day > currentDay)
+                {
+                    return date;
+                }
+            }
+        }
+        return getOrderedDates().get(0);
     }
 
     private List<String> getOrderedDates()

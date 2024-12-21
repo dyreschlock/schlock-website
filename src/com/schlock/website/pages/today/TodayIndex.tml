@@ -11,8 +11,6 @@
 
             <t:if test="daySelected">
 
-                <l:postpreviewlink post="mostRecent" cssClass="'primaryPost'" />
-
                 <div class="daySelection">
                     <a href="${previousDayLink}">${previousDayLabel}</a>
                     //
@@ -21,29 +19,39 @@
                     <a href="${nextDayLink}">${nextDayLabel}</a>
                 </div>
 
+                <t:if test="!dayExists">
 
-                <t:loop source="years" value="currentYear">
+                    <p class="description centered"><t:outputraw value="pageDescription" /></p>
 
-                    <div class="title clr">${currentYear}</div>
+                </t:if>
 
-                    <div class="categoryPosts">
-                        <t:loop source="posts" value="currentPost">
-                            <l:postlink post="currentPost" cssClass="'archive'" />
-                        </t:loop>
+                <t:if test="dayExists">
+
+                    <l:postpreviewlink post="mostRecent" cssClass="'primaryPost'" />
+
+                    <t:loop source="years" value="currentYear">
+
+                        <div class="title clr">${currentYear}</div>
+
+                        <div class="categoryPosts">
+                            <t:loop source="posts" value="currentPost">
+                                <l:postlink post="currentPost" cssClass="'archive'" />
+                            </t:loop>
+
+                            <br class="clr" />
+                        </div>
+
+                        <div class="postPreviews">
+                            <t:loop source="previewPosts" value="currentPost">
+                                <l:postpreviewlink post="currentPost" cssClass="'secondaryPost'" />
+                            </t:loop>
+
+                            <br class="clr" />
+                        </div>
 
                         <br class="clr" />
-                    </div>
-
-                    <div class="postPreviews">
-                        <t:loop source="previewPosts" value="currentPost">
-                            <l:postpreviewlink post="currentPost" cssClass="'secondaryPost'" />
-                        </t:loop>
-
-                        <br class="clr" />
-                    </div>
-
-                    <br class="clr" />
-                </t:loop>
+                    </t:loop>
+                </t:if>
             </t:if>
 
             <t:if test="!daySelected">

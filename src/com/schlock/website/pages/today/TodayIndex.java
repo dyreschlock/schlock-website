@@ -57,7 +57,6 @@ public class TodayIndex
 
     Object onActivate(String param)
     {
-        //TODO: verify
         dateString = param;
 
         return true;
@@ -66,6 +65,11 @@ public class TodayIndex
     public boolean isDaySelected()
     {
         return StringUtils.isNotBlank(dateString);
+    }
+
+    public boolean isDayExists()
+    {
+        return archiveManagement.isDayExists(dateString);
     }
 
     public AbstractPost getMostRecent()
@@ -173,7 +177,11 @@ public class TodayIndex
         if (isDaySelected())
         {
             String date = dateFormatter.todayPrintFormat(dateString);
-            return messages.format("description-today", date);
+            if (isDayExists())
+            {
+                return messages.format("description-today", date);
+            }
+            return messages.format("description-today-no", date);
         }
         return messages.get("description");
     }
