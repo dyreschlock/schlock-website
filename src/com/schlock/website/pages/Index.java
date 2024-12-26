@@ -90,8 +90,6 @@ public class Index
         }
         else
         {
-            boolean unpublished = viewState.isShowUnpublished();
-
             AbstractPost requested = null;
 
             List<AbstractPost> posts = postDAO.getAllByUuid(parameter);
@@ -104,6 +102,7 @@ public class Index
             }
             if (posts.isEmpty())
             {
+                boolean unpublished = viewState.isShowUnpublished();
                 requested = postDAO.getMostRecentPost(unpublished, null);
             }
             currentPost = requested;

@@ -1,0 +1,12 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <head>
+
+    </head>
+    <body>
+        template 1
+    </body>
+
+</t:container>

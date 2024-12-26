@@ -1,0 +1,17 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:o="tapestry-library:old"
+    >
+
+    <t:if test="hasNoPostNoVersion">
+        <o:sitesplash />
+    </t:if>
+
+    <t:if test="version1">
+        <o:siteversion1template post="post" />
+    </t:if>
+
+    <t:if test="version2">
+        <o:siteversion2template post="post" />
+    </t:if>
+
+</html>
