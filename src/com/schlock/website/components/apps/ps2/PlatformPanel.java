@@ -2,6 +2,7 @@ package com.schlock.website.components.apps.ps2;
 
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
 import com.schlock.website.pages.apps.ps2.Index;
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
@@ -17,6 +18,9 @@ public class PlatformPanel
 
     @Inject
     private Messages messages;
+
+    @Inject
+    private DeploymentContext context;
 
 
     @Parameter
@@ -34,7 +38,8 @@ public class PlatformPanel
 
     public String getImageLink()
     {
-        return platform.getImageLink();
+        String link = context.webDomain() + platform.getImagePath();
+        return link;
     }
 
     public String getPlatformLink()

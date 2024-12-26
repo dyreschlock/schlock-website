@@ -9,7 +9,7 @@ public abstract class AbstractCounterInstance implements Comparable<AbstractCoun
 
     private String name;
     private String number;
-    private String imageLink;
+    private String imageLinkPath;
     private String mainType;
     protected String fastMove;
     protected String chargeMove;
@@ -33,7 +33,7 @@ public abstract class AbstractCounterInstance implements Comparable<AbstractCoun
     {
         this.name = counter.getName();
         this.number = counter.getNumber();
-        this.imageLink = counter.getImageLink();
+        this.imageLinkPath = counter.getImageLinkPath();
         this.mainType = counter.getMainType(fastMove, chargeMove);
         this.level = counter.getLevel();
         this.attackIV = counter.getAttackIV();
@@ -67,9 +67,9 @@ public abstract class AbstractCounterInstance implements Comparable<AbstractCoun
         return number;
     }
 
-    public String getImageLink()
+    public String getImageLinkPath()
     {
-        return imageLink;
+        return imageLinkPath;
     }
 
     public String getMainType()

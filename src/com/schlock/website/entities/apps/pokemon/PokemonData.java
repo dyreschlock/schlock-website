@@ -72,9 +72,9 @@ public class PokemonData extends Persisted
         this.number = number;
     }
 
-    private static final String IMAGE_LINK = "https://raw.githubusercontent.com/dyreschlock/dyreschlock.github.io/main/img/pokemon/%s.png";
+    private static final String IMAGE_LINK = "img/pokemon/%s.png";
 
-    public String getImageLink()
+    public String getImageLinkPath()
     {
         return String.format(IMAGE_LINK, number);
     }

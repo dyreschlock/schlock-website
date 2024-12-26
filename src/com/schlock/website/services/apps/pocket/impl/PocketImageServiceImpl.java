@@ -27,7 +27,7 @@ public class PocketImageServiceImpl extends GameImageServiceImpl<PocketGame> imp
 
     protected String imageLink(PocketGame game)
     {
-        final String IMG_LINK = "https://raw.githubusercontent.com/dyreschlock/dyreschlock.github.io/main/img/pocket/%s/%s.bmp";
+        final String IMG_LINK = context.webDomain() + "img/pocket/%s/%s.bmp";
 
         String platform = game.getPlatform();
         String filehash = game.getFileHash();

@@ -5,7 +5,7 @@
 
         <a href="${raidBossPageUrl}">
         <div class="container">
-            <div class="image" style="background-image: url(${raidBoss.imageLink})">
+            <div class="image" style="background-image: url(${raidBossImageLink})">
             </div>
 
             <div class="category">

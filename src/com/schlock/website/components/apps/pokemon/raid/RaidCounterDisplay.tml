@@ -4,7 +4,7 @@
     <td class="counter ${extraClass}">
 
         <div class="container ${pokemon.mainType} ${pokemonClass}">
-            <div class="image" style="background-image: url(${pokemon.imageLink})">
+            <div class="image" style="background-image: url(${pokemonImageLink})">
             </div>
 
             <t:if test="hasNumber">

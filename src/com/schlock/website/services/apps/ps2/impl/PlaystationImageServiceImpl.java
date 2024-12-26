@@ -24,7 +24,7 @@ public class PlaystationImageServiceImpl extends GameImageServiceImpl<Playstatio
 
     protected String imageLink(PlaystationGame game)
     {
-        final String IMG_LINK = "https://raw.githubusercontent.com/dyreschlock/dyreschlock.github.io/main/img/ps2/%s";
+        final String IMG_LINK = context.webDomain() + "img/ps2/%s";
 
         String link = String.format(IMG_LINK, game.getCoverImageFilename());
         return link;

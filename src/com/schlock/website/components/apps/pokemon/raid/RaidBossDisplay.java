@@ -3,6 +3,7 @@ package com.schlock.website.components.apps.pokemon.raid;
 import com.schlock.website.entities.apps.pokemon.PokemonCategory;
 import com.schlock.website.entities.apps.pokemon.RaidBossPokemon;
 import com.schlock.website.pages.apps.pokemon.PokemonRaidCounter;
+import com.schlock.website.services.DeploymentContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -14,6 +15,9 @@ public class RaidBossDisplay
     @Inject
     private Messages messages;
 
+    @Inject
+    private DeploymentContext context;
+
     @Parameter(required = true)
     @Property
     private RaidBossPokemon raidBoss;
@@ -22,6 +26,12 @@ public class RaidBossDisplay
     public String getRaidBossPageUrl()
     {
         return PokemonRaidCounter.getPageLink(raidBoss);
+    }
+
+    public String getRaidBossImageLink()
+    {
+        String link = context.webDomain() + raidBoss.getImageLinkPath();
+        return link;
     }
 
     public String getRaidBossTypesHTML()

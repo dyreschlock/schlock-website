@@ -1,6 +1,7 @@
 package com.schlock.website.components.apps.pokemon.raid;
 
 import com.schlock.website.entities.apps.pokemon.RaidCounterInstance;
+import com.schlock.website.services.DeploymentContext;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
@@ -10,6 +11,9 @@ public class RaidCounterDisplay
 {
     @Inject
     private Messages messages;
+
+    @Inject
+    private DeploymentContext context;
 
     @Parameter(required = true)
     @Property
@@ -47,6 +51,12 @@ public class RaidCounterDisplay
             return "mega";
         }
         return "regular";
+    }
+
+    public String getPokemonImageLink()
+    {
+        String link = context.webDomain() + pokemon.getImageLinkPath();
+        return link;
     }
 
     public String getCategories()
