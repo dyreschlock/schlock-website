@@ -5,6 +5,7 @@ import com.asual.lesscss.LessException;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.CoursePage;
 import com.schlock.website.entities.blog.Page;
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.CssCache;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.services.Context;
@@ -49,12 +50,14 @@ public class CssCacheImpl implements CssCache
     private final static String PERFECT_DOS_VGA_FONT = "layout/font/PerfectDOS-VGA-437.css";
 
     //apps
-    private final static String NOT_FIBBAGE_CSS_FILE = "layout/apps/notfibbage.less";
+    private final static String GAMES_VARIABLES_CSS_FILE = "layout/apps/games_variables.less";
     private final static String GAMES_CSS_FILE = "layout/apps/games.less";
     private final static String POKEMON_CSS_FILE = "layout/apps/pokemon.less";
+    private final static String NOT_FIBBAGE_CSS_FILE = "layout/apps/notfibbage.less";
 
     private final static String TWITTER_CSS_FILE = "layout/apps/twitter.less";
 
+    private final DeploymentContext deploymentContext;
     private final Context context;
 
     private String cached;
@@ -64,8 +67,10 @@ public class CssCacheImpl implements CssCache
     private String cachedGames;
     private String cachedPokemon;
 
-    public CssCacheImpl(Context context)
+    public CssCacheImpl(DeploymentContext deploymentContext,
+                        Context context)
     {
+        this.deploymentContext = deploymentContext;
         this.context = context;
     }
 
@@ -163,7 +168,7 @@ public class CssCacheImpl implements CssCache
     {
         if (StringUtils.isBlank(cachedGames))
         {
-            cachedGames = createCss(GAMES_CSS_FILE);
+            cachedGames = createCss(GAMES_VARIABLES_CSS_FILE, GAMES_CSS_FILE);
         }
         return cachedGames;
     }
@@ -179,11 +184,22 @@ public class CssCacheImpl implements CssCache
 
     private String createCss(String... cssFiles)
     {
-        String css = "";
+        StringBuilder sb = new StringBuilder();
         for (String file : cssFiles)
         {
-            css += getFileAsString(file);
+            String less = getFileAsString(file);
+
+            if (GAMES_VARIABLES_CSS_FILE.equals(file))
+            {
+                String domain = deploymentContext.webDomain();
+
+                less = String.format(less, domain, domain);
+            }
+
+            sb.append(less);
         }
+
+        String css = sb.toString();
 
         css = convertLessToCss(css);
         css = StringUtils.remove(css, "\\n");
