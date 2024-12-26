@@ -1,0 +1,17 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field" >
+    <class name="com.schlock.website.entities.twitter.Tweet" table="twitter_tweet">
+        <id name="id" unsaved-value="null">
+            <generator class="native" />
+        </id>
+
+        <property name="tweetId" not-null="true" />
+
+        <property name="bodyText" length="1000000" />
+
+        <many-to-one name="parent" column="parentId" class="com.schlock.website.entities.twitter.Tweet" />
+
+    </class>
+</hibernate-mapping>

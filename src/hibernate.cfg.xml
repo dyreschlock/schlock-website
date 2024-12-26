@@ -34,6 +34,8 @@
         <mapping resource="com/schlock/website/entities/blog/Keyword.hbm.xml" />
         <mapping resource="com/schlock/website/entities/blog/Image.hbm.xml" />
 
+        <mapping resource="com/schlock/website/entities/twitter/Tweet.hbm.xml" />
+
         <mapping resource="com/schlock/website/entities/apps/japanese/Kanji.hbm.xml" />
 
         <mapping resource="com/schlock/website/entities/apps/kendo/ExamQuestion.hbm.xml" />
