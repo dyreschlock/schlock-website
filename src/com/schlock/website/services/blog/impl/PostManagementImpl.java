@@ -511,9 +511,13 @@ public class PostManagementImpl implements PostManagement
 
                 index = remainingHTML.indexOf(QUOTE);
 
-                String updatedLink = NEW_PATH + remainingHTML.substring(0, index);
+                String link = remainingHTML.substring(0, index);
+                if (!link.contains("/"))
+                {
+                    link = NEW_PATH + link;
+                }
 
-                finishedHTML.append(updatedLink);
+                finishedHTML.append(link);
                 remainingHTML = remainingHTML.substring(index);
             }
         }
