@@ -10,6 +10,18 @@
         <tr align="left">
             <td>
 
+                <t:loop source="mostRecentPosts" value="currentPost">
+
+                    <p align="left">
+                        <font size="2"><a href="${currentPostLink}">${currentPost.title}</a></font>
+                        <br/>
+                        <font size="2" color="#CCCCCC">${currentPostDescription}</font>
+                        <br/>
+                    </p>
+
+                </t:loop>
+
+                <!--
                 <p align="left"><font size="2"><a href="misc/servers.html"> Wolfenstein
                     Servers</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
                 </font></font><font size="2" color="#CCCCCC">The servers of the
@@ -55,6 +67,7 @@
                 </font></font></font><font size="2" color="#CCCCCC">back in the
                     high school day, stu learned japan, and japan learned of him..</font></p>
                 <p align="right"><font size="2" color="#E3E3E3">- <a href="mailto:dyre@theschlock.com">Dyre</a></font></p>
+                -->
 
             </td>
         </tr>
