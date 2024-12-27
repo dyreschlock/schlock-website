@@ -10,20 +10,11 @@ public enum SiteVersion
     V6,
     V7;
 
-    public String number()
+    public String linkPath(String uuid)
     {
-        return name().substring(1);
-    }
+        final String PATH = "old/%s/%s";
+        final String v = this.name().toLowerCase();
 
-    public static SiteVersion getVersion(String param)
-    {
-        for(SiteVersion v : SiteVersion.values())
-        {
-            if (v.name().endsWith(param))
-            {
-                return v;
-            }
-        }
-        return null;
+        return String.format(PATH, v, uuid);
     }
 }

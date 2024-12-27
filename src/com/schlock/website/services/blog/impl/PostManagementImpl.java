@@ -489,7 +489,6 @@ public class PostManagementImpl implements PostManagement
     {
         final String HREF_CODE = "href=\"/"; // href="/
         final String QUOTE = "\"";
-        final String NEW_PATH = "old/" + oldVersion.number() + "/";
 
         StringBuilder finishedHTML = new StringBuilder();
         String remainingHTML = h;
@@ -514,7 +513,7 @@ public class PostManagementImpl implements PostManagement
                 String link = remainingHTML.substring(0, index);
                 if (!link.contains("/"))
                 {
-                    link = NEW_PATH + link;
+                    link = oldVersion.linkPath(link);
                 }
 
                 finishedHTML.append(link);

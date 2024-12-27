@@ -1,17 +1,53 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-      xmlns:o="tapestry-library:old"
     >
 
-    <t:if test="hasNoPostNoVersion">
-        <o:sitesplash />
-    </t:if>
+    <head>
+        <title>One Schlock's Requiem</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <style type="text/css">
+            A:link		{ text-decoration: none; }
+            A:visited	{ text-decoration: none; }
+            A:hover		{ text-decoration: underline;  }
+            font        { font-size: 12px; font-family: arial; }
+            font.txt    { color: #9999bb; }
+            font.dat    { font-size: 14px; color: #6984B0; font-weight: bold; }
+            font.nam    { color: #666666; }
+            font.men    { color: #ffffff; }
+            font.mens   { color: #ffffff; text-decoration: underline; }
+            font.menx   { color: #ffffff; margin-left: 15px; }
+            p.x         { margin-top: -15px; }
+            p.y         { text-indent: 20px; }
 
-    <t:if test="version1">
-        <o:siteversion1template post="post" />
-    </t:if>
+        </style>
+    </head>
 
-    <t:if test="version2">
-        <o:siteversion2template post="post" />
-    </t:if>
+    <body bgcolor="#333333" text="#333333" link="#333333" vlink="#333333" alink="#333333">
+    <div align="center">
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <table border="0" bgcolor="#000000" cellpadding="8" width="640">
+            <tr>
+                <td align="right" valign="bottom" background="${imageLinkWinter1}" height="361">
+                    <p><font class="men">
+                        <a href="http://www.theschlock.com/index2.html" onMouseOver="window.status='This is my life.. and its ending one day at a time...'; return true;" onmouseout="window.status='';" ><font class="men" color="#ffffff">Daily Thoughts</font></a><br/>
+                        <a href="work2.htm" onMouseOver="window.status='Art created for Literary purposes'; return true;" onmouseout="window.status='';" ></a><font class="men" color="#ffffff">Literary</font> -
+                        <a href="work1.htm" onMouseOver="window.status='Art created for Visual purposes'; return true;" onmouseout="window.status=''; return true;"></a><font class="men" color="#ffffff">Visual</font> -
+                        <a href="comic/com01.htm" onMouseOver="window.status='Art created for Story purposes'; return true;" onmouseout="window.status=''; return true;"></a><font class="men" color="#ffffff">Comic Panels</font> | Works<br/>
+                        <a href="photo1.htm" onMouseOver="window.status='Photography of the world around you'; return true;" onmouseout="window.status=''; return true;"></a><font class="men" color="#ffffff">Imagery</font> -
+                        <a href="http://www.theschlock.com/club.html" onMouseOver="window.status='Photography of the world underneath you'; return true;" onmouseout="window.status=''; return true;"><font class="men" color="#ffffff">After Hours</font></a> -
+                        <a href="http://www.theschlock.com/picture.html" onMouseOver="window.status='Photography of stuff'; return true;" onmouseout="window.status=''; return true;"><font class="men" color="#ffffff">Pictures</font></a> | Photography<br/>
+                        <a href="review.htm" onMouseOver="window.status='My comments of the media of others'; return true;" onmouseout="window.status=''; return true;"><font class="men" color="#ffffff">Impressions</font></a>
+                    </font></p>
+                </td>
+            </tr>
+            <tr>
+                <td height="33" align="right" valign="middle" background="${imageLinkWinter2}">
+                    <font size="2" color="#FFFFFF" face="Arial, Helvetica, sans-serif"><b>
+                        ONE SCHLOCK'S REQUIEM</b></font>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </body>
 
 </html>

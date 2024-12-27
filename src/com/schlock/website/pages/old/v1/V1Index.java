@@ -1,19 +1,20 @@
-package com.schlock.website.components.old;
+package com.schlock.website.pages.old.v1;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.old.SiteVersion;
+import com.schlock.website.pages.old.AbstractOldVersionIndex;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.blog.PostManagement;
-import org.apache.tapestry5.annotations.Parameter;
+import com.schlock.website.services.database.blog.PostDAO;
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-public class SiteVersion1Template
-{
-    @Inject
-    private PostManagement postManagement;
+import java.util.List;
 
+public class V1Index extends AbstractOldVersionIndex
+{
     @Inject
     private DeploymentContext context;
 
@@ -23,9 +24,45 @@ public class SiteVersion1Template
     @Inject
     private CssCache cssCache;
 
+    @Inject
+    private PostManagement postManagement;
 
-    @Parameter(required = true)
+    @Inject
+    private PostDAO postDAO;
+
+
+    @Property
     private AbstractPost post;
+
+
+
+    Object onActivate()
+    {
+        post = postDAO.getMostRecentFrontPagePost(null);
+
+        return true;
+    }
+
+    Object onActivate(String param)
+    {
+        AbstractPost requested = null;
+
+        List<AbstractPost> posts = postDAO.getAllByUuid(param);
+        for(AbstractPost post : posts)
+        {
+            if (!post.isCoursePage())
+            {
+                requested = post;
+            }
+        }
+        if (requested == null)
+        {
+            return onActivate();
+        }
+        post = requested;
+
+        return true;
+    }
 
 
     public String getPageCss()

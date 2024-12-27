@@ -1,4 +1,4 @@
-<t:container
+<html
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
         xmlns:v1="tapestry-library:old/v1"
     >
@@ -82,7 +82,7 @@
                         <td align="center" height="23"><font size="2"><a href="comic/index.htm">Archives</a></font></td>
                     </tr>
                     <tr>
-                        <td align="center" width="50%" height="24"><font size="2"><a href="/old/1/aboutme">Profile</a></font></td>
+                        <td align="center" width="50%" height="24"><font size="2"><a href="/old/v1/aboutme">Profile</a></font></td>
                         <td bgcolor="#515151" width="50%" align="center" height="24"><font size="2"><a href="work/index.htm">Work</a></font></td>
                     </tr>
                     <tr>
@@ -171,9 +171,9 @@
         </tr>
     </table>
     <p align="center"><font size="2">
-        <b><font color="#FFFFFF">Â© 2001 <a href="mailto:dyre@theschlock.com">Schlock</a>, All Rights Reserved .. !</font></b></font>
+        <b><font color="#FFFFFF">© 2001 <a href="mailto:dyre@theschlock.com">Schlock</a>, All Rights Reserved .. !</font></b></font>
     </p>
     <div align="center"></div>
     </body>
 
-</t:container>
+</html>

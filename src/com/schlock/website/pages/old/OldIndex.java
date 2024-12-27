@@ -1,79 +1,21 @@
 package com.schlock.website.pages.old;
 
-import com.schlock.website.entities.old.SiteVersion;
-import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.services.database.blog.PostDAO;
-import org.apache.tapestry5.annotations.Property;
+import com.schlock.website.services.DeploymentContext;
 import org.apache.tapestry5.ioc.annotations.Inject;
-
-import java.util.List;
 
 public class OldIndex
 {
     @Inject
-    private PostDAO postDAO;
+    private DeploymentContext context;
 
 
-    @Property
-    private SiteVersion version;
-
-    @Property
-    private AbstractPost post;
-
-
-
-    Object onActivate()
+    public String getImageLinkWinter1()
     {
-        version = null;
-        post = null;
-
-        return true;
+        return context.webDomain() + "img/old/winter1.jpg";
     }
 
-    Object onActivate(String param)
+    public String getImageLinkWinter2()
     {
-        version = SiteVersion.getVersion(param);
-        post = postDAO.getMostRecentFrontPagePost(null);
-
-        return true;
-    }
-
-    Object onActivate(String param1, String param2)
-    {
-        version = SiteVersion.getVersion(param1);
-
-        AbstractPost requested = null;
-
-        List<AbstractPost> posts = postDAO.getAllByUuid(param2);
-        for(AbstractPost post : posts)
-        {
-            if (!post.isCoursePage())
-            {
-                requested = post;
-            }
-        }
-        if (requested == null)
-        {
-            return onActivate(param1);
-        }
-        post = requested;
-
-        return true;
-    }
-
-
-    public boolean isHasNoPostNoVersion()
-    {
-        return post == null && version == null;
-    }
-
-    public boolean isVersion1()
-    {
-        return SiteVersion.V1.equals(version);
-    }
-
-    public boolean isVersion2()
-    {
-        return SiteVersion.V2.equals(version);
+        return context.webDomain() + "img/old/winter2.jpg";
     }
 }
