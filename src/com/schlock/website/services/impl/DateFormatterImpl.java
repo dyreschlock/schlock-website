@@ -8,6 +8,7 @@ import java.util.Date;
 public class DateFormatterImpl implements DateFormatter
 {
     private static final String DATE_FORMAT = "EEEEE  MMMMM d, yyyy";
+    private static final String SHORT_DATE_FORMAT = "MMMMM d, yyyy";
     private static final String HTML_TAG_FORMAT = "yyyy-MM-dd'T'hh:mm";
     private static final String DAY_FORMAT = "MMMMM d";
     private static final String YEAR_FORMAT = "yyyy";
@@ -18,6 +19,11 @@ public class DateFormatterImpl implements DateFormatter
     public String dateFormat(Date date)
     {
         return format(DATE_FORMAT, date);
+    }
+
+    public String shortDateFormat(Date date)
+    {
+        return format(SHORT_DATE_FORMAT, date);
     }
 
     public String htmlTagFormat(Date date)

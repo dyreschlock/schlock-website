@@ -1,12 +1,202 @@
 <t:container
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+        xmlns:v1="tapestry-library:old/v1"
     >
 
     <head>
-
+        <title>One Schlock's Requiem</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <style>${pageCss}</style>
     </head>
-    <body>
-        template 1
+
+    <body bgcolor="#666666" text="#FFFFFF" link="#FFFFFF" vlink="#FFFFFF" alink="#FFFFFF">
+    <p align="center">&nbsp;</p>
+    <table width="90%" border="0" align="center">
+        <tr>
+            <td width="70%" valign="top">
+                <table width="100%" border="0" bgcolor="#333333">
+                    <tr>
+                        <td>
+                            <table width="100%" border="0">
+                                <tr>
+                                    <td width="70%">
+                                        <font color="#FFFFFF" size="4"><b>One</b></font>
+                                        <font color="#FFFFFF" size="4"><b> Schlock's Requiem </b><font size="2">presents....</font></font>
+                                    </td>
+                                    <td align="right" width="30%"><font size="2" color="#FFFFFF">x</font></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr align="center" bgcolor="#FFFFFF">
+                        <td>
+                            <table width="100%" border="0">
+                                <tr>
+                                    <td width="90%">
+                                        <div id="postContent" align="center">
+
+                                            <p><font size="2" color="#333333"><b>${postTitle}</b></font></p>
+
+                                            <t:outputraw value="postBodyHTML" />
+
+                                            <p><font size="2" color="#999999">chow</font></p>
+                                            <t:if test="hasDate">
+                                                <p><font color="#999999" size="2">${postDate}</font></p>
+                                            </t:if>
+                                        </div>
+                                    </td>
+                                    <td valign="bottom" width="10%">
+                                        <p>&nbsp;</p>
+                                        <p><img src="comic/pic2.jpg" width="162" height="240" /></p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p>&nbsp;</p>
+                                        <p><img src="comic/pic4.jpg" width="168" height="245" /></p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table border="0" width="100%">
+                                <tr align="right" valign="middle">
+                                    <td align="left"><font color="#E3E3E3" size="2">The Ongoing This
+                                        and That...</font></td>
+                                    <td>
+                                        <div align="right"><font size="2" color="#E3E3E3"><b>x</b></font></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td bgcolor="#666666" width="30%" align="center" valign="top">
+                <p>&nbsp;</p>
+                <p
+                        align="center"><font size="1" color="#FFFFFF">This site is designed for
+                    screen resolution</font><font color="#FFFFFF"><a href="file:///E|/Pure%20Schlock/The%20Schlock/2001-0131a.htm"><font
+                        size="2"><br/>
+                </font></a><font size="2">1024 x 768</font></font> </p>
+                <p align="center"><font size="2" color="#FFFFFF">Updated almost Weekly</font><font color="#FFFFFF"><a href="file:///E|/Pure%20Schlock/The%20Schlock/2001-0131a.htm"><font size="2"><br/>
+                </font></a><font size="1">Since June the 12th, 2000</font></font></p>
+                <table width="85%" border="0">
+                    <tr>
+                        <td bgcolor="#515151" align="center" height="23"><font size="2"><a href="comic/sun.htm">Synopsis</a></font></td>
+                        <td align="center" height="23"><font size="2"><a href="comic/index.htm">Archives</a></font></td>
+                    </tr>
+                    <tr>
+                        <td align="center" width="50%" height="24"><font size="2"><a href="pro.htm">Profile</a></font></td>
+                        <td bgcolor="#515151" width="50%" align="center" height="24"><font size="2"><a href="work/index.htm">Work</a></font></td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#515151" align="center" height="42"><font size="2" color="#FFFFFF">Hotline</font><font size="2"><font size="2"><font size="2"><br/>
+                        </font></font><a href="hot.htm">Page</a> / <a href="hotline://137.104.169.240">Connect</a></font></td>
+                        <td align="center" height="42"><font size="2" color="#FFFFFF">Radio</font><font size="2"><font size="2"><font size="2"><br/>
+                        </font></font><a href="play2.htm">Page</a><font color="#FFFFFF"> /
+                        </font><a href="http://64.152.82.191:16474/?myCookieTester;%20SaneID=137.104.169.240-982874038767;%20ls=1;%20bitrate=56;%20POC=0;%20myCookieTester=TRUE;%20savedPlaylist=Playlist_No1/">Listen</a></font></td>
+                    </tr>
+                    <tr>
+                        <td align="center" height="41"><font size="2"><font size="2" color="#FFFFFF">Guest
+                            Book</font><font size="2"> <font size="2"><br/>
+                            <a href="http://books.dreambook.com/dyreschlock/tripod.sign.html">Sign</a>
+                            / <font size="2"><font size="2"><font size="2"><font size="2"><a href="http://books.dreambook.com/dyreschlock/tripod.html">View</a></font></font></font></font></font></font></font></td>
+                        <td bgcolor="#515151" align="center" height="41"><font size="2"><font size="2">
+                            <font size="2"><a href="map.htm">Site Map</a></font></font></font></td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#515151" align="center" height="24"><font size="2"><a href="review/index.htm">Review</a></font></td>
+                        <td align="center" height="24"><font size="2"><a href="re2002-1.htm">Release</a></font></td>
+                    </tr>
+                </table>
+                <table width="85%" border="0">
+                    <tr align="center">
+                        <td><font size="2" color="#CCCCCC">lets see what you can do ? You can
+                            transform the world into an explosion of sound and music... You will
+                            discover the brand new time full of rhythm as well as esctasy.. The
+                            instinct of motion in now finally released... Can you really tear
+                            yourself away from this sense of trance ? pull out your inner sound
+                            and make some noise ... dance ... </font>
+                            <p><font size="2" color="#CCCCCC">let yourself go in the music.. to
+                                use more than your ears to listen to the experience ... its not
+                                what hear, but what you feel... the song is higher than any mp3
+                                or cd track... its in your hands.. your legs.. your mind ... you
+                                move with the music as the Dj reveals his soul... an experience
+                                that should not be overlooked... why waste your only chance to be
+                                free ? its all in us...</font></p>
+                        </td>
+                    </tr>
+                </table>
+                <p>
+                    <a href="http://popularitycontest.studio-zoe.com/cgi-bin/rankem.cgi?action=in&amp;id=schlock" target="_blank">
+                        <img src="${imageLinkPopular}" width="88" height="31" border="0" /></a><br/>
+                    <font size="2">Click for Points !</font>
+                </p>
+                <table width="85%" border="0" height="36">
+                    <tr>
+                        <td width="50%" bgcolor="#515151" align="center" height="28">
+                            <font size="2">&lt; &lt; <a href="comic/2001-0701.htm">First</a></font>
+                        </td>
+                        <td width="50%" align="center" height="28">
+                            <font size="2">&lt; <a href="comic/2001-0715.htm">Previous</a></font>
+                        </td>
+                    </tr>
+                </table>
+                <table width="85%" border="0">
+                    <tr align="right">
+                        <td bgcolor="#333333"><font size="2">Update Message</font></td>
+                    </tr>
+                    <tr align="left">
+                        <td bgcolor="#666666">
+                            <p><font size="2">i plan to redo some of the old crappy pages one
+                                of these days.. i just started playing Xenosaga the other day, so
+                                when i have free time i like to dig into it deeper..</font></p>
+                            <p><font size="2">one of these days i'll do some of the back work
+                                needed on this site ^_^....</font></p>
+                            <p align="right"><font size="2" color="#E3E3E3">March 12th - <a href="mailto:dyre@theschlock.com">Dyre</a></font></p>
+                        </td>
+                    </tr>
+                </table>
+                <table width="85%" border="0">
+                    <tr align="right">
+                        <td bgcolor="#333333">
+                            <p><font size="2">Featured Venues</font></p>
+                        </td>
+                    </tr>
+                    <tr align="left">
+                        <td>
+
+                            <v1:version1recentposts />
+
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <p align="center"><font size="2">
+        <b><font color="#FFFFFF">© 2001 <a href="mailto:dyre@theschlock.com">Schlock</a>, All Rights Reserved .. !</font></b></font>
+    </p>
+    <div align="center"></div>
     </body>
 
 </t:container>

@@ -6,6 +6,8 @@ public interface DateFormatter
 {
     String dateFormat(Date date);
 
+    String shortDateFormat(Date date);
+
     String htmlTagFormat(Date date);
 
     String w3DateFormat(Date date);

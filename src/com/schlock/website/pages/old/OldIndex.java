@@ -33,7 +33,7 @@ public class OldIndex
     Object onActivate(String param)
     {
         version = SiteVersion.getVersion(param);
-        post = null;
+        post = postDAO.getMostRecentFrontPagePost(null);
 
         return true;
     }
@@ -52,9 +52,9 @@ public class OldIndex
                 requested = post;
             }
         }
-        if (posts.isEmpty())
+        if (requested == null)
         {
-            requested = postDAO.getMostRecentPost(false, null);
+            return onActivate(param1);
         }
         post = requested;
 

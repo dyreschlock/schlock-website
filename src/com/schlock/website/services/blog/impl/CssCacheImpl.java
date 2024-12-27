@@ -5,6 +5,7 @@ import com.asual.lesscss.LessException;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.CoursePage;
 import com.schlock.website.entities.blog.Page;
+import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.CssCache;
 import org.apache.commons.lang.StringUtils;
@@ -14,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class CssCacheImpl implements CssCache
@@ -45,6 +47,9 @@ public class CssCacheImpl implements CssCache
 
     private final static String EXTRA_CSS_FILE = "layout/extra/%s.less";
 
+    private final static String OLD_VERSION_CSS_FILE = "layout/old/%s.less";
+    private final static String OLD_COMMON_CSS_FILE = "layout/old/old-common.less";
+
     //fonts
     private final static String NOTO_SANS_FONT = "layout/font/NotoSansJP.css";
     private final static String PERFECT_DOS_VGA_FONT = "layout/font/PerfectDOS-VGA-437.css";
@@ -57,6 +62,7 @@ public class CssCacheImpl implements CssCache
 
     private final static String TWITTER_CSS_FILE = "layout/apps/twitter.less";
 
+
     private final DeploymentContext deploymentContext;
     private final Context context;
 
@@ -66,6 +72,8 @@ public class CssCacheImpl implements CssCache
     private String cachedNotFibbage;
     private String cachedGames;
     private String cachedPokemon;
+
+    private HashMap<String, String> cachedOld = new HashMap<>();
 
     public CssCacheImpl(DeploymentContext deploymentContext,
                         Context context)
@@ -82,6 +90,23 @@ public class CssCacheImpl implements CssCache
         }
 
         String css = cached;
+        if (post != null)
+        {
+            css += getExtraCSS(post);
+        }
+        return css;
+    }
+
+    public String getCssOldVersions(AbstractPost post, SiteVersion version)
+    {
+        String v = version.name().toLowerCase();
+        if (!cachedOld.containsKey(v))
+        {
+            String cssFile = String.format(OLD_VERSION_CSS_FILE, v);
+            cachedOld.put(v, createCss(OLD_COMMON_CSS_FILE, cssFile));
+        }
+
+        String css = cachedOld.get(v);
         if (post != null)
         {
             css += getExtraCSS(post);
