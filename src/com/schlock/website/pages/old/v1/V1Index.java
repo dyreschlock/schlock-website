@@ -11,8 +11,6 @@ import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import java.util.List;
-
 public class V1Index extends AbstractOldVersionIndex
 {
     @Inject
@@ -38,29 +36,13 @@ public class V1Index extends AbstractOldVersionIndex
 
     Object onActivate()
     {
-        post = postDAO.getMostRecentFrontPagePost(null);
-
+        post = getPost(postDAO, null);
         return true;
     }
 
     Object onActivate(String param)
     {
-        AbstractPost requested = null;
-
-        List<AbstractPost> posts = postDAO.getAllByUuid(param);
-        for(AbstractPost post : posts)
-        {
-            if (!post.isCoursePage())
-            {
-                requested = post;
-            }
-        }
-        if (requested == null)
-        {
-            return onActivate();
-        }
-        post = requested;
-
+        post = getPost(postDAO, param);
         return true;
     }
 

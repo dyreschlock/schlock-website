@@ -1,51 +1,63 @@
 <t:container
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
+    <table width="85%" border="0">
+        <tr align="right">
+            <td bgcolor="#333333">
+                <p><font size="2">Featured Venues</font></p>
+            </td>
+        </tr>
+        <tr align="left">
+            <td>
 
-    <p align="left"><font size="2"><a href="misc/servers.html"> Wolfenstein
-        Servers</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
-    </font></font><font size="2" color="#CCCCCC">The servers of the
-        new hit game Return to Castle Wolfenstein that you'll likely to
-        find me ravin' on...</font><font size="2"><br/>
-    </font></font><font color="#999999" size="2"></font></p>
-    <p><font size="2"><a href="wod/index.htm">WoD Scrimmage Results</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
-    </font></font><font size="2" color="#CCCCCC">Follow our clans progress
-        as we challenge other clans and do some damage...</font></font></p>
-    <p><font size="2"><a href="http://www.geocities.com/dyreschlock/">Emulation
-        - 16bit Goodness</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
-    </font></font></font><font size="2" color="#CCCCCC">go back in time
-        5-10 years and play some of the best games squaresoft had to offer..</font></p>
-    <p><font size="2"><a href="rave4/index.htm">Max Graham - Live @ The
-        Quest</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2" color="#E3E3E3"><img src="star1.gif" width="16" height="16"/></font><font size="2"><br/>
-    </font></font></font><font size="2" color="#CCCCCC">Justin was back,
-        and it rocked...</font></p>
-    <p><font size="2"><a href="rave2/index.htm"></a></font><font size="2"><a href="rave3/index.htm">Dave
-        Ralph - Live @ The Quest</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
-    </font></font></font><font size="2" color="#CCCCCC">Spreak break
-        rocked...</font></p>
-    <p><font size="2"><a href="rave2/index.htm">Carl Cox Live @ The Quest</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
-    </font></font></font><font size="2" color="#CCCCCC">A picture spread
-        of this quest experience..</font></p>
-    <p><font size="2"><a href="rave/rave.htm">Chain Reaction II / IV</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
-    </font></font></font><font size="2" color="#CCCCCC">Our pictoral
-        report of this Cedar Rapids rave we visited a couple weekends ago</font></p>
-    <p><font size="2"><a href="misc/vid.htm">The History of Video Games</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
-    </font></font></font><font size="2" color="#CCCCCC">as of Novemer
-        1999, anyways</font></p>
-    <p><font size="2"><a href="xeno01.htm">Xenosaga Impressions / Diary
-    </a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
-    </font></font></font><font size="2" color="#CCCCCC">this is what
-        i think of the best game on ps2 to date ^_^ ... updated quite frequently..</font></p>
-    <p><font size="2"><a href="spamm/index.htm">Nikki Pics</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
-    </font></font></font><font size="2" color="#CCCCCC">This is the
-        mascot that i draw for my local anime club, <a href="http://www.spamm.org/" target="_blank">Spamm</a>...
-        although i haven't done a whole lot of work on her...</font></p>
-    <p><font size="2"><a href="twine/index.htm">Twine Ball 2001</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
-    </font></font></font><font size="2" color="#CCCCCC">crusty 'ol pictoral
-        of our journey to the biggest ball of twine in minnesota</font></p>
-    <p><font size="2"><a href="japan/index.htm">Stu goes to Japan</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
-    </font></font></font><font size="2" color="#CCCCCC">back in the
-        high school day, stu learned japan, and japan learned of him..</font></p>
-    <p align="right"><font size="2" color="#E3E3E3">- <a href="mailto:dyre@theschlock.com">Dyre</a></font></p>
+                <p align="left"><font size="2"><a href="misc/servers.html"> Wolfenstein
+                    Servers</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
+                </font></font><font size="2" color="#CCCCCC">The servers of the
+                    new hit game Return to Castle Wolfenstein that you'll likely to
+                    find me ravin' on...</font><font size="2"><br/>
+                </font></font><font color="#999999" size="2"></font></p>
+                <p><font size="2"><a href="wod/index.htm">WoD Scrimmage Results</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
+                </font></font><font size="2" color="#CCCCCC">Follow our clans progress
+                    as we challenge other clans and do some damage...</font></font></p>
+                <p><font size="2"><a href="http://www.geocities.com/dyreschlock/">Emulation
+                    - 16bit Goodness</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
+                </font></font></font><font size="2" color="#CCCCCC">go back in time
+                    5-10 years and play some of the best games squaresoft had to offer..</font></p>
+                <p><font size="2"><a href="rave4/index.htm">Max Graham - Live @ The
+                    Quest</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2" color="#E3E3E3"><img src="star1.gif" width="16" height="16"/></font><font size="2"><br/>
+                </font></font></font><font size="2" color="#CCCCCC">Justin was back,
+                    and it rocked...</font></p>
+                <p><font size="2"><a href="rave2/index.htm"></a></font><font size="2"><a href="rave3/index.htm">Dave
+                    Ralph - Live @ The Quest</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
+                </font></font></font><font size="2" color="#CCCCCC">Spreak break
+                    rocked...</font></p>
+                <p><font size="2"><a href="rave2/index.htm">Carl Cox Live @ The Quest</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
+                </font></font></font><font size="2" color="#CCCCCC">A picture spread
+                    of this quest experience..</font></p>
+                <p><font size="2"><a href="rave/rave.htm">Chain Reaction II / IV</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
+                </font></font></font><font size="2" color="#CCCCCC">Our pictoral
+                    report of this Cedar Rapids rave we visited a couple weekends ago</font></p>
+                <p><font size="2"><a href="misc/vid.htm">The History of Video Games</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
+                </font></font></font><font size="2" color="#CCCCCC">as of Novemer
+                    1999, anyways</font></p>
+                <p><font size="2"><a href="xeno01.htm">Xenosaga Impressions / Diary
+                </a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
+                </font></font></font><font size="2" color="#CCCCCC">this is what
+                    i think of the best game on ps2 to date ^_^ ... updated quite frequently..</font></p>
+                <p><font size="2"><a href="spamm/index.htm">Nikki Pics</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
+                </font></font></font><font size="2" color="#CCCCCC">This is the
+                    mascot that i draw for my local anime club, <a href="http://www.spamm.org/" target="_blank">Spamm</a>...
+                    although i haven't done a whole lot of work on her...</font></p>
+                <p><font size="2"><a href="twine/index.htm">Twine Ball 2001</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
+                </font></font></font><font size="2" color="#CCCCCC">crusty 'ol pictoral
+                    of our journey to the biggest ball of twine in minnesota</font></p>
+                <p><font size="2"><a href="japan/index.htm">Stu goes to Japan</a></font><font color="#FFFFFF"><font color="#FFFFFF"><font size="2"><br/>
+                </font></font></font><font size="2" color="#CCCCCC">back in the
+                    high school day, stu learned japan, and japan learned of him..</font></p>
+                <p align="right"><font size="2" color="#E3E3E3">- <a href="mailto:dyre@theschlock.com">Dyre</a></font></p>
+
+            </td>
+        </tr>
+    </table>
 
 </t:container>

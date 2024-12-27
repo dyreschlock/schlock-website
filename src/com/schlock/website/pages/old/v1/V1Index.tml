@@ -2,7 +2,6 @@
         xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
         xmlns:v1="tapestry-library:old/v1"
     >
-
     <head>
         <title>One Schlock's Requiem</title>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
@@ -128,16 +127,9 @@
                         <img src="${imageLinkPopular}" width="88" height="31" border="0" /></a><br/>
                     <font size="2">Click for Points !</font>
                 </p>
-                <table width="85%" border="0" height="36">
-                    <tr>
-                        <td width="50%" bgcolor="#515151" align="center" height="28">
-                            <font size="2">&lt; &lt; <a href="comic/2001-0701.htm">First</a></font>
-                        </td>
-                        <td width="50%" align="center" height="28">
-                            <font size="2">&lt; <a href="comic/2001-0715.htm">Previous</a></font>
-                        </td>
-                    </tr>
-                </table>
+
+                <v1:version1previousnext post="post" />
+
                 <table width="85%" border="0">
                     <tr align="right">
                         <td bgcolor="#333333"><font size="2">Update Message</font></td>
@@ -153,20 +145,8 @@
                         </td>
                     </tr>
                 </table>
-                <table width="85%" border="0">
-                    <tr align="right">
-                        <td bgcolor="#333333">
-                            <p><font size="2">Featured Venues</font></p>
-                        </td>
-                    </tr>
-                    <tr align="left">
-                        <td>
 
-                            <v1:version1recentposts />
-
-                        </td>
-                    </tr>
-                </table>
+                <v1:version1recentposts />
             </td>
         </tr>
     </table>
