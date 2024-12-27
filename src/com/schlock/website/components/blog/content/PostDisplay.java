@@ -183,7 +183,7 @@ public class PostDisplay
 
     public String getPostBodyHTML()
     {
-        String html = postManagement.generatePostHTML(post, false);
+        String html = postManagement.generatePostHTML(post);
         return html;
     }
 

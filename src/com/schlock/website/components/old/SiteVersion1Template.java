@@ -40,6 +40,12 @@ public class SiteVersion1Template
         return link;
     }
 
+    public String getImageLinkComic()
+    {
+        String link = context.webDomain() + "img/old/pic4.jpg";
+        return link;
+    }
+
     public String getPostTitle()
     {
         return post.getTitle();
@@ -47,7 +53,7 @@ public class SiteVersion1Template
 
     public String getPostBodyHTML()
     {
-        String html = postManagement.generatePostHTML(post, false);
+        String html = postManagement.generatePostHTML(post, SiteVersion.V1);
         return html;
     }
 

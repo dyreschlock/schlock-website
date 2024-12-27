@@ -10,6 +10,11 @@ public enum SiteVersion
     V6,
     V7;
 
+    public String number()
+    {
+        return name().substring(1);
+    }
+
     public static SiteVersion getVersion(String param)
     {
         for(SiteVersion v : SiteVersion.values())

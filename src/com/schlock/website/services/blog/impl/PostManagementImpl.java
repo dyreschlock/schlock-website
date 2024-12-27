@@ -1,6 +1,8 @@
 package com.schlock.website.services.blog.impl;
 
 import com.schlock.website.entities.blog.*;
+import com.schlock.website.entities.old.SiteVersion;
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.KeywordManagement;
 import com.schlock.website.services.blog.PostManagement;
@@ -38,6 +40,8 @@ public class PostManagementImpl implements PostManagement
 
     private final ApplicationStateManager asoManager;
 
+    private final DeploymentContext context;
+
     private final KeywordManagement keywordManagement;
     private final ImageManagement imageManagement;
     private final PostDAO postDAO;
@@ -46,11 +50,14 @@ public class PostManagementImpl implements PostManagement
     private Set<String> cachedUuids;
 
     public PostManagementImpl(ApplicationStateManager asoManager,
+                                DeploymentContext context,
                                 KeywordManagement keywordManagement,
                                 ImageManagement imageManagement,
                                 PostDAO postDAO)
     {
         this.asoManager = asoManager;
+
+        this.context = context;
 
         this.keywordManagement = keywordManagement;
         this.imageManagement = imageManagement;
@@ -168,7 +175,7 @@ public class PostManagementImpl implements PostManagement
         for(AbstractPost post : postDAO.getAll())
         {
             String text = post.getBodyText();
-            String html = generatePostHTML(post, text, false);
+            String html = generatePostHTML(post, text, null, false);
             post.setBodyHTML(html);
 
             String keyString = post.getKeywordString();
@@ -289,19 +296,31 @@ public class PostManagementImpl implements PostManagement
         return text;
     }
 
-    public String generatePostHTML(AbstractPost post, boolean rssFeed)
+    public String generatePostHTML(AbstractPost post)
+    {
+        return generatePostHTML(post, null);
+    }
+
+    public String generateRssHTML(AbstractPost post)
     {
         String text = post.getBodyText();
-        String html = generatePostHTML(post, text, rssFeed);
+        String html = generatePostHTML(post, text, null, true);
+        return html;
+    }
+
+    public String generatePostHTML(AbstractPost post, SiteVersion version)
+    {
+        String text = post.getBodyText();
+        String html = generatePostHTML(post, text, version, false);
         return html;
     }
 
     public String generatePostHTML(String htmlContents)
     {
-        return generatePostHTML(null, htmlContents, false);
+        return generatePostHTML(null, htmlContents, null, false);
     }
 
-    private String generatePostHTML(AbstractPost post, String tempText, boolean rssFeed)
+    private String generatePostHTML(AbstractPost post, String tempText, SiteVersion oldVersion, boolean rssFeed)
     {
         if (StringUtils.isBlank(tempText))
         {
@@ -323,8 +342,13 @@ public class PostManagementImpl implements PostManagement
 
         html = wrapJapaneseTextInTags(html);
 
-        boolean useGalleryLink = !rssFeed;
+        boolean useGalleryLink = !rssFeed && oldVersion == null;
         html = imageManagement.updateImagesInHTML(post, html, useGalleryLink);
+
+        if (oldVersion != null)
+        {
+            html = changeLinksToOldVersion(html, oldVersion);
+        }
 
         return html;
     }
@@ -455,11 +479,46 @@ public class PostManagementImpl implements PostManagement
 
     private String changeLinksToAbsolute(String h)
     {
-        String html = h;
+        String domain = context.webDomain();
 
-        html = html.replaceAll("href=\"/", "href=\"http://theschlock.com/");
-
+        String html = h.replaceAll("href=\"/", "href=\"" + domain);
         return html;
+    }
+
+    private String changeLinksToOldVersion(String h, SiteVersion oldVersion)
+    {
+        final String HREF_CODE = "href=\"/"; // href="/
+        final String QUOTE = "\"";
+        final String NEW_PATH = "old/" + oldVersion.number() + "/";
+
+        StringBuilder finishedHTML = new StringBuilder();
+        String remainingHTML = h;
+
+        while(StringUtils.isNotBlank(remainingHTML))
+        {
+            int index = remainingHTML.indexOf(HREF_CODE);
+            if (index == -1)
+            {
+                finishedHTML.append(remainingHTML);
+                remainingHTML = "";
+            }
+            else
+            {
+                index += HREF_CODE.length();
+
+                finishedHTML.append(remainingHTML.substring(0, index));
+                remainingHTML = remainingHTML.substring(index);
+
+                index = remainingHTML.indexOf(QUOTE);
+
+                String updatedLink = NEW_PATH + remainingHTML.substring(0, index);
+
+                finishedHTML.append(updatedLink);
+                remainingHTML = remainingHTML.substring(index);
+            }
+        }
+
+        return finishedHTML.toString();
     }
 
     private String removeBreaksFromBetweenHtmlCode(String h)

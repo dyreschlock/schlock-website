@@ -78,7 +78,7 @@ public class Feed
 
     public String getCurrentPostBodyHTML()
     {
-        String html = postManagement.generatePostHTML(currentPost, true);
+        String html = postManagement.generateRssHTML(currentPost);
         return html;
     }
 

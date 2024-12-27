@@ -46,30 +46,7 @@
                                         </div>
                                     </td>
                                     <td valign="bottom" width="10%">
-                                        <p>&nbsp;</p>
-                                        <p><img src="comic/pic2.jpg" width="162" height="240" /></p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p>&nbsp;</p>
-                                        <p><img src="comic/pic4.jpg" width="168" height="245" /></p>
+                                        <p><img src="${imageLinkComic}" width="168" height="245" /></p>
                                     </td>
                                 </tr>
                             </table>
@@ -79,8 +56,7 @@
                         <td>
                             <table border="0" width="100%">
                                 <tr align="right" valign="middle">
-                                    <td align="left"><font color="#E3E3E3" size="2">The Ongoing This
-                                        and That...</font></td>
+                                    <td align="left"><font color="#E3E3E3" size="2">The Ongoing This and That...</font></td>
                                     <td>
                                         <div align="right"><font size="2" color="#E3E3E3"><b>x</b></font></div>
                                     </td>
@@ -92,13 +68,14 @@
             </td>
             <td bgcolor="#666666" width="30%" align="center" valign="top">
                 <p>&nbsp;</p>
-                <p
-                        align="center"><font size="1" color="#FFFFFF">This site is designed for
-                    screen resolution</font><font color="#FFFFFF"><a href="file:///E|/Pure%20Schlock/The%20Schlock/2001-0131a.htm"><font
-                        size="2"><br/>
-                </font></a><font size="2">1024 x 768</font></font> </p>
-                <p align="center"><font size="2" color="#FFFFFF">Updated almost Weekly</font><font color="#FFFFFF"><a href="file:///E|/Pure%20Schlock/The%20Schlock/2001-0131a.htm"><font size="2"><br/>
-                </font></a><font size="1">Since June the 12th, 2000</font></font></p>
+                <p align="center">
+                    <font size="1" color="#FFFFFF">This site is designed for screen resolution</font><br/>
+                    <font size="2">1024 x 768</font>
+                </p>
+                <p align="center">
+                    <font size="2" color="#FFFFFF">Updated almost Weekly</font><br/>
+                    <font size="1">Since June the 12th, 2000</font>
+                </p>
                 <table width="85%" border="0">
                     <tr>
                         <td bgcolor="#515151" align="center" height="23"><font size="2"><a href="comic/sun.htm">Synopsis</a></font></td>

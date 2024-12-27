@@ -3,6 +3,7 @@ package com.schlock.website.services.blog;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.old.SiteVersion;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +25,11 @@ public interface PostManagement
 
     String generatePostHTML(String htmlContents);
 
-    String generatePostHTML(AbstractPost post, boolean rssFeed);
+    String generatePostHTML(AbstractPost post);
+
+    String generateRssHTML(AbstractPost post);
+
+    String generatePostHTML(AbstractPost post, SiteVersion version);
 
     String generatePostPreview(AbstractPost post);
 
