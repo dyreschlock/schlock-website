@@ -41,6 +41,8 @@ public interface PostDAO extends BaseDAO<AbstractPost>
 
     Post getMostRecentPost(boolean withUnpublished, Long categoryId);
 
+    Post getFirstAvailablePost(boolean withUnpublished);
+
 
     List<Post> getMostRecentPostsWithGallery(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
 

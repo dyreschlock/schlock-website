@@ -171,7 +171,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
     {
         int publishLevel = POST_FRONT_PAGE;
 
-        return mostRecent(publishLevel, categoryId);
+        return mostRecent(publishLevel, categoryId, true);
     }
 
     public Post getMostRecentPost(boolean withUnpublished, Long categoryId)
@@ -182,13 +182,28 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
             publishLevel = POST_UNPUBLISHED;
         }
 
-        return mostRecent(publishLevel, categoryId);
+        return mostRecent(publishLevel, categoryId, true);
     }
 
-    private Post mostRecent(int publishLevel, Long categoryId)
+    public Post getFirstAvailablePost(boolean withUnpublished)
+    {
+        int publishLevel = POST_PUBLISHED;
+        if (withUnpublished)
+        {
+            publishLevel = POST_UNPUBLISHED;
+        }
+
+        return mostRecent(publishLevel, null, false);
+    }
+
+    private Post mostRecent(int publishLevel, Long categoryId, boolean desc)
     {
         String selectClause = "select p from Post p ";
         String orderByClause = " order by p.created desc";
+        if (!desc)
+        {
+            orderByClause = " order by p.created asc";
+        }
 
         Query query = createQuery(TOP_RECENT,
                                     null,

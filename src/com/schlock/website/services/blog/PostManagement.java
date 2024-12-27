@@ -54,4 +54,8 @@ public interface PostManagement
     List<AbstractPost> getNextRelatedPosts(AbstractPost post);
 
     List<AbstractPost> getPreviousRelatedPosts(AbstractPost post);
+
+    AbstractPost getMostRecentPost();
+
+    AbstractPost getFirstAvailablePost();
 }

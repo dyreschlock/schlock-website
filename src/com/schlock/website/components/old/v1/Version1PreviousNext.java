@@ -34,7 +34,10 @@ public class Version1PreviousNext
 
     public String getFirstPostLink()
     {
-        return "";
+        AbstractPost post = postManagement.getFirstAvailablePost();
+        String uuid = post.getUuid();
+
+        return linkSource.createPageRenderLinkWithContext(V1Index.class, uuid).toURI();
     }
 
     public String getNextPostLink()
@@ -58,7 +61,10 @@ public class Version1PreviousNext
 
     public String getMostRecentPostLink()
     {
-        return "";
+        AbstractPost post = postManagement.getMostRecentPost();
+        String uuid = post.getUuid();
+
+        return linkSource.createPageRenderLinkWithContext(V1Index.class, uuid).toURI();
     }
 
     public String getPreviousPostLink()

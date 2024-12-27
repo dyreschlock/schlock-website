@@ -899,6 +899,15 @@ public class PostManagementImpl implements PostManagement
         return posts;
     }
 
+    public AbstractPost getMostRecentPost()
+    {
+        return postDAO.getMostRecentPost(false, null);
+    }
+
+    public AbstractPost getFirstAvailablePost()
+    {
+        return postDAO.getFirstAvailablePost(false);
+    }
 
     /*
 
