@@ -25,11 +25,9 @@ public class Version1PreviousNext
     private AbstractPost post;
 
 
-
-    public boolean isHasNext()
+    public boolean isNoPost()
     {
-        List<AbstractPost> posts = getNextPosts();
-        return posts != null && !posts.isEmpty();
+        return post == null;
     }
 
     public String getFirstPostLink()
@@ -38,6 +36,21 @@ public class Version1PreviousNext
         String uuid = post.getUuid();
 
         return linkSource.createPageRenderLinkWithContext(V1Index.class, uuid).toURI();
+    }
+
+    public String getMostRecentPostLink()
+    {
+        AbstractPost post = postManagement.getMostRecentPost();
+        String uuid = post.getUuid();
+
+        return linkSource.createPageRenderLinkWithContext(V1Index.class, uuid).toURI();
+    }
+
+
+    public boolean isHasNext()
+    {
+        List<AbstractPost> posts = getNextPosts();
+        return posts != null && !posts.isEmpty();
     }
 
     public String getNextPostLink()
@@ -53,18 +66,11 @@ public class Version1PreviousNext
         return postManagement.getNextPosts(post);
     }
 
+
     public boolean isHasPrevious()
     {
         List<AbstractPost> posts = getPreviousPosts();
         return posts != null && !posts.isEmpty();
-    }
-
-    public String getMostRecentPostLink()
-    {
-        AbstractPost post = postManagement.getMostRecentPost();
-        String uuid = post.getUuid();
-
-        return linkSource.createPageRenderLinkWithContext(V1Index.class, uuid).toURI();
     }
 
     public String getPreviousPostLink()
@@ -79,6 +85,7 @@ public class Version1PreviousNext
     {
         return postManagement.getPreviousPosts(post);
     }
+
 
     public String getWidth()
     {

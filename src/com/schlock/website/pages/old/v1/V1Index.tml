@@ -33,7 +33,19 @@
                                 <tr>
                                     <td width="90%">
 
-                                        <v1:version1postdisplay post="post" />
+                                        <t:if test="hasPost">
+                                            <v1:version1postdisplay post="post" />
+                                        </t:if>
+
+                                        <t:if test="archivePage">
+
+                                            <v1:version1archiveDisplay />
+
+                                        </t:if>
+
+                                        <t:if test="categoryPage">
+
+                                        </t:if>
 
                                     </td>
                                     <td valign="bottom" width="10%">
@@ -97,9 +109,9 @@
                     </tr>
                     <tr>
                         <td bgcolor="#515151" align="center" height="24">
-                            <font size="2"><a href="${gamesLink}">Review</a></font></td>
+                            <font size="2"><a href="${gamesLink}">Reviews</a></font></td>
                         <td align="center" height="24">
-                            <font size="2"><a href="${musicLink}">Music</a></font></td>
+                            <font size="2"><a href="${musicLink}">Events</a></font></td>
                     </tr>
                 </table>
                 <table width="85%" border="0">

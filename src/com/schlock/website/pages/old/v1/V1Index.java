@@ -11,6 +11,8 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
+import java.util.Arrays;
+
 public class V1Index extends AbstractOldVersionIndex
 {
     private static final String ARCHIVE_PAGE = "archive";
@@ -31,6 +33,8 @@ public class V1Index extends AbstractOldVersionIndex
     private PostDAO postDAO;
 
 
+    private String page;
+
     @Property
     private AbstractPost post;
 
@@ -38,21 +42,48 @@ public class V1Index extends AbstractOldVersionIndex
 
     Object onActivate()
     {
+        page = null;
         post = getPost(postDAO, null);
         return true;
     }
 
     Object onActivate(String param)
     {
-        post = getPost(postDAO, param);
+        if (Arrays.asList(ARCHIVE_PAGE, PROJECTS_PAGE, GAMES_PAGE, MUSIC_PAGE).contains(param))
+        {
+            page = param;
+            post = null;
+        }
+        else
+        {
+            page = null;
+            post = getPost(postDAO, param);
+        }
+
         return true;
     }
 
+
+    public boolean isHasPost()
+    {
+        return post != null;
+    }
+
+    public boolean isArchivePage()
+    {
+        return ARCHIVE_PAGE.equals(page);
+    }
+
+    public boolean isCategoryPage()
+    {
+        return Arrays.asList(PROJECTS_PAGE, GAMES_PAGE, MUSIC_PAGE).contains(page);
+    }
 
     public String getPageCss()
     {
         return cssCache.getCssOldVersions(post, SiteVersion.V1);
     }
+
 
 
     public String getArchiveLink()
