@@ -16,9 +16,10 @@ import java.util.Arrays;
 public class V1Index extends AbstractOldVersionIndex
 {
     private static final String ARCHIVE_PAGE = "archive";
-    private static final String PROJECTS_PAGE = "projects";
-    private static final String GAMES_PAGE = "review";
-    private static final String MUSIC_PAGE = "music";
+
+    public static final String PROJECTS_PAGE = "projects";
+    public static final String GAMES_PAGE = "reviews";
+    public static final String MUSIC_PAGE = "music";
 
     @Inject
     private PageRenderLinkSource linkSource;
@@ -33,6 +34,7 @@ public class V1Index extends AbstractOldVersionIndex
     private PostDAO postDAO;
 
 
+    @Property
     private String page;
 
     @Property

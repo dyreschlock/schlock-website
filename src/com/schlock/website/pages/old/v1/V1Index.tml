@@ -1,6 +1,6 @@
 <html
-        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-        xmlns:v1="tapestry-library:old/v1"
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:v1="tapestry-library:old/v1"
     >
     <head>
         <title>One Schlock's Requiem</title>
@@ -38,13 +38,11 @@
                                         </t:if>
 
                                         <t:if test="archivePage">
-
                                             <v1:version1archiveDisplay />
-
                                         </t:if>
 
                                         <t:if test="categoryPage">
-
+                                            <v1:version1categoryDisplay type="page" />
                                         </t:if>
 
                                     </td>
