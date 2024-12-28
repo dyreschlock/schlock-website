@@ -32,17 +32,9 @@
                             <table width="100%" border="0">
                                 <tr>
                                     <td width="90%">
-                                        <div id="postContent" align="center">
 
-                                            <p><font size="2" color="#333333"><b>${postTitle}</b></font></p>
+                                        <v1:version1postdisplay post="post" />
 
-                                            <t:outputraw value="postBodyHTML" />
-
-                                            <p><font size="2" color="#999999">chow</font></p>
-                                            <t:if test="hasDate">
-                                                <p><font color="#999999" size="2">${postDate}</font></p>
-                                            </t:if>
-                                        </div>
                                     </td>
                                     <td valign="bottom" width="10%">
                                         <p><img src="${imageLinkComic}" width="168" height="245" /></p>
@@ -77,31 +69,37 @@
                 </p>
                 <table width="85%" border="0">
                     <tr>
-                        <td bgcolor="#515151" align="center" height="23"><font size="2"><a href="comic/sun.htm">Synopsis</a></font></td>
-                        <td align="center" height="23"><font size="2"><a href="comic/index.htm">Archives</a></font></td>
+                        <td bgcolor="#515151" align="center" height="23">
+                            <font size="2"><a style="text-decoration: underline;">Synopsis</a></font></td>
+                        <td align="center" height="23">
+                            <font size="2"><a href="${archiveLink}">Archives</a></font></td>
                     </tr>
                     <tr>
-                        <td align="center" width="50%" height="24"><font size="2"><a href="/old/v1/aboutme">Profile</a></font></td>
-                        <td bgcolor="#515151" width="50%" align="center" height="24"><font size="2"><a href="work/index.htm">Work</a></font></td>
+                        <td align="center" width="50%" height="24">
+                            <font size="2"><a href="${aboutMeLink}">Profile</a></font></td>
+                        <td bgcolor="#515151" width="50%" align="center" height="24">
+                            <font size="2"><a href="${projectsLink}">Work</a></font></td>
                     </tr>
                     <tr>
-                        <td bgcolor="#515151" align="center" height="42"><font size="2" color="#FFFFFF">Hotline</font><font size="2"><font size="2"><font size="2"><br/>
-                        </font></font><a href="hot.htm">Page</a> / <a href="hotline://137.104.169.240">Connect</a></font></td>
-                        <td align="center" height="42"><font size="2" color="#FFFFFF">Radio</font><font size="2"><font size="2"><font size="2"><br/>
-                        </font></font><a href="play2.htm">Page</a><font color="#FFFFFF"> /
-                        </font><a href="http://64.152.82.191:16474/?myCookieTester;%20SaneID=137.104.169.240-982874038767;%20ls=1;%20bitrate=56;%20POC=0;%20myCookieTester=TRUE;%20savedPlaylist=Playlist_No1/">Listen</a></font></td>
+                        <td bgcolor="#515151" align="center" height="42">
+                            <font size="2" color="#FFFFFF">Hotline</font><br/>
+                            <font size="2"><a style="text-decoration: underline;">Page</a> / <a style="text-decoration: underline;">Connect</a></font></td>
+                        <td align="center" height="42">
+                            <font size="2" color="#FFFFFF">Radio</font><br/>
+                            <font size="2"><a href="/pages/radio.htm">Page</a> / <a style="text-decoration: underline;">Listen</a></font></td>
                     </tr>
                     <tr>
-                        <td align="center" height="41"><font size="2"><font size="2" color="#FFFFFF">Guest
-                            Book</font><font size="2"> <font size="2"><br/>
-                            <a href="http://books.dreambook.com/dyreschlock/tripod.sign.html">Sign</a>
-                            / <font size="2"><font size="2"><font size="2"><font size="2"><a href="http://books.dreambook.com/dyreschlock/tripod.html">View</a></font></font></font></font></font></font></font></td>
-                        <td bgcolor="#515151" align="center" height="41"><font size="2"><font size="2">
-                            <font size="2"><a href="map.htm">Site Map</a></font></font></font></td>
+                        <td align="center" height="41">
+                            <font size="2" color="#FFFFFF">Guest Book</font><br/>
+                            <font size="2"><a style="text-decoration: underline;">Sign</a> / <a style="text-decoration: underline;">View</a></font></td>
+                        <td bgcolor="#515151" align="center" height="41">
+                            <font size="2"><a  style="text-decoration: underline;">Site Map</a></font></td>
                     </tr>
                     <tr>
-                        <td bgcolor="#515151" align="center" height="24"><font size="2"><a href="review/index.htm">Review</a></font></td>
-                        <td align="center" height="24"><font size="2"><a href="re2002-1.htm">Release</a></font></td>
+                        <td bgcolor="#515151" align="center" height="24">
+                            <font size="2"><a href="${gamesLink}">Review</a></font></td>
+                        <td align="center" height="24">
+                            <font size="2"><a href="${musicLink}">Music</a></font></td>
                     </tr>
                 </table>
                 <table width="85%" border="0">

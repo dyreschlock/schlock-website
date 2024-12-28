@@ -1,0 +1,25 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <div id="postContent" align="center">
+
+        <p><font size="2" color="#333333"><b>${postTitle}</b></font></p>
+
+        <t:outputraw value="postBodyHTML" />
+
+        <p><font size="2" color="#999999">chow</font></p>
+        <t:if test="hasDate">
+            <p><font color="#999999" size="2">${postDate}</font></p>
+        </t:if>
+
+        <t:if test="post.hasGallery">
+
+            <table cellspacing="1" cellpadding="3" width="100%" border="0" align="center" bgcolor="#666666">
+                <t:outputraw value="imagesTableHTML" />
+            </table>
+
+        </t:if>
+    </div>
+
+</t:container>
