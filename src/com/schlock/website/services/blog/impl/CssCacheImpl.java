@@ -55,8 +55,9 @@ public class CssCacheImpl implements CssCache
     private final static String NOTO_SANS_FONT = "layout/font/NotoSansJP.css";
     private final static String PERFECT_DOS_VGA_FONT = "layout/font/PerfectDOS-VGA-437.css";
 
+    private final static String IMAGES_CSS_FILES = "layout/images.less";
+
     //apps
-    private final static String GAMES_VARIABLES_CSS_FILE = "layout/apps/games_variables.less";
     private final static String GAMES_CSS_FILE = "layout/apps/games.less";
     private final static String POKEMON_CSS_FILE = "layout/apps/pokemon.less";
     private final static String NOT_FIBBAGE_CSS_FILE = "layout/apps/notfibbage.less";
@@ -104,7 +105,9 @@ public class CssCacheImpl implements CssCache
         if (!cachedOld.containsKey(v))
         {
             String cssFile = String.format(OLD_VERSION_CSS_FILE, v);
-            cachedOld.put(v, createCss(OLD_COMMON_CSS_FILE, cssFile));
+            String css = createCss(IMAGES_CSS_FILES, OLD_COMMON_CSS_FILE, cssFile);
+
+            cachedOld.put(v, css);
         }
 
         String css = cachedOld.get(v);
@@ -194,7 +197,7 @@ public class CssCacheImpl implements CssCache
     {
         if (StringUtils.isBlank(cachedGames))
         {
-            cachedGames = createCss(GAMES_VARIABLES_CSS_FILE, GAMES_CSS_FILE);
+            cachedGames = createCss(IMAGES_CSS_FILES, GAMES_CSS_FILE);
         }
         return cachedGames;
     }
@@ -215,17 +218,17 @@ public class CssCacheImpl implements CssCache
         StringBuilder sb = new StringBuilder();
         for (String file : cssFiles)
         {
-            String less = getFileAsString(file);
-
             if (LESS_VARIABLES_FILE.equals(file))
             {
                 containsVariables = true;
             }
-            if (GAMES_VARIABLES_CSS_FILE.equals(file))
+
+            String less = getFileAsString(file);
+            if (IMAGES_CSS_FILES.equals(file))
             {
                 String domain = deploymentContext.webDomain();
 
-                less = String.format(less, domain, domain);
+                less = String.format(less, domain, domain, domain);
             }
 
             sb.append(less);
