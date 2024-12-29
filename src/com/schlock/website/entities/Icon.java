@@ -20,7 +20,7 @@ public enum Icon
 
     public String getIconPath()
     {
-        String path = "icons/" + this.name().toLowerCase();
+        String path = "assets/" + this.name().toLowerCase();
         path += ".png";
 
         return path;

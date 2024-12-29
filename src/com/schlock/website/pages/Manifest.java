@@ -52,7 +52,7 @@ public class Manifest
     private JSONObject getIcon(String size)
     {
         return new JSONObject(
-            "src", "/icons/fav-" + size + ".png",
+            "src", "/assets/fav-" + size + ".png",
                 "type", "image/png",
                 "sizes", size + "x" + size
         );
