@@ -51,6 +51,7 @@ public class CssCacheImpl implements CssCache
     private final static String OLD_COMMON_CSS_FILE = "layout/old/old-common.less";
 
     //fonts
+    private final static String EB_GARAMOND_FONT = "layout/font/EBGaramond.css";
     private final static String NOTO_SANS_FONT = "layout/font/NotoSansJP.css";
     private final static String PERFECT_DOS_VGA_FONT = "layout/font/PerfectDOS-VGA-437.css";
 
@@ -237,8 +238,8 @@ public class CssCacheImpl implements CssCache
 
         if (containsVariables)
         {
-            final String IMPORT = "@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');";
-            css = IMPORT + css;
+            String garamond = getFileAsString(EB_GARAMOND_FONT);
+            css = garamond + css;
         }
 
         return css;
