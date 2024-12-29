@@ -209,11 +209,17 @@ public class CssCacheImpl implements CssCache
 
     private String createCss(String... cssFiles)
     {
+        boolean containsVariables = false;
+
         StringBuilder sb = new StringBuilder();
         for (String file : cssFiles)
         {
             String less = getFileAsString(file);
 
+            if (LESS_VARIABLES_FILE.equals(file))
+            {
+                containsVariables = true;
+            }
             if (GAMES_VARIABLES_CSS_FILE.equals(file))
             {
                 String domain = deploymentContext.webDomain();
@@ -228,6 +234,12 @@ public class CssCacheImpl implements CssCache
 
         css = convertLessToCss(css);
         css = StringUtils.remove(css, "\\n");
+
+        if (containsVariables)
+        {
+            final String IMPORT = "@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');";
+            css = IMPORT + css;
+        }
 
         return css;
     }
