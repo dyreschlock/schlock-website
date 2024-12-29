@@ -565,6 +565,7 @@ public class ImageManagementImpl implements ImageManagement
 
     public void removeInvalidCharactersFromImageFilenames(String webDirPath) throws IOException
     {
+        final String O = "Ō";
         final String TM = "™";
 
         File directory = new File(webDirPath);
@@ -582,6 +583,7 @@ public class ImageManagementImpl implements ImageManagement
         {
             String name = file.getName();
 
+            name = name.replace(O, "O");
             name = name.replace(TM, "");
             name = name.replace(" ", "_");
 
