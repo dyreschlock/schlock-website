@@ -1,0 +1,49 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <div id="postContent">
+
+    <table width="90%" border="0">
+        <tr>
+            <td width="90%" bgcolor="#FFFFFF">
+                <div align="center"><font size="2" color="#333329">${postTitle}</font></div>
+            </td>
+        </tr>
+        <tr>
+            <td width="90%" bgcolor="#FFFFFF">
+                <hr width="100%" size="1" align="center" />
+            </td>
+        </tr>
+        <tr>
+            <td width="90%" bgcolor="#FFFFFF">
+                <p><font size="2" color="#666660">${postDate}</font></p>
+
+                <t:outputraw value="postBodyHTML" />
+
+                <hr width="100%" size="1" align="center" />
+            </td>
+        </tr>
+
+        <t:if test="post.hasGallery">
+
+            <tr>
+                <td width="90%" bgcolor="#FFFFFF">
+
+                    <table cellspacing="1" cellpadding="3" width="90%" border="0" align="center" bgcolor="#666660">
+                        <t:outputraw value="imagesTableHTML" />
+                    </table>
+
+                    <hr width="100%" size="1" align="center" />
+                </td>
+            </tr>
+
+        </t:if>
+        <tr>
+            <td width="90%" bgcolor="#FFFFFF" align="center">
+                <font size="2" color="#333333">Archived News</font> <a href="old006.htm"><font color="#333333" size="2">&gt; &gt;</font></a></td>
+        </tr>
+    </table>
+
+    </div>
+</t:container>

@@ -1,4 +1,4 @@
-package com.schlock.website.components.old.v1;
+package com.schlock.website.components.old.v2;
 
 import com.schlock.website.components.old.AbstractOldPostDisplay;
 import com.schlock.website.entities.blog.AbstractPost;
@@ -10,7 +10,7 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-public class Version1PostDisplay extends AbstractOldPostDisplay
+public class Version2PostDisplay extends AbstractOldPostDisplay
 {
     @Parameter(required = true)
     @Property
@@ -33,7 +33,7 @@ public class Version1PostDisplay extends AbstractOldPostDisplay
 
     public String getPostBodyHTML()
     {
-        String html = postManagement.generatePostHTML(post, SiteVersion.V1);
+        String html = postManagement.generatePostHTML(post, SiteVersion.V2);
         return html;
     }
 

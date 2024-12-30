@@ -15,12 +15,6 @@ import java.util.Arrays;
 
 public class V1Index extends AbstractOldVersionIndex
 {
-    private static final String ARCHIVE_PAGE = "archive";
-
-    public static final String PROJECTS_PAGE = "projects";
-    public static final String GAMES_PAGE = "reviews";
-    public static final String MUSIC_PAGE = "music";
-
     @Inject
     private PageRenderLinkSource linkSource;
 
@@ -51,7 +45,7 @@ public class V1Index extends AbstractOldVersionIndex
 
     Object onActivate(String param)
     {
-        if (Arrays.asList(ARCHIVE_PAGE, PROJECTS_PAGE, GAMES_PAGE, MUSIC_PAGE).contains(param))
+        if(isSpecialPage(param))
         {
             page = param;
             post = null;
@@ -61,7 +55,6 @@ public class V1Index extends AbstractOldVersionIndex
             page = null;
             post = getPost(postDAO, param);
         }
-
         return true;
     }
 

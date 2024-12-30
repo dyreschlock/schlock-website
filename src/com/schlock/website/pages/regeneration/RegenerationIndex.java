@@ -50,7 +50,7 @@ public class RegenerationIndex
     /*
      * No slash at the beginning. Slash at the end.
      */
-    private static final String LOCATION = "photo/241114_ghibli_warehouse/";
+    private static final String LOCATION = "photo/okami/";
 
 
     @CommitAfter

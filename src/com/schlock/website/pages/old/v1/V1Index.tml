@@ -19,8 +19,7 @@
                             <table width="100%" border="0">
                                 <tr>
                                     <td width="70%">
-                                        <font color="#FFFFFF" size="4"><b>One</b></font>
-                                        <font color="#FFFFFF" size="4"><b> Schlock's Requiem </b><font size="2">presents....</font></font>
+                                        <font color="#FFFFFF" size="4"><b>One Schlock's Requiem </b><font size="2">presents....</font></font>
                                     </td>
                                     <td align="right" width="30%"><font size="2" color="#FFFFFF">x</font></td>
                                 </tr>
@@ -88,7 +87,7 @@
                         <td align="center" width="50%" height="24">
                             <font size="2"><a href="${aboutMeLink}">Profile</a></font></td>
                         <td bgcolor="#515151" width="50%" align="center" height="24">
-                            <font size="2"><a href="${projectsLink}">Work</a></font></td>
+                            <font size="2"><a href="${projectsLink}">Works</a></font></td>
                     </tr>
                     <tr>
                         <td bgcolor="#515151" align="center" height="42">

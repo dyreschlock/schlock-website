@@ -1,12 +1,196 @@
 <html
-        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:v2="tapestry-library:old/v2"
     >
-
     <head>
-
+        <title>One Schlock's Requiem</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <style>${pageCss}</style>
     </head>
-    <body>
-        template 2
+
+    <body bgcolor="#000000" text="#999999" link="#999999" vlink="#999999" alink="#999999">
+    <p align="center">&nbsp;</p>
+    <table width="90%" border="0" align="center">
+        <tr>
+            <td width="68%" valign="top" align="center">
+                <table width="85%" border="0" bgcolor="#333333" align="center">
+                    <tr>
+                        <td>
+                            <table width="100%" border="0">
+                                <tr>
+                                    <td width="66%">
+                                        <font color="#FFFFFF" size="2"><b>One Schlock's Requiem</b> presents....</font></td>
+                                    <td align="right" width="34%">
+                                        <font color="#E3E3E3" size="2">The Ongoing This and That...</font></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr align="center" bgcolor="#FFFFFF">
+                        <td>
+
+                            <v2:version2postdisplay post="post" />
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center"><font size="1" color="#999999">SCHLOCK</font> </td>
+                    </tr>
+                </table>
+            </td>
+            <td width="5%" align="center" valign="top">&nbsp;</td>
+            <td bgcolor="#222222" width="27%" align="center" valign="top">
+
+                <p>&nbsp;</p>
+                <p align="center">
+                    <font size="3" color="#FFFFFF"><b>One Schlock's Requiem</b></font></p>
+                <p align="center">
+                    <font size="1" color="#BBBBAA">This site is designed for screen resolution</font><br/>
+                    <font size="2" color="#FFFFFF">1152 x 864</font></p>
+                <p align="center">
+                    <font size="2" color="#BBBBAA">Updated almost Daily<br/> except during summer and other*</font><br/>
+                    <font size="1">Since June the 12th, 2000</font></p>
+
+                <table width="95%" border="0" height="132">
+                    <tr>
+                        <td height="30" align="center" width="33%" bgcolor="#373730"><a href="work/index.htm"><font color="#FFFFFF" size="2">Work</font></a></td>
+                        <td height="30" align="center" width="34%"><a href="map.htm"><font color="#FFFFFF" size="2">Site Map</font></a></td>
+                        <td height="30" align="center" width="33%" bgcolor="#373730"><a href="wolf/wolf.htm"><font color="#FFFFFF" size="2">Wolf Serv</font></a></td>
+                    </tr>
+                    <tr>
+                        <td height="30" align="center" width="33%"><a href="review.htm"><font color="#FFFFFF" size="2">Reviews</font></a></td>
+                        <td height="30" align="center" width="34%" bgcolor="#373730"><img src="star1.gif" width="16" height="16" /></td>
+                        <td height="30" align="center" width="33%"><a href="release.htm"><font color="#FFFFFF" size="2">Release</font></a></td>
+                    </tr>
+                    <tr>
+                        <td height="30" align="center" width="33%" bgcolor="#373730">&nbsp;</td>
+                        <td height="30" align="center" width="34%"><a href="pro.htm"><font color="#FFFFFF" size="2">Profile</font></a></td>
+                        <td height="30" align="center" width="33%" bgcolor="#373730">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td height="30" align="center" width="33%"><a href="http://network54.com/Hide/Forum/112497"><font size="2" color="#FFFFFF">Forum</font></a></td>
+                        <td height="30" align="center" width="34%" bgcolor="#373730"><img src="star1.gif" width="16" height="16" /></td>
+                        <td height="30" align="center" width="33%"><a href="links/index.htm"><font color="#FFFFFF" size="2">Links</font></a></td>
+                    </tr>
+                    <tr>
+                        <td height="30" align="center" width="33%" bgcolor="#373730"><a href="play2.htm"><font color="#FFFFFF" size="2">Radio</font></a></td>
+                        <td height="30" align="center" width="34%"><a href="hot.htm"><font color="#FFFFFF" size="2">Hotline</font></a></td>
+                        <td height="30" align="center" width="33%" bgcolor="#373730"><a href="http://books.dreambook.com/dyreschlock/tripod.sign.html"><font color="#FFFFFF" size="2">Guest Book</font></a></td>
+                    </tr>
+                </table>
+                <table width="100%" border="0">
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+                <table width="90%" border="0">
+                    <tr align="center">
+                        <td>
+                            <p><font size="2" color="#BBBBAA">Let's see what you can do? You can
+                            transform the world into an explosion of sound and music. You will
+                            discover the brand new world full of rhythm as well as esctasy. The
+                            instinct of motion in now finally released. Can you really tear
+                            yourself away from this sense of trance? Pull out your inner sound
+                                and make some noise. Dance. </font></p>
+                            <p><font size="2" color="#BBBBAA">Let yourself go in the music. To
+                                use more than your ears to listen to the experience. It's not
+                                what hear, but what you feel. The song is higher than any mp3
+                                or cd track. It's in your hands, your legs, your mind. You
+                                move with the music as the DJ reveals his soul. An experience
+                                that should not be overlooked. Why waste your only chance to be
+                                free? It's all in us.</font></p>
+                            <p>&nbsp;</p>
+                        </td>
+                    </tr>
+                </table>
+                <table width="85%" border="0">
+                    <tr align="right">
+                        <td bgcolor="#424242"><font size="2" color="#FFFFFF">Update Message</font></td>
+                    </tr>
+                    <tr align="left">
+                        <td>
+                            <p align="left"><font size="2" color="#FFFFFF">
+                                &#12431;&#12383;&#12375;&#12399;&#12288;&#12395;&#12411;&#12435;&#12372;&#12434;&#12288;&#12363;
+                                &#12369;&#12414;&#12377;&#12290;&#12290;&#12288;&#12383;&#12398;&#12375;&#12392;&#12288;&#12362;
+                                &#12418;&#12375;&#12429;&#12356;&#12391;&#12377;&#12363;&#12290;&#12290;&#12288;&#12354;&#12354;
+                                &#12289;&#12288;&#12381;&#12288;&#12391;&#12377;&#12290;&#12290;&#12288;&#12431;&#12383;&#12375;
+                                &#12392;&#12288;&#12354;&#12394;&#12383;&#12392;&#12288;&#12393;&#12387;&#12385;&#12288;&#12411;
+                                &#12358;&#12364;&#12288;&#12376;&#12423;&#12358;&#12378;&#12391;&#12377;&#12363;&#12290;&#12290;<br/>
+                                &#12288;&#12288;&#12354;&#12354;&#12289;&#12354;&#12394;&#12383;&#12376;&#12419;&#12288;&#12354;
+                                &#12426;&#12414;&#12379;&#12435;&#12289;&#12288;&#12381;&#12425;&#12363;&#12425;&#12289;&#12288;
+                                &#12431;&#12383;&#12375;&#12431;&#12364;&#12288;&#12356;&#12385;&#12400;&#12435;&#12288;&#12376;
+                                &#12423;&#12358;&#12378;&#12391;&#12377;&#12290;&#12290;&#12288;&#12402;&#12288;&#12402;&#12288;
+                                &#12402;&#12290;&#12290;&#12290;</font></p>
+                            <p align="left"><font size="2" color="#FFFFFF">if you hadn't noticed
+                                i figured out how to write japanese on my webpage.. but can you
+                                read it ? .. ^_^ ...</font></p>
+                            <p align="right">
+                                <font size="2" color="#E3E3E3">4&#26376;24&#26085;2002&#12288;</font>
+                                <a href="mailto:dyre@theschlock.com"><font color="#FFFFFF" size="2">&#12480;&#12452;&#12450;</font></a></p>
+                        </td>
+                    </tr>
+                </table>
+                <table width="90%" border="0">
+                    <tr align="right">
+                        <td bgcolor="#424242"><font size="2" color="#FFFFFF">Impressions</font></td>
+                    </tr>
+                    <tr align="left">
+                        <td>
+                            <p><font size="2" color="#CCCCCC">Reviews and Thoughts on the mediums
+                                of artist talent, for the most part, anyways..</font></p>
+
+                            <!--
+                            <p><font size="2"><a href="review/tp.htm"><font color="#FFFFFF">Treasure
+                                Planet </font></a></font><font size="2" color="#CCCCCC"><br/>
+                                there's a good reason why abbreviated, this movie stands for TP..</font></p>
+
+                            -->
+
+                            <p align="right">
+                                <font size="2" color="#FFFFFF">...</font><a href="review.htm"><font color="#FFFFFF" size="2">more</font></a></p>
+                        </td>
+                    </tr>
+                </table>
+                <table width="90%" border="0">
+                    <tr align="right">
+                        <td bgcolor="#424242">
+                            <p><font size="2" color="#FFFFFF">Upcoming</font></p>
+                        </td>
+                    </tr>
+                    <tr align="left">
+                        <td>
+                            <p align="left">
+                                <font size="2" color="#FFFFFF">Dance Dance Revolution Max USA</font><br/>
+                                <font size="2" color="#CCCCCC">
+                                    - November 6th, 2002<br/>
+                                    - Bemani | Konami<br/>
+                                    - American Playstation 2 Release</font></p>
+                            <p align="left">
+                                <font size="2" color="#FFFFFF">Harry Potter &amp; The Chamber of Secrets</font><br/>
+                                <font size="2" color="#CCCCCC">
+                                    - November 15th, 2002<br/>
+                                    - Chris Columbus | Warner Brothers<br/>
+                                    - American Theatrical Release</font></p>
+                            <p align="left">
+                                <font size="2" color="#FFFFFF">John Digweed @ The Quest</font><br/>
+                                <font size="2" color="#CCCCCC">
+                                    - November 23rd, 2002<br/>
+                                    - John Digweed | Bedrock<br/>
+                                    - Live Performance - Minneapolis</font></p>
+                            <p align="right">
+                                <font size="2" color="#FFFFFF">...</font><a href="release.htm"><font color="#FFFFFF" size="2">more</font></a></p>
+                        </td>
+                    </tr>
+                </table>
+
+                <v2:version2recentposts />
+
+                <p>&nbsp;</p></td>
+        </tr>
+    </table>
+    <p align="center"><font color="#FFFFFF" size="2"><b>&#169; 2001 <a href="mailto:dyre@theschlock.com"><font color="#FFFFFF">Schlock</font></a>,
+        All Rights Reserved .. !</b></font></p>
+    <div align="center"></div>
     </body>
 
 </html>
