@@ -1,5 +1,6 @@
 <t:container
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:v2="tapestry-library:old/v2"
     >
 
     <div id="postContent">
@@ -41,7 +42,10 @@
         </t:if>
         <tr>
             <td width="90%" bgcolor="#FFFFFF" align="center">
-                <font size="2" color="#333333">Archived News</font> <a href="old006.htm"><font color="#333333" size="2">&gt; &gt;</font></a></td>
+
+                <v2:version2previousnext post="post" />
+
+            </td>
         </tr>
     </table>
 

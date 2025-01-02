@@ -1,0 +1,36 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <t:if test="noPost">
+
+        <a href="${firstPostLink}"><font color="#333333" size="2">&lt; &lt; First</font></a>
+        <font color="#333333" size="2"> | </font>
+
+        <a href="${mostRecentPostLink}"><font color="#333333" size="2">Current &gt; &gt;</font></a>
+
+    </t:if>
+    <t:if test="!noPost">
+
+        <t:if test="hasPrevious">
+
+            <a href="${firstPostLink}"><font color="#333333" size="2">&lt; &lt; First</font></a>
+            <font color="#333333" size="2"> | </font>
+
+            <a href="${previousPostLink}"><font color="#333333" size="2">&lt; &lt; Previous</font></a>
+
+            <t:if test="hasNext">
+                <font color="#333333" size="2"> | </font>
+            </t:if>
+        </t:if>
+        <t:if test="hasNext">
+
+            <a href="${nextPostLink}"><font color="#333333" size="2">Next &gt; &gt;</font></a>
+            <font color="#333333" size="2"> | </font>
+
+            <a href="${mostRecentPostLink}"><font color="#333333" size="2">Current &gt; &gt;</font></a>
+
+        </t:if>
+    </t:if>
+
+</t:container>
