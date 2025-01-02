@@ -153,15 +153,10 @@
                             <p><font size="2" color="#CCCCCC">Reviews and Thoughts on the mediums
                                 of artist talent, for the most part, anyways..</font></p>
 
-                            <!--
-                            <p><font size="2"><a href="review/tp.htm"><font color="#FFFFFF">Treasure
-                                Planet </font></a></font><font size="2" color="#CCCCCC"><br/>
-                                there's a good reason why abbreviated, this movie stands for TP..</font></p>
-
-                            -->
+                            <v2:version2recentposts page="${gamesPage}" />
 
                             <p align="right">
-                                <font size="2" color="#FFFFFF">...</font><a href="review.htm"><font color="#FFFFFF" size="2">more</font></a></p>
+                                <font size="2" color="#FFFFFF">...</font><a href="${gamesLink}"><font color="#FFFFFF" size="2">more</font></a></p>
                         </td>
                     </tr>
                 </table>
@@ -192,12 +187,25 @@
                                     - John Digweed | Bedrock<br/>
                                     - Live Performance - Minneapolis</font></p>
                             <p align="right">
-                                <font size="2" color="#FFFFFF">...</font><a href="release.htm"><font color="#FFFFFF" size="2">more</font></a></p>
+                                <font size="2" color="#FFFFFF">...</font><a href="${musicLink}"><font color="#FFFFFF" size="2">past</font></a></p>
                         </td>
                     </tr>
                 </table>
 
-                <v2:version2recentposts />
+                <table width="90%" border="0">
+                    <tr align="right">
+                        <td bgcolor="#424242">
+                            <p><font size="2" color="#FFFFFF">Featured Venues</font></p>
+                        </td>
+                    </tr>
+                    <tr align="left">
+                        <td>
+
+                        <v2:version2recentposts />
+
+                        </td>
+                    </tr>
+                </table>
 
                 <p>&nbsp;</p></td>
         </tr>

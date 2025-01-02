@@ -54,4 +54,10 @@ public abstract class AbstractOldRecentPosts
     {
         return postManagement.generatePostDescription(currentPost);
     }
+
+
+    protected PostDAO postDAO()
+    {
+        return postDAO;
+    }
 }

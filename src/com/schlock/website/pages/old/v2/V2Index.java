@@ -47,4 +47,10 @@ public class V2Index extends AbstractOldVersionIndex
     {
         return SiteVersion.V2;
     }
+
+
+    public String getGamesPage()
+    {
+        return GAMES_PAGE;
+    }
 }
