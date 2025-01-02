@@ -9,6 +9,14 @@
     </head>
 
     <body bgcolor="#000000" text="#999999" link="#999999" vlink="#999999" alink="#999999">
+
+    <div id="menu">
+
+        <v2:version2menudisplay />
+
+    </div>
+
+    <div id="body">
     <p align="center">&nbsp;</p>
     <table width="90%" border="0" align="center">
         <tr>
@@ -191,6 +199,6 @@
     <p align="center"><font color="#FFFFFF" size="2"><b>&#169; 2001 <a href="mailto:dyre@theschlock.com"><font color="#FFFFFF">Schlock</font></a>,
         All Rights Reserved .. !</b></font></p>
     <div align="center"></div>
+    </div>
     </body>
-
 </html>
