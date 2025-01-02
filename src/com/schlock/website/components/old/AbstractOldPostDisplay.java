@@ -2,14 +2,58 @@ package com.schlock.website.components.old;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
+import com.schlock.website.entities.old.SiteVersion;
+import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.ImageManagement;
+import com.schlock.website.services.blog.PostManagement;
+import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.List;
 
 public abstract class AbstractOldPostDisplay
 {
-    public String getImagesTableHTML(final ImageManagement imageManagement,
-                                     final AbstractPost post)
+    @Parameter(required = true)
+    @Property
+    private AbstractPost post;
+
+    @Inject
+    private PostManagement postManagement;
+
+    @Inject
+    private ImageManagement imageManagement;
+
+    @Inject
+    private DateFormatter dateFormatter;
+
+    abstract protected SiteVersion getVersion();
+
+
+
+    public String getPostTitle()
+    {
+        return post.getTitle();
+    }
+
+    public String getPostBodyHTML()
+    {
+        String html = postManagement.generatePostHTML(post, getVersion());
+        return html;
+    }
+
+    public boolean isHasDate()
+    {
+        return post != null && post.isPost() && post.getCreated() != null;
+    }
+
+    public String getPostDate()
+    {
+        return dateFormatter.shortDateFormat(post.getCreated());
+    }
+
+
+    public String getImagesTableHTML()
     {
         final String TR_START = "<tr align=\"center\" valign=\"middle\" bgcolor=\"#FFFFFF\"> ";
         final String TR_END = "</tr>";
