@@ -37,7 +37,13 @@
                     <tr align="center" bgcolor="#FFFFFF">
                         <td>
 
-                            <v2:version2postdisplay post="post" />
+                            <t:if test="hasPost">
+                                <v2:version2postdisplay post="post" />
+                            </t:if>
+
+                            <t:if test="hasPage">
+                                <v2:version2postListingDisplay page="page" />
+                            </t:if>
 
                         </td>
                     </tr>
@@ -61,29 +67,29 @@
 
                 <table width="95%" border="0" height="132">
                     <tr>
-                        <td height="30" align="center" width="33%" bgcolor="#373730"><a href="work/index.htm"><font color="#FFFFFF" size="2">Work</font></a></td>
-                        <td height="30" align="center" width="34%"><a href="map.htm"><font color="#FFFFFF" size="2">Site Map</font></a></td>
-                        <td height="30" align="center" width="33%" bgcolor="#373730"><a href="wolf/wolf.htm"><font color="#FFFFFF" size="2">Wolf Serv</font></a></td>
+                        <td height="30" align="center" width="33%" bgcolor="#373730"><a href="${projectsLink}"><font color="#FFFFFF" size="2">Work</font></a></td>
+                        <td height="30" align="center" width="34%"><a href="${archiveLink}"><font color="#FFFFFF" size="2">Site Map</font></a></td>
+                        <td height="30" align="center" width="33%" bgcolor="#373730"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Wolf Serv</font></a></td>
                     </tr>
                     <tr>
-                        <td height="30" align="center" width="33%"><a href="review.htm"><font color="#FFFFFF" size="2">Reviews</font></a></td>
+                        <td height="30" align="center" width="33%"><a href="${gamesLink}"><font color="#FFFFFF" size="2">Reviews</font></a></td>
                         <td height="30" align="center" width="34%" bgcolor="#373730"><img src="star1.gif" width="16" height="16" /></td>
-                        <td height="30" align="center" width="33%"><a href="release.htm"><font color="#FFFFFF" size="2">Release</font></a></td>
+                        <td height="30" align="center" width="33%"><a href="${musicLink}"><font color="#FFFFFF" size="2">Events</font></a></td>
                     </tr>
                     <tr>
                         <td height="30" align="center" width="33%" bgcolor="#373730">&nbsp;</td>
-                        <td height="30" align="center" width="34%"><a href="pro.htm"><font color="#FFFFFF" size="2">Profile</font></a></td>
+                        <td height="30" align="center" width="34%"><a href="${aboutMeLink}"><font color="#FFFFFF" size="2">Profile</font></a></td>
                         <td height="30" align="center" width="33%" bgcolor="#373730">&nbsp;</td>
                     </tr>
                     <tr>
-                        <td height="30" align="center" width="33%"><a href="http://network54.com/Hide/Forum/112497"><font size="2" color="#FFFFFF">Forum</font></a></td>
+                        <td height="30" align="center" width="33%"><a style="text-decoration: underline;"><font size="2" color="#FFFFFF">Forum</font></a></td>
                         <td height="30" align="center" width="34%" bgcolor="#373730"><img src="star1.gif" width="16" height="16" /></td>
-                        <td height="30" align="center" width="33%"><a href="links/index.htm"><font color="#FFFFFF" size="2">Links</font></a></td>
+                        <td height="30" align="center" width="33%"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Links</font></a></td>
                     </tr>
                     <tr>
-                        <td height="30" align="center" width="33%" bgcolor="#373730"><a href="play2.htm"><font color="#FFFFFF" size="2">Radio</font></a></td>
-                        <td height="30" align="center" width="34%"><a href="hot.htm"><font color="#FFFFFF" size="2">Hotline</font></a></td>
-                        <td height="30" align="center" width="33%" bgcolor="#373730"><a href="http://books.dreambook.com/dyreschlock/tripod.sign.html"><font color="#FFFFFF" size="2">Guest Book</font></a></td>
+                        <td height="30" align="center" width="33%" bgcolor="#373730"><a href="/pages/radio.htm"><font color="#FFFFFF" size="2">Radio</font></a></td>
+                        <td height="30" align="center" width="34%"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Hotline</font></a></td>
+                        <td height="30" align="center" width="33%" bgcolor="#373730"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Guest Book</font></a></td>
                     </tr>
                 </table>
                 <table width="100%" border="0">

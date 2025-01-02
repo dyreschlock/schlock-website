@@ -2,7 +2,6 @@
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
      xmlns:v2="tapestry-library:old/v2"
     >
-
     <div id="postContent">
 
     <table width="90%" border="0">
@@ -48,6 +47,5 @@
             </td>
         </tr>
     </table>
-
     </div>
 </t:container>

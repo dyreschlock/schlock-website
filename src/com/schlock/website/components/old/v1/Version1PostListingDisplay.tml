@@ -1,20 +1,23 @@
 <t:container
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
-
     <div id="postContent" align="center">
 
         <p><font size="2" color="#333333"><b>${pageTitle}</b></font></p>
 
+        <t:if test="archivePage">
+
+            <t:loop source="posts" value="currentPost">
+                <font size="2"><a href="${currentPostLink}"> ${currentPost.title}</a></font><br/>
+            </t:loop>
+        </t:if>
         <t:if test="musicPage">
 
             <t:loop source="posts" value="currentPost">
-
                 <font size="2">${currentClubDate} - <a href="${currentPostLink}"> ${currentPost.title}</a></font><br/>
             </t:loop>
-
         </t:if>
-        <t:if test="!musicPage">
+        <t:if test="pageShowDescription">
 
             <table cellspacing="1">
                 <tr>

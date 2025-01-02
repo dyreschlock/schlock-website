@@ -1,7 +1,8 @@
-package com.schlock.website.components.old.v1;
+package com.schlock.website.components.old;
 
 import com.schlock.website.entities.blog.*;
-import com.schlock.website.pages.old.v1.V1Index;
+import com.schlock.website.entities.old.SiteVersion;
+import com.schlock.website.pages.old.AbstractOldVersionIndex;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
@@ -16,11 +17,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Version1CategoryDisplay
+public abstract class AbstractOldPostListingDisplay
 {
-    private static final String PROJECTS_PAGE = V1Index.PROJECTS_PAGE;
-    private static final String GAMES_PAGE = V1Index.GAMES_PAGE;
-    private static final String MUSIC_PAGE = V1Index.MUSIC_PAGE;
+    private static final String ARCHIVE_PAGE = AbstractOldVersionIndex.ARCHIVE_PAGE;
+    private static final String PROJECTS_PAGE = AbstractOldVersionIndex.PROJECTS_PAGE;
+    private static final String GAMES_PAGE = AbstractOldVersionIndex.GAMES_PAGE;
+    private static final String MUSIC_PAGE = AbstractOldVersionIndex.MUSIC_PAGE;
 
 
     @Inject
@@ -43,7 +45,7 @@ public class Version1CategoryDisplay
 
 
     @Parameter(required = true)
-    private String type;
+    private String page;
 
     @Property
     private AbstractPost currentPost;
@@ -52,19 +54,39 @@ public class Version1CategoryDisplay
     private Integer currentIndex;
 
 
+    abstract protected SiteVersion getVersion();
+
+
+    public boolean isArchivePage()
+    {
+        return ARCHIVE_PAGE.equals(page);
+    }
 
     public boolean isMusicPage()
     {
-        return MUSIC_PAGE.equals(type);
+        return MUSIC_PAGE.equals(page);
+    }
+
+    public boolean isPageShowDescription()
+    {
+        return PROJECTS_PAGE.equals(page) || GAMES_PAGE.equals(page);
     }
 
     public List<AbstractPost> getPosts()
     {
-        if (PROJECTS_PAGE.equals(type))
+        if (ARCHIVE_PAGE.equals(page))
+        {
+            List<Post> posts = postDAO.getAllPublished();
+
+            List<AbstractPost> results = new ArrayList<>();
+            results.addAll(posts);
+            return results;
+        }
+        if (PROJECTS_PAGE.equals(page))
         {
             return postDAO.getAllProjectsByCategory(false, null);
         }
-        if (GAMES_PAGE.equals(type))
+        if (GAMES_PAGE.equals(page))
         {
             AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, GAMES_PAGE);
             Long categoryId = cat.getId();
@@ -75,7 +97,7 @@ public class Version1CategoryDisplay
             results.addAll(posts);
             return results;
         }
-        if (MUSIC_PAGE.equals(type))
+        if (MUSIC_PAGE.equals(page))
         {
             List<ClubPost> posts = postDAO.getAllClubPosts(true);
 
@@ -89,7 +111,7 @@ public class Version1CategoryDisplay
 
     public String getPageTitle()
     {
-        return messages.get(type);
+        return messages.get(page);
     }
 
 
@@ -102,7 +124,7 @@ public class Version1CategoryDisplay
     public String getCurrentPostLink()
     {
         String uuid = currentPost.getUuid();
-        return linkSource.createPageRenderLinkWithContext(V1Index.class, uuid).toURI();
+        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), uuid).toURI();
     }
 
     public String getCurrentClubDate()

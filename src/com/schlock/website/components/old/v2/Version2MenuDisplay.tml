@@ -14,7 +14,7 @@
                 <font size="2"> - </font>
                 <a href="${gamesLink}" target="_top"><font size="2">Impressions</font></a>
                 <font size="2"> - </font>
-                <a style="text-decoration: underline;"><font size="2">Site Map</font></a>
+                <a style="${archiveLink}"><font size="2">Site Map</font></a>
                 <font size="2"> - </font>
                 <a href="/pages/radio.htm" target="body"><font size="2">Radio</font></a>
                 <font size="2"> - </font>

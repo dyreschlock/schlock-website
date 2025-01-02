@@ -14,6 +14,12 @@ public class Version2MenuDisplay
         return linkSource.createPageRenderLink(V2Index.class).toURI();
     }
 
+    public String getArchiveLink()
+    {
+        String param = V2Index.ARCHIVE_PAGE;
+        return linkSource.createPageRenderLinkWithContext(V2Index.class, param).toURI();
+    }
+
     public String getProjectsLink()
     {
         String param = V2Index.PROJECTS_PAGE;

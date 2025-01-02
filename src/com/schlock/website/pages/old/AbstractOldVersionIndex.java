@@ -47,14 +47,9 @@ public abstract class AbstractOldVersionIndex
         return getPost() != null;
     }
 
-    public boolean isArchivePage()
+    public boolean isHasPage()
     {
-        return ARCHIVE_PAGE.equals(getPage());
-    }
-
-    public boolean isCategoryPage()
-    {
-        return Arrays.asList(PROJECTS_PAGE, GAMES_PAGE, MUSIC_PAGE).contains(getPage());
+        return getPage() != null;
     }
 
     public String getPageCss()

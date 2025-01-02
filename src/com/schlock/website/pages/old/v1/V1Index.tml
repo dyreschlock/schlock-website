@@ -36,12 +36,8 @@
                                             <v1:version1postdisplay post="post" />
                                         </t:if>
 
-                                        <t:if test="archivePage">
-                                            <v1:version1archiveDisplay />
-                                        </t:if>
-
-                                        <t:if test="categoryPage">
-                                            <v1:version1categoryDisplay type="page" />
+                                        <t:if test="hasPage">
+                                            <v1:version1postListingDisplay page="page" />
                                         </t:if>
 
                                     </td>
