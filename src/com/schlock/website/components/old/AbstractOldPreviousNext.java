@@ -1,6 +1,7 @@
 package com.schlock.website.components.old;
 
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Parameter;
@@ -24,7 +25,7 @@ public abstract class AbstractOldPreviousNext
     private AbstractPost post;
 
 
-    abstract protected Class getVersionIndexClass();
+    abstract protected SiteVersion getVersion();
 
 
     public boolean isNoPost()
@@ -37,7 +38,7 @@ public abstract class AbstractOldPreviousNext
         AbstractPost post = postManagement.getFirstAvailablePost();
         String uuid = post.getUuid();
 
-        return linkSource.createPageRenderLinkWithContext(getVersionIndexClass(), uuid).toURI();
+        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), uuid).toURI();
     }
 
     public String getMostRecentPostLink()
@@ -45,7 +46,7 @@ public abstract class AbstractOldPreviousNext
         AbstractPost post = postManagement.getMostRecentPost();
         String uuid = post.getUuid();
 
-        return linkSource.createPageRenderLinkWithContext(getVersionIndexClass(), uuid).toURI();
+        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), uuid).toURI();
     }
 
 
@@ -60,7 +61,7 @@ public abstract class AbstractOldPreviousNext
         List<AbstractPost> posts = getNextPosts();
         String nextUuid = posts.get(0).getUuid();
 
-        return linkSource.createPageRenderLinkWithContext(getVersionIndexClass(), nextUuid).toURI();
+        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), nextUuid).toURI();
     }
 
     protected List<AbstractPost> getNextPosts()
@@ -80,7 +81,7 @@ public abstract class AbstractOldPreviousNext
         List<AbstractPost> posts = getPreviousPosts();
         String previousUuid = posts.get(0).getUuid();
 
-        return linkSource.createPageRenderLinkWithContext(getVersionIndexClass(), previousUuid).toURI();
+        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), previousUuid).toURI();
     }
 
     protected List<AbstractPost> getPreviousPosts()

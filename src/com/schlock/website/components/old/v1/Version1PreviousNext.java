@@ -1,13 +1,13 @@
 package com.schlock.website.components.old.v1;
 
 import com.schlock.website.components.old.AbstractOldPreviousNext;
-import com.schlock.website.pages.old.v1.V1Index;
+import com.schlock.website.entities.old.SiteVersion;
 
 public class Version1PreviousNext extends AbstractOldPreviousNext
 {
-    protected Class getVersionIndexClass()
+    protected SiteVersion getVersion()
     {
-        return V1Index.class;
+        return SiteVersion.V1;
     }
 
     public String getWidth()

@@ -9,6 +9,7 @@ import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.services.ApplicationStateManager;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.*;
 
@@ -39,6 +40,7 @@ public class PostManagementImpl implements PostManagement
     private final static String UNDER_CLOSE = "</b>";
 
     private final ApplicationStateManager asoManager;
+    private final PageRenderLinkSource linkSource;
 
     private final DeploymentContext context;
 
@@ -50,12 +52,14 @@ public class PostManagementImpl implements PostManagement
     private Set<String> cachedUuids;
 
     public PostManagementImpl(ApplicationStateManager asoManager,
+                                PageRenderLinkSource linkSource,
                                 DeploymentContext context,
                                 KeywordManagement keywordManagement,
                                 ImageManagement imageManagement,
                                 PostDAO postDAO)
     {
         this.asoManager = asoManager;
+        this.linkSource = linkSource;
 
         this.context = context;
 
@@ -513,7 +517,8 @@ public class PostManagementImpl implements PostManagement
                 String link = remainingHTML.substring(0, index);
                 if (!link.contains("/"))
                 {
-                    link = oldVersion.linkPath(link);
+                    link = linkSource.createPageRenderLinkWithContext(oldVersion.indexClass(), link).toURI();
+                    link = link.substring(1); // clip the slash
                 }
 
                 finishedHTML.append(link);

@@ -1,12 +1,12 @@
 package com.schlock.website.components.old.v2;
 
 import com.schlock.website.components.old.AbstractOldPreviousNext;
-import com.schlock.website.pages.old.v2.V2Index;
+import com.schlock.website.entities.old.SiteVersion;
 
 public class Version2PreviousNext extends AbstractOldPreviousNext
 {
-    protected Class getVersionIndexClass()
+    protected SiteVersion getVersion()
     {
-        return V2Index.class;
+        return SiteVersion.V2;
     }
 }

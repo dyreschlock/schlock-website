@@ -1,20 +1,28 @@
 package com.schlock.website.entities.old;
 
+import com.schlock.website.pages.old.v1.V1Index;
+import com.schlock.website.pages.old.v2.V2Index;
+
 public enum SiteVersion
 {
-    V1,
-    V2,
-    V3,
-    V4,
-    V5,
-    V6,
-    V7;
+    V1(V1Index.class),
+    V2(V2Index.class),
+    V3(null),
+    V4(null),
+    V5(null),
+    V6(null),
+    V7(null);
 
-    public String linkPath(String uuid)
+    private final Class indexClass;
+
+    SiteVersion(Class indexClass)
     {
-        final String PATH = "old/%s/%s";
-        final String v = this.name().toLowerCase();
+        this.indexClass = indexClass;
+    }
 
-        return String.format(PATH, v, uuid);
+
+    public Class indexClass()
+    {
+        return indexClass;
     }
 }

@@ -2,6 +2,7 @@ package com.schlock.website.components.old;
 
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
+import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Property;
@@ -30,7 +31,7 @@ public abstract class AbstractOldRecentPosts
     private Post currentPost;
 
 
-    abstract protected Class getVersionIndexClass();
+    abstract protected SiteVersion getVersion();
 
 
 
@@ -46,7 +47,7 @@ public abstract class AbstractOldRecentPosts
     public String getCurrentPostLink()
     {
         String uuid = currentPost.getUuid();
-        return linkSource.createPageRenderLinkWithContext(getVersionIndexClass(), uuid).toURI();
+        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), uuid).toURI();
     }
 
     public String getCurrentPostDescription()
