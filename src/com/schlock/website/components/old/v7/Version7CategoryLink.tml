@@ -1,0 +1,7 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <a href="${categoryLink}" title="View all posts in ${categoryTitle}" rel="category">${categoryTitle}</a>
+
+</t:container>

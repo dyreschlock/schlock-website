@@ -1,11 +1,19 @@
 <t:container
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:v7="tapestry-library:old/v7"
     >
     <div class="post" id="post-1085">
         <h2><a href="${postLink}" rel="bookmark" title="Permanent Link to Pacific Ocean">${postTitle}</a></h2>
         <p class="postmetadata">
-            Posted in <a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=29" title="View all posts in Photo" rel="category">Photo</a> |
-            ${postDate} <!-- by dyreschlock --> <span>Comments Off</span></p>
+            Posted in
+
+            <t:loop source="categories" value="currentCategory" index="currentIndex">
+
+                <t:if test="notFirst">, </t:if><v7:version7categorylink category="currentCategory" />
+
+            </t:loop>
+
+            | ${postDate} <!-- by dyreschlock --> <span>Comments Off</span></p>
 
 
         <div class="entry">

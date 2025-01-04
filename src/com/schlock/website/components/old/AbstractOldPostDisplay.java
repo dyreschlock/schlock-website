@@ -7,7 +7,6 @@ import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
@@ -16,7 +15,6 @@ import java.util.List;
 public abstract class AbstractOldPostDisplay
 {
     @Parameter(required = true)
-    @Property
     private AbstractPost post;
 
     @Inject
@@ -34,6 +32,11 @@ public abstract class AbstractOldPostDisplay
     abstract protected SiteVersion getVersion();
 
 
+
+    public AbstractPost getPost()
+    {
+        return post;
+    }
 
     public String getPostTitle()
     {
