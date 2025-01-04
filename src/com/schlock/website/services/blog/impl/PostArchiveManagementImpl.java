@@ -215,5 +215,20 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         return null;
     }
 
+    public boolean isIteration(String iteration)
+    {
+        try
+        {
+            String[] parts = StringUtils.split(iteration, ITERATION_DELIM);
 
+            int year = Integer.parseInt(parts[0]);
+            int month = Integer.parseInt(parts[1]);
+
+            return year > 2000 && month <= 12 && month > 0;
+        }
+        catch(Exception e)
+        {
+        }
+        return false;
+    }
 }

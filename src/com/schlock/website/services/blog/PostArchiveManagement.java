@@ -7,29 +7,31 @@ import java.util.Set;
 
 public interface PostArchiveManagement
 {
-    public List<String> getYearlyMonthlyIterations(Integer year, Integer month);
+    List<String> getYearlyMonthlyIterations(Integer year, Integer month);
 
-    public List<String> getYearlyMonthlyIterations(Long categoryId);
-
-
-    public List<Post> getPosts(String iteration);
-
-    public List<Post> getPosts(String iteration, Long categoryId);
-
-    public List<Post> getPreviewPosts(String iteration, Set<Long> excludeIds);
-
-    public List<Post> getPreviewPosts(String iteration, Long categoryId, Set<Long> excludeIds);
+    List<String> getYearlyMonthlyIterations(Long categoryId);
 
 
-    public String getParentIteration(Integer year, Integer month);
+    List<Post> getPosts(String iteration);
 
-    public String getIterationTitle(String iteration);
+    List<Post> getPosts(String iteration, Long categoryId);
 
-    public String getIterationTitle(Integer year, Integer month);
+    List<Post> getPreviewPosts(String iteration, Set<Long> excludeIds);
 
-    public String getIterationUrlChain(String iterationCode);
+    List<Post> getPreviewPosts(String iteration, Long categoryId, Set<Long> excludeIds);
 
-    public Integer parseYear(String iteration);
 
-    public Integer parseMonth(String iteration);
+    String getParentIteration(Integer year, Integer month);
+
+    String getIterationTitle(String iteration);
+
+    String getIterationTitle(Integer year, Integer month);
+
+    String getIterationUrlChain(String iterationCode);
+
+    Integer parseYear(String iteration);
+
+    Integer parseMonth(String iteration);
+
+    boolean isIteration(String iteration);
 }
