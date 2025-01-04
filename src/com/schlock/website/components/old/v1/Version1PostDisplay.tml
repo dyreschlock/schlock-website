@@ -9,7 +9,7 @@
         <t:outputraw value="postBodyHTML" />
 
         <p><font size="2" color="#999999">chow</font></p>
-        <t:if test="hasDate">
+        <t:if test="showPostDetails">
             <p><font color="#999999" size="2">${postDate}</font></p>
         </t:if>
 

@@ -49,9 +49,9 @@ public abstract class AbstractOldPostDisplay
         return html;
     }
 
-    public boolean isHasDate()
+    public boolean isShowPostDetails()
     {
-        return post != null && post.isPost() && post.getCreated() != null;
+        return post != null && post.isPost();
     }
 
     public String getPostDate()

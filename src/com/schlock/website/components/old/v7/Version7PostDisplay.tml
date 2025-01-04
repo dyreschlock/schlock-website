@@ -5,17 +5,16 @@
     <div class="post" id="post-1085">
         <h2><a href="${postLink}" rel="bookmark" title="Permanent Link to Pacific Ocean">${postTitle}</a></h2>
         <p class="postmetadata">
-            Posted in
+            <t:if test="showPostDetails">
+                Posted in
 
-            <t:loop source="categories" value="currentCategory" index="currentIndex">
+                <t:loop source="categories" value="currentCategory" index="currentIndex">
+                    <t:if test="notFirst">, </t:if><v7:version7categorylink category="currentCategory" />
+                </t:loop>
 
-                <t:if test="notFirst">, </t:if><v7:version7categorylink category="currentCategory" />
-
-            </t:loop>
-
-            | ${postDate} <!-- by dyreschlock --> <span>Comments Off</span></p>
-
-
+                | ${postDate} <!-- by dyreschlock --> <span>Comments Off</span>
+            </t:if>
+        </p>
         <div class="entry">
 
             <t:outputraw value="postBodyHTML" />

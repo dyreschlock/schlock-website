@@ -17,7 +17,9 @@
         </tr>
         <tr>
             <td width="90%" bgcolor="#FFFFFF">
-                <p><font size="2" color="#666660">${postDate}</font></p>
+                <t:if test="showPostDetails">
+                    <p><font size="2" color="#666660">${postDate}</font></p>
+                </t:if>
 
                 <t:outputraw value="postBodyHTML" />
 
