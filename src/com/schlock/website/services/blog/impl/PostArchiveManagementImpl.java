@@ -10,6 +10,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.services.ApplicationStateManager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -136,8 +137,8 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         ViewState viewState = asoManager.get(ViewState.class);
         boolean unpublished = viewState.isShowUnpublished();
 
-        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, null, null, null);
-        return posts;
+        List<Post> posts = postDAO.getMostRecentPosts(null, unpublished, null, null, null);
+        return pagedPosts(posts, postCount, pageNumber);
     }
 
     public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, String iteration)
@@ -150,8 +151,8 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
         Long categoryId = null;
 
-        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, year, month, categoryId);
-        return posts;
+        List<Post> posts = postDAO.getMostRecentPosts(null, unpublished, year, month, categoryId);
+        return pagedPosts(posts, postCount, pageNumber);
     }
 
     public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Long categoryId)
@@ -159,9 +160,35 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         ViewState viewState = asoManager.get(ViewState.class);
         boolean unpublished = viewState.isShowUnpublished();
 
-        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, null, null, categoryId);
-        return posts;
+        List<Post> posts = postDAO.getMostRecentPosts(null, unpublished, null, null, categoryId);
+        return pagedPosts(posts, postCount, pageNumber);
     }
+
+    private List<Post> pagedPosts(List<Post> results, Integer postCount, Integer pageNumber)
+    {
+        if (pageNumber < 1)
+        {
+            return Collections.EMPTY_LIST;
+        }
+
+        int start = (pageNumber - 1) * postCount;
+        int end = start + postCount;
+
+        if (end > results.size())
+        {
+            end = results.size();
+        }
+
+        if (end < start)
+        {
+            return Collections.EMPTY_LIST;
+        }
+        return results.subList(start, end);
+    }
+
+
+
+
 
     private String createIteration(Integer year, Integer month)
     {

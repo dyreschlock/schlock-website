@@ -1,0 +1,18 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <div class="navigation">
+        <div class="alignleft">
+            <t:if test="hasPrevious">
+                <a href="${previousPageLink}">« Previous Entries</a>
+            </t:if>
+        </div>
+        <div class="alignright">
+            <t:if test="hasNext">
+                <a href="${nextPageLink}">Next Entries »</a>
+            </t:if>
+        </div>
+    </div>
+
+</t:container>

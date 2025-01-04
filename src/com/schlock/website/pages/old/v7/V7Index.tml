@@ -25,12 +25,7 @@
                 <v7:version7postdisplay post="currentPost" />
             </t:loop>
 
-            <div class="navigation">
-                <div class="alignleft"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?paged=2">« Previous Entries</a></div>
-                <div class="alignright"></div>
-            </div>
-
-
+            <v7:version7pagedpreviousnext post="post" pageNumber="pageNumber" category="category" page="page" />
         </div>
 
         <div id="sidebar">

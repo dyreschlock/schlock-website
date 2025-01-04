@@ -27,6 +27,8 @@ public abstract class AbstractOldVersionIndex
 
     public static final String BLOG_PAGE = "paged";
 
+    public static final int POSTS_PER_PAGE = 10;
+
     @Inject
     private PageRenderLinkSource linkSource;
 
@@ -97,26 +99,22 @@ public abstract class AbstractOldVersionIndex
             return Arrays.asList(getPost());
         }
 
-        //post count = 10 per page
-        final int postCount = 10;
         Integer pageNumber = getPageNumber();
 
         List<Post> results = new ArrayList<>();
         if (getCategory() != null)
         {
             Long catId = getCategory().getId();
-
-            results = archiveManagement.getPagedPosts(postCount, pageNumber, catId);
+            results = archiveManagement.getPagedPosts(POSTS_PER_PAGE, pageNumber, catId);
         }
         else if (isPagedPage(getPage()))
         {
-            results = archiveManagement.getPagedPosts(postCount, pageNumber);
+            results = archiveManagement.getPagedPosts(POSTS_PER_PAGE, pageNumber);
         }
         else if (isArchivePage(getPage()))
         {
             String archiveIteration = getPage();
-
-            results = archiveManagement.getPagedPosts(postCount, pageNumber, archiveIteration);
+            results = archiveManagement.getPagedPosts(POSTS_PER_PAGE, pageNumber, archiveIteration);
         }
 
         List<AbstractPost> posts = new ArrayList<>();
