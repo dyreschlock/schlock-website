@@ -444,8 +444,12 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         String text = "select year(p.created), month(p.created)" +
                         " from Post p " +
                         " join p.categories c " +
-                        " where c.id = :categoryId ";
+                        " where p.created is not null ";
 
+        if (categoryId != null)
+        {
+            text += " and c.id = :categoryId";
+        }
         if (!withUnpublished)
         {
             text += " and p.publishedLevel >= " + POST_PUBLISHED + " ";
@@ -454,11 +458,14 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
                 " order by year(p.created) desc, month(p.created) desc ";
 
         Query query = session.createQuery(text);
-        query.setParameter("categoryId", categoryId);
+        if (categoryId != null)
+        {
+            query.setParameter("categoryId", categoryId);
+        }
+
         List<Object[]> results = query.list();
 
         List<List<Integer>> list = new ArrayList<List<Integer>>();
-
         for (Object[] result : results)
         {
             Integer year = Integer.parseInt(result[0].toString());
