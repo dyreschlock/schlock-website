@@ -159,15 +159,15 @@ public abstract class AbstractPost extends Persisted
         return extra;
     }
 
-    public List<PostCategory> getAllPostCategories()
+    public List<AbstractCategory> getAllPostCategories()
     {
-        List<PostCategory> cat = new ArrayList<>();
+        List<AbstractCategory> cat = new ArrayList<>();
 
         for (AbstractCategory category : getCategories())
         {
             if (category.isPost())
             {
-                cat.add((PostCategory) category);
+                cat.add(category);
             }
         }
 

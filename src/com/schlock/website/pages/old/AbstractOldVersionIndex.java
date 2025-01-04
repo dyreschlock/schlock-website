@@ -2,6 +2,7 @@ package com.schlock.website.pages.old;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Page;
+import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.services.blog.CssCache;
@@ -12,8 +13,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractOldVersionIndex
@@ -63,7 +64,7 @@ public abstract class AbstractOldVersionIndex
         return Arrays.asList(ARCHIVE_PAGE, PROJECTS_PAGE, GAMES_PAGE, MUSIC_PAGE).contains(param);
     }
 
-    protected boolean isBlogPage(String param)
+    protected boolean isPagedPage(String param)
     {
         return BLOG_PAGE.equals(param);
     }
@@ -91,24 +92,36 @@ public abstract class AbstractOldVersionIndex
 
     public List<AbstractPost> getPosts()
     {
-        Integer pageNumber = getPageNumber();
-        if (getCategory() != null)
-        {
-            
-        }
-        if (isBlogPage(getPage()))
-        {
-
-        }
-        if (isArchivePage(getPage()))
-        {
-
-        }
         if (getPost() != null)
         {
             return Arrays.asList(getPost());
         }
-        return Collections.EMPTY_LIST;
+
+        //post count = 10 per page
+        final int postCount = 10;
+        Integer pageNumber = getPageNumber();
+
+        List<Post> results = new ArrayList<>();
+        if (getCategory() != null)
+        {
+            Long catId = getCategory().getId();
+
+            results = archiveManagement.getPagedPosts(postCount, pageNumber, catId);
+        }
+        else if (isPagedPage(getPage()))
+        {
+            results = archiveManagement.getPagedPosts(postCount, pageNumber);
+        }
+        else if (isArchivePage(getPage()))
+        {
+            String archiveIteration = getPage();
+
+            results = archiveManagement.getPagedPosts(postCount, pageNumber, archiveIteration);
+        }
+
+        List<AbstractPost> posts = new ArrayList<>();
+        posts.addAll(results);
+        return posts;
     }
 
 

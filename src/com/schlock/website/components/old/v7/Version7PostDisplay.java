@@ -1,7 +1,7 @@
 package com.schlock.website.components.old.v7;
 
 import com.schlock.website.components.old.AbstractOldPostDisplay;
-import com.schlock.website.entities.blog.PostCategory;
+import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.old.SiteVersion;
 import org.apache.tapestry5.annotations.Property;
 
@@ -10,7 +10,7 @@ import java.util.List;
 public class Version7PostDisplay extends AbstractOldPostDisplay
 {
     @Property
-    private PostCategory currentCategory;
+    private AbstractCategory currentCategory;
 
     @Property
     private Integer currentIndex;
@@ -20,7 +20,7 @@ public class Version7PostDisplay extends AbstractOldPostDisplay
         return SiteVersion.V7;
     }
 
-    public List<PostCategory> getCategories()
+    public List<AbstractCategory> getCategories()
     {
         return getPost().getAllPostCategories();
     }

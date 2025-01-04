@@ -938,7 +938,7 @@ public class PostManagementImpl implements PostManagement
 
         List<Keyword> keywords = post.getKeywords();
 
-        List<PostCategory> categories = post.getAllPostCategories();
+        List<AbstractCategory> categories = post.getAllPostCategories();
         Collections.reverse(categories);
 
 
@@ -951,7 +951,7 @@ public class PostManagementImpl implements PostManagement
             classCriteria.add(new SearchCriteria(null, keyword.getId(), null, true));
         }
 
-        for(PostCategory category : categories)
+        for(AbstractCategory category : categories)
         {
             if (!IGNORE_CATEGORY_UUIDS_WHEN_FINDING_RELATED_POSTS.contains(category.getUuid()))
             {
@@ -975,7 +975,7 @@ public class PostManagementImpl implements PostManagement
             criteria.add(new SearchCriteria(null, keyword.getId(), null));
         }
 
-        for (PostCategory category : categories)
+        for (AbstractCategory category : categories)
         {
             criteria.add(new SearchCriteria(null, null, category.getId()));
         }

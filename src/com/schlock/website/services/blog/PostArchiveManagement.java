@@ -21,6 +21,13 @@ public interface PostArchiveManagement
     List<Post> getPreviewPosts(String iteration, Long categoryId, Set<Long> excludeIds);
 
 
+    List<Post> getPagedPosts(Integer postCount, Integer pageNumber);
+
+    List<Post> getPagedPosts(Integer postCount, Integer pageNumber, String iteration);
+
+    List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Long categoryId);
+
+
     String getParentIteration(Integer year, Integer month);
 
     String getIterationTitle(String iteration);

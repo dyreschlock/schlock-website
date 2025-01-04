@@ -130,6 +130,39 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         return posts;
     }
 
+
+    public List<Post> getPagedPosts(Integer postCount, Integer pageNumber)
+    {
+        ViewState viewState = asoManager.get(ViewState.class);
+        boolean unpublished = viewState.isShowUnpublished();
+
+        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, null, null, null);
+        return posts;
+    }
+
+    public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, String iteration)
+    {
+        ViewState viewState = asoManager.get(ViewState.class);
+        boolean unpublished = viewState.isShowUnpublished();
+
+        Integer year = parseYear(iteration);
+        Integer month = parseMonth(iteration);
+
+        Long categoryId = null;
+
+        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, year, month, categoryId);
+        return posts;
+    }
+
+    public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Long categoryId)
+    {
+        ViewState viewState = asoManager.get(ViewState.class);
+        boolean unpublished = viewState.isShowUnpublished();
+
+        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, null, null, categoryId);
+        return posts;
+    }
+
     private String createIteration(Integer year, Integer month)
     {
         if (year != null)

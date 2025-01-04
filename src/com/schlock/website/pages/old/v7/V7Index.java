@@ -41,14 +41,16 @@ public class V7Index extends AbstractOldVersionIndex
         pageNumber = 1;
 
         category = getCategory(param);
-        if (category == null && isArchivePage(param))
+        if (category == null)
         {
-            page = param;
-        }
-
-        if (page == null)
-        {
-            post = getPost(param);
+            if (isArchivePage(param))
+            {
+                page = param;
+            }
+            else
+            {
+                post = getPost(param);
+            }
         }
         return true;
     }
@@ -65,7 +67,7 @@ public class V7Index extends AbstractOldVersionIndex
         category = null;
         pageNumber = Integer.parseInt(p2);
 
-        if (isBlogPage(p1))
+        if (isPagedPage(p1))
         {
             page = p1;
         }
