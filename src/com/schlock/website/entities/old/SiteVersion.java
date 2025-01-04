@@ -2,6 +2,7 @@ package com.schlock.website.entities.old;
 
 import com.schlock.website.pages.old.v1.V1Index;
 import com.schlock.website.pages.old.v2.V2Index;
+import com.schlock.website.pages.old.v7.V7Index;
 
 public enum SiteVersion
 {
@@ -11,7 +12,7 @@ public enum SiteVersion
     V4(null),
     V5(null),
     V6(null),
-    V7(null);
+    V7(V7Index.class);
 
     private final Class indexClass;
 

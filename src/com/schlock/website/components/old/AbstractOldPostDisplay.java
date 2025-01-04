@@ -9,6 +9,7 @@ import com.schlock.website.services.blog.PostManagement;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.List;
 
@@ -17,6 +18,9 @@ public abstract class AbstractOldPostDisplay
     @Parameter(required = true)
     @Property
     private AbstractPost post;
+
+    @Inject
+    private PageRenderLinkSource linkSource;
 
     @Inject
     private PostManagement postManagement;
@@ -52,6 +56,13 @@ public abstract class AbstractOldPostDisplay
         return dateFormatter.shortDateFormat(post.getCreated());
     }
 
+    public String getPostLink()
+    {
+        Class indexClass = getVersion().indexClass();
+        String uuid = post.getUuid();
+
+        return linkSource.createPageRenderLinkWithContext(indexClass, uuid).toURI();
+    }
 
     public String getImagesTableHTML()
     {
