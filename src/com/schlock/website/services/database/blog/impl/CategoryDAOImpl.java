@@ -65,6 +65,16 @@ public class CategoryDAOImpl extends BaseDAOImpl<AbstractCategory> implements Ca
         return query.list();
     }
 
+    public List<PostCategory> getAllPostCategoriesInAlphaOrder()
+    {
+        String text = "from PostCategory " +
+                        " order by name ";
+
+        Query query = session.createQuery(text);
+
+        return query.list();
+    }
+
     public List<ProjectCategory> getTopProjectInOrder()
     {
         String text = "from ProjectCategory " +

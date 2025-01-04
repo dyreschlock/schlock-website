@@ -18,6 +18,8 @@ public interface CategoryDAO extends BaseDAO<AbstractCategory>
 
     List<PostCategory> getSubInOrder(Long categoryId);
 
+    List<PostCategory> getAllPostCategoriesInAlphaOrder();
+
     List<ProjectCategory> getTopProjectInOrder();
 
     List<ProjectCategory> getSubProjectInOrder(Long categoryId);

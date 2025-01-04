@@ -34,62 +34,12 @@
 
         <div id="sidebar">
             <ul>
-                <li><h3>Categories</h3>
-                    <ul>
-                        <li class="cat-item cat-item-12"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=12" title="View all posts filed under Anime">Anime</a> (14)
-                        </li>
-                        <li class="cat-item cat-item-21"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=21" title="View all posts filed under Books">Books</a> (10)
-                        </li>
-                        <li class="cat-item cat-item-11"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=11" title="View all posts filed under Cereal">Cereal</a> (1)
-                        </li>
-                        <li class="cat-item cat-item-23"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=23" title="View all posts filed under Conventions">Conventions</a> (45)
-                        </li>
-                        <li class="cat-item cat-item-6"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=6" title="View all posts filed under Dance Dance Revolution">Dance Dance Revolution</a> (11)
-                        </li>
-                        <li class="cat-item cat-item-13"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=13" title="View all posts filed under Film">Film</a> (24)
-                        </li>
-                        <li class="cat-item cat-item-10"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=10" title="View all posts filed under Food">Food</a> (47)
-                        </li>
-                        <li class="cat-item cat-item-17"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=17" title="View all posts filed under Games">Games</a> (223)
-                        </li>
-                        <li class="cat-item cat-item-14"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=14" title="View all posts filed under History">History</a> (11)
-                        </li>
-                        <li class="cat-item cat-item-18"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=18" title="View all posts filed under Japan">Japan</a> (69)
-                        </li>
-                        <li class="cat-item cat-item-7"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=7" title="View all posts filed under Math">Math</a> (6)
-                        </li>
-                        <li class="cat-item cat-item-8"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=8" title="View all posts filed under Music">Music</a> (74)
-                        </li>
-                        <li class="cat-item cat-item-25"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=25" title="View all posts filed under News">News</a> (44)
-                        </li>
-                        <li class="cat-item cat-item-26"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=26" title="These are reviews and impressions of products or events.">Opinion</a> (116)
-                        </li>
-                        <li class="cat-item cat-item-29"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=29" title="View all posts filed under Photo">Photo</a> (4)
-                        </li>
-                        <li class="cat-item cat-item-2"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=2" title="View all posts filed under Programming">Programming</a> (27)
-                        </li>
-                        <li class="cat-item cat-item-9"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=9" title="View all posts filed under Ramen">Ramen</a> (31)
-                        </li>
-                        <li class="cat-item cat-item-1"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=1" title="Read about random things in my life.  Most are boring.">Random</a> (147)
-                        </li>
-                        <li class="cat-item cat-item-27"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=27" title="View all posts filed under Recipe">Recipe</a> (8)
-                        </li>
-                        <li class="cat-item cat-item-31"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=31" title="View all posts filed under Running">Running</a> (4)
-                        </li>
-                        <li class="cat-item cat-item-24"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=24" title="View all posts filed under School">School</a> (15)
-                        </li>
-                        <li class="cat-item cat-item-16"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=16" title="View all posts filed under SPAMM">SPAMM</a> (4)
-                        </li>
-                        <li class="cat-item cat-item-19"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=19" title="View all posts filed under Technology">Technology</a> (18)
-                        </li>
-                        <li class="cat-item cat-item-20"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=20" title="View all posts filed under Toys">Toys</a> (3)
-                        </li>
-                        <li class="cat-item cat-item-15"><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?cat=15" title="View all posts filed under TV">TV</a> (30)
-                        </li>
-                    </ul>
+                <li>
+                    <v7:version7categoryList />
                 </li>
 
-                <li><h3>Archives</h3>
+                <li>
+                    <h3>Archives</h3>
                     <ul>
                         <li><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?m=201203" title="March 2012">March 2012</a></li>
                         <li><a href="https://web.archive.org/web/20120415045624/http://www.theschlock.com/blog/?m=201202" title="February 2012">February 2012</a></li>
