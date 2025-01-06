@@ -89,7 +89,7 @@ public abstract class AbstractOldVersionIndex
 
     public String getPageCss()
     {
-        return cssCache.getCssOldVersions(getPost(), getVersion());
+        return cssCache.getCssOldVersions(getPosts(), getVersion());
     }
 
     public List<AbstractPost> getPosts()

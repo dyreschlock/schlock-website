@@ -69,6 +69,7 @@ public class CssCacheImpl implements CssCache
     private final Context context;
 
     private String cached;
+    private HashMap<String, String> cachedExtra = new HashMap<>();
 
     private String cachedTwitter;
     private String cachedNotFibbage;
@@ -101,6 +102,11 @@ public class CssCacheImpl implements CssCache
 
     public String getCssOldVersions(AbstractPost post, SiteVersion version)
     {
+        return getCssOldVersions(Arrays.asList(post), version);
+    }
+
+    public String getCssOldVersions(List<AbstractPost> posts, SiteVersion version)
+    {
         String v = version.name().toLowerCase();
         if (!cachedOld.containsKey(v))
         {
@@ -110,12 +116,17 @@ public class CssCacheImpl implements CssCache
             cachedOld.put(v, css);
         }
 
-        String css = cachedOld.get(v);
-        if (post != null)
+        StringBuilder css = new StringBuilder();
+        css.append(cachedOld.get(v));
+
+        for(AbstractPost post : posts)
         {
-            css += getExtraCSS(post);
+            if (post != null)
+            {
+                css.append(getExtraCSS(post));
+            }
         }
-        return css;
+        return css.toString();
     }
 
     private String getExtraCSS(AbstractPost post)
@@ -127,35 +138,43 @@ public class CssCacheImpl implements CssCache
 
         String uuid = post.getUuid();
 
-        if (NINTENDO_MUSEUM_UUID.equals(uuid))
+        String css = cachedExtra.get(uuid);
+        if (css == null)
         {
-            String fontCss = getFileAsString(NOTO_SANS_FONT);
-            String extraCss = createExtraCss(uuid).replaceAll("unicode-range:-9", "unicode-range:U+0030-0039");
+            css = "";
 
-            return fontCss + extraCss;
-        }
+            if (NINTENDO_MUSEUM_UUID.equals(uuid))
+            {
+                String fontCss = getFileAsString(NOTO_SANS_FONT);
+                String extraCss = createExtraCss(uuid).replaceAll("unicode-range:-9", "unicode-range:U+0030-0039");
 
-        if (Page.ERROR_PAGE_UUID.equals(uuid))
-        {
-            return createExtraCss(PERFECT_DOS_VGA_FONT, uuid);
-        }
+                css = fontCss + extraCss;
+            }
 
-        if (post.isHasLessonLinks())
-        {
-            return createExtraCss(Page.LESSON_PLANS_UUID);
-        }
+            if (Page.ERROR_PAGE_UUID.equals(uuid))
+            {
+                css = createExtraCss(PERFECT_DOS_VGA_FONT, uuid);
+            }
 
-        if (post instanceof CoursePage)
-        {
-            return createExtraCss(Page.COURSE_LIST_UUID, Page.LESSON_PLANS_UUID);
-        }
+            if (post.isHasLessonLinks())
+            {
+                css = createExtraCss(Page.LESSON_PLANS_UUID);
+            }
 
-        //somewhat catch-all / individual special pages should come before this
-        if (BLOG_UUID_WITH_EXTRA_CSS.contains(uuid))
-        {
-            return createExtraCss(uuid);
+            if (post instanceof CoursePage)
+            {
+                css = createExtraCss(Page.COURSE_LIST_UUID, Page.LESSON_PLANS_UUID);
+            }
+
+            //somewhat catch-all / individual special pages should come before this
+            if (BLOG_UUID_WITH_EXTRA_CSS.contains(uuid))
+            {
+                css = createExtraCss(uuid);
+            }
+
+            cachedExtra.put(uuid, css);
         }
-        return "";
+        return css;
     }
 
     private String createExtraCss(String... filenames)
