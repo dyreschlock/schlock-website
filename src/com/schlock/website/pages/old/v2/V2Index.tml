@@ -1,20 +1,7 @@
-<html
+<html t:type="old/v2/layoutversion2" pageCss="pageCss" page="page"
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-     xmlns:v1n2="tapestry-library:old/v1n2"
      xmlns:v2="tapestry-library:old/v2"
     >
-    <head>
-        <title>One Schlock's Requiem</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-        <style>${pageCss}</style>
-    </head>
-
-    <body bgcolor="#000000" text="#999999" link="#999999" vlink="#999999" alink="#999999">
-    <div id="menu">
-        <v1n2:version1n2menubar version="version" />
-    </div>
-
-    <div id="body">
     <p align="center">&nbsp;</p>
     <table width="90%" border="0" align="center">
         <tr>
@@ -63,33 +50,8 @@
                     <font size="2" color="#BBBBAA">Updated almost Daily<br/> except during summer and other*</font><br/>
                     <font size="1">Since June the 12th, 2000</font></p>
 
-                <table width="95%" border="0" height="132">
-                    <tr>
-                        <td height="30" align="center" width="33%" bgcolor="#373730"><a href="${projectsLink}"><font color="#FFFFFF" size="2">Work</font></a></td>
-                        <td height="30" align="center" width="34%"><a href="${archiveLink}"><font color="#FFFFFF" size="2">Site Map</font></a></td>
-                        <td height="30" align="center" width="33%" bgcolor="#373730"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Wolf Serv</font></a></td>
-                    </tr>
-                    <tr>
-                        <td height="30" align="center" width="33%"><a href="${gamesLink}"><font color="#FFFFFF" size="2">Reviews</font></a></td>
-                        <td height="30" align="center" width="34%" bgcolor="#373730"><img src="${imageLinkStar1}" width="16" height="16" /></td>
-                        <td height="30" align="center" width="33%"><a href="${musicLink}"><font color="#FFFFFF" size="2">Events</font></a></td>
-                    </tr>
-                    <tr>
-                        <td height="30" align="center" width="33%" bgcolor="#373730">&nbsp;</td>
-                        <td height="30" align="center" width="34%"><a href="${aboutMeLink}"><font color="#FFFFFF" size="2">Profile</font></a></td>
-                        <td height="30" align="center" width="33%" bgcolor="#373730">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td height="30" align="center" width="33%"><a style="text-decoration: underline;"><font size="2" color="#FFFFFF">Forum</font></a></td>
-                        <td height="30" align="center" width="34%" bgcolor="#373730"><img src="${imageLinkStar2}" width="16" height="16" /></td>
-                        <td height="30" align="center" width="33%"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Links</font></a></td>
-                    </tr>
-                    <tr>
-                        <td height="30" align="center" width="33%" bgcolor="#373730"><a href="/pages/radio.htm"><font color="#FFFFFF" size="2">Radio</font></a></td>
-                        <td height="30" align="center" width="34%"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Hotline</font></a></td>
-                        <td height="30" align="center" width="33%" bgcolor="#373730"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Guest Book</font></a></td>
-                    </tr>
-                </table>
+                <v2:version2sitemapdisplay />
+
                 <table width="100%" border="0">
                     <tr>
                         <td>&nbsp;</td>
@@ -154,7 +116,7 @@
                             <v2:version2recentposts page="${gamesPage}" />
 
                             <p align="right">
-                                <font size="2" color="#FFFFFF">...</font><a href="${gamesLink}"><font color="#FFFFFF" size="2">more</font></a></p>
+                                <font size="2" color="#FFFFFF">...</font><a href="${reviewsLink}"><font color="#FFFFFF" size="2">more</font></a></p>
                         </td>
                     </tr>
                 </table>
@@ -185,7 +147,7 @@
                                     - John Digweed | Bedrock<br/>
                                     - Live Performance - Minneapolis</font></p>
                             <p align="right">
-                                <font size="2" color="#FFFFFF">...</font><a href="${musicLink}"><font color="#FFFFFF" size="2">past</font></a></p>
+                                <font size="2" color="#FFFFFF">...</font><a href="${releasesLink}"><font color="#FFFFFF" size="2">more</font></a></p>
                         </td>
                     </tr>
                 </table>
@@ -208,9 +170,4 @@
                 <p>&nbsp;</p></td>
         </tr>
     </table>
-    <p align="center"><font color="#FFFFFF" size="2"><b>&#169; 2001 <a href="mailto:dyre@theschlock.com"><font color="#FFFFFF">Schlock</font></a>,
-        All Rights Reserved .. !</b></font></p>
-    <div align="center"></div>
-    </div>
-    </body>
 </html>

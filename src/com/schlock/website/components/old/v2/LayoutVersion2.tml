@@ -1,0 +1,26 @@
+<html
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:v1n2="tapestry-library:old/v1n2"
+    >
+    <head>
+        <title>One Schlock's Requiem</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <style>${pageCss}</style>
+    </head>
+
+    <body bgcolor="#515151" class="${page}">
+    <div id="menu">
+        <v1n2:version1n2menubar version="version" />
+    </div>
+
+    <div id="body" class="${page}">
+
+        <t:body />
+
+        <p align="center"><font size="2">
+            <b>&#169; 2001, 2002 <a style="text-decoration: underline;"><font color="#DFDFEA">Schlock</font></a>, All Rights Reserved ... !</b>
+        </font></p>
+
+    </div>
+    </body>
+</html>

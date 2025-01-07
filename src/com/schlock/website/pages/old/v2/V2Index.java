@@ -40,7 +40,7 @@ public class V2Index extends AbstractOldVersionPage
 
     public String getPage()
     {
-        return page;
+        return "index";
     }
 
     public AbstractPost getPost()
@@ -57,17 +57,5 @@ public class V2Index extends AbstractOldVersionPage
     public String getGamesPage()
     {
         return REVIEWS_PAGE;
-    }
-
-    public String getImageLinkStar1()
-    {
-        String link = context.webDomain() + "img/old/star1.gif";
-        return link;
-    }
-
-    public String getImageLinkStar2()
-    {
-        String link = context.webDomain() + "img/old/star2.gif";
-        return link;
     }
 }

@@ -1,0 +1,33 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <table width="95%" border="0" height="132">
+        <tr>
+            <td height="30" align="center" width="33%" bgcolor="#373730"><a href="${projectsLink}"><font color="#FFFFFF" size="2">Work</font></a></td>
+            <td height="30" align="center" width="34%"><a href="${archiveLink}"><font color="#FFFFFF" size="2">Site Map</font></a></td>
+            <td height="30" align="center" width="33%" bgcolor="#373730"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Wolf Serv</font></a></td>
+        </tr>
+        <tr>
+            <td height="30" align="center" width="33%"><a href="${reviewsLink}"><font color="#FFFFFF" size="2">Reviews</font></a></td>
+            <td height="30" align="center" width="34%" bgcolor="#373730"><img src="${imageLinkStar1}" width="16" height="16" /></td>
+            <td height="30" align="center" width="33%"><a href="${releasesLink}"><font color="#FFFFFF" size="2">Releases</font></a></td>
+        </tr>
+        <tr>
+            <td height="30" align="center" width="33%" bgcolor="#373730">&nbsp;</td>
+            <td height="30" align="center" width="34%"><a href="${aboutMeLink}"><font color="#FFFFFF" size="2">Profile</font></a></td>
+            <td height="30" align="center" width="33%" bgcolor="#373730">&nbsp;</td>
+        </tr>
+        <tr>
+            <td height="30" align="center" width="33%"><a style="text-decoration: underline;"><font size="2" color="#FFFFFF">Forum</font></a></td>
+            <td height="30" align="center" width="34%" bgcolor="#373730"><img src="${imageLinkStar2}" width="16" height="16" /></td>
+            <td height="30" align="center" width="33%"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Links</font></a></td>
+        </tr>
+        <tr>
+            <td height="30" align="center" width="33%" bgcolor="#373730"><a href="${radioLink}"><font color="#FFFFFF" size="2">Radio</font></a></td>
+            <td height="30" align="center" width="34%"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Hotline</font></a></td>
+            <td height="30" align="center" width="33%" bgcolor="#373730"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Guest Book</font></a></td>
+        </tr>
+    </table>
+
+</t:container>

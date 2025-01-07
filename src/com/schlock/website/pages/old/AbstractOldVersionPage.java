@@ -164,4 +164,14 @@ public abstract class AbstractOldVersionPage
     {
         return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), Page.ABOUT_ME_UUID).toURI();
     }
+
+    public String getReviewsLink()
+    {
+        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), REVIEWS_PAGE).toURI();
+    }
+
+    public String getReleasesLink()
+    {
+        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), RELEASES_PAGE).toURI();
+    }
 }
