@@ -1,5 +1,6 @@
 <html
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:v1n2="tapestry-library:old/v1n2"
      xmlns:v2="tapestry-library:old/v2"
     >
     <head>
@@ -9,11 +10,8 @@
     </head>
 
     <body bgcolor="#000000" text="#999999" link="#999999" vlink="#999999" alink="#999999">
-
     <div id="menu">
-
-        <v2:version2menudisplay />
-
+        <v1n2:version1n2menudisplay version="version" />
     </div>
 
     <div id="body">

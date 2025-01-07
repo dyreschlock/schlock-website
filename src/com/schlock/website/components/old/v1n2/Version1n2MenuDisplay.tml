@@ -1,0 +1,48 @@
+<t:container
+        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+>
+    <table border="0" width="100%">
+        <tr>
+            <td align="center" width="10%">
+
+            </td>
+            <td align="right" valign="top" width="90%">
+                <font size="2">- </font>
+                <a href="${homeLink}" target="_top"><font size="2">Home</font></a>
+                <t:if test="v1">
+                    <font size="2"> - </font>
+                    <a href="${archiveLink}"><font size="2">Archives</font></a>
+                    <font size="2"> - </font>
+                    <a style="text-decoration: underline;"><font size="2">Comic</font></a>
+                </t:if>
+                <font size="2"> - </font>
+                <a href="${projectsLink}" target="_top"><font size="2">Works</font></a>
+                <t:if test="v1">
+                    <font size="2"> - </font>
+                    <a href="${aboutMeLink}" target="_top"><font size="2">Profile</font></a>
+                </t:if>
+                <t:if test="v2">
+                    <font size="2"> - </font>
+                    <a href="${gamesLink}" target="_top"><font size="2">Impressions</font></a>
+                </t:if>
+                <font size="2"> - </font>
+                <a style="text-decoration: underline;"><font size="2">Site Map</font></a>
+                <font size="2"> - </font>
+                <a href="/pages/radio.htm" target="body"><font size="2">Radio</font></a>
+                <t:if test="v1">
+                    <font size="2"> - </font>
+                    <a style="text-decoration: underline;"><font size="2">Hotline</font></a>
+                </t:if>
+                <t:if test="v2">
+                    <font size="2"> - </font>
+                    <a style="text-decoration: underline;"><font size="2">Wolfenstein</font></a>
+                </t:if>
+                <font size="2"> - </font>
+                <a style="text-decoration: underline;"><font size="2">Forum</font></a>
+                <font size="2"> - </font>
+                <a style="text-decoration: underline;"><font size="2">Links</font></a>
+                <font size="2"> -</font>
+            </td>
+        </tr>
+    </table>
+</t:container>
