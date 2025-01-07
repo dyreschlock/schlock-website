@@ -11,7 +11,7 @@
 
     <body bgcolor="#000000" text="#999999" link="#999999" vlink="#999999" alink="#999999">
     <div id="menu">
-        <v1n2:version1n2menudisplay version="version" />
+        <v1n2:version1n2menubar version="version" />
     </div>
 
     <div id="body">

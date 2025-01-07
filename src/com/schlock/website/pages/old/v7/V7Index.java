@@ -3,10 +3,10 @@ package com.schlock.website.pages.old.v7;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
-import com.schlock.website.pages.old.AbstractOldVersionIndex;
+import com.schlock.website.pages.old.AbstractOldVersionPage;
 import org.apache.tapestry5.annotations.Property;
 
-public class V7Index extends AbstractOldVersionIndex
+public class V7Index extends AbstractOldVersionPage
 {
     private PostCategory category;
     private AbstractPost post;

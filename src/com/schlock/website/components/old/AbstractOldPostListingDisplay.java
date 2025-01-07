@@ -2,7 +2,7 @@ package com.schlock.website.components.old;
 
 import com.schlock.website.entities.blog.*;
 import com.schlock.website.entities.old.SiteVersion;
-import com.schlock.website.pages.old.AbstractOldVersionIndex;
+import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
@@ -19,10 +19,10 @@ import java.util.List;
 
 public abstract class AbstractOldPostListingDisplay
 {
-    private static final String ARCHIVE_PAGE = AbstractOldVersionIndex.ARCHIVE_PAGE;
-    private static final String PROJECTS_PAGE = AbstractOldVersionIndex.PROJECTS_PAGE;
-    private static final String GAMES_PAGE = AbstractOldVersionIndex.GAMES_PAGE;
-    private static final String MUSIC_PAGE = AbstractOldVersionIndex.MUSIC_PAGE;
+    private static final String ARCHIVE_PAGE = AbstractOldVersionPage.ARCHIVE_PAGE;
+    private static final String PROJECTS_PAGE = AbstractOldVersionPage.PROJECTS_PAGE;
+    private static final String GAMES_PAGE = AbstractOldVersionPage.GAMES_PAGE;
+    private static final String MUSIC_PAGE = AbstractOldVersionPage.MUSIC_PAGE;
 
 
     @Inject

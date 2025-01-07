@@ -4,7 +4,7 @@ import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.old.SiteVersion;
-import com.schlock.website.pages.old.AbstractOldVersionIndex;
+import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.blog.PostArchiveManagement;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
@@ -94,10 +94,10 @@ public abstract class AbstractOldPagedPreviousNext
 
     protected int getPagePostCount(int pageNumber)
     {
-        final int postCount = AbstractOldVersionIndex.POSTS_PER_PAGE;
+        final int postCount = AbstractOldVersionPage.POSTS_PER_PAGE;
 
         List<Post> results;
-        if (AbstractOldVersionIndex.BLOG_PAGE.equals(page))
+        if (AbstractOldVersionPage.BLOG_PAGE.equals(page))
         {
             results = archiveManagement.getPagedPosts(postCount, pageNumber);
         }

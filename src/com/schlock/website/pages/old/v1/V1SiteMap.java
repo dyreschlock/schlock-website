@@ -13,6 +13,11 @@ public class V1SiteMap extends AbstractVersion1Page
         return linkSource.createPageRenderLink(V1Index.class).toURI();
     }
 
+    public String getAboutMeLink()
+    {
+        return "";
+    }
+
     public String getRadioLink()
     {
         return linkSource.createPageRenderLink(V1Radio.class).toURI();
@@ -35,6 +40,11 @@ public class V1SiteMap extends AbstractVersion1Page
 
     public String getReviewLink()
     {
-        return linkSource.createPageRenderLink(V1Review.class).toURI();
+        return linkSource.createPageRenderLink(V1Reviews.class).toURI();
+    }
+
+    public String getReleaseLink()
+    {
+        return "";
     }
 }

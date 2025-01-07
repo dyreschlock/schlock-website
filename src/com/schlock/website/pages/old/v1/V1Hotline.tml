@@ -1,4 +1,4 @@
-<html t:type="old/v1/layoutversion1" posts="posts" page="page"
+<html t:type="old/v1/layoutversion1" pageCss="pageCss" page="page"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 >
     <div align="center">
@@ -141,10 +141,8 @@
             </td>
         </tr>
         <tr align="center">
-            <td><font size="2" color="#FFFFFF">Go <a href="home.htm">Back</a> Go</font></td>
+            <td><font size="2" color="#FFFFFF">Go <a href="${homeLink}">Back</a> Go</font></td>
         </tr>
     </table>
-    <p><font size="2"><b><font color="#FFFFFF">© 2001 <a href="https://web.archive.org/web/20010504072841/mailto:dyre@theschlock.com">Schlock</a>,
-        All Rights Reserved ... !</font></b></font></p>
     </div>
 </html>

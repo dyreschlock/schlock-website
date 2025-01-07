@@ -2,11 +2,11 @@ package com.schlock.website.pages.old.v1;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.old.SiteVersion;
-import com.schlock.website.pages.old.AbstractOldVersionIndex;
+import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.DeploymentContext;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-public class V1Index extends AbstractOldVersionIndex
+public class V1Index extends AbstractOldVersionPage
 {
     @Inject
     private DeploymentContext context;

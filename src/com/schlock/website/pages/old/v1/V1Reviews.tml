@@ -1,4 +1,4 @@
-<html t:type="old/v1/layoutversion1" posts="posts" page="page"
+<html t:type="old/v1/layoutversion1" pageCss="pageCss" page="page"
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 <div align="center">
@@ -99,7 +99,5 @@
         </tr>
     </table>
 </t:if>
-<p><font size="2"><b>© 2001 <a href="https://web.archive.org/web/20020111142142/mailto:dyre@theschlock.com"><font color="#DFDFEA">Schlock</font></a>,
-    All Rights Reserved ... !</b></font></p>
 </div>
 </html>

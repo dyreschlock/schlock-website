@@ -10,7 +10,7 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-public class Version1n2MenuDisplay
+public class Version1n2MenuBar
 {
     @Inject
     private PageRenderLinkSource linkSource;

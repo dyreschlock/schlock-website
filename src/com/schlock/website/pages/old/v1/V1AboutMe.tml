@@ -1,0 +1,32 @@
+<html t:type="old/v1/layoutversion1" pageCss="pageCss" page="page"
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <div align="center">
+    <table width="50%" border="0" bgcolor="#333333">
+        <tr>
+            <td>
+                <div align="center"><b>The Schlock's Profile</b></div>
+            </td>
+        </tr>
+        <tr bgcolor="#666699" align="center">
+            <td>
+                <table width="95%" border="0">
+                    <tr>
+                        <td><div id="postContent" class="review">
+
+                            <t:outputraw value="postBodyHTML" />
+
+                        </div></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div align="center"><font size="2">Go <a href="${homeLink}">Back</a> Go</font></div>
+            </td>
+        </tr>
+    </table>
+    </div>
+</html>

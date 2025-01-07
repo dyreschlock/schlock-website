@@ -5,7 +5,7 @@ import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
-import com.schlock.website.pages.old.AbstractOldVersionIndex;
+import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -16,9 +16,9 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 import java.util.Arrays;
 import java.util.List;
 
-public class V1Review extends AbstractVersion1Page
+public class V1Reviews extends AbstractVersion1Page
 {
-    private static final String GAMES_PAGE = AbstractOldVersionIndex.GAMES_PAGE;
+    private static final String GAMES_PAGE = AbstractOldVersionPage.GAMES_PAGE;
 
     @Inject
     private PageRenderLinkSource linkSource;
@@ -97,7 +97,7 @@ public class V1Review extends AbstractVersion1Page
     public String getCurrentPostLink()
     {
         String uuid = currentPost.getUuid();
-        return linkSource.createPageRenderLinkWithContext(V1Review.class, uuid).toURI();
+        return linkSource.createPageRenderLinkWithContext(V1Reviews.class, uuid).toURI();
 
     }
 

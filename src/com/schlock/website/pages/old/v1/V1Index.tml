@@ -1,4 +1,4 @@
-<html t:type="old/v1/layoutversion1" posts="posts" page="page"
+<html t:type="old/v1/layoutversion1" pageCss="pageCss" page="page"
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
      xmlns:v1="tapestry-library:old/v1"
     >
@@ -146,8 +146,5 @@
             </td>
         </tr>
     </table>
-    <p align="center"><font size="2">
-        <b><font color="#FFFFFF">&#169; 2001 <a href="mailto:dyre@theschlock.com">Schlock</a>, All Rights Reserved .. !</font></b></font>
-    </p>
     <div align="center"></div>
 </html>

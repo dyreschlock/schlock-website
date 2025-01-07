@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractOldVersionIndex
+public abstract class AbstractOldVersionPage
 {
     public static final String ARCHIVE_PAGE = "archive";
 

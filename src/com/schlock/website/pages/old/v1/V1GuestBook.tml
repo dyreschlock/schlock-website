@@ -1,4 +1,4 @@
-<html t:type="old/v1/layoutversion1" posts="posts" page="page"
+<html t:type="old/v1/layoutversion1" pageCss="pageCss" page="page"
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
