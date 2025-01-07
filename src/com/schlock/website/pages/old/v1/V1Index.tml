@@ -1,20 +1,7 @@
-<html
+<html t:type="old/v1/layoutversion1" posts="posts" page="page"
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-     xmlns:v1n2="tapestry-library:old/v1n2"
      xmlns:v1="tapestry-library:old/v1"
     >
-    <head>
-        <title>One Schlock's Requiem</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-        <style>${pageCss}</style>
-    </head>
-
-    <body bgcolor="#666666" text="#FFFFFF" link="#FFFFFF" vlink="#FFFFFF" alink="#FFFFFF">
-    <div id="menu">
-        <v1n2:version1n2menudisplay version="version" />
-    </div>
-
-    <div id="body">
     <p align="center">&nbsp;</p>
     <table width="90%" border="0" align="center">
         <tr>
@@ -68,7 +55,7 @@
                     </tr>
                 </table>
             </td>
-            <td bgcolor="#666666" width="30%" align="center" valign="top">
+            <td bgcolor="#666699" width="30%" align="center" valign="top">
                 <p>&nbsp;</p>
                 <p align="center">
                     <font size="1" color="#FFFFFF">This site is designed for screen resolution</font><br/>
@@ -80,7 +67,7 @@
                 </p>
                 <table width="85%" border="0">
                     <tr>
-                        <td bgcolor="#515151" align="center" height="23">
+                        <td bgcolor="#666666" align="center" height="23">
                             <font size="2"><a style="text-decoration: underline;">Synopsis</a></font></td>
                         <td align="center" height="23">
                             <font size="2"><a href="${archiveLink}">Archives</a></font></td>
@@ -88,11 +75,11 @@
                     <tr>
                         <td align="center" width="50%" height="24">
                             <font size="2"><a href="${aboutMeLink}">Profile</a></font></td>
-                        <td bgcolor="#515151" width="50%" align="center" height="24">
+                        <td bgcolor="#666666" width="50%" align="center" height="24">
                             <font size="2"><a href="${projectsLink}">Works</a></font></td>
                     </tr>
                     <tr>
-                        <td bgcolor="#515151" align="center" height="42">
+                        <td bgcolor="#666666" align="center" height="42">
                             <font size="2" color="#FFFFFF">Hotline</font><br/>
                             <font size="2"><a style="text-decoration: underline;">Page</a> / <a style="text-decoration: underline;">Connect</a></font></td>
                         <td align="center" height="42">
@@ -103,11 +90,11 @@
                         <td align="center" height="41">
                             <font size="2" color="#FFFFFF">Guest Book</font><br/>
                             <font size="2"><a style="text-decoration: underline;">Sign</a> / <a style="text-decoration: underline;">View</a></font></td>
-                        <td bgcolor="#515151" align="center" height="41">
+                        <td bgcolor="#666666" align="center" height="41">
                             <font size="2"><a  style="text-decoration: underline;">Site Map</a></font></td>
                     </tr>
                     <tr>
-                        <td bgcolor="#515151" align="center" height="24">
+                        <td bgcolor="#666666" align="center" height="24">
                             <font size="2"><a href="${gamesLink}">Reviews</a></font></td>
                         <td align="center" height="24">
                             <font size="2"><a href="${musicLink}">Events</a></font></td>
@@ -144,7 +131,7 @@
                         <td bgcolor="#333333"><font size="2">Update Message</font></td>
                     </tr>
                     <tr align="left">
-                        <td bgcolor="#666666">
+                        <td>
                             <p><font size="2">I plan to redo some of the old crappy pages one
                                 of these days. I just started playing Xenosaga the other day, so
                                 when I have free time I'd like to dig into it deeper.</font></p>
@@ -163,6 +150,4 @@
         <b><font color="#FFFFFF">&#169; 2001 <a href="mailto:dyre@theschlock.com">Schlock</a>, All Rights Reserved .. !</font></b></font>
     </p>
     <div align="center"></div>
-    </div>
-    </body>
 </html>
