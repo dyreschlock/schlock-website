@@ -30,7 +30,7 @@ public class Version2RecentPosts extends AbstractOldRecentPosts
 
     private boolean isGamesPage()
     {
-        return AbstractOldVersionPage.GAMES_PAGE.equals(page);
+        return AbstractOldVersionPage.REVIEWS_PAGE.equals(page);
     }
 
 
@@ -39,7 +39,7 @@ public class Version2RecentPosts extends AbstractOldRecentPosts
         if (isGamesPage())
         {
             final int COUNT = 6;
-            AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, AbstractOldVersionPage.GAMES_PAGE);
+            AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, AbstractOldVersionPage.REVIEWS_PAGE);
             Long categoryId = cat.getId();
 
             return postDAO().getMostRecentPosts(COUNT, false, null, null, categoryId);

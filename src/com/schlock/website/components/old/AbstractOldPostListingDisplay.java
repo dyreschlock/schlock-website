@@ -21,7 +21,7 @@ public abstract class AbstractOldPostListingDisplay
 {
     private static final String ARCHIVE_PAGE = AbstractOldVersionPage.ARCHIVE_PAGE;
     private static final String PROJECTS_PAGE = AbstractOldVersionPage.PROJECTS_PAGE;
-    private static final String GAMES_PAGE = AbstractOldVersionPage.GAMES_PAGE;
+    private static final String GAMES_PAGE = AbstractOldVersionPage.REVIEWS_PAGE;
     private static final String MUSIC_PAGE = AbstractOldVersionPage.MUSIC_PAGE;
 
 

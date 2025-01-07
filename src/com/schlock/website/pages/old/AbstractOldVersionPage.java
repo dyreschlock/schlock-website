@@ -21,11 +21,15 @@ public abstract class AbstractOldVersionPage
 {
     public static final String ARCHIVE_PAGE = "archive";
 
-    public static final String PROJECTS_PAGE = "projects";
-    public static final String GAMES_PAGE = "reviews";
+    public static final String ANIME_PAGE = "anime";
+    public static final String GUEST_BOOK_PAGE = "guestbook";
+    public static final String HOTLINE_PAGE = "hotline";
     public static final String MUSIC_PAGE = "music";
-
+    public static final String PROJECTS_PAGE = "projects";
     public static final String RADIO_PAGE = "radio";
+    public static final String RELEASES_PAGE = "releases";
+    public static final String REVIEWS_PAGE = "reviews";
+    public static final String SITE_MAP_PAGE = "sitemap";
 
     public static final String BLOG_PAGE = "paged";
 
@@ -65,7 +69,7 @@ public abstract class AbstractOldVersionPage
 
     protected boolean isSpecialPage(String param)
     {
-        return Arrays.asList(ARCHIVE_PAGE, PROJECTS_PAGE, GAMES_PAGE, MUSIC_PAGE).contains(param);
+        return Arrays.asList(ARCHIVE_PAGE, PROJECTS_PAGE, REVIEWS_PAGE, MUSIC_PAGE).contains(param);
     }
 
     protected boolean isPagedPage(String param)
@@ -156,28 +160,8 @@ public abstract class AbstractOldVersionPage
         return linkSource.createPageRenderLink(getVersion().indexClass()).toURI();
     }
 
-    public String getArchiveLink()
-    {
-        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), ARCHIVE_PAGE).toURI();
-    }
-
     public String getAboutMeLink()
     {
         return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), Page.ABOUT_ME_UUID).toURI();
-    }
-
-    public String getProjectsLink()
-    {
-        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), PROJECTS_PAGE).toURI();
-    }
-
-    public String getGamesLink()
-    {
-        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), GAMES_PAGE).toURI();
-    }
-
-    public String getMusicLink()
-    {
-        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), MUSIC_PAGE).toURI();
     }
 }

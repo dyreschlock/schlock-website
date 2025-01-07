@@ -368,7 +368,7 @@
         </tr>
         <tr>
             <td>
-                <div align="center"><font size="2">Go <a href="home.htm">Back</a> Go</font></div>
+                <div align="center"><font size="2">Go <a href="${homeLink}">Back</a> Go</font></div>
             </td>
         </tr>
     </table>

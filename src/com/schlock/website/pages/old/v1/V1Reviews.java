@@ -5,7 +5,6 @@ import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
-import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -18,8 +17,6 @@ import java.util.List;
 
 public class V1Reviews extends AbstractVersion1Page
 {
-    private static final String GAMES_PAGE = AbstractOldVersionPage.GAMES_PAGE;
-
     @Inject
     private PageRenderLinkSource linkSource;
 
@@ -88,7 +85,7 @@ public class V1Reviews extends AbstractVersion1Page
 
     public List<Post> getReviewPosts()
     {
-        AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, GAMES_PAGE);
+        AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, REVIEWS_PAGE);
         Long categoryId = cat.getId();
 
         return postDAO.getMostRecentPosts(null, false, null, null, categoryId);

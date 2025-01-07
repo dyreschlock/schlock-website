@@ -1,6 +1,6 @@
 <t:container
-        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
->
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
     <table border="0" width="100%">
         <tr>
             <td align="center" width="10%">
@@ -23,7 +23,7 @@
                 </t:if>
                 <t:if test="v2">
                     <font size="2"> - </font>
-                    <a href="${gamesLink}"><font size="2">Impressions</font></a>
+                    <a href="${reviewsLink}"><font size="2">Impressions</font></a>
                 </t:if>
                 <font size="2"> - </font>
                 <a href="${siteMapLink}"><font size="2">Site Map</font></a>

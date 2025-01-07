@@ -1,5 +1,6 @@
 <html t:type="old/v1/layoutversion1" pageCss="pageCss" page="page"
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:v1="tapestry-library:old/v1"
     >
     <div align="center">
     <p><font size="2">-[ Founded July the 13th of 2000 ]-</font></p>
@@ -31,177 +32,17 @@
                         </td>
                     </tr>
                 </table>
-                <table width="95%" border="0">
-                    <tr bgcolor="#666699">
-                        <td height="59">
-                            <p><font size="2" color="#fff">
-                                - <a href="${homeLink}"><font color="#FFFFFF">Home</font></a> - &gt; &gt; &gt;
-                                <br/></font>
-                                <font size="2" color="#ccc">The home page of the schlock, the entrance which has the current
-                                comic, the current rant and also links to various portions of
-                                the site</font></p>
-                        </td>
-                    </tr>
-                    <tr bgcolor="#666699">
-                        <td height="131">
-                            <p><font size="2" color="#fff">
-                                - <a style="text-decoration: underline;">Synopsis</a> - &gt; &gt; &gt;
-                                <br/></font>
-                                <font size="2" color="#ccc">One Schlock's Requiem is a comic based on the lives of us
-                                .. this is the cast of the comic ... 4 20something year olds not
-                                really doing much with our lives ...</font></p>
-                            <p><font size="2" color="#FFFFFF">
-                                - - - <a style="text-decoration: underline;">Pilot Season</a> <font color="#CCCCCC">
-                                    - &quot; Does this work ? .. it does... well lets do it .. &quot; &lt;- true story</font></font></p>
-                            <p><font size="2" color="#FFFFFF">
-                                - - - <a style="text-decoration: underline;">The Sinning Sun</a> <font color="#CCCCCC">
-                                    - A Time like no other....</font></font></p>
-                        </td>
-                    </tr>
-                    <tr bgcolor="#666699">
-                        <td height="62">
-                            <p><font size="2" color="#fff">
-                                - <a href="comic/index.htm">Archives</a> - &gt; &gt; &gt;
-                                <br/></font>
-                                <font size="2" color="#ccc">visit past comic strips that we've already done.. and
-                                catch up on the current story and character building that the
-                                strip implors as it goes on...</font></p>
-                        </td>
-                    </tr>
-                    <tr bgcolor="#666699">
-                        <td height="62">
-                            <p><font size="2" color="#FFFFFF">
-                                - <a href="work.htm">Works</a> - &gt; &gt; &gt;
-                                <br/></font>
-                                <font size="2" color="#CCCCCC">The whole reason for this website in the
-                                first place .. All of my Computer Generated work along with some
-                                stories and writings ..</font></p>
-                        </td>
-                    </tr>
-                    <tr bgcolor="#666699">
-                        <td height="59">
-                            <p><font size="2" color="#FFFFFF">
-                                - <a href="${aboutMeLink}">Profile</a> - &gt; &gt; &gt;
-                                <br/></font>
-                                <font size="2" color="#CCCCCC">Learn more about the man behind the magic
-                                of my creations .. Email me or message me if you like .. i always
-                                love to hear a new voice</font></p>
-                        </td>
-                    </tr>
-                    <tr bgcolor="#666699">
-                        <td height="62">
-                            <p><font size="2" color="#fff">
-                                - <a style="text-decoration: underline;">Resume</a> - &gt; &gt; &gt;
-                                <br/></font>
-                                <font size="2" color="#CCCCCC">This is my resume for which i hope to
-                                get an upstanding job with... ( don't end the sentence with a prepisition..
-                                bad grammar, bad spelling )</font></p>
-                        </td>
-                    </tr>
-                    <tr bgcolor="#666699">
-                        <td height="131">
-                            <p><font size="2" color="#FFFFFF">
-                                - <a href="${radioLink}">Radio</a> - &gt; &gt; &gt;
-                                <br/></font>
-                                <font size="2" color="#CCCCCC">That's you can hear sounds of The Schlock
-                                on the radio as well ... many songs of which i like .. such as
-                                Video Game, Anime and Techno Music ...</font></p>
 
-                            <p><font size="2" color="#CCCCCC">
-                                - - - <a style="text-decoration: underline;"><font color="#fff">station page</font></a>
-                                    - click here to visit the official Live365 station page of the Digital Schlockopoloosa</font></p>
-                            <p><font size="2" color="#CCCCCC">
-                                - - - <a style="text-decoration: underline;"><font color="#fff">listen</font></a>
-                                    - click here to instanly listen to the Digital Schlockopoloosa</font></p>
-                        </td>
-                    </tr>
-                    <tr bgcolor="#666699">
-                        <td height="136">
-                            <p><font size="2" color="#FFFFFF">
-                                - <a href="${hotlineLink}">Hotline Server</a> - &gt; &gt; &gt;
-                                <br/></font>
-                                <font size="2" color="#CCCCCC">Here you can download many different
-                                things from Anime Episodes to Mp3s to miscellanous crap that i
-                                find on the internet here and there</font></p>
+                <v1:version1sitemapdisplay />
 
-                            <p><font size="2" color="#CCCCCC">
-                                - - - <a style="text-decoration: underline;"><font color="#fff">download</font></a>
-                                    - click here to go the Big Red H homepage, to download hotline if you don't have it</font></p>
-                            <p><font size="2" color="#CCCCCC">
-                                - - - <a style="text-decoration: underline;"><font color="#fff">connect</font></a>
-                                    - click here to connect to my server.. if its open</font></p>
-                        </td>
-                    </tr>
-                    <tr bgcolor="#666699">
-                        <td height="50"><font size="2" color="#FFFFFF">
-                            - <a style="text-decoration: underline;">Bulletin Board System</a> - &gt; &gt; &gt;
-                            <br/></font>
-                            <font size="2" color="#CCCCCC">Talk with other who have posted
-                            their thoughts about The Schlock ... or something else</font></td>
-                    </tr>
-                    <tr bgcolor="#666699">
-                        <td height="84">
-                            <p><font size="2" color="#FFFFFF">
-                                - <a href="${guestBookLink}">Guest Book</a> - &gt; &gt; &gt;
-                                <br/></font>
-                                <font size="2" color="#CCCCCC">Post a greeting and signify your
-                                visit to the Schlock by a formal web greeting.. </font></p>
-                            <p><font size="2" color="#CCCCCC">
-                                - - - <a style="text-decoration: underline;"><font color="#fff">Sign</font></a>
-                                    - click to sign the guest book..</font></p>
-                        </td>
-                    </tr>
-                    <tr bgcolor="#666699">
-                        <td height="64">
-                            <p><font size="2" color="#fff">
-                                - <a href="${releaseLink}">Release Dates</a> - &gt; &gt; &gt;
-                                <br/></font>
-                                <font color="#CCCCCC" size="2">Look and Learn
-                                the dates of Anime and video games releases that i plan to buy
-                                in the next couples of months.. and wonder how i can afford it...</font></p>
-                        </td>
-                    </tr>
-                    <tr bgcolor="#666699">
-                        <td height="64">
-                            <p><font size="2" color="#fff">
-                                - <a href="${animeLink}">Anime List</a> - &gt; &gt; &gt;
-                                <br/></font>
-                                <font color="#CCCCCC" size="2">For Hotline Purposes
-                                this is my anime List... what i have on my computer that i watch
-                                from time to time.. all backups of anime that i do own... *wink,
-                                wink* </font></p>
-                        </td>
-                    </tr>
-                    <tr bgcolor="#666699">
-                        <td height="64">
-                            <p><font size="2" color="#fff">
-                                - <a href="${reviewLink}">Review Page</a> - &gt; &gt; &gt;
-                                <br/></font>
-                                <font color="#CCCCCC" size="2">This is the page
-                                where i have reviewed Dvds that i own ... perhaps they'll give you
-                                some insight how to spend your next pay check, or a reason to argue
-                                against me.. have fun</font></p>
-                        </td>
-                    </tr>
-                    <tr bgcolor="#666699">
-                        <td height="64">
-                            <p><font size="2" color="#FFFFFF">
-                                - <a style="text-decoration: underline;">Links</a> - &gt; &gt; &gt;
-                                <br/></font>
-                                <font size="2" color="#CCCCCC">Don't like it here too much ?
-                                ... well go somewhere else .. all the websites here are places
-                                that i've visited a couple times and have enjoyed it ... a bunch
-                                of great sites ...</font></p>
-                        </td>
-                    </tr>
-                </table>
                 <p>&nbsp;</p>
             </td>
         </tr>
     </table>
     <table width="65%" border="0" bgcolor="#333333">
         <tr align="center" bgcolor="#333333">
-            <td><font size="2">Go <a href="home.htm">Back</a> Go</font></td>
+            <td><font size="2">Go <a href="${homeLink}">Back</a> Go</font></td>
         </tr>
     </table>
+    </div>
 </html>

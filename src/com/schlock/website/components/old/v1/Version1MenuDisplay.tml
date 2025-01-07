@@ -1,0 +1,39 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+    <table width="85%" border="0">
+        <tr>
+            <td bgcolor="#666666" align="center" height="23">
+                <font size="2"><a style="text-decoration: underline;">Synopsis</a></font></td>
+            <td align="center" height="23">
+                <font size="2"><a href="${archiveLink}">Archives</a></font></td>
+        </tr>
+        <tr>
+            <td align="center" width="50%" height="24">
+                <font size="2"><a href="${aboutMeLink}">Profile</a></font></td>
+            <td bgcolor="#666666" width="50%" align="center" height="24">
+                <font size="2"><a href="${projectsLink}">Works</a></font></td>
+        </tr>
+        <tr>
+            <td bgcolor="#666666" align="center" height="42">
+                <font size="2" color="#FFFFFF">Hotline</font><br/>
+                <font size="2"><a href="${hotlineLink}">Page</a> / <a style="text-decoration: underline;">Connect</a></font></td>
+            <td align="center" height="42">
+                <font size="2" color="#FFFFFF">Radio</font><br/>
+                <font size="2"><a href="${radioLink}">Page</a> / <a style="text-decoration: underline;">Listen</a></font></td>
+        </tr>
+        <tr>
+            <td align="center" height="41">
+                <font size="2" color="#FFFFFF">Guest Book</font><br/>
+                <font size="2"><a style="text-decoration: underline;">Sign</a> / <a href="${guestBookLink}">View</a></font></td>
+            <td bgcolor="#666666" align="center" height="41">
+                <font size="2"><a href="${siteMapLink}">Site Map</a></font></td>
+        </tr>
+        <tr>
+            <td bgcolor="#666666" align="center" height="24">
+                <font size="2"><a href="${reviewsLink}">Reviews</a></font></td>
+            <td align="center" height="24">
+                <font size="2"><a href="${releasesLink}">Releases</a></font></td>
+        </tr>
+    </table>
+</t:container>

@@ -31,7 +31,7 @@
         </tr>
         <tr>
             <td>
-                <div align="center"><font size="2">Go <a href="index.htm">Back</a> Go</font></div>
+                <div align="center"><font size="2">Go <a href="${homeLink}">Back</a> Go</font></div>
             </td>
         </tr>
     </table>
@@ -94,7 +94,7 @@
         </tr>
         <tr>
             <td>
-                <div align="center"><font size="2">Go <a href="/web/20020111142142/http://dyreschlock.tripod.com/home.htm">Back</a> Go</font></div>
+                <div align="center"><font size="2">Go <a href="${homeLink}">Back</a> Go</font></div>
             </td>
         </tr>
     </table>

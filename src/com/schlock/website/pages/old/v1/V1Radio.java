@@ -4,6 +4,6 @@ public class V1Radio extends AbstractVersion1Page
 {
     public String getPage()
     {
-        return "radio";
+        return RADIO_PAGE;
     }
 }

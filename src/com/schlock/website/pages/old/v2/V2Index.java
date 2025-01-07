@@ -56,7 +56,7 @@ public class V2Index extends AbstractOldVersionPage
 
     public String getGamesPage()
     {
-        return GAMES_PAGE;
+        return REVIEWS_PAGE;
     }
 
     public String getImageLinkStar1()
