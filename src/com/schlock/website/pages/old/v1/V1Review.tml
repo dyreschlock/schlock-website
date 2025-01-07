@@ -1,0 +1,105 @@
+<html t:type="old/v1/layoutversion1" posts="posts" page="page"
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+<div align="center">
+    <p>&nbsp;</p>
+
+<t:if test="hasPost">
+
+    <table width="40%" border="0" bgcolor="#333333">
+        <tr>
+            <td>
+                <div align="center"><b>${postTitle}</b></div>
+            </td>
+        </tr>
+        <tr bgcolor="#666699" align="center">
+            <td>
+                <table width="95%" border="0">
+                    <tr>
+                        <td> <font size="1">Thoughts</font></td>
+                    </tr>
+                    <tr>
+                        <td><div id="postContent" class="review">
+
+                            <t:outputraw value="postBodyHTML" />
+
+                        </div></td>
+                    </tr>
+                </table>
+                <p><font size="2">writen 7.27.2001</font></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div align="center"><font size="2">Go <a href="index.htm">Back</a> Go</font></div>
+            </td>
+        </tr>
+    </table>
+
+</t:if>
+<t:if test="!hasPost">
+
+    <table width="35%" border="0" bgcolor="#333333">
+        <tr>
+            <td>
+                <div align="center"><b>The Schlock's Review Page</b></div>
+            </td>
+        </tr>
+        <tr bgcolor="#666699" align="center">
+            <td>
+                <p>&nbsp;</p>
+                <table width="95%" border="0">
+                    <tr bgcolor="#666666">
+                        <td>
+                            <div align="right"><font size="2">Single Reviews</font></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table width="100%" border="0">
+
+                                <tr>
+                                <t:loop source="reviewPosts" value="currentPost" index="currentIndex">
+
+                                    <t:outputraw value="newLine" />
+
+                                    <td align="left" width="50%">
+                                        <div align="${alignment}">
+                                            <font size="2"><a href="${currentPostLink}">${currentPost.title}</a></font>
+                                            <br/>
+                                            <font size="2"></font><font size="1">${categoryName}</font>
+                                        </div>
+                                    </td>
+
+                                </t:loop>
+                                </tr>
+
+                                <tr>
+                                    <td align="left">&nbsp;</td>
+                                    <td align="left">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <div align="left"></div>
+                                    </td>
+                                    <td align="left">
+                                        <div align="right"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div align="center"><font size="2">Go <a href="/web/20020111142142/http://dyreschlock.tripod.com/home.htm">Back</a> Go</font></div>
+            </td>
+        </tr>
+    </table>
+</t:if>
+<p><font size="2"><b>© 2001 <a href="https://web.archive.org/web/20020111142142/mailto:dyre@theschlock.com"><font color="#DFDFEA">Schlock</font></a>,
+    All Rights Reserved ... !</b></font></p>
+</div>
+</html>

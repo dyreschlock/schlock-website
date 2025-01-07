@@ -1,0 +1,200 @@
+<html t:type="old/v1/layoutversion1" posts="posts" page="page"
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+    <div align="center">
+    <p><font size="2">-[ Founded July the 13th of 2000 ]-</font></p>
+    <table width="65%" border="0" bgcolor="#333333">
+        <tr align="center" valign="top" bgcolor="#333333">
+            <td><b><font size="4">A Schlock's Requiem Site Map</font></b></td>
+        </tr>
+    </table>
+    <table width="65%" border="0" bgcolor="#333333">
+        <tr bgcolor="#666699" align="center" valign="middle">
+            <td>
+                <p>&nbsp;</p>
+                <table width="95%" border="0">
+                    <tr bgcolor="#666699" align="center" valign="middle">
+                        <td height="140">
+                            <p><font size="2" color="#CCCCCC">I created this site back in June
+                                of 2000 to display my art as well display other things that i
+                                do .. now it holds something not completely different, but the
+                                site definetly has changed since it was that one Html page so
+                                long ago</font></p>
+                            <p><font size="2" color="#CCCCCC">This site is designed for screen
+                                sizes of 1024 x 768 .. because thats what my screen size is and
+                                i designed it using my computer ... so its in the eye of the creator..
+                                its also best to use Internet Explorer 6.0 or above .. but i'm
+                                sure it looks the same if you use Netscape Navigator .. other
+                                than that most web browsers are pretty crappy ..</font></p>
+                            <p><font size="2" color="#CCCCCC">That Counter on the top of your
+                                screen started at Zero on the 30th of April 2001</font></p>
+                        </td>
+                    </tr>
+                </table>
+                <table width="95%" border="0">
+                    <tr bgcolor="#666699">
+                        <td height="59">
+                            <p><font size="2" color="#FFFFFF">-</font><font size="2" color="#CCCCCC">
+                                <a href="home.htm"><font color="#FFFFFF">Home</font></a><font color="#FFFFFF">
+                                - &gt; &gt; &gt;</font><a href="${homeLink}"><br/>
+                            </a>The home page of the schlock, the entrance which has the current
+                                comic, the current rant and also links to various portions of
+                                the site</font></p>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#666699">
+                        <td height="72">
+                            <p><font size="2" color="#FFFFFF">-</font><font size="2" color="#CCCCCC">
+                                <font color="#FFFFFF"><a style="text-decoration: underline;">Synopsis</a> - &gt;
+                                    &gt; &gt;</font><a href="2001-0131a.htm"><br/>
+                            </a>One Schlock's Requiem is a comic based on the lives of us
+                                .. this is the cast of the comic ... 4 20something year olds not
+                                really doing much with our lives ...</font></p>
+                            <p><font size="2" color="#FFFFFF">- - - <a style="text-decoration: underline;"">Pilot
+                                Season</a> <font color="#CCCCCC">- &quot; Does this work ? ..
+                                it does... well lets do it .. &quot; &lt;- true story</font></font></p>
+                            <p><font size="2" color="#FFFFFF">- - - <a style="text-decoration: underline;"">The
+                                Sinning Sun</a> <font color="#CCCCCC">- A Time like no other....</font></font></p>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#666699">
+                        <td height="62">
+                            <p>- <font size="2" color="#CCCCCC"><a href="comic/index.htm">Archives</a>
+                                <font color="#FFFFFF">- &gt; &gt; &gt;</font><font size="2" color="#CCCCCC"><a href="2001-0131a.htm"><br/>
+                                </a></font>visit past comic strips that we've already done.. and
+                                catch up on the current story and character building that the
+                                strip implors as it goes on...</font></p>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#666699">
+                        <td height="62"><font size="2" color="#FFFFFF">- <font color="#CCCCCC"><a href="work.htm"><font color="#FFFFFF">Works</font></a></font>
+                            - &gt; &gt; &gt;<a href="2001-0131a.htm"><br/>
+                            </a><font color="#CCCCCC">The whole reason for this website in the
+                                first place .. All of my Computer Generated work along with some
+                                stories and writings ..</font></font></td>
+                    </tr>
+                    <tr bgcolor="#666699">
+                        <td height="59"><font size="2" color="#FFFFFF">- <font color="#E3E3E3"><a href="pro.htm"><font color="#FFFFFF">Profile</font></a></font>
+                            - &gt; &gt; &gt;<a href="2001-0131a.htm"><br/>
+                            </a><font color="#CCCCCC">Learn more about the man behind the magic
+                                of my creations .. Email me or message me if you like .. i always
+                                love to hear a new voice</font></font></td>
+                    </tr>
+                    <tr bgcolor="#666699">
+                        <td height="62"><font size="2">- <a style="text-decoration: underline;">Resume</a> - &gt;
+                            &gt; &gt;</font><font size="2" color="#FFFFFF"><a href="2001-0131a.htm"><br/>
+                        </a><font color="#CCCCCC">This is my resume for which i hope to
+                            get an upstanding job with... ( don't end the sentence with a prepisition..
+                            bad grammar, bad spelling )</font></font></td>
+                    </tr>
+                    <tr bgcolor="#666699">
+                        <td height="131">
+                            <p><font size="2" color="#FFFFFF">- <font color="#E3E3E3"><a href="${radioLink}"><font color="#FFFFFF">Radio</font></a></font>
+                                - &gt; &gt; &gt;<a href="2001-0131a.htm"> <br/>
+                                </a><font color="#CCCCCC">That's you can hear sounds of The Schlock
+                                    on the radio as well ... many songs of which i like .. such as
+                                    Video Game, Anime and Techno Music ...</font></font></p>
+                            <p><font size="2" color="#CCCCCC">- - - <a href="https://web.archive.org/web/20020111133332/http://www.live365.com/stations/228595" target="_parent">station
+                                page</a> - click here to visit the official Live365 station page
+                                of the Digital Schlockopoloosa</font></p>
+                            <p><font size="2" color="#CCCCCC">- - - <a style="text-decoration: underline;">listen</a>
+                                - click here to instanly listen to the Digital Schlockopoloosa</font></p>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#666699">
+                        <td height="136">
+                            <p><font size="2" color="#FFFFFF">- <font color="#E3E3E3"><a href="${hotlineLink}"><font color="#FFFFFF">Hotline
+                                Server</font></a></font> - &gt; &gt; &gt; </font><font size="2"><a href="2001-0131a.htm"><font size="2"><br/>
+                            </font></a><font color="#CCCCCC">Here you can download many different
+                                things from Anime Episodes to Mp3s to miscellanous crap that i
+                                find on the internet here and there</font></font></p>
+                            <p><font size="2" color="#CCCCCC">- - - <a style="text-decoration: underline;">download</a>
+                                - click here to go the Big Red H homepage, to download hotline
+                                if you don't have it</font></p>
+                            <p><font size="2" color="#CCCCCC">- - - <a style="text-decoration: underline;">connect</a>
+                                - click here to connect to my server.. if its open</font></p>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#666699">
+                        <td height="50"><font size="2" color="#FFFFFF">- <font color="#CCCCCC"><a style="text-decoration: underline;"><font color="#FFFFFF">Bulletin
+                            Board System</font></a></font> - &gt; &gt; &gt;<a href="2001-0131a.htm"><font color="#CCCCCC"><br/>
+                        </font></a><font color="#CCCCCC">Talk with other who have posted
+                            their thoughts about The Schlock ... or something else</font></font></td>
+                    </tr>
+                    <tr bgcolor="#666699">
+                        <td height="84">
+                            <p><font size="2" color="#FFFFFF">- </font><font size="2"><a href="${guestBookLink}"><font color="#FFFFFF">Guest
+                                Book</font></a></font><font size="2" color="#FFFFFF"> - &gt; &gt;
+                                &gt; <a href="2001-0131a.htm"><font color="#CCCCCC"><br/>
+                                </font></a><font color="#CCCCCC">Post a greeting and signify your
+                                    visit to the Schlock by a formal web greeting.. </font></font></p>
+                            <p><font size="2" color="#FFFFFF"><font color="#CCCCCC">- - - <a style="text-decoration: underline;">Sign
+                            </a> - click to sign the guest book..</font></font><font size="2" color="#FFFFFF"></font></p>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#666699">
+                        <td height="64">
+                            <p><font size="2">- <a href="re2001-2.htm">Release Dates</a> - &gt;
+                                &gt; &gt;</font><font size="2" color="#FFFFFF"><a href="2001-0131a.htm"><font color="#CCCCCC"><br/>
+                            </font></a></font><font color="#CCCCCC" size="2">Look and Learn
+                                the dates of Anime and video games releases that i plan to buy
+                                in the next couples of months.. and wonder how i can afford it...</font></p>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#666699">
+                        <td height="64">
+                            <p><font size="2">- <a href="${animeLink}">Anime List</a> - &gt; &gt;
+                                &gt;</font><font size="2" color="#FFFFFF"><a href="2001-0131a.htm"><font color="#CCCCCC"><br/>
+                            </font></a></font><font color="#CCCCCC" size="2">For Hotline Purposes
+                                this is my anime List... what i have on my computer that i watch
+                                from time to time.. all backups of anime that i do own... *wink,
+                                wink* </font></p>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#666699">
+                        <td height="64"><font size="2">- <a href="${reviewLink}">Review
+                            Page</a> - &gt; &gt; &gt;</font><font size="2" color="#FFFFFF"><a href="2001-0131a.htm"><font color="#CCCCCC"><br/>
+                        </font></a></font><font color="#CCCCCC" size="2">This is the page
+                            where i have reviewed Dvds that i own ... perhaps they'll give you
+                            some insight how to spend your next pay check, or a reason to argue
+                            against me.. have fun</font></td>
+                    </tr>
+                    <tr bgcolor="#666699">
+                        <td height="64">
+                            <p><font size="2" color="#FFFFFF">- <font color="#E3E3E3"><a href="links/index.htm"><font color="#FFFFFF">Links</font></a></font>
+                                - &gt; &gt; &gt;<a href="2001-0131a.htm"><font color="#CCCCCC"><br/>
+                                </font></a><font color="#CCCCCC">Don't like it here too much ?
+                                    ... well go somewhere else .. all the websites here are places
+                                    that i've visited a couple times and have enjoyed it ... a bunch
+                                    of great sites ...</font></font></p>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#666699">
+                        <td height="66"><font size="2" color="#FFFFFF">- <font color="#CCCCCC"><a href="https://web.archive.org/web/20020111133332/http://www.geocities.com/dyreschlock/schlock.htm"><font color="#FFFFFF">The
+                            Other Side</font></a></font> - &gt; &gt; &gt;<a href="2001-0131a.htm"><font color="#CCCCCC"><br/>
+                        </font></a><font color="#CCCCCC">Revert yourself back to my old
+                            site that has more information than this site does ... but a little
+                            different feel to it..</font></font></td>
+                    </tr>
+                    <tr bgcolor="#666699">
+                        <td height="52">
+                            <p><font size="2" color="#FFFFFF">- <font color="#CCCCCC"><a href="index.htm" target="_parent"><font color="#FFFFFF">Top
+                                Page</font></a></font> - &gt; &gt; &gt;<a href="2001-0131a.htm"><font color="#CCCCCC"><br/>
+                            </font></a><font color="#CCCCCC">see the opening page once again
+                                ...</font></font></p>
+                        </td>
+                    </tr>
+                </table>
+                <p>&nbsp;</p>
+            </td>
+        </tr>
+    </table>
+    <table width="65%" border="0" bgcolor="#333333">
+        <tr align="center" bgcolor="#333333">
+            <td><font size="2">Go <a href="home.htm">Back</a> Go</font></td>
+        </tr>
+    </table>
+    <p><font size="2"><b>© 2001 <a href="https://web.archive.org/web/20020111133332/mailto:dyre@theschlock.com"><font color="#DFDFEA">Schlock</font></a>,
+        All Rights Reserved ... !</b></font></p>
+    </div>
+</html>

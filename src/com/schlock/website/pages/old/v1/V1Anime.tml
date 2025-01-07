@@ -1,0 +1,381 @@
+<html t:type="old/v1/layoutversion1" posts="posts" page="page"
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+<div align="center">
+    <p>&nbsp;</p>
+    <table width="80%" border="0" bgcolor="#333333">
+        <tr>
+            <td>
+                <div align="center"><b>The Schlock's Anime</b></div>
+            </td>
+        </tr>
+        <tr bgcolor="#666699" align="center">
+            <td>
+                <p align="center">&nbsp;</p>
+                <table width="95%" border="0">
+                    <tr>
+                        <td width="50%" valign="top">
+                            <table width="95%" border="0">
+                                <tr>
+                                    <td><font size="2">Movies and Completed Series</font></td>
+                                </tr>
+                            </table>
+                            <table width="95%" border="0" bgcolor="#666666">
+                                <tr>
+                                    <td width="70%"><font size="2">Title / Episodes</font></td>
+                                    <td width="15%"><font size="2">Format</font></td>
+                                    <td width="15%"><font size="2">Cd Slot</font></td>
+                                </tr>
+                            </table>
+                            <table width="95%" border="0">
+                                <tr>
+                                    <td width="70%"><b><font size="2">Alien from the Darkness</font></b></td>
+                                    <td width="15%"><font size="2">Rm</font></td>
+                                    <td width="15%"><font size="2">x</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Angel's Egg</font></b></td>
+                                    <td><font size="2">Avi</font></td>
+                                    <td><font size="2">5</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Crouching Tiger Hidden Dragon</font></b></td>
+                                    <td><font size="2">Avi</font></td>
+                                    <td><font size="2">7</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Escaflowne, Visions of<a href="2001-0131a.htm"><br/>
+                                    </a></font></b><font size="2">- &quot;A Girl in Gaia&quot;
+                                        Movie</font></td>
+                                    <td><font size="2">Avi</font></td>
+                                    <td><font size="2">x</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Evangelion, Neon Genesis<a href="2001-0131a.htm"><br/>
+                                    </a></font></b><font size="2">- The End of Evangelion Movie</font></td>
+                                    <td><font size="2">Mpeg</font></td>
+                                    <td><font size="2">3</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">F3<a href="2001-0131a.htm"><br/>
+                                    </a></font></b><font size="2">- OAV Episodes 1 - 3</font></td>
+                                    <td><font size="2">Rm</font></td>
+                                    <td><font size="2">37</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Fallen Angel Riina</font></b></td>
+                                    <td><font size="2">Rm</font></td>
+                                    <td><font size="2">65</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Flcl<a href="2001-0131a.htm"><br/>
+                                    </a></font></b><font size="2">- OAV Episodes 1 - 6</font></td>
+                                    <td><font size="2">Avi</font></td>
+                                    <td><font size="2">17,x</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Fushigi Yuugi<a href="2001-0131a.htm"><br/>
+                                    </a></font></b><font size="2">- Tv Episodes 1 - 52</font></td>
+                                    <td><font size="2">Rm</font></td>
+                                    <td><font size="2">31-34</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Gekiganger OAV</font></b></td>
+                                    <td><font size="2">Rm</font></td>
+                                    <td><font size="2">5</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Gone in 60 Seconds</font></b></td>
+                                    <td><font size="2">Asf</font></td>
+                                    <td><font size="2">5</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Gundam Wing<a href="2001-0131a.htm"><br/>
+                                    </a></font></b><font size="2">- Endless Waltz OAV</font></td>
+                                    <td><font size="2">Asf</font></td>
+                                    <td><font size="2">4</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">I can hear the sea</font></b></td>
+                                    <td><font size="2">Rm</font></td>
+                                    <td><font size="2">1</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Kareshi Kanojo no Jijou<a href="2001-0131a.htm"><br/>
+                                    </a></font></b><font size="2">- Tv Episodes 1 - 26</font></td>
+                                    <td><font size="2">Rm/Asf</font></td>
+                                    <td><font size="2">45-46,48</font></td>
+                                </tr>
+                                <tr>
+                                    <td><font size="2"><b>Kiki's Delivery Service</b></font></td>
+                                    <td><font size="2">Rm</font></td>
+                                    <td><font size="2">1</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Laputa Castle in the Sky</font></b></td>
+                                    <td><font size="2">Rm</font></td>
+                                    <td><font size="2">2</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Mahou Tsukai Tai<a href="2001-0131a.htm"><br/>
+                                    </a></font></b><font size="2">- OAV Episodes 1 - 6</font></td>
+                                    <td><font size="2">Rm</font></td>
+                                    <td><font size="2">50</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Mononoke Hime</font></b></td>
+                                    <td><font size="2">Rm</font></td>
+                                    <td><font size="2">4</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Nadesico, Martian Successor<a href="2001-0131a.htm"><br/>
+                                    </a></font></b><font size="2">- Gekiganger OAV</font></td>
+                                    <td><font size="2">Rm</font></td>
+                                    <td><font size="2">5</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Nausicaa of the Valley of the Wind</font></b></td>
+                                    <td><font size="2">Rm</font></td>
+                                    <td><font size="2">2</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Oh My! Goddess<a href="2001-0131a.htm"><br/>
+                                    </a></font></b><font size="2">- Tv Episodes 1 - 5</font></td>
+                                    <td><font size="2">Dat</font></td>
+                                    <td><font size="2">28-30</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Otaku no Video</font></b></td>
+                                    <td><font size="2">Rm</font></td>
+                                    <td><font size="2">6</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Project Ako<a href="2001-0131a.htm"><br/>
+                                    </a></font></b><font size="2">- Vs. Battle 1-2</font></td>
+                                    <td><font size="2">Rm</font></td>
+                                    <td><font size="2">48</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Rurouni Kenshin<a href="2001-0131a.htm"><br/>
+                                    </a></font></b><font size="2">- OAV Episodes 1 - 4<a href="2001-0131a.htm"><br/>
+                                    </a></font><font size="2">- The Movie</font></td>
+                                    <td valign="bottom"><font size="2">Mpeg<a href="2001-0131a.htm"><br/>
+                                    </a></font><font size="2">Rm</font></td>
+                                    <td valign="bottom"><font size="2">43-44<a href="2001-0131a.htm"><br/>
+                                    </a></font><font size="2">38</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Slayers, The<a href="2001-0131a.htm"><br/>
+                                    </a></font></b><font size="2">- &quot;Scary Chimera Project&quot;
+                                        OAV </font></td>
+                                    <td><font size="2">Mpeg</font></td>
+                                    <td><font size="2">x</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">Utena Revolutionary Girl<a href="2001-0131a.htm"><br/>
+                                    </a></font></b><font size="2">- &quot;Adolescence Mokushiroku&quot;
+                                        Movie </font></td>
+                                    <td><font size="2">Avi</font></td>
+                                    <td><font size="2">6</font></td>
+                                </tr>
+                                <tr>
+                                    <td><b><font size="2">X / 1999</font></b></td>
+                                    <td><font size="2">Rm</font></td>
+                                    <td><font size="2">3</font></td>
+                                </tr>
+                            </table>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                        </td>
+                        <td width="50%" valign="top">
+                            <div align="right">
+                                <table width="95%" border="0">
+                                    <tr>
+                                        <td><font size="2">Incomplete Series</font></td>
+                                    </tr>
+                                </table>
+                                <table width="95%" border="0" bgcolor="#666666">
+                                    <tr>
+                                        <td width="70%"><font size="2">Title / Episodes</font></td>
+                                        <td width="15%"><font size="2">Format</font></td>
+                                        <td width="15%"><font size="2">Cd Slot</font></td>
+                                    </tr>
+                                </table>
+                                <table width="95%" border="0">
+                                    <tr>
+                                        <td width="70%"><b><font size="2">Ayashi no Ceres</font></b><font size="2" color="#CCCCCC"><font size="2" color="#CCCCCC"><a href="2001-0131a.htm"><font color="#FFFFFF"><br/>
+                                        </font></a></font><font color="#FFFFFF">- Tv Episodes 1-7,
+                                            10-12, 15, 17-19</font></font></td>
+                                        <td width="15%"><font size="2">Avi</font></td>
+                                        <td width="15%"><font size="2">x</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Berserk</font><font size="2" color="#CCCCCC"><font size="2" color="#CCCCCC"><a href="2001-0131a.htm"><font color="#FFFFFF"><br/>
+                                        </font></a></font></font></b><font size="2" color="#CCCCCC"><font color="#FFFFFF">-
+                                            Tv Episodes 1, 21-25</font></font></td>
+                                        <td><font size="2">Rm, Asf</font></td>
+                                        <td><font size="2">x</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Clamp Campus Detective</font><font size="2" color="#CCCCCC"><font size="2" color="#CCCCCC"><a href="2001-0131a.htm"><font color="#FFFFFF"><br/>
+                                        </font></a></font></font></b><font size="2" color="#CCCCCC"><font color="#FFFFFF">-
+                                            Tv Episodes 2-3, 5-6</font></font></td>
+                                        <td><font size="2">Rm</font></td>
+                                        <td><font size="2">x</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Cool Devices</font></b><font size="2"><a href="2001-0131a.htm"><br/>
+                                        </a></font><font size="2">- OAV Episode 3</font></td>
+                                        <td><font size="2">Rm</font></td>
+                                        <td><font size="2">x</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Cowboy Bebop<a href="2001-0131a.htm"><br/>
+                                        </a></font></b><font size="2">- Tv Episodes 25-26</font></td>
+                                        <td><font size="2">Rm</font></td>
+                                        <td><font size="2">x</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Dragonball<a href="2001-0131a.htm"><br/>
+                                        </a></font></b><font size="2">- Dbz Tv Episodes 200-263</font></td>
+                                        <td><font size="2">Avi</font></td>
+                                        <td><font size="2">61-72</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><font size="2"><b>Dual : Parallel Adventure</b><a href="2001-0131a.htm"><br/>
+                                        </a></font><font size="2">- Tv Episodes 1 - 6</font></td>
+                                        <td><font size="2">Avi</font></td>
+                                        <td><font size="2">x</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Evangelion, Neon Genesis<a href="2001-0131a.htm"><br/>
+                                        </a></font></b><font size="2">- Tv Episodes 1-6, 9-22<a href="2001-0131a.htm"><br/>
+                                        </a></font><font size="2">- Tv Extra Episodes 21</font></td>
+                                        <td valign="bottom"><font size="2">Mpeg<a href="2001-0131a.htm"><br/>
+                                        </a></font><font size="2">Avi</font></td>
+                                        <td valign="bottom"><font size="2">51-60<a href="2001-0131a.htm"><br/>
+                                        </a></font><font size="2">x</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Excel Saga<a href="2001-0131a.htm"><br/>
+                                        </a></font></b><font size="2">- Tv Episodes 1 - 18</font></td>
+                                        <td><font size="2">Avi</font></td>
+                                        <td><font size="2">11-12,x</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Fushigi Yuugi<a href="2001-0131a.htm"><br/>
+                                        </a></font></b><font size="2">- OAV1 Episode 1</font></td>
+                                        <td><font size="2">Mpeg</font></td>
+                                        <td><font size="2">x</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Hand Maid May<a href="2001-0131a.htm"><br/>
+                                        </a></font></b><font size="2">- Tv Episodes 1 - 9</font></td>
+                                        <td><font size="2">Avi</font></td>
+                                        <td><font size="2">49,x</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Kimagure Orange Road<a href="2001-0131a.htm"><br/>
+                                        </a></font></b><font size="2">- Tv Episodes 1 - 10</font></td>
+                                        <td><font size="2">Rm</font></td>
+                                        <td><font size="2">x</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Nadesico, Martian Successor<a href="2001-0131a.htm"><br/>
+                                        </a></font></b><font size="2">- Tv Episodes 25 - 26</font></td>
+                                        <td><font size="2">Rm</font></td>
+                                        <td><font size="2">x</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Oh My! Mini Goddess<a href="2001-0131a.htm"><br/>
+                                        </a></font></b><font size="2">- Tv Episodes 1-8, 17-25,
+                                            28, 31 </font></td>
+                                        <td><font size="2">Rm</font></td>
+                                        <td><font size="2">27</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Rurouni Kenshin<a href="2001-0131a.htm"><br/>
+                                        </a></font></b><font size="2">- Tv Episodes 1-12, 25-26,
+                                            28-30, 37, 39-43, 49-95</font></td>
+                                        <td><font size="2">Rm</font></td>
+                                        <td><font size="2">35-42</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Sorceror Hunters<a href="2001-0131a.htm"><br/>
+                                        </a></font></b><font size="2">- OAV Episodes 1 - 3</font></td>
+                                        <td><font size="2">Rm</font></td>
+                                        <td><font size="2">50</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Trigun<a href="2001-0131a.htm"><br/>
+                                        </a></font></b><font size="2">- Tv Episodes 23-26</font></td>
+                                        <td><font size="2">Rm</font></td>
+                                        <td><font size="2">7</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><font size="2">Wild Arms<a href="2001-0131a.htm"><br/>
+                                        </a></font></b><font size="2">- Tv Episode 1</font></td>
+                                        <td><font size="2">Asf</font></td>
+                                        <td><font size="2">x</font></td>
+                                    </tr>
+                                </table>
+                                <p>&nbsp;</p>
+                                <table width="95%" border="0">
+                                    <tr>
+                                        <td><font size="2">I want and/or I am looking for ....</font></td>
+                                    </tr>
+                                </table>
+                                <table width="95%" border="0" bgcolor="#666666">
+                                    <tr>
+                                        <td width="70%"><font size="2">Title / Episodes</font></td>
+                                    </tr>
+                                </table>
+                                <table width="95%" border="0">
+                                    <tr>
+                                        <td width="70%"><font size="2"><b>Evangelion, Neon Genesis<font size="2"><a href="2001-0131a.htm"><br/>
+                                        </a></font></b><font size="2">- Tv Extra Episodes 22-26</font></font></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="70%"><b><font size="2">Hand Maid May<b><font size="2"><a href="2001-0131a.htm"><br/>
+                                        </a></font></b></font></b><font size="2">- Tv Episode 10</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="70%"><b><font size="2">Kimagure Orange Road<b><font size="2"><a href="2001-0131a.htm"><br/>
+                                        </a></font></b></font></b><font size="2">- OAV Episodes
+                                            1 - 8<b><font size="2"><a href="2001-0131a.htm"><br/>
+                                            </a></font></b><font size="2"></font>- Tv Episodes 11 -
+                                            48<b><font size="2"><a href="2001-0131a.htm"><br/>
+                                            </a></font></b><font size="2"></font>- The Movie</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="70%"><b><font size="2">Lain, Serial Experiments<b><font size="2"><a href="2001-0131a.htm"><br/>
+                                        </a></font></b></font></b><font size="2">- The Movie...
+                                            if the rumors are true</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="70%"><b><font size="2">Vampire Hunter D<b><font size="2"><a href="2001-0131a.htm"><br/>
+                                        </a></font></b></font></b><font size="2">- The 2nd Movie...
+                                            when available</font></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div align="center"><font size="2">Go <a href="home.htm">Back</a> Go</font></div>
+            </td>
+        </tr>
+    </table>
+    <p><font size="2"><b>© 2001 <a href="https://web.archive.org/web/20020112174902/mailto:dyre@theschlock.com"><font color="#DFDFEA">Schlock</font></a>,
+        All Rights Reserved ... !</b></font></p>
+
+</div>
+
+
+</html>

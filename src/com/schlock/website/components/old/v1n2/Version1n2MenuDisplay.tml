@@ -8,7 +8,7 @@
             </td>
             <td align="right" valign="top" width="90%">
                 <font size="2">- </font>
-                <a href="${homeLink}" target="_top"><font size="2">Home</font></a>
+                <a href="${homeLink}"><font size="2">Home</font></a>
                 <t:if test="v1">
                     <font size="2"> - </font>
                     <a href="${archiveLink}"><font size="2">Archives</font></a>
@@ -16,22 +16,22 @@
                     <a style="text-decoration: underline;"><font size="2">Comic</font></a>
                 </t:if>
                 <font size="2"> - </font>
-                <a href="${projectsLink}" target="_top"><font size="2">Works</font></a>
+                <a href="${projectsLink}"><font size="2">Works</font></a>
                 <t:if test="v1">
                     <font size="2"> - </font>
-                    <a href="${aboutMeLink}" target="_top"><font size="2">Profile</font></a>
+                    <a href="${aboutMeLink}"><font size="2">Profile</font></a>
                 </t:if>
                 <t:if test="v2">
                     <font size="2"> - </font>
-                    <a href="${gamesLink}" target="_top"><font size="2">Impressions</font></a>
+                    <a href="${gamesLink}"><font size="2">Impressions</font></a>
                 </t:if>
                 <font size="2"> - </font>
-                <a style="text-decoration: underline;"><font size="2">Site Map</font></a>
+                <a href="${siteMapLink}"><font size="2">Site Map</font></a>
                 <font size="2"> - </font>
-                <a href="/pages/radio.htm" target="body"><font size="2">Radio</font></a>
+                <a href="${radioLink}"><font size="2">Radio</font></a>
                 <t:if test="v1">
                     <font size="2"> - </font>
-                    <a style="text-decoration: underline;"><font size="2">Hotline</font></a>
+                    <a href="${hotlineLink}"><font size="2">Hotline</font></a>
                 </t:if>
                 <t:if test="v2">
                     <font size="2"> - </font>

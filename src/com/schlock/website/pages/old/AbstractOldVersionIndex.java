@@ -25,6 +25,8 @@ public abstract class AbstractOldVersionIndex
     public static final String GAMES_PAGE = "reviews";
     public static final String MUSIC_PAGE = "music";
 
+    public static final String RADIO_PAGE = "radio";
+
     public static final String BLOG_PAGE = "paged";
 
     public static final int POSTS_PER_PAGE = 10;

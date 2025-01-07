@@ -1,0 +1,950 @@
+<html t:type="old/v1/layoutversion1" posts="posts" page="page"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+    <p align="center"><font size="2" color="#FFFFFF">-[ Founded Friday the 13th of April 2001 ]-</font></p>
+    <div align="center">
+        <table width="95%" border="0" bgcolor="#333333">
+            <tr align="center">
+                <td><font size="4" color="#FFFFFF"><b>Dj Schlock's Digital Schlockopoloosa</b></font></td>
+            </tr>
+            <tr align="center">
+                <td bgcolor="#666699">
+                    <table width="50%" border="0" align="center">
+                        <tr align="center" bgcolor="#666699">
+                            <td><font size="2"><a href="https://web.archive.org/web/20010505051020/http://64.152.82.191:16474/?myCookieTester;%20SaneID=137.104.169.240-982874038767;%20ls=1;%20bitrate=56;%20POC=0;%20myCookieTester=TRUE;%20savedPlaylist=Playlist_No1/"><b>Listen
+                                to the Digital Schlockopoloosa Now</b></a></font></td>
+                        </tr>
+                    </table>
+                    <p>&nbsp;</p><table width="75%" border="0">
+                    <tr align="center" valign="middle">
+                        <td>
+                            <p align="center"><font size="2">An explosion of sound and music
+                                .. various artists that we all know and love ... mostly Japanese
+                                Oriented as you can see, but i also have mixed in some american
+                                songs .. Live audio feed can be heard 24 hours a day so plug in</font></p>
+                            <p align="center"><font size="2">Hosted by <a href="https://web.archive.org/web/20010505051020/mailto:n3odymium17@hotmail.com">N3oDYMiuM</a>,
+                                <a href="https://web.archive.org/web/20010505051020/mailto:dark_melt@tokyo-3.com">DarkMelt</a>, and <a href="https://web.archive.org/web/20010505051020/mailto:dyre#theschlock.com">DyreSchlock</a></font></p>
+                            <p align="center"><font size="2">You can Listen to the Digital Schlockopoloosa
+                                by clicking <a href="https://web.archive.org/web/20010505051020/http://64.152.82.191:16474/?myCookieTester;%20SaneID=137.104.169.240-982874038767;%20ls=1;%20bitrate=56;%20POC=0;%20myCookieTester=TRUE;%20savedPlaylist=Playlist_No1/">here</a>
+                                ... also don't forget to check out the <a href="https://web.archive.org/web/20010505051020/http://www.live365.com/stations/228595">Live365
+                                    Station Page</a> for more detailed stats</font></p>
+                            <p align="center"><font size="2">If you have any requests or want
+                                me to put anything on air .. feel free to <a href="https://web.archive.org/web/20010505051020/mailto:dyre@theschlock.com">email</a>
+                                or <a href="https://web.archive.org/web/20010505051020/aim:goim?screenname=DyreSchlock&amp;message=gimme_that_righteous_Schlock_music">message</a>
+                                me</font></p>
+                        </td>
+                    </tr>
+                </table>
+                    <table width="90%" border="0">
+                        <tr>
+                            <td align="center" valign="top" width="33%">
+                                <table width="100%" border="0">
+                                    <tr align="right" valign="top" bgcolor="#666666">
+                                        <td>
+                                            <div align="right"><font size="2"><a href="https://web.archive.org/web/20010505051020/mailto:n3odymium17@hotmail.com"><font color="#FFFFFF">N3oDYMiuM</font></a><font color="#FFFFFF">
+                                                Promos</font></font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">N3o does Jones Soda</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">N3o does Conker's Bad Fur
+                                                Day</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">N3o does the Hobbit</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td align="center" valign="top" width="34%">
+                                <table width="100%" border="0">
+                                    <tr align="right" valign="top" bgcolor="#666666">
+                                        <td>
+                                            <div align="right"><font size="2"><a href="https://web.archive.org/web/20010505051020/mailto:dyre#theschlock.com"><font color="#FFFFFF">DyreSchlock</font></a><font color="#FFFFFF">
+                                                Promos</font></font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Dyre does Surge</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td align="center" valign="top" width="33%">
+                                <table width="100%" border="0">
+                                    <tr align="right" valign="top" bgcolor="#666666">
+                                        <td>
+                                            <div align="right"><font size="2"><a href="https://web.archive.org/web/20010505051020/mailto:dark_melt@tokyo-3.com"><font color="#FFFFFF">Dark
+                                                Melt</font></a><font color="#FFFFFF"> Promos</font></font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Melt does a promo</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="90%" border="0">
+                        <tr>
+                            <td width="42%" align="center" valign="top">
+                                <table width="100%" border="0">
+                                    <tr align="right" valign="top" bgcolor="#666666">
+                                        <td>
+                                            <div align="right"><font size="2" color="#FFFFFF">Japanese
+                                                Music - Anime &amp; Jpop</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;Naked Dance&quot; -
+                                                TwoMix</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;Single a Single&quot;
+                                                - TwoMix</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;Neuromantic Endroll&quot;
+                                                - Ayumi Hamasaki</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;Xmas Floor Style&quot;
+                                                - Last Regrets</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;Dragonfly&quot; - Smile.dk</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;Someday&quot; - Smile.dk</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Card Captor Sakura - &quot;Catch
+                                                you, Catch me&quot;</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Cowboy Bebop - &quot;The
+                                                Real Folk Blues&quot;</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Detective Conan - &quot;Truth&quot;
+                                                - TwoMix</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Excel Saga - &quot;Ai (Chuu
+                                                Seishin)&quot; - Opening</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Flcl - &quot;Advice&quot;
+                                                - The Pillows </font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Flcl - &quot;Beautiful Morning
+                                                with you&quot; - The Pillows</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Flcl - &quot;I think i can&quot;
+                                                - The Pillows</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Flcl - &quot;Last Dinosaur&quot;
+                                                - The Pillows</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Flcl - &quot;Blues Drive
+                                                Monster&quot; - The Pillows</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Fushigi Yuugi - &quot;Itooshi
+                                                Hito No Tame Ni&quot; - Satuo Akemi</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Fushigi Yuugi - Closing Theme</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Himikoden - &quot;Pure Snow&quot;
+                                                - Sasaki Yuko</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Initial D - &quot;Heartbeat&quot;
+                                                - Natalie</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Kareshi Kanojo no Jijou -
+                                                &quot;Yume no Nakee&quot; - Mui Fukuda</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Kareshi Kanojo no Jijou -
+                                                &quot;Tenshino Yubikiri&quot; - Mai Fukuda</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Kodomo no Omocha - &quot;Ultra
+                                                Relax&quot; - Sinohara Tomoe</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Lost Universe - &quot;Infinity&quot;
+                                                - Megumi Hayashibara</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Martian Successor Nadesico
+                                                - &quot;You get to Burning&quot;</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Neon Genesis Evangelion -
+                                                &quot;Cruel Angel Thesis&quot;</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Rurouni Kenshin - &quot;Heart
+                                                of the sword&quot; - TM Revolution</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Serial Experiments Lain -
+                                                &quot;Duvet&quot; - Boa</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Slayers - &quot;Breeze&quot;
+                                                - Megumi Hayashibara</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Trigun - &quot;Sound Life&quot;</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Trigun - &quot;Kazawa Miraini
+                                                Fuku&quot; - Ending Theme</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="right" valign="top" bgcolor="#666666">
+                                        <td>
+                                            <div align="right"><font size="2" color="#FFFFFF">Comedy -
+                                                Tv Shows, Prank Calls, &amp; Skits</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Fututama - &quot;Robot Hell&quot;
+                                            </font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Space Ghost - &quot;Tales
+                                                of Suspense&quot; - Brak</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Space Ghost - &quot;Eating
+                                                Bugs&quot; - Brak</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Space Ghost - &quot;Gym Class&quot;
+                                                - Bak</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Space Ghost - &quot;Teacher's
+                                                Pet&quot; - Brak</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Space Ghost - &quot;Gorilla
+                                                Named Butch &quot; - Brak</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Space Ghost - &quot;Jokes&quot;
+                                                - Brak &amp; Zorak</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">The Simpsons - &quot;Rock
+                                                me! Dr. Zaus&quot; - Phil Hartman</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">The Simpsons - &quot;When
+                                                i was Seventeen&quot; - Homer Simpson</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">The Simpsons - Moe &amp;
+                                                the Lie Detector </font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Tv Funhouse - &quot;Mnemonics
+                                                1&quot; - Robert Smigel</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Tv Funhouse - &quot;Mnemonics
+                                                2&quot; - Robert Smigel</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Tv Funhouse - &quot;Mnemonics
+                                                3&quot;: - Robert Smigel</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Tv Funhouse - &quot;The Policeman&quot;
+                                                - Robert Smigel</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Tv Funhouse - &quot;The Safety
+                                                Gang&quot; - Robert Smigel</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Tv Funhouse - &quot;Jokamel&quot;
+                                                - Robert Smigel</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Tv Funhouse - &quot;Porn
+                                                for Kids&quot; - Robert Smigel</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Tv Funhouse - &quot;Opening
+                                                Theme&quot; - Robert Smigel</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Tv Funhouse - &quot;Closing
+                                                Theme&quot; - Robert Smigel</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Prank Phone Call - Aol Tech
+                                                Support</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="42%" align="center" valign="top">
+                                <table width="100%" border="0">
+                                    <tr align="right" valign="top" bgcolor="#666666">
+                                        <td>
+                                            <div align="right"><font size="2" color="#FFFFFF">Video Game
+                                                Music</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Bust a Groove - &quot;Kitty
+                                                N&quot;</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Capcom vs. Snk - &quot;Stage
+                                                of Snk&quot; - Capcom</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Capcom vs. Snk - &quot;Stage
+                                                of Capcom&quot; - Capcom</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Capcom vs. Snk - &quot;Opening
+                                                Theme&quot; - Capcom</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Chrono Cross - &quot;Chronomantic&quot;
+                                                - Yasunori Mitsuda</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Chrono Cross - &quot;Magical
+                                                Dreamers&quot; - Yasunori Mitsuda</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Chrono Cross - &quot;Radical
+                                                Dreamers&quot; - Yasunori Mitsuda</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Chrono Trigger - &quot;Enhasa&quot;
+                                                - Yasunori Mitsuda</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Chrono Trigger Brink of Time
+                                                - &quot;Chrono Trigger&quot; - Yasunori Mitsuda</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Chrono Trigger Brink of Time
+                                                - &quot;World Revolution&quot; - Yasunori Mitsuda</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Dance Dance Revolution -
+                                                &quot;Butterfly&quot; - Smile.dk - Dj Clayduck Remix</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Dance Dance Revolution -
+                                                &quot;Butterfly&quot; - Smile.dk - Upswing Mix</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Dance Dance Revolution -
+                                                &quot;Butterfly&quot; - Smile.dk - Extended Ver.</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Dance Dance Revolution -
+                                                &quot;1234-007&quot; - Ninni</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Dance Dance Revolution -
+                                                &quot;Dam Dariram&quot; - Joga</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Dance Dance Revolution -
+                                                &quot;Boys&quot; - Smile.dk - Euro Mix</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Final Fantasy - &quot;Prelude&quot;
+                                                - Rave Mix</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Ghost in the Shell - &quot;Spook
+                                                &amp; Spell&quot; - Hardfloor</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Guitar Freaks - &quot;Stop
+                                                Spinning me in Circles&quot; - Thomas Howard Lichtenstein</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Legend of Mana - Ending</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Megaman 2 - &quot;Bubbleman
+                                                Theme&quot; - Electronic Guitar Mix</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Megaman X4 - &quot;Sky Lagoon&quot;
+                                                - Capcom</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Outrun - &quot;Main Theme&quot;
+                                                - Remix</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Rhapsody - &quot;Someday&quot;</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">SaGa Frontier 2 - &quot;Feldshclacht
+                                                III&quot; </font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">SSX - &quot;Finished Symphony&quot;
+                                                - Hybrid</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Super Metriod - &quot;Main
+                                                Theme&quot; - Orchastrated</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Super Mario Brothers - &quot;Liquid
+                                                Mario&quot; - Overclocked Remix</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Super Smash Brothers - &quot;Kirby's
+                                                Theme&quot; </font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Super Smash Brothers - &quot;Yoshi's
+                                                Theme&quot; </font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="right" valign="top" bgcolor="#666666">
+                                        <td>
+                                            <div align="right"><font size="2" color="#FFFFFF">Anime Episodes</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Flcl Episodes 1-6 - Gainax</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="right" valign="top" bgcolor="#666666">
+                                        <td>
+                                            <div align="right"><font size="2" color="#FFFFFF">Techno Electronic
+                                                Music</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;Atom Bomb&quot; - Fluke</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;Enjoy the Silence&quot;
+                                                - Sasha &amp; John Digweed - Depeche Mode</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;Finished Symphony&quot;
+                                                - Sasha &amp; John Digweed - Hybrid</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;Xpander&quot; - Sasha
+                                                &amp; John Digweed</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;Spybreak&quot; - PropellerHeads</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="right" valign="top" bgcolor="#666666">
+                                        <td>
+                                            <div align="right"><font size="2" color="#FFFFFF">American
+                                                Music - Soundtrack &amp; Miscellanous</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;Friday, I'm in Love&quot;
+                                                - The Cure</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;Particle Man&quot;
+                                                - The Might be Giants</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;Plowed&quot; - Sponge</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;The Biggest Ball of
+                                                Twine in Minnesota&quot; - Wierd Al Yankovich</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">&quot;You Spin me Right Round&quot;
+                                                - Dead or Alive</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Fight Club - &quot;Stealing
+                                                Fat&quot;</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Fight Club - &quot;Finding
+                                                the Bomb&quot; </font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0">
+                                    <tr align="left" valign="top">
+                                        <td>
+                                            <div align="left"><font size="2">Powerpuff Girls - Closing
+                                                Theme</font></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="80%" border="0">
+                        <tr align="left" valign="top">
+                            <td>
+                                <div align="right"><font size="2">Total Files - 99, Total Time -
+                                    8hrs. 10min </font></div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr align="center">
+                <td><font size="2">Go <a href="home.htm">Back</a> Go</font></td>
+            </tr>
+        </table>
+        <p><font size="2"><b><font color="#FFFFFF">© 2001 <a href="https://web.archive.org/web/20010505051020/mailto:dyre@theschlock.com">Schlock</a>,
+            All Rights Reserved ... !</font></b></font></p>
+    </div>
+</html>
