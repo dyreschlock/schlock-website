@@ -67,6 +67,19 @@ public class V1Projects extends AbstractVersion1Page
         return super.getPage();
     }
 
+    public String getPostDate()
+    {
+        return dateFormatter.dateFormat(post.getCreated());
+    }
+
+    public String getPostTitle()
+    {
+        return post.getTitle();
+    }
+
+
+
+
     public List<ProjectCategory> getProjectCategories()
     {
         return categoryDAO.getTopProjectInOrder();

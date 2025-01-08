@@ -1,10 +1,22 @@
 <html t:type="old/v1/layoutversion1" pageCss="pageCss" page="page"
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:v1="tapestry-library:old/v1"
     >
 
 <t:if test="hasPost">
 
+    <div align="center">
+        <p><font size="2">-[ ${postDate} ]-</font></p>
+        <table width="80%" border="0" height="106">
+            <tr align="left" valign="top">
+                <td height="63">
 
+                    <v1:version1postdisplay post="post" project="true" />
+
+                </td>
+            </tr>
+        </table>
+    </div>
 
 </t:if>
 <t:if test="!hasPost">
