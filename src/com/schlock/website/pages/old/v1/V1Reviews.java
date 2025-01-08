@@ -5,6 +5,7 @@ import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
+import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -19,6 +20,9 @@ public class V1Reviews extends AbstractVersion1Page
 {
     @Inject
     private PageRenderLinkSource linkSource;
+
+    @Inject
+    private DateFormatter dateFormatter;
 
     @Inject
     private CategoryDAO categoryDAO;
@@ -80,6 +84,11 @@ public class V1Reviews extends AbstractVersion1Page
         String html = postManagement.generatePostHTML(post, getVersion());
         return html;
 
+    }
+
+    public String getPostDate()
+    {
+        return dateFormatter.dotFormat(post.getCreated());
     }
 
 
