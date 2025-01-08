@@ -5,7 +5,6 @@ import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.DeploymentContext;
-import com.schlock.website.services.database.blog.CategoryDAO;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -13,9 +12,6 @@ public class V1Index extends AbstractOldVersionPage
 {
     @Inject
     private DeploymentContext context;
-
-    @Inject
-    private CategoryDAO categoryDAO;
 
 
     private AbstractPost post;
@@ -25,9 +21,6 @@ public class V1Index extends AbstractOldVersionPage
 
     @Property
     private AbstractPost currentPost;
-
-    @Property
-    private Integer currentIndex;
 
 
     Object onActivate()
@@ -88,11 +81,6 @@ public class V1Index extends AbstractOldVersionPage
     public Integer getPageNumber()
     {
         return pageNumber;
-    }
-
-    public boolean isNotFirst()
-    {
-        return currentIndex != 0;
     }
 
 

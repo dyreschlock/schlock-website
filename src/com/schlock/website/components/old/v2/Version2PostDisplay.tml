@@ -41,13 +41,6 @@
             </tr>
 
         </t:if>
-        <tr>
-            <td width="90%" bgcolor="#FFFFFF" align="center">
-
-                <v2:version2previousnext post="post" />
-
-            </td>
-        </tr>
     </table>
     </div>
 </t:container>

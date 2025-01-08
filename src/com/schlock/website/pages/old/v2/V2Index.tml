@@ -1,6 +1,7 @@
-<html t:type="old/v2/layoutversion2" pageCss="pageCss" page="page"
+<html t:type="old/v2/layoutversion2" pageCss="pageCss" page="cssPage"
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
      xmlns:v2="tapestry-library:old/v2"
+     xmlns:v1n2="tapestry-library:old/v1n2"
     >
     <p align="center">&nbsp;</p>
     <table width="90%" border="0" align="center">
@@ -22,14 +23,11 @@
                     <tr align="center" bgcolor="#FFFFFF">
                         <td>
 
-                            <t:if test="hasPost">
-                                <v2:version2postdisplay post="post" />
-                            </t:if>
+                            <t:loop source="posts" value="currentPost">
+                                <v2:version2postdisplay post="currentPost" />
+                            </t:loop>
 
-                            <t:if test="hasPage">
-                                <v2:version2postListingDisplay page="page" />
-                            </t:if>
-
+                            <v1n2:version1n2pagedpreviousnext version="version" post="post" pageNumber="pageNumber" category="category" page="page" />
                         </td>
                     </tr>
                     <tr>

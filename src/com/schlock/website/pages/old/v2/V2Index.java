@@ -1,46 +1,61 @@
 package com.schlock.website.pages.old.v2;
 
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
-import com.schlock.website.services.DeploymentContext;
-import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.annotations.Property;
 
 public class V2Index extends AbstractOldVersionPage
 {
-    @Inject
-    private DeploymentContext context;
-
-
-    private String page;
     private AbstractPost post;
+    private String page;
+    private Integer pageNumber;
+
+
+    @Property
+    private AbstractPost currentPost;
 
 
     Object onActivate()
     {
         page = null;
-        post = getPost(null);
+        post = getDefaultPost();
+        pageNumber = 1;
+
         return true;
     }
 
     Object onActivate(String param)
     {
-        if (isSpecialPage(param))
+        return onActivate(param, "1");
+    }
+
+    Object onActivate(String p1, String p2)
+    {
+        page = null;
+        post = null;
+        pageNumber = Integer.parseInt(p2);
+
+        if (isPagedPage(p1))
         {
-            page = param;
-            post = null;
+            page = p1;
         }
         else
         {
-            page = null;
-            post = getPost(param);
+            post = getDefaultPost();
         }
         return true;
     }
 
     public String getPage()
     {
-        return "index";
+        return page;
+    }
+
+    public String getCssPage()
+    {
+        return "index " + getPage();
     }
 
     public AbstractPost getPost()
@@ -53,6 +68,19 @@ public class V2Index extends AbstractOldVersionPage
         return SiteVersion.V2;
     }
 
+    public PostCategory getCategory()
+    {
+        if (getPost() == null)
+        {
+            return getUpdatesCategory();
+        }
+        return super.getCategory();
+    }
+
+    public Integer getPageNumber()
+    {
+        return pageNumber;
+    }
 
     public String getGamesPage()
     {

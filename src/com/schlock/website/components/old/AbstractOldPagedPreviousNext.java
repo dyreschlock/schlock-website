@@ -36,6 +36,10 @@ public abstract class AbstractOldPagedPreviousNext
 
     abstract protected SiteVersion getVersion();
 
+    protected AbstractPost getPost()
+    {
+        return post;
+    }
 
     public boolean isHasNext()
     {

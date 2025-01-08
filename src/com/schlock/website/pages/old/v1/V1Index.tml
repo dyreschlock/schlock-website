@@ -1,6 +1,7 @@
 <html t:type="old/v1/layoutversion1" pageCss="pageCss" page="page"
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
      xmlns:v1="tapestry-library:old/v1"
+     xmlns:v1n2="tapestry-library:old/v1n2"
     >
     <table width="90%" border="0" align="center">
         <tr>
@@ -21,13 +22,13 @@
                     <tr align="center" bgcolor="#FFFFFF">
                         <td>
 
-                            <t:loop source="posts" value="currentPost" index="currentIndex">
+                            <t:loop source="posts" value="currentPost">
 
                                 <v1:version1postdisplay post="currentPost" />
                                 <p align="center"><font color="#666666">________________________________________</font></p>
                             </t:loop>
 
-                            <v1:version1pagedpreviousnext post="post" pageNumber="pageNumber" category="category" page="page" />
+                            <v1n2:version1n2pagedpreviousnext version="version" post="post" pageNumber="pageNumber" category="category" page="page" />
                         </td>
                     </tr>
                     <tr>
