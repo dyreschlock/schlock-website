@@ -12,6 +12,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -54,7 +55,7 @@ public class Feed
     {
         int postCount = 20;
 
-        List<Post> posts = postDAO.getMostRecentPosts(postCount, false, null, null, null);
+        List<Post> posts = postDAO.getMostRecentPosts(postCount, false, null, null, Collections.EMPTY_SET);
         return posts;
     }
 

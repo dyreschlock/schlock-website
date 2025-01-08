@@ -14,7 +14,9 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class V1Reviews extends AbstractVersion1Page
 {
@@ -91,13 +93,20 @@ public class V1Reviews extends AbstractVersion1Page
         return dateFormatter.dotFormat(post.getCreated());
     }
 
+    public List<String> getCategoryUuids()
+    {
+        return Arrays.asList("reviews", "film", "books", "anime", "toys");
+    }
 
     public List<Post> getReviewPosts()
     {
-        AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, REVIEWS_PAGE);
-        Long categoryId = cat.getId();
-
-        return postDAO.getMostRecentPosts(null, false, null, null, categoryId);
+        Set<Long> categoryIds = new HashSet<>();
+        for(String uuid : getCategoryUuids())
+        {
+            AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, uuid);
+            categoryIds.add(cat.getId());
+        }
+        return postDAO.getMostRecentPosts(null, false, null, null, categoryIds);
     }
 
     public String getCurrentPostLink()
@@ -109,6 +118,13 @@ public class V1Reviews extends AbstractVersion1Page
 
     public String getCategoryName()
     {
+        for(AbstractCategory cat : currentPost.getCategories())
+        {
+            if (getCategoryUuids().contains(cat.getUuid()))
+            {
+                return cat.getName();
+            }
+        }
         return "Game";
     }
 

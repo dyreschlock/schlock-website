@@ -137,7 +137,7 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         ViewState viewState = asoManager.get(ViewState.class);
         boolean unpublished = viewState.isShowUnpublished();
 
-        List<Post> posts = postDAO.getMostRecentPosts(null, unpublished, null, null, null);
+        List<Post> posts = postDAO.getMostRecentPosts(null, unpublished, null, null, Collections.EMPTY_SET);
         return pagedPosts(posts, postCount, pageNumber);
     }
 

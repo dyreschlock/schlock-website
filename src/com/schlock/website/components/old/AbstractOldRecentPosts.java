@@ -1,9 +1,6 @@
 package com.schlock.website.components.old;
 
-import com.schlock.website.entities.blog.AbstractCategory;
-import com.schlock.website.entities.blog.Post;
-import com.schlock.website.entities.blog.PostCategory;
-import com.schlock.website.entities.blog.ViewState;
+import com.schlock.website.entities.blog.*;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.blog.PostManagement;
@@ -15,8 +12,7 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public abstract class AbstractOldRecentPosts
 {
@@ -58,23 +54,28 @@ public abstract class AbstractOldRecentPosts
 
     public List<Post> getPosts()
     {
+        boolean unpublished = viewState.isShowUnpublished();
+        int count = 12;
+
+        List<String> uuids = new ArrayList<>();
         if(isProjectsPage())
         {
-            final int COUNT = 12;
-            boolean unpublished = viewState.isShowUnpublished();
-
-            List<Post> posts = postDAO.getMostRecentPosts(COUNT, unpublished, null, null, null);
-            return posts;
+             uuids = Arrays.asList("travel", "takayama", "events", "america");
         }
         if (isGamesPage())
         {
-            final int COUNT = 6;
-            AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, AbstractOldVersionPage.REVIEWS_PAGE);
-            Long categoryId = cat.getId();
+            count = 6;
 
-            return postDAO().getMostRecentPosts(COUNT, false, null, null, categoryId);
+            uuids = Arrays.asList("reviews", "film", "books", "anime", "toys");
         }
-        return Collections.EMPTY_LIST;
+
+        Set<Long> categoryIds = new HashSet<>();
+        for(String uuid : uuids)
+        {
+            AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, uuid);
+            categoryIds.add(cat.getId());
+        }
+        return postDAO.getMostRecentPosts(count, unpublished, null, null, categoryIds);
     }
 
     public String getCurrentPostLink()

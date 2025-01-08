@@ -14,6 +14,7 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Footer
@@ -51,7 +52,7 @@ public class Footer
         int postCount = PostDAOImpl.TOP_RECENT +2;
         boolean unpublished = viewState.isShowUnpublished();
 
-        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, null, null, null);
+        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, null, null, Collections.EMPTY_SET);
         return posts;
     }
 

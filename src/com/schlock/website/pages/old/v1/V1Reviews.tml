@@ -38,7 +38,7 @@
 </t:if>
 <t:if test="!hasPost">
 
-    <table width="35%" border="0" bgcolor="#333333">
+    <table width="55%" border="0" bgcolor="#333333">
         <tr>
             <td>
                 <div align="center"><b>The Schlock's Review Page</b></div>
