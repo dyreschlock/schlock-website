@@ -6,21 +6,20 @@
 
         <p><font size="2" color="#333333"><b>${postTitle}</b></font></p>
 
-        <t:outputraw value="postBodyHTML" />
-
-        <t:if test="!project">
-            <p><font size="2" color="#999999">chow</font></p>
-            <t:if test="showPostDetails">
-                <p><font color="#999999" size="2">${postDate}</font></p>
-            </t:if>
+        <t:if test="!photo">
+            <t:outputraw value="postBodyHTML" />
         </t:if>
 
-        <t:if test="post.hasGallery">
+        <t:if test="showPostDetails">
+            <p><font size="2" color="#999999">chow</font></p>
+            <p><font color="#999999" size="2">${postDate}</font></p>
+        </t:if>
+
+        <t:if test="photo">
 
             <table cellspacing="1" cellpadding="3" width="100%" border="0" align="center" bgcolor="#666666">
                 <t:outputraw value="imagesTableHTML" />
             </table>
-
         </t:if>
     </div>
 

@@ -9,4 +9,13 @@ public class Version1PostDisplay extends AbstractOldPostDisplay
     {
         return SiteVersion.V1;
     }
+
+    public boolean isShowPostDetails()
+    {
+        if (getPhoto() || getProject())
+        {
+            return false;
+        }
+        return super.isShowPostDetails();
+    }
 }

@@ -7,7 +7,6 @@ import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
@@ -19,8 +18,10 @@ public abstract class AbstractOldPostDisplay
     private AbstractPost post;
 
     @Parameter(value = "false")
-    @Property
     private Boolean project;
+
+    @Parameter(value = "false")
+    private Boolean photo;
 
     @Inject
     private PageRenderLinkSource linkSource;
@@ -37,10 +38,19 @@ public abstract class AbstractOldPostDisplay
     abstract protected SiteVersion getVersion();
 
 
-
     public AbstractPost getPost()
     {
         return post;
+    }
+
+    public Boolean getProject()
+    {
+        return project;
+    }
+
+    public Boolean getPhoto()
+    {
+        return photo;
     }
 
     public String getPostTitle()
@@ -82,7 +92,7 @@ public abstract class AbstractOldPostDisplay
 
         final String TD_EMPTY = "<td width=\"17%\" height=\"110\"><font>&nbsp;</font></td>";
 
-        final int COL_MAX = 6;
+        final int COL_MAX = 5;
 
 
         StringBuilder sb = new StringBuilder();

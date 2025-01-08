@@ -1,8 +1,6 @@
 package com.schlock.website.pages.old.v1;
 
-import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.Image;
-import com.schlock.website.entities.blog.ProjectCategory;
+import com.schlock.website.entities.blog.*;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
@@ -11,6 +9,9 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class V1Projects extends AbstractVersion1Page
@@ -35,7 +36,7 @@ public class V1Projects extends AbstractVersion1Page
 
 
     @Property
-    private ProjectCategory currentCategory;
+    private AbstractCategory currentCategory;
 
     @Property
     private AbstractPost currentPost;
@@ -77,12 +78,41 @@ public class V1Projects extends AbstractVersion1Page
         return post.getTitle();
     }
 
+    public boolean isProjectPost()
+    {
+        for(AbstractCategory cat : post.getCategories())
+        {
+            if (cat.isProject())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isPhotoPost()
+    {
+        return !isProjectPost();
+    }
 
 
 
     public List<ProjectCategory> getProjectCategories()
     {
         return categoryDAO.getTopProjectInOrder();
+    }
+
+    public List<AbstractCategory> getPhotoCategories()
+    {
+        List<String> catUuids = Arrays.asList("travel", "takayama", "events", "america");
+
+        List<AbstractCategory> categories = new ArrayList<>();
+
+        for(String uuid : catUuids)
+        {
+            categories.add(categoryDAO.getByUuid(PostCategory.class, uuid));
+        }
+        return categories;
     }
 
     public String getCategoryTitle()
@@ -101,7 +131,16 @@ public class V1Projects extends AbstractVersion1Page
     public List<AbstractPost> getCategoryPosts()
     {
         Long categoryId = currentCategory.getId();
-        List<AbstractPost> posts = postDAO.getAllProjectsByCategory(false, categoryId);
+
+        List<AbstractPost> posts = null;
+        if (currentCategory.isProject())
+        {
+            posts = postDAO.getAllProjectsByCategory(false, categoryId);
+        }
+        if (currentCategory.isPost())
+        {
+            posts = postDAO.getMostRecentPostsWithGallery(null, false, null, null, categoryId, Collections.EMPTY_SET);
+        }
         return posts;
     }
 
