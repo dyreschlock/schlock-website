@@ -20,26 +20,14 @@
                     </tr>
                     <tr align="center" bgcolor="#FFFFFF">
                         <td>
-                            <table width="100%" border="0">
-                                <tr>
-                                    <td width="90%">
 
+                            <t:loop source="posts" value="currentPost" index="currentIndex">
 
-                                        <t:loop source="posts" value="currentPost" index="currentIndex">
+                                <v1:version1postdisplay post="currentPost" />
+                                <p align="center"><font color="#666666">________________________________________</font></p>
+                            </t:loop>
 
-                                            <t:if test="notFirst">
-                                                <p align="center"><font color="#666666">________________________________________</font></p>
-                                            </t:if>
-
-                                            <v1:version1postdisplay post="currentPost" />
-                                        </t:loop>
-
-                                    </td>
-                                    <td valign="bottom" width="10%">
-                                        <p><img src="${imageLinkComic}" width="168" height="245" /></p>
-                                    </td>
-                                </tr>
-                            </table>
+                            <v1:version1pagedpreviousnext post="post" pageNumber="pageNumber" category="category" page="page" />
                         </td>
                     </tr>
                     <tr>
@@ -92,8 +80,6 @@
                         <img src="${imageLinkPopular}" width="88" height="31" border="0" /></a><br/>
                     <font size="2">Click for Points !</font>
                 </p>
-
-                <v1:version1previousnext post="post" />
 
                 <table width="85%" border="0">
                     <tr align="right">

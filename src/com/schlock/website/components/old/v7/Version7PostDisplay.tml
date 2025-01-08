@@ -3,7 +3,7 @@
      xmlns:v7="tapestry-library:old/v7"
     >
     <div class="post" id="post-1085">
-        <h2><a href="${postLink}" rel="bookmark" title="Permanent Link to Pacific Ocean">${postTitle}</a></h2>
+        <h2><a href="${postLink}" rel="bookmark" title="Permanent Link to ${postTitle}">${postTitle}</a></h2>
         <p class="postmetadata">
             <t:if test="showPostDetails">
                 Posted in
