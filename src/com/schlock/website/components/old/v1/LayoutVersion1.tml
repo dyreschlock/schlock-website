@@ -9,11 +9,11 @@
     </head>
 
     <body bgcolor="#666666" text="#FFFFFF" link="#FFFFFF" vlink="#FFFFFF" alink="#FFFFFF">
-    <div id="menu">
+    <div id="menu"><div id="menuContent">
         <v1n2:version1n2menubar version="version" />
-    </div>
+    </div></div>
 
-    <div id="body" class="${page}">
+    <div id="body" class="${page}"><div id="bodyContent">
 
         <t:body />
 
@@ -21,6 +21,6 @@
             <b>&#169; 2001 <a style="text-decoration: underline;"><font color="#DFDFEA">Schlock</font></a>, All Rights Reserved ... !</b>
         </font></p>
 
-    </div>
+    </div></div>
     </body>
 </html>

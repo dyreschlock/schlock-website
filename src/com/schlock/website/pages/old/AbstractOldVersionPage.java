@@ -1,9 +1,6 @@
 package com.schlock.website.pages.old;
 
-import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.Page;
-import com.schlock.website.entities.blog.Post;
-import com.schlock.website.entities.blog.PostCategory;
+import com.schlock.website.entities.blog.*;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.blog.PostArchiveManagement;
@@ -19,7 +16,11 @@ import java.util.List;
 
 public abstract class AbstractOldVersionPage
 {
+    public static final String BASE_PAGE = "site-design-history";
+    public static final String UPDATES_CAT_UUID = "updates";
+
     public static final String ARCHIVE_PAGE = "archive";
+    public static final String BLOG_PAGE = "paged";
 
     public static final String ANIME_PAGE = "anime";
     public static final String GUEST_BOOK_PAGE = "guestbook";
@@ -30,8 +31,6 @@ public abstract class AbstractOldVersionPage
     public static final String RELEASES_PAGE = "releases";
     public static final String REVIEWS_PAGE = "reviews";
     public static final String SITE_MAP_PAGE = "sitemap";
-
-    public static final String BLOG_PAGE = "paged";
 
     public static final int POSTS_PER_PAGE = 10;
 
@@ -74,7 +73,7 @@ public abstract class AbstractOldVersionPage
 
     protected boolean isPagedPage(String param)
     {
-        return BLOG_PAGE.equals(param);
+        return BLOG_PAGE.equals(param) || ARCHIVE_PAGE.equals(param);
     }
 
     protected boolean isArchivePage(String param)
@@ -130,6 +129,15 @@ public abstract class AbstractOldVersionPage
 
 
 
+    protected AbstractPost getDefaultPost()
+    {
+        return postDAO.getByUuid(BASE_PAGE);
+    }
+
+    protected PostCategory getUpdatesCategory()
+    {
+        return (PostCategory) categoryDAO.getByUuid(PostCategory.class, UPDATES_CAT_UUID);
+    }
 
     protected AbstractPost getPost(String param)
     {

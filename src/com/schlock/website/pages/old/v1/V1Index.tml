@@ -2,7 +2,6 @@
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
      xmlns:v1="tapestry-library:old/v1"
     >
-    <p align="center">&nbsp;</p>
     <table width="90%" border="0" align="center">
         <tr>
             <td width="70%" valign="top">
@@ -25,13 +24,15 @@
                                 <tr>
                                     <td width="90%">
 
-                                        <t:if test="hasPost">
-                                            <v1:version1postdisplay post="post" />
-                                        </t:if>
 
-                                        <t:if test="hasPage">
-                                            <v1:version1postListingDisplay page="page" />
-                                        </t:if>
+                                        <t:loop source="posts" value="currentPost" index="currentIndex">
+
+                                            <t:if test="notFirst">
+                                                <p align="center"><font color="#666666">________________________________________</font></p>
+                                            </t:if>
+
+                                            <v1:version1postdisplay post="currentPost" />
+                                        </t:loop>
 
                                     </td>
                                     <td valign="bottom" width="10%">
