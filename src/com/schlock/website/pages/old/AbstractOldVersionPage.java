@@ -81,6 +81,15 @@ public abstract class AbstractOldVersionPage
         return archiveManagement.isIteration(param);
     }
 
+    public String getProjectsPage()
+    {
+        return PROJECTS_PAGE;
+    }
+
+    public String getReviewsPage()
+    {
+        return REVIEWS_PAGE;
+    }
 
     public boolean isHasPost()
     {

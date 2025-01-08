@@ -10,7 +10,7 @@
         <tr align="left">
             <td>
 
-                <t:loop source="mostRecentPosts" value="currentPost">
+                <t:loop source="posts" value="currentPost">
 
                     <p align="left">
                         <font size="2"><a href="${currentPostLink}">${currentPost.title}</a></font>

@@ -161,7 +161,7 @@
                     <tr align="left">
                         <td>
 
-                        <v2:version2recentposts />
+                        <v2:version2recentposts page="${projectsPage}" />
 
                         </td>
                     </tr>
