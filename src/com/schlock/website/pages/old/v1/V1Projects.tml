@@ -1,0 +1,183 @@
+<html t:type="old/v1/layoutversion1" pageCss="pageCss" page="page"
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+<t:if test="hasPost">
+
+
+
+</t:if>
+<t:if test="!hasPost">
+    <table width="95%" border="0" align="center" bgcolor="#333333">
+        <tr align="center">
+            <td><b><font size="4" color="#FFFFFF">The Work of DyreSchlock</font></b></td>
+        </tr>
+        <tr align="center" bgcolor="#666699">
+            <td>
+                <div align="center">
+                    <table width="75%" border="0" align="center">
+                        <tr>
+                            <td>
+                                <div align="center"><font size="2">&quot;The work i have created
+                                    is of my own ( for the most part ) ... i have created this to
+                                    cure the inspiration the i feel more often than not.... i put
+                                    the piece of paper in front of me.. and put down thoughts, drawings,
+                                    and many other things.. and i won't stop.. my continuos inspiration
+                                    is my life force.. i created all what i feel.. and i love myself
+                                    for it...&quot;</font></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <p align="center">&nbsp;</p>
+                <div align="center"></div>
+
+                <table width="90%" border="0" align="center">
+                    <tr>
+                        <td width="45%" align="center" valign="top" bgcolor="#333333">
+                            <div align="right"><font size="2"><b><font color="#FFFFFF">Projects</font></b></font></div>
+                        </td>
+                        <td width="10%" align="center" valign="top">&nbsp;</td>
+                        <td width="45%" align="left" valign="top" bgcolor="#333333">
+                            <div align="left"><font size="2"><b><font color="#FFFFFF">Literature</font></b></font></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="45%" align="center" valign="top" bgcolor="#666666">
+
+                            <t:loop source="projectCategories" value="currentCategory">
+
+                                <p><font size="2">${categoryTitle}<br/>
+                                    <font size="1">${categoryEarlyDate} - Present</font></font></p>
+
+                                <div class="projects"><div class="content">
+                                    <t:loop source="categoryPosts" value="currentPost">
+                                        <div class="projectImage" style="background-image: url(${currentPostImage})">
+                                            <a href="${currentPostLink}"></a>
+                                        </div>
+                                    </t:loop>
+                                </div></div>
+                                <br class="clr"/>
+                            </t:loop>
+                            <p>&nbsp;</p>
+                        </td>
+                        <td width="10%" align="center" valign="top">&nbsp;</td>
+                        <td width="45%" align="center" valign="top" bgcolor="#666666">
+
+                            <p><font size="2">A New Life - Poem Series<br/>
+                                <font size="1">January the 12th, 2001 - Present</font></font></p>
+
+                            <table width="60%" border="0" height="15">
+                                <tr>
+                                    <td valign="top" align="center" width="17%"><font size="2"> </font></td>
+                                    <td align="center" valign="top" width="17%"><font size="2"><img src="/web/20010510080935im_/http://dyreschlock.tripod.com/star1.gif" width="16" height="16"/><a href="2001-0424.htm">Brt</a></font></td>
+                                    <td align="center" valign="top" width="17%"><font size="2"><img src="/web/20010510080935im_/http://dyreschlock.tripod.com/star1.gif" width="16" height="16"/><a href="2001-0302.htm">Rec</a></font></td>
+                                    <td valign="top" align="center" width="17%"><font size="2"><img src="/web/20010510080935im_/http://dyreschlock.tripod.com/star1.gif" width="16" height="16"/><a href="2001-0223.htm">Nit</a></font></td>
+                                </tr>
+                            </table>
+                            <table width="75%" border="0" height="8">
+                                <tr>
+                                    <td align="center" valign="top" width="17%"><font size="2"><img src="/web/20010510080935im_/http://dyreschlock.tripod.com/star1.gif" width="16" height="16"/><a href="2001-0222.htm">Tra</a></font></td>
+                                    <td align="center" valign="top" width="17%"><font size="2"><img src="/web/20010510080935im_/http://dyreschlock.tripod.com/star1.gif" width="16" height="16"/><a href="2001-0221.htm">Tor</a></font></td>
+                                    <td align="center" valign="top" width="17%"><font size="2"><img src="/web/20010510080935im_/http://dyreschlock.tripod.com/star1.gif" width="16" height="16"/><a href="2001-0217.htm">RVi</a></font></td>
+                                    <td align="center" valign="top" width="17%"><font size="2"><img src="/web/20010510080935im_/http://dyreschlock.tripod.com/star1.gif" width="16" height="16"/><a href="2001-0208.htm">FnW</a></font></td>
+                                    <td align="center" valign="bottom" width="17%"><font size="2"><a href="2001-0131a.htm">Ser</a></font></td>
+                                </tr>
+                            </table>
+                            <table width="60%" border="0" height="15">
+                                <tr>
+                                    <td valign="top" align="center" width="17%"><font size="2"><a href="2001-0131.htm">Mss</a></font></td>
+                                    <td align="center" valign="top" width="17%"><font size="2"><a href="2001-0130.htm">Cnf</a></font></td>
+                                    <td align="center" valign="top" width="17%"><font size="2"><a href="2001-0129.htm">Fil</a></font></td>
+                                    <td valign="top" align="center" width="17%"><font size="2"><a href="2001-0125.htm">Cal</a></font></td>
+                                </tr>
+                            </table>
+                            <table width="75%" border="0">
+                                <tr>
+                                    <td align="center" valign="top" width="17%"><font size="2"><a href="2001-0124.htm">Res</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2001-0118.htm">Pps</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2001-0117.htm">Spr</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2001-0113.htm">Ref</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2001-0112.htm">Dis</a></font></td>
+                                </tr>
+                            </table>
+
+                            <p><font size="2"><img src="/web/20010510080935im_/http://dyreschlock.tripod.com/star1.gif" width="16" height="16"/>
+                                Poem a Day - Poem Series<br/>
+                                <font size="1">February 11th, 2001 - February 28th, 2001</font></font></p>
+
+                            <table width="45%" border="0">
+                                <tr>
+                                    <td align="center" width="15%"><font size="2"><img src="/web/20010510080935im_/http://dyreschlock.tripod.com/star1.gif" width="16" height="16"/><a href="2001-0211.htm">Wk1</a></font></td>
+                                    <td align="center" width="15%"><font size="2"><img src="/web/20010510080935im_/http://dyreschlock.tripod.com/star1.gif" width="16" height="16"/><a href="2001-0217a.htm">Wk2</a></font></td>
+                                    <td width="15%" align="center"><font size="2"><img src="/web/20010510080935im_/http://dyreschlock.tripod.com/star1.gif" width="16" height="16"/><a href="2001-0223a.htm">Wk3</a></font></td>
+                                </tr>
+                            </table>
+
+                            <p><font size="2">
+                                <a href="2000-1028.htm">Elemental - Short Story</a><br/>
+                                <font size="1">October the 28th, 2000 - Present</font></font></p>
+
+                            <p><font size="2">
+                                <a href="2000-0605.htm">Love - Short Story</a><br/>
+                                <font size="1">June the 5th, 2000</font></font></p>
+
+                            <p><font size="2">Journey to the Future - Poem Series<br/>
+                                <font size="1">September 27th, 1999 - January 10th, 2001</font></font></p>
+
+                            <table width="75%" border="0" height="16">
+                                <tr>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2001-0110.htm">Bef</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2000-1220.htm">Crt</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2000-1120a.htm">Wnt</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2000-1120.htm">TiS</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2000-1021.htm">Sil</a></font></td>
+                                </tr>
+                            </table>
+                            <table width="60%" border="0">
+                                <tr>
+                                    <td valign="top" align="center" width="26%"><font size="2"><a href="2000-1020.htm">Pla</a></font></td>
+                                    <td align="center" valign="top" width="24%"><font size="2"><a href="2000-1014.htm">Con</a></font></td>
+                                    <td align="center" valign="top" width="25%"><font size="2"><a href="2000-1003.htm">Hop</a></font></td>
+                                    <td valign="top" align="center" width="25%"><font size="2"><a href="2000-0922.htm">NoA</a></font></td>
+                                </tr>
+                            </table>
+                            <table width="75%" border="0" height="12">
+                                <tr>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2000-0822.htm">Rel</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2000-0804.htm">DoO</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2000-0623.htm">NLi</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2000-0618.htm">UnT</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2000-0616a.htm">MyF</a></font></td>
+                                </tr>
+                            </table>
+                            <table width="59%" border="0" height="15">
+                                <tr>
+                                    <td valign="top" align="center" width="15%"><font size="2"><a href="2000-0616.htm">Sir</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2000-0612a.htm">FiL</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2000-0612.htm">Exs</a></font></td>
+                                    <td valign="top" align="center" width="15%"><font size="2"><a href="2000-0517.htm">NeL</a></font></td>
+                                </tr>
+                            </table>
+                            <table width="75%" border="0" height="15">
+                                <tr>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="2000-0516.htm">Qus</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="1999-1224.htm">OFr</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="1999-1210.htm">War</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="1999-1001.htm">Wor</a></font></td>
+                                    <td align="center" valign="top" width="15%"><font size="2"><a href="1999-0927.htm">Lon</a></font></td>
+                                </tr>
+                            </table>
+                            <p>&nbsp;</p>
+                        </td>
+                    </tr>
+                </table>
+                <p>&nbsp;</p>
+            </td>
+        </tr>
+        <tr align="center">
+            <td><font size="2">Go <a href="${homeLink}">Back</a> Go</font></td>
+        </tr>
+    </table>
+</t:if>
+</html>
