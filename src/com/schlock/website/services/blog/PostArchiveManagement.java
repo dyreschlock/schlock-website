@@ -11,6 +11,10 @@ public interface PostArchiveManagement
 
     List<String> getYearlyMonthlyIterations(Long categoryId);
 
+    String getNextYearlyMontlyIteration(String iteration, Long categoryId);
+
+    String getPreviousYearlyMonthlyInteration(String iteration, Long categoryId);
+
 
     List<Post> getPosts(String iteration);
 

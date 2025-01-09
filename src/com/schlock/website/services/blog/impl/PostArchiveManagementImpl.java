@@ -88,6 +88,31 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         return iterations;
     }
 
+    public String getNextYearlyMontlyIteration(String iteration, Long categoryId)
+    {
+        List<String> iterations = getYearlyMonthlyIterations(categoryId);
+
+        int index = iterations.indexOf(iteration) -1;
+        if (index < 0)
+        {
+            return null;
+        }
+        return iterations.get(index);
+    }
+
+    public String getPreviousYearlyMonthlyInteration(String iteration, Long categoryId)
+    {
+        List<String> iterations = getYearlyMonthlyIterations(categoryId);
+
+        int index = iterations.indexOf(iteration) +1;
+        if (index == 0 || index == iterations.size())
+        {
+            return null;
+        }
+        return iterations.get(index);
+    }
+
+
 
     public List<Post> getPosts(String iteration)
     {
@@ -166,6 +191,11 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     private List<Post> pagedPosts(List<Post> results, Integer postCount, Integer pageNumber)
     {
+        if (postCount == null)
+        {
+            return results;
+        }
+
         if (pageNumber < 1)
         {
             return Collections.EMPTY_LIST;

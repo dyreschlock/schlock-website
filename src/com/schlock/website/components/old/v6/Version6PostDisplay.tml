@@ -12,7 +12,7 @@
 
         <a name="more"></a>
 
-        <span class="posted">Posted by dyre at ${postDate}<br/></span>
+        <span class="posted">Posted by dyre on ${postDate}<br/></span>
 
     </div>
 </t:container>

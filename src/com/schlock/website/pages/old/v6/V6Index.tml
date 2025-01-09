@@ -24,8 +24,10 @@
 
             <v6:version6previousnext post="post" page="page" />
 
-            <v6:version6postdisplay post="post" />
-
+            <t:loop source="posts" value="currentPost" index="currentIndex">
+                <t:if test="notFirst"><br/></t:if>
+                <v6:version6postdisplay post="currentPost" />
+            </t:loop>
         </div>
     </div>
 

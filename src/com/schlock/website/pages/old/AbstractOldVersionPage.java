@@ -106,6 +106,11 @@ public abstract class AbstractOldVersionPage
         return cssCache.getCssOldVersions(getPosts(), getVersion());
     }
 
+    public Integer getDefaultPostsPerPage()
+    {
+        return POSTS_PER_PAGE;
+    }
+
     public List<AbstractPost> getPosts()
     {
         if (getPost() != null)
@@ -119,16 +124,16 @@ public abstract class AbstractOldVersionPage
         if (getCategory() != null)
         {
             Long catId = getCategory().getId();
-            results = archiveManagement.getPagedPosts(POSTS_PER_PAGE, pageNumber, catId);
+            results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber, catId);
         }
         else if (isPagedPage(getPage()))
         {
-            results = archiveManagement.getPagedPosts(POSTS_PER_PAGE, pageNumber);
+            results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber);
         }
         else if (isArchivePage(getPage()))
         {
             String archiveIteration = getPage();
-            results = archiveManagement.getPagedPosts(POSTS_PER_PAGE, pageNumber, archiveIteration);
+            results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber, archiveIteration);
         }
 
         List<AbstractPost> posts = new ArrayList<>();

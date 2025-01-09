@@ -19,21 +19,21 @@
             </td>
         </t:if>
 
-
         <t:if test="noPost">
 
             <td width="25%" valign="bottom" align="left">
-                <a href="https://web.archive.org/web/20050307123907/http://www.theschlock.com/journal/archives/2004_05.html">« May 2004</a>
-
+                <t:if test="hasPrevious">
+                    <a href="${previousPostLink}">« ${previousPostTitle}</a>
+                </t:if>
             </td>
             <td width="50%" valign="bottom" align="center">
-                June 2004 Archives
+                ${monthYearTitle} Archives
             </td>
             <td width="25%" valign="bottom" align="right">
-                <a href="https://web.archive.org/web/20050307123907/http://www.theschlock.com/journal/archives/2004_08.html">August 2004 »</a>
-
+                <t:if test="hasNext">
+                    <a href="${nextPostLink}">${nextPostTitle} »</a>
+                </t:if>
             </td>
-
         </t:if>
     </tr></tbody></table></div>
 </t:container>
