@@ -37,7 +37,7 @@
 
         <v6:version6archivelist />
 
-        <div class="powered">
+        <div id="powered">
             Powered by<br/><a name="move">Movable Type 2.64</a><br/>
         </div>
     </div>
