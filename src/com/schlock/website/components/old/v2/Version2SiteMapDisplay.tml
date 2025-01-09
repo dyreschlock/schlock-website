@@ -25,7 +25,7 @@
         </tr>
         <tr>
             <td height="30" align="center" width="33%" bgcolor="#373730"><a href="${radioLink}"><font color="#FFFFFF" size="2">Radio</font></a></td>
-            <td height="30" align="center" width="34%"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Hotline</font></a></td>
+            <td height="30" align="center" width="34%"><a href="${hotlineLink}"><font color="#FFFFFF" size="2">Hotline</font></a></td>
             <td height="30" align="center" width="33%" bgcolor="#373730"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Guest Book</font></a></td>
         </tr>
     </table>

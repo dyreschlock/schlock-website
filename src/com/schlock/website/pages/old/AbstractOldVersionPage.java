@@ -191,4 +191,9 @@ public abstract class AbstractOldVersionPage
     {
         return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), RELEASES_PAGE).toURI();
     }
+
+    public String getAnimeLink()
+    {
+        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), ANIME_PAGE).toURI();
+    }
 }
