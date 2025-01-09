@@ -247,7 +247,7 @@ public class CssCacheImpl implements CssCache
             {
                 String domain = deploymentContext.webDomain();
 
-                less = String.format(less, domain, domain, domain);
+                less = String.format(less, domain, domain, domain, domain);
             }
 
             sb.append(less);
