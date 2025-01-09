@@ -1,5 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:v6="tapestry-library:old/v6"
+    >
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
 
@@ -19,215 +22,20 @@
 
         <div class="blog">
 
-            <div id="menu"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr>
-                <td width="50%" valign="bottom" align="right">
-                    <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000341.html">« drakengard impressions (4)</a> |
+            <v6:version6previousnext />
 
-                </td>
-                <td width="50%" valign="bottom" align="left">
-                    | <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000337.html">Palahniuk? »</a>
-
-                </td>
-            </tr></tbody></table></div>
-
-
-            <h2 class="date">June 07, 2004</h2>
-
-            <div class="blogbody">
-
-                <h3 class="title">One Piece?</h3>
-
-                <p>I've gotten myself current on One Piece and it seems ever since they've made it to the Grand Line the amount of people who have consumed Devil's Fruit has risen much more than before.  almost every person, friend or enemy, has one, so to keep 'em all straight i thought it'd keep track of all the Devil's Fruit that have been uncovered in the story line in order of appearance, for the most part.</p>
-
-                <p>Luffy's fruit is uncovered in the first episode, and a couple episodes later, the next fruit is uncovered..  and that the next episode that mentions a different fruit is episode 49 when Alvida returns.  the first 50 episodes of the series has 3 fruit, and then the next 50 episodes has 11 fruit.  2 or 3 per story arc, and speaking of story arc, i made a list of those as well so when we show One Piece at spamm on the weekends, we could show the episodes of story arcs, rather than just a set number of episodes per week.<br/><br/>
-                    Episodes 1 : Luffy Intro<br/>
-                    Episodes 2 - 3 : Zoro Intro<br/>
-                    Episodes 4 - 8 : Captain Buggy<br/>
-                    Episodes 9 - 17 : Ussop Story<br/>
-                    Episodes 18 - 19 : Luffy &amp; Zoro Story<br/>
-                    Episodes 20 - 30 : Sanji Story<br/>
-                    Episodes 31 - 44: Nami Story<br/>
-                    Episodes 45 - 53 : Buggy &amp; Rogue Town<br/>
-                    Movie 2 : The Clockwork Island Adventure<br/>
-                    Episodes 54 - 61 : Apis &amp; Dragon's Nest<br/>
-                    Episodes 62 - 63 : Laboon &amp; Vivi Intro<br/>
-                    Episodes 64 - 67 : Whiskey Peak<br/>
-                    Episodes 68 - 69 : Coby Story<br/>
-                    Episodes 70 - 78 : Little Garden<br/>
-                    Episodes 79 - 91 : Chopper Story &amp; Drum Kingdom<br/>
-                    Episodes 92 - ?? : Vivi &amp; Alabasta<br/>
-                    Movie 3 : Rare Monster Island, Chopper's Kingdom</p>
-
-                <p>We'd really only be able to get through a certain amount of episodes anyways.  by the looks of things we'll probably need to cut in the middle of some of the story arcs..  eh.</p>
-
-                <p>looks like the longest story arc in One Piece is 12 episodes long, and the average looks to be around 9 or 10, unlike Dragonball Z whose story arcs round out around 30 with main story arcs of 100 episodes..  One Piece has an overall story goal, but the story arcs round out well enough..</p>
-
-                <p>ya know...  the beginning of One Piece was quite fun and the fun continues on through the point they make it to the Grand Line (episode 61)..  but after that the whole caliber of the series has begun to drop..  before the fights were more serious and had more emotion, now it's become a joke..  the hasn't been any contest at all, Luffy easily kicks their asses..  no suspense, thats its..  hopefully when they fight Crocidile the 'intensity' will return..  </p>
-
-                <a name="more"></a>
-
-
-                <span class="posted">Posted by dyre at June  7, 2004 05:01 PM
-
-<br/></span>
-
-            </div>
-
+            <v6:version6postdisplay />
 
         </div>
     </div>
 
     <div id="links">
-        <div align="center" class="calendar">
 
-            <table border="0" cellspacing="4" cellpadding="0" summary="Monthly calendar with links to each day&#39;s posts">
-                <caption class="calendarhead">June 2004</caption>
-                <tbody><tr>
-                    <th abbr="Sunday" align="center"><span class="calendarCell">Sun</span></th>
-                    <th abbr="Monday" align="center"><span class="calendarCell">Mon</span></th>
-                    <th abbr="Tuesday" align="center"><span class="calendarCell">Tue</span></th>
-                    <th abbr="Wednesday" align="center"><span class="calendarCell">Wed</span></th>
-                    <th abbr="Thursday" align="center"><span class="calendarCell">Thu</span></th>
-                    <th abbr="Friday" align="center"><span class="calendarCell">Fri</span></th>
-                    <th abbr="Saturday" align="center"><span class="calendarCell">Sat</span></th>
-                </tr>
+        <v6:version6calendar />
 
-                <tr>
+        <v6:version6archivelist />
 
-                    <td align="center"><span class="calendarCell">
-&nbsp;</span></td>
-
-                    <td align="center"><span class="calendarCell">
-&nbsp;</span></td>
-
-                    <td align="center"><span class="calendarCell">
-<a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000340.html">1</a></span></td>
-
-                    <td align="center"><span class="calendarCell">
-2</span></td>
-
-                    <td align="center"><span class="calendarCell">
-3</span></td>
-
-                    <td align="center"><span class="calendarCell">
-4</span></td>
-
-                    <td align="center"><span class="calendarCell">
-<a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000341.html">5</a></span></td></tr><tr>
-
-                    <td align="center"><span class="calendarCell">
-6</span></td>
-
-                    <td align="center"><span class="calendarCell">
-<a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000336.html">7</a></span></td>
-
-                    <td align="center"><span class="calendarCell">
-<a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000337.html">8</a></span></td>
-
-                    <td align="center"><span class="calendarCell">
-9</span></td>
-
-                    <td align="center"><span class="calendarCell">
-10</span></td>
-
-                    <td align="center"><span class="calendarCell">
-11</span></td>
-
-                    <td align="center"><span class="calendarCell">
-12</span></td></tr><tr>
-
-                    <td align="center"><span class="calendarCell">
-13</span></td>
-
-                    <td align="center"><span class="calendarCell">
-14</span></td>
-
-                    <td align="center"><span class="calendarCell">
-15</span></td>
-
-                    <td align="center"><span class="calendarCell">
-16</span></td>
-
-                    <td align="center"><span class="calendarCell">
-17</span></td>
-
-                    <td align="center"><span class="calendarCell">
-18</span></td>
-
-                    <td align="center"><span class="calendarCell">
-19</span></td></tr><tr>
-
-                    <td align="center"><span class="calendarCell">
-20</span></td>
-
-                    <td align="center"><span class="calendarCell">
-21</span></td>
-
-                    <td align="center"><span class="calendarCell">
-22</span></td>
-
-                    <td align="center"><span class="calendarCell">
-23</span></td>
-
-                    <td align="center"><span class="calendarCell">
-24</span></td>
-
-                    <td align="center"><span class="calendarCell">
-25</span></td>
-
-                    <td align="center"><span class="calendarCell">
-26</span></td></tr><tr>
-
-                    <td align="center"><span class="calendarCell">
-27</span></td>
-
-                    <td align="center"><span class="calendarCell">28</span></td>
-                    <td align="center"><span class="calendarCell">29</span></td>
-                    <td align="center"><span class="calendarCell">30</span></td>
-                    <td align="center"><span class="calendarCell">&nbsp;</span></td>
-                    <td align="center"><span class="calendarCell">&nbsp;</span></td>
-                    <td align="center"><span class="calendarCell">&nbsp;</span></td>
-                </tr>
-                </tbody></table>
-
-        </div>
-
-        <div class="sidetitle">
-            Archives
-        </div>
-
-        <div class="side">
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2004_06.html">June 2004</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2004_05.html">May 2004</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2004_04.html">April 2004</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2004_03.html">March 2004</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2004_02.html">February 2004</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2004_01.html">January 2004</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2003_12.html">December 2003</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2003_11.html">November 2003</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2003_10.html">October 2003</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2003_09.html">September 2003</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2003_08.html">August 2003</a><br/>
-
-        </div>
-
-        <div class="sidetitle">
-            Recent Entries
-        </div>
-
-        <div class="side">
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000337.html">Palahniuk?</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000336.html">One Piece?</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000341.html">drakengard impressions (4)</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000340.html">drakengard impressions (3)</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000339.html">drakengard impressions (2)</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000338.html">drakengard impressions</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000133.html">stress?!</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000132.html">music?</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000130.html">harvest moon? (4)</a><br/>
-            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000129.html">school?</a><br/>
-
-        </div>
+        <v6:version6recentposts />
 
         <div class="powered">
             Powered by<br/><a href="https://web.archive.org/web/20050313235315/http://www.movabletype.org/">Movable Type 2.64</a><br/>

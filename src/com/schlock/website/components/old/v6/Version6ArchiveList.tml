@@ -1,0 +1,24 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <div class="sidetitle">
+        Archives
+    </div>
+
+    <div class="side">
+        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2004_06.html">June 2004</a><br/>
+        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2004_05.html">May 2004</a><br/>
+        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2004_04.html">April 2004</a><br/>
+        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2004_03.html">March 2004</a><br/>
+        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2004_02.html">February 2004</a><br/>
+        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2004_01.html">January 2004</a><br/>
+        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2003_12.html">December 2003</a><br/>
+        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2003_11.html">November 2003</a><br/>
+        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2003_10.html">October 2003</a><br/>
+        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2003_09.html">September 2003</a><br/>
+        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/2003_08.html">August 2003</a><br/>
+
+    </div>
+
+</t:container>

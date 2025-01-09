@@ -1,0 +1,16 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <div id="menu"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr>
+        <td width="50%" valign="bottom" align="right">
+            <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000341.html">« drakengard impressions (4)</a> |
+
+        </td>
+        <td width="50%" valign="bottom" align="left">
+            | <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000337.html">Palahniuk? »</a>
+
+        </td>
+    </tr></tbody></table></div>
+
+</t:container>

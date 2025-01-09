@@ -1,0 +1,64 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <div align="center" class="calendar">
+
+        <table border="0" cellspacing="4" cellpadding="0" summary="Monthly calendar with links to each day&#39;s posts">
+            <caption class="calendarhead">June 2004</caption>
+            <tbody><tr>
+                <th abbr="Sunday" align="center"><span class="calendarCell">Sun</span></th>
+                <th abbr="Monday" align="center"><span class="calendarCell">Mon</span></th>
+                <th abbr="Tuesday" align="center"><span class="calendarCell">Tue</span></th>
+                <th abbr="Wednesday" align="center"><span class="calendarCell">Wed</span></th>
+                <th abbr="Thursday" align="center"><span class="calendarCell">Thu</span></th>
+                <th abbr="Friday" align="center"><span class="calendarCell">Fri</span></th>
+                <th abbr="Saturday" align="center"><span class="calendarCell">Sat</span></th>
+            </tr>
+
+            <tr>
+                <td align="center"><span class="calendarCell">&nbsp;</span></td>
+                <td align="center"><span class="calendarCell">&nbsp;</span></td>
+                <td align="center"><span class="calendarCell"><a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000340.html">1</a></span></td>
+                <td align="center"><span class="calendarCell">2</span></td>
+                <td align="center"><span class="calendarCell">3</span></td>
+                <td align="center"><span class="calendarCell">4</span></td>
+                <td align="center"><span class="calendarCell"><a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000341.html">5</a></span></td>
+            </tr><tr>
+                <td align="center"><span class="calendarCell">6</span></td>
+                <td align="center"><span class="calendarCell"><a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000336.html">7</a></span></td>
+                <td align="center"><span class="calendarCell"><a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000337.html">8</a></span></td>
+                <td align="center"><span class="calendarCell">9</span></td>
+                <td align="center"><span class="calendarCell">10</span></td>
+                <td align="center"><span class="calendarCell">11</span></td>
+                <td align="center"><span class="calendarCell">12</span></td>
+            </tr><tr>
+                <td align="center"><span class="calendarCell">13</span></td>
+                <td align="center"><span class="calendarCell">14</span></td>
+                <td align="center"><span class="calendarCell">15</span></td>
+                <td align="center"><span class="calendarCell">16</span></td>
+                <td align="center"><span class="calendarCell">17</span></td>
+                <td align="center"><span class="calendarCell">18</span></td>
+                <td align="center"><span class="calendarCell">19</span></td>
+            </tr><tr>
+                <td align="center"><span class="calendarCell">20</span></td>
+                <td align="center"><span class="calendarCell">21</span></td>
+                <td align="center"><span class="calendarCell">22</span></td>
+                <td align="center"><span class="calendarCell">23</span></td>
+                <td align="center"><span class="calendarCell">24</span></td>
+                <td align="center"><span class="calendarCell">25</span></td>
+                <td align="center"><span class="calendarCell">26</span></td>
+            </tr><tr>
+                <td align="center"><span class="calendarCell">27</span></td>
+                <td align="center"><span class="calendarCell">28</span></td>
+                <td align="center"><span class="calendarCell">29</span></td>
+                <td align="center"><span class="calendarCell">30</span></td>
+                <td align="center"><span class="calendarCell">&nbsp;</span></td>
+                <td align="center"><span class="calendarCell">&nbsp;</span></td>
+                <td align="center"><span class="calendarCell">&nbsp;</span></td>
+            </tr>
+            </tbody></table>
+
+    </div>
+
+</t:container>
