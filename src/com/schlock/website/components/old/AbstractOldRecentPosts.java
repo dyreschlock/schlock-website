@@ -41,6 +41,11 @@ public abstract class AbstractOldRecentPosts
 
     abstract protected SiteVersion getVersion();
 
+    public int getPostCountMax()
+    {
+        return 12;
+    }
+
     public boolean isProjectsPage()
     {
         return AbstractOldVersionPage.PROJECTS_PAGE.equals(page);
@@ -55,7 +60,7 @@ public abstract class AbstractOldRecentPosts
     public List<Post> getPosts()
     {
         boolean unpublished = viewState.isShowUnpublished();
-        int count = 12;
+        int count = getPostCountMax();
 
         List<String> uuids = new ArrayList<>();
         if(isProjectsPage())
@@ -81,7 +86,11 @@ public abstract class AbstractOldRecentPosts
     public String getCurrentPostLink()
     {
         String uuid = currentPost.getUuid();
-        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), page, uuid).toURI();
+        if (page != null)
+        {
+            return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), page, uuid).toURI();
+        }
+        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), uuid).toURI();
     }
 
     public String getCurrentPostDescription()

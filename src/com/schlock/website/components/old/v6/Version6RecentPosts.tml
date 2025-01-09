@@ -7,17 +7,10 @@
     </div>
 
     <div class="side">
-        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000337.html">Palahniuk?</a><br/>
-        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000336.html">One Piece?</a><br/>
-        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000341.html">drakengard impressions (4)</a><br/>
-        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000340.html">drakengard impressions (3)</a><br/>
-        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000339.html">drakengard impressions (2)</a><br/>
-        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000338.html">drakengard impressions</a><br/>
-        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000133.html">stress?!</a><br/>
-        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000132.html">music?</a><br/>
-        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000130.html">harvest moon? (4)</a><br/>
-        <a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/archives/000129.html">school?</a><br/>
 
+        <t:loop source="posts" value="currentPost">
+
+            <a href="${currentPostLink}">${currentPost.title}</a><br/>
+        </t:loop>
     </div>
-
 </t:container>
