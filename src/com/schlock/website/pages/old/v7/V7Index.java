@@ -5,9 +5,14 @@ import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 public class V7Index extends AbstractOldVersionPage
 {
+    @Inject
+    private PageRenderLinkSource linkSource;
+
     private PostCategory category;
     private AbstractPost post;
     private String page;
@@ -21,10 +26,10 @@ public class V7Index extends AbstractOldVersionPage
     {
         // paged - page 1
 
-        page = BLOG_PAGE;
+        page = null;
         pageNumber = 1;
 
-        post = null;
+        post = getDefaultPost();
         category = null;
 
         return true;
@@ -43,7 +48,7 @@ public class V7Index extends AbstractOldVersionPage
         category = getCategory(param);
         if (category == null)
         {
-            if (isArchivePage(param))
+            if (isArchivePage(param) || isPagedPage(param))
             {
                 page = param;
             }
@@ -81,7 +86,6 @@ public class V7Index extends AbstractOldVersionPage
         }
         return true;
     }
-
 
     public String getPage()
     {
