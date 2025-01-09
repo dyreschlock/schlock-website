@@ -64,6 +64,12 @@ public abstract class AbstractOldPreviousNext
         return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), nextUuid).toURI();
     }
 
+    public String getNextPostTitle()
+    {
+        List<AbstractPost> posts = getNextPosts();
+        return posts.get(0).getTitle();
+    }
+
     protected List<AbstractPost> getNextPosts()
     {
         return postManagement.getNextPosts(post);
@@ -82,6 +88,12 @@ public abstract class AbstractOldPreviousNext
         String previousUuid = posts.get(0).getUuid();
 
         return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), previousUuid).toURI();
+    }
+
+    public String getPreviousPostTitle()
+    {
+        List<AbstractPost> posts = getPreviousPosts();
+        return posts.get(0).getTitle();
     }
 
     protected List<AbstractPost> getPreviousPosts()

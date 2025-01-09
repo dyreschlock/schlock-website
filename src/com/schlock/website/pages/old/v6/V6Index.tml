@@ -22,7 +22,7 @@
 
         <div class="blog">
 
-            <v6:version6previousnext />
+            <v6:version6previousnext post="post" page="page" />
 
             <v6:version6postdisplay post="post" />
 

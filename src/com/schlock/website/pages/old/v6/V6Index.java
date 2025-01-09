@@ -20,6 +20,31 @@ public class V6Index extends AbstractOldVersionPage
         return true;
     }
 
+    Object onActivate(String param)
+    {
+        page = null;
+        post = null;
+        pageNumber = 1;
+
+        if (isArchivePage(param))
+        {
+            page = param;
+        }
+        else
+        {
+            post = getPost(param);
+        }
+        return true;
+    }
+
+    Object onActivate(String p1, String p2)
+    {
+        page = p1;
+        post = null;
+        pageNumber = Integer.parseInt(p2);
+
+        return true;
+    }
 
 
     public String getPage()
