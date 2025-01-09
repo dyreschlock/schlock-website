@@ -24,12 +24,12 @@ public class V6Index extends AbstractOldVersionPage
 
     public String getPage()
     {
-        return "";
+        return page;
     }
 
     public AbstractPost getPost()
     {
-        return null;
+        return post;
     }
 
     public SiteVersion getVersion()

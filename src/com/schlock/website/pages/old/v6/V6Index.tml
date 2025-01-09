@@ -13,7 +13,7 @@
     <body>
 
     <div id="banner"><div id="bannerContent">
-        <div class="blogtitle"><a href="https://web.archive.org/web/20050313235315/http://www.theschlock.com/journal/" accesskey="1">one schlock's requiem</a></div>
+        <div class="blogtitle"><a href="${homeLink}">one schlock's requiem</a></div>
         <div class="description">this is my web journal...  read the thoughts of my daily life whenever actually post anything..  this information is rather useless and shouldn't be helpful to anyone other than people i know, so if you don't know me, i hope you get some sort of pride reading about people and things you'll never meet..  on the other hand, feel free to adopt my way of life...  and in addition this information may not be used by any place i work at as means of getting me fired, laid off, and/or beaten...</div>
     </div></div>
     <div id="bodyContent">
@@ -33,12 +33,12 @@
 
         <v6:version6calendar />
 
-        <v6:version6archivelist />
-
         <v6:version6recentposts />
 
+        <v6:version6archivelist />
+
         <div class="powered">
-            Powered by<br/><a href="https://web.archive.org/web/20050313235315/http://www.movabletype.org/">Movable Type 2.64</a><br/>
+            Powered by<br/><a name="move">Movable Type 2.64</a><br/>
         </div>
 
     </div>
