@@ -5,7 +5,7 @@ import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.services.DeploymentContext;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-public class Version2SiteMapDisplay extends AbstractOldLinks
+public class Version2MenuDisplay extends AbstractOldLinks
 {
     @Inject
     private DeploymentContext context;
