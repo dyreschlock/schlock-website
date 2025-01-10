@@ -46,14 +46,19 @@ public abstract class AbstractOldRecentPosts
         return 12;
     }
 
+    public String getPage()
+    {
+        return page;
+    }
+
     public boolean isProjectsPage()
     {
-        return AbstractOldVersionPage.PROJECTS_PAGE.equals(page);
+        return AbstractOldVersionPage.PROJECTS_PAGE.equals(getPage());
     }
 
     private boolean isGamesPage()
     {
-        return AbstractOldVersionPage.REVIEWS_PAGE.equals(page);
+        return AbstractOldVersionPage.REVIEWS_PAGE.equals(getPage());
     }
 
 
@@ -86,9 +91,9 @@ public abstract class AbstractOldRecentPosts
     public String getCurrentPostLink()
     {
         String uuid = currentPost.getUuid();
-        if (page != null)
+        if (getPage() != null)
         {
-            return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), page, uuid).toURI();
+            return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), getPage(), uuid).toURI();
         }
         return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), uuid).toURI();
     }
