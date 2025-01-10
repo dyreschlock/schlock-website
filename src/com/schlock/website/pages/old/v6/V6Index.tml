@@ -33,7 +33,7 @@
 
     <div id="links">
 
-        <v6:version6calendar />
+        <v6:version6calendar monthYear="page" />
 
         <v6:version6recentposts page="page" />
 
