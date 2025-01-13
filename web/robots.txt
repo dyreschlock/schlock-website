@@ -3,6 +3,7 @@ User-agent: AdsBot-Google
 Disallow: /pages/
 Disallow: /apps/
 Disallow: /pokemon/
+Disallow: /old/
 
 User-agent: *
 Allow: /

@@ -1,0 +1,22 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <table width="100%" border="0" cellpadding="5" bgcolor="#000000" style="margin:5px 0px 5px 0px;">
+        <tr>
+            <td class="${page}"> <table width="100%" border="0" cellpadding="10" bgcolor="#CCCCCC">
+                <tr>
+                    <td bgcolor="#FFFFFF">
+                        <p><font class="dat">${postDate}</font></p>
+
+                        <div id="postContent">
+                            <t:outputraw value="postBodyHTML" />
+                        </div>
+
+                        <p align="right"><font class="nam">-- Dyre</font></p></td>
+                </tr>
+            </table></td>
+        </tr>
+    </table>
+
+</t:container>

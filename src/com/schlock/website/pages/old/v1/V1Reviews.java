@@ -93,15 +93,10 @@ public class V1Reviews extends AbstractVersion1Page
         return dateFormatter.dotFormat(post.getCreated());
     }
 
-    public List<String> getCategoryUuids()
-    {
-        return Arrays.asList("reviews", "film", "books", "anime", "toys");
-    }
-
     public List<Post> getReviewPosts()
     {
         Set<Long> categoryIds = new HashSet<>();
-        for(String uuid : getCategoryUuids())
+        for(String uuid : getReviewCategoryIds())
         {
             AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, uuid);
             categoryIds.add(cat.getId());
@@ -120,7 +115,7 @@ public class V1Reviews extends AbstractVersion1Page
     {
         for(AbstractCategory cat : currentPost.getCategories())
         {
-            if (getCategoryUuids().contains(cat.getUuid()))
+            if (getReviewCategoryIds().contains(cat.getUuid()))
             {
                 return cat.getName();
             }

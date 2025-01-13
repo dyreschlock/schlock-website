@@ -1,0 +1,47 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <table width="100%" border="0" bgcolor="#000000" style="margin:5px 0px 5px 0px;">
+        <tr>
+            <td class="${page}">
+                <table width="100%" border="0" cellpadding="5" bgcolor="#000000">
+                    <tr>
+                        <td bgcolor="#333333">
+                            <p><font class="mens">The On-going this and that</font><br/>
+
+                                <a href="${homeLink}" onMouseOver="window.status='what happend yesterday, perhaps..'; return true;" onmouseout="window.status='';" >
+                                    <font class="menx" color="#ffffff">past updates</font></a></p>
+
+                            <p class="x"><font class="men">Works</font><br/>
+
+                                <a onMouseOver="window.status='Art created for Literary purposes'; return true;" onmouseout="window.status='';" >
+                                    <font class="menx" color="#ffffff">Literary</font></a><br/>
+                                <a onMouseOver="window.status='Art created for Visual purposes'; return true;" onmouseout="window.status=''; return true;">
+                                    <font class="menx" color="#ffffff">Visual</font></a><br/>
+                                <a onMouseOver="window.status='Art created for Story purposes'; return true;" onmouseout="window.status=''; return true;">
+                                    <font class="menx" color="#ffffff">Comic Panels</font></a></p>
+
+                            <p class="x"><font class="men">Photography</font><br/>
+
+                                <a href="${photoLink}" onMouseOver="window.status='Photography of the world around you'; return true;" onmouseout="window.status=''; return true;">
+                                    <font class="menx" color="#ffffff">Imagery</font></a><br/>
+                                <a href="${clubLink}" onMouseOver="window.status='Photography of the world underneath you'; return true;" onmouseout="window.status=''; return true;">
+                                    <font class="menx" color="#ffffff">After Hours</font></a></p>
+
+                            <p class="x"><a href="${reviewsLink}" onMouseOver="window.status='My comments of the media of others'; return true;" onmouseout="window.status=''; return true;">
+                                <font class="men" color="#ffffff">Impressions</font></a></p>
+
+                            <p class="x"><a href="${aboutMeLink}" onMouseOver="window.status='Those who contribute to The Schlock'; return true;" onmouseout="window.status=''; return true;">
+                                <font class="men" color="#ffffff">Profile</font></a></p>
+
+                            <p class="x"><a onMouseOver="window.status='Locate where you wish to visit'; return true;" onmouseout="window.status=''; return true;">
+                                <font class="men" color="#ffffff">Site Map</font></a></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</t:container>

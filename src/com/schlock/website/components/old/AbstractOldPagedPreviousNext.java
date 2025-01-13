@@ -41,43 +41,54 @@ public abstract class AbstractOldPagedPreviousNext
         return post;
     }
 
+    protected Integer getPageNumber()
+    {
+        return pageNumber;
+    }
+
+    public String getPage()
+    {
+        return page;
+    }
+
+
     public boolean isHasNext()
     {
-        if (post != null)
+        if (getPost() != null)
         {
             return false;
         }
 
-        int nextpage = pageNumber -1;
+        int nextpage = getPageNumber() -1;
         return getPagePostCount(nextpage) > 0;
     }
 
     public String getNextPageLink()
     {
-        int nextpage = pageNumber -1;
+        int nextpage = getPageNumber() -1;
         return getPageLink(nextpage);
     }
 
     public boolean isHasPrevious()
     {
-        if (post != null)
+        if (getPost() != null)
         {
             return false;
         }
 
-        int previousPage = pageNumber +1;
+        int previousPage = getPageNumber() +1;
         return getPagePostCount(previousPage) > 0;
     }
 
     public String getPreviousPageLink()
     {
-        int previouspage = pageNumber +1;
+        int previouspage = getPageNumber() +1;
         return getPageLink(previouspage);
     }
 
     protected String getLinkContext()
     {
-        String context = page;
+        String context = getPage();
         if (StringUtils.isBlank(context) && category != null)
         {
             context = category.getUuid();
@@ -93,7 +104,6 @@ public abstract class AbstractOldPagedPreviousNext
             return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), context, pageNumber).toURI();
         }
         return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), context).toURI();
-
     }
 
     protected int getPagePostCount(int pageNumber)
@@ -101,7 +111,8 @@ public abstract class AbstractOldPagedPreviousNext
         final int postCount = AbstractOldVersionPage.POSTS_PER_PAGE;
 
         List<Post> results;
-        if (AbstractOldVersionPage.BLOG_PAGE.equals(page))
+        if (AbstractOldVersionPage.BLOG_PAGE.equals(getPage()) ||
+                AbstractOldVersionPage.ARCHIVE_PAGE.equals(getPage()))
         {
             results = archiveManagement.getPagedPosts(postCount, pageNumber);
         }
@@ -112,7 +123,7 @@ public abstract class AbstractOldPagedPreviousNext
         }
         else
         {
-            String archiveIteration = page;
+            String archiveIteration = getPage();
             results = archiveManagement.getPagedPosts(postCount, pageNumber, archiveIteration);
         }
         return results.size();

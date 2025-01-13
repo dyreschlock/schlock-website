@@ -31,6 +31,8 @@ public abstract class AbstractOldVersionPage
     public static final String RELEASES_PAGE = "releases";
     public static final String REVIEWS_PAGE = "reviews";
     public static final String SITE_MAP_PAGE = "sitemap";
+    public static final String PHOTO_PAGE = "photo";
+    public static final String CLUB_PAGE = "club";
 
     public static final int POSTS_PER_PAGE = 10;
 
@@ -64,12 +66,6 @@ public abstract class AbstractOldVersionPage
         return null;
     }
 
-
-
-    protected boolean isSpecialPage(String param)
-    {
-        return Arrays.asList(ARCHIVE_PAGE, PROJECTS_PAGE, REVIEWS_PAGE, MUSIC_PAGE).contains(param);
-    }
 
     protected boolean isPagedPage(String param)
     {
@@ -151,6 +147,11 @@ public abstract class AbstractOldVersionPage
     protected PostCategory getUpdatesCategory()
     {
         return (PostCategory) categoryDAO.getByUuid(PostCategory.class, UPDATES_CAT_UUID);
+    }
+
+    protected List<String> getReviewCategoryIds()
+    {
+        return Arrays.asList("reviews", "film", "books", "anime", "toys");
     }
 
     protected AbstractPost getPost(String param)

@@ -75,6 +75,16 @@ public abstract class AbstractOldLinks
         return getLink(AbstractOldVersionPage.SITE_MAP_PAGE);
     }
 
+    public String getPhotoLink()
+    {
+        return getLink(AbstractOldVersionPage.PHOTO_PAGE);
+    }
+
+    public String getClubLink()
+    {
+        return getLink(AbstractOldVersionPage.CLUB_PAGE);
+    }
+
     private String getLink(String page)
     {
         return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), page).toURI();
