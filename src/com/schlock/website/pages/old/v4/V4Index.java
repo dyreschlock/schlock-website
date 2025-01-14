@@ -96,6 +96,11 @@ public class V4Index extends AbstractOldVersionPage
         return Arrays.asList(ARCHIVE_PAGE, PHOTO_PAGE, CLUB_PAGE, REVIEWS_PAGE).contains(param);
     }
 
+    public boolean isPhotoPostPage()
+    {
+        return isPhotoOrClubPage() && getPost() != null;
+    }
+
     public boolean isPhotoPage()
     {
         return PHOTO_PAGE.equals(page);

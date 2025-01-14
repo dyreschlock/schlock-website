@@ -12,6 +12,12 @@
 <body bgcolor="#333333" class="${classPage}">
 <div align="center">
     <p><font class="txt">&nbsp;</font></p>
+
+    <t:if test="photoPostPage">
+        <v4:version4photopagedisplay post="post" page="classPage" />
+    </t:if>
+
+    <t:if test="!photoPostPage">
     <table width="725" border="0">
         <tr>
             <td width="525" align="center" valign="top">
@@ -85,7 +91,9 @@
             </td>
         </tr>
     </table>
-    <p><font class="txt" style="color: #ffffff;">©2000 - 2003 .
+    </t:if>
+
+    <p><font class="txt" style="color: #ffffff;">&#169; 2000 - 2003 .
         <a href="mailto:dyre@theschlock.com" onmouseover="window.status='Email Address: dyre@theschlock.com  -  message me if you wish to converse'; return true;" onmouseout="window.status=''; return true;">
             <font color="#ffffff">dyre@theschlock.com</font></a> . All Rights Reserved, bitch.. !</font></p>
 </div>

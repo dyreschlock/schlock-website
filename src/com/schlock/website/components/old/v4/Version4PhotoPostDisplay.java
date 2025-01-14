@@ -5,6 +5,8 @@ import com.schlock.website.entities.blog.Image;
 import com.schlock.website.entities.old.SiteVersion;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.List;
 
@@ -13,6 +15,10 @@ public class Version4PhotoPostDisplay extends AbstractOldPostDisplay
     @Parameter(required = true)
     @Property
     private String page;
+
+    @Inject
+    private PageRenderLinkSource linkSource;
+
 
     protected SiteVersion getVersion()
     {
@@ -31,5 +37,13 @@ public class Version4PhotoPostDisplay extends AbstractOldPostDisplay
             return images.subList(0, getColumnCount());
         }
         return images.subList(0, getColumnCount() *2);
+    }
+
+    public String getPostLink()
+    {
+        Class indexPage = getVersion().indexClass();
+        String uuid = getPost().getUuid();
+
+        return linkSource.createPageRenderLinkWithContext(indexPage, page, uuid).toURI();
     }
 }

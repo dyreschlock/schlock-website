@@ -6,7 +6,7 @@
         <tr>
             <td align="center" valign="middle" class="${page}"> <table cellspacing="1" cellpadding="3" width="100%" border="0" align="center" bgcolor="#666666">
                 <tr align="left" bgcolor="#ffffff">
-                    <td colspan="6"><p><font class="nam">${postDate} - ${post.title}</font></p></td>
+                    <td colspan="6"><p><font class="nam">${postDate} - <a href="${postLink}">${post.title}</a></font></p></td>
                 </tr>
 
                 <t:outputraw value="imagesTableHTML" />
