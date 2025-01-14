@@ -29,6 +29,12 @@
                     <t:if test="hasPost">
                         <v4:version4postdisplay post="post" page="classPage" />
                     </t:if>
+
+                    <table width="100%" border="0" bgcolor="#000000" style="margin:5px 0px 5px 0px;">
+                        <tr>
+                            <td class="${classPage}"><span style="font-size: 8px;">&nbsp;</span></td>
+                        </tr>
+                    </table>
                 </t:if>
 
                 <t:if test="!reviewsPage">
@@ -36,13 +42,10 @@
                     <t:loop source="posts" value="currentPost">
 
                         <t:if test="photoOrClubPage">
-
-
-
+                            <v4:version4photopostdisplay post="currentPost" page="classPage" />
                         </t:if>
 
                         <t:if test="standardPage">
-
                             <v4:version4postdisplay post="currentPost" page="classPage" />
 
                             <table width="100%" border="0" bgcolor="#000000" style="margin:5px 0px 5px 0px;">
@@ -54,10 +57,16 @@
 
                     </t:loop>
 
+                    <t:if test="photoOrClubPage">
+                        <table width="100%" border="0" bgcolor="#000000" style="margin:5px 0px 5px 0px;">
+                            <tr>
+                                <td class="${classPage}"><span style="font-size: 8px;">&nbsp;</span></td>
+                            </tr>
+                        </table>
+                    </t:if>
+
                     <v4:version4pagedpreviousnext post="post" page="page" pageNumber="pageNumber" categoryIds="categoryIds" />
                 </t:if>
-
-
             </td>
             <td width="200" align="center" valign="top" style="margin:5px 0px 5px 0px;">
                 <table width="200" border="0" cellpadding="5" bgcolor="#000000">

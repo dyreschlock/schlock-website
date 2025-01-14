@@ -14,13 +14,6 @@
             <p><font size="2" color="#999999">chow</font></p>
             <p><font color="#999999" size="2">${postDate}</font></p>
         </t:if>
-
-        <t:if test="photo">
-
-            <table cellspacing="1" cellpadding="3" width="100%" border="0" align="center" bgcolor="#666666">
-                <t:outputraw value="imagesTableHTML" />
-            </table>
-        </t:if>
     </div>
 
 </t:container>

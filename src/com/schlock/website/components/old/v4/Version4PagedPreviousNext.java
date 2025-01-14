@@ -6,19 +6,19 @@ import com.schlock.website.pages.old.AbstractOldVersionPage;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 
-import java.util.Set;
+import java.util.List;
 
 public class Version4PagedPreviousNext extends AbstractOldPagedPreviousNext
 {
     @Parameter(required = true)
-    private Set<Long> categoryIds;
+    private List<Long> categoryIds;
 
     protected SiteVersion getVersion()
     {
         return SiteVersion.V4;
     }
 
-    public Set<Long> getCategoryIds()
+    public List<Long> getCategoryIds()
     {
         return categoryIds;
     }

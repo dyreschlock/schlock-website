@@ -82,6 +82,16 @@ public abstract class AbstractOldPostDisplay
         return linkSource.createPageRenderLinkWithContext(indexClass, uuid).toURI();
     }
 
+    protected int getColumnCount()
+    {
+        return 4;
+    }
+
+    protected List<Image> getPostImages()
+    {
+        return imageManagement.getGalleryImages(post);
+    }
+
     public String getImagesTableHTML()
     {
         final String TR_START = "<tr align=\"center\" valign=\"middle\" bgcolor=\"#FFFFFF\"> ";
@@ -92,7 +102,7 @@ public abstract class AbstractOldPostDisplay
 
         final String TD_EMPTY = "<td width=\"17%\" height=\"110\"><font>&nbsp;</font></td>";
 
-        final int COL_MAX = 5;
+        final int COL_MAX = getColumnCount();
 
 
         StringBuilder sb = new StringBuilder();
@@ -100,7 +110,7 @@ public abstract class AbstractOldPostDisplay
 
         sb.append(TR_START);
 
-        List<Image> images = imageManagement.getGalleryImages(post);
+        List<Image> images = getPostImages();
         for(Image image : images)
         {
             if (col == COL_MAX)
