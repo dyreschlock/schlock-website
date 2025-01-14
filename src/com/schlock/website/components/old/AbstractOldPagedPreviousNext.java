@@ -11,7 +11,9 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public abstract class AbstractOldPagedPreviousNext
 {
@@ -49,6 +51,21 @@ public abstract class AbstractOldPagedPreviousNext
     public String getPage()
     {
         return page;
+    }
+
+    protected Set<Long> getCategoryIds()
+    {
+        Set<Long> catIds = new HashSet<>();
+        if (category != null)
+        {
+            catIds.add(category.getId());
+        }
+        return catIds;
+    }
+
+    public boolean isPostBasePage()
+    {
+        return getPost() != null && AbstractOldVersionPage.BASE_PAGE.equals(getPost().getUuid());
     }
 
 
@@ -116,10 +133,9 @@ public abstract class AbstractOldPagedPreviousNext
         {
             results = archiveManagement.getPagedPosts(postCount, pageNumber);
         }
-        else if (category != null)
+        else if (!getCategoryIds().isEmpty())
         {
-            Long catId = category.getId();
-            results = archiveManagement.getPagedPosts(postCount, pageNumber, catId);
+            results = archiveManagement.getPagedPosts(postCount, pageNumber, getCategoryIds());
         }
         else
         {

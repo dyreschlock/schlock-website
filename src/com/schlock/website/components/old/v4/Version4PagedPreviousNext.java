@@ -1,37 +1,56 @@
 package com.schlock.website.components.old.v4;
 
 import com.schlock.website.components.old.AbstractOldPagedPreviousNext;
-import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
+import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.annotations.Parameter;
+
+import java.util.Set;
 
 public class Version4PagedPreviousNext extends AbstractOldPagedPreviousNext
 {
+    @Parameter(required = true)
+    private Set<Long> categoryIds;
+
     protected SiteVersion getVersion()
     {
         return SiteVersion.V4;
     }
 
-    protected AbstractPost getPost()
+    public Set<Long> getCategoryIds()
     {
-        return null;
+        return categoryIds;
     }
 
-    protected Integer getPageNumber()
+    protected String getLinkContext()
     {
-        if (super.getPost() != null)
-        {
-            return 0;
-        }
-        return super.getPageNumber();
-    }
-
-    public String getPage()
-    {
-        if (super.getPost() != null)
+        if (StringUtils.isBlank(getPage()))
         {
             return AbstractOldVersionPage.ARCHIVE_PAGE;
         }
-        return super.getPage();
+        return super.getLinkContext();
+    }
+
+    public boolean isHasPrevious()
+    {
+        if (isPostBasePage())
+        {
+            return true;
+        }
+        if (AbstractOldVersionPage.REVIEWS_PAGE.equals(getPage()) || getPost() != null)
+        {
+            return false;
+        }
+        return super.isHasPrevious();
+    }
+
+    public String getPreviousPageLink()
+    {
+        if (getPost() != null)
+        {
+            return getPageLink(1);
+        }
+        return super.getPreviousPageLink();
     }
 }

@@ -17,11 +17,6 @@ public class Version7PagedPreviousNext extends AbstractOldPagedPreviousNext
         return SiteVersion.V7;
     }
 
-    public boolean isPostBasePage()
-    {
-        return getPost() != null && AbstractOldVersionPage.BASE_PAGE.equals(getPost().getUuid());
-    }
-
     public boolean isHasNext()
     {
         if (isPostBasePage())

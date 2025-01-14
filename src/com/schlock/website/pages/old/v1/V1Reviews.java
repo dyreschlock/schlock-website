@@ -96,7 +96,7 @@ public class V1Reviews extends AbstractVersion1Page
     public List<Post> getReviewPosts()
     {
         Set<Long> categoryIds = new HashSet<>();
-        for(String uuid : getReviewCategoryIds())
+        for(String uuid : getReviewCategoryUuids())
         {
             AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, uuid);
             categoryIds.add(cat.getId());
@@ -115,7 +115,7 @@ public class V1Reviews extends AbstractVersion1Page
     {
         for(AbstractCategory cat : currentPost.getCategories())
         {
-            if (getReviewCategoryIds().contains(cat.getUuid()))
+            if (getReviewCategoryUuids().contains(cat.getUuid()))
             {
                 return cat.getName();
             }

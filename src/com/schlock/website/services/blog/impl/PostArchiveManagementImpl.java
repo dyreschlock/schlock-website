@@ -180,12 +180,12 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         return pagedPosts(posts, postCount, pageNumber);
     }
 
-    public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Long categoryId)
+    public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Set<Long> categoryIds)
     {
         ViewState viewState = asoManager.get(ViewState.class);
         boolean unpublished = viewState.isShowUnpublished();
 
-        List<Post> posts = postDAO.getMostRecentPosts(null, unpublished, null, null, categoryId);
+        List<Post> posts = postDAO.getMostRecentPosts(null, unpublished, null, null, categoryIds);
         return pagedPosts(posts, postCount, pageNumber);
     }
 

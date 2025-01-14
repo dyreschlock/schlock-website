@@ -1,17 +1,23 @@
 package com.schlock.website.pages.old.v4;
 
+import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.database.blog.CategoryDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class V4Index extends AbstractOldVersionPage
 {
+    @Inject
+    private CategoryDAO categoryDAO;
+
     @Inject
     private DeploymentContext context;
 
@@ -88,6 +94,38 @@ public class V4Index extends AbstractOldVersionPage
     private boolean isSubPage(String param)
     {
         return Arrays.asList(ARCHIVE_PAGE, PHOTO_PAGE, CLUB_PAGE, REVIEWS_PAGE).contains(param);
+    }
+
+    public Set<Long> getCategoryIds()
+    {
+        List<String> categoryUuids = new ArrayList<>();
+        if (PHOTO_PAGE.equals(page))
+        {
+            categoryUuids = getTravelPhotoCategoryUuids();
+        }
+        else if (CLUB_PAGE.equals(page))
+        {
+            categoryUuids = getClubPhotoCategoryUuids();
+        }
+        else if (REVIEWS_PAGE.equals(page))
+        {
+            categoryUuids = getReviewCategoryUuids();
+        }
+
+        Set<Long> categoryIds = new HashSet<>();
+        if (!categoryUuids.isEmpty())
+        {
+            for(String uuid : categoryUuids)
+            {
+                AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, uuid);
+                categoryIds.add(cat.getId());
+            }
+        }
+        else
+        {
+            categoryIds.add(getUpdatesCategory().getId());
+        }
+        return categoryIds;
     }
 
 

@@ -1,6 +1,9 @@
 package com.schlock.website.pages.old;
 
-import com.schlock.website.entities.blog.*;
+import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Page;
+import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.blog.PostArchiveManagement;
@@ -10,9 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public abstract class AbstractOldVersionPage
 {
@@ -66,6 +67,16 @@ public abstract class AbstractOldVersionPage
         return null;
     }
 
+    protected Set<Long> getCategoryIds()
+    {
+        Set<Long> categoryIds = new HashSet<>();
+        if (getCategory() != null)
+        {
+            categoryIds.add(getCategory().getId());
+        }
+        return categoryIds;
+    }
+
 
     protected boolean isPagedPage(String param)
     {
@@ -117,10 +128,9 @@ public abstract class AbstractOldVersionPage
         Integer pageNumber = getPageNumber();
 
         List<Post> results = new ArrayList<>();
-        if (getCategory() != null)
+        if (!getCategoryIds().isEmpty())
         {
-            Long catId = getCategory().getId();
-            results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber, catId);
+            results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber, getCategoryIds());
         }
         else if (isPagedPage(getPage()))
         {
@@ -149,9 +159,19 @@ public abstract class AbstractOldVersionPage
         return (PostCategory) categoryDAO.getByUuid(PostCategory.class, UPDATES_CAT_UUID);
     }
 
-    protected List<String> getReviewCategoryIds()
+    protected List<String> getReviewCategoryUuids()
     {
         return Arrays.asList("reviews", "film", "books", "anime", "toys");
+    }
+
+    protected List<String> getTravelPhotoCategoryUuids()
+    {
+        return Arrays.asList("travel", "takayama", "america");
+    }
+
+    protected List<String> getClubPhotoCategoryUuids()
+    {
+        return Arrays.asList("events");
     }
 
     protected AbstractPost getPost(String param)

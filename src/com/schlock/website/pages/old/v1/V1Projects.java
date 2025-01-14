@@ -10,7 +10,6 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -104,11 +103,12 @@ public class V1Projects extends AbstractVersion1Page
 
     public List<AbstractCategory> getPhotoCategories()
     {
-        List<String> catUuids = Arrays.asList("travel", "takayama", "events", "america");
-
         List<AbstractCategory> categories = new ArrayList<>();
-
-        for(String uuid : catUuids)
+        for(String uuid : getTravelPhotoCategoryUuids())
+        {
+            categories.add(categoryDAO.getByUuid(PostCategory.class, uuid));
+        }
+        for(String uuid : getClubPhotoCategoryUuids())
         {
             categories.add(categoryDAO.getByUuid(PostCategory.class, uuid));
         }

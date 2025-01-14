@@ -29,7 +29,7 @@ public interface PostArchiveManagement
 
     List<Post> getPagedPosts(Integer postCount, Integer pageNumber, String iteration);
 
-    List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Long categoryId);
+    List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Set<Long> categoryIds);
 
 
     String getParentIteration(Integer year, Integer month);
