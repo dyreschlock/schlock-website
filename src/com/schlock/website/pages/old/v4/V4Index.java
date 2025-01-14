@@ -2,16 +2,20 @@ package com.schlock.website.pages.old.v4;
 
 import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.blog.PostArchiveManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class V4Index extends AbstractOldVersionPage
 {
@@ -20,6 +24,9 @@ public class V4Index extends AbstractOldVersionPage
 
     @Inject
     private DeploymentContext context;
+
+    @Inject
+    private PostArchiveManagement archiveManagement;
 
 
     private AbstractPost post;
@@ -158,7 +165,18 @@ public class V4Index extends AbstractOldVersionPage
         return categoryIds;
     }
 
+    public List<AbstractPost> getPosts()
+    {
+        if (isClubPage() && getPost() == null)
+        {
+            List<Post> posts = archiveManagement.getPagedClubPosts(getDefaultPostsPerPage(), getPageNumber());
 
+            List<AbstractPost> results = new ArrayList<>();
+            results.addAll(posts);
+            return results;
+        }
+        return super.getPosts();
+    }
 
     public String getMainTopImage()
     {

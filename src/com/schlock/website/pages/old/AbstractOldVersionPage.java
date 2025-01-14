@@ -130,7 +130,7 @@ public abstract class AbstractOldVersionPage
         List<Post> results = new ArrayList<>();
         if (!getCategoryIds().isEmpty())
         {
-            results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber, new HashSet<Long>(getCategoryIds()));
+            results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber, new HashSet<>(getCategoryIds()));
         }
         else if (isPagedPage(getPage()))
         {

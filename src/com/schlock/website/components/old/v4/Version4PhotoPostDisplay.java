@@ -25,6 +25,11 @@ public class Version4PhotoPostDisplay extends AbstractOldPostDisplay
         return SiteVersion.V4;
     }
 
+    protected int getColumnCount()
+    {
+        return 4;
+    }
+
     protected List<Image> getPostImages()
     {
         List<Image> images = super.getPostImages();

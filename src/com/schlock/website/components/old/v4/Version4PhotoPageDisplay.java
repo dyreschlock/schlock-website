@@ -15,9 +15,4 @@ public class Version4PhotoPageDisplay extends AbstractOldPostDisplay
     {
         return SiteVersion.V4;
     }
-
-    protected int getColumnCount()
-    {
-        return 6;
-    }
 }

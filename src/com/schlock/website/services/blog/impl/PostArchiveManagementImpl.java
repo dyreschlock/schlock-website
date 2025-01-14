@@ -1,5 +1,6 @@
 package com.schlock.website.services.blog.impl;
 
+import com.schlock.website.entities.blog.ClubPost;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.services.blog.PostArchiveManagement;
@@ -186,6 +187,16 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         boolean unpublished = viewState.isShowUnpublished();
 
         List<Post> posts = postDAO.getMostRecentPosts(null, unpublished, null, null, categoryIds);
+        return pagedPosts(posts, postCount, pageNumber);
+    }
+
+    public List<Post> getPagedClubPosts(Integer postCount, Integer pageNumber)
+    {
+        List<ClubPost> results = postDAO.getAllClubPosts(true);
+
+        List<Post> posts = new ArrayList<>();
+        posts.addAll(results);
+
         return pagedPosts(posts, postCount, pageNumber);
     }
 

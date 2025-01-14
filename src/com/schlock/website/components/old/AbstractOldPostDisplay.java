@@ -84,7 +84,7 @@ public abstract class AbstractOldPostDisplay
 
     protected int getColumnCount()
     {
-        return 4;
+        return 6;
     }
 
     protected List<Image> getPostImages()

@@ -31,6 +31,8 @@ public interface PostArchiveManagement
 
     List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Set<Long> categoryIds);
 
+    List<Post> getPagedClubPosts(Integer postCount, Integer pageNumber);
+
 
     String getParentIteration(Integer year, Integer month);
 

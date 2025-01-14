@@ -133,11 +133,18 @@ public class V1Projects extends AbstractVersion1Page
         Long categoryId = currentCategory.getId();
 
         List<AbstractPost> posts = null;
-        if (currentCategory.isProject())
+        if (getClubPhotoCategoryUuids().contains(currentCategory.getUuid()))
+        {
+            List<ClubPost> results = postDAO.getAllClubPosts(true);
+
+            posts = new ArrayList<>();
+            posts.addAll(results);
+        }
+        else if (currentCategory.isProject())
         {
             posts = postDAO.getAllProjectsByCategory(false, categoryId);
         }
-        if (currentCategory.isPost())
+        else if (currentCategory.isPost())
         {
             posts = postDAO.getMostRecentPostsWithGallery(null, false, null, null, categoryId, Collections.EMPTY_SET);
         }
