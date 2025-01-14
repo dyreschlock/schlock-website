@@ -31,7 +31,7 @@ public class V6Index extends AbstractOldVersionPage
         page = null;
         post = null;
 
-        if (isArchivePage(param))
+        if (isMonthlyArchivePage(param))
         {
             page = param;
         }

@@ -14,7 +14,6 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class V4Index extends AbstractOldVersionPage
@@ -98,34 +97,14 @@ public class V4Index extends AbstractOldVersionPage
         return true;
     }
 
-    private boolean isSubPage(String param)
-    {
-        return Arrays.asList(ARCHIVE_PAGE, PHOTO_PAGE, CLUB_PAGE, REVIEWS_PAGE).contains(param);
-    }
-
     public boolean isPhotoPostPage()
     {
         return isPhotoOrClubPage() && getPost() != null;
     }
 
-    public boolean isPhotoPage()
-    {
-        return PHOTO_PAGE.equals(page);
-    }
-
-    public boolean isClubPage()
-    {
-        return CLUB_PAGE.equals(page);
-    }
-
     public boolean isPhotoOrClubPage()
     {
         return isPhotoPage() || isClubPage();
-    }
-
-    public boolean isReviewsPage()
-    {
-        return REVIEWS_PAGE.equals(page);
     }
 
     public boolean isStandardPage()
@@ -180,46 +159,22 @@ public class V4Index extends AbstractOldVersionPage
 
     public String getMainTopImage()
     {
-        String link = context.webDomain();
-        if (isPhotoPage())
-        {
-            link += "img/old/sunset_1.jpg";
-        }
-        else if (isClubPage())
-        {
-            link += "img/old/plush_1.jpg";
-        }
-        else if (isReviewsPage())
-        {
-            link += "img/old/discus_1.jpg";
-        }
-        else
-        {
-            link += "img/old/trail_1.jpg";
-        }
-        return link;
+        String link = "%simg/old/v4/%s_1.jpg";
+
+        String domain = context.webDomain();
+        String page = getClassPage();
+
+        return String.format(link, domain, page);
     }
 
     public String getMainBottomImage()
     {
-        String link = context.webDomain();
-        if (isPhotoPage())
-        {
-            link += "img/old/sunset_2.jpg";
-        }
-        else if (isClubPage())
-        {
-            link += "img/old/plush_2.jpg";
-        }
-        else if (isReviewsPage())
-        {
-            link += "img/old/discus_2.jpg";
-        }
-        else
-        {
-            link += "img/old/trail_2.jpg";
-        }
-        return link;
+        String link = "%simg/old/v4/%s_2.jpg";
+
+        String domain = context.webDomain();
+        String page = getClassPage();
+
+        return String.format(link, domain, page);
     }
 
     public SiteVersion getVersion()

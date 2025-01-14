@@ -4,14 +4,14 @@ import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
+import com.schlock.website.services.database.blog.CategoryDAO;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.PageRenderLinkSource;
 
 public class V7Index extends AbstractOldVersionPage
 {
     @Inject
-    private PageRenderLinkSource linkSource;
+    private CategoryDAO categoryDAO;
 
     private PostCategory category;
     private AbstractPost post;
@@ -48,7 +48,7 @@ public class V7Index extends AbstractOldVersionPage
         category = getCategory(param);
         if (category == null)
         {
-            if (isArchivePage(param) || isPagedPage(param))
+            if (isMonthlyArchivePage(param) || isPagedPage(param))
             {
                 page = param;
             }
@@ -85,6 +85,11 @@ public class V7Index extends AbstractOldVersionPage
             }
         }
         return true;
+    }
+
+    protected PostCategory getCategory(String param)
+    {
+        return (PostCategory) categoryDAO.getByUuid(PostCategory.class, param);
     }
 
     public String getPage()

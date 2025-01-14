@@ -1,0 +1,19 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <table width="520" align="center" cellpadding="0" border="0" cellspacing="0">
+        <tr>
+            <td>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <p align="center"><font class="nam">hi</font></p>
+            </td>
+        </tr>
+    </table>
+
+
+</t:container>

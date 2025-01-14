@@ -1,7 +1,7 @@
 package com.schlock.website.pages.old;
 
+import com.schlock.website.components.old.AbstractOldLinks;
 import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
@@ -11,11 +11,13 @@ import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
-public abstract class AbstractOldVersionPage
+public abstract class AbstractOldVersionPage extends AbstractOldLinks
 {
     public static final String BASE_PAGE = "site-design-history";
     public static final String UPDATES_CAT_UUID = "updates";
@@ -36,9 +38,6 @@ public abstract class AbstractOldVersionPage
     public static final String CLUB_PAGE = "club";
 
     public static final int POSTS_PER_PAGE = 10;
-
-    @Inject
-    private PageRenderLinkSource linkSource;
 
     @Inject
     private CssCache cssCache;
@@ -78,26 +77,6 @@ public abstract class AbstractOldVersionPage
     }
 
 
-    protected boolean isPagedPage(String param)
-    {
-        return BLOG_PAGE.equals(param) || ARCHIVE_PAGE.equals(param);
-    }
-
-    protected boolean isArchivePage(String param)
-    {
-        return archiveManagement.isIteration(param);
-    }
-
-    public String getProjectsPage()
-    {
-        return PROJECTS_PAGE;
-    }
-
-    public String getReviewsPage()
-    {
-        return REVIEWS_PAGE;
-    }
-
     public boolean isHasPost()
     {
         return getPost() != null;
@@ -108,10 +87,45 @@ public abstract class AbstractOldVersionPage
         return getPage() != null;
     }
 
-    public String getPageCss()
+    public boolean isPhotoPage()
     {
-        return cssCache.getCssOldVersions(getPosts(), getVersion());
+        return PHOTO_PAGE.equals(getPage());
     }
+
+    public boolean isClubPage()
+    {
+        return CLUB_PAGE.equals(getPage());
+    }
+
+    public boolean isReviewsPage()
+    {
+        return REVIEWS_PAGE.equals(getPage());
+    }
+
+    public boolean isSiteMapPage()
+    {
+        return SITE_MAP_PAGE.equals(getPage());
+    }
+
+
+
+
+    protected boolean isPagedPage(String param)
+    {
+        return BLOG_PAGE.equals(param) || ARCHIVE_PAGE.equals(param);
+    }
+
+    protected boolean isMonthlyArchivePage(String param)
+    {
+        return archiveManagement.isIteration(param);
+    }
+
+    protected boolean isSubPage(String param)
+    {
+        return Arrays.asList(ARCHIVE_PAGE, PHOTO_PAGE, CLUB_PAGE, REVIEWS_PAGE, SITE_MAP_PAGE).contains(param);
+    }
+
+
 
     public Integer getDefaultPostsPerPage()
     {
@@ -136,7 +150,7 @@ public abstract class AbstractOldVersionPage
         {
             results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber);
         }
-        else if (isArchivePage(getPage()))
+        else if (isMonthlyArchivePage(getPage()))
         {
             String archiveIteration = getPage();
             results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber, archiveIteration);
@@ -148,11 +162,6 @@ public abstract class AbstractOldVersionPage
     }
 
 
-
-    protected AbstractPost getDefaultPost()
-    {
-        return postDAO.getByUuid(BASE_PAGE);
-    }
 
     protected PostCategory getUpdatesCategory()
     {
@@ -174,6 +183,12 @@ public abstract class AbstractOldVersionPage
         return Arrays.asList("events");
     }
 
+
+    protected AbstractPost getDefaultPost()
+    {
+        return postDAO.getByUuid(BASE_PAGE);
+    }
+
     protected AbstractPost getPost(String param)
     {
         if (StringUtils.isBlank(param))
@@ -192,34 +207,18 @@ public abstract class AbstractOldVersionPage
         return getPost(null);
     }
 
-    protected PostCategory getCategory(String param)
+    public String getPageCss()
     {
-        return (PostCategory) categoryDAO.getByUuid(PostCategory.class, param);
+        return cssCache.getCssOldVersions(getPosts(), getVersion());
     }
 
-
-    public String getHomeLink()
+    public String getProjectsPage()
     {
-        return linkSource.createPageRenderLink(getVersion().indexClass()).toURI();
+        return PROJECTS_PAGE;
     }
 
-    public String getAboutMeLink()
+    public String getReviewsPage()
     {
-        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), Page.ABOUT_ME_UUID).toURI();
-    }
-
-    public String getReviewsLink()
-    {
-        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), REVIEWS_PAGE).toURI();
-    }
-
-    public String getReleasesLink()
-    {
-        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), RELEASES_PAGE).toURI();
-    }
-
-    public String getAnimeLink()
-    {
-        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), ANIME_PAGE).toURI();
+        return REVIEWS_PAGE;
     }
 }
