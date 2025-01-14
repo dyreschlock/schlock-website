@@ -24,6 +24,11 @@ public enum SiteVersion
     }
 
 
+    public boolean isChangeLinks()
+    {
+        return this == V6 || this == V7;
+    }
+
     public Class indexClass()
     {
         return indexClass;

@@ -349,7 +349,7 @@ public class PostManagementImpl implements PostManagement
         boolean useGalleryLink = !rssFeed && oldVersion == null;
         html = imageManagement.updateImagesInHTML(post, html, useGalleryLink);
 
-        if (oldVersion != null)
+        if (oldVersion != null && oldVersion.isChangeLinks())
         {
             html = changeLinksToOldVersion(html, oldVersion);
         }
