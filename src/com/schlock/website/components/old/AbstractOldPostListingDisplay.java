@@ -1,19 +1,20 @@
 package com.schlock.website.components.old;
 
-import com.schlock.website.entities.blog.*;
+import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.ClubPost;
+import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.DateFormatter;
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,10 +27,10 @@ public abstract class AbstractOldPostListingDisplay
 
 
     @Inject
-    private PageRenderLinkSource linkSource;
+    private DeploymentContext context;
 
     @Inject
-    private Messages messages;
+    private PageRenderLinkSource linkSource;
 
     @Inject
     private DateFormatter dateFormatter;
@@ -45,7 +46,15 @@ public abstract class AbstractOldPostListingDisplay
 
 
     @Parameter(required = true)
+    @Property
+    private List<Long> categoryIds;
+
+    @Parameter
     private String page;
+
+
+    @Property
+    private Long currentCategoryId;
 
     @Property
     private AbstractPost currentPost;
@@ -56,64 +65,23 @@ public abstract class AbstractOldPostListingDisplay
 
     abstract protected SiteVersion getVersion();
 
-
-    public boolean isArchivePage()
+    public String getPage()
     {
-        return ARCHIVE_PAGE.equals(page);
-    }
-
-    public boolean isMusicPage()
-    {
-        return MUSIC_PAGE.equals(page);
-    }
-
-    public boolean isPageShowDescription()
-    {
-        return PROJECTS_PAGE.equals(page) || GAMES_PAGE.equals(page);
-    }
-
-    public List<AbstractPost> getPosts()
-    {
-        if (ARCHIVE_PAGE.equals(page))
-        {
-            List<Post> posts = postDAO.getAllPublished();
-
-            List<AbstractPost> results = new ArrayList<>();
-            results.addAll(posts);
-            return results;
-        }
-        if (PROJECTS_PAGE.equals(page))
-        {
-            return postDAO.getAllProjectsByCategory(false, null);
-        }
-        if (GAMES_PAGE.equals(page))
-        {
-            AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, GAMES_PAGE);
-            Long categoryId = cat.getId();
-
-            List<Post> posts = postDAO.getMostRecentPosts(null, false, null, null, categoryId);
-
-            List<AbstractPost> results = new ArrayList<>();
-            results.addAll(posts);
-            return results;
-        }
-        if (MUSIC_PAGE.equals(page))
-        {
-            List<ClubPost> posts = postDAO.getAllClubPosts(true);
-
-            List<AbstractPost> results = new ArrayList<>();
-            results.addAll(posts);
-            return results;
-        }
-        return null;
+        return page;
     }
 
 
-    public String getPageTitle()
+    public String getCurrentCategoryName()
     {
-        return messages.get(page);
+        return categoryDAO.getById(currentCategoryId).getName();
     }
 
+
+    public List<Post> getPosts()
+    {
+        List<Post> posts = postDAO.getMostRecentPosts(null, false, null, null, currentCategoryId);
+        return posts;
+    }
 
 
     public String getCurrentPostDescription()
@@ -124,7 +92,7 @@ public abstract class AbstractOldPostListingDisplay
     public String getCurrentPostLink()
     {
         String uuid = currentPost.getUuid();
-        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), uuid).toURI();
+        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), getPage(), uuid).toURI();
     }
 
     public String getCurrentClubDate()
@@ -144,5 +112,11 @@ public abstract class AbstractOldPostListingDisplay
             return "</tr><tr>";
         }
         return "";
+    }
+
+    public String getStarImageLink()
+    {
+        String link = context.webDomain() + "img/old/star1.gif";
+        return link;
     }
 }

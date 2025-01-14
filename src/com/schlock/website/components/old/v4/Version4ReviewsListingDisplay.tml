@@ -1,0 +1,35 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <table width="100%" border="0" cellpadding="5" bgcolor="#000000" style="margin:5px 0px 5px 0px;">
+        <tr>
+            <td class="${page}"> <table width="100%" border="0" cellpadding="10" bgcolor="#CCCCCC">
+                <tr>
+                    <td bgcolor="#FFFFFF">
+                        <p><font class="dat">Impressions</font></p>
+
+                        <table width="100%" align="center" cellpadding="0" border="0" cellspacing="0">
+                            <tr><td colspan="2"><p class="y"><font class="txt">these are my thoughts and opinions concerning the specific points of today's modern marvel of entertainment...  everyone in the world is an individual and has the need to be heard and express themselves, though many of those people need to be silenced and never let near a camera, or pencil, or anything ever again for the sake of history...  life isn't that bad though ^_^ ...</font></p></td></tr>
+
+                            <t:loop source="categoryIds" value="currentCategoryId">
+                                <tr><td colspan="2"><hr align="center" width="100%" size="1" /></td></tr>
+                                <tr><td colspan="2"><p><font class="txt">${currentCategoryName}</font></p></td></tr>
+
+                                <t:loop source="posts" value="currentPost">
+
+                                    <tr><td width="20" align="right"><img src="${starImageLink}" border="0" /></td>
+                                        <td><p class="y"><font class="nam"><a href="${currentPostLink}">${currentPost.title}</a></font></p></td>
+                                    </tr>
+
+                                </t:loop>
+                            </t:loop>
+                        </table>
+                    </td>
+                </tr>
+            </table></td>
+        </tr>
+    </table>
+
+
+</t:container>

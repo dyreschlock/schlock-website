@@ -67,9 +67,9 @@ public abstract class AbstractOldVersionPage
         return null;
     }
 
-    protected Set<Long> getCategoryIds()
+    protected List<Long> getCategoryIds()
     {
-        Set<Long> categoryIds = new HashSet<>();
+        List<Long> categoryIds = new ArrayList<>();
         if (getCategory() != null)
         {
             categoryIds.add(getCategory().getId());
@@ -130,7 +130,7 @@ public abstract class AbstractOldVersionPage
         List<Post> results = new ArrayList<>();
         if (!getCategoryIds().isEmpty())
         {
-            results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber, getCategoryIds());
+            results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber, new HashSet<Long>(getCategoryIds()));
         }
         else if (isPagedPage(getPage()))
         {

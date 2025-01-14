@@ -96,23 +96,48 @@ public class V4Index extends AbstractOldVersionPage
         return Arrays.asList(ARCHIVE_PAGE, PHOTO_PAGE, CLUB_PAGE, REVIEWS_PAGE).contains(param);
     }
 
-    public Set<Long> getCategoryIds()
+    public boolean isPhotoPage()
+    {
+        return PHOTO_PAGE.equals(page);
+    }
+
+    public boolean isClubPage()
+    {
+        return CLUB_PAGE.equals(page);
+    }
+
+    public boolean isPhotoOrClubPage()
+    {
+        return isPhotoPage() || isClubPage();
+    }
+
+    public boolean isReviewsPage()
+    {
+        return REVIEWS_PAGE.equals(page);
+    }
+
+    public boolean isStandardPage()
+    {
+        return !isPhotoPage() && !isClubPage() && !isReviewsPage();
+    }
+
+    public List<Long> getCategoryIds()
     {
         List<String> categoryUuids = new ArrayList<>();
-        if (PHOTO_PAGE.equals(page))
+        if (isPhotoPage())
         {
             categoryUuids = getTravelPhotoCategoryUuids();
         }
-        else if (CLUB_PAGE.equals(page))
+        else if (isClubPage())
         {
             categoryUuids = getClubPhotoCategoryUuids();
         }
-        else if (REVIEWS_PAGE.equals(page))
+        else if (isReviewsPage())
         {
             categoryUuids = getReviewCategoryUuids();
         }
 
-        Set<Long> categoryIds = new HashSet<>();
+        List<Long> categoryIds = new ArrayList<>();
         if (!categoryUuids.isEmpty())
         {
             for(String uuid : categoryUuids)
@@ -133,15 +158,15 @@ public class V4Index extends AbstractOldVersionPage
     public String getMainTopImage()
     {
         String link = context.webDomain();
-        if (PHOTO_PAGE.equals(page))
+        if (isPhotoPage())
         {
             link += "img/old/sunset_1.jpg";
         }
-        else if (CLUB_PAGE.equals(page))
+        else if (isClubPage())
         {
             link += "img/old/plush_1.jpg";
         }
-        else if (REVIEWS_PAGE.equals(page))
+        else if (isReviewsPage())
         {
             link += "img/old/discus_1.jpg";
         }
@@ -155,15 +180,15 @@ public class V4Index extends AbstractOldVersionPage
     public String getMainBottomImage()
     {
         String link = context.webDomain();
-        if (PHOTO_PAGE.equals(page))
+        if (isPhotoPage())
         {
             link += "img/old/sunset_2.jpg";
         }
-        else if (CLUB_PAGE.equals(page))
+        else if (isClubPage())
         {
             link += "img/old/plush_2.jpg";
         }
-        else if (REVIEWS_PAGE.equals(page))
+        else if (isReviewsPage())
         {
             link += "img/old/discus_2.jpg";
         }

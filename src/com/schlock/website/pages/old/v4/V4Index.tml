@@ -9,7 +9,7 @@
     <style type="text/css">${pageCss}</style>
 </head>
 
-<body bgcolor="#333333">
+<body bgcolor="#333333" class="${classPage}">
 <div align="center">
     <p><font class="txt">&nbsp;</font></p>
     <table width="725" border="0">
@@ -21,19 +21,42 @@
                     </tr>
                 </table>
 
-                <t:loop source="posts" value="currentPost">
+                <t:if test="reviewsPage">
+                    <t:if test="!hasPost">
+                        <v4:version4reviewslistingdisplay page="classPage" categoryIds="categoryIds" />
+                    </t:if>
 
-                    <v4:version4postdisplay post="currentPost" page="classPage" />
+                    <t:if test="hasPost">
+                        <v4:version4postdisplay post="post" page="classPage" />
+                    </t:if>
+                </t:if>
 
-                    <table width="100%" border="0" bgcolor="#000000" style="margin:5px 0px 5px 0px;">
-                        <tr>
-                            <td class="${classPage}"><span style="font-size: 8px;">&nbsp;</span></td>
-                        </tr>
-                    </table>
+                <t:if test="!reviewsPage">
 
-                </t:loop>
+                    <t:loop source="posts" value="currentPost">
 
-                <v4:version4pagedpreviousnext post="post" page="page" pageNumber="pageNumber" categoryIds="categoryIds" />
+                        <t:if test="photoOrClubPage">
+
+
+
+                        </t:if>
+
+                        <t:if test="standardPage">
+
+                            <v4:version4postdisplay post="currentPost" page="classPage" />
+
+                            <table width="100%" border="0" bgcolor="#000000" style="margin:5px 0px 5px 0px;">
+                                <tr>
+                                    <td class="${classPage}"><span style="font-size: 8px;">&nbsp;</span></td>
+                                </tr>
+                            </table>
+                        </t:if>
+
+                    </t:loop>
+
+                    <v4:version4pagedpreviousnext post="post" page="page" pageNumber="pageNumber" categoryIds="categoryIds" />
+                </t:if>
+
 
             </td>
             <td width="200" align="center" valign="top" style="margin:5px 0px 5px 0px;">
