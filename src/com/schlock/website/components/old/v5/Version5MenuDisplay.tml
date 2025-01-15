@@ -5,17 +5,73 @@
     <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
 
-            <td width="50%" align="left"><p><font class="title"><b></b>daily // <font class="ment">
-            <font color="#cccccc">updates</font> /
-            <a href="events.html"><font color="#cccccc">events</font></a> /
-            <a href="journal/index.html"><font color="#cccccc">journal</font></a></font></font></p></td>
+            <td width="50%" align="left"><p><font class="title">
+
+                <t:if test="archivePage">
+
+                    daily // <font class="ment">
+                        <font color="#cccccc">updates</font> /
+                        <a href="events.html"><font color="#cccccc">events</font></a> /
+                        <font color="#cccccc">journal</font></font>
+
+                </t:if>
+
+                <t:if test="photoPage">
+
+                    photography // <font class="ment">
+                        imagery /
+                        <a href="${clubLink}"><font color="#cccccc">after-hours</font></a></font>
+
+                </t:if>
+
+                <t:if test="clubPage">
+
+                    photography // <font class="ment">
+                        <a href="${photoLink}"><font color="#cccccc">imagery</font></a> /
+                        after-hours</font>
+
+                </t:if>
+
+                <t:if test="reviewsPage">
+
+                    impressions //
+
+                </t:if>
+
+                <t:if test="siteMapPage">
+
+                    information // <font class="ment">
+                        <a href="${aboutMeLink}"><font color="#cccccc">profile</font></a> /
+                        site-map / resume</font>
+                </t:if>
+
+            </font></p></td>
 
 
-            <td width="50%" align="right"><p><font class="ment">works /
-                <a href="${photoLink}"><font color="#cccccc">photography</font></a> /
-                <a href="${reviewsLink}"><font color="#cccccc">impressions</font></a> /
-                <a href="${siteMapLink}"><font color="#cccccc">information</font></a></font></p></td>
+            <td width="50%" align="right"><p><font class="ment">
 
+                <t:if test="!archivePage">
+                    <a href="${homeLink}"><font color="#cccccc">daily</font></a> /
+                </t:if>
+
+                works /
+
+                <t:if test="notPhotoAndClubPage">
+                    <a href="${photoLink}"><font color="#cccccc">photography</font></a> /
+                </t:if>
+
+                <t:if test="!reviewsPage">
+                    <a href="${reviewsLink}"><font color="#cccccc">impressions</font></a>
+
+                    <t:if test="!siteMapPage">
+                        /
+                    </t:if>
+                </t:if>
+
+                <t:if test="!siteMapPage">
+                    <a href="${siteMapLink}"><font color="#cccccc">information</font></a>
+                </t:if>
+            </font></p></td>
         </tr>
     </table>
 </t:container>
