@@ -89,10 +89,20 @@ public abstract class AbstractOldPostListingDisplay
         return postManagement.generatePostDescription(currentPost);
     }
 
+    protected Class getIndexClass()
+    {
+        return getVersion().indexClass();
+    }
+
     public String getCurrentPostLink()
     {
         String uuid = currentPost.getUuid();
-        return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), getPage(), uuid).toURI();
+        String page = getPage();
+        if (page != null)
+        {
+            return linkSource.createPageRenderLinkWithContext(getIndexClass(), getPage(), uuid).toURI();
+        }
+        return linkSource.createPageRenderLinkWithContext(getIndexClass(), uuid).toURI();
     }
 
     public String getCurrentClubDate()
