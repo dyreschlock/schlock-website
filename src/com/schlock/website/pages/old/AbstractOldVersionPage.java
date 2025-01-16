@@ -163,7 +163,7 @@ public abstract class AbstractOldVersionPage extends AbstractOldLinks
 
 
 
-    protected PostCategory getUpdatesCategory()
+    public PostCategory getUpdatesCategory()
     {
         return (PostCategory) categoryDAO.getByUuid(PostCategory.class, UPDATES_CAT_UUID);
     }

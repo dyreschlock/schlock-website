@@ -1,0 +1,17 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+    <p class="y" align="center"><font class="nam">
+
+        <t:if test="hasPrevious">
+            <a href="${previousPageLink}">&lt; &lt;</a>
+        </t:if>
+
+        archived news
+
+        <t:if test="hasNext">
+            <a href="${nextPageLink}">&gt; &gt;</a>
+        </t:if>
+
+    </font></p>
+</t:container>

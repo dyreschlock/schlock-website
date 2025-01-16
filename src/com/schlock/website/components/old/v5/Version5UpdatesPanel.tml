@@ -1,0 +1,25 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:v5="tapestry-library:old/v5"
+    >
+
+    <table width="520" align="center" cellpadding="0" border="0" cellspacing="0">
+        <tr>
+            <td>
+                <p align="center"><font class="nam">the proverbial on-going this and that</font></p>
+
+                <t:loop source="posts" value="currentPost">
+
+                    <v5:version5postdisplay post="currentPost" />
+
+                </t:loop>
+
+                <hr align="center" width="100%" size="1" />
+
+                <v5:version5pagedpreviousnext post="post" pageNumber="pageNumber" category="category" />
+
+            </td>
+        </tr>
+    </table>
+
+</t:container>

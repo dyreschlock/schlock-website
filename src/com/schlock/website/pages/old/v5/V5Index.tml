@@ -28,16 +28,22 @@
                 </table>
                 <table width="100%" border="0" bgcolor="#000000" cellpadding="5" style="margin:5px 0px 5px 0px;">
                     <tr>
-                        <td height="455" align="center" valign="middle" background="${image6Link}">
+                        <td height="455" align="center" valign="top" background="${image6Link}">
                             <table width="100%" height="100%" cellpadding="0" cellspacing="0" border="1" bordercolor="#aaaaaa">
                                 <tr>
-                                    <td align="center" valign="middle" bgcolor="#ffffff">
+                                    <td align="center" valign="top" bgcolor="#ffffff">
                                         <div id="contentPanel">
 
+                                            <t:if test="updatesPage">
+                                                <v5:version5updatespanel posts="posts" post="post" pageNumber="pageNumber" category="updatesCategory" />
+                                            </t:if>
 
 
-                                            <v5:version5sitemapdisplay />
 
+
+                                            <t:if test="siteMapPage">
+                                                <v5:version5sitemappanel />
+                                            </t:if>
 
                                         </div>
                                     </td>
@@ -49,7 +55,7 @@
                 <table width="100%" border="0" bgcolor="#000000" style="margin:5px 0px 5px 0px;">
                     <tr><td height="17" align="center" background="${image4Link}">
 
-                        <v5:version5menudisplay page="page" />
+                        <v5:version5menudisplay page="classPage" />
 
                     </td></tr></table>
             </td>

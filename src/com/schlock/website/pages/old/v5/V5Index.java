@@ -1,11 +1,15 @@
 package com.schlock.website.pages.old.v5;
 
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.DeploymentContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class V5Index extends AbstractOldVersionPage
 {
@@ -39,10 +43,31 @@ public class V5Index extends AbstractOldVersionPage
         {
             post = getPost(param);
         }
+
+        if (Page.ABOUT_ME_UUID.equals(param))
+        {
+            page = SITE_MAP_PAGE;
+        }
         return true;
     }
 
+    Object onActivate(String p1, String p2)
+    {
+        post = null;
+        page = p1;
+        pageNumber = Integer.parseInt(p2);
 
+        return true;
+    }
+
+    protected List<Long> getCategoryIds()
+    {
+        if (isUpdatesPage())
+        {
+            return Arrays.asList(getUpdatesCategory().getId());
+        }
+        return super.getCategoryIds();
+    }
 
 
 
@@ -88,6 +113,10 @@ public class V5Index extends AbstractOldVersionPage
         return String.format(link, domain, page, number);
     }
 
+    public boolean isUpdatesPage()
+    {
+        return ARCHIVE_PAGE.equals(getClassPage());
+    }
 
     public SiteVersion getVersion()
     {
