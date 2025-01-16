@@ -1,19 +1,32 @@
 <t:container
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:v5="tapestry-library:old/v5"
     >
 
     <table width="520" align="center" cellpadding="0" border="0" cellspacing="0">
         <tr>
             <td>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <p align="center"><font class="nam">hi</font></p>
+
+                <t:if test="hasPost">
+
+                    <p align="center"><font class="nam">about me</font></p>
+                    <v5:version5postdisplay post="post" />
+                    <hr align="center" width="100%" size="1" />
+
+                </t:if>
+
+                <t:if test="!hasPost">
+
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <p align="center"><font class="nam">hi</font></p>
+
+                </t:if>
             </td>
         </tr>
     </table>
-
 
 </t:container>

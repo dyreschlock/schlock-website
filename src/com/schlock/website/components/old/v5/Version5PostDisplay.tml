@@ -4,7 +4,9 @@
 
     <hr align="center" width="100%" size="1" />
 
-    <p class="x"><font class="dat">${postDate}</font></p>
+    <t:if test="!aboutMe">
+        <p class="x"><font class="dat">${postDate}</font></p>
+    </t:if>
 
     <t:outputraw value="postBodyHTML" />
 

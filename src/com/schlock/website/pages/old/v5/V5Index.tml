@@ -42,7 +42,7 @@
 
 
                                             <t:if test="siteMapPage">
-                                                <v5:version5sitemappanel />
+                                                <v5:version5sitemappanel post="post" />
                                             </t:if>
 
                                         </div>
