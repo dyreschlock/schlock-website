@@ -21,6 +21,8 @@ hr          { position: relative; top: 0px; }
     padding: 2px;
 
     overflow-y: scroll;
+
+    position: relative;
 }
 
 div.contentBody
@@ -39,8 +41,33 @@ div.contentBody
 
 	font.dat    { font-size: 14px; color: #6984B0; font-weight: bold; }
 	font.nam    { color: #666666; }
+	font.name   { color: #000000; }
+	font.n4m    { color: #333333; }
+	font.title2 { color: #333333; font-size: 10px; }
 	font.men    { color: #ffffff; }
 	font.menx   { color: #ffffff; margin-left: 15px; }
+}
 
+#clubMenu
+{
+    width: 425px;
+    height: 28px;
 
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    transform-origin: 0 0;
+    transform: rotate(270deg);
+
+    margin-top: 435px;
+    padding-top: 10px;
+}
+
+#clubContent
+{
+    margin-left: 35px;
+
+    padding-top: 10px;
+    text-align: left;
 }

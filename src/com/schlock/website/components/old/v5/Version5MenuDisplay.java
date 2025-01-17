@@ -42,6 +42,16 @@ public class Version5MenuDisplay extends AbstractOldLinks
     }
 
 
+    public String getClubEventsLink()
+    {
+        return getLink(AbstractOldVersionPage.CLUB_PAGE, Version5ClubPanel.UPCOMING);
+    }
+
+    public String getClubPhotoLink()
+    {
+        return getLink(AbstractOldVersionPage.CLUB_PAGE, Version5ClubPanel.PHOTO);
+    }
+
     public SiteVersion getVersion()
     {
         return SiteVersion.V5;

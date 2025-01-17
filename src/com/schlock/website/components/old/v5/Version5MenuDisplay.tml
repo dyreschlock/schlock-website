@@ -11,7 +11,7 @@
 
                     daily // <font class="ment">
                         <font color="#cccccc">updates</font> /
-                        <a href="events.html"><font color="#cccccc">events</font></a> /
+                        <a href="${clubEventsLink}"><font color="#cccccc">events</font></a> /
                         <font color="#cccccc">journal</font></font>
 
                 </t:if>
@@ -28,7 +28,7 @@
 
                     photography // <font class="ment">
                         <a href="${photoLink}"><font color="#cccccc">imagery</font></a> /
-                        after-hours</font>
+                        <a href="${clubPhotoLink}"><font color="#cccccc">after-hours</font></a></font>
 
                 </t:if>
 

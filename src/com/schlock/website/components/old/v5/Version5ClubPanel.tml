@@ -1,0 +1,345 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <div id="clubMenu">
+
+        events
+        &lt;
+        <a href="${checklistLink}">checklist</a>
+        |
+        <a href="${wishlistLink}">wishlist</a>
+        &gt; &lt;
+        <a href="${pastEventsLink}">past event</a>
+        |
+        <a href="${photoLink}">photos</a>
+        |
+        <a href="${upcomingEventsLink}">upcoming events</a>
+        &gt;
+
+    </div>
+
+    <div id="clubContent">
+
+        <t:if test="photoPage">
+            photo
+        </t:if>
+
+        <t:if test="upcomingEventsPage">
+            <p align="center"><font class="n4m">upcoming events</font></p>
+            <hr align="center" width="90%" size="1"/>
+            <p class="x"><font class="nam">
+                <font class="txt">thu oct 28th, 2004 -- unkle -- ascot room / the quest / minneapolis</font><br/>
+                <font class="txt">fri oct 29th, 2004 -- christopher lawrence -- plush / tabu / minneapolis</font><br/>
+                <font class="txt">fri oct 29th, 2004 -- unkle live -- soundbar / chicago</font><br/>
+                <font class="txt">sat oct 30th, 2004 -- bt dj set + nu nrg live -- spundae / visions / chicago</font><br/>
+                <font class="txt">thu nov 4th, 2004 -- mark farina -- metro / chicago</font><br/>
+                <font class="txt">fri nov 5th, 2004 -- steve lawler -- sound-bar / chicago</font><br/>
+                <font class="txt">wed nov 10th, 2004 -- way out west live -- remedy / club escape / minneapolis</font><br/>
+                <font class="name">fri nov 12th, 2004 -- way out west live -- the abbey / chicago</font><br/>
+                <font class="txt">fri nov 12th, 2004 -- dave ralph -- sound-bar / chicago</font><br/>
+                <font class="txt">sat nov 20th, 2004 -- john creamer &#38; stephan k -- spundae / visions / chicago</font><br/>
+                <font class="txt">tue nov 23rd, 2003 -- paul oakenfold -- sound-bar / chicago</font><br/>
+                <font class="name">wed nov 24th, 2004 -- deep dish -- club escape / minneapolis</font><br/>
+                <font class="txt">wed nov 24th, 2004 -- max graham -- the social / millwaukee</font><br/>
+                <font class="txt">fri nov 26th, 2004 -- deep dish -- sound-bar / chicago</font><br/>
+                <font class="txt"><strike>sat dec 4th, 2004 -- bt laptop symphony live -- ritual / escape / minneapolis</strike></font><br/>
+                <font class="txt">fri dec 10th, 2004 -- james zabiella + jimmy van m -- sound-bar / chicago</font><br/>
+                <font class="txt">sat dec 11th, 2004 -- james holden -- spundae / visions / chicago</font><br/>
+                <font class="txt">thu jan 13th, 2004 -- kimball collins -- martini blue / minneapolis</font>
+                <br/>
+            </font></p>
+            <hr align="center" width="90%" size="1"/>
+        </t:if>
+
+        <t:if test="pastEventsPage">
+            <p align="center"><font class="n4m">past events</font></p>
+            <hr align="center" width="90%" size="1"/>
+            <p class="x"><font class="nam">
+
+                <a href="http://www.theschlock.com/club/041016_sasha/index.html" target="dresden" onClick="resizeWin('sasha',710,780)"><font class="name">sat oct 16th, 2004 -- sasha -- club escape / minneapolis</font></a><br/>
+                <font class="txt">sat oct 16th, 2004 -- max graham + grayarea -- spundae / visions / chicago</font><br/>
+                <font class="txt">fri oct 15th, 2004 -- junkie xl live + desyn masiello -- sound-bar / chicago</font><br/>
+                <font class="txt">sat oct 9th, 2004 -- armin van buuren + markus schulz -- spundae / visions / chicago</font><br/>
+                <font class="txt">fri oct 8th, 2004 -- james zabiela -- plush / tabu / minneapolis</font><br/>
+                <font class="txt">sat oct 2nd, 2004 -- seb fontaine -- escape / minneapolis</font><br/>
+                <font class="txt">sat oct 2nd, 2004 -- darude + dj hyper -- spundae / visions / chicago</font><br/>
+                <font class="txt">fri oct 1st, 2004 -- seb fontaine -- soundbar / chicago</font><br/>
+                <font class="txt">thu sep 30th, 2004 -- marco v -- tabu / minneapolis</font><br/>
+                <font class="txt">sat sep 25th, 2004 -- gabriel &#38; dresden -- spundae / visions / chicago</font><br/>
+                <font class="txt">thu sep 23rd, 2004 -- adam freeland -- soundbar / chicago</font><br/>
+                <font class="txt">sun sep 19th, 2004 -- paul van dyk + jerry bonham -- escape / minneapolis</font><br/>
+                <font class="txt">sat sep 18th, 2004 -- tall paul + seneca -- spundae / visions / chicago</font><br/>
+                <font class="txt">fri sep 17th, 2004 -- dj rap + knowel -- plush / tabu / minneapolis</font><br/>
+                <font class="txt">fri sep 17th, 2004 -- dj micro -- plush / tabu / minneapolis</font><br/>
+                <font class="txt">sat sep 11th, 2004 -- kimball collins + dan efex -- spundae / visions / chicago</font><br/>
+                <font class="txt">fri sep 10th, 2004 -- satoshi tomei -- soundbar / chicago</font><br/>
+                <font class="txt">thu sep 9th, 2004 -- dimitri from paris -- soundbar / chicago</font><br/>
+                <font class="txt">sun sep 5th, 2004 -- luke fair -- spundae boat cruise / chicago</font><br/>
+                <font class="txt">sat sep 4th, 2004 -- ferry corsten -- spundae / visions / chicago</font><br/>
+                <a href="http://www.theschlock.com/club/040903_dresden/index.html" target="dresden" onClick="resizeWin('dresden',710,780)"><font class="name">fri sep 3rd, 2004 -- gabriel &#38; dresden -- plush / tabu / minneapolis</font></a><br/>
+                <font class="txt">fri sep 3rd, 2004 -- infusion live pa -- soundbar / chicago</font><br/>
+                <font class="txt">sat aug 28th, 2004 -- dj dan -- spundae / visions / chicago</font><br/>
+                <font class="txt">fri aug 27th, 2004 -- bt live band -- the vic theater / chicago</font><br/>
+                <font class="txt">thu aug 26th, 2004 -- john digweed -- soundbar / chicago</font><br/>
+                <a href="http://www.theschlock.com/club/040825_digweed/index.html" target="digweed" onClick="resizeWin('digweed',710,780)"><font class="name">wed aug 25th, 2004 -- john digweed -- escape / minneapolis</font></a><br/>
+                <font class="txt">fri aug 20th, 2004 -- dj icey -- plush / tabu / minneapolis</font><br/>
+                <font class="txt">fri aug 13th, 2004 -- dj dan -- plush / tabu / minneapolis</font><br/>
+                <font class="txt">thu aug 12th, 2004 -- 'weird' al yankovic -- state theater / minneapolis</font><br/>
+                <font class="txt">sat aug 7th, 2004 -- the crystal method dj set -- spundae / visions / chicago</font><br/>
+                <font class="txt">sat aug 7th, 2004 -- derrick carter -- escape / minneapolis</font><br/>
+                <font class="txt">sat aug 7th, 2004 -- rabbit in the moon live + grayarea live -- w3 / congress theatre / chicago</font><br/>
+                <font class="txt">sat jul 31st, 2004 -- mark farina -- escape / minneapolis</font><br/>
+                <font class="txt">fri jul 30th, 2004 -- james zabiela -- soundbar / chicago</font><br/>
+                <font class="txt">sat jul 24th, 2004 -- james holden + tripwire -- spundae / visions / chicago</font><br/>
+                <font class="txt">fri jul 23rd, 2004 -- paul van dyk + jerry bonham -- sound-bar / chicago</font><br/>
+                <a href="http://www.theschlock.com/club/040718_perfecto/index.html" target="perfecto" onClick="resizeWin('perfecto',710,780)"><font class="name">sun jul 18th, 2004 -- paul oakenfold + sandra collins -- the quest / minnaepolis</font></a><br/>
+                <font class="txt">sat jul 17th, 2004 -- paul oakenfold + sandra collins -- sound-bar / chicago</font><br/>
+                <font class="txt">fri jul 16th, 2004 -- lee burridge -- sound-bar / chicago</font><br/>
+                <font class="txt">fri jul 16th, 2004 -- kimball collins -- kamasutra / mantra lounge / millwaukee</font><br/>
+                <font class="txt">wed jul 14th, 2004 -- basement jaxx -- sound-bar / chicago</font><br/>
+                <font class="txt">sat jul 10th, 2004 -- john "00" fleming -- spundae / visions / chicago</font><br/>
+                <font class="txt">fri jul 9th, 2004 -- hernan cattaneo -- soundbar / chicago</font><br/>
+                <font class="name">fri jul 9th, 2004 -- bad boy bill -- plush / tabu / minneapolis</font><br/>
+                <font class="txt">fri jul 9th, 2004 -- realm live pa -- dinkertowner / minneapolis</font><br/>
+                <font class="txt">sat jul 3rd, 2004 -- carl cox -- spundae / visions / chicago</font><br/>
+                <font class="txt">sat jul 3rd, 2004 -- richie hawtin + magda -- the quest / minneapolis</font><br/>
+                <font class="txt">thu jul 1st, 2004 -- paul oakenfold -- summerfest / millwaukee</font><br/>
+                <font class="txt">sat jun 26th, 2004 -- dj tiesto -- spundae / visions / chicago</font><br/>
+                <font class="txt">fri jun 25th, 2004 -- james lavelle + saeed -- soundbar / chicago</font><br/>
+                <a href="http://www.theschlock.com/club/040624_tiesto/" target="tiesto" onClick="resizeWin('tiesto',710,780)"><font class="name">thu jun 24th, 2004 -- dj tiesto -- the quest / minneapolis</font><font class="title"> 17 pictures</font></a><br/>
+                <a href="http://www.theschlock.com/club/040619_ralph/" target="ralph" onClick="resizeWin('ralph',710,780)"><font class="name">sat jun 19th, 2004 -- christopher lawrence + dave ralph -- the quest / minneapolis</font><font class="title"> 23 pictures</font><br/></a>
+                <font class="txt">sat jun 19th, 2004 -- max graham -- spundae / visions / chicago</font><br/>
+                <a href="http://www.theschlock.com/club/040617_sasha/" target="sasha" onClick="resizeWin('sasha',710,780)"><font class="name">thu jun 17th, 2004 -- sasha  -- soundbar / chicago</font><font class="title"> 25 pictures</font><br/></a>
+                <font class="txt">sun jun 13th, 2004 -- richie hawtin + magda -- smartbar / chicago</font><br/>
+                <font class="txt">sat jun 12th, 2004 -- dimitri from paris -- escape / minneapolis</font><br/>
+                <font class="txt">sat jun 12th, 2004 -- christopher lawrence -- spundae / visions / chicago</font><br/>
+                <font class="name">fri jun 11th, 2004 -- nigel richards -- plush / tabu / minneapolis</font><br/>
+                <font class="txt">fri jun 11th, 2004 -- dave seaman + phil k -- soundbar / chicago</font><br/>
+                <font class="txt">thu jun 10th, 2004 -- dimitri from paris -- soundbar / chicago</font><br/>
+                <font class="txt">sun may 30th, 2004 -- armin van buuren -- visions / spundae / chicago</font><br/>
+                <font class="txt">sat may 22nd, 2004 -- marco v -- visions / spundae / chicago</font><br/>
+                <font class="txt">fri may 21st, 2004 -- chris fortier -- plush / tabu / minneapolis</font><br/>
+                <font class="txt">sat may 15th, 2004 -- dj icey -- visions / spundae / chicago</font><br/>
+                <font class="txt">fri may 14th, 2004 -- chris fortier + steve porter -- soundbar / chicago</font><br/>
+                <font class="txt">sat may 8th, 2004 -- nick warren / jody wisternoff / way out west live pa -- visions / chicago</font><br/>
+                <font class="txt">thu may 6th, 2004 -- adam freeland -- transit / chicago</font><br/>
+                <font class="txt">sat may 1st, 2004 -- darren emerson -- visions / spunade / chicago</font><br/>
+                <font class="txt">fri apr 23rd, 2004 -- the crystal method -- house of blues / chicago</font><br/>
+                <font class="txt">thu apr 22nd, 2004 -- monk (from rabbit in the moon) -- transit / chicago</font><br/>
+                <font class="txt">thu apr 22nd, 2004 -- the crystal method -- the quest / minneapolis</font><br/>
+                <font class="txt">sun apr 18th, 2004 -- paul van dyk -- the rave / eagles club / millwaukee</font><br/>
+                <font class="txt">sat apr 17th, 2004 -- paul van dyk -- visions / spundae / chicago</font><br/>
+                <a href="http://www.theschlock.com/club/040416_d_seaman/" target="seaman" onClick="resizeWin('seaman',710,780)"><font class="name">fri apr 16th, 2004 -- dave seaman + phil k -- plush / tabu / minneapolis</font><font class="title"> 28 pictures</font></a><br/>
+                <font class="txt">fri apr 16th, 2004 -- sander kleinenberg + john creamer -- soundbar / chicago</font><br/>
+                <font class="txt">sat apr 10th, 2004 -- dj shadow -- park west / chicago</font><br/>
+                <font class="txt">sat apr 10th, 2004 -- squarepusher -- ascot room / the quest / minneapolis</font><br/>
+                <font class="txt">fri apr 9th, 2004 -- dubfire (of deep dish) -- soundbar / chicago</font><br/>
+                <font class="txt">fri apr 9th, 2003 -- squarepusher -- metro / smartbar / chicago</font><br/>
+                <font class="txt">fri apr 9th, 2004 -- dj shadow -- ascot room / the quest / minneapolis</font><br/>
+                <font class="txt">sat apr 3rd, 2004 -- george acosta -- spundae / visions / chicago</font><br/>
+                <a href="http://www.theschlock.com/club/040403_newdawn/" target="newdawn" onClick="resizeWin('newdawn',710,780)"><font class="name">sat apr 3rd, 2004 -- junkie xl live pa + greyarea live pa -- new dawn / minneapolis</font><font class="title"> 60 pictures</font></a><br/>
+                <font class="txt">fri apr 2nd, 2004 -- junkie xl live pa, jimmy van m -- soundbar / chicago</font><br/>
+                <a href="http://www.theschlock.com/club/040402_plush/" target="plush" onClick="resizeWin('plush',710,780)"><font class="name">fri apr 2nd, 2004 -- john aquaviva -- plush / tabu / minneapolis</font><font class="title"> 10 pictures</font></a><br/>
+                <a href="http://www.theschlock.com/club/040402_dusk/" target="dusk" onClick="resizeWin('dusk',710,780)"><font class="name">fri apr 2nd, 2004 -- dusk - new dawn offical pre-party / minneapolis</font><font class="title"> 9 pictures</font></a><br/>
+                <font class="txt">sat mar 20th, 2004 -- ferry corsten -- spundae / visions / chicago</font><br/>
+                <a href="http://www.theschlock.com/club/040313/" target="sasha" onClick="resizeWin('sasha',710,780)"><font class="name">sat mar 13th, 2004 -- sasha -- visions / spundae / chicago</font><font class="title"> 41 pictures</font></a><br/>
+                <font class="txt">sat mar 6th, 2004 -- dj mirco -- visions / spundae / chicago</font><br/>
+                <font class="txt">wed mar 3rd, 2003 -- ferry corsten -- ascot room / the quest / minneapolis</font><br/>
+                <a href="http://www.theschlock.com/club/040228/index.html" target="gabriel" onClick="resizeWin('gabriel',710,780)"><font class="name">sat feb 28th, 2004 -- gabriel &#38; dresden + james holden -- visions / spundae / chicago</font></a><br/>
+                <font class="txt">wed feb 25th, 2004 -- dj maytag v. dissolvent -- club majestic / madison</font><br/>
+                <font class="txt">sat feb 21st, 2004 -- armin van buuren -- visions / spundae / chicago</font><br/>
+                <font class="txt">wed feb 11th, 2004 -- adam the tree + dj maytag -- club magestic / madison</font> -- busy<br/>
+                <font class="txt">sat feb 7th, 2004 -- max graham -- visions / spundae, chicago</font><br/>
+                <font class="txt">sat feb 7th, 2004 -- marco v -- full circle / the quest / minneapolis</font> -- cold / lazy<br/>
+                <font class="txt">sat jan 31st, 2004 -- kimball collins -- full circle / the quest / minneapolis</font><br/>
+                <font class="txt">sat jan 31st, 2004 -- judge jules -- visions / spundae, chicago</font><br/>
+                <font class="txt">sat jan 17th, 2003 -- max graham -- full circle / the quest / minneapolis</font> -- too cold<br/>
+                <font class="txt">wed dec 31st, 2003 -- fluke -- the rave / eagles club / millwaukee</font><br/>
+                <font class="txt">sat dec 20th, 2003 -- christopher lawrence + seneca  -- visions / spundae / chicago</font><br/>
+                <font class="txt">sat dec 13th, 2003 -- the crystal method dj set -- visions / spundae / chicago</font><br/>
+                <font class="txt">sat dec 13th, 2003 -- deep dish -- the quest / minneapolis</font> -- busy busy<br/>
+                <font class="txt">wed dec 10th, 2003 -- seneca + dj maytag -- club majestic / madison</font> -- snow<br/>
+                <font class="txt">sat dec 6th, 2003 -- dave seaman + phil k -- ascot room / the quest / minneapolis</font><br/>
+                <font class="txt">wed dec 3rd, 2003 -- steve lawler -- ascot room / the quest / minneapolis</font><br/>
+                <font class="txt">sat nov 22nd, 2003 -- marco v -- visions / spundae / chicago</font><br/>
+                <font class="txt">sat nov 15th, 2003 -- hybrid live pa -- chicago</font><br/>
+                <font class="txt">sat nov 15th, 2003 -- paul van dyk -- riviera theater / chicago</font><br/>
+                <font class="txt">sat nov 15th, 2003 -- plaid + luke vibert -- full circle / the quest / minneapolis</font><br/>
+                <a href="http://www.theschlock.com/club/031114/index.html" target="hybrid" onClick="resizeWin('hybrid',710,780)"><font class="name">fri nov 14th, 2003 -- hybrid live pa -- fine line music cafe / minneapolis</font><font class="title"> 34 pictures</font></a><br/>
+                <font class="txt">thu nov 13th, 2003 -- nick warren -- transit / chicago</font><br/>
+                <font class="txt">wed nov 12th, 2003 -- nick warren -- ascot room / the quest / minneapolis</font><br/>
+                <font class="name">sat nov 8th, 2003 -- ferry corsten / dj rap -- the quest / minneapolis</font><br/>
+                <font class="txt">fri nov 7th, 2003 -- ferry corsten / dj rap -- house of blues / chicago</font><br/>
+                <font class="txt">thu nov 6th, 2003 -- sander kleinenberg -- transit / chicago</font><br/>
+                <font class="txt">wed nov 5th, 2003 -- sander kleinenberg -- ascot room / the quest / minneapolis</font><br/>
+                <font class="txt">sat oct 25th, 2003 -- OPENING NIGHT -- crobar / chicago</font><br/>
+                <font class="txt">sat oct 25th, 2003 -- george acosta -- visions / spundae / chicago</font><br/>
+                <font class="txt">oct 24th - 26th, 2003 -- anime reactor / chicago</font> -- expensive.. sigh<br/>
+                <font class="txt">wed oct 22nd, 2003 -- the chemical brothers dj set -- pure, transit / chicago</font><br/>
+                <font class="txt">sat oct 11th, 2003 -- donald glaude / porn star ball -- full circle / the quest / minneapolis</font><br/>
+                <font class="txt">oct 10th - 12th, 2003 -- kazecon / chicago</font> -- expensive<br/>
+                <a href="http://www.theschlock.com/club/031004/index.html" target="collins" onClick="resizeWin('collins',710,780)"><font class="name">sat oct 4th, 2003 -- sandra collins / k*swing -- full circle / the quest / minneapolis</font><font class="title"> 17 pictures</font></a><br/>
+                <font class="txt">sat oct 4th, 2003 -- dj dan -- spundae / visions / chicago</font><br/>
+                <font class="txt">thu oct 2nd, 2003 -- lee burridge -- pure / transit / chicago</font> -- weekday<br/>
+                <font class="name">sat sept 20th, 2003 -- chrome s:3 -- inferno / madison</font><br/>
+                <a href="http://www.theschlock.com/club/030914/index.html" target="delerium" onClick="resizeWin('delerium',710,780)"><font class="name">sun sept 14th, 2003 -- delerium live pa -- the quest / minneapolis</font><font class="title"> 10 pictures</font></a><br/>
+                <a href="http://www.theschlock.com/club/030913/index.html" target="micro" onClick="resizeWin('micro',710,780)"><font class="name">sat sept 13th, 2003 -- dj micro -- full circle / the quest / minneapolis</font><font class="title"> 31 pictures</font></a><br/>
+                <font class="txt">sat sept 13th, 2003 -- ken ishi / dave ralph -- visions / spundae / chicago</font><br/>
+                <font class="txt">fri sept 5th, 2003 -- dj micro -- the rave / millwaukee</font> -- no show<br/>
+                <font class="txt">wed sept 3rd, 2003 -- dj maytag / exposure -- club magestic / madison</font><br/>
+                <font class="txt">sat aug 31st, 2003 -- armin van buuren / seneca -- spundae / chicago</font> -- extremely bitter<br/>
+                <font class="name">aug 22nd-24th, 2003 -- animeiowa2003 / cedar rapids</font><br/>
+                <font class="txt">fri aug 22nd, 2003 -- dj maytag -- trancedence / inferno / madison</font><br/>
+                <a href="http://www.theschlock.com/club/030809/index.html" target="armin" onClick="resizeWin('armin',710,780)"><font class="name">sat aug 8th, 2003 -- armin van buuren -- full circle / the quest / minneapolis</font><font class="title"> 28 pictures</font></a><br/>
+                <font class="txt">sat july 26th, 2003 -- dj thee-o -- plush / the quest / minneapolis</font> -- wedding<br/>
+                <font class="txt"><strike>sun july 20th, 2003 -- paul van dyk -- pure / millwaukee</strike></font> -- cancelled<br/>
+                <font class="txt">sat july 12th, 2003 -- jimmy van m, john debo -- spundae / visions / chicago</font><br/>
+                <a href="http://www.theschlock.com/club/030705/index.htm" target="_top"><font class="name">sat july 5th, 2003 -- sasha -- plush / the quest, minneapolis</font><font class="title"> 53 pictures</font></a><br/>
+                <font class="txt">sat july 5th, 2003 -- john digweed / bt / the crystal method -- pure, millwaukee</font><br/>
+                <a href="http://www.theschlock.com/club/030621/index.htm" target="_top"><font class="name">sat june 21st, 2003 -- dj dan -- plush / the quest / minneapolis</font><font class="title"> 31 pictures</font></a><br/>
+                <font class="txt">sat june 21st, 2003 -- bt / christopher lawrence -- summer soulstice / summerset</font><br/>
+                <font class="txt">sat june 21st, 2003 -- ferry corsten -- visions / spundae / chicago</font><br/>
+                <a href="http://www.theschlock.com/club/030612/index.htm" target="_top"><font class="name">thu june 12th, 2003 -- green velvet -- tabu / minneapolis</font><font class="title"> 12 pictures</font></a><br/>
+                <font class="txt">thu june 12th, 2003 -- deep dish -- transit / chicago</font><br/>
+                <a href="http://www.theschlock.com/club/030607/index.htm" target="_top"><font class="name">sat june 7th, 2003 -- dj qbert -- plush / the quest / minneapolis</font><font class="title"> 21 pictures</font></a><br/>
+                <font class="txt">sat may 31st, 2003 -- dj tiesto -- house of blues / chicago</font><br/>
+                <font class="txt">sat may 24th, 2003 -- plush live pa -- plush / the quest / minneapolis</font><br/>
+                <font class="txt">fri may 23rd, 2003 -- dj maytag / phenix m -- trancendence / inferno / madison</font> -- work<br/>
+                <font class="name">may 16th-18th, 2003 -- anime central 2003 / chicago</font><font class="title"> pictorial | somewhere !?</font><br/>
+                <a href="http://www.theschlock.com/club/030517/index.htm" target="_top"><font class="name">sat may 17th, 2003 -- christopher lawrence -- spundae / visions / chicago</font><font class="title"> 36 pictures</font></a><br/>
+                <font class="txt">sat may 3rd, 2003 -- armin van buuren -- spundae / visions / chicago</font> -- expensive<br/>
+                <a href="http://www.theschlock.com/club/030419/index.htm" target="_top"><font class="name">wed apr 19th, 2003 -- nigel richards -- spundae / visions / chicago</font><font class="title"> 22 pictures</font></a><br/>
+                <a href="http://www.theschlock.com/club/030409/index.htm" target="_top"><font class="name">wed apr 9th, 2003 -- paul van dyk -- the quest / minneapolis</font><font class="title"> 21 pictures</font></a><br/>
+                <font class="txt">sat mar 29th, 2003 -- jimmy van m -- plush / the quest / minneapolis</font> -- expensive<br/>
+                <font class="txt">sat feb 22nd, 2003 -- john debo -- plush / the quest / minneapolis</font><br/>
+                <font class="txt">sat feb 1st, 2003 -- nick warren -- spundae / visions / chicago</font><br/>
+                <font class="txt">sat jan 25th, 2003 -- marco v -- plush / the quest / minneapolis</font> -- d'oh<br/>
+                <a href="http://www.theschlock.com/club/030118/index.htm" target="_top"><font class="name">sat jan 18th, 2003 -- dave ralph -- plush / the quest / minneapolis</font><font class="title"> 24 pictures</font></a><br/>
+                <a href="http://www.theschlock.com/club/030106/index.htm" target="_top"><font class="name">sat jan 4th, 2003 -- plush 1 year anniversary / the quest / minneapolis</font><font class="title"> 48 pictures</font></a><br/>
+                <font class="txt">sat dec 14th, 2002 -- armin van buuren -- visions / spundae / chicago</font><br/>
+                <font class="txt">sat nov 23rd, 2002 -- john digweed -- plush / the quest / minneapolis</font> -- didn't show<br/>
+                <font class="name">sat oct 26th, 2002 -- sasha / john debo -- plush / the quest / minneapolis</font><br/>
+                <font class="txt">sat oct 26th, 2002 -- dj tiesto -- visions / spundae / chicago</font><br/>
+                <font class="txt">wed oct 23rd, 2002 -- dj tiesto -- plush / the quest / minneapolis</font><br/>
+                <font class="txt">sat oct 19th, 2002 -- bt -- visions / spundae / chicago</font><br/>
+                <font class="txt">sat sept 21st, 2002 -- deep dish / gus gus -- the quest, minneapolis</font> -- sigh<br/>
+                <font class="name">aug 23th - 25th, 2002 -- anime iowa 2002 / cedar rapids</font><br/>
+                <font class="txt">tue aug 20th, 2002 -- sasha / james zabiela -- visions / spundae / chicago</font><br/>
+                <font class="name">sat aug 3rd, 2002 -- the crystal method dj set / dj rap -- the quest, minneapolis</font><br/>
+                <font class="name">sat july 20th, 2002 -- bad boy bill -- plush / the quest / minneapolis</font><br/>
+                <font class="txt">fri july 12th, 2002 -- third impact / pond arean / mound</font> -- stubborn<br/>
+                <font class="txt">wed july 10th, 2002 -- moby / paul oakenfold -- roy wilkins / minneapolis</font> -- dammit<br/>
+                <font class="name">sat june 22nd, 2002 -- bt -- plush / the quest / minneapolis</font><br/>
+                <font class="txt">sat june 1st, 2002 -- adam freeland -- plush / the quest / minnepolis</font><br/>
+                <a href="http://www.theschlock.com/club/020529/index.htm" target="_top"><font class="name">sat may 29th, 2002 -- timo maas -- loud tour / the quest / minneapolis</font><font class="title"> 21 pictures</font></a><br/>
+                <a href="http://www.theschlock.com/club/020525/index.htm" target="_top"><font class="name">sat may 25th, 2002 -- seb fontaine -- plush / the quest / minneapolis</font><font class="title"> 17 pictures</font></a><br/>
+                <font class="name">sat may 18th, 2002 -- josh wink -- plush / the quest / minneapolis</font><br/>
+                <font class="name">sun apr 21st, 2002 -- sasha + digweed -- delta heavy tour / the quest, minneapolis</font><br/>
+                <font class="txt">sat apr 20th, 2002 -- pete tong -- plush / the quest / minneapolis</font> -- annoyed<br/>
+                <font class="txt">sat apr 20th, 2002 -- sasha + digweed / chemical brothers - delta heavy / allstate arena / chicago</font><br/>
+                <font class="txt">apr 19th - 21st, 2002 -- anime central 2002</font> -- attending sasha<br/>
+                <a href="http://www.theschlock.com/club/020413/index.htm" target="_top"><font class="name">sat apr 13th, 2002 -- max graham -- plush / the quest / minneapolis</font><font class="title"> 42 pictures</font></a><br/>
+                <a href="http://www.theschlock.com/club/020330/index.htm" target="_top"><font class="name">sat mar 30th, 2002 -- dave ralph -- plush / the quest / minneapolis</font><font class="title"> 48 pictures</font></a><br/>
+                <a href="http://www.theschlock.com/club/020316/index.htm" target="_top"><font class="name">sat mar 16th, 2002 -- carl cox -- plush / the quest / minneapolis</font><font class="title"> 46 pictures</font></a><br/>
+                <font class="txt">sat nov 24th, 2001 -- paul oakenfold -- the quest / minneapolis</font> -- bitter<br/>
+                <font class="txt">thu oct 18th, 2001 -- orbital live pa -- the quest / minneapolis</font> -- ignorance<br/>
+                <font class="name">aug 24th - 26th, 2001 -- anime iowa 2001 / cedar rapids</font><br/>
+
+            </font></p>
+            <hr align="center" width="90%" size="1"/>
+        </t:if>
+
+        <t:if test="checklistPage">
+
+            <p align="center"><font class="n4m">checklist</font></p>
+            <hr align="center" width="90%" size="1" />
+            <p class="x"><font class="txt">
+                apr 2nd, 2004 -- <font class="name">john aquaviva</font> -- plush / tabu / minneapolis<a href="http://www.theschlock.com/club/040402_plush/" target="plush" onClick="resizeWin('plush',710,780)"><font class="title2"> 10 pictures</font></a><br/>
+                jul 9th, 2004 -- <font class="name">bad boy bill</font> -- plush / tabu / minneapolis<br/>
+                jul 20th, 2002 -- <font class="name">bad boy bill</font> -- plush / the quest / minneapolis<br/>
+                jun 22nd, 2002 -- <font class="name">bt</font> dj set -- plush / the quest / minneapolis<br/>
+                aug 8th, 2003 -- <font class="name">armin van buuren</font> -- plush / the quest / minneapolis <a href="http://www.theschlock.com/club/030809/index.html" target="armin" onClick="resizeWin('armin',710,780)"><font class="title2"> 28 pictures</font></a><br/>
+                jul 18th, 2004 -- <font class="name">sandra collins</font> -- the quest / minneapolis<a href="http://www.theschlock.com/club/040718_perfecto/index.html" target="perfecto" onClick="resizeWin('perfecto',710,780)"><font class="title2"> 41 pictures</font></a><br/>
+                oct 4th, 2003 -- <font class="name">sandra collins</font> -- full circle / the quest / minneapolis<a href="http://www.theschlock.com/club/031004/index.html" target="collins" onClick="resizeWin('collins',710,780)"><font class="title2"> 17 pictures</font></a><br/>
+                nov 8th, 2003 -- <font class="name">ferry corsten</font> -- full circle / the quest / minneapolis<br/>
+                mar 16th, 2002 -- <font class="name">carl cox</font> global tour -- plush / the quest / minneapolis<a href="http://www.theschlock.com/club/020316/index.htm" target="_top"><font class="title2"> 46 pictures</font></a><br/>
+                aug 3rd, 2002 -- <font class="name">the crystal method</font> dj set -- plush / the quest / minneapolis<br/>
+                jun 21st, 2003 -- <font class="name">dj dan</font> -- plush / the quest / minneapolis<a href="http://www.theschlock.com/club/030621/index.htm" target="_top"><font class="title2"> 31 pictures</font></a><br/>
+                oct 26th, 2002 -- <font class="name">john debo</font> -- plush / the quest / minneapolis<br/>
+                sep 14th, 2003 -- <font class="name">delerium</font> live pa -- the quest / minneapolis<a href="http://www.theschlock.com/club/030914/index.html" target="delerium" onClick="resizeWin('delerium',710,780)"><font class="title2"> 10 pictures</font></a><br/>
+                aug 25th, 2004 -- <font class="name">john digweed</font> -- club escape / minneapolis<a href="http://www.theschlock.com/club/040825_digweed/index.html" target="digweed" onClick="resizeWin('digweed',710,780"><font class="title2"> 36 pictures</font></a><br/>
+                may 25th, 2002 -- <font class="name">seb fontaine</font> horizons tour -- plush / the quest / minneapolis<a href="http://www.theschlock.com/club/020525/index.htm" target="_top"><font class="title2"> 17 pictures</font></a><br/>
+                sep 3rd, 2004 -- <font class="name">gabriel &#38; dresden</font> -- plush / tabu / minneapolis<a href="http://www.theschlock.com/club/040903_dresden/index.html" target="dresden" onClick="resizeWin('dresden',710,780)"><font class="title2"> 28 pictures</font></a><br/>
+                feb 28th, 2004 -- <font class="name">gabriel &#38; dresden</font> -- spundae / visions / chicago<a href="http://www.theschlock.com/club/040228/index.html" target="gabriel" onClick="resizeWin('gabriel',710,780)"><font class="title2"> 39 pictures</font></a><br/>
+                jan 4th, 2003 -- <font class="name">donald glaude</font> -- plush 1 year / the quest / minneapolis<a href="http://www.theschlock.com/club/030106/index.htm" target="_top"><font class="title2"> 48 pictures</font></a><br/>
+                apr 13th, 2002 -- <font class="name">max graham</font> -- plush / the quest / minneapolis<a href="http://www.theschlock.com/club/020413/index.htm" target="_top"><font class="title2"> 42 pictures</font></a><br/>
+                jun 12th, 2003 -- <font class="name">green velvet</font> -- tabu / minneapolis<a href="http://www.theschlock.com/club/030612/index.htm" target="_top"><font class="title2"> 12 pictures</font></a><br/>
+                apr 3rd, 2004 -- <font class="name">grayarea</font> live pa -- new dawn / minneapolis<a href="http://www.theschlock.com/club/040403_newdawn/" target="newdawn" onClick="resizeWin('newdawn',710,780)"><font class="title2"> 60 pictures</font></a><br/>
+                feb 28th, 2004 -- <font class="name">james holden</font> -- spundae / visions / chicago<a href="http://www.theschlock.com/club/040228/index.html" target="gabriel" onClick="resizeWin('gabriel',710,780)"><font class="title2"> 39 pictures</font></a><br/>
+                nov 14th, 2003 -- <font class="name">hybrid</font> live pa -- fine line music cafe / minneapolis<a href="http://www.theschlock.com/club/031114/index.html" target="hybrid" onClick="resizeWin('hybrid',710,780)"><font class="title2"> 34 pictures</font></a><br/>
+                apr 3rd, 2004 -- <font class="name">junkie xl</font> live pa -- new dawn / minneapolis<a href="http://www.theschlock.com/club/040403_newdawn/" target="newdawn" onClick="resizeWin('newdawn',710,780)"><font class="title2"> 60 pictures</font></a><br/>
+                jun 19th, 2004 -- <font class="name">christopher lawrence</font> -- ascot room / the quest / minneapolis<a href="http://www.theschlock.com/club/040619_ralph/" target="ralph" onClick="resizeWin('ralph',710,780)"><font class="title2"> 23 pictures</font></a><br/>
+                may 17th, 2003 -- <font class="name">christopher lawrence</font> -- silver party / spundae / visions / chicago<a href="http://www.theschlock.com/club/030517/index.htm" target="_top"><font class="title2"> 36 pictures</font></a><br/>
+                may 29th, 2002 -- <font class="name">timo maas</font> loud tour -- / the quest / minneapolis<a href="http://www.theschlock.com/club/020529/index.htm" target="_top"><font class="title2"> 21 pictures</font></a><br/>
+                sep 13th, 2003 -- <font class="name">dj micro</font> -- full circle / the quest / minneapolis<a href="http://www.theschlock.com/club/030913/index.html" target="micro" onClick="resizeWin('micro',710,780)"><font class="title2"> 31 pictures</font></a><br/>
+                jul 18th, 2004 -- <font class="name">paul oakenfold</font> -- the quest / minneapolis<a href="http://www.theschlock.com/club/040718_perfecto/index.html" target="perfecto" onClick="resizeWin('perfecto',710,780)"><font class="title2"> 41 pictures</font></a><br/>
+                jun 7th, 2003 -- <font class="name">dj qbert</font> -- plush / the quest / minneapolis<a href="http://www.theschlock.com/club/030607/index.htm" target="_top"><font class="title2"> 21 pictures</font></a><br/>
+                jun 19th, 2004 -- <font class="name">dave ralph</font> -- ascot room / the quest / minneapolis<a href="http://www.theschlock.com/club/040619_ralph/" target="ralph" onClick="resizeWin('ralph',710,780)"><font class="title2"> 23 pictures</font><br/></a>
+                jan 18th, 2003 -- <font class="name">dave ralph</font> -- plush / the quest / minneapolis<a href="http://www.theschlock.com/club/030118/index.htm" target="_top"><font class="title2"> 24 pictures</font></a><br/>
+                mar 30th, 2002 -- <font class="name">dave relph</font> -- plush / the quest / minneapolis<a href="http://www.theschlock.com/club/020330/index.htm" target="_top"><font class="title2"> 48 pictures</font></a><br/>
+                dec 30th, 2001 -- <font class="name">dave ralph</font> -- the quest / minneapolis<br/>
+                nov 8th, 2003 -- <font class="name">dj rap</font> playstation tour -- full circle / the quest / minneapolis<br/>
+                aug 3rd, 2002 -- <font class="name">dj rap</font> -- plush / the quest / minneapolis<br/>
+                jun 11th, 2004 -- <font class="name">nigel richards</font> -- plush / tabu / minneapolis<br/>
+                apr 19th, 2003 -- <font class="name">nigel richards</font> -- blue party / spundae / visions / chicago<a href="http://www.theschlock.com/club/030419/index.htm" target="_top"><font class="title2"> 22 pictures</font></a><br/>
+                jan 4th, 2003 -- <font class="name">nigel richards</font> -- plush 1 year / the quest / minneapolis<a href="http://www.theschlock.com/club/030106/index.htm" target="_top"><font class="title2"> 48 pictures</font></a><br/>
+                oct 16th, 2004 -- <font class="name">sasha</font> -- club escape / minneapolis<a href="http://www.theschlock.com/club/041016_sasha" target="sasha" onClikc="resizeWin('sasha',710,780)"><font class="title2"> ? pictures</font></a><br/>
+                jun 17th, 2004 -- <font class="name">sasha</font> -- sound-bar / chicago<a href="http://www.theschlock.com/club/040617_sasha/" target="sasha" onClick="resizeWin('sasha',710,780)"><font class="title2"> 25 pictures</font></a><br/>
+                mar 13th, 2004 -- <font class="name">sasha</font> -- spundae / visions / chicago<a href="http://www.theschlock.com/club/040313/" target="sasha" onClick="resizeWin('sasha',710,780)"><font class="title2"> 41 pictures</font></a><br/>
+                jul 5th, 2003 -- <font class="name">sasha</font> -- plush / the quest / minneapolis<a href="http://www.theschlock.com/club/030705/index.htm" target="_top"><font class="title2"> 53 pictures</font></a><br/>
+                oct 26th, 2002 -- <font class="name">sasha</font> -- plush / the quest / minneapolis<br/>
+                apr 21st, 2002 -- <font class="name">sasha + digweed</font> delta heavy -- the quest / minneapolis<br/>
+                apr 16th, 2004 -- <font class="name">dave seaman + phil k</font> -- plush / tabu / minneapolis<a href="http://www.theschlock.com/club/040416_d_seaman/" target="seaman" onClick="resizeWin('seaman',710,780)"><font class="title2"> 28 pictures</font></a><br/>
+                jun 24th, 2004 -- <font class="name">dj tiesto</font> -- the quest / minneapolis<a href="http://www.theschlock.com/club/040624_tiesto/" target="tiesto" onClick="resizeWin('tiesto',710,780)"><font class="title2"> 17 pictures</font></a><br/>
+                apr 9th, 2003 -- <font class="name">paul van dyk</font> global tour -- the quest / minneapolis<a href="http://www.theschlock.com/club/030409/index.htm" target="_top"><font class="title2"> 21 pictures</font></a><br/>
+                may 18th, 2002 -- <font class="name">josh wink</font> -- plush / the quest / minneapolis<br/>
+                <br/>
+            </font></p>
+            <hr align="center" width="90%" size="1" />
+
+        </t:if>
+
+        <t:if test="wishlistPage">
+
+            <p align="center"><font class="n4m">wishful thinking</font></p>
+            <hr align="center" width="90%" size="1"/>
+            <p class="x"><font class="nam">
+                armin @ visions .. <b>may 30th, 2004?</b><br/>
+                grayarea live pa .. <b>aug 7th, 2004</b><br/>
+                deep dish anywhere .. <b>nov 24th, 2004</b><br/>
+                <br/>
+                bt @ visions<br/>
+                nick warren<br/>
+                underworld live pa<br/>
+                utah saints live pa .. would be cool<br/>
+                chicane .. classic<br/>
+                frankie bones &lt;- i need education<br/>
+                marco v .. eventually<br/>
+                judge jules<br/>
+                moby!<br/>
+                simon posford / sphongle / hallocinogen<br/>
+                astral projection<br/>
+                <br/>
+                <strike>digweed .. <b>aug 25th, 2004</b></strike> &lt;-- fulfilled, more more!!<br/>
+                <strike>gabriel &#38; dresden <b>feb 28th, 2004</b></strike> &lt;-- fulfilled, amazing!<br/>
+                <strike>james holden <b>feb 28th, 2004</b></strike> &lt;-- fulfilled, amazing!<br/>
+                <strike>sasha @ visions <b>mar 13th, 2004</b></strike> &lt;-- fulfilled, amazing!<br/>
+                <strike>tiesto anywhere <b>jun 24th, 2004</b></strike> &lt;-- fulfilled, yet unsatisfied<br/>
+                <strike>paul oakenfold? .. <b>july 18th, 2004</b></strike> &lt;-- fulfilled and quite satisfied<br/>
+
+            </font></p>
+            <hr align="center" width="90%" size="1"/>
+        </t:if>
+    </div>
+</t:container>

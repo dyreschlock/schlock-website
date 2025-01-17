@@ -24,6 +24,7 @@ public class V5Index extends AbstractVersion5Page
     private AbstractPost post;
     private String page;
     private Integer pageNumber;
+    private String subpage;
 
 
     Object onActivate()
@@ -60,8 +61,20 @@ public class V5Index extends AbstractVersion5Page
     {
         post = null;
         page = p1;
-        pageNumber = Integer.parseInt(p2);
+        pageNumber = null;
 
+        try
+        {
+            pageNumber = Integer.parseInt(p2);
+        }
+        catch(Exception e)
+        {
+        }
+
+        if (pageNumber == null)
+        {
+            subpage = p2;
+        }
         return true;
     }
 
@@ -157,5 +170,10 @@ public class V5Index extends AbstractVersion5Page
     public Integer getPageNumber()
     {
         return pageNumber;
+    }
+
+    public String getSubpage()
+    {
+        return subpage;
     }
 }
