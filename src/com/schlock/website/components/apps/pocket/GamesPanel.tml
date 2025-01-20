@@ -45,10 +45,10 @@
                         </t:if>
                         <td class="${evenOdd} name">
                             <t:if test="currentGame.onMister">
-                                <span onclick="selectGame('${currentGame.uniqueName}')">${currentGame.gameName}</span>
+                                <span onclick="selectGame('${currentGame.uniqueName}')">${currentGame.title}</span>
                             </t:if>
                             <t:if test="!currentGame.onMister">
-                                <span>${currentGame.gameName}</span>
+                                <span>${currentGame.title}</span>
                             </t:if>
                         </td>
 

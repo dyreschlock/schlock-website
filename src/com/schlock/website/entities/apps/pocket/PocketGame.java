@@ -6,7 +6,6 @@ import java.util.List;
 
 public class PocketGame extends ImagedGame
 {
-    private String gameName;
     private String coreName;
     private String core;
     private String platform;
@@ -20,7 +19,7 @@ public class PocketGame extends ImagedGame
 
     public String getUniqueName()
     {
-        return gameName + " (" + coreName + ")";
+        return getTitle() + " (" + coreName + ")";
     }
 
     public String getYear()
@@ -68,16 +67,6 @@ public class PocketGame extends ImagedGame
             }
         }
         return false;
-    }
-
-    public String getGameName()
-    {
-        return gameName;
-    }
-
-    public void setGameName(String gameName)
-    {
-        this.gameName = gameName;
     }
 
     public String getCoreName()

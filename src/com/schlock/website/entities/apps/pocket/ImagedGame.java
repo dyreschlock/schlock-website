@@ -7,6 +7,8 @@ import java.util.Date;
 
 public abstract class ImagedGame extends Persisted
 {
+    private String title;
+
     private String developer;
     private String publisher;
     private Date releaseDate;
@@ -22,6 +24,16 @@ public abstract class ImagedGame extends Persisted
         return "";
     }
 
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
 
     public String getDeveloper()
     {

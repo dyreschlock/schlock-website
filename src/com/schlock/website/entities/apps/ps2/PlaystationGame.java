@@ -28,8 +28,6 @@ public class PlaystationGame extends ImagedGame
     private boolean haveArt;
     private boolean haveSave;
 
-    private String title;
-
     private PlaystationGameAspect aspect;
     private PlaystationGamePlayers players;
     private PlaystationGameVmode vmode;
@@ -160,16 +158,6 @@ public class PlaystationGame extends ImagedGame
     public void setHaveSave(boolean haveSave)
     {
         this.haveSave = haveSave;
-    }
-
-    public String getTitle()
-    {
-        return title;
-    }
-
-    public void setTitle(String title)
-    {
-        this.title = title;
     }
 
     public PlaystationGameAspect getAspect()

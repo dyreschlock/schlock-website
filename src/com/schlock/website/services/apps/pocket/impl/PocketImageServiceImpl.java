@@ -13,7 +13,7 @@ public class PocketImageServiceImpl extends GameImageServiceImpl<PocketGame> imp
 
     protected String displayName(PocketGame game)
     {
-        return game.getGameName();
+        return game.getTitle();
     }
 
     protected String uniqueNameUsedForGameSelection(PocketGame game)

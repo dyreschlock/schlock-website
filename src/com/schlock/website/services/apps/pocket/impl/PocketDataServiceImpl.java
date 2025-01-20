@@ -396,7 +396,7 @@ public class PocketDataServiceImpl implements PocketDataService
         {
             public int compare(PocketGame o1, PocketGame o2)
             {
-                return o1.getGameName().compareTo(o2.getGameName());
+                return o1.getTitle().compareTo(o2.getTitle());
             }
         });
 
@@ -413,11 +413,11 @@ public class PocketDataServiceImpl implements PocketDataService
 
         for(PocketGame game : games)
         {
-            String name = game.getGameName();
+            String name = game.getTitle();
             if (!StringUtils.containsIgnoreCase(name, DISC_PREFIX) || StringUtils.containsIgnoreCase(name, DISC_1))
             {
                 name = name.replace(DISC_1, "");
-                game.setGameName(name);
+                game.setTitle(name);
 
                 output.add(game);
             }

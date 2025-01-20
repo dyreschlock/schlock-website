@@ -58,7 +58,7 @@ public class GamesPanel
         {
             public int compare(PocketGame o1, PocketGame o2)
             {
-                return o1.getGameName().compareTo(o2.getGameName());
+                return o1.getTitle().compareTo(o2.getTitle());
             }
         });
         return games;
