@@ -11,10 +11,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ProjectsIndex
 {
@@ -139,7 +136,20 @@ public class ProjectsIndex
             }
             return Arrays.asList(category);
         }
-        return categoryDAO.getSubProjectInOrder();
+        List<ProjectCategory> categories = categoryDAO.getSubProjectInOrder();
+
+        Collections.sort(categories, new Comparator<ProjectCategory>()
+        {
+            public int compare(ProjectCategory o1, ProjectCategory o2)
+            {
+                List<AbstractPost> p1 = postDAO.getAllProjectsByCategory(false, o1.getId());
+                List<AbstractPost> p2 = postDAO.getAllProjectsByCategory(false, o2.getId());
+
+                return p2.get(0).getCreated().compareTo(p1.get(0).getCreated());
+            }
+        });
+
+        return categories;
     }
 
     public List<AbstractPost> getCategoryProjects()
