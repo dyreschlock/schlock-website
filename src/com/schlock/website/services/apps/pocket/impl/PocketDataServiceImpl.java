@@ -350,6 +350,43 @@ public class PocketDataServiceImpl implements PocketDataService
                         return Device.value(json.getAsString());
                     }
                 })
+                .registerTypeAdapter(Date.class, new JsonDeserializer<Date>()
+                {
+                    public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
+                    {
+                        String dateText = json.getAsString();
+                        if (StringUtils.isNotBlank(dateText))
+                        {
+                            try
+                            {
+                                String[] parts = dateText.split("-");
+
+                                Calendar date = Calendar.getInstance();
+                                if (parts.length > 0)
+                                {
+                                    int year = Integer.parseInt(parts[0]);
+                                    date.set(Calendar.YEAR, year);
+                                }
+                                if (parts.length > 1)
+                                {
+                                    int month = Integer.parseInt(parts[1]) -1;
+                                    date.set(Calendar.MONTH, month);
+                                }
+                                if (parts.length > 2)
+                                {
+                                    int day = Integer.parseInt(parts[2]);
+                                    date.set(Calendar.DAY_OF_MONTH, day);
+                                }
+
+                                return date.getTime();
+                            }
+                            catch(Exception e)
+                            {
+                            }
+                        }
+                        return null;
+                    }
+                })
                 .create();
 
         Type listOfGames = new TypeToken<ArrayList<PocketGame>>(){}.getType();

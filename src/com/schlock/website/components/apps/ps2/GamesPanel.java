@@ -17,7 +17,6 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class GamesPanel
@@ -133,16 +132,6 @@ public class GamesPanel
         return "";
     }
 
-
-    public String getCurrentGameReleaseDate()
-    {
-        if (currentGame.getReleaseDate() != null)
-        {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            return format.format(currentGame.getReleaseDate());
-        }
-        return "";
-    }
 
     public String getEvenOdd()
     {

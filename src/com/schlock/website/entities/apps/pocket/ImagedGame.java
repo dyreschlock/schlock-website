@@ -2,6 +2,64 @@ package com.schlock.website.entities.apps.pocket;
 
 import com.schlock.website.entities.Persisted;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public abstract class ImagedGame extends Persisted
 {
+    private String developer;
+    private String publisher;
+    private Date releaseDate;
+    private String genre;
+
+    public String getReleaseDateText()
+    {
+        if (getReleaseDate() != null)
+        {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            return format.format(getReleaseDate());
+        }
+        return "";
+    }
+
+
+    public String getDeveloper()
+    {
+        return developer;
+    }
+
+    public void setDeveloper(String developer)
+    {
+        this.developer = developer;
+    }
+
+    public String getPublisher()
+    {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher)
+    {
+        this.publisher = publisher;
+    }
+
+    public Date getReleaseDate()
+    {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate)
+    {
+        this.releaseDate = releaseDate;
+    }
+
+    public String getGenre()
+    {
+        return genre;
+    }
+
+    public void setGenre(String genre)
+    {
+        this.genre = genre;
+    }
 }

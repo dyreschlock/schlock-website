@@ -7,10 +7,6 @@ import java.util.List;
 public class PocketGame extends ImagedGame
 {
     private String gameName;
-    private String developer;
-    private String publisher;
-    private String releaseDate;
-    private String genre;
     private String coreName;
     private String core;
     private String platform;
@@ -29,9 +25,9 @@ public class PocketGame extends ImagedGame
 
     public String getYear()
     {
-        if (year == null && StringUtils.isNotBlank(releaseDate))
+        if (year == null && StringUtils.isNotBlank(getReleaseDateText()))
         {
-            year = releaseDate.substring(0, 4);
+            year = getReleaseDateText().substring(0, 4);
         }
         return year;
     }
@@ -40,7 +36,7 @@ public class PocketGame extends ImagedGame
     {
         if (StringUtils.isBlank(genreId))
         {
-            genreId = genre.toLowerCase().replaceAll(" ", "");
+            genreId = getGenre().toLowerCase().replaceAll(" ", "");
         }
         return genreId;
     }
@@ -82,46 +78,6 @@ public class PocketGame extends ImagedGame
     public void setGameName(String gameName)
     {
         this.gameName = gameName;
-    }
-
-    public String getDeveloper()
-    {
-        return developer;
-    }
-
-    public void setDeveloper(String developer)
-    {
-        this.developer = developer;
-    }
-
-    public String getPublisher()
-    {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher)
-    {
-        this.publisher = publisher;
-    }
-
-    public String getReleaseDate()
-    {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(String releaseDate)
-    {
-        this.releaseDate = releaseDate;
-    }
-
-    public String getGenre()
-    {
-        return genre;
-    }
-
-    public void setGenre(String genre)
-    {
-        this.genre = genre;
     }
 
     public String getCoreName()

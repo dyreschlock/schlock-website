@@ -3,7 +3,6 @@ package com.schlock.website.entities.apps.ps2;
 import com.schlock.website.entities.apps.pocket.ImagedGame;
 
 import java.io.File;
-import java.util.Date;
 
 public class PlaystationGame extends ImagedGame
 {
@@ -30,12 +29,6 @@ public class PlaystationGame extends ImagedGame
     private boolean haveSave;
 
     private String title;
-    private String genre;
-
-    private String developer;
-    private String publisher;
-
-    private Date releaseDate;
 
     private PlaystationGameAspect aspect;
     private PlaystationGamePlayers players;
@@ -177,46 +170,6 @@ public class PlaystationGame extends ImagedGame
     public void setTitle(String title)
     {
         this.title = title;
-    }
-
-    public String getGenre()
-    {
-        return genre;
-    }
-
-    public void setGenre(String genre)
-    {
-        this.genre = genre;
-    }
-
-    public String getDeveloper()
-    {
-        return developer;
-    }
-
-    public void setDeveloper(String developer)
-    {
-        this.developer = developer;
-    }
-
-    public String getPublisher()
-    {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher)
-    {
-        this.publisher = publisher;
-    }
-
-    public Date getReleaseDate()
-    {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(Date releaseDate)
-    {
-        this.releaseDate = releaseDate;
     }
 
     public PlaystationGameAspect getAspect()
