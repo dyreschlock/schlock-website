@@ -24,8 +24,11 @@ public class PostLink
     @Property
     private String cssClass;
 
-    @Parameter(value = "true")
+    @Parameter(value = "false")
     private boolean displayDate;
+
+    @Parameter(value = "true")
+    private boolean displayNumber;
 
     @Inject
     private DateFormatter dateFormat;
@@ -57,6 +60,10 @@ public class PostLink
 
     public boolean isShowNumber()
     {
+        if (!displayNumber)
+        {
+            return false;
+        }
         if (post.isPost())
         {
             Post p = (Post) post;
@@ -81,7 +88,7 @@ public class PostLink
 
     public boolean isDisplayDate()
     {
-        return !post.isCoursePage() && !post.isPage();
+        return (!post.isCoursePage() && !post.isPage()) || displayDate;
     }
 
     public String getCreatedDate()

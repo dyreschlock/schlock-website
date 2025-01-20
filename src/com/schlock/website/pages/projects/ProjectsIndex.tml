@@ -1,14 +1,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html t:type="blog/layoutblog" post="page" pageDescription="pageDescription"
-    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-    xmlns:c="tapestry-library:blog/content"
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:l="tapestry-library:blog/link"
+     xmlns:c="tapestry-library:blog/content"
     >
 
-    <div id="postContent" class="projects">
+    <div id="postContent" class="projects archive">
 
         <h1 id="headline">${pageTitle}</h1>
 
-        <t:zone t:id="postZone" id="postZone" t:update="show">
+        <div class="postBody">
             <div class="fourColumns">
                 <t:loop source="categories" value="currentCategory" index="currentIndex">
                     <div class="column ${extraCategoryCss}">
@@ -34,13 +35,31 @@
 
             <p class="description"><t:outputraw value="pageDescription" /></p>
 
-            <div class="projectPosts columns">
-                <t:loop source="projects" value="currentPage" index="currentIndex">
-                    <div class="column ${extraPostCss}">
-                        <c:minipostdisplay post="currentPage" />
+            <t:loop source="categories" value="currentCategory">
+                <t:loop source="subcategories" value="currentSubcategory">
+
+                    <div class="title clr">
+                        ${currentCategory.name} //
+                        <span class="${currentCategory.uuid}">${currentSubcategory.name}</span>
                     </div>
+
+                    <div class="categoryPosts">
+                        <t:loop source="categoryProjects" value="currentPage">
+                            <l:postlink post="currentPage" cssClass="'archive'" displayDate="true" displayNumber="false" />
+                        </t:loop>
+                        <br class="clr" />
+                    </div>
+
+                    <t:if test="hasCurrentSubcategoryTopPost">
+                        <div class="postPreviews">
+                            <c:minipostdisplay post="currentSubcategoryTopPost" />
+                            <br class="clr" />
+                        </div>
+                    </t:if>
+
                 </t:loop>
-            </div>
-        </t:zone>
+            </t:loop>
+            
+        </div>
     </div>
 </html>

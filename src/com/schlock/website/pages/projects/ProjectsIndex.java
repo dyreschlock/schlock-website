@@ -11,7 +11,9 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ProjectsIndex
 {
@@ -43,17 +45,20 @@ public class ProjectsIndex
     private int currentIndex;
 
 
+    private Set<Long> excludeIds;
+
 
     Object onActivate()
     {
         category = null;
-
+        excludeIds = new HashSet<>();
         return true;
     }
 
     Object onActivate(String parameter)
     {
-        category = null;
+        onActivate();
+
         if (StringUtils.isNotBlank(parameter))
         {
             category = (ProjectCategory) categoryDAO.getByUuid(ProjectCategory.class, parameter);
@@ -149,6 +154,34 @@ public class ProjectsIndex
         return pages;
     }
 
+    public List<AbstractPost> getCategoryProjects()
+    {
+        Long categoryId = currentSubcategory.getId();
+
+        List<AbstractPost> pages = postDAO.getAllProjectsByCategory(false, categoryId);
+        return pages;
+    }
+
+    public boolean isHasCurrentSubcategoryTopPost()
+    {
+        int size = getCategoryProjects().size();
+        return size > 1;
+    }
+
+    public AbstractPost getCurrentSubcategoryTopPost()
+    {
+        List<AbstractPost> posts = getCategoryProjects();
+        for(AbstractPost post : posts)
+        {
+            long id = post.getId();
+            if (!excludeIds.contains(id))
+            {
+                excludeIds.add(id);
+                return post;
+            }
+        }
+        return null;
+    }
 
     private Page cachedPage;
 
