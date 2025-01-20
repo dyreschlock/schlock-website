@@ -17,6 +17,8 @@ public class VideoGame extends Persisted
     private Region region;
     private Condition condition;
 
+    private boolean sold;
+
     private PlaystationGame playstationGame;
 
     private String postUUID;
@@ -69,6 +71,16 @@ public class VideoGame extends Persisted
     public void setCondition(Condition condition)
     {
         this.condition = condition;
+    }
+
+    public boolean isSold()
+    {
+        return sold;
+    }
+
+    public void setSold(boolean sold)
+    {
+        this.sold = sold;
     }
 
     public PlaystationGame getPlaystationGame()

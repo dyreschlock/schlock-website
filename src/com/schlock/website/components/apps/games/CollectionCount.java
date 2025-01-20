@@ -63,7 +63,7 @@ public class CollectionCount
         String output;
         if (platform != null)
         {
-            int count = platform.getGames().size();
+            int count = platform.getAvailableGames().size();
             if (condition != null)
             {
                 int gameCount = gameDAO.getByPlatformCondition(platform, condition).size();
@@ -231,7 +231,7 @@ public class CollectionCount
         else
         {
             count = 0;
-            for(VideoGame game : platform.getGames())
+            for(VideoGame game : platform.getAvailableGames())
             {
                 if (region.equals(game.getRegion()))
                 {
@@ -253,7 +253,7 @@ public class CollectionCount
         else
         {
             count = 0;
-            for(VideoGame game : platform.getGames())
+            for(VideoGame game : platform.getAvailableGames())
             {
                 if (condition.equals(game.getCondition()))
                 {

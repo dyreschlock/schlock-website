@@ -67,6 +67,19 @@ public class VideoGamePlatform extends Persisted
         return output;
     }
 
+    public List<VideoGame> getAvailableGames()
+    {
+        List<VideoGame> available = new ArrayList<>();
+        for(VideoGame game : getGames())
+        {
+            if(!game.isSold())
+            {
+                available.add(game);
+            }
+        }
+        return available;
+    }
+
 
     public String getName() { return name; }
 

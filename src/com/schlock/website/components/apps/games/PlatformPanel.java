@@ -79,8 +79,8 @@ public class PlatformPanel
                     @Override
                     public int compare(VideoGamePlatform o1, VideoGamePlatform o2)
                     {
-                        Integer c1 = o1.getGames().size();
-                        Integer c2 = o2.getGames().size();
+                        Integer c1 = o1.getAvailableGames().size();
+                        Integer c2 = o2.getAvailableGames().size();
 
                         return c2.compareTo(c1);
                     }
@@ -133,7 +133,7 @@ public class PlatformPanel
         }
         else
         {
-            count = platform.getGames().size();
+            count = platform.getAvailableGames().size();
         }
         return count;
     }

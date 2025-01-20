@@ -18,10 +18,20 @@ public class VideoGameDAOImpl extends BaseDAOImpl<VideoGame> implements VideoGam
         super(VideoGame.class, session);
     }
 
+    public List<VideoGame> getAll()
+    {
+        String text = " from VideoGame g " +
+                " where g.sold is not true ";
+
+        Query query = session.createQuery(text);
+        return query.list();
+    }
+
     public List<VideoGame> getByCondition(Condition condition)
     {
         String text = " from VideoGame g " +
-                " where g.condition = :cond ";
+                " where g.sold is not true " +
+                " and g.condition = :cond ";
 
         Query query = session.createQuery(text);
         query.setParameter("cond", condition);
@@ -34,7 +44,8 @@ public class VideoGameDAOImpl extends BaseDAOImpl<VideoGame> implements VideoGam
         String text = " select g " +
                 " from VideoGamePlatform p " +
                 " join p.games g " +
-                " where p.id = :platformId " +
+                " where g.sold is not true " +
+                " and p.id = :platformId " +
                 " and g.condition = :cond ";
 
         Query query = session.createQuery(text);
@@ -47,7 +58,8 @@ public class VideoGameDAOImpl extends BaseDAOImpl<VideoGame> implements VideoGam
     public List<VideoGame> getByRegion(Region region)
     {
         String text = " from VideoGame g " +
-                " where g.region = :region ";
+                " where g.sold is not true " +
+                " and g.region = :region ";
 
         Query query = session.createQuery(text);
         query.setParameter("region", region);
@@ -60,7 +72,8 @@ public class VideoGameDAOImpl extends BaseDAOImpl<VideoGame> implements VideoGam
         String text = " select g " +
                 " from VideoGamePlatform p " +
                 " join p.games g " +
-                " where p.id = :platformId " +
+                " where g.sold is not true " +
+                " and p.id = :platformId " +
                 " and g.region = :region ";
 
         Query query = session.createQuery(text);
@@ -90,7 +103,8 @@ public class VideoGameDAOImpl extends BaseDAOImpl<VideoGame> implements VideoGam
         String text = " select %s, count(g.id) " +
                 " from VideoGamePlatform p " +
                 " join p.games g " +
-                " where %s is not null ";
+                " where g.sold is not true " +
+                " and %s is not null ";
 
         if (platform != null)
         {

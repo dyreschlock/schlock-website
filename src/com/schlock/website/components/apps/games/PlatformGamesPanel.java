@@ -77,8 +77,8 @@ public class PlatformGamesPanel
             }
             else
             {
-                games = new ArrayList<VideoGame>();
-                games.addAll(platform.getGames());
+                games = new ArrayList<>();
+                games.addAll(platform.getAvailableGames());
             }
         }
         else
@@ -157,7 +157,7 @@ public class PlatformGamesPanel
     {
         for(VideoGamePlatform platform : platformDAO.getAll())
         {
-            if (platform.getGames().contains(currentGame))
+            if (platform.getAvailableGames().contains(currentGame))
             {
                 return platform.getCode();
             }

@@ -28,6 +28,8 @@
             </type>
         </property>
 
+        <property name="sold" />
+
         <many-to-one name="playstationGame" column="ps_id" class="com.schlock.website.entities.apps.ps2.PlaystationGame" />
 
         <property name="postUUID" />
