@@ -10,6 +10,12 @@
             <td>
                 <p:platformpanel platform="ps1" selectedPlatform="selectedPlatform" genre="genre" imageView="imageView" />
             </td>
+            <td>
+                <p:platformpanel platform="gc" selectedPlatform="selectedPlatform" genre="genre" imageView="imageView" />
+            </td>
+            <td>
+                <p:platformpanel platform="dc" selectedPlatform="selectedPlatform" genre="genre" imageView="imageView" />
+            </td>
         </tr>
     </table>
 </t:container>

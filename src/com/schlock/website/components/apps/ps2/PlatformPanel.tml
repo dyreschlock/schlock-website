@@ -5,12 +5,12 @@
         <table class="platformData psPlatform">
             <tr>
                 <th class="outerTop outerLeft outerRight noBackground" colspan="2">
-                    <a href="${platformLink}"><img class="${imageCssClass}" src="${imageLink}"/></a>
+                    <a href="${platformLink}"><img class="platform ${imageCssClass}" src="${imageLink}"/></a>
                 </th>
             </tr>
             <tr>
-                <td class="outerTop lowerLeft"></td>
-                <td class="even outerLeft outerBottom outerRight">
+                <td class="psBottomLeft outerTop lowerLeft"></td>
+                <td class="psBottomRight even outerLeft outerBottom outerRight">
                     <t:outputraw value="gamesCount" />
                 </td>
             </tr>

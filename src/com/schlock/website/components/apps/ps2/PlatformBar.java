@@ -18,6 +18,7 @@ public class PlatformBar
     @Property
     private Boolean imageView;
 
+
     public PlaystationPlatform getPs2()
     {
         return PlaystationPlatform.PS2;
@@ -26,5 +27,15 @@ public class PlatformBar
     public PlaystationPlatform getPs1()
     {
         return PlaystationPlatform.PS1;
+    }
+
+    public PlaystationPlatform getGc()
+    {
+        return PlaystationPlatform.GC;
+    }
+
+    public PlaystationPlatform getDc()
+    {
+        return PlaystationPlatform.DC;
     }
 }

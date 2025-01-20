@@ -3,7 +3,9 @@ package com.schlock.website.entities.apps.ps2;
 public enum PlaystationPlatform
 {
     PS2("DVD", ".iso"),
-    PS1("POPS", ".vcd");
+    PS1("POPS", ".vcd"),
+    DC("", "gdi"),
+    GC("", "rvz");
 
     private final String IMAGE_LINK = "img/%s.png";
 
