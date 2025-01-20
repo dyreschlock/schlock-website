@@ -35,31 +35,29 @@
 
             <p class="description"><t:outputraw value="pageDescription" /></p>
 
-            <t:loop source="categories" value="currentCategory">
-                <t:loop source="subcategories" value="currentSubcategory">
+            <t:loop source="allSubcategories" value="currentSubcategory">
 
-                    <div class="title clr">
-                        ${currentCategory.name} //
-                        <span class="${currentCategory.uuid}">${currentSubcategory.name}</span>
-                    </div>
+                <div class="title clr">
+                    ${currentSubcategory.parent.name} /
+                    <span class="${currentSubcategory.parent.uuid}">${currentSubcategory.name}</span>
+                </div>
 
-                    <div class="categoryPosts">
-                        <t:loop source="categoryProjects" value="currentPage">
-                            <l:postlink post="currentPage" cssClass="'archive'" displayDate="true" displayNumber="false" />
-                        </t:loop>
+                <div class="categoryPosts">
+                    <t:loop source="categoryProjects" value="currentPage">
+                        <l:postlink post="currentPage" cssClass="'archive'" displayDate="true" displayNumber="false" />
+                    </t:loop>
+                    <br class="clr" />
+                </div>
+
+                <t:if test="hasCurrentSubcategoryTopPost">
+                    <div class="postPreviews">
+                        <c:minipostdisplay post="currentSubcategoryTopPost" />
                         <br class="clr" />
                     </div>
+                </t:if>
 
-                    <t:if test="hasCurrentSubcategoryTopPost">
-                        <div class="postPreviews">
-                            <c:minipostdisplay post="currentSubcategoryTopPost" />
-                            <br class="clr" />
-                        </div>
-                    </t:if>
-
-                </t:loop>
             </t:loop>
-            
+
         </div>
     </div>
 </html>

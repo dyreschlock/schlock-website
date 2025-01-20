@@ -11,6 +11,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -128,30 +129,17 @@ public class ProjectsIndex
 
 
 
-    public String getExtraPostCss()
+    public List<ProjectCategory> getAllSubcategories()
     {
-        String extraCss = "";
-        if ((currentIndex + 1) % 2 == 0)
-        {
-            extraCss += " twoColumnLast";
-        }
-        else
-        {
-            extraCss += " clr";
-        }
-        return extraCss;
-    }
-
-    public List<AbstractPost> getProjects()
-    {
-        Long categoryId = null;
         if (category != null)
         {
-            categoryId = category.getId();
+            if (category.isTopCategory())
+            {
+                return categoryDAO.getSubProjectInOrder(category.getId());
+            }
+            return Arrays.asList(category);
         }
-
-        List<AbstractPost> pages = postDAO.getAllProjectsByCategory(false, categoryId);
-        return pages;
+        return categoryDAO.getSubProjectInOrder();
     }
 
     public List<AbstractPost> getCategoryProjects()

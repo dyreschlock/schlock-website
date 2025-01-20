@@ -85,6 +85,17 @@ public class CategoryDAOImpl extends BaseDAOImpl<AbstractCategory> implements Ca
         return query.list();
     }
 
+    public List<ProjectCategory> getSubProjectInOrder()
+    {
+        String text = "select child " +
+                        " from ProjectCategory child " +
+                        " join child.parent par " +
+                        " order by par.ordering, child.ordering ";
+
+        Query query = session.createQuery(text);
+        return query.list();
+    }
+
     public List<ProjectCategory> getSubProjectInOrder(Long categoryId)
     {
         String text = "select child " +
