@@ -163,7 +163,7 @@ public class ProjectsIndex
     public boolean isHasCurrentSubcategoryTopPost()
     {
         int size = getCategoryProjects().size();
-        return size > 1;
+        return size > 0;
     }
 
     public AbstractPost getCurrentSubcategoryTopPost()
