@@ -33,10 +33,8 @@ public class PlaystationServiceImpl implements PlaystationService
     {
         verifyGameInventory();
 
-        for(PlaystationPlatform platform : PlaystationPlatform.values())
-        {
-            createEntriesFromLocation(platform);
-        }
+        createEntriesFromLocation(PlaystationPlatform.PS2);
+        createEntriesFromLocation(PlaystationPlatform.PS1);
     }
 
     public void verifyGameInventory()
@@ -259,14 +257,16 @@ public class PlaystationServiceImpl implements PlaystationService
             }
         };
 
-        for(PlaystationPlatform platform : PlaystationPlatform.values())
+        File saveFolder = new File(MCP_PATH + PlaystationPlatform.PS2.name());
+        for(File folder : saveFolder.listFiles(saveFolderFormat))
         {
-            String filepath = MCP_PATH + platform.name();
-            File saveFolder = new File(filepath);
-            for(File folder : saveFolder.listFiles(saveFolderFormat))
-            {
-                updateGameWithSaveFolder(folder);
-            }
+            updateGameWithSaveFolder(folder);
+        }
+
+        saveFolder = new File(MCP_PATH + PlaystationPlatform.PS1.name());
+        for(File folder : saveFolder.listFiles(saveFolderFormat))
+        {
+            updateGameWithSaveFolder(folder);
         }
     }
 

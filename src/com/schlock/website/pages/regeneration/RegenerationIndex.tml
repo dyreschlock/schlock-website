@@ -73,6 +73,21 @@
                             <br/>
                             <br/>
 
+                            <h2>Github Downloads</h2>
+                            <br />
+                            <table class="downloads">
+                                <t:loop source="downloadData" value="currentData">
+                                    <tr>
+                                        <td><i>${currentDataName}</i></td>
+                                        <td>${currentDataCount}</td>
+                                        <td><i>releases</i></td>
+                                        <td>${currentDataReleases}</td>
+                                        <td><i>average</i></td>
+                                        <td>${currentDataAverage}</td>
+                                    </tr>
+                                </t:loop>
+                            </table>
+
                         </td>
                         <td width="700px">
 
@@ -100,6 +115,11 @@
                             - <t:eventlink t:id="copyLocalFilesToDrive">Copy Local Files to Drive</t:eventlink><br/>
                             <br />
                             <br />
+                            <h2>Update Dreamcast Data</h2>
+                            <br/>
+                            - <t:eventlink t:id="updateDreamcastGameInventory">Update List of Games from Drive</t:eventlink>
+                            <br/>
+                            <br/>
                             <h2>Website Validation / Optimization</h2>
                             <br />
                             - <a href="https://github.com/dyreschlock/schlock-website/issues/7">Github Issue #7 - Speed Up!</a><br />
@@ -113,20 +133,6 @@
                             - Visitation Analytics: <a href="https://analytics.google.com/">https://analytics.google.com/</a><br />
                             <br/>
                             <br/>
-                            <h2>Github Downloads</h2>
-                            <br />
-                            <table class="downloads">
-                                <t:loop source="downloadData" value="currentData">
-                                    <tr>
-                                        <td><i>${currentDataName}</i></td>
-                                        <td>${currentDataCount}</td>
-                                        <td><i>releases</i></td>
-                                        <td>${currentDataReleases}</td>
-                                        <td><i>average</i></td>
-                                        <td>${currentDataAverage}</td>
-                                    </tr>
-                                </t:loop>
-                            </table>
 
                         </td>
                     </tr>

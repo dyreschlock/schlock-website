@@ -2,6 +2,7 @@ package com.schlock.website.pages.regeneration;
 
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.PokemonDataGameMasterService;
+import com.schlock.website.services.apps.ps2.DreamcastService;
 import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
@@ -41,6 +42,9 @@ public class RegenerationIndex
 
     @Inject
     private PlaystationService playstationService;
+
+    @Inject
+    private DreamcastService dreamcastService;
 
     public boolean isLocal()
     {
@@ -270,6 +274,13 @@ public class RegenerationIndex
         {
             e.printStackTrace();
         }
+    }
+
+
+    @CommitAfter
+    void onUpdateDreamcastGameInventory()
+    {
+        dreamcastService.updateGameInventory();
     }
 
 
