@@ -1,7 +1,5 @@
 package com.schlock.website.entities.apps.ps2;
 
-import com.schlock.website.entities.apps.pocket.ImagedGame;
-
 import java.io.File;
 
 public class PlaystationGame extends ImagedGame

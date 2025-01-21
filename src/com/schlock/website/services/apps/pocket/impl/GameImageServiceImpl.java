@@ -1,6 +1,6 @@
 package com.schlock.website.services.apps.pocket.impl;
 
-import com.schlock.website.entities.apps.pocket.ImagedGame;
+import com.schlock.website.entities.apps.ps2.ImagedGame;
 import com.schlock.website.services.DeploymentContext;
 
 import javax.imageio.ImageIO;

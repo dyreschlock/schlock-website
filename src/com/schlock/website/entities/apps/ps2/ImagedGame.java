@@ -1,4 +1,4 @@
-package com.schlock.website.entities.apps.pocket;
+package com.schlock.website.entities.apps.ps2;
 
 import com.schlock.website.entities.Persisted;
 

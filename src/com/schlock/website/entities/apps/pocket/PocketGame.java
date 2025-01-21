@@ -1,5 +1,6 @@
 package com.schlock.website.entities.apps.pocket;
 
+import com.schlock.website.entities.apps.ps2.ImagedGame;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
