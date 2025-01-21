@@ -23,7 +23,9 @@ import com.schlock.website.services.database.apps.pokemon.impl.PokemonCategoryDA
 import com.schlock.website.services.database.apps.pokemon.impl.PokemonCustomCounterDAOImpl;
 import com.schlock.website.services.database.apps.pokemon.impl.PokemonDataDAOImpl;
 import com.schlock.website.services.database.apps.pokemon.impl.PokemonMoveDAOImpl;
+import com.schlock.website.services.database.apps.ps2.DreamcastGameDAO;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
+import com.schlock.website.services.database.apps.ps2.impl.DreamcastGameDAOImpl;
 import com.schlock.website.services.database.apps.ps2.impl.PlaystationGameDAOImpl;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.ImageDAO;
@@ -65,6 +67,7 @@ public class DatabaseModule
         binder.bind(PokemonCustomCounterDAO.class, PokemonCustomCounterDAOImpl.class);
 
         binder.bind(PlaystationGameDAO.class, PlaystationGameDAOImpl.class);
+        binder.bind(DreamcastGameDAO.class, DreamcastGameDAOImpl.class);
     }
 
 

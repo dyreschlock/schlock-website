@@ -26,6 +26,9 @@ public class DeploymentContextImpl implements DeploymentContext
     private static final String PS_DRIVE_PARAM = "playstation.directory.drive";
     private static final String PS_DATA_PARAM = "playstation.directory.data";
 
+    private static final String DC_DRIVE_PARAM = "dreamcast.directory.drive";
+    private static final String DC_DATA_PARAM = "dreamcast.directory.data";
+
     private static final String GITHUB_HTML_PARAM = "github.html.repo";
     private static final String GITHUB_PHOTOS_PARAM = "github.photos.repo";
     private static final String GITHUB_PS2_PARAM = "github.ps2.repo";
@@ -206,6 +209,19 @@ public class DeploymentContextImpl implements DeploymentContext
     {
         String ps2Repo = getDeployProperties().getProperty(GITHUB_PS2_PARAM);
         return githubDirectory() + ps2Repo + "/";
+    }
+
+    public String dreamcastDriveDirectory()
+    {
+        String dreamcastDrive = getDeployProperties().getProperty(DC_DRIVE_PARAM);
+        return dreamcastDrive;
+    }
+
+    public String dreamcastDataDirectory()
+    {
+        String dreamcastData = getDeployProperties().getProperty(DC_DATA_PARAM);
+        return dreamcastData;
+
     }
 
     public String webOutputDirectoryImageFolder()

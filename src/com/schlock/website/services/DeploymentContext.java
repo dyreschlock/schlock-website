@@ -42,6 +42,9 @@ public interface DeploymentContext
     String playstationDataDirectory();
     String playstationLocalDirectory();
 
+    String dreamcastDriveDirectory();
+    String dreamcastDataDirectory();
+
     String coverImageLocationLocal();
     String coverImageLocationInternet();
 

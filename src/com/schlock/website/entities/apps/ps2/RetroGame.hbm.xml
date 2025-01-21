@@ -16,6 +16,13 @@
             <property name="releaseDate" />
             <property name="genre" />
 
+            <property name="sdcardSlot" column="sd_slot" />
+            <property name="serialNumber" />
+            <property name="boxartFilename" />
+
+            <property name="haveArt" />
+            <property name="haveSave" />
+
         </joined-subclass>
 
         <joined-subclass name="com.schlock.website.entities.apps.ps2.PlaystationGame" table="retro_game_playstation">

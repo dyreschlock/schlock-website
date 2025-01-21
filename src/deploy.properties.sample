@@ -27,6 +27,9 @@ indexnow.api.key=
 playstation.directory.drive=
 playstation.directory.data=
 
+dreamcast.directory.drive=
+dreamcast.directory.data=
+
 github.html.repo=
 github.photos.repo=
 github.ps2.repo=
