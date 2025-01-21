@@ -3,19 +3,21 @@ package com.schlock.website.entities.apps.ps2;
 public class DreamcastGame extends RetroGame
 {
     private String sdcardSlot;
+    private String gameName;
+
     private String serialNumber;
     private String boxartFilename;
 
-    private boolean haveArt;
-    private boolean haveSave;
 
-
-    public PlaystationPlatform getPlatform()
+    public String getCoverImageFilename()
     {
-        return PlaystationPlatform.DC;
+        return boxartFilename;
     }
 
-
+    public String getSaveFileRelativeFilepath()
+    {
+        return "";
+    }
 
     public String getSdcardSlot()
     {
@@ -25,6 +27,16 @@ public class DreamcastGame extends RetroGame
     public void setSdcardSlot(String sdcardSlot)
     {
         this.sdcardSlot = sdcardSlot;
+    }
+
+    public String getGameName()
+    {
+        return gameName;
+    }
+
+    public void setGameName(String gameName)
+    {
+        this.gameName = gameName;
     }
 
     public String getSerialNumber()
@@ -47,27 +59,6 @@ public class DreamcastGame extends RetroGame
         this.boxartFilename = boxartFilename;
     }
 
-    public boolean isHaveArt()
-    {
-        return haveArt;
-    }
-
-    public void setHaveArt(boolean haveArt)
-    {
-        this.haveArt = haveArt;
-    }
-
-    public boolean isHaveSave()
-    {
-        return haveSave;
-    }
-
-    public void setHaveSave(boolean haveSave)
-    {
-        this.haveSave = haveSave;
-    }
-
-
     public static DreamcastGame create(String sdcardSlot, String title, String serialNumber)
     {
         DreamcastGame game = new DreamcastGame();
@@ -75,11 +66,17 @@ public class DreamcastGame extends RetroGame
         game.setTitle(title);
 
         game.sdcardSlot = sdcardSlot;
+        game.gameName = title;
+
         game.serialNumber = serialNumber;
         game.boxartFilename = title + ".png";
 
-        game.haveArt = false;
-        game.haveSave = false;
+        game.setAvailable(true);
+
+        game.setHaveArt(false);
+        game.setHaveSave(false);
+
+        game.setPlatform(PlaystationPlatform.DC);
 
         return game;
     }

@@ -3,7 +3,7 @@ package com.schlock.website.components.apps.ps2;
 import com.schlock.website.entities.apps.games.DataPanelData;
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
 import com.schlock.website.pages.apps.ps2.Index;
-import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
+import com.schlock.website.services.database.apps.ps2.RetroGameDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.ioc.Messages;
@@ -20,7 +20,7 @@ public class MenuPanel
     private Messages messages;
 
     @Inject
-    private PlaystationGameDAO gameDAO;
+    private RetroGameDAO gameDAO;
 
     @Parameter
     private PlaystationPlatform platform;

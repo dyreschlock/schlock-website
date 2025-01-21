@@ -139,7 +139,7 @@ public class PlatformGamesPanel
 
     public String getSaveFileLink()
     {
-        return playstationService.getSaveFileLink(currentGame.getPlaystationGame());
+        return currentGame.getPlaystationGame().getSaveFileLink();
     }
 
     public String getSaveIconSrc()

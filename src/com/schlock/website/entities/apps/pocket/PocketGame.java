@@ -9,7 +9,7 @@ public class PocketGame extends RetroGame
 {
     private String coreName;
     private String core;
-    private String platform;
+    private String platformName;
     private String fileHash;
 
     private List<Device> devices;
@@ -70,6 +70,16 @@ public class PocketGame extends RetroGame
         return false;
     }
 
+    public String getCoverImageFilename()
+    {
+        return "";
+    }
+
+    public String getSaveFileRelativeFilepath()
+    {
+        return "";
+    }
+
     public String getCoreName()
     {
         return coreName;
@@ -85,14 +95,14 @@ public class PocketGame extends RetroGame
         this.core = core;
     }
 
-    public String getPlatform()
+    public String getPlatformName()
     {
-        return platform;
+        return platformName;
     }
 
-    public void setPlatform(String platform)
+    public void setPlatformName(String platformName)
     {
-        this.platform = platform;
+        this.platformName = platformName;
     }
 
     public String getFileHash()

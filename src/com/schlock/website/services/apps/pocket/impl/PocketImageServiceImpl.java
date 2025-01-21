@@ -29,7 +29,7 @@ public class PocketImageServiceImpl extends GameImageServiceImpl<PocketGame> imp
     {
         final String IMG_LINK = context.webDomain() + "img/pocket/%s/%s.bmp";
 
-        String platform = game.getPlatform();
+        String platform = game.getPlatformName();
         String filehash = game.getFileHash();
 
         String link = String.format(IMG_LINK, platform, filehash);

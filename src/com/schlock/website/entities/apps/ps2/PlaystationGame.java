@@ -13,18 +13,10 @@ public class PlaystationGame extends RetroGame
     public static final String SAVE_FOLDER = "mcp2";
 
     private String gameId;
-
     private String gameName;
-
-    private PlaystationPlatform platform;
     private String drive;
 
     private String working;
-
-    private boolean subDisc;
-
-    private boolean haveArt;
-    private boolean haveSave;
 
     private PlaystationGameAspect aspect;
     private PlaystationGamePlayers players;
@@ -35,23 +27,21 @@ public class PlaystationGame extends RetroGame
     private String notes;
     private String description;
 
-    private String postUUID;
-
     public PlaystationGame()
     {
     }
 
     public String getGameRelativeFilepath()
     {
-        String folder = platform.folder();
-        String fileType = platform.fileType();
+        String folder = getPlatform().folder();
+        String fileType = getPlatform().fileType();
 
         return folder + "/" + gameId + "." + gameName + fileType;
     }
 
     public String getSaveFileRelativeFilepath()
     {
-        String platFolder = platform.name();
+        String platFolder = getPlatform().name();
         String saveFolder = getGameIdMemcardFormat(getGameId());
 
         return SAVE_FOLDER + "/" + platFolder + "/" + saveFolder;
@@ -98,16 +88,6 @@ public class PlaystationGame extends RetroGame
         this.gameName = gameName;
     }
 
-    public PlaystationPlatform getPlatform()
-    {
-        return platform;
-    }
-
-    public void setPlatform(PlaystationPlatform platform)
-    {
-        this.platform = platform;
-    }
-
     public String getDrive()
     {
         return drive;
@@ -126,36 +106,6 @@ public class PlaystationGame extends RetroGame
     public void setWorking(String working)
     {
         this.working = working;
-    }
-
-    public boolean isSubDisc()
-    {
-        return subDisc;
-    }
-
-    public void setSubDisc(boolean subDisc)
-    {
-        this.subDisc = subDisc;
-    }
-
-    public boolean isHaveArt()
-    {
-        return haveArt;
-    }
-
-    public void setHaveArt(boolean haveArt)
-    {
-        this.haveArt = haveArt;
-    }
-
-    public boolean isHaveSave()
-    {
-        return haveSave;
-    }
-
-    public void setHaveSave(boolean haveSave)
-    {
-        this.haveSave = haveSave;
     }
 
     public PlaystationGameAspect getAspect()
@@ -228,16 +178,6 @@ public class PlaystationGame extends RetroGame
         this.description = description;
     }
 
-    public String getPostUUID()
-    {
-        return postUUID;
-    }
-
-    public void setPostUUID(String postUUID)
-    {
-        this.postUUID = postUUID;
-    }
-
     public static PlaystationGame create(File file, PlaystationPlatform platform)
     {
         PlaystationGame game = new PlaystationGame();
@@ -247,10 +187,10 @@ public class PlaystationGame extends RetroGame
         game.gameId = filename.substring(0, 11);
         game.gameName = filename.substring(12, filename.length() - 4);
 
-        game.platform = platform;
+        game.setPlatform(platform);
 
         game.working = "";
-        game.haveArt = false;
+        game.setHaveArt(false);
 
         return game;
     }

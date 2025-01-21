@@ -5,7 +5,7 @@ import com.schlock.website.entities.Persisted;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public abstract class RetroGame extends Persisted
+public class RetroGame extends Persisted
 {
     private String title;
 
@@ -13,6 +13,22 @@ public abstract class RetroGame extends Persisted
     private String publisher;
     private Date releaseDate;
     private String genre;
+
+    private PlaystationPlatform platform;
+
+    private String postUUID;
+
+    private boolean available;
+
+    private boolean haveArt;
+    private boolean haveSave;
+
+    private boolean subDisc;
+
+    public RetroGame()
+    {
+    }
+
 
     public String getReleaseDateText()
     {
@@ -22,6 +38,28 @@ public abstract class RetroGame extends Persisted
             return format.format(getReleaseDate());
         }
         return "";
+    }
+
+    public String getCoverImageFilename()
+    {
+        return "";
+    }
+
+    public String getSaveFileRelativeFilepath()
+    {
+        return "";
+    }
+
+    public String getSaveFileLink()
+    {
+        if (isHaveSave())
+        {
+            final String LINK = "https://github.com/dyreschlock/ps2-opl-loadout/tree/master/";
+            String filepath = getSaveFileRelativeFilepath();
+
+            return LINK + filepath;
+        }
+        return null;
     }
 
 
@@ -73,5 +111,65 @@ public abstract class RetroGame extends Persisted
     public void setGenre(String genre)
     {
         this.genre = genre;
+    }
+
+    public PlaystationPlatform getPlatform()
+    {
+        return platform;
+    }
+
+    public void setPlatform(PlaystationPlatform platform)
+    {
+        this.platform = platform;
+    }
+
+    public String getPostUUID()
+    {
+        return postUUID;
+    }
+
+    public void setPostUUID(String postUUID)
+    {
+        this.postUUID = postUUID;
+    }
+
+    public boolean isAvailable()
+    {
+        return available;
+    }
+
+    public void setAvailable(boolean available)
+    {
+        this.available = available;
+    }
+
+    public boolean isHaveArt()
+    {
+        return haveArt;
+    }
+
+    public void setHaveArt(boolean haveArt)
+    {
+        this.haveArt = haveArt;
+    }
+
+    public boolean isHaveSave()
+    {
+        return haveSave;
+    }
+
+    public void setHaveSave(boolean haveSave)
+    {
+        this.haveSave = haveSave;
+    }
+
+    public boolean isSubDisc()
+    {
+        return subDisc;
+    }
+
+    public void setSubDisc(boolean subDisc)
+    {
+        this.subDisc = subDisc;
     }
 }

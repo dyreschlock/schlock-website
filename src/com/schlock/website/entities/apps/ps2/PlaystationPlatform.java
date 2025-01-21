@@ -28,6 +28,16 @@ public enum PlaystationPlatform
         return this.filetype;
     }
 
+    public String gameImageFolder()
+    {
+        String name = name().toLowerCase();
+        if (PS1.equals(this))
+        {
+            name = PS2.name().toLowerCase();
+        }
+        return name;
+    }
+
     public String getImagePath()
     {
         String imageLink = String.format(IMAGE_LINK, name().toLowerCase());

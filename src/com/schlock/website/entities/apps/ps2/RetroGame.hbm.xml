@@ -7,50 +7,51 @@
             <generator class="native" />
         </id>
 
+        <property name="platform">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.schlock.website.entities.apps.ps2.PlaystationPlatform</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+
+        <property name="title" />
+        <property name="subDisc" />
+
+        <property name="developer" />
+        <property name="publisher" />
+        <property name="releaseDate" />
+        <property name="genre" />
+
+        <property name="available" />
+        <property name="haveSave" />
+
+        <property name="postUUID" />
+
+
+
         <joined-subclass name="com.schlock.website.entities.apps.ps2.DreamcastGame" table="retro_game_dreamcast">
             <key column="id"/>
 
-            <property name="title" />
-            <property name="developer" />
-            <property name="publisher" />
-            <property name="releaseDate" />
-            <property name="genre" />
-
             <property name="sdcardSlot" column="sd_slot" />
             <property name="serialNumber" />
-            <property name="boxartFilename" />
+            <property name="gameName" column="name" />
 
             <property name="haveArt" />
-            <property name="haveSave" />
+            <property name="boxartFilename" />
 
         </joined-subclass>
 
         <joined-subclass name="com.schlock.website.entities.apps.ps2.PlaystationGame" table="retro_game_playstation">
             <key column="id"/>
 
-            <property name="title" />
-            <property name="developer" />
-            <property name="publisher" />
-            <property name="releaseDate" />
-            <property name="genre" />
-
             <property name="gameId" column="game_id" not-null="true" />
             <property name="gameName" column="name" not-null="true" />
 
-            <property name="platform">
-                <type name="org.hibernate.type.EnumType">
-                    <param name="enumClass">com.schlock.website.entities.apps.ps2.PlaystationPlatform</param>
-                    <param name="type">12</param>
-                </type>
-            </property>
-
             <property name="drive" />
 
-            <property name="working" />
-            <property name="subDisc" />
-
             <property name="haveArt" />
-            <property name="haveSave" />
+
+            <property name="working" />
 
             <property name="aspect">
                 <type name="org.hibernate.type.EnumType">
@@ -89,8 +90,6 @@
 
             <property name="notes" />
             <property name="description" />
-
-            <property name="postUUID" />
 
         </joined-subclass>
     </class>

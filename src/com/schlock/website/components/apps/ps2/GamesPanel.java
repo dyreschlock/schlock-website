@@ -2,14 +2,14 @@ package com.schlock.website.components.apps.ps2;
 
 import com.schlock.website.components.apps.games.DataPanel;
 import com.schlock.website.entities.Icon;
-import com.schlock.website.entities.apps.ps2.PlaystationGame;
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
+import com.schlock.website.entities.apps.ps2.RetroGame;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.pages.apps.ps2.Index;
-import com.schlock.website.services.apps.ps2.PlaystationImageService;
+import com.schlock.website.services.apps.ps2.RetroGameImageService;
 import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.blog.IconManagement;
-import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
+import com.schlock.website.services.database.apps.ps2.RetroGameDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
@@ -30,13 +30,13 @@ public class GamesPanel
     private PostDAO postDAO;
 
     @Inject
-    private PlaystationImageService imageService;
+    private RetroGameImageService imageService;
 
     @Inject
     private PlaystationService playstationService;
 
     @Inject
-    private PlaystationGameDAO gameDAO;
+    private RetroGameDAO gameDAO;
 
     @Inject
     private Messages messages;
@@ -53,12 +53,12 @@ public class GamesPanel
 
 
     @Property
-    private PlaystationGame currentGame;
+    private RetroGame currentGame;
 
     @Property
     private Integer currentIndex;
 
-    public List<PlaystationGame> getGames()
+    public List<RetroGame> getGames()
     {
         if (StringUtils.equals(Index.SAVES_GENRE_KEY, genre))
         {
@@ -114,7 +114,7 @@ public class GamesPanel
 
     public String getCurrentGameSaveFileLink()
     {
-        return playstationService.getSaveFileLink(currentGame);
+        return currentGame.getSaveFileLink();
     }
 
     public String getSaveIconSrc()
@@ -144,7 +144,7 @@ public class GamesPanel
 
     public String getImageHTML()
     {
-        List<PlaystationGame> games = getGames();
+        List<RetroGame> games = getGames();
 
         String outputHTML = imageService.generateImageHTMLFromGames(games);
         return outputHTML;
