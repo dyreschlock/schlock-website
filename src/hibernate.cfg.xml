@@ -54,6 +54,6 @@
         <mapping resource="com/schlock/website/entities/apps/pokemon/PokemonMove.hbm.xml" />
         <mapping resource="com/schlock/website/entities/apps/pokemon/PokemonCustomCounter.hbm.xml" />
 
-        <mapping resource="com/schlock/website/entities/apps/ps2/PlaystationGame.hbm.xml" />
+        <mapping resource="com/schlock/website/entities/apps/ps2/RetroGame.hbm.xml" />
     </session-factory>
 </hibernate-configuration>

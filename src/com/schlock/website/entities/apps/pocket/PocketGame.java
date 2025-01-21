@@ -1,11 +1,11 @@
 package com.schlock.website.entities.apps.pocket;
 
-import com.schlock.website.entities.apps.ps2.ImagedGame;
+import com.schlock.website.entities.apps.ps2.RetroGame;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
 
-public class PocketGame extends ImagedGame
+public class PocketGame extends RetroGame
 {
     private String coreName;
     private String core;

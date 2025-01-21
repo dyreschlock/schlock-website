@@ -2,7 +2,7 @@ package com.schlock.website.entities.apps.ps2;
 
 import java.io.File;
 
-public class PlaystationGame extends ImagedGame
+public class PlaystationGame extends RetroGame
 {
     public static final String ART_FOLDER = "ART";
     public static final String CFG_FOLDER = "CFG";

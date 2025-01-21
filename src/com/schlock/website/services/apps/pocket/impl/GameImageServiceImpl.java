@@ -1,6 +1,6 @@
 package com.schlock.website.services.apps.pocket.impl;
 
-import com.schlock.website.entities.apps.ps2.ImagedGame;
+import com.schlock.website.entities.apps.ps2.RetroGame;
 import com.schlock.website.services.DeploymentContext;
 
 import javax.imageio.ImageIO;
@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GameImageServiceImpl<T extends ImagedGame>
+public abstract class GameImageServiceImpl<T extends RetroGame>
 {
     protected final DeploymentContext context;
 

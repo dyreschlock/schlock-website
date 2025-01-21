@@ -5,7 +5,7 @@ import com.schlock.website.entities.Persisted;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public abstract class ImagedGame extends Persisted
+public abstract class RetroGame extends Persisted
 {
     private String title;
 
