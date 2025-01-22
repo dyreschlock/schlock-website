@@ -6,6 +6,8 @@ import com.schlock.website.services.database.apps.ps2.DreamcastGameDAO;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.util.List;
+
 public class DreamcastGameDAOImpl extends BaseDAOImpl<DreamcastGame> implements DreamcastGameDAO
 {
     public DreamcastGameDAOImpl(Session session)
@@ -13,6 +15,16 @@ public class DreamcastGameDAOImpl extends BaseDAOImpl<DreamcastGame> implements 
         super(DreamcastGame.class, session);
     }
 
+
+    public List<DreamcastGame> getAllAvailable()
+    {
+        String text = " select g " +
+                " from DreamcastGame g " +
+                " where g.available is true ";
+
+        Query query = session.createQuery(text);
+        return query.list();
+    }
 
     public DreamcastGame getBySerialNumber(String serialNumber)
     {

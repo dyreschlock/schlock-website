@@ -5,6 +5,7 @@ import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.ps2.DreamcastService;
 import com.schlock.website.services.database.apps.ps2.DreamcastGameDAO;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
 
@@ -27,15 +28,41 @@ public class DreamcastServiceImpl implements DreamcastService
     {
         verifyGameInventory();
 
-        createNewEntries();
+        createAndUpdateEntries();
     }
 
     private void verifyGameInventory()
     {
+        final String DRIVE_PATH = context.dreamcastDriveDirectory();
 
+        for(DreamcastGame game : gameDAO.getAllAvailable())
+        {
+            boolean remove = true;
+            try
+            {
+                File serial = new File(DRIVE_PATH + game.getSdcardSlot() + "/" + SERIAL_FILENAME);
+                if(serial.exists())
+                {
+                    String serialNumber = FileUtils.readFileToString(serial);
+                    remove = !StringUtils.equalsIgnoreCase(serialNumber, game.getSerialNumber());
+                }
+            }
+            catch (Exception e)
+            {
+                throw new RuntimeException(e);
+            }
+
+            if (remove)
+            {
+                game.setSdcardSlot(null);
+                game.setAvailable(false);
+
+                gameDAO.save(game);
+            }
+        }
     }
 
-    private void createNewEntries()
+    private void createAndUpdateEntries()
     {
         final String DRIVE_PATH = context.dreamcastDriveDirectory();
 
@@ -74,17 +101,27 @@ public class DreamcastServiceImpl implements DreamcastService
         File serialFile = new File(filepath + "/" + SERIAL_FILENAME);
         String serialNumber = FileUtils.readFileToString(serialFile);
 
+        File nameFile = new File(filepath + "/" + NAME_FILENAME);
+        String name = FileUtils.readFileToString(nameFile);
+
+        String sdcardSlot = gameFolder.getName();
+
         DreamcastGame game = gameDAO.getBySerialNumber(serialNumber);
-        if (game == null)
+        if (game != null)
         {
-            File nameFile = new File(filepath + "/" + NAME_FILENAME);
-            String name = FileUtils.readFileToString(nameFile);
-
-            String sdcardSlot = gameFolder.getName();
-
-            game = DreamcastGame.create(sdcardSlot, name, serialNumber);
-
-            gameDAO.save(game);
+            game.setGameName(name);
+            game.setSdcardSlot(sdcardSlot);
+            game.setAvailable(true);
         }
+        else
+        {
+            game = DreamcastGame.create(sdcardSlot, name, serialNumber);
+        }
+        gameDAO.save(game);
+    }
+
+    public void writeArtFilesToLocal()
+    {
+
     }
 }
