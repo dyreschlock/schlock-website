@@ -20,6 +20,7 @@ public class Image extends Persisted
 
     private Image parent; // full version of the thumbnail
 
+    private boolean favorite;
 
     public String getImageLink()
     {
@@ -115,5 +116,15 @@ public class Image extends Persisted
     public void setParent(Image parent)
     {
         this.parent = parent;
+    }
+
+    public boolean isFavorite()
+    {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite)
+    {
+        this.favorite = favorite;
     }
 }
