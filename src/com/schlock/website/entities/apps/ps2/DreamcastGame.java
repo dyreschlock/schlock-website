@@ -11,7 +11,7 @@ public class DreamcastGame extends RetroGame
 
     public String getCoverImageFilename()
     {
-        return serialNumber + "_" + getId().toString() + ".png";
+        return serialNumber + ".png";
     }
 
     public String getSaveFileRelativeFilepath()
