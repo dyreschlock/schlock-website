@@ -117,7 +117,8 @@
                             <br />
                             <h2>Update Dreamcast Data</h2>
                             <br/>
-                            - <t:eventlink t:id="updateDreamcastGameInventory">Update List of Games from Drive</t:eventlink>
+                            - <t:eventlink t:id="updateDreamcastGameInventory">Update List of Games from Drive</t:eventlink><br/>
+                            - <t:eventlink t:id="convertDreamcastArtImages">Collect and Convert Art Images to Web Location</t:eventlink>
                             <br/>
                             <br/>
                             <h2>Website Validation / Optimization</h2>

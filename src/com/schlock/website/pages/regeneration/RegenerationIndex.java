@@ -283,6 +283,11 @@ public class RegenerationIndex
         dreamcastService.updateGameInventory();
     }
 
+    @CommitAfter
+    void onConvertDreamcastArtImages()
+    {
+        dreamcastService.writeArtFilesToLocal();
+    }
 
 
 
