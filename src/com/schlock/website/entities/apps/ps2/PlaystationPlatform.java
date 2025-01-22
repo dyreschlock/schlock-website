@@ -2,20 +2,22 @@ package com.schlock.website.entities.apps.ps2;
 
 public enum PlaystationPlatform
 {
-    PS2("DVD", ".iso"),
-    PS1("POPS", ".vcd"),
-    DC("", "gdi"),
-    GC("", "rvz");
+    PS2("DVD", ".iso", ""),
+    PS1("POPS", ".vcd", ""),
+    DC("", "gdi", "Sega_-_Dreamcast"),
+    GC("", "rvz", "");
 
     private final String IMAGE_LINK = "img/%s.png";
 
     private final String folder;
     private final String filetype;
+    private final String boxartRepoName;
 
-    PlaystationPlatform(String folder, String fileType)
+    PlaystationPlatform(String folder, String fileType, String boxartRepoName)
     {
         this.folder = folder;
         this.filetype = fileType;
+        this.boxartRepoName = boxartRepoName;
     }
 
     public String folder()
@@ -26,6 +28,11 @@ public enum PlaystationPlatform
     public String fileType()
     {
         return this.filetype;
+    }
+
+    public String boxartRepoName()
+    {
+        return boxartRepoName;
     }
 
     public String gameImageFolder()

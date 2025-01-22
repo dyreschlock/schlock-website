@@ -1,13 +1,18 @@
 package com.schlock.website.services.apps.ps2.impl;
 
 import com.schlock.website.entities.apps.ps2.DreamcastGame;
+import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.ps2.DreamcastService;
 import com.schlock.website.services.database.apps.ps2.DreamcastGameDAO;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URL;
+import java.net.URLEncoder;
 
 public class DreamcastServiceImpl implements DreamcastService
 {
@@ -121,6 +126,60 @@ public class DreamcastServiceImpl implements DreamcastService
     }
 
     public void writeArtFilesToLocal()
+    {
+        final String ART_DATA_PATH = context.dreamcastDataDirectory() + "boxart/";
+
+        for(DreamcastGame game : gameDAO.getAllWithNoArt())
+        {
+            File boxartData = new File(ART_DATA_PATH + game.getBoxartFilename());
+            if(!boxartData.exists())
+            {
+                downloadMissingBoxartImages(boxartData);
+            }
+
+            if(boxartData.exists())
+            {
+
+
+                convertBoxartImagesToThumbnails(game);
+            }
+        }
+    }
+
+    private void downloadMissingBoxartImages(File boxartDataFile)
+    {
+        String sourceUrl = context.gameBoxartSourceUrl();
+        String reponame = PlaystationPlatform.DC.boxartRepoName();
+        String imageFilename = URLEncoder.encode(boxartDataFile.getName()).replace("+", "%20");
+
+        String boxartUrl = String.format(sourceUrl, reponame) + imageFilename;
+
+        try
+        {
+            URL url = new URL(boxartUrl);
+            BufferedImage img = ImageIO.read(url);
+
+            ImageIO.write(img, "png", boxartDataFile);
+
+            System.out.println("Successfully downloaded boxart for " + boxartDataFile.getName());
+
+//
+//
+//            ReadableByteChannel rbc = Channels.newChannel(url.openStream());
+//            FileOutputStream fos = new FileOutputStream(boxartDataFile);
+//
+//            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+//
+//            fos.close();
+//            rbc.close();
+        }
+        catch(Exception e)
+        {
+            System.err.println("Could not find boxart for " + boxartDataFile.getName());
+        }
+    }
+
+    private void convertBoxartImagesToThumbnails(DreamcastGame game)
     {
 
     }

@@ -26,6 +26,17 @@ public class DreamcastGameDAOImpl extends BaseDAOImpl<DreamcastGame> implements 
         return query.list();
     }
 
+    public List<DreamcastGame> getAllWithNoArt()
+    {
+        String text = " select g " +
+                        " from DreamcastGame g " +
+                        " where g.available is true " +
+                        " and g.haveArt is false ";
+
+        Query query = session.createQuery(text);
+        return query.list();
+    }
+
     public DreamcastGame getBySerialNumber(String serialNumber)
     {
         String text = " select g " +

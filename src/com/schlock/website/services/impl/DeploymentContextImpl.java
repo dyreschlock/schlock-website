@@ -29,6 +29,8 @@ public class DeploymentContextImpl implements DeploymentContext
     private static final String DC_DRIVE_PARAM = "dreamcast.directory.drive";
     private static final String DC_DATA_PARAM = "dreamcast.directory.data";
 
+    private static final String GAME_BOXART_URL_PARAM = "boxart.source.url";
+
     private static final String GITHUB_HTML_PARAM = "github.html.repo";
     private static final String GITHUB_PHOTOS_PARAM = "github.photos.repo";
     private static final String GITHUB_PS2_PARAM = "github.ps2.repo";
@@ -221,7 +223,12 @@ public class DeploymentContextImpl implements DeploymentContext
     {
         String dreamcastData = getDeployProperties().getProperty(DC_DATA_PARAM);
         return dreamcastData;
+    }
 
+    public String gameBoxartSourceUrl()
+    {
+        String boxartUrl = getDeployProperties().getProperty(GAME_BOXART_URL_PARAM);
+        return boxartUrl;
     }
 
     public String webOutputDirectoryImageFolder()
