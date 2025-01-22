@@ -516,10 +516,15 @@ public class ImageManagementImpl implements ImageManagement
 
     private static void convertAndCopyImage(File originalLocation, File outputLocation) throws IOException
     {
-        convertAndCopyImage(originalLocation, outputLocation, PREVIEW_WIDTH);
+        convertCopyImage(originalLocation, outputLocation, PREVIEW_WIDTH);
     }
 
-    private static void convertAndCopyImage(File originalLocation, File outputLocation, int newImageWidth) throws IOException
+    public void convertAndCopyImage(File originalLocation, File outputLocation, int newImageWidth) throws IOException
+    {
+        convertCopyImage(originalLocation, outputLocation, newImageWidth);
+    }
+
+    private static void convertCopyImage(File originalLocation, File outputLocation, int newImageWidth) throws IOException
     {
         BufferedImage originalImage = ImageIO.read(originalLocation);
 
