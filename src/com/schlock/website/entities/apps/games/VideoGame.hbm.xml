@@ -30,7 +30,7 @@
 
         <property name="sold" />
 
-        <many-to-one name="playstationGame" column="ps_id" class="com.schlock.website.entities.apps.ps2.PlaystationGame" />
+        <many-to-one name="retroGame" column="retro_id" class="com.schlock.website.entities.apps.ps2.RetroGame" />
 
         <property name="postUUID" />
 

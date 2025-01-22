@@ -1,7 +1,7 @@
 package com.schlock.website.entities.apps.games;
 
 import com.schlock.website.entities.Persisted;
-import com.schlock.website.entities.apps.ps2.PlaystationGame;
+import com.schlock.website.entities.apps.ps2.RetroGame;
 
 import java.util.Date;
 
@@ -19,7 +19,7 @@ public class VideoGame extends Persisted
 
     private boolean sold;
 
-    private PlaystationGame playstationGame;
+    private RetroGame retroGame;
 
     private String postUUID;
 
@@ -29,9 +29,9 @@ public class VideoGame extends Persisted
 
     public boolean isHaveSave()
     {
-        if (playstationGame != null)
+        if (retroGame != null)
         {
-            return playstationGame.isHaveSave();
+            return retroGame.isHaveSave();
         }
         return false;
     }
@@ -83,14 +83,14 @@ public class VideoGame extends Persisted
         this.sold = sold;
     }
 
-    public PlaystationGame getPlaystationGame()
+    public RetroGame getRetroGame()
     {
-        return playstationGame;
+        return retroGame;
     }
 
-    public void setPlaystationGame(PlaystationGame playstationGame)
+    public void setRetroGame(RetroGame retroGame)
     {
-        this.playstationGame = playstationGame;
+        this.retroGame = retroGame;
     }
 
     public String getPostUUID()
