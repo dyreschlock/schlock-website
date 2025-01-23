@@ -1,0 +1,102 @@
+<html t:type="old/v2/layoutversion2" pageCss="pageCss" page="page"
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+<div align="center">
+
+<t:if test="hasPost">
+
+    <p>&nbsp;</p>
+    <table width="80%" border="0">
+        <tr>
+            <td width="75%" align="center" valign="top">
+                <table width="100%" border="0" bgcolor="#666666">
+                    <tr>
+                        <td bgcolor="#515151" align="center">
+                            <table width="95%" border="0">
+                                <tr>
+                                    <td align="left" valign="top"><div id="postContent" class="review">
+
+                                        <p><font size="2">Impressions....</font></p>
+
+                                        <t:outputraw value="postBodyHTML" />
+
+                                        <p align="right"><font size="2">- Dyre - ${postDate}</font></p>
+                                    </div></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td width="5%">&nbsp;</td>
+            <td width="20%" align="center" valign="top" bgcolor="#666666">
+                <p>&nbsp;</p>
+                <p><font size="2"><b>${postTitle}</b><br/></font></p>
+                <p><img src="${imageLinkStar1}" width="16" height="16"/></p>
+                <p><font size="2">${categoryName}</font></p>
+            </td>
+        </tr>
+    </table>
+
+</t:if>
+<t:if test="!hasPost">
+    <br/>
+    <table width="55%" border="0" bgcolor="#333333">
+        <tr align="center">
+            <td><font size="4" color="#FFFFFF"><b>The Schlock's Review Page</b></font></td>
+        </tr>
+        <tr bgcolor="#666666" align="center">
+            <td>
+                <table width="95%" border="0">
+                    <tr bgcolor="#666666">
+                        <td>
+                            <div align="center"><font color="#FFFFFF" size="2"><b>Single Reviews</b></font></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table width="100%" border="0">
+
+                                <tr>
+                                <t:loop source="reviewPosts" value="currentPost" index="currentIndex">
+
+                                    <t:outputraw value="newLine" />
+
+                                    <td align="left" width="50%">
+                                        <div align="${alignment}">
+                                            <a href="${currentPostLink}"><font color="#FFFFFF" size="2">${currentPost.title}</font></a>
+                                            <br/>
+                                            <font size="2"></font><font size="1">${categoryName}</font>
+                                        </div>
+                                    </td>
+
+                                </t:loop>
+                                </tr>
+
+                                <tr>
+                                    <td align="left">&nbsp;</td>
+                                    <td align="left">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <div align="left"></div>
+                                    </td>
+                                    <td align="left">
+                                        <div align="right"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div align="center"><font size="2">Go <a href="${homeLink}">Back</a> Go</font></div>
+            </td>
+        </tr>
+    </table>
+</t:if>
+</div>
+</html>
