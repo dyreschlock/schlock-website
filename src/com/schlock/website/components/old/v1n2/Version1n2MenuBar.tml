@@ -16,7 +16,12 @@
                     <a style="text-decoration: underline;"><font size="2">Comic</font></a>
                 </t:if>
                 <font size="2"> - </font>
-                <a href="${projectsLink}"><font size="2">Works</font></a>
+                <t:if test="v1">
+                    <a href="${projectsLink}"><font size="2">Works</font></a>
+                </t:if>
+                <t:if test="v2">
+                    <a style="text-decoration: underline;"><font size="2">Works</font></a>
+                </t:if>
                 <t:if test="v1">
                     <font size="2"> - </font>
                     <a href="${aboutMeLink}"><font size="2">Profile</font></a>
@@ -26,7 +31,12 @@
                     <a href="${reviewsLink}"><font size="2">Impressions</font></a>
                 </t:if>
                 <font size="2"> - </font>
-                <a href="${siteMapLink}"><font size="2">Site Map</font></a>
+                <t:if test="v1">
+                    <a href="${siteMapLink}"><font size="2">Site Map</font></a>
+                </t:if>
+                <t:if test="v2">
+                    <a style="text-decoration: underline;"><font size="2">Site Map</font></a>
+                </t:if>
                 <font size="2"> - </font>
                 <a href="${radioLink}"><font size="2">Radio</font></a>
                 <t:if test="v1">

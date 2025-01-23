@@ -4,8 +4,8 @@
 
     <table width="95%" border="0" height="132">
         <tr>
-            <td height="30" align="center" width="33%" bgcolor="#373730"><a href="${projectsLink}"><font color="#FFFFFF" size="2">Work</font></a></td>
-            <td height="30" align="center" width="34%"><a href="${siteMapLink}"><font color="#FFFFFF" size="2">Site Map</font></a></td>
+            <td height="30" align="center" width="33%" bgcolor="#373730"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Work</font></a></td>
+            <td height="30" align="center" width="34%"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Site Map</font></a></td>
             <td height="30" align="center" width="33%" bgcolor="#373730"><a style="text-decoration: underline;"><font color="#FFFFFF" size="2">Wolf Serv</font></a></td>
         </tr>
         <tr>
