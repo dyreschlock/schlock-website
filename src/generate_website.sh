@@ -33,7 +33,8 @@ wget \
   -e robots=off \
   http://localhost:8084 \
   http://localhost:8084/apps/pocket \
-  http://localhost:8084/apps/ps2
+  http://localhost:8084/apps/ps2 \
+  http://localhost:8084/old
 
 wget \
   --no-host-directories \
