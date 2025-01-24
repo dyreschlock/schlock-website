@@ -12,7 +12,7 @@
 <body bgcolor="#CCCCCC">
 <div align="center">
 
-    <v5:version5photopagedisplay post="post" />
+    <v5:version5photopagedisplay post="post" imageNumber="imageNumber" />
 
 </div>
 </body>

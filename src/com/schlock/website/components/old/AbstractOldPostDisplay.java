@@ -74,9 +74,14 @@ public abstract class AbstractOldPostDisplay
         return dateFormatter.shortDateFormat(post.getCreated());
     }
 
+    protected Class getIndexClass()
+    {
+        return getVersion().indexClass();
+    }
+
     public String getPostLink()
     {
-        Class indexClass = getVersion().indexClass();
+        Class indexClass = getIndexClass();
         String uuid = post.getUuid();
 
         return linkSource.createPageRenderLinkWithContext(indexClass, uuid).toURI();
@@ -90,6 +95,11 @@ public abstract class AbstractOldPostDisplay
     protected List<Image> getPostImages()
     {
         return imageManagement.getGalleryImages(post);
+    }
+
+    public String getImagePageLink(Image image)
+    {
+        return image.getImageLink();
     }
 
     public String getImagesTableHTML()
@@ -120,7 +130,7 @@ public abstract class AbstractOldPostDisplay
             }
 
             String thumbnail = image.getImageLink();
-            String link = image.getImageLink();
+            String link = getImagePageLink(image);
             if (image.getParent() != null)
             {
                 link = image.getParent().getImageLink();
