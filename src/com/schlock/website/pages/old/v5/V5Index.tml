@@ -46,7 +46,9 @@
                                                 <v5:version5updatespanel posts="posts" post="post" pageNumber="pageNumber" category="updatesCategory" />
                                             </t:if>
 
-                                            <!-- photos -->
+                                            <t:if test="photoPage">
+                                                <v5:version5photopanel categoryIds="categoryIds" />
+                                            </t:if>
 
                                             <t:if test="clubPage">
                                                 <v5:version5clubpanel subpage="subpage" />

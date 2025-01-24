@@ -96,6 +96,17 @@ public class V5Index extends AbstractVersion5Page
             return categoryIds;
         }
 
+        if (isPhotoPage())
+        {
+            List<Long> categoryIds = new ArrayList<>();
+            for(String uuid : getTravelPhotoCategoryUuids())
+            {
+                AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, uuid);
+                categoryIds.add(cat.getId());
+            }
+            return categoryIds;
+        }
+
         return super.getCategoryIds();
     }
 

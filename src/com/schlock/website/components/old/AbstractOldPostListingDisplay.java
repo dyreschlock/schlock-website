@@ -46,7 +46,6 @@ public abstract class AbstractOldPostListingDisplay
 
 
     @Parameter(required = true)
-    @Property
     private List<Long> categoryIds;
 
     @Parameter
@@ -56,7 +55,6 @@ public abstract class AbstractOldPostListingDisplay
     @Property
     private Long currentCategoryId;
 
-    @Property
     private AbstractPost currentPost;
 
     @Property
@@ -70,12 +68,25 @@ public abstract class AbstractOldPostListingDisplay
         return page;
     }
 
+    public AbstractPost getCurrentPost()
+    {
+        return currentPost;
+    }
+
+    public void setCurrentPost(AbstractPost currentPost)
+    {
+        this.currentPost = currentPost;
+    }
 
     public String getCurrentCategoryName()
     {
         return categoryDAO.getById(currentCategoryId).getName();
     }
 
+    public List<Long> getCategoryIds()
+    {
+        return categoryIds;
+    }
 
     public List<Post> getPosts()
     {
@@ -103,6 +114,12 @@ public abstract class AbstractOldPostListingDisplay
             return linkSource.createPageRenderLinkWithContext(getIndexClass(), getPage(), uuid).toURI();
         }
         return linkSource.createPageRenderLinkWithContext(getIndexClass(), uuid).toURI();
+    }
+
+    public String getCurrentPostDate()
+    {
+        Date date = currentPost.getCreated();
+        return dateFormatter.lowercaseFormat(date);
     }
 
     public String getCurrentClubDate()

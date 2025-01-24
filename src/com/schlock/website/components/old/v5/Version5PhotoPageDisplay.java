@@ -42,6 +42,11 @@ public class Version5PhotoPageDisplay extends AbstractOldPostDisplay
         return getPhotoLink(index);
     }
 
+    public String getParentImagePageLink(Image image)
+    {
+        return getImagePageLink(image);
+    }
+
     public boolean isHasImage()
     {
         return imageNumber != null;

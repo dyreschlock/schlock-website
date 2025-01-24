@@ -102,6 +102,11 @@ public abstract class AbstractOldPostDisplay
         return image.getImageLink();
     }
 
+    public String getParentImagePageLink(Image image)
+    {
+        return image.getParent().getImageLink();
+    }
+
     public String getImagesTableHTML()
     {
         final String TR_START = "<tr align=\"center\" valign=\"middle\" bgcolor=\"#FFFFFF\"> ";
@@ -133,7 +138,7 @@ public abstract class AbstractOldPostDisplay
             String link = getImagePageLink(image);
             if (image.getParent() != null)
             {
-                link = image.getParent().getImageLink();
+                link = getParentImagePageLink(image);
             }
 
             String td = String.format(TD_ENTRY, WIDTH, link, thumbnail);
