@@ -29,14 +29,14 @@
             <tr>
                 <td align="right" valign="bottom" background="${imageLinkWinter1}" height="361">
                     <p><font class="men">
-                        <a href="http://www.theschlock.com/index2.html" onMouseOver="window.status='This is my life.. and its ending one day at a time...'; return true;" onmouseout="window.status='';" ><font class="men" color="#ffffff">Daily Thoughts</font></a><br/>
-                        <a href="work2.htm" onMouseOver="window.status='Art created for Literary purposes'; return true;" onmouseout="window.status='';" ></a><font class="men" color="#ffffff">Literary</font> -
-                        <a href="work1.htm" onMouseOver="window.status='Art created for Visual purposes'; return true;" onmouseout="window.status=''; return true;"></a><font class="men" color="#ffffff">Visual</font> -
-                        <a href="comic/com01.htm" onMouseOver="window.status='Art created for Story purposes'; return true;" onmouseout="window.status=''; return true;"></a><font class="men" color="#ffffff">Comic Panels</font> | Works<br/>
-                        <a href="photo1.htm" onMouseOver="window.status='Photography of the world around you'; return true;" onmouseout="window.status=''; return true;"></a><font class="men" color="#ffffff">Imagery</font> -
-                        <a href="http://www.theschlock.com/club.html" onMouseOver="window.status='Photography of the world underneath you'; return true;" onmouseout="window.status=''; return true;"><font class="men" color="#ffffff">After Hours</font></a> -
-                        <a href="http://www.theschlock.com/picture.html" onMouseOver="window.status='Photography of stuff'; return true;" onmouseout="window.status=''; return true;"><font class="men" color="#ffffff">Pictures</font></a> | Photography<br/>
-                        <a href="review.htm" onMouseOver="window.status='My comments of the media of others'; return true;" onmouseout="window.status=''; return true;"><font class="men" color="#ffffff">Impressions</font></a>
+                        <a href="${homeLink}" onMouseOver="window.status='This is my life.. and its ending one day at a time...'; return true;" onmouseout="window.status='';" ><font class="men" color="#ffffff">Daily Thoughts</font></a><br/>
+                        <a style="text-decoration: underline;" onMouseOver="window.status='Art created for Literary purposes'; return true;" onmouseout="window.status='';" ></a><font class="men" color="#ffffff">Literary</font> -
+                        <a style="text-decoration: underline;" onMouseOver="window.status='Art created for Visual purposes'; return true;" onmouseout="window.status=''; return true;"></a><font class="men" color="#ffffff">Visual</font> -
+                        <a style="text-decoration: underline;" onMouseOver="window.status='Art created for Story purposes'; return true;" onmouseout="window.status=''; return true;"></a><font class="men" color="#ffffff">Comic Panels</font> | Works<br/>
+                        <a style="text-decoration: underline;" onMouseOver="window.status='Photography of the world around you'; return true;" onmouseout="window.status=''; return true;"></a><font class="men" color="#ffffff">Imagery</font> -
+                        <a href="${clubLink}" onMouseOver="window.status='Photography of the world underneath you'; return true;" onmouseout="window.status=''; return true;"><font class="men" color="#ffffff">After Hours</font></a> -
+                        <a href="${photoLink}" onMouseOver="window.status='Photography of stuff'; return true;" onmouseout="window.status=''; return true;"><font class="men" color="#ffffff">Pictures</font></a> | Photography<br/>
+                        <a href="${reviewsLink}" onMouseOver="window.status='My comments of the media of others'; return true;" onmouseout="window.status=''; return true;"><font class="men" color="#ffffff">Impressions</font></a>
                     </font></p>
                 </td>
             </tr>

@@ -1,0 +1,27 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+    <div class="contentBody">
+    <table width="700" border="1" cellspacing="0" cellpadding="0" bgcolor="#000000"><tr><td>
+        <table width="700" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
+            <tr><td height="21" align="center" valign="bottom"><p><font class="nam">the life of my camera</font></p></td></tr>
+            <tr><td align="center"><hr width="100%" size="1"/></td></tr>
+            <tr><td align="center"><table width="100%" cellspacing="0" cellpadding="0"><tr>
+                <td width="22%" align="right" valign="top"><p><a href="02.html"><font class="txt">&nbsp;</font></a></p></td>
+                <td width="46%" align="center" valign="top"><p><font class="txt"><font class="nam">${postTitle}</font><br/>${postDate}</font></p></td>
+                <td width="22%" align="left" valign="top"><p><a href="03.html"><font class="txt">&nbsp;</font></a></p></td>
+            </tr></table></td></tr>
+            <tr><td align="center" valign="middle"><table width="660" border="0" bgcolor="#cccccc" cellspacing="1" cellpadding="0">
+
+                <t:outputraw value="imagesTableHTML" />
+
+            </table></td></tr>
+            <tr><td align="center"><hr width="100%" size="1"/></td></tr>
+            <tr><td height="21" align="center" valign="top">  <p><font style="color: #333333;">©2000 - 2004 .
+                <a href="mailto:dyre@theschlock.com" onmouseover="window.status='Email Address: dyre@theschlock.com  -  message me if you wish to converse'; return true;" onmouseout="window.status=''; return true;">
+                    <font color="#000000">dyre@theschlock.com</font></a> . All Rights Reserved, bitch.. !</font></p>
+            </td></tr>
+        </table>
+    </td></tr></table>
+    </div>
+</t:container>

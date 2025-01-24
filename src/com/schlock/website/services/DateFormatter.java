@@ -22,6 +22,8 @@ public interface DateFormatter
 
     String dotFormat(Date date);
 
+    String lowercaseFormat(Date date);
+
     Date todayArchiveFormat(String dateString);
 
     String todayPrintFormat(String dateString);

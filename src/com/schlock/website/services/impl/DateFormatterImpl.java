@@ -16,6 +16,7 @@ public class DateFormatterImpl implements DateFormatter
     private static final String W3_FORMAT = "YYYY-MM-dd'T'hh:mm:ss'+08:00'";
     private static final String TODAY_FORMAT = "MMM-d";
     private static final String DOT_FORMAT = "M.d.yyyy";
+    private static final String LOWERCASE_FORMAT = "EEE MMM d, yyyy";
 
     public String dateFormat(Date date)
     {
@@ -60,6 +61,11 @@ public class DateFormatterImpl implements DateFormatter
     public String dotFormat(Date date)
     {
         return format(DOT_FORMAT, date);
+    }
+
+    public String lowercaseFormat(Date date)
+    {
+        return format(LOWERCASE_FORMAT, date).toLowerCase();
     }
 
     private String format(String format, Date date)

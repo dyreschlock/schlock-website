@@ -22,7 +22,24 @@
     <div id="clubContent">
 
         <t:if test="photoPage">
-            photo
+            <p align="center"><font class="n4m">event photos</font></p>
+            <hr align="center" width="90%" size="1"/>
+            <p class="x">
+            <table width="100%" cellpadding="2" cellspacing="0" border="0">
+
+                <t:loop source="clubPosts" value="currentPost" index="currentIndex">
+
+                    <tr bgcolor="${bgColor}"><td width="120"><a href="${currentPostLink}" target="photopage" onClick="resizeWin('photopage',710,780)">
+                        <font class="name">${currentEventDate}</font></a></td><td>
+                        <font class="txt">
+
+                            <t:outputraw value="currentTitleHTML" />
+
+                        </font></td></tr>
+                </t:loop>
+            </table>
+            </p>
+            <hr align="center" width="90%" size="1"/>
         </t:if>
 
         <t:if test="upcomingEventsPage">

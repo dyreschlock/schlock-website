@@ -20,7 +20,7 @@
 
                     photography // <font class="ment">
                         imagery /
-                        <a href="${clubLink}"><font color="#cccccc">after-hours</font></a></font>
+                        <a href="${clubPhotoLink}"><font color="#cccccc">after-hours</font></a></font>
 
                 </t:if>
 
