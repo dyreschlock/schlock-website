@@ -1,0 +1,13 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <t:loop source="posts" value="currentPost">
+
+        <p><font size="2">
+            <a href="${currentPostLink}">${currentPostTitle}</a><br/>
+            ${currentPostDescription}
+        </font></p>
+
+    </t:loop>
+</t:container>

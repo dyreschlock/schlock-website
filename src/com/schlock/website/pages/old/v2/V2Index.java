@@ -81,9 +81,4 @@ public class V2Index extends AbstractOldVersionPage
     {
         return pageNumber;
     }
-
-    public String getGamesPage()
-    {
-        return REVIEWS_PAGE;
-    }
 }

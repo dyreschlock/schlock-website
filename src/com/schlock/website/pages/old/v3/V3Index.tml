@@ -116,31 +116,14 @@
                                         <table width="98%" border="0">
                                             <tr>
                                                 <td>
-                                                    <p><font size="2"><b>IMPRESSIONS<br/>
-                                                    </b></font><font size="2">thoughts on the modern marvel
+                                                    <p><font size="2"><b>IMPRESSIONS</b><br/>
+                                                        thoughts on the modern marvel
                                                         of artistic interpretation through the means of entertainment
                                                         and so forth...</font></p>
-                                                    <p><font size="2"><a href="file:///D|/Pure%20Schlock/Project%20Folder/The%20Schlock/review/kinghearts.htm">TREASURE
-                                                        PLANET</a><br/>
-                                                    </font><font size="2">there's a good reason why abbreviated,
-                                                        this movie stands for TP...</font></p>
-                                                    <p><font size="2"><a href="file:///D|/Pure%20Schlock/Project%20Folder/The%20Schlock/review/outofthisworld.htm">OUT
-                                                        OF THIS WORLD</a><br/>
-                                                    </font><font size="2">one of the most underrated games
-                                                        of all time taking a closer look....</font></p>
-                                                    <p><font size="2" ><a href="file:///D|/Pure%20Schlock/Project%20Folder/The%20Schlock/review/thering.htm">THE
-                                                        RING</a><br/>
-                                                    </font><font size="2">a shinning example of how Hollywood
-                                                        got where it is today... </font></p>
-                                                    <p><font size="2"><a href="file:///D|/Pure%20Schlock/Project%20Folder/The%20Schlock/review/kinghearts.htm">KINGDOM
-                                                        HEARTS</a><br/>
-                                                        don't knock it until you try it, and then you can
-                                                        knock it...</font></p>
-                                                    <p><font size="2"><a href="file:///D|/Pure%20Schlock/Project%20Folder/The%20Schlock/review/xenosaga1a.htm">Xenosaga
-                                                        I - Der Wille zur Macht</a><br/>
-                                                        the first of the six game series spanning over the
-                                                        largest story of any video game to date...</font></p>
-                                                    <p><font size="2"><a href="file:///D|/Pure%20Schlock/Project%20Folder/The%20Schlock/review.htm">more</a> ---</font></p>
+
+                                                    <v3:version3recentposts page="gamesPage" />
+
+                                                    <p><font size="2"><a href="${reviewsLink}">more</a> ---</font></p>
                                                 </td>
                                             </tr>
                                         </table>
@@ -158,52 +141,12 @@
                                         <table width="98%" border="0">
                                             <tr>
                                                 <td>
-                                                    <p><font size="2"><b>PHOTOGRAPHY<br/>
-                                                    </b>coming soon..</font></p>
-                                                    <p><font size="2">more ---</font></p>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table style="margin:3px 0px 0px 0px;" width="100%" border="0" bgcolor="#000000">
-                                <tr>
-                                    <td background="${grid2Image}">&nbsp;</td>
-                                </tr>
-                            </table>
-                            <table style="margin:3px 0px 0px 0px;" width="100%" border="0" bgcolor="#000000" cellpadding="2">
-                                <tr>
-                                    <td background="${grid4Image}" align="center">
-                                        <table width="98%" border="0">
-                                            <tr>
-                                                <td>
-                                                    <p><font size="2"><b>FEATURED
-                                                        VENUES <br/>
-                                                    </b></font><font size="2">special
-                                                        articles addressing specific issues and topics laid
-                                                        out in an orderly fashion for your viewing/reading...</font></p>
-                                                    <p><font size="2"><a href="other/art214.htm">Art at
-                                                        the Turn of the Century</a><br/>
-                                                        it took 15 goddamn hours to wirte this fucking thing,
-                                                        so you'd better enjoy it !!</font></p>
-                                                    <p><font size="2"><a href="http://www.geocities.com/dyreschlock/">Emulation
-                                                        - 16bit Goodness</a><br/>
-                                                        go back in time about a decade and venture some of
-                                                        the best squaresoft had to offer...</font></p>
-                                                    <p><font size="2"><a href="file:///D|/Pure%20Schlock/Project%20Folder/The%20Schlock/spamm/nikki.htm">Nikki Pics</a><br/>
-                                                        This is the mascot this i draw for my local anime
-                                                        club, spamm.. although i haven't done a whole lot
-                                                        of work on her...</font></p>
-                                                    <p><font size="2"><a href="file:///D|/Pure%20Schlock/Project%20Folder/The%20Schlock/twine/index.htm">Twine Ball
-                                                        2001</a><br/>
-                                                        crusty 'ol pictorial of our journey to the biggest
-                                                        ball of twine in minnesota</font></p>
-                                                    <p><font size="2"><a href="file:///D|/Pure%20Schlock/Project%20Folder/The%20Schlock/japan/index.htm">Stu goes
-                                                        to Japan</a><br/>
-                                                        back in the high school day, stu learned japan, and
-                                                        japan learned of him...</font></p>
-                                                    <p align="left"><font size="2">more ---</font></p>
+                                                    <p><font size="2"><b>PHOTOGRAPHY</b><br/>
+                                                        coming soon..</font></p>
+
+                                                    <v3:version3recentposts page="projectsPage" />
+
+                                                    <p><font size="2"><a href="${photoLink}">more</a> ---</font></p>
                                                 </td>
                                             </tr>
                                         </table>

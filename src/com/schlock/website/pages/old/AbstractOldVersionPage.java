@@ -227,7 +227,7 @@ public abstract class AbstractOldVersionPage extends AbstractOldLinks
         return PROJECTS_PAGE;
     }
 
-    public String getReviewsPage()
+    public String getGamesPage()
     {
         return REVIEWS_PAGE;
     }

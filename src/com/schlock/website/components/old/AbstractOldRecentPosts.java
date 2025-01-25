@@ -64,6 +64,8 @@ public abstract class AbstractOldRecentPosts
 
     public List<Post> getPosts()
     {
+        String page = getPage();
+
         boolean unpublished = viewState.isShowUnpublished();
         int count = getPostCountMax();
 
@@ -96,6 +98,11 @@ public abstract class AbstractOldRecentPosts
             return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), getPage(), uuid).toURI();
         }
         return linkSource.createPageRenderLinkWithContext(getVersion().indexClass(), uuid).toURI();
+    }
+
+    public String getCurrentPostTitle()
+    {
+        return currentPost.getTitle();
     }
 
     public String getCurrentPostDescription()
