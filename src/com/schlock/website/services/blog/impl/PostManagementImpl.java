@@ -21,6 +21,7 @@ public class PostManagementImpl implements PostManagement
     private final static int PREVIEW_LENGTH = 900;
     private final static int POST_DESCRIPTION_LENGTH = 160;
 
+    private static final List<String> EXCLUDE_LINKS_FROM_OLD_PAGE_CHANGES = Arrays.asList("site-design-history", "today", "errorpage");
 
     private final static String BREAK = "<break>";
 
@@ -515,7 +516,7 @@ public class PostManagementImpl implements PostManagement
                 index = remainingHTML.indexOf(QUOTE);
 
                 String link = remainingHTML.substring(0, index);
-                if (!link.contains("/"))
+                if (!link.contains("/") && !EXCLUDE_LINKS_FROM_OLD_PAGE_CHANGES.contains(link))
                 {
                     link = linkSource.createPageRenderLinkWithContext(oldVersion.indexClass(), link).toURI();
                     link = link.substring(1); // clip the slash
