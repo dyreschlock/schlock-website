@@ -10,6 +10,9 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class V3Index extends AbstractOldVersionPage
 {
     @Inject
@@ -26,6 +29,8 @@ public class V3Index extends AbstractOldVersionPage
     @Property
     private AbstractPost currentPost;
 
+    @Property
+    private Integer currentIndex;
 
     Object onActivate()
     {
@@ -54,11 +59,40 @@ public class V3Index extends AbstractOldVersionPage
 
     Object onActivate(String p1, String p2)
     {
+
+        page = p1;
+        post = null;
+        pageNumber = null;
+
+        try
+        {
+            pageNumber = Integer.parseInt(p2);
+        }
+        catch(Exception e)
+        {
+        }
+
+        if (pageNumber == null)
+        {
+            post = getPost(p2);
+        }
         return true;
     }
 
 
+    public List<Long> getCategoryIds()
+    {
+        List<Long> categoryIds = new ArrayList<>();
+        categoryIds.add(getUpdatesCategory().getId());
+        return categoryIds;
+    }
 
+    public boolean isShowPrevious()
+    {
+        int size = getPosts().size();
+
+        return currentIndex == size-1;
+    }
 
     public String getPageTitle()
     {

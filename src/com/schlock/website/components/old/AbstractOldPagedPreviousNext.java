@@ -125,14 +125,14 @@ public abstract class AbstractOldPagedPreviousNext
         final int postCount = AbstractOldVersionPage.POSTS_PER_PAGE;
 
         List<Post> results;
-        if (AbstractOldVersionPage.BLOG_PAGE.equals(getPage()) ||
-                AbstractOldVersionPage.ARCHIVE_PAGE.equals(getPage()))
-        {
-            results = archiveManagement.getPagedPosts(postCount, pageNumber);
-        }
-        else if (!getCategoryIds().isEmpty())
+        if (!getCategoryIds().isEmpty())
         {
             results = archiveManagement.getPagedPosts(postCount, pageNumber, new HashSet(getCategoryIds()));
+        }
+        else if (AbstractOldVersionPage.BLOG_PAGE.equals(getPage()) ||
+                   AbstractOldVersionPage.ARCHIVE_PAGE.equals(getPage()))
+        {
+            results = archiveManagement.getPagedPosts(postCount, pageNumber);
         }
         else
         {
