@@ -70,33 +70,10 @@
                             <table style="margin:3px 0px 0px 0px;" width="100%" border="0" bgcolor="#000000">
                                 <tr>
                                     <td background="${grid3Image}" align="center">
-                                        <table width="90%" border="0" cellpadding="3">
-                                            <tr align="center">
-                                                <td><font size="2"><b><font color="#FFFFFF">.: </font><a href="index.htm"><font color="#FFFFFF">DAILY</font></a><font color="#FFFFFF">
-                                                    :.</font></b></font></td>
-                                            </tr>
-                                            <tr align="center">
-                                                <td><font size="2"><b><font color="#FFFFFF">.: </font><a href="work2.htm"><font color="#FFFFFF">WORKS</font></a>
-                                                    <a href="work2.htm"><font color="#FFFFFF">2</font></a><font color="#FFFFFF">
-                                                        :.</font></b></font></td>
-                                            </tr>
-                                            <tr align="center">
-                                                <td><font size="2"><b><font color="#FFFFFF">.: PHOTOGRAPHY
-                                                    1 2 :. </font></b></font></td>
-                                            </tr>
-                                            <tr align="center">
-                                                <td><font size="2"><b><font color="#FFFFFF">.: </font><a href="review.htm"><font color="#FFFFFF">IMPRESSIONS</font></a><font color="#FFFFFF">
-                                                    :. </font></b></font></td>
-                                            </tr>
-                                            <tr align="center">
-                                                <td><font size="2"><b><font color="#FFFFFF">.: </font><a href="file:///D|/Pure%20Schlock/Project%20Folder/The%20Schlock/pro.htm"><font color="#FFFFFF">PROFILE</font></a><font color="#FFFFFF">
-                                                    :. </font></b></font></td>
-                                            </tr>
-                                            <tr align="center">
-                                                <td><font size="2"><b><font color="#FFFFFF">.: </font><a href="map.htm"><font color="#FFFFFF">SITE
-                                                    MAP</font></a><font color="#FFFFFF"> :. </font></b></font></td>
-                                            </tr>
-                                        </table>
+
+
+                                        <v3:version3menudisplay />
+
                                     </td>
                                 </tr>
                             </table>

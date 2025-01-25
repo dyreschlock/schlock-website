@@ -1,0 +1,33 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <table width="90%" border="0" cellpadding="3">
+        <tr align="center">
+            <td><font color="#FFFFFF" size="2"><b>
+                .: <a href="${homeLink}"><font color="#FFFFFF">DAILY</font></a> :.</b></font></td>
+        </tr>
+        <tr align="center">
+            <td><font color="#FFFFFF" size="2"><b>
+                .: <a style="text-decoration:underline;"><font color="#FFFFFF">WORKS</font></a> :.</b></font></td>
+        </tr>
+        <tr align="center">
+            <td><font color="#FFFFFF" size="2"><b>
+                .: <a href="${photoLink}"><font color="#FFFFFF">PHOTOGRAPHY 1</font></a>
+                   &nbsp;<a href="${clubLink}"><font color="#FFFFFF">2</font></a> :. </b></font></td>
+        </tr>
+        <tr align="center">
+            <td><font color="#FFFFFF" size="2"><b>
+                .: <a href="${reviewsLink}"><font color="#FFFFFF">IMPRESSIONS</font></a> :. </b></font></td>
+        </tr>
+        <tr align="center">
+            <td><font color="#FFFFFF" size="2"><b>
+                .: <a href="${aboutMeLink}"><font color="#FFFFFF">PROFILE</font></a> :. </b></font></td>
+        </tr>
+        <tr align="center">
+            <td><font color="#FFFFFF" size="2"><b>
+                .: <a href="${siteMapLink}"><font color="#FFFFFF">SITE MAP</font></a> :. </b></font></td>
+        </tr>
+    </table>
+
+</t:container>

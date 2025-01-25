@@ -1,6 +1,7 @@
 package com.schlock.website.pages.old.v3;
 
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.DeploymentContext;
@@ -36,6 +37,18 @@ public class V3Index extends AbstractOldVersionPage
 
     Object onActivate(String param)
     {
+        post = null;
+        page = null;
+        pageNumber = 1;
+
+        if (isSubPage(param))
+        {
+            page = param;
+        }
+        else
+        {
+            post = getPost(param);
+        }
         return true;
     }
 
@@ -103,6 +116,10 @@ public class V3Index extends AbstractOldVersionPage
 
     public String getClassPage()
     {
+        if (getPost() != null && Page.ABOUT_ME_UUID.equals(getPost().getUuid()))
+        {
+            return PROFILE_PAGE;
+        }
         if (StringUtils.isBlank(page))
         {
             return ARCHIVE_PAGE;

@@ -36,6 +36,7 @@ public abstract class AbstractOldVersionPage extends AbstractOldLinks
     public static final String SITE_MAP_PAGE = "sitemap";
     public static final String PHOTO_PAGE = "photo";
     public static final String CLUB_PAGE = "club";
+    public static final String PROFILE_PAGE = "profile";
 
     public static final int POSTS_PER_PAGE = 10;
 
