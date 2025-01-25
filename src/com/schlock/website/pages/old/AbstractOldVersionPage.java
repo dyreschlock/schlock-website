@@ -178,7 +178,7 @@ public abstract class AbstractOldVersionPage extends AbstractOldLinks
         return (PostCategory) categoryDAO.getByUuid(PostCategory.class, UPDATES_CAT_UUID);
     }
 
-    protected List<String> getReviewCategoryUuids()
+    public List<String> getReviewCategoryUuids()
     {
         return Arrays.asList("reviews", "film", "books", "anime", "toys");
     }

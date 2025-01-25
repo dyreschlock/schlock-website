@@ -1,0 +1,109 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <table style="margin:3px 0px 0px 0px;" width="100%" border="0" bgcolor="#000000" cellpadding="10">
+        <tr>
+            <td background="${image4}" align="left">
+                <font size="2"><b>NEW / FEATURED </b></font>
+                <table width="100%" border="0">
+                    <tr>
+                        <td width="2%" bgcolor="#222222">&nbsp;</td>
+                        <td width="45%" align="center" valign="top">
+                            <table width="98%" border="0">
+                                <tr>
+                                    <td>
+                                        <p><font size="2"><a href="review/tp.htm"><font color="#FFFFFF">Treasure
+                                            Planet<br/>
+                                        </font></a></font><font size="2">there's a
+                                            good reason why abbreviated, this movie stands
+                                            for TP.. because the only thing i found this
+                                            movie good for was wiping my ass to a still
+                                            unclean status...</font></p>
+                                        <p><img src="${circleImage1Link}" width="16" height="16"/></p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table width="100%" border="0">
+                                <tr>
+                                    <td><font color="#515151" size="1">.</font></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="2%" bgcolor="#222222">&nbsp;</td>
+                        <td width="45%" valign="top" align="center">
+                            <table width="98%" border="0">
+                                <tr>
+                                    <td>
+                                        <p><font size="2"><a href="review/thering.htm"><font color="#FFFFFF">The
+                                            Ring </font></a><br/>
+                                        </font><font size="2">ignorance is this films
+                                            only positive... if you know nothing about
+                                            the roots of the film then it will amaze you...
+                                            but Hollywood stole every last bit of it for
+                                            its creator...</font></p>
+                                        <p><img src="${circleImage1Link}" width="16" height="16"/><img src="${circleImage1Link}" width="16" height="16"/></p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table width="100%" border="0">
+                                <tr>
+                                    <td><font color="#515151" size="1">.</font></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="2%" bgcolor="#222222">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <table style="margin:3px 0px 0px 0px;" width="100%" border="0" bgcolor="#000000">
+        <tr>
+            <td background="${image2}">&nbsp;</td>
+        </tr>
+    </table>
+
+
+    <t:loop source="categoryIds" value="currentCategoryId">
+
+        <table style="margin:3px 0px 0px 0px;" width="100%" border="0" bgcolor="#000000" cellpadding="10">
+            <tr>
+                <td background="${image4}" align="center">
+                    <div align="left"><font size="2"><b>${currentCategoryName}</b></font></div>
+                    <table width="100%" border="0">
+                        <tr>
+                            <td width="4%" bgcolor="#222222">&nbsp;</td>
+                            <td width="35%" align="center" valign="top">
+                                <table width="90%" border="0">
+
+                                    <t:loop source="posts" value="currentPost" index="currentIndex">
+
+                                        <t:outputraw value="newLineHTML" />
+
+                                        <tr>
+                                            <td width="64">
+                                                <img src="${circleImage1Link}" width="16" height="16"/>
+                                                <img src="${circleImage1Link}" width="16" height="16"/>
+                                                <img src="${circleImage1Link}" width="16" height="16"/>
+                                                <img src="${circleImage1Link}" width="16" height="16"/></td>
+                                            <td><font size="2"><a href="${currentPostLink}">${currentPost.title}</a></font></td>
+                                        </tr>
+
+                                    </t:loop>
+                                </table>
+                            </td>
+                            <td width="4%" bgcolor="#222222">&nbsp;</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table style="margin:3px 0px 0px 0px;" width="100%" border="0" bgcolor="#000000">
+            <tr>
+                <td background="${image2}">&nbsp;</td>
+            </tr>
+        </table>
+
+    </t:loop>
+</t:container>

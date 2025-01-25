@@ -1,10 +1,13 @@
 package com.schlock.website.pages.old.v3;
 
+import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Page;
+import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.database.blog.CategoryDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
@@ -20,6 +23,9 @@ public class V3Index extends AbstractOldVersionPage
 
     @Inject
     private Messages messages;
+
+    @Inject
+    private CategoryDAO categoryDAO;
 
 
     private AbstractPost post;
@@ -79,11 +85,48 @@ public class V3Index extends AbstractOldVersionPage
         return true;
     }
 
+    public boolean isStandardPage()
+    {
+        return !isSiteMapPage() && !isReviewsPage();
+    }
+
+    public boolean isReviewsPost()
+    {
+        return isReviewsPage() && getPost() != null;
+    }
+
+    public boolean isNotSpecialPost()
+    {
+        return !isReviewsPost();
+    }
+
 
     public List<Long> getCategoryIds()
     {
+        List<String> categoryUuids = new ArrayList<>();
+        if (isPhotoPage())
+        {
+            categoryUuids = getTravelPhotoCategoryUuids();
+        }
+        else if (isClubPage())
+        {
+            categoryUuids = getClubPhotoCategoryUuids();
+        }
+        else if (isReviewsPage())
+        {
+            categoryUuids = getReviewCategoryUuids();
+        }
+
         List<Long> categoryIds = new ArrayList<>();
-        if (isArchivePage() || isDefaultPost())
+        if (!categoryUuids.isEmpty())
+        {
+            for(String uuid : categoryUuids)
+            {
+                AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, uuid);
+                categoryIds.add(cat.getId());
+            }
+        }
+        else if (isArchivePage() || isDefaultPost())
         {
             categoryIds.add(getUpdatesCategory().getId());
         }
@@ -110,6 +153,10 @@ public class V3Index extends AbstractOldVersionPage
 
     public String getGrid1Image()
     {
+        if (isReviewsPost())
+        {
+            return "";
+        }
         String image = "%s_grid1.jpg";
         return getImageLink(image);
     }

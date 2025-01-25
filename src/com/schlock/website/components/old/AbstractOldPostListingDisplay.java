@@ -56,8 +56,6 @@ public abstract class AbstractOldPostListingDisplay
     private Long currentCategoryId;
 
     private AbstractPost currentPost;
-
-    @Property
     private Integer currentIndex;
 
 
@@ -76,6 +74,16 @@ public abstract class AbstractOldPostListingDisplay
     public void setCurrentPost(AbstractPost currentPost)
     {
         this.currentPost = currentPost;
+    }
+
+    public Integer getCurrentIndex()
+    {
+        return currentIndex;
+    }
+
+    public void setCurrentIndex(Integer currentIndex)
+    {
+        this.currentIndex = currentIndex;
     }
 
     public String getCurrentCategoryName()
@@ -144,6 +152,18 @@ public abstract class AbstractOldPostListingDisplay
     public String getStarImageLink()
     {
         String link = context.webDomain() + "img/old/star1.gif";
+        return link;
+    }
+
+    public String getCircleImage1Link()
+    {
+        String link = context.webDomain() + "img/old/circle1.gif";
+        return link;
+    }
+
+    public String getCircleImage2Link()
+    {
+        String link = context.webDomain() + "img/old/circle2.gif";
         return link;
     }
 }

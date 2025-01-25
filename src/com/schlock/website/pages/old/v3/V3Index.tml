@@ -8,9 +8,19 @@
     <style type="text/css">${pageCss}</style>
 </head>
 
-<body bgcolor="#222230" text="#000000" background="${grid1Image}" link="#000000" vlink="#000000" alink="#000000">
+<body bgcolor="#111111" background="${grid1Image}" link="#000000" vlink="#000000" alink="#000000" class="${classPage}">
 <div align="center">
-    <p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+<t:if test="reviewsPost">
+    <div id="bodyContent">
+        <v3:version3reviewspage post="post" reviewCategoryUuids="reviewCategoryUuids" />
+    </div>
+</t:if>
+
+
+<t:if test="notSpecialPost">
     <table width="800" border="0">
         <tr>
             <td>
@@ -36,7 +46,11 @@
                                 <v3:version3sitemapdisplay image2="grid2Image" image4="grid4Image" />
                             </t:if>
 
-                            <t:if test="!sitemapPage">
+                            <t:if test="reviewsPage">
+                                <v3:version3reviewslistingdisplay page="classPage" categoryIds="categoryIds" image2="grid2Image" image4="grid4Image" />
+                            </t:if>
+
+                            <t:if test="standardPage">
 
                                 <t:loop source="posts" value="currentPost" index="currentIndex">
 
@@ -207,8 +221,9 @@
             </td>
         </tr>
     </table>
-    <p><font size="2"><font color="#FFFFFF">©2000 - 2003 . dyre@theschlock.com .
-        All Rights Reserved, bitch.. !</font></font></p>
+</t:if>
+
+    <p><font size="2"><font color="#FFFFFF">&#169; 2000 - 2003 . dyre@theschlock.com . All Rights Reserved, bitch.. !</font></font></p>
 </div>
 </body>
 </html>

@@ -1,0 +1,42 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <table width="80%" border="0">
+        <tr>
+            <td width="75%" align="center" valign="top">
+                <table width="100%" border="0" bgcolor="#222222">
+                    <tr>
+                        <td bgcolor="#111111" align="center">
+                            <table width="95%" border="0">
+                                <tr>
+                                    <td align="left" valign="top"><div id="postContent" class="review">
+
+                                        <p><font size="2">Impressions....</font></p>
+
+                                        <t:outputraw value="postBodyHTML" />
+
+                                        <p align="right"><font size="2">- Dyre - ${postDate}</font></p>
+                                    </div></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td width="5%">&nbsp;</td>
+            <td width="20%" align="center" valign="top" bgcolor="#222222">
+                <p>&nbsp;</p>
+                <p><font size="2"><b>${postTitle}</b><br/></font></p>
+                <p>
+                    <img src="${circleImage1Link}" width="16" height="16"/>
+                    <img src="${circleImage1Link}" width="16" height="16"/>
+                    <img src="${circleImage1Link}" width="16" height="16"/>
+                    <img src="${circleImage1Link}" width="16" height="16"/>
+                </p>
+                <p><font size="2">${categoryName}</font></p>
+            </td>
+        </tr>
+    </table>
+
+</t:container>
