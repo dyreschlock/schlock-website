@@ -83,7 +83,10 @@ public class V3Index extends AbstractOldVersionPage
     public List<Long> getCategoryIds()
     {
         List<Long> categoryIds = new ArrayList<>();
-        categoryIds.add(getUpdatesCategory().getId());
+        if (isArchivePage() || isDefaultPost())
+        {
+            categoryIds.add(getUpdatesCategory().getId());
+        }
         return categoryIds;
     }
 

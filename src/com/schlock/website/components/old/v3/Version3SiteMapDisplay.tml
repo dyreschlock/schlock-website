@@ -1,0 +1,103 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <table style="margin:3px 0px 0px 0px;" width="100%" border="0" bgcolor="#333333" cellpadding="10">
+        <tr>
+            <td background="${image4}" align="left">
+                <font size="2" color="#333333"><b>PRIMARY SECTIONS</b> </font>
+                <table width="100%" border="0" cellpadding="5">
+                    <tr>
+                        <td valign="top" width="50%"><font size="2" color="#000000">
+                            <a href="${homeLink}">DAILY</a><br/>
+                            read the daily happenings of my life in a chronological state of addition...</font></td>
+                        <td width="50%" valign="top"><font size="2" color="#000000">
+                            <a href="${reviewsLink}">IMPRESSIONS</a><br/>
+                            these are my thought on certain mediums of today's creativity..
+                            some voices have been heard with wide ears, while others
+                            beg me to shut my mind...</font></td>
+                    </tr>
+                    <tr>
+                        <td valign="top"><font size="2" color="#000000">WORKS</font></td>
+                        <td valign="top"><font size="2" color="#000000">
+                            <a href="${photoLink}">PHOTOGRAPHY</a></font></td>
+                    </tr>
+                    <tr>
+                        <td valign="top"><font size="2" color="#000000">
+                            <a href="${aboutMeLink}">PROFILE</a><br/>
+                            this is all about those who contribute to One Schlock's
+                            Requiem.. we love to hear a new voice, so give us your
+                            opinion... </font></td>
+
+                        <td valign="top"><font size="2" color="#000000">
+                            <a href="${sitemapLink}">SITE MAP</a><br/>
+                            this is your resource to all the pages on this website..
+                            an omni-link page if you will... and you're here already,
+                            so take a look around..</font></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <table style="margin:3px 0px 0px 0px;" width="100%" border="0" bgcolor="#333333">
+        <tr>
+            <td background="${image2}">&nbsp;</td>
+        </tr>
+    </table>
+    <table style="margin:3px 0px 0px 0px;" width="100%" border="0" bgcolor="#333333" cellpadding="10">
+        <tr>
+            <td background="${image4}" align="left">
+                <font size="2" color="#333333"><b>SUPPLEMENTAL SECTIONS</b> </font>
+                <table width="100%" border="0" cellpadding="5">
+                    <tr>
+                        <td valign="top" width="50%"><font size="2" color="#000000">
+                            <a style="text-decoration:none;">RESUME</a><br/>
+                            my list of accomplishments and doings that i hope, someday
+                            will get my an upstanding job to continue the rest of
+                            my life with....</font></td>
+                        <td width="50%" valign="top"><font size="2">
+                            <a style="text-decoration:none;">LINKS</a><br/>
+                            don't you like it here ?? .. well perhaps one of these
+                            other fantastic sites will provide you with the entertainment
+                            i could not...</font></td>
+                    </tr>
+                    <tr>
+                        <td valign="top" width="50%"><font size="2">
+                            <a style="text-decoration:none;">RELEASE DATES</a><br/>
+                            feel the oncoming onslaught of semi-creative pieces
+                            into our media today.. feel and buy !</font></td>
+                        <td width="50%" valign="top"><font size="2">
+                            <a style="text-decoration:none;">ANIME LIST</a><br/>
+                            mainly used for hotline, the list contains all the anime
+                            i have backups for on the computer...</font></td>
+                    </tr>
+                    <tr>
+                        <td valign="top" width="50%">
+                            <p><font size="2" color="#000000">
+                                <a style="text-decoration:none;">RADIO</a><br/>
+                                now you can hear sounds of The Schlock on the radio
+                                as well.. many songs of which i like.. mostly electronica,
+                                but with the occasional video game, anime type music...<br/>
+
+                                <a style="text-decoration: underline;" target="_blank">station page</a><br/>
+                                click here to visit the official live365 station page
+                                of the Digital Schlockopoloosa<br/>
+                                
+                                <a style="text-decoration: underline;" target="_blank">listen now</a><br/>
+                                click here to instantly listen to the Digital Schlockopoloosa</font></p>
+                        </td>
+                        <td width="50%" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td valign="top" width="50%">&nbsp;</td>
+                        <td width="50%" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td valign="top">&nbsp;</td>
+                        <td valign="top">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</t:container>

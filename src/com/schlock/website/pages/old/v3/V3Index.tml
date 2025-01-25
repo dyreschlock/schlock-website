@@ -32,31 +32,38 @@
                                 </tr>
                             </table>
 
-                            <t:loop source="posts" value="currentPost" index="currentIndex">
+                            <t:if test="sitemapPage">
+                                <v3:version3sitemapdisplay image2="grid2Image" image4="grid4Image" />
+                            </t:if>
 
-                                <table style="margin:3px 0px 0px 0px;" width="100%" border="0" bgcolor="#000000" cellpadding="10">
-                                    <tr>
-                                        <td background="${grid4Image}" align="center">
+                            <t:if test="!sitemapPage">
 
-                                            <v3:version3postdisplay post="currentPost" page="classPage" />
+                                <t:loop source="posts" value="currentPost" index="currentIndex">
 
-                                        </td>
-                                    </tr>
-                                </table>
-                                <table style="margin:3px 0px 0px 0px;" width="100%" border="0" cellpadding="5" bgcolor="#000000">
-                                    <tr>
-                                        <td background="${grid2Image}">
+                                    <table style="margin:3px 0px 0px 0px;" width="100%" border="0" bgcolor="#000000" cellpadding="10">
+                                        <tr>
+                                            <td background="${grid4Image}" align="center">
 
-                                            <t:if test="showPrevious">
+                                                <v3:version3postdisplay post="currentPost" page="classPage" />
 
-                                                <v3:version3pagedpreviousnext post="post" page="classPage" pageNumber="pageNumber" categoryIds="categoryIds" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="margin:3px 0px 0px 0px;" width="100%" border="0" cellpadding="5" bgcolor="#000000">
+                                        <tr>
+                                            <td background="${grid2Image}">
 
-                                            </t:if>
-                                        </td>
-                                    </tr>
-                                </table>
+                                                <t:if test="showPrevious">
 
-                            </t:loop>
+                                                    <v3:version3pagedpreviousnext post="post" page="classPage" pageNumber="pageNumber" categoryIds="categoryIds" />
+
+                                                </t:if>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </t:loop>
+                            </t:if>
                         </td>
                         <td width="200" align="center" valign="top">
                             <table width="100%" border="0" bgcolor="#000000">

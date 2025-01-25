@@ -108,6 +108,15 @@ public abstract class AbstractOldVersionPage extends AbstractOldLinks
         return SITE_MAP_PAGE.equals(getPage());
     }
 
+    public boolean isArchivePage()
+    {
+        return ARCHIVE_PAGE.equals(getPage());
+    }
+
+    public boolean isDefaultPost()
+    {
+        return getDefaultPost().equals(getPost());
+    }
 
 
 
