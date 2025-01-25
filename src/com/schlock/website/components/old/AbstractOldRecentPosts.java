@@ -53,7 +53,8 @@ public abstract class AbstractOldRecentPosts
 
     public boolean isProjectsPage()
     {
-        return AbstractOldVersionPage.PROJECTS_PAGE.equals(getPage());
+        return AbstractOldVersionPage.PROJECTS_PAGE.equals(getPage()) ||
+                AbstractOldVersionPage.PHOTO_PAGE.equals(getPage());
     }
 
     private boolean isGamesPage()

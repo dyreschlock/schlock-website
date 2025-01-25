@@ -95,9 +95,14 @@ public class V3Index extends AbstractOldVersionPage
         return isReviewsPage() && getPost() != null;
     }
 
+    public boolean isPhotoPost()
+    {
+        return isPhotoPage() && getPost() != null;
+    }
+
     public boolean isNotSpecialPost()
     {
-        return !isReviewsPost();
+        return !isReviewsPost() && !isPhotoPost();
     }
 
 
@@ -153,7 +158,7 @@ public class V3Index extends AbstractOldVersionPage
 
     public String getGrid1Image()
     {
-        if (isReviewsPost())
+        if (isReviewsPost() || isPhotoPost())
         {
             return "";
         }

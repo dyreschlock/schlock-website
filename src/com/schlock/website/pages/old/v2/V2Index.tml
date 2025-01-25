@@ -111,7 +111,7 @@
                             <p><font size="2" color="#CCCCCC">Reviews and Thoughts on the mediums
                                 of artist talent, for the most part, anyways..</font></p>
 
-                            <v2:version2recentposts page="${gamesPage}" />
+                            <v2:version2recentposts page="reviewsPageName" />
 
                             <p align="right">
                                 <font size="2" color="#FFFFFF">...</font><a href="${reviewsLink}"><font color="#FFFFFF" size="2">more</font></a></p>
@@ -159,7 +159,7 @@
                     <tr align="left">
                         <td>
 
-                        <v2:version2recentposts page="${projectsPage}" />
+                        <v2:version2recentposts page="projectsPageName" />
 
                         </td>
                     </tr>

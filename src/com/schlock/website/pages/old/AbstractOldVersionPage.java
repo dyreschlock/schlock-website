@@ -222,13 +222,18 @@ public abstract class AbstractOldVersionPage extends AbstractOldLinks
         return cssCache.getCssOldVersions(getPosts(), getVersion());
     }
 
-    public String getProjectsPage()
+    public String getProjectsPageName()
     {
         return PROJECTS_PAGE;
     }
 
-    public String getGamesPage()
+    public String getReviewsPageName()
     {
         return REVIEWS_PAGE;
+    }
+
+    public String getPhotoPageName()
+    {
+        return PHOTO_PAGE;
     }
 }

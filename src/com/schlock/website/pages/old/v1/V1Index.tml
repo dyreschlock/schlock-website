@@ -98,7 +98,7 @@
                     </tr>
                 </table>
 
-                <v1:version1recentposts page="projectsPage" />
+                <v1:version1recentposts page="projectsPageName" />
             </td>
         </tr>
     </table>
