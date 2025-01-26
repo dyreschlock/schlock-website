@@ -1,12 +1,10 @@
 package com.schlock.website.pages.old.v3;
 
-import com.schlock.website.entities.blog.AbstractCategory;
-import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.Page;
-import com.schlock.website.entities.blog.PostCategory;
+import com.schlock.website.entities.blog.*;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.blog.PostArchiveManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
@@ -19,13 +17,17 @@ import java.util.List;
 public class V3Index extends AbstractOldVersionPage
 {
     @Inject
+    private CategoryDAO categoryDAO;
+
+    @Inject
     private DeploymentContext context;
+
+    @Inject
+    private PostArchiveManagement archiveManagement;
 
     @Inject
     private Messages messages;
 
-    @Inject
-    private CategoryDAO categoryDAO;
 
 
     private AbstractPost post;
@@ -105,6 +107,10 @@ public class V3Index extends AbstractOldVersionPage
         return !isReviewsPost() && !isPhotoPost();
     }
 
+    public boolean isPhotoOrClubPage()
+    {
+        return isPhotoPage() || isClubPage();
+    }
 
     public List<Long> getCategoryIds()
     {
@@ -136,6 +142,19 @@ public class V3Index extends AbstractOldVersionPage
             categoryIds.add(getUpdatesCategory().getId());
         }
         return categoryIds;
+    }
+
+    public List<AbstractPost> getPosts()
+    {
+        if (isClubPage())
+        {
+            List<Post> posts = archiveManagement.getPagedClubPosts(getDefaultPostsPerPage(), getPageNumber());
+
+            List<AbstractPost> results = new ArrayList<>();
+            results.addAll(posts);
+            return results;
+        }
+        return super.getPosts();
     }
 
     public boolean isShowPrevious()

@@ -6,16 +6,15 @@
         <tr>
             <td bgcolor="#FFFFFF" align="center" valign="top">
                 <p align="left"><font size="2" color="#FF6600">
-                    <b><font color="${dateColor}">${postDate}</font></b>
+                    <b><font color="#0066ff">${postDate} - <a href="${postLink}">${post.title}</a></font></b>
                 </font></p>
 
-                <div id="postContent" class="${page}">
-                    <t:outputraw value="postBodyHTML" />
+                <div id="postContent">
+                <table cellspacing="1" cellpadding="3" width="100%" border="0" align="center" bgcolor="#666666">
+                    <t:outputraw value="imagesTableHTML" />
+                </table>
                 </div>
-                <p align="right"><font size="2" color="#666666">-- Dyre</font></p>
             </td>
         </tr>
     </table>
-
-
 </t:container>

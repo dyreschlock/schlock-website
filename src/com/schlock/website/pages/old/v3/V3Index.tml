@@ -12,7 +12,6 @@
 <div align="center">
 <p>&nbsp;</p>
 
-
 <t:if test="reviewsPost">
     <v3:version3reviewspage post="post" reviewCategoryUuids="reviewCategoryUuids" />
 </t:if>
@@ -59,7 +58,13 @@
                                         <tr>
                                             <td background="${grid4Image}" align="center">
 
-                                                <v3:version3postdisplay post="currentPost" page="classPage" />
+                                                <t:if test="photoOrClubPage">
+                                                    <v3:version3photopostdisplay post="currentPost" />
+                                                </t:if>
+
+                                                <t:if test="!photoOrClubPage">
+                                                    <v3:version3postdisplay post="currentPost" page="classPage" />
+                                                </t:if>
 
                                             </td>
                                         </tr>
