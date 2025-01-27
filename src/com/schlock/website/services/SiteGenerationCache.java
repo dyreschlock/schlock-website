@@ -6,19 +6,24 @@ import java.util.List;
 
 public interface SiteGenerationCache
 {
-    String TOP_POSTS = "topPosts";
+    String GENERATED_POST_HTML = "generatedPostHTML";
 
     String YEARLY_MONTHLY_ITERATIONS = "yearlyMonthlyIterations";
+
+    String TOP_POSTS = "topPosts";
     String PAGED_CACHED = "pagedCache";
     String ARCHIVED_POSTS = "archivedPosts";
 
 
-    void addToPostCache(List<Post> results, String cache, Object... params);
+    String getCachedString(String cache, Object... params);
 
-    List<Post> getCachedPosts(String cache, Object... params);
+    void addToStringCache(String value, String cache, Object... params);
 
+    List<String> getCachedStringList(String cache, Object... params);
 
     void addToStringListCache(List<String> results, String cache, Object... params);
 
-    List<String> getCachedStringList(String cache, Object... params);
+    List<Post> getCachedPosts(String cache, Object... params);
+
+    void addToPostCache(List<Post> results, String cache, Object... params);
 }
