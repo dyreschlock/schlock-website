@@ -18,34 +18,24 @@ public class PostSearchCacheImpl implements PostSearchCache
         this.postDAO = postDAO;
     }
 
-
-    public String createKeyPagedCache(Integer postCount, Integer pageNumber, Object... params)
+    public String createKey(String cache, Object... params)
     {
-        String key = "";
-        if (postCount != null)
-        {
-            key += postCount;
-        }
-        else
-        {
-            key += "null";
-        }
-        if (pageNumber != null)
-        {
-            key += pageNumber;
-        }
-        else
-        {
-            key += "null";
-        }
+        String key = cache;
         for(Object param : params)
         {
-            key += param.toString();
+            if (param == null)
+            {
+                key += "null";
+            }
+            else
+            {
+                key += param.toString();
+            }
         }
         return key;
     }
 
-    public void addToPagedCache(String key, List<Post> results)
+    public void addToPostCache(String key, List<Post> results)
     {
         Set<Long> ids = new HashSet<>();
         for(Post post : results)
@@ -55,7 +45,7 @@ public class PostSearchCacheImpl implements PostSearchCache
         pagedPostsCache.put(key, ids);
     }
 
-    public List<Post> getCachedPagedPosts(String key)
+    public List<Post> getCachedPosts(String key)
     {
         Set<Long> ids = pagedPostsCache.get(key);
         if (ids != null)

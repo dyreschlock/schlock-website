@@ -161,8 +161,8 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<Post> getPagedPosts(Integer postCount, Integer pageNumber)
     {
-        String key = postSearchCache.createKeyPagedCache(postCount, pageNumber);
-        List<Post> results = postSearchCache.getCachedPagedPosts(key);
+        String key = postSearchCache.createKey(PostSearchCache.PAGED_CACHED, postCount, pageNumber);
+        List<Post> results = postSearchCache.getCachedPosts(key);
         if (results == null)
         {
             ViewState viewState = asoManager.get(ViewState.class);
@@ -176,8 +176,8 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, String iteration)
     {
-        String key = postSearchCache.createKeyPagedCache(postCount, pageNumber, iteration);
-        List<Post> results = postSearchCache.getCachedPagedPosts(key);
+        String key = postSearchCache.createKey(PostSearchCache.PAGED_CACHED, postCount, pageNumber, iteration);
+        List<Post> results = postSearchCache.getCachedPosts(key);
         if (results == null)
         {
             ViewState viewState = asoManager.get(ViewState.class);
@@ -196,8 +196,8 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Set<Long> categoryIds)
     {
-        String key = postSearchCache.createKeyPagedCache(postCount, pageNumber, categoryIds);
-        List<Post> results = postSearchCache.getCachedPagedPosts(key);
+        String key = postSearchCache.createKey(PostSearchCache.PAGED_CACHED, postCount, pageNumber, categoryIds);
+        List<Post> results = postSearchCache.getCachedPosts(key);
         if (results == null)
         {
             ViewState viewState = asoManager.get(ViewState.class);
@@ -211,8 +211,8 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<Post> getPagedClubPosts(Integer postCount, Integer pageNumber)
     {
-        String key = postSearchCache.createKeyPagedCache(postCount, pageNumber, "club");
-        List<Post> results = postSearchCache.getCachedPagedPosts(key);
+        String key = postSearchCache.createKey(PostSearchCache.PAGED_CACHED, postCount, pageNumber, "club");
+        List<Post> results = postSearchCache.getCachedPosts(key);
         if (results == null)
         {
             List<ClubPost> posts = postDAO.getAllClubPosts(true);
@@ -228,13 +228,13 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
     {
         if (postCount == null)
         {
-            postSearchCache.addToPagedCache(key, results);
+            postSearchCache.addToPostCache(key, results);
             return results;
         }
 
         if (pageNumber < 1)
         {
-            postSearchCache.addToPagedCache(key, Collections.EMPTY_LIST);
+            postSearchCache.addToPostCache(key, Collections.EMPTY_LIST);
             return Collections.EMPTY_LIST;
         }
 
@@ -248,12 +248,12 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
         if (end < start)
         {
-            postSearchCache.addToPagedCache(key, Collections.EMPTY_LIST);
+            postSearchCache.addToPostCache(key, Collections.EMPTY_LIST);
             return Collections.EMPTY_LIST;
         }
 
         List<Post> r = results.subList(start, end);
-        postSearchCache.addToPagedCache(key, r);
+        postSearchCache.addToPostCache(key, r);
         return r;
     }
 

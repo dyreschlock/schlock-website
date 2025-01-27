@@ -6,9 +6,12 @@ import java.util.List;
 
 public interface PostSearchCache
 {
-    String createKeyPagedCache(Integer postCount, Integer pageNumber, Object... params);
+    String PAGED_CACHED = "pagedCache";
 
-    void addToPagedCache(String key, List<Post> results);
 
-    List<Post> getCachedPagedPosts(String key);
+    String createKey(String cache, Object... params);
+
+    void addToPostCache(String key, List<Post> results);
+
+    List<Post> getCachedPosts(String key);
 }
