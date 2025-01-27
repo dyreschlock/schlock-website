@@ -7,6 +7,7 @@ import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Version7CategoryList
@@ -20,6 +21,10 @@ public class Version7CategoryList
     @Property
     private PostCategory currentCategory;
 
+
+    private HashMap<Long, Integer> categoryCount = new HashMap<>();
+
+
     public List<PostCategory> getCategories()
     {
         return categoryDAO.getAllPostCategoriesInAlphaOrder();
@@ -28,8 +33,14 @@ public class Version7CategoryList
     public Integer getPostCount()
     {
         Long categoryId = currentCategory.getId();
+        Integer count = categoryCount.get(categoryId);
+        if (count == null)
+        {
+            List<Post> posts = postDAO.getMostRecentPosts(null, false, null, null, categoryId);
+            count = posts.size();
 
-        List<Post> posts = postDAO.getMostRecentPosts(null, false, null, null, categoryId);
-        return posts.size();
+            categoryCount.put(categoryId, count);
+        }
+        return count;
     }
 }
