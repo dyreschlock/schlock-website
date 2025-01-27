@@ -12,6 +12,8 @@ public interface PostDAO extends BaseDAO<AbstractPost>
     int MIN_RECENT = 2;
     int ONLY_ONE = 1;
 
+    List<Post> getByIds(Set<Long> ids);
+
     AbstractPost getByUuid(String uuid);
 
     List<Post> getPostsByUuid(List<String> uuids);

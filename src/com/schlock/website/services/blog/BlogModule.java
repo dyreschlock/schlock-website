@@ -7,11 +7,13 @@ public class BlogModule
 {
     public static void bind(ServiceBinder binder)
     {
+        binder.bind(PostManagement.class, PostManagementImpl.class);
+        binder.bind(PostArchiveManagement.class, PostArchiveManagementImpl.class);
+        binder.bind(PostSearchCache.class, PostSearchCacheImpl.class);
+
         binder.bind(LayoutManagement.class, LayoutManagementImpl.class);
         binder.bind(IconManagement.class, IconManagementImpl.class);
-        binder.bind(PostManagement.class, PostManagementImpl.class);
         binder.bind(ImageManagement.class, ImageManagementImpl.class);
-        binder.bind(PostArchiveManagement.class, PostArchiveManagementImpl.class);
         binder.bind(TodayArchiveManagement.class, TodayArchiveManagementImpl.class);
         binder.bind(LessonsManagement.class, LessonsManagementImpl.class);
         binder.bind(KeywordManagement.class, KeywordManagementImpl.class);

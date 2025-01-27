@@ -23,6 +23,18 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         super(AbstractPost.class, session);
     }
 
+
+    public List<Post> getByIds(Set<Long> ids)
+    {
+        String text = " from AbstractPost p " +
+                        " where p.id in (:ids) ";
+
+        Query query = session.createQuery(text);
+        query.setParameterList("ids", ids);
+
+        return query.list();
+    }
+
     public AbstractPost getByUuid(String uuid)
     {
         String text = "from AbstractPost p " +

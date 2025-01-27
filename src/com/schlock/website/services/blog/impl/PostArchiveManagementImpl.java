@@ -5,15 +5,13 @@ import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.services.blog.PostArchiveManagement;
 import com.schlock.website.services.blog.PostManagement;
+import com.schlock.website.services.blog.PostSearchCache;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.services.ApplicationStateManager;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class PostArchiveManagementImpl implements PostArchiveManagement
 {
@@ -25,12 +23,14 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
     private final Messages messages;
 
     private final PostManagement postManagement;
+    private final PostSearchCache postSearchCache;
 
     private final PostDAO postDAO;
 
     public PostArchiveManagementImpl(ApplicationStateManager asoManager,
                                      Messages messages,
                                      PostManagement postManagement,
+                                     PostSearchCache postSearchCache,
                                      PostDAO postDAO)
     {
 
@@ -38,6 +38,7 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         this.messages = messages;
 
         this.postManagement = postManagement;
+        this.postSearchCache = postSearchCache;
         this.postDAO = postDAO;
     }
 
@@ -160,55 +161,80 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<Post> getPagedPosts(Integer postCount, Integer pageNumber)
     {
-        ViewState viewState = asoManager.get(ViewState.class);
-        boolean unpublished = viewState.isShowUnpublished();
+        String key = postSearchCache.createKeyPagedCache(postCount, pageNumber);
+        List<Post> results = postSearchCache.getCachedPagedPosts(key);
+        if (results == null)
+        {
+            ViewState viewState = asoManager.get(ViewState.class);
+            boolean unpublished = viewState.isShowUnpublished();
 
-        List<Post> posts = postDAO.getMostRecentPosts(null, unpublished, null, null, Collections.EMPTY_SET);
-        return pagedPosts(posts, postCount, pageNumber);
+            results = postDAO.getMostRecentPosts(null, unpublished, null, null, Collections.EMPTY_SET);
+            results = pagedPosts(key, results, postCount, pageNumber);
+        }
+        return results;
     }
 
     public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, String iteration)
     {
-        ViewState viewState = asoManager.get(ViewState.class);
-        boolean unpublished = viewState.isShowUnpublished();
+        String key = postSearchCache.createKeyPagedCache(postCount, pageNumber, iteration);
+        List<Post> results = postSearchCache.getCachedPagedPosts(key);
+        if (results == null)
+        {
+            ViewState viewState = asoManager.get(ViewState.class);
+            boolean unpublished = viewState.isShowUnpublished();
 
-        Integer year = parseYear(iteration);
-        Integer month = parseMonth(iteration);
+            Integer year = parseYear(iteration);
+            Integer month = parseMonth(iteration);
 
-        Long categoryId = null;
+            Long categoryId = null;
 
-        List<Post> posts = postDAO.getMostRecentPosts(null, unpublished, year, month, categoryId);
-        return pagedPosts(posts, postCount, pageNumber);
+            results = postDAO.getMostRecentPosts(null, unpublished, year, month, categoryId);
+            results = pagedPosts(key, results, postCount, pageNumber);
+        }
+        return results;
     }
 
     public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Set<Long> categoryIds)
     {
-        ViewState viewState = asoManager.get(ViewState.class);
-        boolean unpublished = viewState.isShowUnpublished();
+        String key = postSearchCache.createKeyPagedCache(postCount, pageNumber, categoryIds);
+        List<Post> results = postSearchCache.getCachedPagedPosts(key);
+        if (results == null)
+        {
+            ViewState viewState = asoManager.get(ViewState.class);
+            boolean unpublished = viewState.isShowUnpublished();
 
-        List<Post> posts = postDAO.getMostRecentPosts(null, unpublished, null, null, categoryIds);
-        return pagedPosts(posts, postCount, pageNumber);
+            results = postDAO.getMostRecentPosts(null, unpublished, null, null, categoryIds);
+            results = pagedPosts(key, results, postCount, pageNumber);
+        }
+        return results;
     }
 
     public List<Post> getPagedClubPosts(Integer postCount, Integer pageNumber)
     {
-        List<ClubPost> results = postDAO.getAllClubPosts(true);
+        String key = postSearchCache.createKeyPagedCache(postCount, pageNumber, "club");
+        List<Post> results = postSearchCache.getCachedPagedPosts(key);
+        if (results == null)
+        {
+            List<ClubPost> posts = postDAO.getAllClubPosts(true);
 
-        List<Post> posts = new ArrayList<>();
-        posts.addAll(results);
-
-        return pagedPosts(posts, postCount, pageNumber);
+            results = new ArrayList<>();
+            results.addAll(posts);
+            results = pagedPosts(key, results, postCount, pageNumber);
+        }
+        return results;
     }
 
-    private List<Post> pagedPosts(List<Post> results, Integer postCount, Integer pageNumber)
+    private List<Post> pagedPosts(String key, List<Post> results, Integer postCount, Integer pageNumber)
     {
         if (postCount == null)
         {
+            postSearchCache.addToPagedCache(key, results);
             return results;
         }
 
         if (pageNumber < 1)
         {
+            postSearchCache.addToPagedCache(key, Collections.EMPTY_LIST);
             return Collections.EMPTY_LIST;
         }
 
@@ -222,9 +248,13 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
         if (end < start)
         {
+            postSearchCache.addToPagedCache(key, Collections.EMPTY_LIST);
             return Collections.EMPTY_LIST;
         }
-        return results.subList(start, end);
+
+        List<Post> r = results.subList(start, end);
+        postSearchCache.addToPagedCache(key, r);
+        return r;
     }
 
 
