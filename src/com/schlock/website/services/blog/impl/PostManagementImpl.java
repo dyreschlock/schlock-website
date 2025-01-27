@@ -6,6 +6,7 @@ import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.KeywordManagement;
 import com.schlock.website.services.blog.PostManagement;
+import com.schlock.website.services.blog.PostSearchCache;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.services.ApplicationStateManager;
@@ -45,6 +46,8 @@ public class PostManagementImpl implements PostManagement
 
     private final DeploymentContext context;
 
+    private final PostSearchCache postSearchCache;
+
     private final KeywordManagement keywordManagement;
     private final ImageManagement imageManagement;
     private final PostDAO postDAO;
@@ -55,6 +58,7 @@ public class PostManagementImpl implements PostManagement
     public PostManagementImpl(ApplicationStateManager asoManager,
                                 PageRenderLinkSource linkSource,
                                 DeploymentContext context,
+                                PostSearchCache postSearchCache,
                                 KeywordManagement keywordManagement,
                                 ImageManagement imageManagement,
                                 PostDAO postDAO)
@@ -63,6 +67,8 @@ public class PostManagementImpl implements PostManagement
         this.linkSource = linkSource;
 
         this.context = context;
+
+        this.postSearchCache = postSearchCache;
 
         this.keywordManagement = keywordManagement;
         this.imageManagement = imageManagement;
@@ -748,7 +754,14 @@ public class PostManagementImpl implements PostManagement
      */
     public List<Post> getTopPosts(final Integer LIMIT, Integer year, Integer month, Long categoryId, final Set<Long> EXCLUDE)
     {
-        List<Post> posts = new ArrayList<>();
+        String key = postSearchCache.createKey(PostSearchCache.TOP_POSTS, LIMIT, year, month, categoryId, EXCLUDE);
+        List<Post> posts = postSearchCache.getCachedPosts(key);
+        if (posts != null)
+        {
+            return posts;
+        }
+
+        posts = new ArrayList<>();
 
         boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
         int count = LIMIT;
@@ -770,6 +783,7 @@ public class PostManagementImpl implements PostManagement
 
         if (count == 0)
         {
+            postSearchCache.addToPostCache(key, posts);
             return posts;
         }
 
@@ -786,6 +800,7 @@ public class PostManagementImpl implements PostManagement
 
         if (count == 0)
         {
+            postSearchCache.addToPostCache(key, posts);
             return posts;
         }
 
@@ -802,6 +817,7 @@ public class PostManagementImpl implements PostManagement
 
         if (count == 0)
         {
+            postSearchCache.addToPostCache(key, posts);
             return posts;
         }
 
@@ -816,6 +832,7 @@ public class PostManagementImpl implements PostManagement
             count--;
         }
 
+        postSearchCache.addToPostCache(key, posts);
         return posts;
     }
 

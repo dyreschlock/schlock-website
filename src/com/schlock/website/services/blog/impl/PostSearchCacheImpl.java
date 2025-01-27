@@ -11,7 +11,8 @@ public class PostSearchCacheImpl implements PostSearchCache
     private final PostDAO postDAO;
 
 
-    private HashMap<String, Set<Long>> pagedPostsCache = new HashMap<>();
+    private HashMap<String, Set<Long>> postIdCache = new HashMap<>();
+    private HashMap<String, List<String>> stringCache = new HashMap<>();
 
     public PostSearchCacheImpl(PostDAO postDAO)
     {
@@ -42,12 +43,12 @@ public class PostSearchCacheImpl implements PostSearchCache
         {
             ids.add(post.getId());
         }
-        pagedPostsCache.put(key, ids);
+        postIdCache.put(key, ids);
     }
 
     public List<Post> getCachedPosts(String key)
     {
-        Set<Long> ids = pagedPostsCache.get(key);
+        Set<Long> ids = postIdCache.get(key);
         if (ids != null)
         {
             if (ids.isEmpty())
@@ -57,5 +58,15 @@ public class PostSearchCacheImpl implements PostSearchCache
             return postDAO.getByIds(ids);
         }
         return null;
+    }
+
+    public void addToStringCache(String key, List<String> results)
+    {
+        stringCache.put(key, results);
+    }
+
+    public List<String> getCachedStrings(String key)
+    {
+        return stringCache.get(key);
     }
 }

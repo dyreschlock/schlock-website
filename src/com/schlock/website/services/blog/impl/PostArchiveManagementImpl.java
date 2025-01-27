@@ -44,50 +44,64 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<String> getYearlyMonthlyIterations(Integer year, Integer month)
     {
-        ViewState viewState = asoManager.get(ViewState.class);
-        boolean unpublished = viewState.isShowUnpublished();
+        String uniqueId = "yearmonth";
+        String key = postSearchCache.createKey(PostSearchCache.YEARLY_MONTHLY_ITERATIONS, uniqueId, year, month);
+        List<String> results = postSearchCache.getCachedStrings(key);
+        if (results == null)
+        {
+            ViewState viewState = asoManager.get(ViewState.class);
+            boolean unpublished = viewState.isShowUnpublished();
 
-        List<String> iterations = new ArrayList<String>();
+            results = new ArrayList<String>();
 
-        if (year != null && month != null)
-        {
-            iterations.add(createIteration(year, month));
-        }
-        else if (year != null)
-        {
-            List<Integer> months = postDAO.getMonths(year, unpublished);
-            for (Integer m : months)
+            if (year != null && month != null)
             {
-                iterations.add(createIteration(year, m));
+                results.add(createIteration(year, month));
             }
-        }
-        else
-        {
-            List<Integer> years = postDAO.getAllYears(unpublished);
-            for(Integer y : years)
+            else if (year != null)
             {
-                iterations.add(createIteration(y, null));
+                List<Integer> months = postDAO.getMonths(year, unpublished);
+                for (Integer m : months)
+                {
+                    results.add(createIteration(year, m));
+                }
             }
+            else
+            {
+                List<Integer> years = postDAO.getAllYears(unpublished);
+                for(Integer y : years)
+                {
+                    results.add(createIteration(y, null));
+                }
+            }
+            postSearchCache.addToStringCache(key, results);
         }
-        return iterations;
+        return results;
     }
 
     public List<String> getYearlyMonthlyIterations(Long categoryId)
     {
-        ViewState viewState = asoManager.get(ViewState.class);
-        boolean unpublished = viewState.isShowUnpublished();
-
-        List<String> iterations = new ArrayList<String>();
-
-        List<List<Integer>> dates = postDAO.getYearsMonthsByCategory(unpublished, categoryId);
-        for (List<Integer> date : dates)
+        String uniqueId = "category";
+        String key = postSearchCache.createKey(PostSearchCache.YEARLY_MONTHLY_ITERATIONS, uniqueId, categoryId);
+        List<String> results = postSearchCache.getCachedStrings(key);
+        if (results == null)
         {
-            Integer year = date.get(0);
-            Integer month = date.get(1);
+            ViewState viewState = asoManager.get(ViewState.class);
+            boolean unpublished = viewState.isShowUnpublished();
 
-            iterations.add(createIteration(year, month));
+            results = new ArrayList<String>();
+
+            List<List<Integer>> dates = postDAO.getYearsMonthsByCategory(unpublished, categoryId);
+            for (List<Integer> date : dates)
+            {
+                Integer year = date.get(0);
+                Integer month = date.get(1);
+
+                results.add(createIteration(year, month));
+            }
+            postSearchCache.addToStringCache(key, results);
         }
-        return iterations;
+        return results;
     }
 
     public String getNextYearlyMontlyIteration(String iteration, Long categoryId)
@@ -123,14 +137,20 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<Post> getPosts(String iteration, Long categoryId)
     {
-        ViewState viewState = asoManager.get(ViewState.class);
-        boolean unpublished = viewState.isShowUnpublished();
+        String key = postSearchCache.createKey(PostSearchCache.ARCHIVED_POSTS, iteration, categoryId);
+        List<Post> results = postSearchCache.getCachedPosts(key);
+        if (results == null)
+        {
+            ViewState viewState = asoManager.get(ViewState.class);
+            boolean unpublished = viewState.isShowUnpublished();
 
-        Integer year = parseYear(iteration);
-        Integer month = parseMonth(iteration);
+            Integer year = parseYear(iteration);
+            Integer month = parseMonth(iteration);
 
-        List<Post> posts = postDAO.getMostRecentPosts(null, unpublished, year, month, categoryId);
-        return posts;
+            results = postDAO.getMostRecentPosts(null, unpublished, year, month, categoryId);
+            postSearchCache.addToPostCache(key, results);
+        }
+        return results;
     }
 
     public List<Post> getPreviewPosts(String iteration, Set<Long> excludeIds)
