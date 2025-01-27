@@ -5,7 +5,7 @@ import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.services.blog.PostArchiveManagement;
 import com.schlock.website.services.blog.PostManagement;
-import com.schlock.website.services.blog.PostSearchCache;
+import com.schlock.website.services.SiteGenerationCache;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.ioc.Messages;
@@ -23,14 +23,14 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
     private final Messages messages;
 
     private final PostManagement postManagement;
-    private final PostSearchCache postSearchCache;
+    private final SiteGenerationCache siteCache;
 
     private final PostDAO postDAO;
 
     public PostArchiveManagementImpl(ApplicationStateManager asoManager,
                                      Messages messages,
                                      PostManagement postManagement,
-                                     PostSearchCache postSearchCache,
+                                     SiteGenerationCache siteCache,
                                      PostDAO postDAO)
     {
 
@@ -38,15 +38,15 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         this.messages = messages;
 
         this.postManagement = postManagement;
-        this.postSearchCache = postSearchCache;
+        this.siteCache = siteCache;
         this.postDAO = postDAO;
     }
 
     public List<String> getYearlyMonthlyIterations(Integer year, Integer month)
     {
         String uniqueId = "yearmonth";
-        String key = postSearchCache.createKey(PostSearchCache.YEARLY_MONTHLY_ITERATIONS, uniqueId, year, month);
-        List<String> results = postSearchCache.getCachedStrings(key);
+        String key = siteCache.createKey(SiteGenerationCache.YEARLY_MONTHLY_ITERATIONS, uniqueId, year, month);
+        List<String> results = siteCache.getCachedStringList(key);
         if (results == null)
         {
             ViewState viewState = asoManager.get(ViewState.class);
@@ -74,7 +74,7 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
                     results.add(createIteration(y, null));
                 }
             }
-            postSearchCache.addToStringCache(key, results);
+            siteCache.addToStringListCache(key, results);
         }
         return results;
     }
@@ -82,8 +82,8 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
     public List<String> getYearlyMonthlyIterations(Long categoryId)
     {
         String uniqueId = "category";
-        String key = postSearchCache.createKey(PostSearchCache.YEARLY_MONTHLY_ITERATIONS, uniqueId, categoryId);
-        List<String> results = postSearchCache.getCachedStrings(key);
+        String key = siteCache.createKey(SiteGenerationCache.YEARLY_MONTHLY_ITERATIONS, uniqueId, categoryId);
+        List<String> results = siteCache.getCachedStringList(key);
         if (results == null)
         {
             ViewState viewState = asoManager.get(ViewState.class);
@@ -99,7 +99,7 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
                 results.add(createIteration(year, month));
             }
-            postSearchCache.addToStringCache(key, results);
+            siteCache.addToStringListCache(key, results);
         }
         return results;
     }
@@ -137,8 +137,8 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<Post> getPosts(String iteration, Long categoryId)
     {
-        String key = postSearchCache.createKey(PostSearchCache.ARCHIVED_POSTS, iteration, categoryId);
-        List<Post> results = postSearchCache.getCachedPosts(key);
+        String key = siteCache.createKey(SiteGenerationCache.ARCHIVED_POSTS, iteration, categoryId);
+        List<Post> results = siteCache.getCachedPosts(key);
         if (results == null)
         {
             ViewState viewState = asoManager.get(ViewState.class);
@@ -148,7 +148,7 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
             Integer month = parseMonth(iteration);
 
             results = postDAO.getMostRecentPosts(null, unpublished, year, month, categoryId);
-            postSearchCache.addToPostCache(key, results);
+            siteCache.addToPostCache(key, results);
         }
         return results;
     }
@@ -181,8 +181,8 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<Post> getPagedPosts(Integer postCount, Integer pageNumber)
     {
-        String key = postSearchCache.createKey(PostSearchCache.PAGED_CACHED, postCount, pageNumber);
-        List<Post> results = postSearchCache.getCachedPosts(key);
+        String key = siteCache.createKey(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber);
+        List<Post> results = siteCache.getCachedPosts(key);
         if (results == null)
         {
             ViewState viewState = asoManager.get(ViewState.class);
@@ -196,8 +196,8 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, String iteration)
     {
-        String key = postSearchCache.createKey(PostSearchCache.PAGED_CACHED, postCount, pageNumber, iteration);
-        List<Post> results = postSearchCache.getCachedPosts(key);
+        String key = siteCache.createKey(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, iteration);
+        List<Post> results = siteCache.getCachedPosts(key);
         if (results == null)
         {
             ViewState viewState = asoManager.get(ViewState.class);
@@ -216,8 +216,8 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Set<Long> categoryIds)
     {
-        String key = postSearchCache.createKey(PostSearchCache.PAGED_CACHED, postCount, pageNumber, categoryIds);
-        List<Post> results = postSearchCache.getCachedPosts(key);
+        String key = siteCache.createKey(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, categoryIds);
+        List<Post> results = siteCache.getCachedPosts(key);
         if (results == null)
         {
             ViewState viewState = asoManager.get(ViewState.class);
@@ -231,8 +231,8 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<Post> getPagedClubPosts(Integer postCount, Integer pageNumber)
     {
-        String key = postSearchCache.createKey(PostSearchCache.PAGED_CACHED, postCount, pageNumber, "club");
-        List<Post> results = postSearchCache.getCachedPosts(key);
+        String key = siteCache.createKey(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, "club");
+        List<Post> results = siteCache.getCachedPosts(key);
         if (results == null)
         {
             List<ClubPost> posts = postDAO.getAllClubPosts(true);
@@ -248,13 +248,13 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
     {
         if (postCount == null)
         {
-            postSearchCache.addToPostCache(key, results);
+            siteCache.addToPostCache(key, results);
             return results;
         }
 
         if (pageNumber < 1)
         {
-            postSearchCache.addToPostCache(key, Collections.EMPTY_LIST);
+            siteCache.addToPostCache(key, Collections.EMPTY_LIST);
             return Collections.EMPTY_LIST;
         }
 
@@ -268,12 +268,12 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
         if (end < start)
         {
-            postSearchCache.addToPostCache(key, Collections.EMPTY_LIST);
+            siteCache.addToPostCache(key, Collections.EMPTY_LIST);
             return Collections.EMPTY_LIST;
         }
 
         List<Post> r = results.subList(start, end);
-        postSearchCache.addToPostCache(key, r);
+        siteCache.addToPostCache(key, r);
         return r;
     }
 

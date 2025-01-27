@@ -1,10 +1,10 @@
-package com.schlock.website.services.blog;
+package com.schlock.website.services;
 
 import com.schlock.website.entities.blog.Post;
 
 import java.util.List;
 
-public interface PostSearchCache
+public interface SiteGenerationCache
 {
     String TOP_POSTS = "topPosts";
 
@@ -14,11 +14,13 @@ public interface PostSearchCache
 
     String createKey(String cache, Object... params);
 
+
     void addToPostCache(String key, List<Post> results);
 
     List<Post> getCachedPosts(String key);
 
-    void addToStringCache(String key, List<String> results);
 
-    List<String> getCachedStrings(String key);
+    void addToStringListCache(String key, List<String> results);
+
+    List<String> getCachedStringList(String key);
 }

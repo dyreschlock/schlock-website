@@ -1,12 +1,12 @@
-package com.schlock.website.services.blog.impl;
+package com.schlock.website.services.impl;
 
 import com.schlock.website.entities.blog.Post;
-import com.schlock.website.services.blog.PostSearchCache;
+import com.schlock.website.services.SiteGenerationCache;
 import com.schlock.website.services.database.blog.PostDAO;
 
 import java.util.*;
 
-public class PostSearchCacheImpl implements PostSearchCache
+public class SiteGenerationCacheImpl implements SiteGenerationCache
 {
     private final PostDAO postDAO;
 
@@ -14,7 +14,7 @@ public class PostSearchCacheImpl implements PostSearchCache
     private HashMap<String, Set<Long>> postIdCache = new HashMap<>();
     private HashMap<String, List<String>> stringCache = new HashMap<>();
 
-    public PostSearchCacheImpl(PostDAO postDAO)
+    public SiteGenerationCacheImpl(PostDAO postDAO)
     {
         this.postDAO = postDAO;
     }
@@ -60,12 +60,12 @@ public class PostSearchCacheImpl implements PostSearchCache
         return null;
     }
 
-    public void addToStringCache(String key, List<String> results)
+    public void addToStringListCache(String key, List<String> results)
     {
         stringCache.put(key, results);
     }
 
-    public List<String> getCachedStrings(String key)
+    public List<String> getCachedStringList(String key)
     {
         return stringCache.get(key);
     }

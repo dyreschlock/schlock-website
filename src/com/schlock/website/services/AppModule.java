@@ -6,6 +6,7 @@ import com.schlock.website.services.codejam.may2012.May2012Module;
 import com.schlock.website.services.database.DatabaseModule;
 import com.schlock.website.services.impl.DateFormatterImpl;
 import com.schlock.website.services.impl.DeploymentContextImpl;
+import com.schlock.website.services.impl.SiteGenerationCacheImpl;
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.hibernate.HibernateSymbols;
 import org.apache.tapestry5.internal.services.RequestImpl;
@@ -38,6 +39,8 @@ public class AppModule
     public static void bind(ServiceBinder binder)
     {
         binder.bind(DeploymentContext.class, DeploymentContextImpl.class);
+        binder.bind(SiteGenerationCache.class, SiteGenerationCacheImpl.class);
+
         binder.bind(DateFormatter.class, DateFormatterImpl.class);
     }
 

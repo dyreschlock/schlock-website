@@ -6,7 +6,7 @@ import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.KeywordManagement;
 import com.schlock.website.services.blog.PostManagement;
-import com.schlock.website.services.blog.PostSearchCache;
+import com.schlock.website.services.SiteGenerationCache;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.services.ApplicationStateManager;
@@ -46,7 +46,7 @@ public class PostManagementImpl implements PostManagement
 
     private final DeploymentContext context;
 
-    private final PostSearchCache postSearchCache;
+    private final SiteGenerationCache siteCache;
 
     private final KeywordManagement keywordManagement;
     private final ImageManagement imageManagement;
@@ -58,7 +58,7 @@ public class PostManagementImpl implements PostManagement
     public PostManagementImpl(ApplicationStateManager asoManager,
                                 PageRenderLinkSource linkSource,
                                 DeploymentContext context,
-                                PostSearchCache postSearchCache,
+                                SiteGenerationCache siteCache,
                                 KeywordManagement keywordManagement,
                                 ImageManagement imageManagement,
                                 PostDAO postDAO)
@@ -68,7 +68,7 @@ public class PostManagementImpl implements PostManagement
 
         this.context = context;
 
-        this.postSearchCache = postSearchCache;
+        this.siteCache = siteCache;
 
         this.keywordManagement = keywordManagement;
         this.imageManagement = imageManagement;
@@ -788,8 +788,8 @@ public class PostManagementImpl implements PostManagement
      */
     public List<Post> getTopPosts(final Integer LIMIT, Integer year, Integer month, Long categoryId, final Set<Long> EXCLUDE)
     {
-        String key = postSearchCache.createKey(PostSearchCache.TOP_POSTS, LIMIT, year, month, categoryId, EXCLUDE);
-        List<Post> posts = postSearchCache.getCachedPosts(key);
+        String key = siteCache.createKey(SiteGenerationCache.TOP_POSTS, LIMIT, year, month, categoryId, EXCLUDE);
+        List<Post> posts = siteCache.getCachedPosts(key);
         if (posts != null)
         {
             return posts;
@@ -817,7 +817,7 @@ public class PostManagementImpl implements PostManagement
 
         if (count == 0)
         {
-            postSearchCache.addToPostCache(key, posts);
+            siteCache.addToPostCache(key, posts);
             return posts;
         }
 
@@ -834,7 +834,7 @@ public class PostManagementImpl implements PostManagement
 
         if (count == 0)
         {
-            postSearchCache.addToPostCache(key, posts);
+            siteCache.addToPostCache(key, posts);
             return posts;
         }
 
@@ -851,7 +851,7 @@ public class PostManagementImpl implements PostManagement
 
         if (count == 0)
         {
-            postSearchCache.addToPostCache(key, posts);
+            siteCache.addToPostCache(key, posts);
             return posts;
         }
 
@@ -866,7 +866,7 @@ public class PostManagementImpl implements PostManagement
             count--;
         }
 
-        postSearchCache.addToPostCache(key, posts);
+        siteCache.addToPostCache(key, posts);
         return posts;
     }
 
