@@ -331,11 +331,23 @@ public class PostManagementImpl implements PostManagement
         return generatePostHTML(null, htmlContents, null, false);
     }
 
+    private HashMap<String, String> generatedPostHTMLcache = new HashMap<>();
+
     private String generatePostHTML(AbstractPost post, String tempText, SiteVersion oldVersion, boolean rssFeed)
     {
         if (StringUtils.isBlank(tempText))
         {
             return tempText;
+        }
+
+        String key = createKey(post, oldVersion, rssFeed);
+        if (key != null)
+        {
+            String result = generatedPostHTMLcache.get(key);
+            if (StringUtils.isNotBlank(result))
+            {
+                return result;
+            }
         }
 
         String html = tempText;
@@ -361,7 +373,29 @@ public class PostManagementImpl implements PostManagement
             html = changeLinksToOldVersion(html, oldVersion);
         }
 
+        if (key != null)
+        {
+            generatedPostHTMLcache.put(key, html);
+        }
         return html;
+    }
+
+    private String createKey(AbstractPost post, SiteVersion oldVersion, boolean rssFeed)
+    {
+        if (post == null)
+        {
+            return null;
+        }
+
+        String uuid = post.getUuid() + post.isCoursePage();
+        boolean changeLinks = false;
+        if (oldVersion != null && oldVersion.isChangeLinks())
+        {
+            changeLinks = true;
+        }
+
+        String key = uuid + changeLinks + rssFeed;
+        return key;
     }
 
     private String changeLineBreaksToHtmlTags(String h)
