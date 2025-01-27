@@ -12,15 +12,13 @@ public interface SiteGenerationCache
     String PAGED_CACHED = "pagedCache";
     String ARCHIVED_POSTS = "archivedPosts";
 
-    String createKey(String cache, Object... params);
+
+    void addToPostCache(List<Post> results, String cache, Object... params);
+
+    List<Post> getCachedPosts(String cache, Object... params);
 
 
-    void addToPostCache(String key, List<Post> results);
+    void addToStringListCache(List<String> results, String cache, Object... params);
 
-    List<Post> getCachedPosts(String key);
-
-
-    void addToStringListCache(String key, List<String> results);
-
-    List<String> getCachedStringList(String key);
+    List<String> getCachedStringList(String cache, Object... params);
 }

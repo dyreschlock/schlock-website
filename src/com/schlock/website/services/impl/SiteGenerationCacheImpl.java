@@ -19,7 +19,7 @@ public class SiteGenerationCacheImpl implements SiteGenerationCache
         this.postDAO = postDAO;
     }
 
-    public String createKey(String cache, Object... params)
+    private String createKey(String cache, Object... params)
     {
         String key = cache;
         for(Object param : params)
@@ -36,18 +36,21 @@ public class SiteGenerationCacheImpl implements SiteGenerationCache
         return key;
     }
 
-    public void addToPostCache(String key, List<Post> results)
+    public void addToPostCache(List<Post> results, String cache, Object... params)
     {
         Set<Long> ids = new HashSet<>();
         for(Post post : results)
         {
             ids.add(post.getId());
         }
+
+        String key = createKey(cache, params);
         postIdCache.put(key, ids);
     }
 
-    public List<Post> getCachedPosts(String key)
+    public List<Post> getCachedPosts(String cache, Object... params)
     {
+        String key = createKey(cache, params);
         Set<Long> ids = postIdCache.get(key);
         if (ids != null)
         {
@@ -60,13 +63,15 @@ public class SiteGenerationCacheImpl implements SiteGenerationCache
         return null;
     }
 
-    public void addToStringListCache(String key, List<String> results)
+    public void addToStringListCache(List<String> results, String cache, Object... params)
     {
+        String key = createKey(cache, params);
         stringCache.put(key, results);
     }
 
-    public List<String> getCachedStringList(String key)
+    public List<String> getCachedStringList(String cache, Object... params)
     {
+        String key = createKey(cache, params);
         return stringCache.get(key);
     }
 }

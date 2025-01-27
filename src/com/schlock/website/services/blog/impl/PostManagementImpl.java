@@ -788,14 +788,19 @@ public class PostManagementImpl implements PostManagement
      */
     public List<Post> getTopPosts(final Integer LIMIT, Integer year, Integer month, Long categoryId, final Set<Long> EXCLUDE)
     {
-        String key = siteCache.createKey(SiteGenerationCache.TOP_POSTS, LIMIT, year, month, categoryId, EXCLUDE);
-        List<Post> posts = siteCache.getCachedPosts(key);
-        if (posts != null)
+        List<Post> posts = siteCache.getCachedPosts(SiteGenerationCache.TOP_POSTS, LIMIT, year, month, categoryId, EXCLUDE);
+        if (posts == null)
         {
-            return posts;
-        }
+            posts = topPosts(LIMIT, year, month, categoryId, EXCLUDE);
 
-        posts = new ArrayList<>();
+            siteCache.addToPostCache(posts, SiteGenerationCache.TOP_POSTS, LIMIT, year, month, categoryId, EXCLUDE);
+        }
+        return posts;
+    }
+
+    public List<Post> topPosts(final Integer LIMIT, Integer year, Integer month, Long categoryId, final Set<Long> EXCLUDE)
+    {
+        List<Post> posts = new ArrayList<>();
 
         boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
         int count = LIMIT;
@@ -817,7 +822,6 @@ public class PostManagementImpl implements PostManagement
 
         if (count == 0)
         {
-            siteCache.addToPostCache(key, posts);
             return posts;
         }
 
@@ -834,7 +838,6 @@ public class PostManagementImpl implements PostManagement
 
         if (count == 0)
         {
-            siteCache.addToPostCache(key, posts);
             return posts;
         }
 
@@ -851,7 +854,6 @@ public class PostManagementImpl implements PostManagement
 
         if (count == 0)
         {
-            siteCache.addToPostCache(key, posts);
             return posts;
         }
 
@@ -866,7 +868,6 @@ public class PostManagementImpl implements PostManagement
             count--;
         }
 
-        siteCache.addToPostCache(key, posts);
         return posts;
     }
 

@@ -44,63 +44,67 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<String> getYearlyMonthlyIterations(Integer year, Integer month)
     {
-        String uniqueId = "yearmonth";
-        String key = siteCache.createKey(SiteGenerationCache.YEARLY_MONTHLY_ITERATIONS, uniqueId, year, month);
-        List<String> results = siteCache.getCachedStringList(key);
-        if (results == null)
+        List<String> results = siteCache.getCachedStringList(SiteGenerationCache.YEARLY_MONTHLY_ITERATIONS, year, month);
+        if(results != null)
         {
-            ViewState viewState = asoManager.get(ViewState.class);
-            boolean unpublished = viewState.isShowUnpublished();
-
-            results = new ArrayList<String>();
-
-            if (year != null && month != null)
-            {
-                results.add(createIteration(year, month));
-            }
-            else if (year != null)
-            {
-                List<Integer> months = postDAO.getMonths(year, unpublished);
-                for (Integer m : months)
-                {
-                    results.add(createIteration(year, m));
-                }
-            }
-            else
-            {
-                List<Integer> years = postDAO.getAllYears(unpublished);
-                for(Integer y : years)
-                {
-                    results.add(createIteration(y, null));
-                }
-            }
-            siteCache.addToStringListCache(key, results);
+            return results;
         }
+
+        ViewState viewState = asoManager.get(ViewState.class);
+        boolean unpublished = viewState.isShowUnpublished();
+
+        results = new ArrayList<String>();
+
+        if (year != null && month != null)
+        {
+            results.add(createIteration(year, month));
+        }
+        else if (year != null)
+        {
+            List<Integer> months = postDAO.getMonths(year, unpublished);
+            for (Integer m : months)
+            {
+                results.add(createIteration(year, m));
+            }
+        }
+        else
+        {
+            List<Integer> years = postDAO.getAllYears(unpublished);
+            for(Integer y : years)
+            {
+                results.add(createIteration(y, null));
+            }
+        }
+
+        siteCache.addToStringListCache(results, SiteGenerationCache.YEARLY_MONTHLY_ITERATIONS, year, month);
+
         return results;
     }
 
     public List<String> getYearlyMonthlyIterations(Long categoryId)
     {
-        String uniqueId = "category";
-        String key = siteCache.createKey(SiteGenerationCache.YEARLY_MONTHLY_ITERATIONS, uniqueId, categoryId);
-        List<String> results = siteCache.getCachedStringList(key);
-        if (results == null)
+        List<String> results = siteCache.getCachedStringList(SiteGenerationCache.YEARLY_MONTHLY_ITERATIONS, categoryId);
+        if (results != null)
         {
-            ViewState viewState = asoManager.get(ViewState.class);
-            boolean unpublished = viewState.isShowUnpublished();
-
-            results = new ArrayList<String>();
-
-            List<List<Integer>> dates = postDAO.getYearsMonthsByCategory(unpublished, categoryId);
-            for (List<Integer> date : dates)
-            {
-                Integer year = date.get(0);
-                Integer month = date.get(1);
-
-                results.add(createIteration(year, month));
-            }
-            siteCache.addToStringListCache(key, results);
+            return results;
         }
+
+        ViewState viewState = asoManager.get(ViewState.class);
+        boolean unpublished = viewState.isShowUnpublished();
+
+        results = new ArrayList<String>();
+
+        List<List<Integer>> dates = postDAO.getYearsMonthsByCategory(unpublished, categoryId);
+        for (List<Integer> date : dates)
+        {
+            Integer year = date.get(0);
+            Integer month = date.get(1);
+
+            results.add(createIteration(year, month));
+        }
+
+        siteCache.addToStringListCache(results, SiteGenerationCache.YEARLY_MONTHLY_ITERATIONS, categoryId);
+
         return results;
     }
 
@@ -137,19 +141,22 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<Post> getPosts(String iteration, Long categoryId)
     {
-        String key = siteCache.createKey(SiteGenerationCache.ARCHIVED_POSTS, iteration, categoryId);
-        List<Post> results = siteCache.getCachedPosts(key);
-        if (results == null)
+        List<Post> results = siteCache.getCachedPosts(SiteGenerationCache.ARCHIVED_POSTS, iteration, categoryId);
+        if (results != null)
         {
-            ViewState viewState = asoManager.get(ViewState.class);
-            boolean unpublished = viewState.isShowUnpublished();
-
-            Integer year = parseYear(iteration);
-            Integer month = parseMonth(iteration);
-
-            results = postDAO.getMostRecentPosts(null, unpublished, year, month, categoryId);
-            siteCache.addToPostCache(key, results);
+            return results;
         }
+
+        ViewState viewState = asoManager.get(ViewState.class);
+        boolean unpublished = viewState.isShowUnpublished();
+
+        Integer year = parseYear(iteration);
+        Integer month = parseMonth(iteration);
+
+        results = postDAO.getMostRecentPosts(null, unpublished, year, month, categoryId);
+
+        siteCache.addToPostCache(results, SiteGenerationCache.ARCHIVED_POSTS, iteration, categoryId);
+
         return results;
     }
 
@@ -181,23 +188,23 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<Post> getPagedPosts(Integer postCount, Integer pageNumber)
     {
-        String key = siteCache.createKey(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber);
-        List<Post> results = siteCache.getCachedPosts(key);
+        List<Post> results = siteCache.getCachedPosts(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber);
         if (results == null)
         {
             ViewState viewState = asoManager.get(ViewState.class);
             boolean unpublished = viewState.isShowUnpublished();
 
             results = postDAO.getMostRecentPosts(null, unpublished, null, null, Collections.EMPTY_SET);
-            results = pagedPosts(key, results, postCount, pageNumber);
+            results = pagedPosts(results, postCount, pageNumber);
+
+            siteCache.addToPostCache(results, SiteGenerationCache.PAGED_CACHED, postCount, pageNumber);
         }
         return results;
     }
 
     public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, String iteration)
     {
-        String key = siteCache.createKey(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, iteration);
-        List<Post> results = siteCache.getCachedPosts(key);
+        List<Post> results = siteCache.getCachedPosts(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, iteration);
         if (results == null)
         {
             ViewState viewState = asoManager.get(ViewState.class);
@@ -209,52 +216,54 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
             Long categoryId = null;
 
             results = postDAO.getMostRecentPosts(null, unpublished, year, month, categoryId);
-            results = pagedPosts(key, results, postCount, pageNumber);
+            results = pagedPosts(results, postCount, pageNumber);
+
+            siteCache.addToPostCache(results, SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, iteration);
         }
         return results;
     }
 
     public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Set<Long> categoryIds)
     {
-        String key = siteCache.createKey(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, categoryIds);
-        List<Post> results = siteCache.getCachedPosts(key);
+        List<Post> results = siteCache.getCachedPosts(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, categoryIds);
         if (results == null)
         {
             ViewState viewState = asoManager.get(ViewState.class);
             boolean unpublished = viewState.isShowUnpublished();
 
             results = postDAO.getMostRecentPosts(null, unpublished, null, null, categoryIds);
-            results = pagedPosts(key, results, postCount, pageNumber);
+            results = pagedPosts(results, postCount, pageNumber);
+
+            siteCache.addToPostCache(results, SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, categoryIds);
         }
         return results;
     }
 
     public List<Post> getPagedClubPosts(Integer postCount, Integer pageNumber)
     {
-        String key = siteCache.createKey(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, "club");
-        List<Post> results = siteCache.getCachedPosts(key);
+        List<Post> results = siteCache.getCachedPosts(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, "club");
         if (results == null)
         {
             List<ClubPost> posts = postDAO.getAllClubPosts(true);
 
             results = new ArrayList<>();
             results.addAll(posts);
-            results = pagedPosts(key, results, postCount, pageNumber);
+            results = pagedPosts(results, postCount, pageNumber);
+
+            siteCache.addToPostCache(results, SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, "club");
         }
         return results;
     }
 
-    private List<Post> pagedPosts(String key, List<Post> results, Integer postCount, Integer pageNumber)
+    private List<Post> pagedPosts(List<Post> results, Integer postCount, Integer pageNumber)
     {
         if (postCount == null)
         {
-            siteCache.addToPostCache(key, results);
             return results;
         }
 
         if (pageNumber < 1)
         {
-            siteCache.addToPostCache(key, Collections.EMPTY_LIST);
             return Collections.EMPTY_LIST;
         }
 
@@ -268,13 +277,10 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
         if (end < start)
         {
-            siteCache.addToPostCache(key, Collections.EMPTY_LIST);
             return Collections.EMPTY_LIST;
         }
 
-        List<Post> r = results.subList(start, end);
-        siteCache.addToPostCache(key, r);
-        return r;
+        return results.subList(start, end);
     }
 
 
