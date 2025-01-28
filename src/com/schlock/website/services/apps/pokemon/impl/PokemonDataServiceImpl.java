@@ -1,7 +1,7 @@
 package com.schlock.website.services.apps.pokemon.impl;
 
 import com.schlock.website.entities.apps.pokemon.*;
-import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.SiteGenerationCache;
 import com.schlock.website.services.apps.pokemon.*;
 import com.schlock.website.services.database.apps.pokemon.PokemonDataDAO;
 import com.schlock.website.services.database.apps.pokemon.PokemonMoveDAO;
@@ -25,8 +25,6 @@ public class PokemonDataServiceImpl implements PokemonDataService
     private static final String ARCEUS = "Arceus";
 
 
-    private List<RaidBossPokemon> cachedRaidBosses = new ArrayList<>();
-
     private List<RocketLeader> rocketLeaders = new ArrayList<RocketLeader>();
     private Map<String, RocketBossPokemon> rocketBosses = new HashMap<String, RocketBossPokemon>();
 
@@ -34,6 +32,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
     private HashMap<Integer, Double> cpmData = new HashMap<Integer, Double>();
 
+    private final SiteGenerationCache siteCache;
 
     private final PokemonCustomCounterPrimeService customPrimeService;
     private final PokemonCustomCounterSecondService customSecondService;
@@ -44,15 +43,13 @@ public class PokemonDataServiceImpl implements PokemonDataService
     private final PokemonDataDAO dataDAO;
     private final PokemonMoveDAO moveDAO;
 
-    private final DeploymentContext context;
-
     public PokemonDataServiceImpl(PokemonCustomCounterPrimeService customPrimeService,
                                   PokemonCustomCounterSecondService customSecondService,
                                   PokemonCounterCalculationService calculationService,
                                   PokemonDataGameMasterService gameMasterService,
                                   PokemonDataDAO dataDAO,
                                   PokemonMoveDAO moveDAO,
-                                  DeploymentContext context)
+                                  SiteGenerationCache siteCache)
     {
         this.customPrimeService = customPrimeService;
         this.customSecondService = customSecondService;
@@ -62,7 +59,7 @@ public class PokemonDataServiceImpl implements PokemonDataService
         this.dataDAO = dataDAO;
         this.moveDAO = moveDAO;
 
-        this.context = context;
+        this.siteCache = siteCache;
     }
 
     private void loadCpmData()
@@ -192,9 +189,10 @@ public class PokemonDataServiceImpl implements PokemonDataService
 
     public List<RaidBossPokemon> getRaidBosses()
     {
-        if (context.isCachingPokemonRaidCounters() && !cachedRaidBosses.isEmpty())
+        List<RaidBossPokemon> raidBosses = siteCache.getPokemonRaidCache();
+        if (raidBosses != null)
         {
-            return cachedRaidBosses;
+            return raidBosses;
         }
 
         List<PokemonData> bosses = dataDAO.getRaidBosses();
@@ -240,20 +238,28 @@ public class PokemonDataServiceImpl implements PokemonDataService
             }
         });
 
-        cachedRaidBosses = new ArrayList<>();
+        raidBosses = new ArrayList<>();
         for(PokemonData boss : bosses)
         {
-            cachedRaidBosses.add(RaidBossPokemon.createFromData(boss));
+            raidBosses.add(RaidBossPokemon.createFromData(boss));
         }
-        return cachedRaidBosses;
+
+        siteCache.addPokemonRaidCache(raidBosses);
+        return raidBosses;
     }
 
     public RaidBossPokemon getRaidBossByNameId(String nameId)
     {
+        RaidBossPokemon boss = siteCache.getCachedRaidBoss(nameId);
+        if (boss != null)
+        {
+            return boss;
+        }
+
         PokemonData data = dataDAO.getByNameId(nameId);
         if (data != null)
         {
-            RaidBossPokemon boss = RaidBossPokemon.createFromData(data);
+            boss = RaidBossPokemon.createFromData(data);
             return boss;
         }
         return null;

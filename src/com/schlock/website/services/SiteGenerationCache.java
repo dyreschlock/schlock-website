@@ -1,5 +1,6 @@
 package com.schlock.website.services;
 
+import com.schlock.website.entities.apps.pokemon.RaidBossPokemon;
 import com.schlock.website.entities.blog.Post;
 
 import java.util.List;
@@ -26,4 +27,11 @@ public interface SiteGenerationCache
     List<Post> getCachedPosts(String cache, Object... params);
 
     void addToPostCache(List<Post> results, String cache, Object... params);
+
+
+    RaidBossPokemon getCachedRaidBoss(String nameId);
+
+    void addPokemonRaidCache(List<RaidBossPokemon> raidBosses);
+
+    List<RaidBossPokemon> getPokemonRaidCache();
 }

@@ -1,6 +1,8 @@
 package com.schlock.website.services.impl;
 
+import com.schlock.website.entities.apps.pokemon.RaidBossPokemon;
 import com.schlock.website.entities.blog.Post;
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.SiteGenerationCache;
 import com.schlock.website.services.database.blog.PostDAO;
 
@@ -8,6 +10,8 @@ import java.util.*;
 
 public class SiteGenerationCacheImpl implements SiteGenerationCache
 {
+    private final DeploymentContext context;
+
     private final PostDAO postDAO;
 
 
@@ -17,8 +21,14 @@ public class SiteGenerationCacheImpl implements SiteGenerationCache
 
     private HashMap<String, Set<Long>> postIdCache = new HashMap<>();
 
-    public SiteGenerationCacheImpl(PostDAO postDAO)
+    private List<RaidBossPokemon> raidPokemonCacheList;
+    private Map<String, RaidBossPokemon> raidPokemonCacheMap = new HashMap<>();
+
+
+    public SiteGenerationCacheImpl(PostDAO postDAO,
+                                   DeploymentContext context)
     {
+        this.context = context;
         this.postDAO = postDAO;
     }
 
@@ -88,5 +98,32 @@ public class SiteGenerationCacheImpl implements SiteGenerationCache
 
         String key = createKey(cache, params);
         postIdCache.put(key, ids);
+    }
+
+
+    public RaidBossPokemon getCachedRaidBoss(String nameId)
+    {
+        return raidPokemonCacheMap.get(nameId);
+    }
+
+    public void addPokemonRaidCache(List<RaidBossPokemon> raidBosses)
+    {
+        if(!context.isCachingPokemonRaidCounters())
+        {
+            return;
+        }
+
+        raidPokemonCacheList = raidBosses;
+
+        raidPokemonCacheMap = new HashMap<>();
+        for(RaidBossPokemon pokemon : raidPokemonCacheList)
+        {
+            raidPokemonCacheMap.put(pokemon.getNameId(), pokemon);
+        }
+    }
+
+    public List<RaidBossPokemon> getPokemonRaidCache()
+    {
+        return raidPokemonCacheList;
     }
 }

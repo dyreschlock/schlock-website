@@ -256,6 +256,6 @@ public class DeploymentContextImpl implements DeploymentContext
     public boolean isCachingPokemonRaidCounters()
     {
         String value = getDeployProperties().getProperty(CACHING_POKEMON_RAIDCOUNTERS);
-        return Boolean.getBoolean(value);
+        return StringUtils.equalsIgnoreCase("true", value);
     }
 }
