@@ -28,7 +28,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
     {
         String text = " from AbstractPost p " +
                 " where p.id in (:ids) " +
-                " order by p.id DESC ";
+                " order by p.created DESC ";
 
         Query query = session.createQuery(text);
         query.setParameterList("ids", ids);
