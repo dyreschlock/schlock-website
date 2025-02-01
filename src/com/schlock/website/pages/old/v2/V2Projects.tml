@@ -1,0 +1,42 @@
+<html t:type="old/v2/layoutversion2" pageCss="pageCss" page="page"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:v1="tapestry-library:old/v1"
+      xmlns:v1n2="tapestry-library:old/v1n2"
+>
+
+<t:if test="hasPost">
+
+    <div align="center">
+        <p><font size="2">-[ ${postDate} ]-</font></p>
+        <table width="80%" border="0" height="106">
+            <tr align="left" valign="top">
+                <td height="63">
+
+                    <v1:version1postdisplay post="post" project="${projectPost}" photo="${photoPost}" />
+
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</t:if>
+<t:if test="!hasPost">
+
+    <br/>
+    <table width="85%" border="0" align="center" bgcolor="#333333">
+        <tr align="center">
+            <td><b><font size="4" color="#FFFFFF">The Work of DyreSchlock</font></b></td>
+        </tr>
+        <tr align="center" bgcolor="#666699">
+            <td>
+
+                <v1n2:version1n2projectpagedisplay version="version" photoCategories="photoCategories" />
+
+            </td>
+        </tr>
+        <tr align="center">
+            <td><font size="2">Go <a href="${homeLink}">Back</a> Go</font></td>
+        </tr>
+    </table>
+</t:if>
+</html>

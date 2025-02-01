@@ -1,7 +1,12 @@
 package com.schlock.website.components.old.v1n2;
 
-import com.schlock.website.entities.blog.*;
+import com.schlock.website.entities.blog.AbstractCategory;
+import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.ClubPost;
+import com.schlock.website.entities.blog.ProjectCategory;
+import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.v1.V1Projects;
+import com.schlock.website.pages.old.v2.V2Projects;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
@@ -17,6 +22,9 @@ import java.util.List;
 
 public class Version1n2ProjectPageDisplay
 {
+    @Parameter(required = true)
+    private SiteVersion version;
+
     @Parameter(required = true)
     @Property
     private List<AbstractCategory> photoCategories;
@@ -99,6 +107,11 @@ public class Version1n2ProjectPageDisplay
 
     public String getCurrentPostLink()
     {
-        return linkSource.createPageRenderLinkWithContext(V1Projects.class, currentPost.getUuid()).toURI();
+        Class projectsPage = V1Projects.class;
+        if (SiteVersion.V2.equals(version))
+        {
+            projectsPage = V2Projects.class;
+        }
+        return linkSource.createPageRenderLinkWithContext(projectsPage, currentPost.getUuid()).toURI();
     }
 }

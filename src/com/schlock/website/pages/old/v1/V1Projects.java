@@ -58,11 +58,6 @@ public class V1Projects extends AbstractVersion1Page
         return dateFormatter.dateFormat(post.getCreated());
     }
 
-    public String getPostTitle()
-    {
-        return post.getTitle();
-    }
-
     public boolean isProjectPost()
     {
         for(AbstractCategory cat : post.getCategories())
