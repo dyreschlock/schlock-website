@@ -125,7 +125,7 @@
                                                     <p><font size="2"><b>IMPRESSIONS</b><br/>
                                                         thoughts on the modern marvel
                                                         of artistic interpretation through the means of entertainment
-                                                        and so forth...</font></p>
+                                                        and so forth.</font></p>
 
                                                     <v3:version3recentposts page="reviewsPageName" />
 
@@ -148,7 +148,7 @@
                                             <tr>
                                                 <td>
                                                     <p><font size="2"><b>PHOTOGRAPHY</b><br/>
-                                                        coming soon..</font></p>
+                                                        the life of my camera.</font></p>
 
                                                     <v3:version3recentposts page="photoPageName" />
 
@@ -172,7 +172,7 @@
     </table>
 </t:if>
 
-    <p><font size="2">&#169; 2000 - 2003 . dyre@theschlock.com . All Rights Reserved, bitch.. !</font></p>
+    <p><font size="2" color="#fff">&#169; 2000 - 2003 . dyre@theschlock.com . All Rights Reserved, bitch.. !</font></p>
 </div>
 </body>
 </html>

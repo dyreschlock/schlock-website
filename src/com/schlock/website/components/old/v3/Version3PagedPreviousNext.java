@@ -6,6 +6,7 @@ import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.blog.PostArchiveManagement;
 import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.List;
@@ -17,6 +18,10 @@ public class Version3PagedPreviousNext extends AbstractOldPagedPreviousNext
 
     @Inject
     private PostArchiveManagement archiveManagement;
+
+    @Inject
+    private Messages messages;
+
 
     protected SiteVersion getVersion()
     {
@@ -44,6 +49,15 @@ public class Version3PagedPreviousNext extends AbstractOldPagedPreviousNext
             return getPageLink(1);
         }
         return super.getPreviousPageLink();
+    }
+
+    public String getPreviousText()
+    {
+        if (AbstractOldVersionPage.PHOTO_PAGE.equals(getPage()))
+        {
+            return messages.get("photo");
+        }
+        return messages.get("archive");
     }
 
     protected int getPagePostCount(int pageNumber)
