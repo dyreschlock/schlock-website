@@ -189,8 +189,8 @@ public class PostManagementImpl implements PostManagement
         for(AbstractPost post : postDAO.getAll())
         {
             String text = post.getBodyText();
-            String html = generatePostHTML(post, text, null, false);
-            post.setBodyHTML(html);
+            generatePostHTML(post, text, null, false);
+            // this will create image objects for inline post images
 
             String keyString = post.getKeywordString();
             List<Keyword> keywords = keywordManagement.generateKeywords(keyString);

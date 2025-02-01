@@ -35,7 +35,6 @@ public abstract class AbstractPost extends Persisted
     private String coverImage;
 
     private String bodyText;
-    private String bodyHTML;
 
     private String blurb;
 
@@ -304,16 +303,6 @@ public abstract class AbstractPost extends Persisted
     public void setBodyText(String bodyText)
     {
         this.bodyText = bodyText;
-    }
-
-    public String getBodyHTML()
-    {
-        return bodyHTML;
-    }
-
-    public void setBodyHTML(String bodyHTML)
-    {
-        this.bodyHTML = bodyHTML;
     }
 
     public String getBlurb()
