@@ -20,6 +20,8 @@ public class SiteGenerationCacheImpl implements SiteGenerationCache
 
     private HashMap<String, List<String>> stringListCache = new HashMap<>();
 
+    private HashMap<String, Object> objectCache = new HashMap<>();
+
     private HashMap<String, Set<Long>> postIdCache = new HashMap<>();
 
     private List<RaidBossPokemon> raidPokemonCacheList;
@@ -68,10 +70,22 @@ public class SiteGenerationCacheImpl implements SiteGenerationCache
         return stringListCache.get(key);
     }
 
-    public void addToStringListCache(List<String> results, String cache, Object... params)
+    public void addToStringListCache(List<String> value, String cache, Object... params)
     {
         String key = createKey(cache, params);
-        stringListCache.put(key, results);
+        stringListCache.put(key, value);
+    }
+
+    public Object getCachedObject(String cache, Object... params)
+    {
+        String key = createKey(cache, params);
+        return objectCache.get(key);
+    }
+
+    public void addToObjectCache(Object value, String cache, Object... params)
+    {
+        String key = createKey(cache, params);
+        objectCache.put(key, value);
     }
 
     public List<AbstractPost> getCachedAbstractPosts(String cache, Object... params)

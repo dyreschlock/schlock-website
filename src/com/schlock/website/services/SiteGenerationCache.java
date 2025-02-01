@@ -11,17 +11,20 @@ public interface SiteGenerationCache
 {
     String GENERATED_POST_HTML = "generatedPostHTML";
     String POST_IMAGE_DIRECT_LINK = "postImageDirectLink";
+    String HEADER_JAVASCRIPT = "headerJavascript";
 
     String YEARLY_MONTHLY_ITERATIONS = "yearlyMonthlyIterations";
+
+    String FOOTER_POST_DETAILS = "footerPostDetails";
+    String FOOTER_PINNED_DETAILS = "footerPinnedDetails";
+    String FOOTER_PAGE_DETAILS = "footerPageDetails";
 
     String TOP_POSTS = "topPosts";
     String PAGED_CACHED = "pagedCache";
     String ARCHIVED_POSTS = "archivedPosts";
 
     String NEXT_POSTS = "nextPosts";
-    String NEXT_RELATED_POSTS = "nextRelatedPosts";
     String PREVIOUS_POSTS = "previousPosts";
-    String PREVIOUS_RELATED_POSTS = "previousRelatedPosts";
 
 
     String getCachedString(String cache, Object... params);
@@ -30,7 +33,11 @@ public interface SiteGenerationCache
 
     List<String> getCachedStringList(String cache, Object... params);
 
-    void addToStringListCache(List<String> results, String cache, Object... params);
+    void addToStringListCache(List<String> value, String cache, Object... params);
+
+    Object getCachedObject(String cache, Object... params);
+
+    void addToObjectCache(Object value, String cache, Object... params);
 
     List<Post> getCachedPosts(String cache, Object... params);
 

@@ -1,5 +1,6 @@
 package com.schlock.website.components.blog.layout;
 
+import com.schlock.website.services.SiteGenerationCache;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -8,21 +9,31 @@ import java.util.List;
 public class HeaderScript
 {
     @Inject
+    private SiteGenerationCache siteCache;
+
+    @Inject
     private PostDAO postDAO;
 
     public String getBlogDataJS()
     {
-        String code = "";
-
-        List<String> uuids = postDAO.getAllPublishedUuids();
-        for(int i = 0; i < uuids.size(); i++)
+        String code = siteCache.getCachedString(SiteGenerationCache.HEADER_JAVASCRIPT);
+        if (code == null)
         {
-            String index = Integer.toString(i);
-            String uuid = uuids.get(i);
+            StringBuilder sb = new StringBuilder();
 
-            String postcode = String.format("blogLinks[%s] = \"%s\";\n", index, uuid);
+            List<String> uuids = postDAO.getAllPublishedUuids();
+            for(int i = 0; i < uuids.size(); i++)
+            {
+                String index = Integer.toString(i);
+                String uuid = uuids.get(i);
 
-            code += postcode;
+                String postcode = String.format("blogLinks[%s] = \"%s\";\n", index, uuid);
+
+                sb.append(postcode);
+            }
+            code = sb.toString();
+
+            siteCache.addToStringCache(code, SiteGenerationCache.HEADER_JAVASCRIPT);
         }
         return code;
     }

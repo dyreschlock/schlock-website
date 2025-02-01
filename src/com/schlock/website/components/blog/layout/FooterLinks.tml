@@ -1,0 +1,16 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <t:loop source="postDetails" value="currentDetails">
+
+        <div class="postLink">
+
+            <a title="${postTitle}" href="${postLink}"></a>
+            <h2><t:outputraw value="postTitleHTML" /></h2>
+            <t:if test="hasDate">
+                <div class="postDate">${postDate}</div>
+            </t:if>
+        </div>
+    </t:loop>
+</t:container>
