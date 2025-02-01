@@ -1,8 +1,7 @@
 <t:container
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-
     >
-    <div align="center">
+    <div align="center" class="projectContent">
         <table width="75%" border="0" align="center">
             <tr>
                 <td>
@@ -16,59 +15,58 @@
                 </td>
             </tr>
         </table>
+        <p align="center">&nbsp;</p>
+
+        <table width="90%" border="0" align="center">
+            <tr>
+                <td width="45%" align="center" valign="top" bgcolor="#333333">
+                    <div align="right"><font size="2"><b><font color="#FFFFFF">Projects</font></b></font></div>
+                </td>
+                <td width="10%" align="center" valign="top">&nbsp;</td>
+                <td width="45%" align="left" valign="top" bgcolor="#333333">
+                    <div align="left"><font size="2"><b><font color="#FFFFFF">Photographs</font></b></font></div>
+                </td>
+            </tr>
+            <tr>
+                <td width="45%" align="center" valign="top" class="projects">
+
+                    <t:loop source="projectCategories" value="currentCategory">
+
+                        <p><font size="2">${categoryTitle}<br/>
+                            <font size="1">${categoryEarlyDate} - Present</font></font></p>
+
+                        <div class="projects"><div class="wrap"><div class="content">
+                            <t:loop source="categoryPosts" value="currentPost">
+                                <div class="projectImage" style="background-image: url(${currentPostImage})">
+                                    <a href="${currentPostLink}"></a>
+                                </div>
+                            </t:loop>
+                        </div></div></div>
+                        <br class="clr"/>
+                    </t:loop>
+                    <p>&nbsp;</p>
+                </td>
+                <td width="10%" align="center" valign="top">&nbsp;</td>
+                <td width="45%" align="center" valign="top" class="projects">
+
+                    <t:loop source="photoCategories" value="currentCategory">
+
+                        <p><font size="2">${categoryTitle}<br/>
+                            <font size="1">${categoryEarlyDate} - Present</font></font></p>
+
+                        <div class="projects"><div class="wrap"><div class="content">
+                            <t:loop source="categoryPosts" value="currentPost">
+                                <div class="projectImage" style="background-image: url(${currentPostImage})">
+                                    <a href="${currentPostLink}"></a>
+                                </div>
+                            </t:loop>
+                        </div></div></div>
+                        <br class="clr"/>
+                    </t:loop>
+                    <p>&nbsp;</p>
+                </td>
+            </tr>
+        </table>
+        <p>&nbsp;</p>
     </div>
-    <p align="center">&nbsp;</p>
-    <div align="center"></div>
-
-    <table width="90%" border="0" align="center">
-        <tr>
-            <td width="45%" align="center" valign="top" bgcolor="#333333">
-                <div align="right"><font size="2"><b><font color="#FFFFFF">Projects</font></b></font></div>
-            </td>
-            <td width="10%" align="center" valign="top">&nbsp;</td>
-            <td width="45%" align="left" valign="top" bgcolor="#333333">
-                <div align="left"><font size="2"><b><font color="#FFFFFF">Photographs</font></b></font></div>
-            </td>
-        </tr>
-        <tr>
-            <td width="45%" align="center" valign="top" bgcolor="#666666">
-
-                <t:loop source="projectCategories" value="currentCategory">
-
-                    <p><font size="2">${categoryTitle}<br/>
-                        <font size="1">${categoryEarlyDate} - Present</font></font></p>
-
-                    <div class="projects"><div class="wrap"><div class="content">
-                        <t:loop source="categoryPosts" value="currentPost">
-                            <div class="projectImage" style="background-image: url(${currentPostImage})">
-                                <a href="${currentPostLink}"></a>
-                            </div>
-                        </t:loop>
-                    </div></div></div>
-                    <br class="clr"/>
-                </t:loop>
-                <p>&nbsp;</p>
-            </td>
-            <td width="10%" align="center" valign="top">&nbsp;</td>
-            <td width="45%" align="center" valign="top" bgcolor="#666666">
-
-                <t:loop source="photoCategories" value="currentCategory">
-
-                    <p><font size="2">${categoryTitle}<br/>
-                        <font size="1">${categoryEarlyDate} - Present</font></font></p>
-
-                    <div class="projects"><div class="wrap"><div class="content">
-                        <t:loop source="categoryPosts" value="currentPost">
-                            <div class="projectImage" style="background-image: url(${currentPostImage})">
-                                <a href="${currentPostLink}"></a>
-                            </div>
-                        </t:loop>
-                    </div></div></div>
-                    <br class="clr"/>
-                </t:loop>
-                <p>&nbsp;</p>
-            </td>
-        </tr>
-    </table>
-    <p>&nbsp;</p>
 </t:container>
