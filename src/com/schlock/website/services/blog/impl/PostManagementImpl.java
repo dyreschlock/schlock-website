@@ -859,19 +859,31 @@ public class PostManagementImpl implements PostManagement
 
     public List<AbstractPost> getNextPosts(AbstractPost post)
     {
-        boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
-        int count = PostDAO.MIN_RECENT;
+        List<AbstractPost> posts = siteCache.getCachedAbstractPosts(SiteGenerationCache.NEXT_POSTS, post.getId());
+        if (posts == null)
+        {
+            boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
+            int count = PostDAO.MIN_RECENT;
 
-        List<AbstractPost> posts = postDAO.getNextPosts(count, post, null, false, unpublished, null, null, null);
+            posts = postDAO.getNextPosts(count, post, null, false, unpublished, null, null, null);
+
+            siteCache.addToPostCache(posts, SiteGenerationCache.NEXT_POSTS, post.getId());
+        }
         return posts;
     }
 
     public List<AbstractPost> getPreviousPosts(AbstractPost post)
     {
-        boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
-        int count = PostDAO.MIN_RECENT;
+        List<AbstractPost> posts = siteCache.getCachedAbstractPosts(SiteGenerationCache.PREVIOUS_POSTS, post.getId());
+        if (posts == null)
+        {
+            boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
+            int count = PostDAO.MIN_RECENT;
 
-        List<AbstractPost> posts = postDAO.getPreviousPosts(count, post, null, false, unpublished, null, null, null);
+            posts = postDAO.getPreviousPosts(count, post, null, false, unpublished, null, null, null);
+
+            siteCache.addToPostCache(posts, SiteGenerationCache.PREVIOUS_POSTS, post.getId());
+        }
         return posts;
     }
 
@@ -888,25 +900,36 @@ public class PostManagementImpl implements PostManagement
 
     private List<AbstractPost> getRelatedPosts(boolean next, AbstractPost post)
     {
-        List<AbstractPost> posts = new ArrayList<AbstractPost>();
+        List<AbstractPost> posts = new ArrayList<>();
 
         boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
 
-        Set<Long> excludeIds = new HashSet<Long>();
+        String cache = SiteGenerationCache.PREVIOUS_POSTS;
         if (next)
         {
-            for (AbstractPost p : getNextPosts(post))
-            {
-                excludeIds.add(p.getId());
-            }
+            cache = SiteGenerationCache.NEXT_POSTS;
         }
-        else
+
+        Set<Long> excludeIds = siteCache.getCachedPostIds(cache, post.getId());
+        if (excludeIds == null)
         {
-            for (AbstractPost p : getPreviousPosts(post))
+            excludeIds = new HashSet<>();
+            if (next)
             {
-                excludeIds.add(p.getId());
+                for (AbstractPost p : getNextPosts(post))
+                {
+                    excludeIds.add(p.getId());
+                }
+            }
+            else
+            {
+                for (AbstractPost p : getPreviousPosts(post))
+                {
+                    excludeIds.add(p.getId());
+                }
             }
         }
+
 
         List<SearchCriteria> criteria = createSearchCriteria(post);
         for (SearchCriteria c : criteria)

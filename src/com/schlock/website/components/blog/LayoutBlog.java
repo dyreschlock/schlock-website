@@ -1,7 +1,6 @@
 package com.schlock.website.components.blog;
 
 import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.Image;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.pages.Feed;
 import com.schlock.website.services.DeploymentContext;
@@ -125,8 +124,8 @@ public class LayoutBlog
     {
         if (post != null)
         {
-            Image coverImage = imageManagement.getPostImage(post);
-            return coverImage != null;
+            String link = imageManagement.getPostPreviewImageLink(post);
+            return link != null;
         }
         return false;
     }

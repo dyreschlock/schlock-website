@@ -2,7 +2,6 @@ package com.schlock.website.pages;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.ClubPost;
-import com.schlock.website.entities.blog.Image;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.ImageManagement;
@@ -123,10 +122,10 @@ public class Club
 
     public String getCurrentImage()
     {
-        Image image = imageManagement.getPostImage(currentPost);
-        if (image != null)
+        String link = imageManagement.getPostPreviewImageLink(currentPost);
+        if (link != null)
         {
-            return image.getImageLink();
+            return link;
         }
         return null;
     }

@@ -24,11 +24,11 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
     }
 
 
-    public List<Post> getByIds(Set<Long> ids)
+    public List<AbstractPost> getByIds(Set<Long> ids)
     {
         String text = " from AbstractPost p " +
-                        " where p.id in (:ids) " +
-                        " order by p.id DESC ";
+                " where p.id in (:ids) " +
+                " order by p.id DESC ";
 
         Query query = session.createQuery(text);
         query.setParameterList("ids", ids);

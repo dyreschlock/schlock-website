@@ -1,6 +1,5 @@
 package com.schlock.website.components.blog.link;
 
-import com.schlock.website.entities.blog.Image;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.ImageManagement;
@@ -53,10 +52,10 @@ public class PostPreviewLink
 
     public String getCurrentImage()
     {
-        Image image = imageManagement.getPostImage(post);
-        if (image != null)
+        String link = imageManagement.getPostPreviewImageLink(post);
+        if (link != null)
         {
-            return image.getImageLink();
+            return link;
         }
         return null;
     }

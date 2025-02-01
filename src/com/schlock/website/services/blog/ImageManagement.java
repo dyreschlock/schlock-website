@@ -11,7 +11,9 @@ public interface ImageManagement
 {
     List<Image> getGalleryImages(AbstractPost post);
 
-    Image getPostImage(AbstractPost post);
+    Image getPostPreviewImage(AbstractPost post);
+
+    String getPostPreviewImageLink(AbstractPost post);
 
     String getPostPreviewMetadataLink(String uuid);
 

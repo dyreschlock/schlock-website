@@ -1,6 +1,7 @@
 package com.schlock.website.services.impl;
 
 import com.schlock.website.entities.apps.pokemon.RaidBossPokemon;
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.SiteGenerationCache;
@@ -73,7 +74,7 @@ public class SiteGenerationCacheImpl implements SiteGenerationCache
         stringListCache.put(key, results);
     }
 
-    public List<Post> getCachedPosts(String cache, Object... params)
+    public List<AbstractPost> getCachedAbstractPosts(String cache, Object... params)
     {
         String key = createKey(cache, params);
         Set<Long> ids = postIdCache.get(key);
@@ -88,10 +89,38 @@ public class SiteGenerationCacheImpl implements SiteGenerationCache
         return null;
     }
 
-    public void addToPostCache(List<Post> results, String cache, Object... params)
+    public List<Post> getCachedPosts(String cache, Object... params)
+    {
+        List<AbstractPost> posts = getCachedAbstractPosts(cache, params);
+        if (posts != null)
+        {
+            List<Post> results = new ArrayList<>();
+            for(AbstractPost post : posts)
+            {
+                if (post.isPost())
+                {
+                    results.add((Post) post);
+                }
+            }
+            return results;
+        }
+        return null;
+    }
+
+    public Set<Long> getCachedPostIds(String cache, Object... params)
+    {
+        String key = createKey(cache, params);
+
+        Set<Long> ids = new HashSet<>();
+        ids.addAll(postIdCache.get(key));
+
+        return ids;
+    }
+
+    public void addToPostCache(List<? extends AbstractPost> results, String cache, Object... params)
     {
         Set<Long> ids = new HashSet<>();
-        for(Post post : results)
+        for(AbstractPost post : results)
         {
             ids.add(post.getId());
         }

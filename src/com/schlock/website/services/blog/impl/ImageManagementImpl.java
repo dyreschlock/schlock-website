@@ -4,6 +4,7 @@ import com.google.common.io.Files;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.SiteGenerationCache;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.ImageDAO;
@@ -23,6 +24,7 @@ public class ImageManagementImpl implements ImageManagement
 {
 
     private final DeploymentContext deploymentContext;
+    private final SiteGenerationCache siteCache;
 
     private final PostManagement postManagement;
 
@@ -30,11 +32,13 @@ public class ImageManagementImpl implements ImageManagement
     private final ImageDAO imageDAO;
 
     public ImageManagementImpl(DeploymentContext deploymentContext,
+                               SiteGenerationCache siteCache,
                                PostManagement postManagement,
                                PostDAO postDAO,
                                ImageDAO imageDAO)
     {
         this.deploymentContext = deploymentContext;
+        this.siteCache = siteCache;
 
         this.postManagement = postManagement;
 
@@ -418,7 +422,7 @@ public class ImageManagementImpl implements ImageManagement
         return new File(filepath).exists();
     }
 
-    public Image getPostImage(AbstractPost post)
+    public Image getPostPreviewImage(AbstractPost post)
     {
         List<Image> images = getGalleryImages(post);
 
@@ -453,7 +457,21 @@ public class ImageManagementImpl implements ImageManagement
         return null;
     }
 
+    public String getPostPreviewImageLink(AbstractPost post)
+    {
+        String link = siteCache.getCachedString(SiteGenerationCache.POST_IMAGE_DIRECT_LINK, post.getUuid());
+        if (link == null)
+        {
+            Image image = getPostPreviewImage(post);
+            if (image != null)
+            {
+                link = image.getImageLink();
 
+                siteCache.addToStringCache(link, SiteGenerationCache.POST_IMAGE_DIRECT_LINK, post.getUuid());
+            }
+        }
+        return link;
+    }
 
     public String getPostPreviewMetadataLink(String uuid)
     {
@@ -478,7 +496,7 @@ public class ImageManagementImpl implements ImageManagement
         List<AbstractPost> posts = postDAO.getAllWithGallery();
         for(AbstractPost post : posts)
         {
-            Image coverImage = getPostImage(post);
+            Image coverImage = getPostPreviewImage(post);
             if (coverImage != null)
             {
                 String coverOutputLocation = COVER_DIRECTORY + post.getUuid() + ".jpg";

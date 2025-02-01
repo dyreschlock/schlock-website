@@ -153,13 +153,12 @@ public class V1Projects extends AbstractVersion1Page
 
     public String getCurrentPostImage()
     {
-        Image image = imageManagement.getPostImage(currentPost);
-        if (image != null)
+        String link = imageManagement.getPostPreviewImageLink(currentPost);
+        if (link != null)
         {
-            return image.getImageLink();
+            return link;
         }
         return null;
-
     }
 
     public String getCurrentPostLink()

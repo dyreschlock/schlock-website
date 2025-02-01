@@ -1,6 +1,5 @@
 package com.schlock.website.services.blog.impl;
 
-import com.schlock.website.entities.blog.Image;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.ImageManagement;
@@ -339,8 +338,8 @@ public class TodayArchiveManagementImpl implements TodayArchiveManagement
             String uuid = post.getUuid();
             postsByYear.get(year).add(uuid);
 
-            Image coverImage = imageManagement.getPostImage(post);
-            if (coverImage != null && previewPost == null)
+            String link = imageManagement.getPostPreviewImageLink(post);
+            if (link != null && previewPost == null)
             {
                 previewPost = uuid;
             }
