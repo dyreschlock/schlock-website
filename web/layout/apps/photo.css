@@ -1,7 +1,7 @@
 div.photos
 {
     position: absolute;
-    top: -200px;
+    top: -150px;
     left: 0;
     right: 0;
 
@@ -13,27 +13,21 @@ div.photos
 .gallery {
     --size: 200px;
     display: grid;
-    grid-template-columns: repeat(8, var(--size));
+    grid-template-columns: repeat(10, var(--size));
     grid-auto-rows: var(--size);
     margin-bottom: var(--size);
     place-items: start center;
     gap: 0px;
-
-    &:has(:hover) img:not(:hover),
-    &:has(:focus) img:not(:focus){
-        filter: brightness(0.5);
-    }
 
     & img {
         object-fit: cover;
         width: calc(var(--size) * 2);
         height: calc(var(--size) * 2);
         clip-path: path("M 200 0 L 400 200 L 200 400 L 0 200 L 200 0 Z");
-        transition: clip-path 0.25s, filter 0.75s;
         grid-column: auto / span 2;
         border-radius: 5px;
 
-        &:nth-child(6n - 1) {
+        &:nth-child(9n - 3) {
             grid-column: 2 / span 2
         }
     }

@@ -8,8 +8,9 @@
 
         <t:loop source="images" value="currentImage">
 
-            <img src="${currentImageLink}" alt="${currentImageLink}" title="${currentImageLink}" />
+            <img src="${currentImageLink}" />
         </t:loop>
     </article>
     </div>
+    <div style="height: ${pageHeight}px;"/>
 </html>
