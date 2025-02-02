@@ -49,12 +49,12 @@
                     <br class="clr" />
                 </div>
 
-                <t:if test="hasCurrentSubcategoryTopPost">
-                    <div class="postPreviews">
-                        <c:minipostdisplay post="currentSubcategoryTopPost" />
+                <div class="postPreviews">
+                    <t:loop source="categoryTopProjects" value="currentPage">
+                        <c:minipostdisplay post="currentPage" />
                         <br class="clr" />
-                    </div>
-                </t:if>
+                    </t:loop>
+                </div>
 
             </t:loop>
 

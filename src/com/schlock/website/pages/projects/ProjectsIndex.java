@@ -43,12 +43,14 @@ public class ProjectsIndex
     private int currentIndex;
 
 
+    private Map<Long, List<AbstractPost>> postCache;
     private Set<Long> excludeIds;
 
 
     Object onActivate()
     {
         category = null;
+        postCache = new HashMap<>();
         excludeIds = new HashSet<>();
         return true;
     }
@@ -142,8 +144,8 @@ public class ProjectsIndex
         {
             public int compare(ProjectCategory o1, ProjectCategory o2)
             {
-                List<AbstractPost> p1 = postDAO.getAllProjectsByCategory(false, o1.getId());
-                List<AbstractPost> p2 = postDAO.getAllProjectsByCategory(false, o2.getId());
+                List<AbstractPost> p1 = getCategoryProjects(o1.getId());
+                List<AbstractPost> p2 = getCategoryProjects(o2.getId());
 
                 return p2.get(0).getCreated().compareTo(p1.get(0).getCreated());
             }
@@ -152,34 +154,52 @@ public class ProjectsIndex
         return categories;
     }
 
+    private List<AbstractPost> getCategoryProjects(Long categoryId)
+    {
+        List<AbstractPost> posts = postCache.get(categoryId);
+        if (posts == null)
+        {
+            posts = postDAO.getAllProjectsByCategory(false, categoryId);
+
+            postCache.put(categoryId, posts);
+        }
+        return posts;
+    }
+
     public List<AbstractPost> getCategoryProjects()
     {
         Long categoryId = currentSubcategory.getId();
 
-        List<AbstractPost> pages = postDAO.getAllProjectsByCategory(false, categoryId);
+        List<AbstractPost> pages = getCategoryProjects(categoryId);
         return pages;
     }
 
-    public boolean isHasCurrentSubcategoryTopPost()
-    {
-        int size = getCategoryProjects().size();
-        return size > 0;
-    }
-
-    public AbstractPost getCurrentSubcategoryTopPost()
+    public List<AbstractPost> getCategoryTopProjects()
     {
         List<AbstractPost> posts = getCategoryProjects();
+
+        int total = (int) Math.floor(((double) posts.size()) / ((double) 7)) +1;
+        int count = 0;
+
+        List<AbstractPost> top = new ArrayList<>();
         for(AbstractPost post : posts)
         {
             long id = post.getId();
             if (!excludeIds.contains(id))
             {
+                top.add(post);
                 excludeIds.add(id);
-                return post;
+                count++;
+
+                if (count >= total)
+                {
+                    return top;
+                }
             }
         }
-        return null;
+        return top;
     }
+
 
     private Page cachedPage;
 
