@@ -1,7 +1,7 @@
 div.photos
 {
     position: absolute;
-    top: -150px;
+    top: -200px;
     left: 0;
     right: 0;
 
@@ -11,7 +11,7 @@ div.photos
 }
 
 .gallery {
-    --size: 200px;
+    --size: 250px;
     display: grid;
     grid-template-columns: repeat(10, var(--size));
     grid-auto-rows: var(--size);
@@ -23,7 +23,7 @@ div.photos
         object-fit: cover;
         width: calc(var(--size) * 2);
         height: calc(var(--size) * 2);
-        clip-path: path("M 200 0 L 400 200 L 200 400 L 0 200 L 200 0 Z");
+        clip-path: path("M 250 0 L 500 250 L 250 500 L 0 250 L 250 0 Z");
         grid-column: auto / span 2;
         border-radius: 5px;
 
