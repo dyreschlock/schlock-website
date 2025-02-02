@@ -55,6 +55,7 @@
 
         <subclass name="com.schlock.website.entities.blog.Page">
             <subclass name="com.schlock.website.entities.blog.CoursePage" />
+            <subclass name="com.schlock.website.entities.blog.PhotoCollagePage" />
         </subclass>
     </class>
 </hibernate-mapping>

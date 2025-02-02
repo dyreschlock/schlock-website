@@ -78,6 +78,11 @@ public abstract class AbstractPost extends Persisted
         return false;
     }
 
+    public boolean isPhotoPage()
+    {
+        return false;
+    }
+
     public boolean isProject()
     {
         for (AbstractCategory category : getCategories())

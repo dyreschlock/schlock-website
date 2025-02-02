@@ -49,6 +49,11 @@ public class ImageManagementImpl implements ImageManagement
 
     public List<Image> getGalleryImages(AbstractPost post)
     {
+        if (post.isPhotoPage())
+        {
+            return getFavoritedImages();
+        }
+
         String galleryName = post.getGalleryName();
         if (StringUtils.isBlank(galleryName))
         {
@@ -87,6 +92,11 @@ public class ImageManagementImpl implements ImageManagement
         });
 
         return galleryImages;
+    }
+
+    private List<Image> getFavoritedImages()
+    {
+        return imageDAO.getFavorites();
     }
 
     private Integer getImageIndexInGallery(AbstractPost post, String imageLink)

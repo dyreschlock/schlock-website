@@ -62,6 +62,7 @@ public class CssCacheImpl implements CssCache
     private final static String POKEMON_CSS_FILE = "layout/apps/pokemon.less";
     private final static String NOT_FIBBAGE_CSS_FILE = "layout/apps/notfibbage.less";
 
+    private final static String PHOTO_CSS_FILE = "layout/apps/photo.css";
     private final static String TWITTER_CSS_FILE = "layout/apps/twitter.less";
 
 
@@ -149,6 +150,11 @@ public class CssCacheImpl implements CssCache
                 String extraCss = createExtraCss(uuid).replaceAll("unicode-range:-9", "unicode-range:U+0030-0039");
 
                 css = fontCss + extraCss;
+            }
+
+            if (Page.PHOTO_UUID.equals(uuid))
+            {
+                css = getFileAsString(PHOTO_CSS_FILE);
             }
 
             if (Page.ERROR_PAGE_UUID.equals(uuid))

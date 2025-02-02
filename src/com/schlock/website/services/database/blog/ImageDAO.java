@@ -11,7 +11,5 @@ public interface ImageDAO extends BaseDAO<Image>
 
     List<Image> getByGallery(String galleryName);
 
-    List<Image> getAllWithoutWebpGooleId();
-
-    List<Image> getAllWithoutDirectLink();
+    List<Image> getFavorites();
 }
