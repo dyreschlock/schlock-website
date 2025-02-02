@@ -128,7 +128,9 @@
                             - Overall Validation: <a href="https://www.validbot.com/">https://www.validbot.com/</a><br />
                             - Overall Validation: <a href="https://pagespeed.web.dev/">https://pagespeed.web.dev/</a><br />
                             - Performance / Structure: <a href="https://gtmetrix.com/">https://gtmetrix.com/</a><br/>
-                            - Google Search Analytics: <a href="https://search.google.com/search-console/performance/search-analytics">https://search.google.com/search-analytics</a><br/>
+                            <br/>
+                            - Google Search Console - Overview: <a href="https://search.google.com/search-console?resource_id=sc-domain%3Atheschlock.com">https://search.google.com/search-console</a><br/>
+                            - Google Search Console - Performance: <a href="https://search.google.com/search-console/performance/search-analytics?resource_id=sc-domain%3Atheschlock.com">https://search.google.com/search-analytics</a><br/>
                             - Bing Search Analytics: <a href="https://www.bing.com/webmasters">https://www.bing.com/webmasters</a><br/>
                             --- Post Urls to IndexNow for Bing (<t:eventlink t:id="postToIndexNow">here</t:eventlink>)<br />
                             - Visitation Analytics: <a href="https://analytics.google.com/">https://analytics.google.com/</a><br />
