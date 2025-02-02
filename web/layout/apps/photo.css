@@ -1,5 +1,7 @@
 div.photos
 {
+    background-color: #282828;
+
     position: absolute;
     top: -200px;
     left: 0;
