@@ -3,6 +3,7 @@
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
+    <div class="photos">
     <article class="gallery">
 
         <t:loop source="images" value="currentImage">
@@ -10,5 +11,5 @@
             <img src="${currentImageLink}" alt="${currentImageLink}" title="${currentImageLink}" />
         </t:loop>
     </article>
-
+    </div>
 </html>

@@ -161,4 +161,10 @@ public class LayoutBlog
         }
         return extra;
     }
+
+    public boolean isShowSubheader()
+    {
+        boolean isPhotoPage = (post != null && post.isPhotoPage());
+        return !isPhotoPage;
+    }
 }

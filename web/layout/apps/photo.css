@@ -1,47 +1,40 @@
-body {
-  margin: 0;
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
+div.photos
+{
+    position: absolute;
+    top: -200px;
+    left: 0;
+    right: 0;
+
+    margin: 0;
+    min-height: 100vh;
+    place-items: center;
 }
 
 .gallery {
-  --size: 200px;
-  display: grid;
-  grid-template-columns: repeat(6, var(--size));
-  grid-auto-rows: var(--size);
-  margin-bottom: var(--size);
-  place-items: start center;
-  gap: 3px;
+    --size: 200px;
+    display: grid;
+    grid-template-columns: repeat(8, var(--size));
+    grid-auto-rows: var(--size);
+    margin-bottom: var(--size);
+    place-items: start center;
+    gap: 0px;
 
-  &:has(:hover) img:not(:hover),
-  &:has(:focus) img:not(:focus){
-    filter: brightness(0.5) contrast(0.5);
-  }
-
-  & img {
-    object-fit: cover;
-    width: calc(var(--size) * 2);
-    height: calc(var(--size) * 2);
-    clip-path: path("M180,20 C200,0 200,0 220,20 380,180 380,180 380,180 400,200 400,200 380,220 380,220 220,380 220,380 200,400 200,400 180,380 180,380 20,220 20,220 0,200 0,200 20,180Z");
-    transition: clip-path 0.25s, filter 0.75s;
-    grid-column: auto / span 2;
-    border-radius: 5px;
-
-    &:nth-child(5n - 1) {
-      grid-column: 2 / span 2
+    &:has(:hover) img:not(:hover),
+    &:has(:focus) img:not(:focus){
+        filter: brightness(0.5);
     }
 
-    &:hover,
-    &:focus {
-      clip-path: path("M0,0 C0,0 400,0 400,0 400,0 400,200 400,200 400,200 400,400 400,400 400,400 200,400 200,400 200,400 200,400 0,400 0,400 0,200 0,200 0,200 0,200 0,200Z");
-      z-index: 1;
-      transition: clip-path 0.25s, filter 0.25s;
-    }
+    & img {
+        object-fit: cover;
+        width: calc(var(--size) * 2);
+        height: calc(var(--size) * 2);
+        clip-path: path("M 200 0 L 400 200 L 200 400 L 0 200 L 200 0 Z");
+        transition: clip-path 0.25s, filter 0.75s;
+        grid-column: auto / span 2;
+        border-radius: 5px;
 
-    &:focus {
-      outline: 1px dashed black;
-      outline-offset: -5px;
+        &:nth-child(6n - 1) {
+            grid-column: 2 / span 2
+        }
     }
-  }
 }
