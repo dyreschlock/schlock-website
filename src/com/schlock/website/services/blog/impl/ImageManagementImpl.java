@@ -202,15 +202,11 @@ public class ImageManagementImpl implements ImageManagement
 
     private Image createImage(String directory, String galleryName, String imageName, Image parentImage)
     {
-        Image image = new Image();
-        image.setDirectory(directory);
-        image.setGalleryName(galleryName);
-        image.setImageName(imageName);
-
+        Image image = Image.create(directory, galleryName, imageName);
         Image parent = parentImage;
         if (parent == null)
         {
-            parent = getCreateParentIfExists(image);
+            parent = createParentOrGetIfExists(image);
         }
         image.setParent(parent);
 
@@ -218,7 +214,7 @@ public class ImageManagementImpl implements ImageManagement
         return image;
     }
 
-    private Image getCreateParentIfExists(Image image)
+    private Image createParentOrGetIfExists(Image image)
     {
         String imageLink = image.getImageLink().substring(1);
         int index = imageLink.lastIndexOf(".");
@@ -236,10 +232,7 @@ public class ImageManagementImpl implements ImageManagement
             Image parent = imageDAO.getByDirectoryGalleryName(directory, galleryName, imageName);
             if (parent == null)
             {
-                parent = new Image();
-                parent.setDirectory(directory);
-                parent.setGalleryName(galleryName);
-                parent.setImageName(parentName);
+                parent = Image.create(directory, galleryName, imageName);
             }
             return parent;
         }

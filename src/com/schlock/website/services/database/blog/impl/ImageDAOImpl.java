@@ -60,7 +60,7 @@ public class ImageDAOImpl extends BaseDAOImpl<Image> implements ImageDAO
     {
         String text = " from Image i " +
                         " where i.favorite is true " +
-                        " order by rand() ";
+                        " order by i.filenameHash desc ";
 
         Query query = session.createQuery(text);
         return query.list();

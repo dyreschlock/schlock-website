@@ -3,6 +3,8 @@ package com.schlock.website.entities.blog;
 import com.schlock.website.entities.Persisted;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.zip.CRC32;
+
 public class Image extends Persisted
 {
     public static final String GITHUB_IMAGE_LINK = "https://raw.githubusercontent.com/dyreschlock/dyreschlock.github.photos/master";
@@ -21,6 +23,7 @@ public class Image extends Persisted
     private Image parent; // full version of the thumbnail
 
     private boolean favorite;
+    private String filenameHash;
 
     public String getImageLink()
     {
@@ -79,6 +82,16 @@ public class Image extends Persisted
         }
     }
 
+    public void updateFilenameHash()
+    {
+        String uniqueId = directory + galleryName + imageName;
+
+        CRC32 hash = new CRC32();
+        hash.update(uniqueId.getBytes());
+
+        filenameHash = Long.toHexString(hash.getValue());
+    }
+
 
     public String getDirectory()
     {
@@ -126,5 +139,27 @@ public class Image extends Persisted
     public void setFavorite(boolean favorite)
     {
         this.favorite = favorite;
+    }
+
+    public String getFilenameHash()
+    {
+        return filenameHash;
+    }
+
+    public void setFilenameHash(String filenameHash)
+    {
+        this.filenameHash = filenameHash;
+    }
+
+
+    public static Image create(String directory, String galleryName, String imageName)
+    {
+        Image image = new Image();
+        image.directory = directory;
+        image.galleryName = galleryName;
+        image.imageName = imageName;
+        image.updateFilenameHash();
+
+        return image;
     }
 }

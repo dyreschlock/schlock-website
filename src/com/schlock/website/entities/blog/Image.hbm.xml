@@ -16,5 +16,6 @@
         <many-to-one name="parent" column="parentId" class="com.schlock.website.entities.blog.Image" />
 
         <property name="favorite" />
+        <property name="filenameHash" />
     </class>
 </hibernate-mapping>
