@@ -59,10 +59,12 @@ public class ImageDAOImpl extends BaseDAOImpl<Image> implements ImageDAO
     public List<Image> getFavorites()
     {
         String text = " from Image i " +
-                        " where i.favorite is true " +
-                        " order by i.filenameHash desc ";
+                        " where i.favorite > :not_favorite " +
+                        " order by i.favorite desc, i.filenameHash desc ";
 
         Query query = session.createQuery(text);
+        query.setParameter("not_favorite", Image.NOT_FAVORITE);
+
         return query.list();
     }
 }

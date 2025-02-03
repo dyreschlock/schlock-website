@@ -14,6 +14,8 @@ public class Image extends Persisted
 
     public static final String SVG_FILE_EXT = ".svg";
 
+    public static final int NOT_FAVORITE = 0;
+
     private String directory;
     private String galleryName;
     private String imageName;
@@ -22,7 +24,7 @@ public class Image extends Persisted
 
     private Image parent; // full version of the thumbnail
 
-    private boolean favorite;
+    private int favorite;
     private String filenameHash;
 
     public String getImageLink()
@@ -131,12 +133,12 @@ public class Image extends Persisted
         this.parent = parent;
     }
 
-    public boolean isFavorite()
+    public int getFavorite()
     {
         return favorite;
     }
 
-    public void setFavorite(boolean favorite)
+    public void setFavorite(int favorite)
     {
         this.favorite = favorite;
     }
@@ -155,6 +157,8 @@ public class Image extends Persisted
     public static Image create(String directory, String galleryName, String imageName)
     {
         Image image = new Image();
+        image.favorite = NOT_FAVORITE;
+
         image.directory = directory;
         image.galleryName = galleryName;
         image.imageName = imageName;
