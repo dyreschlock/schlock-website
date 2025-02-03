@@ -30,6 +30,9 @@
             <a title="${message:archive}" href="/archive">${message:archive}</a> //
         </div>
         <div class="menuLinks">
+            <a title="${message:photo}" href="/photo">${message:photo}</a> //
+        </div>
+        <div class="menuLinks">
             <a title="${message:projects}" href="/projects">${message:projects}</a> //
         </div>
         <div class="menuLinks">
