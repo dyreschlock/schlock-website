@@ -21,6 +21,9 @@ public class PhotoIndex
     @Property
     private Image currentImage;
 
+    @Property
+    private Integer currentIndex;
+
     public List<Image> getImages()
     {
         return imageManagement.getGalleryImages(getPage());

@@ -1,0 +1,41 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <div id="overlayImage" class="overlay" style="display: none;">
+
+        <div class="imageLink textBox">
+            <a id="imageLink" title="Image" target="_blank"> Image </a>
+        </div>
+
+        <div class="close textBox">
+            <a title="${message:close}" onclick="closeOverlay()">${message:close}</a>
+        </div>
+
+        <div id="previousImage" class="previous overlayLink" style="display: none;">
+            <a class="link" title="${message:previous}" id="previousImageAnchor1"></a>
+            <div class="center">
+                <div class="textBox">
+                    <a id="previousImageAnchor2" title="${message:previous}">${message:previous}</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="nextImage" class="next overlayLink" style="display: none;">
+            <a class="link" title="${message:next}" id="nextImageAnchor1"></a>
+            <div class="center">
+                <div class="textBox">
+                    <a id="nextImageAnchor2" title="${message:next}">${message:next}</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="imageComment" class="comment" style="display: none;">
+            <div id="imageCommentText" class="textBox"></div>
+        </div>
+
+        <br class="clr" />
+    </div>
+    <div id="overlayImageBackground" class="overlayBackground" style="display: none;"></div>
+
+</t:container>

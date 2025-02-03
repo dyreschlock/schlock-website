@@ -1,16 +1,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html t:type="blog/layoutblog" post="page" pageDescription="pageDescription"
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:c="tapestry-library:blog/content"
     >
 
     <div class="photos">
     <article class="gallery">
 
-        <t:loop source="images" value="currentImage">
+        <t:loop source="images" value="currentImage" index="currentIndex">
 
-            <img src="${currentImageLink}" />
+            <img src="${currentImageLink}" onclick="galleryClicked(${currentIndex})" />
         </t:loop>
     </article>
     </div>
     <div style="height: ${pageHeight}px;"/>
+
+    <div id="images">
+        <c:imagegalleryoverlay />
+    </div>
 </html>

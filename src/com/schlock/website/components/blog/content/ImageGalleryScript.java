@@ -27,7 +27,7 @@ public class ImageGalleryScript
 
     public boolean isPostHasGallery()
     {
-        return post != null && post.isHasGallery();
+        return post != null && (post.isHasGallery() || post.isPhotoPage());
     }
 
     private List<Image> getGalleryImages()
