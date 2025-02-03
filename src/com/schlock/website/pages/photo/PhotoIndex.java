@@ -36,7 +36,7 @@ public class PhotoIndex
 
     public String getPageHeight()
     {
-        int top_start = 50;
+        int top_start = 40;
 
         int line_height = 250;
         int count = getImages().size();
