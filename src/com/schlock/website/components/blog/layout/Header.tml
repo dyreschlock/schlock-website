@@ -11,6 +11,8 @@
         /
         <a title="${message:archive}" href="/archive">${message:archive}</a>
         /
+        <a title="${message:photo}" href="/photo">${message:photo}</a>
+        /
         <a title="${message:projects}" href="/projects">${message:projects}</a>
         /
         <a title="${message:about-me}" href="/aboutme">${message:about-me}</a>
