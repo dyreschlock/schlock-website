@@ -1,6 +1,7 @@
 package com.schlock.website.entities.blog;
 
 import com.schlock.website.entities.Persisted;
+import com.schlock.website.services.DeploymentContext;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.zip.CRC32;
@@ -14,6 +15,8 @@ public class Image extends Persisted
 
     public static final String SVG_FILE_EXT = ".svg";
 
+
+    public static final int FAVORITE = 2;
     public static final int NOT_FAVORITE = 0;
 
     private String directory;
@@ -158,6 +161,10 @@ public class Image extends Persisted
     {
         Image image = new Image();
         image.favorite = NOT_FAVORITE;
+        if (DeploymentContext.PHOTO_EX_DIR.startsWith(directory))
+        {
+            image.favorite = FAVORITE;
+        }
 
         image.directory = directory;
         image.galleryName = galleryName;

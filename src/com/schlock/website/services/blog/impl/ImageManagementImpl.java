@@ -137,15 +137,30 @@ public class ImageManagementImpl implements ImageManagement
         {
             generateImagesByGallery(gallery);
         }
+
+        File photoEx = new File(deploymentContext.photoExLocation());
+        for(File photoDir : photoEx.listFiles())
+        {
+            if (photoDir.isDirectory())
+            {
+                generateImagesByGallery(photoDir);
+            }
+        }
     }
 
     private Map<String, Image> generateImagesByGallery(String galleryName)
     {
-        String directory = DeploymentContext.PHOTO_DIR.substring(0, DeploymentContext.PHOTO_DIR.length() - 1);
+        File galleryDirectory = new File(deploymentContext.photoLocation() + galleryName);
+        return generateImagesByGallery(galleryDirectory);
+    }
 
-        File gallery = new File(deploymentContext.photoLocation() + galleryName);
+    private Map<String, Image> generateImagesByGallery(File gallery)
+    {
         if (gallery.exists())
         {
+            String directory = gallery.getParentFile().getName();
+            String galleryName = gallery.getName();
+
             Map<String, Image> cache = getImagesByGallery(galleryName);
 
             File[] dirImgs = gallery.listFiles(new FilenameFilter()

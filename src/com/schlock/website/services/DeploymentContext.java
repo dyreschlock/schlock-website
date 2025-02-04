@@ -4,6 +4,7 @@ public interface DeploymentContext
 {
     String IMAGE_DIR = "image/";
     String PHOTO_DIR = "photo/";
+    String PHOTO_EX_DIR = "photo_ex/";
     String COVER_DIR = "img/cover/";
     String IMG_DIR = "img/";
 
@@ -29,6 +30,7 @@ public interface DeploymentContext
     String githubDirectory();
 
     String photoLocation();
+    String photoExLocation();
 
     String imageLocation();
 
