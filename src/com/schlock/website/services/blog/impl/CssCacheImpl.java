@@ -8,6 +8,7 @@ import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.CssCache;
+import com.schlock.website.services.blog.ImageManagement;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.services.Context;
 
@@ -66,6 +67,7 @@ public class CssCacheImpl implements CssCache
     private final static String TWITTER_CSS_FILE = "layout/apps/twitter.less";
 
 
+    private final ImageManagement imageManagement;
     private final DeploymentContext deploymentContext;
     private final Context context;
 
@@ -79,9 +81,11 @@ public class CssCacheImpl implements CssCache
 
     private HashMap<String, String> cachedOld = new HashMap<>();
 
-    public CssCacheImpl(DeploymentContext deploymentContext,
+    public CssCacheImpl(ImageManagement imageManagement,
+                        DeploymentContext deploymentContext,
                         Context context)
     {
+        this.imageManagement = imageManagement;
         this.deploymentContext = deploymentContext;
         this.context = context;
     }
@@ -154,9 +158,7 @@ public class CssCacheImpl implements CssCache
 
             if (Page.PHOTO_UUID.equals(uuid))
             {
-                css = createExtraCss(PHOTO_CSS_FILE)
-                        .replace("grid-column:1", "grid-column: auto / span 2")
-                        .replace("grid-column:2", "grid-column: 2 / span 2");
+                css = createPhotoCss(post);
             }
 
             if (Page.ERROR_PAGE_UUID.equals(uuid))
@@ -184,6 +186,41 @@ public class CssCacheImpl implements CssCache
         }
         return css;
     }
+
+    private String createPhotoCss(AbstractPost post)
+    {
+        final String FULL_HEIGHT_REPLACE = "full_height_replace";
+        final String MIN_HEIGHT_REPLACE = "min_height_replace";
+
+        final int FULL_HEIGHT_SIZE = 200;
+        final int MIN_HEIGHT_SIZE = 150;
+
+        int imageCount = imageManagement.getGalleryImages(post).size();
+
+        String fullHeight = getImageGridHeight(FULL_HEIGHT_SIZE, imageCount);
+        String minHeight = getImageGridHeight(MIN_HEIGHT_SIZE, imageCount);
+
+        String photoLess = getFileAsString(PHOTO_CSS_FILE)
+                                .replace(FULL_HEIGHT_REPLACE, fullHeight)
+                                .replace(MIN_HEIGHT_REPLACE, minHeight);
+
+        String css = convertLessToCss(photoLess)
+                        .replace("grid-column:1", "grid-column: auto / span 2")
+                        .replace("grid-column:2", "grid-column: 2 / span 2");
+
+        return css;
+    }
+
+    private String getImageGridHeight(int lineHeight, int imageCount)
+    {
+        int top_start = 40;
+        double lines = (imageCount / 4.5) -1;
+        int bottom_resize = 60;
+
+        int height = top_start + (lineHeight * (int) Math.floor(lines)) - bottom_resize;
+        return height + "px";
+    }
+
 
     private String createExtraCss(String... filenames)
     {
@@ -264,7 +301,6 @@ public class CssCacheImpl implements CssCache
         String css = sb.toString();
 
         css = convertLessToCss(css);
-        css = StringUtils.remove(css, "\\n");
 
         if (containsVariables)
         {
@@ -309,6 +345,8 @@ public class CssCacheImpl implements CssCache
         try
         {
             String css = engine.compile(less, true);
+
+            css = StringUtils.remove(css, "\\n");
             return css;
         }
         catch (LessException e)

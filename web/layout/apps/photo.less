@@ -1,11 +1,12 @@
 @size: 200px;
-@size_dbl: @size * 2;
+@smin: 150px;
 
 @top_pos: 40px - @size;
 
 /* "M 200 0 L 400 200 L 200 400 L 0 200 L 200 0 Z" */
 @clip_path_format: "M %s 0 L %s %s L %s %s L 0 %s L %s 0 Z";
-@clip_path: %(@clip_path_format, @size, @size *2, @size, @size, @size *2, @size, @size);
+@clip_path:     %(@clip_path_format, @size, @size *2, @size, @size, @size *2, @size, @size);
+@clip_path_min: %(@clip_path_format, @smin, @smin *2, @smin, @smin, @smin *2, @smin, @smin);
 
 div.photos
 {
@@ -21,6 +22,11 @@ div.photos
     place-items: center;
 }
 
+#photoPageHeight
+{
+    height: full_height_replace;
+}
+
 .gallery
 {
     display: grid;
@@ -33,8 +39,8 @@ div.photos
     img
     {
         object-fit: cover;
-        width: @size_dbl;
-        height: @size_dbl;
+        width: @size *2;
+        height: @size *2;
         clip-path: path(@clip_path);
 
         grid-column:1;
@@ -45,5 +51,29 @@ div.photos
     img:nth-child(9n - 3)
     {
         grid-column:2;
+    }
+}
+
+/* iphone viewport size */
+@media all and (max-width: 767px)
+{
+    #photoPageHeight
+    {
+        height: min_height_replace;
+    }
+
+    .gallery
+    {
+        grid-template-columns: repeat(10, @smin);
+        grid-auto-rows: @smin;
+        margin-bottom: @smin;
+
+        img
+        {
+            object-fit: cover;
+            width: @smin *2;
+            height: @smin *2;
+            clip-path: path(@clip_path_min);
+        }
     }
 }

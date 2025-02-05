@@ -34,21 +34,6 @@ public class PhotoIndex
         return currentImage.getImageLink();
     }
 
-    public String getPageHeight()
-    {
-        int top_start = 40;
-
-        int line_height = 200;
-        int count = getImages().size();
-        double lines = (count / 4.5) -1;
-
-        int bottom_resize = 60;
-
-        int height = top_start + (line_height * (int) Math.floor(lines)) - bottom_resize;
-        return Integer.toString(height);
-    }
-
-
     private Page cachedPage;
 
     public Page getPage()
