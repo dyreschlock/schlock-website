@@ -146,6 +146,34 @@ public class ImageManagementImpl implements ImageManagement
                 generateImagesByGallery(photoDir);
             }
         }
+
+        FilenameFilter filter = new FilenameFilter()
+        {
+            public boolean accept(File dir, String name)
+            {
+                try
+                {
+                    String date = name.substring(0, 5);
+                    int time = Integer.parseInt(date);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                }
+                return false;
+            }
+        };
+
+        // Look for orphaned photo directories
+        File photo = new File(deploymentContext.photoLocation());
+        for(File photoDir : photo.listFiles(filter))
+        {
+            List<Image> images = imageDAO.getByGallery(photoDir.getName());
+            if (images.size() == 0)
+            {
+                System.out.println(photoDir.getName());
+            }
+        }
     }
 
     private Map<String, Image> generateImagesByGallery(String galleryName)
