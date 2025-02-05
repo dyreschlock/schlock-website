@@ -4,18 +4,6 @@
      xmlns:c="tapestry-library:blog/content"
     >
 
-    <div class="photos">
-    <article class="gallery">
+    <c:imagegallery post="page" />
 
-        <t:loop source="images" value="currentImage" index="currentIndex">
-
-            <img src="${currentImageLink}" onclick="galleryClicked(${currentIndex})" />
-        </t:loop>
-    </article>
-    </div>
-    <div id="photoPageHeight"/>
-
-    <div id="images">
-        <c:imagegalleryoverlay />
-    </div>
 </html>

@@ -2,9 +2,11 @@
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
      xmlns:c="tapestry-library:blog/content"
     >
-    <t:if test="post.hasGallery">
+    <t:if test="posthasGallery">
         <div id="images">
-            <div class="title">${imageMessage}</div>
+            <t:if test="showCount">
+                <div class="title">${imageMessage}</div>
+            </t:if>
 
             <c:imagegalleryoverlay />
         </div>

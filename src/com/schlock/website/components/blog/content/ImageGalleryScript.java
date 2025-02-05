@@ -35,11 +35,7 @@ public class ImageGalleryScript
 
     public String getImageGalleryStyles()
     {
-        if (!post.isPhotoPage())
-        {
-            return cssCache.getImageGalleryCss(post);
-        }
-        return "";
+        return cssCache.getImageGalleryCss(post);
     }
 
     private List<Image> getGalleryImages()

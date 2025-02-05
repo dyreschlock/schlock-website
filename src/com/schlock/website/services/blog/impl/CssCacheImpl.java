@@ -154,11 +154,6 @@ public class CssCacheImpl implements CssCache
                 css = fontCss + extraCss;
             }
 
-            if (Page.PHOTO_UUID.equals(uuid))
-            {
-                css = getImageGalleryCss(post);
-            }
-
             if (Page.ERROR_PAGE_UUID.equals(uuid))
             {
                 css = createExtraCss(PERFECT_DOS_VGA_FONT, uuid);

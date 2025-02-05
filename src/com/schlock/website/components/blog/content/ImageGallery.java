@@ -40,6 +40,16 @@ public class ImageGallery
     private Image selectedImage;
 
 
+    public boolean isPostHasGallery()
+    {
+        return post.isHasGallery() || post.isPhotoPage();
+    }
+
+    public boolean isShowCount()
+    {
+        return !post.isPhotoPage();
+    }
+
     public String getImageMessage()
     {
         String message = messages.get("images");
