@@ -58,8 +58,9 @@ public class CssCacheImpl implements CssCache
 
     private final static String IMAGES_CSS_FILES = "layout/images.less";
 
-    private final static String PHOTO_CSS_FILE = "layout/apps/photo.less";
-    private final static String IMAGE_GALLERY_CSS_FILE = "layout/image_gallery.less";
+    private final static String COLLAGE_GALLERY_CSS_FILE = "layout/gallery/collage.less";
+    private final static String IMAGE_GALLERY_CSS_FILE = "layout/gallery/gallery.less";
+    private final static String IMAGE_GALLERY_LAYOUT_FILE = "layout/gallery/gallery_layout.less";
 
     //apps
     private final static String GAMES_CSS_FILE = "layout/apps/games.less";
@@ -194,7 +195,7 @@ public class CssCacheImpl implements CssCache
         {
             FULL_HEIGHT_SIZE = 200;
             MIN_HEIGHT_SIZE = 150;
-            cssFile = PHOTO_CSS_FILE;
+            cssFile = COLLAGE_GALLERY_CSS_FILE;
         }
 
         final String FULL_HEIGHT_REPLACE = "full_height_replace";
@@ -216,6 +217,8 @@ public class CssCacheImpl implements CssCache
         String css = convertLessToCss(photoLess)
                         .replace("grid-column:1", "grid-column: auto / span 2")
                         .replace("grid-column:2", "grid-column: 2 / span 2");
+
+        css += createCss(LESS_VARIABLES_FILE, IMAGE_GALLERY_LAYOUT_FILE);
 
         return css;
     }
