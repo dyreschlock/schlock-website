@@ -2,6 +2,7 @@ package com.schlock.website.components.blog.content;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
+import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
@@ -23,11 +24,22 @@ public class ImageGalleryScript
     @Inject
     private PostManagement postManagement;
 
+    @Inject
+    private CssCache cssCache;
 
 
     public boolean isPostHasGallery()
     {
         return post != null && (post.isHasGallery() || post.isPhotoPage());
+    }
+
+    public String getImageGalleryStyles()
+    {
+        if (!post.isPhotoPage())
+        {
+            return cssCache.getImageGalleryCss(post);
+        }
+        return "";
     }
 
     private List<Image> getGalleryImages()

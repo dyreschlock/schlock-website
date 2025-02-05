@@ -6,17 +6,18 @@
         <div id="images">
             <div class="title">${imageMessage}</div>
 
-            <t:loop source="galleryImages" value="currentImage" index="currentIndex">
-
-                <div class="image ${columnClasses}" style="background-image: url(${currentImage.imageLink})">
-                    <a title="${currentImage.imageName}" onclick="galleryClicked(${currentIndex})"></a>
-                </div>
-
-            </t:loop>
-            <br class="clr" />
-
             <c:imagegalleryoverlay />
-
         </div>
+
+        <div class="photos">
+            <article class="gallery">
+
+                <t:loop source="galleryImages" value="currentImage" index="currentIndex">
+
+                    <img src="${currentImage.imageLink}" onclick="galleryClicked(${currentIndex})" />
+                </t:loop>
+            </article>
+        </div>
+        <div id="photoPageHeight"/>
     </t:if>
 </t:container>

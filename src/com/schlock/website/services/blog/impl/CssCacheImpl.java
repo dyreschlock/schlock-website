@@ -58,12 +58,14 @@ public class CssCacheImpl implements CssCache
 
     private final static String IMAGES_CSS_FILES = "layout/images.less";
 
+    private final static String PHOTO_CSS_FILE = "layout/apps/photo.less";
+    private final static String IMAGE_GALLERY_CSS_FILE = "layout/image_gallery.less";
+
     //apps
     private final static String GAMES_CSS_FILE = "layout/apps/games.less";
     private final static String POKEMON_CSS_FILE = "layout/apps/pokemon.less";
     private final static String NOT_FIBBAGE_CSS_FILE = "layout/apps/notfibbage.less";
 
-    private final static String PHOTO_CSS_FILE = "layout/apps/photo.less";
     private final static String TWITTER_CSS_FILE = "layout/apps/twitter.less";
 
 
@@ -103,11 +105,6 @@ public class CssCacheImpl implements CssCache
             css += getExtraCSS(post);
         }
         return css;
-    }
-
-    public String getCssOldVersions(AbstractPost post, SiteVersion version)
-    {
-        return getCssOldVersions(Arrays.asList(post), version);
     }
 
     public String getCssOldVersions(List<AbstractPost> posts, SiteVersion version)
@@ -158,7 +155,7 @@ public class CssCacheImpl implements CssCache
 
             if (Page.PHOTO_UUID.equals(uuid))
             {
-                css = createPhotoCss(post);
+                css = getImageGalleryCss(post);
             }
 
             if (Page.ERROR_PAGE_UUID.equals(uuid))
@@ -187,20 +184,32 @@ public class CssCacheImpl implements CssCache
         return css;
     }
 
-    private String createPhotoCss(AbstractPost post)
+    public String getImageGalleryCss(AbstractPost post)
     {
+        int FULL_HEIGHT_SIZE = 123 +5;
+        int MIN_HEIGHT_SIZE = 90 +5;
+        String cssFile = IMAGE_GALLERY_CSS_FILE;
+
+        if (post.isPhotoPage())
+        {
+            FULL_HEIGHT_SIZE = 200;
+            MIN_HEIGHT_SIZE = 150;
+            cssFile = PHOTO_CSS_FILE;
+        }
+
         final String FULL_HEIGHT_REPLACE = "full_height_replace";
         final String MIN_HEIGHT_REPLACE = "min_height_replace";
 
-        final int FULL_HEIGHT_SIZE = 200;
-        final int MIN_HEIGHT_SIZE = 150;
-
         int imageCount = imageManagement.getGalleryImages(post).size();
+        if (imageCount == 0)
+        {
+            return "";
+        }
 
-        String fullHeight = getImageGridHeight(FULL_HEIGHT_SIZE, imageCount);
-        String minHeight = getImageGridHeight(MIN_HEIGHT_SIZE, imageCount);
+        String fullHeight = getImageGridHeight(post.isPhotoPage(), FULL_HEIGHT_SIZE, imageCount);
+        String minHeight = getImageGridHeight(post.isPhotoPage(), MIN_HEIGHT_SIZE, imageCount);
 
-        String photoLess = getFileAsString(PHOTO_CSS_FILE)
+        String photoLess = getFileAsString(cssFile)
                                 .replace(FULL_HEIGHT_REPLACE, fullHeight)
                                 .replace(MIN_HEIGHT_REPLACE, minHeight);
 
@@ -211,13 +220,30 @@ public class CssCacheImpl implements CssCache
         return css;
     }
 
-    private String getImageGridHeight(int lineHeight, int imageCount)
+    private String getImageGridHeight(boolean photoPage, int lineHeight, int imageCount)
     {
         int top_start = 40;
-        double lines = (imageCount / 4.5) -1;
-        int bottom_resize = 60;
+        double images_per_line = 4.5;
+        if (!photoPage)
+        {
+            images_per_line = 3.5;
+        }
 
-        int height = top_start + (lineHeight * (int) Math.floor(lines)) - bottom_resize;
+        double lines = (imageCount / images_per_line) -1;
+        int bottom_resize = 60;
+        if (!photoPage)
+        {
+            lines = lines +2;
+            bottom_resize = 0;
+        }
+
+        int line_count = (int) Math.floor(lines);
+        if (!photoPage)
+        {
+            line_count = (int) Math.ceil(lines);
+        }
+
+        int height = top_start + (lineHeight * line_count) - bottom_resize;
         return height + "px";
     }
 

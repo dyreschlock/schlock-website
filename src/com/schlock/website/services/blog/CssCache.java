@@ -9,7 +9,8 @@ public interface CssCache
 {
     String getAllCss(AbstractPost post);
 
-    String getCssOldVersions(AbstractPost post, SiteVersion version);
+    String getImageGalleryCss(AbstractPost post);
+
     String getCssOldVersions(List<AbstractPost> post, SiteVersion version);
 
     String getCssForTwitter();
