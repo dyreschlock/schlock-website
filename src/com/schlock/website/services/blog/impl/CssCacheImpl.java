@@ -231,6 +231,10 @@ public class CssCacheImpl implements CssCache
         int bottom_resize = 60;
         if (!photoPage)
         {
+            if (imageCount % 7 == 1 || imageCount % 7 == 5)
+            {
+                lines++;
+            }
             lines = lines +2;
             bottom_resize = 0;
         }
@@ -238,7 +242,7 @@ public class CssCacheImpl implements CssCache
         int line_count = (int) Math.floor(lines);
         if (!photoPage)
         {
-            line_count = (int) Math.ceil(lines);
+            line_count = (int) Math.round(lines);
         }
 
         int height = top_start + (lineHeight * line_count) - bottom_resize;
