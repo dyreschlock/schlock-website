@@ -1,6 +1,6 @@
 <t:container
-        xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
->
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
     <t:if test="postHasGallery">
         <style>${imageGalleryStyles}</style>
 
@@ -11,7 +11,7 @@
             const comments = [];
             const linkPosts = [];
 
-            ${imageDataJS}
+            <t:outputraw value="imageDataJS" />
 
             function galleryClicked(index)
             {
@@ -77,8 +77,10 @@
             function setImageCommentText(index)
             {
                 let comment = comments[index];
+                let postlink = linkPosts[index];
 
                 document.getElementById("imageCommentText").innerHTML = comment;
+                document.getElementById("imageCommentPostLink").href = postlink;
                 if(Boolean(comment))
                 {
                     document.getElementById("imageComment").style.display = 'block';

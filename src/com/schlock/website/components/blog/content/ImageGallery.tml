@@ -37,7 +37,9 @@
                 </div>
 
                 <div id="imageComment" class="comment" style="display: none;">
-                    <div id="imageCommentText" class="textBox"></div>
+                    <a id="imageCommentPostLink">
+                        <div id="imageCommentText" class="textBox"></div>
+                    </a>
                 </div>
 
                 <br class="clr" />

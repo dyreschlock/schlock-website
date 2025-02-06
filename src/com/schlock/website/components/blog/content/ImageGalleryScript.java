@@ -3,6 +3,7 @@ package com.schlock.website.components.blog.content;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
 import com.schlock.website.pages.Index;
+import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostManagement;
@@ -32,6 +33,9 @@ public class ImageGalleryScript
 
     @Inject
     private PostDAO postDAO;
+
+    @Inject
+    private DateFormatter dateFormatter;
 
     @Inject
     private CssCache cssCache;
@@ -89,7 +93,10 @@ public class ImageGalleryScript
                     {
                         if (!post.isCoursePage() && post.isPublished())
                         {
-                            comment = messages.format(POST_LINK_TEXT_KEY, post.getTitle());
+                            String title = post.getTitle();
+                            String date = dateFormatter.dateFormat(post.getCreated());
+
+                            comment = messages.format(POST_LINK_TEXT_KEY, title, date);
                             postLink = linkSource.createPageRenderLinkWithContext(Index.class, postUuid).toURI();
                         }
                     }
