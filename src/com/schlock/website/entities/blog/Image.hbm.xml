@@ -17,5 +17,7 @@
 
         <property name="favorite" />
         <property name="filenameHash" />
+
+        <property name="postUuid"/>
     </class>
 </hibernate-mapping>

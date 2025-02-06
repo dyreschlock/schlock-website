@@ -12,4 +12,6 @@ public interface ImageDAO extends BaseDAO<Image>
     List<Image> getByGallery(String galleryName);
 
     List<Image> getFavorites();
+
+    List<Image> getImagesInGalleriesButNoPosts();
 }

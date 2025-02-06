@@ -1,6 +1,7 @@
 package com.schlock.website.services.database.blog.impl;
 
 import com.schlock.website.entities.blog.Image;
+import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.blog.ImageDAO;
 import org.apache.commons.lang.StringUtils;
@@ -64,6 +65,21 @@ public class ImageDAOImpl extends BaseDAOImpl<Image> implements ImageDAO
 
         Query query = session.createQuery(text);
         query.setParameter("not_favorite", Image.NOT_FAVORITE);
+
+        return query.list();
+    }
+
+    public List<Image> getImagesInGalleriesButNoPosts()
+    {
+        String PHOTO_DIR = DeploymentContext.PHOTO_DIR;
+        PHOTO_DIR = PHOTO_DIR.substring(0, PHOTO_DIR.length() - 1);
+
+        String text = " from Image i " +
+                        " where i.directory = :gallery " +
+                        " and i.postUuid is null ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("gallery", PHOTO_DIR);
 
         return query.list();
     }

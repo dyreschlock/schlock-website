@@ -164,7 +164,7 @@ public class ImageManagementImpl implements ImageManagement
             }
         };
 
-        // Look for orphaned photo directories
+        // Report on orphaned photo directories
         File photo = new File(deploymentContext.photoLocation());
         for(File photoDir : photo.listFiles(filter))
         {
@@ -172,6 +172,20 @@ public class ImageManagementImpl implements ImageManagement
             if (images.size() == 0)
             {
                 System.out.println(photoDir.getName());
+            }
+        }
+
+        //Connect Images to Posts
+        for(Image image : imageDAO.getImagesInGalleriesButNoPosts())
+        {
+            String gallery = image.getGalleryName();
+            AbstractPost post = postDAO.getByGalleryName(gallery);
+            if (post != null)
+            {
+                String uuid = post.getUuid();
+
+                image.setPostUuid(uuid);
+                imageDAO.save(image);
             }
         }
     }
@@ -276,6 +290,7 @@ public class ImageManagementImpl implements ImageManagement
             if (parent == null)
             {
                 parent = Image.create(directory, galleryName, imageName);
+                parent.setFavorite(Image.NOT_FAVORITE);
             }
             return parent;
         }

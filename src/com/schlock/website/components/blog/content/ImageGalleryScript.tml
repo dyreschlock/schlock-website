@@ -9,6 +9,7 @@
             const images = [];
             const linkImages = [];
             const comments = [];
+            const linkPosts = [];
 
             ${imageDataJS}
 

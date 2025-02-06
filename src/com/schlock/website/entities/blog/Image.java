@@ -30,6 +30,8 @@ public class Image extends Persisted
     private int favorite;
     private String filenameHash;
 
+    private String postUuid;
+
     public String getImageLink()
     {
         if (StringUtils.isBlank(galleryName))
@@ -156,6 +158,15 @@ public class Image extends Persisted
         this.filenameHash = filenameHash;
     }
 
+    public String getPostUuid()
+    {
+        return postUuid;
+    }
+
+    public void setPostUuid(String postUuid)
+    {
+        this.postUuid = postUuid;
+    }
 
     public static Image create(String directory, String galleryName, String imageName)
     {
