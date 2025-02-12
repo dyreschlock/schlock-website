@@ -91,7 +91,7 @@ public class ImageGalleryScript
                     List<AbstractPost> posts = postDAO.getAllByUuid(postUuid);
                     for(AbstractPost post : posts)
                     {
-                        if (!post.isCoursePage() && post.isPublished())
+                        if (!post.isCoursePage() && (post.isPublished() || post.isClubPost()))
                         {
                             String title = post.getTitle();
                             String date = dateFormatter.dateFormat(post.getCreated());
