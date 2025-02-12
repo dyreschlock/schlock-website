@@ -59,12 +59,15 @@ public class ImageDAOImpl extends BaseDAOImpl<Image> implements ImageDAO
 
     public List<Image> getFavorites()
     {
+        final int LIMIT = 1503; //factor of 9 near 1500
+
         String text = " from Image i " +
                         " where i.favorite > :not_favorite " +
                         " order by i.favorite desc, i.filenameHash desc ";
 
         Query query = session.createQuery(text);
         query.setParameter("not_favorite", Image.NOT_FAVORITE);
+        query.setMaxResults(LIMIT);
 
         return query.list();
     }
