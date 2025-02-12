@@ -164,7 +164,20 @@ public class LayoutBlog
 
     public boolean isShowSubheader()
     {
-        boolean isPhotoPage = (post != null && post.isPhotoPage());
-        return !isPhotoPage;
+        return !isPhotoPage();
+    }
+
+    public String getExtraBodyClass()
+    {
+        if (isPhotoPage())
+        {
+            return "photo";
+        }
+        return "";
+    }
+
+    private boolean isPhotoPage()
+    {
+        return post != null && post.isPhotoPage();
     }
 }

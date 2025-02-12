@@ -89,7 +89,7 @@
         </t:if>
 
         <main id="main" role="main">
-        <div id="blogFullBody"><div id="blogInnerBody"><div id="blogBody">
+        <div id="blogFullBody" class="${extraBodyClass}"><div id="blogInnerBody"><div id="blogBody">
             <div id="blogContent">
 
                 <t:body />
