@@ -14,7 +14,7 @@
 
         </t:if>
         <t:if test="hasBoth">
-            <span class="divider"> | </span>
+            <span> &#183;&nbsp; </span>
         </t:if>
         <t:if test="hasNext">
 
@@ -32,12 +32,12 @@
 
     <div class="categories">
         <t:loop source="categories" value="currentCategory" index="currentIndex">
-            <t:if test="notFirst"> / </t:if>
+            <t:if test="notFirst"><span class="divider">&#183;</span></t:if>
             <a title="${currentCategory.name}" href="/category/${currentCategory.uuid}">${currentCategory.name}</a>
         </t:loop>
-        /
+        <span class="divider">&#183;</span>
         <a title="${message:today}" onclick="todayClicked()">${message:today}</a>
-        /
+        <span class="divider">&#183;</span>
         <a title="${message:random}" onclick="randomClicked()">${message:random}</a>
     </div>
     <br class="clr" />
