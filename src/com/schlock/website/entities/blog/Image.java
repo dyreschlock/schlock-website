@@ -170,9 +170,11 @@ public class Image extends Persisted
 
     public static Image create(String directory, String galleryName, String imageName)
     {
+        final String PHOTO_EX_DIR = DeploymentContext.PHOTO_EX_DIR.substring(0, DeploymentContext.PHOTO_EX_DIR.length() - 1);
+
         Image image = new Image();
         image.favorite = NOT_FAVORITE;
-        if (DeploymentContext.PHOTO_EX_DIR.startsWith(directory))
+        if(PHOTO_EX_DIR.equals(directory))
         {
             image.favorite = FAVORITE;
         }
