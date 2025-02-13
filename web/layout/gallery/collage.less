@@ -1,6 +1,8 @@
 @size: 200px;
 @smin: 150px;
 
+@full_width: @size *2 *5;
+
 @top_pos: 40px - @size;
 
 /* "M 200 0 L 400 200 L 200 400 L 0 200 L 200 0 Z" */
@@ -13,11 +15,6 @@
     background-color: #282828;
 }
 
-div.photos-outer
-{
-    position: absolute;
-}
-
 div.photos
 {
     background-color: #282828;
@@ -26,12 +23,15 @@ div.photos
     top: @top_pos;
 
     left: 50%;
-    transform: translate(-50%, 0%);
+    transform: translateX(-50%);
 
     margin: 0;
     min-height: 100vh;
-    display: grid;
+
+    display: flex;
     place-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 #photoPageHeight
@@ -39,7 +39,7 @@ div.photos
     height: full_height_replace;
 }
 
-.gallery
+div.gallery
 {
     display: grid;
     grid-template-columns: repeat(10, @size);
@@ -66,6 +66,14 @@ div.photos
     }
 }
 
+@media all and (max-width: @full_width)
+{
+    div.photos
+    {
+        width: 100%;
+    }
+}
+
 /* iphone viewport size */
 @media all and (max-width: 767px)
 {
@@ -74,7 +82,7 @@ div.photos
         height: min_height_replace;
     }
 
-    .gallery
+    div.gallery
     {
         grid-template-columns: repeat(10, @smin);
         grid-auto-rows: @smin;

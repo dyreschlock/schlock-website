@@ -15,12 +15,15 @@ div.photos
     z-index: 1;
 
     left: 50%;
-    transform: translate(-50%, 0%);
+    transform: translateX(-50%);
 
     margin: 0;
     min-height: 100vh;
-    display: grid;
+
+    display: flex;
     place-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 #photoPageHeight
@@ -28,7 +31,7 @@ div.photos
     height: full_height_replace;
 }
 
-.gallery
+div.gallery
 {
     display: grid;
     grid-template-columns: repeat(8, @size);
@@ -60,6 +63,14 @@ div.photos
     }
 }
 
+@media all and (max-width: 1024px)
+{
+    div.photos
+    {
+        width: 100%;
+    }
+}
+
 /* iphone viewport size */
 @media all and (max-width: 767px)
 {
@@ -68,7 +79,7 @@ div.photos
         height: min_height_replace;
     }
 
-    .gallery
+    div.gallery
     {
         grid-template-columns: repeat(8, @smin);
         grid-auto-rows: @smin;

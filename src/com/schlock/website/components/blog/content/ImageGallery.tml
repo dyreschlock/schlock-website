@@ -48,13 +48,13 @@
         </div>
 
         <div class="photos">
-            <article class="gallery">
+            <div class="gallery">
 
                 <t:loop source="galleryImages" value="currentImage" index="currentIndex">
 
                     <img src="${currentImage.imageLink}" onclick="galleryClicked(${currentIndex})" />
                 </t:loop>
-            </article>
+            </div>
         </div>
         <div id="photoPageHeight"/>
     </t:if>
