@@ -5,6 +5,7 @@ import com.schlock.website.services.apps.pokemon.PokemonDataGameMasterService;
 import com.schlock.website.services.apps.ps2.DreamcastService;
 import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.blog.ImageManagement;
+import com.schlock.website.services.blog.PostContentsManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.blog.SitemapManagement;
 import org.apache.commons.lang.StringUtils;
@@ -36,6 +37,9 @@ public class RegenerationIndex
 
     @Inject
     private PostManagement postManagement;
+
+    @Inject
+    private PostContentsManagement postContentsManagement;
 
     @Inject
     private PokemonDataGameMasterService pokemonGameMasterService;
@@ -97,6 +101,12 @@ public class RegenerationIndex
             }
         }
     }
+
+    void onGenerateHTMLFilesForPosts()
+    {
+        postContentsManagement.writeHTMLFilesForPosts();
+    }
+
 
     @CommitAfter
     void onRegenPostItems()

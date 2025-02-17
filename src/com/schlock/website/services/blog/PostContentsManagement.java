@@ -5,4 +5,6 @@ import com.schlock.website.entities.blog.Page;
 public interface PostContentsManagement
 {
     String getHTMLContents(Page page);
+
+    void writeHTMLFilesForPosts();
 }
