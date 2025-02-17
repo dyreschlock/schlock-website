@@ -35,7 +35,8 @@ wget \
   http://localhost:8084/apps/pocket \
   http://localhost:8084/apps/ps2 \
   http://localhost:8084/old \
-  http://localhost:8084/old/v3
+  http://localhost:8084/old/v3 \
+  http://localhost:8084/old/v4
 
 wget \
   --no-host-directories \
