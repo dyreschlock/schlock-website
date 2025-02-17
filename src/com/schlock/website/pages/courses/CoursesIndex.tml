@@ -38,12 +38,6 @@
     </t:if>
 
     <t:if test="useCustomDisplay">
-        <c:postdisplay post="page" cssClass="courses">
-            <div class="postBody">
-
-                <co:CoursePageDisplay page="page" />
-
-            </div>
-        </c:postdisplay>
+        <c:postdisplay post="page" cssClass="courses" />
     </t:if>
 </html>

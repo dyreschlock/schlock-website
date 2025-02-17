@@ -11,10 +11,6 @@ import java.util.Set;
 
 public interface PostManagement
 {
-    Post createPost(String postTitle, String postContent);
-
-    Post createPost(Date created, String postTitle, String postContent);
-
     Date getUpdatedTime(Page page);
 
     void regenerateAllPostHTML();

@@ -22,8 +22,6 @@
         <property name="galleryName" />
         <property name="coverImage" />
 
-        <property name="bodyText" length="1000000" />
-
         <property name="blurb" length="1000000"/>
 
         <property name="keywordString" />

@@ -1,7 +1,6 @@
 package com.schlock.website.services.blog.impl;
 
 import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.Page;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.SiteGenerationCache;
@@ -43,27 +42,27 @@ public class PostContentsManagementImpl implements PostContentsManagement
     }
 
 
-    public String getHTMLContents(Page page)
+    public String getHTMLContents(AbstractPost post)
     {
         String html = "";
-        if (page != null)
+        if (post != null)
         {
-            html = siteCache.getCachedString(SiteGenerationCache.RAW_POST_HTML, page.getUuid());
+            html = siteCache.getCachedString(SiteGenerationCache.RAW_POST_HTML, post.getUuid());
             if (StringUtils.isBlank(html))
             {
-                html = readHTMLContents(page);
+                html = readHTMLContents(post);
 
-                siteCache.addToStringCache(html, SiteGenerationCache.RAW_POST_HTML, page.getUuid());
+                siteCache.addToStringCache(html, SiteGenerationCache.RAW_POST_HTML, post.getUuid());
             }
         }
         return html;
     }
 
-    private String readHTMLContents(Page page)
+    private String readHTMLContents(AbstractPost post)
     {
-        String filepath = getFilepath(page);
-
+        String filepath = getFilepath(post);
         String contents = readFileContents(filepath);
+
         return postManagement.generatePostHTML(contents);
     }
 

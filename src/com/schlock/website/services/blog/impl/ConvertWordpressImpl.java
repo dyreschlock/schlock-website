@@ -1,15 +1,11 @@
 package com.schlock.website.services.blog.impl;
 
-import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.blog.ConvertWordpress;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.PostDAO;
-import org.apache.commons.lang.time.DateUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import java.util.Date;
 import java.util.List;
 
 public class ConvertWordpressImpl implements ConvertWordpress
@@ -34,30 +30,30 @@ public class ConvertWordpressImpl implements ConvertWordpress
         List<Object[]> entries = retrieveWordpressEntries();
         for(Object[] entry : entries)
         {
-            Post post = createPost(entry);
+//            Post post = createPost(entry);
         }
     }
 
-    private Post createPost(Object[] entry)
-    {
-        Date created = (Date) entry[0];
-        String postContent = (String) entry[2];
-        String postTitle = (String) entry[3];
-        Long id = (Long) entry[4];
-
-        Date date = new Date();
-        date = DateUtils.setYears(date, 2014);
-        date = DateUtils.setMonths(date, 1);
-        date = DateUtils.setDays(date, 1);
-
-        Post post = postManagement.createPost(created, postTitle, postContent);
-        post.setWpid(id.toString());
-        if (created.after(date))
-        {
-            post.setPublishedLevel(AbstractPost.LEVEL_PUBLISHED);
-        }
-        return post;
-    }
+//    private Post createPost(Object[] entry)
+//    {
+//        Date created = (Date) entry[0];
+//        String postContent = (String) entry[2];
+//        String postTitle = (String) entry[3];
+//        Long id = (Long) entry[4];
+//
+//        Date date = new Date();
+//        date = DateUtils.setYears(date, 2014);
+//        date = DateUtils.setMonths(date, 1);
+//        date = DateUtils.setDays(date, 1);
+//
+//        Post post = postManagement.createPost(created, postTitle, postContent);
+//        post.setWpid(id.toString());
+//        if (created.after(date))
+//        {
+//            post.setPublishedLevel(AbstractPost.LEVEL_PUBLISHED);
+//        }
+//        return post;
+//    }
 
     private List<Object[]> retrieveWordpressEntries()
     {

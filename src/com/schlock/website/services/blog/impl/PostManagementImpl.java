@@ -5,6 +5,7 @@ import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.KeywordManagement;
+import com.schlock.website.services.blog.PostContentsManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.SiteGenerationCache;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -46,6 +47,7 @@ public class PostManagementImpl implements PostManagement
 
     private final DeploymentContext context;
 
+    private final PostContentsManagement postContentsManagement;
     private final SiteGenerationCache siteCache;
 
     private final KeywordManagement keywordManagement;
@@ -58,6 +60,7 @@ public class PostManagementImpl implements PostManagement
     public PostManagementImpl(ApplicationStateManager asoManager,
                                 PageRenderLinkSource linkSource,
                                 DeploymentContext context,
+                                PostContentsManagement postContentsManagement,
                                 SiteGenerationCache siteCache,
                                 KeywordManagement keywordManagement,
                                 ImageManagement imageManagement,
@@ -68,6 +71,7 @@ public class PostManagementImpl implements PostManagement
 
         this.context = context;
 
+        this.postContentsManagement = postContentsManagement;
         this.siteCache = siteCache;
 
         this.keywordManagement = keywordManagement;
@@ -120,33 +124,33 @@ public class PostManagementImpl implements PostManagement
         return uuid;
     }
 
-    public Post createPost(String postTitle, String postContent)
-    {
-        if (StringUtils.isEmpty(postTitle))
-        {
-            return null;
-        }
+//    public Post createPost(String postTitle, String postContent)
+//    {
+//        if (StringUtils.isEmpty(postTitle))
+//        {
+//            return null;
+//        }
+//
+//        Calendar cal = Calendar.getInstance();
+//        Date created = cal.getTime();
+//
+//        return createPost(created, postTitle, postContent);
+//    }
 
-        Calendar cal = Calendar.getInstance();
-        Date created = cal.getTime();
-
-        return createPost(created, postTitle, postContent);
-    }
-
-    public Post createPost(Date created, String postTitle, String postContent)
-    {
-        String uuid = createUuid(postTitle);
-
-        Post post = new Post(uuid);
-        post.setCreated(created);
-
-        post.setTitle(postTitle);
-        post.setBodyText(postContent);
-
-        postDAO.save(post);
-
-        return post;
-    }
+//    public Post createPost(Date created, String postTitle, String postContent)
+//    {
+//        String uuid = createUuid(postTitle);
+//
+//        Post post = new Post(uuid);
+//        post.setCreated(created);
+//
+//        post.setTitle(postTitle);
+//        post.setBodyText(postContent);
+//
+//        postDAO.save(post);
+//
+//        return post;
+//    }
 
     public Date getUpdatedTime(Page page)
     {
@@ -188,7 +192,7 @@ public class PostManagementImpl implements PostManagement
     {
         for(AbstractPost post : postDAO.getAll())
         {
-            String text = post.getBodyText();
+            String text = postContentsManagement.getHTMLContents(post);
             generatePostHTML(post, text, null, false);
             // this will create image objects for inline post images
 
@@ -278,10 +282,10 @@ public class PostManagementImpl implements PostManagement
 
     private String generatePostPreviewContent(AbstractPost post, final int MAX_LENGTH)
     {
-        String description = post.getBodyText();
-        if (StringUtils.isNotBlank(post.getBlurb()))
+        String description = post.getBlurb();
+        if (StringUtils.isBlank(description))
         {
-            description = post.getBlurb();
+            description = postContentsManagement.getHTMLContents(post);
         }
         if (StringUtils.contains(description, BREAK))
         {
@@ -317,14 +321,14 @@ public class PostManagementImpl implements PostManagement
 
     public String generateRssHTML(AbstractPost post)
     {
-        String text = post.getBodyText();
+        String text = postContentsManagement.getHTMLContents(post);
         String html = generatePostHTML(post, text, null, true);
         return html;
     }
 
     public String generatePostHTML(AbstractPost post, SiteVersion version)
     {
-        String text = post.getBodyText();
+        String text = postContentsManagement.getHTMLContents(post);
         String html = generatePostHTML(post, text, version, false);
         return html;
     }

@@ -34,8 +34,6 @@ public abstract class AbstractPost extends Persisted
     private String galleryName;
     private String coverImage;
 
-    private String bodyText;
-
     private String blurb;
 
     private String keywordString;
@@ -298,16 +296,6 @@ public abstract class AbstractPost extends Persisted
     public void setCoverImage(String coverImage)
     {
         this.coverImage = coverImage;
-    }
-
-    public String getBodyText()
-    {
-        return bodyText;
-    }
-
-    public void setBodyText(String bodyText)
-    {
-        this.bodyText = bodyText;
     }
 
     public String getBlurb()
