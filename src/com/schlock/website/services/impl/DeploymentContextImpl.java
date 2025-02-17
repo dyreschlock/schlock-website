@@ -32,6 +32,7 @@ public class DeploymentContextImpl implements DeploymentContext
     private static final String GAME_BOXART_URL_PARAM = "boxart.source.url";
 
     private static final String GITHUB_HTML_PARAM = "github.html.repo";
+    private static final String GITHUB_CONTENT_PARAM = "github.content.repo";
     private static final String GITHUB_PHOTOS_PARAM = "github.photos.repo";
     private static final String GITHUB_PS2_PARAM = "github.ps2.repo";
     private static final String GITHUB_POKEMON_PARAM = "github.pokemon.repo";
@@ -180,6 +181,12 @@ public class DeploymentContextImpl implements DeploymentContext
     {
         String context = getContext();
         return getDeployProperties().getProperty(GITHUBDIR_PARAM + "." + context);
+    }
+
+    public String blogContentInputDirectory()
+    {
+        String contentRepo = getDeployProperties().getProperty(GITHUB_CONTENT_PARAM);
+        return githubDirectory() + contentRepo;
     }
 
     public String imageOutputDirectory()

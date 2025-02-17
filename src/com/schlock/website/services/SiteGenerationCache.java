@@ -10,6 +10,8 @@ import java.util.Set;
 public interface SiteGenerationCache
 {
     String GENERATED_POST_HTML = "generatedPostHTML";
+    String RAW_POST_HTML = "rawPostHTML";
+
     String POST_IMAGE_DIRECT_LINK = "postImageDirectLink";
     String HEADER_JAVASCRIPT = "headerJavascript";
 

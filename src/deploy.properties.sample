@@ -31,6 +31,7 @@ dreamcast.directory.drive=
 dreamcast.directory.data=
 
 github.html.repo=
+github.content.repo=
 github.photos.repo=
 github.ps2.repo=
 github.pokemon.repo=

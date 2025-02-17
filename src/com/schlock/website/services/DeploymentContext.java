@@ -34,6 +34,7 @@ public interface DeploymentContext
 
     String imageLocation();
 
+    String blogContentInputDirectory();
     String imageOutputDirectory();
     String webOutputDirectory();
     String webOutputDirectoryImageFolder();

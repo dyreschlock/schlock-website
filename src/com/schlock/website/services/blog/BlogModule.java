@@ -9,6 +9,7 @@ public class BlogModule
     {
         binder.bind(PostManagement.class, PostManagementImpl.class);
         binder.bind(PostArchiveManagement.class, PostArchiveManagementImpl.class);
+        binder.bind(PostContentsManagement.class, PostContentsManagementImpl.class);
 
         binder.bind(LayoutManagement.class, LayoutManagementImpl.class);
         binder.bind(IconManagement.class, IconManagementImpl.class);
