@@ -4,6 +4,8 @@
     >
     <div id="postContent">
 
+        <h1 id="headline">${pageTitle}</h1>
+
         <ul class="cloud">
         <t:loop source="keywords" value="currentKeyword">
 
