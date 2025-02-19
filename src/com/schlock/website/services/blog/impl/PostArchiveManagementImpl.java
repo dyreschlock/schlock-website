@@ -221,10 +221,6 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         {
             LIMIT = 1;
         }
-//        if (count == 1)
-//        {
-//            LIMIT = 0;
-//        }
 
         Integer year = parseYear(iteration);
         Integer month = parseMonth(iteration);

@@ -142,7 +142,7 @@ public class KeywordIndex
     public List<Post> getPreviewPosts()
     {
         Set<Long> exclude = new HashSet<>();
-//        exclude.add(getMostRecent().getId());
+        exclude.add(getMostRecent().getId());
 
         return archiveManagement.getPreviewPosts(currentIteration, selectedKeywordName, exclude);
     }
