@@ -3,7 +3,11 @@ package com.schlock.website.services.database.blog;
 import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.services.database.BaseDAO;
 
+import java.util.List;
+
 public interface KeywordDAO extends BaseDAO<Keyword>
 {
-    public Keyword getByName(String name);
+    Keyword getByName(String name);
+
+    List<Keyword> getAllAvailable();
 }

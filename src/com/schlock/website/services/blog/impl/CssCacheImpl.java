@@ -37,6 +37,7 @@ public class CssCacheImpl implements CssCache
                                                                     Page.ERROR_PAGE_UUID,
                                                                     Page.COURSE_LIST_UUID,
                                                                     Page.LESSON_PLANS_UUID,
+                                                                    Page.KEYWORD_CLOUD_UUID,
                                                                     AbstractPost.KENDO_UUID,
                                                                     AbstractPost.SUBTITLES_UUID,
                                                                     NINTENDO_MUSEUM_UUID,
