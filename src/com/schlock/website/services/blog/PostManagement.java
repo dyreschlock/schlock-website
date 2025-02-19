@@ -39,9 +39,11 @@ public interface PostManagement
 
     List<Post> getTopPosts(Integer count, Long categoryId, Set<Long> excludeIds);
 
+    List<Post> getTopPosts(Integer count, String keywordName, Set<Long> excludeIds);
+
     List<Post> getTopPosts(Integer count, Integer year, Integer month, Set<Long> excludeIds);
 
-    List<Post> getTopPosts(Integer count, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
+    List<Post> getTopPosts(Integer count, Integer year, Integer month, Long categoryId, String keywordName, Set<Long> excludeIds);
 
     List<AbstractPost> getNextPosts(AbstractPost post);
 

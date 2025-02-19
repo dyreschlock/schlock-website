@@ -39,35 +39,37 @@ public interface PostDAO extends BaseDAO<AbstractPost>
     Set<String> getAllGalleryNames();
 
 
-    Post getMostRecentFrontPagePost(Long categoryId);
+    Post getMostRecentFrontPagePost();
 
-    Post getMostRecentPost(boolean withUnpublished, Long categoryId);
+    Post getMostRecentPost(boolean withUnpublished);
 
     Post getFirstAvailablePost(boolean withUnpublished);
 
 
-    List<Post> getMostRecentPostsWithGallery(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
+    List<Post> getMostRecentPostsWithGallery(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, String keywordName, Set<Long> excludeIds);
 
 
     List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId);
 
+    List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, String keywordName);
+
     List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Set<Long> categoryIds);
+
+    List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, String keywordName, Set<Long> excludeIds);
+
 
     List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId);
 
-
-    List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
-
-    List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, Set<Long> excludeIds);
+    List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, String keywordName, Set<Long> excludeIds);
 
 
     Post getNextPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
 
-    List<AbstractPost> getNextPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts);
+    List<AbstractPost> getNextPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, String keywordName, Set<Long> excludePosts);
 
     Post getPreviousPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
 
-    List<AbstractPost> getPreviousPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, Long keywordId, Set<Long> excludePosts);
+    List<AbstractPost> getPreviousPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, String keywordName, Set<Long> excludePosts);
 
 
     List<Integer> getAllYears(boolean withUnpublished);
@@ -75,6 +77,8 @@ public interface PostDAO extends BaseDAO<AbstractPost>
     List<Integer> getMonths(Integer year, boolean withUnpublished);
 
     List<List<Integer>> getYearsMonthsByCategory(boolean withUnpublished, Long categoryId);
+
+    List<List<Integer>> getYearsMonthsByKeyword(boolean withUnplished, String keywordName);
 
 
     List<Page> getAllPages(boolean withUnpublished);

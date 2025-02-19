@@ -1,19 +1,52 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html t:type="blog/layoutblog" post="page" pageName="pageTitle" pageDescription="pageDescription"
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:l="tapestry-library:blog/link"
     >
-    <div id="postContent">
+    <div id="postContent" class="archive">
 
         <h1 id="headline">${pageTitle}</h1>
 
-        <ul class="cloud">
-        <t:loop source="keywords" value="currentKeyword">
+        <t:if test="!keywordSelected">
 
-            <li class="${weightClass}">
-                <a href="${currentKeywordLink}">${currentKeywordName}</a>
-            </li>
+            <ul class="cloud">
+                <t:loop source="keywords" value="currentKeyword">
 
-        </t:loop>
-        </ul>
+                    <li class="${weightClass}">
+                        <a href="${currentKeywordLink}">${currentKeywordName}</a>
+                    </li>
+
+                </t:loop>
+            </ul>
+        </t:if>
+
+        <t:if test="keywordSelected">
+            <div class="postBody">
+
+                <l:postpreviewlink post="mostRecent" cssClass="'primaryPost'" />
+
+                <t:loop source="yearMonthIterations" value="currentIteration">
+                    <div class="title clr">${iterationTitle}</div>
+
+                    <div class="categoryPosts">
+                        <t:loop source="posts" value="currentPost">
+                            <l:postlink post="currentPost" cssClass="'archive'" />
+                        </t:loop>
+
+                        <br class="clr" />
+                    </div>
+
+                    <div class="postPreviews">
+                        <t:loop source="previewPosts" value="currentPost">
+                            <l:postpreviewlink post="currentPost" cssClass="'secondaryPost'" />
+                        </t:loop>
+
+                        <br class="clr" />
+                    </div>
+
+                    <br class="clr" />
+                </t:loop>
+            </div>
+        </t:if>
     </div>
 </html>

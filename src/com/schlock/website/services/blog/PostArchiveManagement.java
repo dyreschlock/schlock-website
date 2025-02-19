@@ -11,6 +11,8 @@ public interface PostArchiveManagement
 
     List<String> getYearlyMonthlyIterations(Long categoryId);
 
+    List<String> getYearlyMonthlyIterations(String keywordName);
+
     String getNextYearlyMontlyIteration(String iteration, Long categoryId);
 
     String getPreviousYearlyMonthlyInteration(String iteration, Long categoryId);
@@ -20,9 +22,13 @@ public interface PostArchiveManagement
 
     List<Post> getPosts(String iteration, Long categoryId);
 
+    List<Post> getPosts(String iteration, String keywordName);
+
     List<Post> getPreviewPosts(String iteration, Set<Long> excludeIds);
 
     List<Post> getPreviewPosts(String iteration, Long categoryId, Set<Long> excludeIds);
+
+    List<Post> getPreviewPosts(String iteration, String keywordName, Set<Long> excludeIds);
 
 
     List<Post> getPagedPosts(Integer postCount, Integer pageNumber);

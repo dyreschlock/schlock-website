@@ -32,7 +32,8 @@ public class Version6Calendar
         {
             return monthYear;
         }
-        String recent = archiveManagement.getYearlyMonthlyIterations(null).get(0);
+        Long id = null;
+        String recent = archiveManagement.getYearlyMonthlyIterations(id).get(0);
         return recent;
     }
 

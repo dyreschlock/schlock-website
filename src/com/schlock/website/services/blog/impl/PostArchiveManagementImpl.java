@@ -3,15 +3,18 @@ package com.schlock.website.services.blog.impl;
 import com.schlock.website.entities.blog.ClubPost;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
+import com.schlock.website.services.SiteGenerationCache;
 import com.schlock.website.services.blog.PostArchiveManagement;
 import com.schlock.website.services.blog.PostManagement;
-import com.schlock.website.services.SiteGenerationCache;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.services.ApplicationStateManager;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 public class PostArchiveManagementImpl implements PostArchiveManagement
 {
@@ -89,10 +92,9 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
             return results;
         }
 
-        ViewState viewState = asoManager.get(ViewState.class);
-        boolean unpublished = viewState.isShowUnpublished();
+        boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
 
-        results = new ArrayList<String>();
+        results = new ArrayList<>();
 
         List<List<Integer>> dates = postDAO.getYearsMonthsByCategory(unpublished, categoryId);
         for (List<Integer> date : dates)
@@ -104,6 +106,32 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         }
 
         siteCache.addToStringListCache(results, SiteGenerationCache.YEARLY_MONTHLY_ITERATIONS, categoryId);
+
+        return results;
+    }
+
+    public List<String> getYearlyMonthlyIterations(String keywordName)
+    {
+        List<String> results = siteCache.getCachedStringList(SiteGenerationCache.YEARLY_MONTHLY_ITERATIONS, keywordName);
+        if (results != null)
+        {
+            return results;
+        }
+
+        boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
+
+        results = new ArrayList<>();
+
+        List<List<Integer>> dates = postDAO.getYearsMonthsByKeyword(unpublished, keywordName);
+        for(List<Integer> date : dates)
+        {
+            Integer year = date.get(0);
+            Integer month = date.get(1);
+
+            results.add(createIteration(year, month));
+        }
+
+        siteCache.addToStringListCache(results, SiteGenerationCache.YEARLY_MONTHLY_ITERATIONS, keywordName);
 
         return results;
     }
@@ -136,12 +164,22 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<Post> getPosts(String iteration)
     {
-        return getPosts(iteration, null);
+        return getPosts(iteration, null, null);
     }
 
     public List<Post> getPosts(String iteration, Long categoryId)
     {
-        List<Post> results = siteCache.getCachedPosts(SiteGenerationCache.ARCHIVED_POSTS, iteration, categoryId);
+        return getPosts(iteration, categoryId, null);
+    }
+
+    public List<Post> getPosts(String iteration, String keywordName)
+    {
+        return getPosts(iteration, null, keywordName);
+    }
+
+    private List<Post> getPosts(String iteration, Long categoryId, String keywordName)
+    {
+        List<Post> results = siteCache.getCachedPosts(SiteGenerationCache.ARCHIVED_POSTS, iteration, categoryId, keywordName);
         if (results != null)
         {
             return results;
@@ -153,35 +191,45 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         Integer year = parseYear(iteration);
         Integer month = parseMonth(iteration);
 
-        results = postDAO.getMostRecentPosts(null, unpublished, year, month, categoryId);
+        results = postDAO.getMostRecentPosts(null, unpublished, year, month, categoryId, keywordName);
 
-        siteCache.addToPostCache(results, SiteGenerationCache.ARCHIVED_POSTS, iteration, categoryId);
+        siteCache.addToPostCache(results, SiteGenerationCache.ARCHIVED_POSTS, iteration, categoryId, keywordName);
 
         return results;
     }
 
     public List<Post> getPreviewPosts(String iteration, Set<Long> excludeIds)
     {
-        return getPreviewPosts(iteration, null, excludeIds);
+        return getPreviewPosts(iteration, null, null, excludeIds);
     }
 
     public List<Post> getPreviewPosts(String iteration, Long categoryId, Set<Long> excludeIds)
     {
-        int count = getPosts(iteration, categoryId).size();
+        return getPreviewPosts(iteration, categoryId, null, excludeIds);
+    }
+
+    public List<Post> getPreviewPosts(String iteration, String keywordName, Set<Long> excludeIds)
+    {
+        return getPreviewPosts(iteration, null, keywordName, excludeIds);
+    }
+
+    private List<Post> getPreviewPosts(String iteration, Long categoryId, String keywordName, Set<Long> excludeIds)
+    {
+        int count = getPosts(iteration, categoryId, keywordName).size();
         int LIMIT = (int) Math.floor(((double) count ) / ((double) 7));
         if (LIMIT < 1)
         {
             LIMIT = 1;
         }
-        if (count == 1)
-        {
-            LIMIT = 0;
-        }
+//        if (count == 1)
+//        {
+//            LIMIT = 0;
+//        }
 
         Integer year = parseYear(iteration);
         Integer month = parseMonth(iteration);
 
-        List<Post> posts = postManagement.getTopPosts(LIMIT, year, month, categoryId, excludeIds);
+        List<Post> posts = postManagement.getTopPosts(LIMIT, year, month, categoryId, keywordName, excludeIds);
         return posts;
     }
 

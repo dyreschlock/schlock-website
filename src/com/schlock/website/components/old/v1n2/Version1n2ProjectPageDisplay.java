@@ -90,7 +90,7 @@ public class Version1n2ProjectPageDisplay
         }
         else if (currentCategory.isPost())
         {
-            posts = postDAO.getMostRecentPostsWithGallery(null, false, null, null, categoryId, Collections.EMPTY_SET);
+            posts = postDAO.getMostRecentPostsWithGallery(null, false, null, null, categoryId, null, Collections.EMPTY_SET);
         }
         return posts;
     }

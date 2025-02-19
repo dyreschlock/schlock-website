@@ -203,7 +203,7 @@ public abstract class AbstractOldVersionPage extends AbstractOldLinks
     {
         if (StringUtils.isBlank(param))
         {
-            return postDAO.getMostRecentFrontPagePost(null);
+            return postDAO.getMostRecentFrontPagePost();
         }
 
         List<AbstractPost> posts = postDAO.getAllByUuid(param);

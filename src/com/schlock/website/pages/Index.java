@@ -50,7 +50,7 @@ public class Index
     {
         viewState.reset();
 
-        AbstractPost post = postDAO.getMostRecentFrontPagePost(null);
+        AbstractPost post = postDAO.getMostRecentFrontPagePost();
         return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid());
     }
 
@@ -103,7 +103,7 @@ public class Index
             if (posts.isEmpty())
             {
                 boolean unpublished = viewState.isShowUnpublished();
-                requested = postDAO.getMostRecentPost(unpublished, null);
+                requested = postDAO.getMostRecentPost(unpublished);
             }
             currentPost = requested;
         }
@@ -126,7 +126,7 @@ public class Index
     {
         if(currentPost == null)
         {
-            currentPost = postDAO.getMostRecentPost(false, null);
+            currentPost = postDAO.getMostRecentPost(false);
         }
         return currentPost;
     }
