@@ -149,6 +149,10 @@ public class KeywordIndex
 
 
 
+    public String getReturnLink()
+    {
+        return linkSource.createPageRenderLink(KeywordIndex.class).toURI();
+    }
 
     public String getPageTitle()
     {

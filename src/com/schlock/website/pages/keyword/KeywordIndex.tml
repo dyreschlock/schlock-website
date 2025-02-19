@@ -45,6 +45,12 @@
                     </div>
 
                     <br class="clr" />
+                    <div class="returnLink">
+                        //
+                        <a href="${returnLink}">
+                            ${message:return-keyword}
+                        </a>
+                    </div>
                 </t:loop>
             </div>
         </t:if>
