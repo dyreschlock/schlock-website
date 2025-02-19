@@ -4,10 +4,14 @@
     >
     <div id="postContent">
 
+        <ul class="cloud">
         <t:loop source="keywords" value="currentKeyword">
 
-            ${currentKeyword.name}<br/>
+            <li class="${weightClass}">
+                <a href="${currentKeywordLink}">${currentKeywordName}</a>
+            </li>
 
         </t:loop>
+        </ul>
     </div>
 </html>

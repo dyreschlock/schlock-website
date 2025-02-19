@@ -6,7 +6,11 @@ import java.util.List;
 
 public interface KeywordManagement
 {
-    public List<Keyword> generateKeywords(String keyString);
+    List<Keyword> generateKeywords(String keyString);
 
-    public Keyword getOrCreateKeyword(String name);
+    Keyword getOrCreateKeyword(String name);
+
+    List<Object[]> getAllAvailableKeywordNamesAndWeights();
+
+    String getKeywordTitle(String name);
 }

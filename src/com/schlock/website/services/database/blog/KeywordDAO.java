@@ -9,5 +9,5 @@ public interface KeywordDAO extends BaseDAO<Keyword>
 {
     Keyword getByName(String name);
 
-    List<Keyword> getAllAvailable();
+    List<Object[]> getAllAvailable();
 }

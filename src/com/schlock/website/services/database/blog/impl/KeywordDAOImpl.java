@@ -1,5 +1,6 @@
 package com.schlock.website.services.database.blog.impl;
 
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.blog.KeywordDAO;
@@ -26,11 +27,12 @@ public class KeywordDAOImpl extends BaseDAOImpl<Keyword> implements KeywordDAO
         return (Keyword) singleResult(query);
     }
 
-    public List<Keyword> getAllAvailable()
+    public List<Object[]> getAllAvailable()
     {
-        String text = "select k " +
+        String text = "select k.name, count(p.id) " +
                         " from AbstractPost p " +
                         " join p.keywords k " +
+                        " where p.publishedLevel >= " + AbstractPost.LEVEL_PUBLISHED + " " +
                         " group by k.id " +
                         " having (count(p.id) > 1) " +
                         " order by k.name asc ";

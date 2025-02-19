@@ -6,6 +6,7 @@ import com.schlock.website.services.database.blog.KeywordDAO;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class KeywordManagementImpl implements KeywordManagement
@@ -47,5 +48,36 @@ public class KeywordManagementImpl implements KeywordManagement
             keywordDAO.save(keyword);
         }
         return keyword;
+    }
+
+    public List<Object[]> getAllAvailableKeywordNamesAndWeights()
+    {
+        return keywordDAO.getAllAvailable();
+    }
+
+    public String getKeywordTitle(String name)
+    {
+        final List<String> UPPERCASE = Arrays.asList("pc", "pax", "rpg", "ps2", "ps3", "psp", "3ds", "ds", "cd", "ddr");
+
+        String[] words = name.split("-");
+
+        String title = "";
+        for(int i = 0; i < words.length; i++)
+        {
+            if (i != 0)
+            {
+                title += " ";
+            }
+            String word = words[i];
+            if (UPPERCASE.contains(word))
+            {
+                title += word.toUpperCase();
+            }
+            else
+            {
+                title += StringUtils.capitalize(words[i]);
+            }
+        }
+        return title;
     }
 }

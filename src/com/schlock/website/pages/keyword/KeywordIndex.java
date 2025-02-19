@@ -1,8 +1,7 @@
 package com.schlock.website.pages.keyword;
 
-import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.blog.Page;
-import com.schlock.website.services.database.blog.KeywordDAO;
+import com.schlock.website.services.blog.KeywordManagement;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
@@ -20,20 +19,57 @@ public class KeywordIndex
     private Messages messages;
 
     @Inject
-    private KeywordDAO keywordDAO;
+    private KeywordManagement keywordManagement;
 
     @Inject
     private PostDAO postDAO;
 
     @Property
-    private Keyword currentKeyword;
+    private Object[] currentKeyword;
 
     private Page cachedPage;
 
 
-    public List<Keyword> getKeywords()
+    public List<Object[]> getKeywords()
     {
-        return keywordDAO.getAllAvailable();
+        return keywordManagement.getAllAvailableKeywordNamesAndWeights();
+    }
+
+    public String getWeightClass()
+    {
+        long count = (long) currentKeyword[1];
+
+        String cls = "weight";
+        if (count >= 10)
+        {
+            return cls + "5";
+        }
+        if(count >= 7)
+        {
+            return cls + "4";
+        }
+        if (count >= 5)
+        {
+            return cls + "3";
+        }
+        if (count >= 3)
+        {
+            return cls + "2";
+        }
+        return cls + "1";
+    }
+
+    public String getCurrentKeywordLink()
+    {
+        String uuid = (String) currentKeyword[0];
+        String url = linkSource.createPageRenderLinkWithContext(KeywordIndex.class, uuid).toURI();
+        return url;
+    }
+
+    public String getCurrentKeywordName()
+    {
+        String uuid = (String) currentKeyword[0];
+        return keywordManagement.getKeywordTitle(uuid);
     }
 
 
