@@ -4,7 +4,9 @@
      xmlns:l="tapestry-library:blog/link"
      xmlns:la="tapestry-library:blog/layout"
     >
-    <la:archivelinks selected="pageUuid" />
+    <t:if test="!keywordSelected">
+        <la:archivelinks selected="pageUuid" />
+    </t:if>
 
     <div id="postContent" class="archive">
 
