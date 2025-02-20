@@ -14,7 +14,7 @@
 
             <p class="description">${message:description}</p>
 
-            <div class="title clr">Pages</div>
+            <div class="title clr">${message:pages}</div>
 
             <div class="categoryPosts">
                 <t:loop source="pages" value="currentPage">
@@ -28,7 +28,6 @@
                 <br class="clr" />
             </div>
             <br class="clr" />
-
 
         </div>
     </div>
