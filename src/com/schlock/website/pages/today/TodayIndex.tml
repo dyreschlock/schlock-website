@@ -61,6 +61,8 @@
 
             <t:if test="!daySelected">
 
+                <p class="description">${message:description}</p>
+
                 <t:loop source="months" value="currentMonth">
 
                     <div class="title clr">${currentMonthTitle}</div>

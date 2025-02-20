@@ -14,15 +14,19 @@
 
         <t:if test="!keywordSelected">
 
-            <ul class="cloud">
-                <t:loop source="keywords" value="currentKeyword">
+            <div class="postBody">
+                <p class="description">${message:description}</p>
 
-                    <li class="${weightClass}">
-                        <a href="${currentKeywordLink}">${currentKeywordName}</a>
-                    </li>
+                <ul class="cloud">
+                    <t:loop source="keywords" value="currentKeyword">
 
-                </t:loop>
-            </ul>
+                        <li class="${weightClass}">
+                            <a href="${currentKeywordLink}">${currentKeywordName}</a>
+                        </li>
+
+                    </t:loop>
+                </ul>
+            </div>
         </t:if>
 
         <t:if test="keywordSelected">
