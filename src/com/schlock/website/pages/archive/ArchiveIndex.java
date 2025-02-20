@@ -1,5 +1,6 @@
 package com.schlock.website.pages.archive;
 
+import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.services.blog.PostArchiveManagement;
@@ -249,6 +250,11 @@ public class ArchiveIndex
             description = messages.get("archive");
         }
         return description;
+    }
+
+    public String getPageUuid()
+    {
+        return Page.POST_ARCHIVE_UUID;
     }
 
     public String getPageUrl()

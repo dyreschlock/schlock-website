@@ -186,11 +186,16 @@ public class KeywordIndex
         return url;
     }
 
+    public String getPageUuid()
+    {
+        return Page.KEYWORD_CLOUD_UUID;
+    }
+
     public Page getPage()
     {
         if (cachedPage == null)
         {
-            cachedPage = (Page) postDAO.getByUuid(Page.KEYWORD_CLOUD_UUID);
+            cachedPage = (Page) postDAO.getByUuid(getPageUuid());
         }
         return cachedPage;
     }

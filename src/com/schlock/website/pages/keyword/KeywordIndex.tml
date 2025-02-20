@@ -2,7 +2,10 @@
 <html t:type="blog/layoutblog" post="page" pageName="pageTitle" pageDescription="pageDescription"
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
      xmlns:l="tapestry-library:blog/link"
+     xmlns:la="tapestry-library:blog/layout"
     >
+    <la:archivelinks selected="pageUuid" />
+
     <div id="postContent" class="archive">
 
         <h1 id="headline">${pageTitle}</h1>

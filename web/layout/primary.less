@@ -19,6 +19,10 @@ span.ja
     font-family: @fontJ;
     font-size: 0.8em;
 }
+span.divider
+{
+    padding: 0 5px 0 2px;
+}
 a:link, a:visited, a:hover
 {
     text-decoration: none;
@@ -188,19 +192,10 @@ table td .left { text-align: left; }
         font-family: @font2;
         font-size: 1.3em;
     }
-    span.divider
-    {
-        padding: 0 5px 0 2px;
-    }
 }
 #subheaderContent
 {
     width: 100%;
-
-    span.divider
-    {
-        padding: 0 5px 0 2px;
-    }
 
     div.previousNext
     {
@@ -691,6 +686,25 @@ table td .left { text-align: left; }
         {
             padding-left: 7px;
         }
+    }
+}
+
+div.archiveLinks
+{
+    padding-top: 15px;
+
+    text-align: center;
+
+    font-family: @font2;
+    font-size: 0.9em;
+
+    a.selected
+    {
+        color: @textcolor;
+    }
+    a.unselected
+    {
+        color: @textcolor_unselected;
     }
 }
 

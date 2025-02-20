@@ -1,0 +1,15 @@
+<t:container
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    >
+
+    <div class="archiveLinks">
+        <a class="${archiveClass}" href="${archiveLink}">View all Archived Posts</a>
+        <span class="divider">&#183;</span>
+        <a class="${todayClass}" href="${todayLink}">View Calendar of all Posts</a>
+        <span class="divider">&#183;</span>
+        <a class="${keywordClass}" href="${keywordLink}">View Keywords of all Posts</a>
+        <span class="divider">&#183;</span>
+        <a class="${pageClass}" href="${pageLink}">View all Pages</a>
+    </div>
+
+</t:container>

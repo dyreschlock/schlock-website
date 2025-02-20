@@ -7,6 +7,9 @@ public class Page extends AbstractPost
     public static final String ABOUT_ME_UUID = "aboutme";
     public static final String CLUB_UUID = "club";
     public static final String COURSE_LIST_UUID = "courses";
+    public static final String POST_ARCHIVE_UUID = "archive";
+    public static final String PAGE_ARCHIVE_UUID = "page";
+
     public static final String KEYWORD_CLOUD_UUID = "keyword";
     public static final String LESSON_PLANS_UUID = "lessons";
     public static final String PROJECTS_UUID = "projects";

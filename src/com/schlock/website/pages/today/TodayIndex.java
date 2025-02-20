@@ -1,6 +1,7 @@
 package com.schlock.website.pages.today;
 
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.ImageManagement;
@@ -168,41 +169,6 @@ public class TodayIndex
     }
 
 
-    public String getPageTitle()
-    {
-        if (isDaySelected())
-        {
-            String date = dateFormatter.todayPrintFormat(dateString);
-            return messages.format("page-title-today", date);
-        }
-        return messages.get("page-title");
-    }
-
-    public String getPageDescription()
-    {
-        if (isDaySelected())
-        {
-            String date = dateFormatter.todayPrintFormat(dateString);
-            if (isDayExists())
-            {
-                return messages.format("description-today", date);
-            }
-            return messages.format("description-today-no", date);
-        }
-        return messages.get("description");
-    }
-
-    public String getPageUrl()
-    {
-        String url = linkSource.createPageRenderLink(TodayIndex.class).toURI();
-        if (isDaySelected())
-        {
-            url += "/" + dateString;
-        }
-        return url;
-    }
-
-
     public String getNextDayLink()
     {
         String nextDate = archiveManagement.getNextDayString(dateString);
@@ -239,6 +205,46 @@ public class TodayIndex
     public String getReturnLink()
     {
         String url = linkSource.createPageRenderLink(TodayIndex.class).toURI();
+        return url;
+    }
+
+
+    public String getPageTitle()
+    {
+        if (isDaySelected())
+        {
+            String date = dateFormatter.todayPrintFormat(dateString);
+            return messages.format("page-title-today", date);
+        }
+        return messages.get("page-title");
+    }
+
+    public String getPageDescription()
+    {
+        if (isDaySelected())
+        {
+            String date = dateFormatter.todayPrintFormat(dateString);
+            if (isDayExists())
+            {
+                return messages.format("description-today", date);
+            }
+            return messages.format("description-today-no", date);
+        }
+        return messages.get("description");
+    }
+
+    public String getPageUuid()
+    {
+        return Page.TODAYS_POSTS_UUID;
+    }
+
+    public String getPageUrl()
+    {
+        String url = linkSource.createPageRenderLink(TodayIndex.class).toURI();
+        if (isDaySelected())
+        {
+            url += "/" + dateString;
+        }
         return url;
     }
 }
