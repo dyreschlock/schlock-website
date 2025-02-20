@@ -2,6 +2,7 @@ package com.schlock.website.services.blog.impl;
 
 import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.services.blog.KeywordManagement;
+import com.schlock.website.services.blog.LessonsManagement;
 import com.schlock.website.services.database.blog.KeywordDAO;
 import org.apache.commons.lang.StringUtils;
 
@@ -29,7 +30,10 @@ public class KeywordManagementImpl implements KeywordManagement
                 String key = StringUtils.strip(part);
 
                 Keyword keyword = getOrCreateKeyword(key);
-                keywords.add(keyword);
+                if (!keywords.contains(keyword))
+                {
+                    keywords.add(keyword);
+                }
             }
         }
         return keywords;
@@ -50,58 +54,77 @@ public class KeywordManagementImpl implements KeywordManagement
 
     public List<Object[]> getAllAvailableKeywordNamesAndWeights()
     {
+        List<String> excludes = Arrays.asList(LessonsManagement.SIXTH_GRADE,
+                                                LessonsManagement.FIFTH_GRADE,
+                                                LessonsManagement.FOURTH_GRADE,
+                                                LessonsManagement.THIRD_GRADE,
+                                                LessonsManagement.SECOND_GRADE,
+                                                LessonsManagement.FIRST_GRADE,
+                                                LessonsManagement.HEISEI28,
+                                                LessonsManagement.HEISEI27,
+                                                LessonsManagement.HEISEI26,
+                                                LessonsManagement.HEISEI25);
+
         List<Object[]> namesAndWeights = new ArrayList<>();
 
         List<Object[]> namesAndCounts = keywordDAO.getAllAvailable();
         for(Object[] entry : namesAndCounts)
         {
-            long count = (long) entry[1];
+            String name = (String) entry[0];
+            if (!excludes.contains(name))
+            {
+                long count = (long) entry[1];
 
-            Integer weight = 1;
-            if (count >= 10)
-            {
-                weight = 5;
-            }
-            else if(count >= 7)
-            {
-                weight = 4;
-            }
-            else if (count >= 5)
-            {
-                weight = 3;
-            }
-            else if (count >= 3)
-            {
-                weight = 2;
-            }
+                Integer weight = 1;
+                if (count >= 25)
+                {
+                    weight = 6;
+                }
+                else if (count >= 13)
+                {
+                    weight = 5;
+                }
+                else if(count >= 7)
+                {
+                    weight = 4;
+                }
+                else if (count >= 5)
+                {
+                    weight = 3;
+                }
+                else if (count >= 3)
+                {
+                    weight = 2;
+                }
 
-            Calendar recent = Calendar.getInstance();
-            recent.setTime((Date) entry[2]);
+                Calendar recent = Calendar.getInstance();
+                recent.setTime((Date) entry[2]);
 
-            int year = recent.get(Calendar.YEAR);
-            if (year >= 2015)
-            {
-                //nothing
-            }
-            else if(year >= 2010)
-            {
-                weight = weight -1;
-            }
-            else
-            {
-                weight = weight -3;
-            }
+                int year = recent.get(Calendar.YEAR);
+                if (year >= 2015)
+                {
+                    //nothing
+                }
+                else if(year >= 2010)
+                {
+                    weight = weight -1;
+                }
+                else
+                {
+                    weight = weight -3;
+                }
 
-            if (weight < 1)
-            {
-                weight = 1;
+                if (weight < 1)
+                {
+                    weight = 1;
+                }
+
+                Object[] newEntry = new Object[2];
+                newEntry[0] = name;
+                newEntry[1] = weight;
+
+                namesAndWeights.add(newEntry);
             }
-
-            Object[] newEntry = new Object[2];
-            newEntry[0] = entry[0];
-            newEntry[1] = weight;
-
-            namesAndWeights.add(newEntry);
         }
         return namesAndWeights;
     }
@@ -109,7 +132,7 @@ public class KeywordManagementImpl implements KeywordManagement
 
     public String getKeywordTitle(String name)
     {
-        final List<String> UPPERCASE = Arrays.asList("pc", "pax", "rpg", "ps2", "ps3", "psp", "3ds", "ds", "cd", "ddr");
+        final List<String> UPPERCASE = Arrays.asList("pc", "pax", "rpg", "ps2", "ps3", "psp", "3ds", "ds", "dj", "cd", "opl", "ddr");
 
         String[] words = name.split("-");
 
