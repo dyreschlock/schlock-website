@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html t:type="blog/layoutblog" pageName="pageTitle" pageDescription="pageDescription" pageUrl="pageUrl"
+     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+     xmlns:l="tapestry-library:blog/link"
+     xmlns:la="tapestry-library:blog/layout"
+    >
+    <la:archivelinks selected="pageUuid" />
+
+    <div id="postContent" class="archive">
+
+        <h1 id="headline">${message:title}</h1>
+
+        <div class="postBody">
+
+            <p class="description">${message:description}</p>
+
+            <div class="title clr">Pages</div>
+
+            <div class="categoryPosts">
+                <t:loop source="pages" value="currentPage">
+                    <l:postlink post="currentPage" cssClass="'archive'" />
+                </t:loop>
+                <br class="clr" />
+            </div>
+
+            <div class="postPreviews">
+                <l:postpreviewlink post="crystaniaPage" cssClass="'secondaryPost'" />
+                <br class="clr" />
+            </div>
+            <br class="clr" />
+
+
+        </div>
+    </div>
+</html>

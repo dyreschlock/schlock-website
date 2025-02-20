@@ -83,6 +83,8 @@ public interface PostDAO extends BaseDAO<AbstractPost>
 
     List<Page> getAllPages(boolean withUnpublished);
 
+    List<Page> getAllPagesNoCourses(boolean withUnpublished);
+
     AbstractPost getMostRecentProject(boolean withUnpublished);
 
     List<AbstractPost> getAllProjectsByCategory(boolean withUnpublished, Long categoryId);

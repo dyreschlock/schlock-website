@@ -1,5 +1,6 @@
 package com.schlock.website.components.blog.link;
 
+import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.ImageManagement;
@@ -17,7 +18,7 @@ public class PostPreviewLink
 
     @Parameter(required = true)
     @Property
-    private Post post;
+    private AbstractPost post;
 
     @Parameter
     @Property
@@ -62,12 +63,16 @@ public class PostPreviewLink
 
     public boolean isShowNumber()
     {
-        return StringUtils.equalsIgnoreCase(PRIMARY_POST_CSS, cssClass) && post.getNumber() != null;
+        if(StringUtils.equalsIgnoreCase(PRIMARY_POST_CSS, cssClass))
+        {
+            return post.isPost() && ((Post) post).getNumber() != null;
+        }
+        return false;
     }
 
     public String getPostNumber()
     {
-        return messages.format(POST_NUMBER_KEY, post.getDisplayNumber());
+        return messages.format(POST_NUMBER_KEY, ((Post) post).getDisplayNumber());
     }
 
     public String getCreatedDate()

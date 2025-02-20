@@ -564,6 +564,26 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
+    public List<Page> getAllPagesNoCourses(boolean withUnpublished)
+    {
+        String text = "from Page p " +
+                        " where p.class is not :coursePage ";
+
+        if (!withUnpublished)
+        {
+            text += " and p.publishedLevel >= " + POST_PUBLISHED + " ";
+        }
+        else
+        {
+            text += " and p.publishedLevel >= " + POST_UNPUBLISHED + " ";
+        }
+        text += " order by p.created desc ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("coursePage", CoursePage.class.getName());
+        return query.list();
+    }
+
     public AbstractPost getMostRecentProject(boolean withUnpublished)
     {
         String text = "select p " +

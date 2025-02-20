@@ -2,6 +2,7 @@ package com.schlock.website.components.blog.layout;
 
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.pages.archive.ArchiveIndex;
+import com.schlock.website.pages.archive.page.ArchivePageIndex;
 import com.schlock.website.pages.keyword.KeywordIndex;
 import com.schlock.website.pages.today.TodayIndex;
 import org.apache.tapestry5.annotations.Parameter;
@@ -64,6 +65,6 @@ public class ArchiveLinks
 
     public String getPageLink()
     {
-        return "";
+        return linkSource.createPageRenderLink(ArchivePageIndex.class).toURI();
     }
 }
