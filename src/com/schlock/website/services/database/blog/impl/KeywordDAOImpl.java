@@ -29,7 +29,7 @@ public class KeywordDAOImpl extends BaseDAOImpl<Keyword> implements KeywordDAO
 
     public List<Object[]> getAllAvailable()
     {
-        String text = "select k.name, count(p.id) " +
+        String text = "select k.name, count(p.id), max(p.created) " +
                         " from AbstractPost p " +
                         " join p.keywords k " +
                         " where p.publishedLevel >= " + AbstractPost.LEVEL_PUBLISHED + " " +

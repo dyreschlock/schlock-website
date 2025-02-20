@@ -5,9 +5,7 @@ import com.schlock.website.services.blog.KeywordManagement;
 import com.schlock.website.services.database.blog.KeywordDAO;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class KeywordManagementImpl implements KeywordManagement
 {
@@ -52,8 +50,62 @@ public class KeywordManagementImpl implements KeywordManagement
 
     public List<Object[]> getAllAvailableKeywordNamesAndWeights()
     {
-        return keywordDAO.getAllAvailable();
+        List<Object[]> namesAndWeights = new ArrayList<>();
+
+        List<Object[]> namesAndCounts = keywordDAO.getAllAvailable();
+        for(Object[] entry : namesAndCounts)
+        {
+            long count = (long) entry[1];
+
+            Integer weight = 1;
+            if (count >= 10)
+            {
+                weight = 5;
+            }
+            else if(count >= 7)
+            {
+                weight = 4;
+            }
+            else if (count >= 5)
+            {
+                weight = 3;
+            }
+            else if (count >= 3)
+            {
+                weight = 2;
+            }
+
+            Calendar recent = Calendar.getInstance();
+            recent.setTime((Date) entry[2]);
+
+            int year = recent.get(Calendar.YEAR);
+            if (year >= 2015)
+            {
+                //nothing
+            }
+            else if(year >= 2010)
+            {
+                weight = weight -1;
+            }
+            else
+            {
+                weight = weight -3;
+            }
+
+            if (weight < 1)
+            {
+                weight = 1;
+            }
+
+            Object[] newEntry = new Object[2];
+            newEntry[0] = entry[0];
+            newEntry[1] = weight;
+
+            namesAndWeights.add(newEntry);
+        }
+        return namesAndWeights;
     }
+
 
     public String getKeywordTitle(String name)
     {

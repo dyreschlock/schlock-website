@@ -75,26 +75,8 @@ public class KeywordIndex
 
     public String getWeightClass()
     {
-        long count = (long) currentKeyword[1];
-
-        String cls = "weight";
-        if (count >= 10)
-        {
-            return cls + "5";
-        }
-        if(count >= 7)
-        {
-            return cls + "4";
-        }
-        if (count >= 5)
-        {
-            return cls + "3";
-        }
-        if (count >= 3)
-        {
-            return cls + "2";
-        }
-        return cls + "1";
+        int weight = (int) currentKeyword[1];
+        return "weight" + weight;
     }
 
     public String getCurrentKeywordLink()
