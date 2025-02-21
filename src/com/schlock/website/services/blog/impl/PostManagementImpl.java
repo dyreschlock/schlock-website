@@ -1005,50 +1005,21 @@ public class PostManagementImpl implements PostManagement
 
     private List<SearchCriteria> createSearchCriteria(AbstractPost post)
     {
-        Class clazz = null;
-        if (post.isClubPost() || post.isLessonPost())
-        {
-            clazz = post.getClass();
-        }
+        List<SearchCriteria> criteria = new ArrayList<>();
 
         List<Keyword> keywords = post.getKeywords();
+        for (Keyword keyword : keywords)
+        {
+            criteria.add(new SearchCriteria(null, keyword.getName(), null));
+        }
+
+        if (post.isClubPost())
+        {
+            criteria.add(new SearchCriteria(post.getClass(), null, null));
+        }
 
         List<AbstractCategory> categories = post.getAllPostCategories();
         Collections.reverse(categories);
-
-
-
-        List<SearchCriteria> classCriteria = new ArrayList<>();
-        List<SearchCriteria> criteria = new ArrayList<>();
-
-        for (Keyword keyword : keywords)
-        {
-            classCriteria.add(new SearchCriteria(null, keyword.getName(), null, true));
-        }
-
-        for(AbstractCategory category : categories)
-        {
-            if (!IGNORE_CATEGORY_UUIDS_WHEN_FINDING_RELATED_POSTS.contains(category.getUuid()))
-            {
-                for (Keyword keyword : keywords)
-                {
-                    if (clazz != null)
-                    {
-                        classCriteria.add(new SearchCriteria(clazz, keyword.getName(), category.getId()));
-                    }
-                    criteria.add(new SearchCriteria(null, keyword.getName(), category.getId()));
-                }
-            }
-        }
-
-        for (Keyword keyword : keywords)
-        {
-            if (clazz != null)
-            {
-                classCriteria.add(new SearchCriteria(clazz, keyword.getName(), null));
-            }
-            criteria.add(new SearchCriteria(null, keyword.getName(), null));
-        }
 
         for (AbstractCategory category : categories)
         {
@@ -1057,8 +1028,7 @@ public class PostManagementImpl implements PostManagement
 
         criteria.add(new SearchCriteria(null, null, null));
 
-        classCriteria.addAll(criteria);
-        return classCriteria;
+        return criteria;
     }
 
     private class SearchCriteria
