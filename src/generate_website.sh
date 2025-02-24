@@ -36,7 +36,10 @@ wget \
   http://localhost:8084/apps/ps2 \
   http://localhost:8084/old \
   http://localhost:8084/old/v3 \
-  http://localhost:8084/old/v4
+  http://localhost:8084/old/v3/photo \
+  http://localhost:8084/old/v4 \
+  http://localhost:8084/old/v4/photo
+
 
 wget \
   --no-host-directories \
