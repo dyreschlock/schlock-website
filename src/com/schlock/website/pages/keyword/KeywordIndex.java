@@ -138,13 +138,17 @@ public class KeywordIndex
 
     public String getCoverImagePostUuid()
     {
-        AbstractPost mostRecent = getMostRecent();
-        String link = imageManagement.getPostPreviewImageLink(mostRecent);
-        if (StringUtils.isNotBlank(link))
+        if (isKeywordSelected())
         {
-            return mostRecent.getUuid();
+            AbstractPost mostRecent = getMostRecent();
+            String link = imageManagement.getPostPreviewImageLink(mostRecent);
+            if (StringUtils.isNotBlank(link))
+            {
+                return mostRecent.getUuid();
+            }
+            return "";
         }
-        return "";
+        return null;
     }
 
 
