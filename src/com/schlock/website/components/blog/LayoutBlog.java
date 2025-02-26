@@ -16,9 +16,6 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 
 public class LayoutBlog
 {
-    @Inject
-    private PageRenderLinkSource linkSource;
-
     @Parameter
     @Property
     private AbstractPost post;
@@ -31,6 +28,11 @@ public class LayoutBlog
 
     @Parameter
     private String pageUrl;
+
+    @Parameter
+    private String coverImagePostUuid;
+
+
 
     @Inject
     private ImageManagement imageManagement;
@@ -45,7 +47,11 @@ public class LayoutBlog
     private DeploymentContext context;
 
     @Inject
+    private PageRenderLinkSource linkSource;
+
+    @Inject
     private Messages messages;
+
 
 
     public String getTitle()
@@ -122,6 +128,10 @@ public class LayoutBlog
 
     public boolean isHasCoverImage()
     {
+        if (coverImagePostUuid != null)
+        {
+            return StringUtils.isNotBlank(coverImagePostUuid);
+        }
         if (post != null)
         {
             String link = imageManagement.getPostPreviewImageLink(post);
@@ -132,13 +142,12 @@ public class LayoutBlog
 
     public String getCoverImageUrl()
     {
-        String imageUrl = "";
-        if (post != null)
+        String postUuid = coverImagePostUuid;
+        if (StringUtils.isBlank(postUuid) && post != null)
         {
-            String uuid = post.getUuid();
-            imageUrl = imageManagement.getPostPreviewMetadataLink(uuid);
+            postUuid = post.getUuid();
         }
-        return imageUrl;
+        return imageManagement.getPostPreviewMetadataLink(postUuid);
     }
 
     public String getRssUrl()

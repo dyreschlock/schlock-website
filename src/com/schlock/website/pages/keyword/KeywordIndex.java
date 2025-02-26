@@ -3,11 +3,13 @@ package com.schlock.website.pages.keyword;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.Post;
+import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.KeywordManagement;
 import com.schlock.website.services.blog.PostArchiveManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -33,6 +35,9 @@ public class KeywordIndex
     private KeywordManagement keywordManagement;
 
     @Inject
+    private ImageManagement imageManagement;
+
+    @Inject
     private PostManagement postManagement;
 
     @Inject
@@ -40,6 +45,7 @@ public class KeywordIndex
 
     @Inject
     private PostDAO postDAO;
+
 
     @Property
     private Object[] currentKeyword;
@@ -49,6 +55,7 @@ public class KeywordIndex
 
     @Property
     private AbstractPost currentPost;
+
 
     private String selectedKeywordName;
     private Page cachedPage;
@@ -129,6 +136,16 @@ public class KeywordIndex
         return archiveManagement.getPreviewPosts(currentIteration, selectedKeywordName, exclude);
     }
 
+    public String getCoverImagePostUuid()
+    {
+        AbstractPost mostRecent = getMostRecent();
+        String link = imageManagement.getPostPreviewImageLink(mostRecent);
+        if (StringUtils.isNotBlank(link))
+        {
+            return mostRecent.getUuid();
+        }
+        return "";
+    }
 
 
     public String getReturnLink()
@@ -163,7 +180,7 @@ public class KeywordIndex
         String url = linkSource.createPageRenderLink(KeywordIndex.class).toURI();
         if (isKeywordSelected())
         {
-            url = "/" + selectedKeywordName;
+            url += "/" + selectedKeywordName;
         }
         return url;
     }
