@@ -66,10 +66,9 @@ public class ImageGallery
         return loadGalleryImages();
     }
 
-    public String getColumnClasses()
+    public String getAltText()
     {
-        String cls = layoutManagement.getColumnClassByIndex(currentIndex);
-        return cls;
+        return imageManagement.getImagePostTitle(currentImage);
     }
 
 

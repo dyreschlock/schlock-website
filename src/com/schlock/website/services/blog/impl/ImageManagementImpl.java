@@ -3,6 +3,7 @@ package com.schlock.website.services.blog.impl;
 import com.google.common.io.Files;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
+import com.schlock.website.pages.Index;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.SiteGenerationCache;
 import com.schlock.website.services.blog.ImageManagement;
@@ -10,6 +11,7 @@ import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.ImageDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -22,9 +24,10 @@ import java.util.*;
 
 public class ImageManagementImpl implements ImageManagement
 {
-
     private final DeploymentContext deploymentContext;
     private final SiteGenerationCache siteCache;
+
+    private final PageRenderLinkSource linkSource;
 
     private final PostManagement postManagement;
 
@@ -33,12 +36,15 @@ public class ImageManagementImpl implements ImageManagement
 
     public ImageManagementImpl(DeploymentContext deploymentContext,
                                SiteGenerationCache siteCache,
+                               PageRenderLinkSource linkSource,
                                PostManagement postManagement,
                                PostDAO postDAO,
                                ImageDAO imageDAO)
     {
         this.deploymentContext = deploymentContext;
         this.siteCache = siteCache;
+
+        this.linkSource = linkSource;
 
         this.postManagement = postManagement;
 
@@ -96,7 +102,62 @@ public class ImageManagementImpl implements ImageManagement
 
     private List<Image> getFavoritedImages()
     {
-        return imageDAO.getFavorites();
+        List<Image> images = imageDAO.getFavorites();
+        buildImagePostDetailsCache(images);
+
+        return images;
+    }
+
+    private void buildImagePostDetailsCache(List<Image> images)
+    {
+        List<String> uuids = new ArrayList<>();
+        for(Image image : images)
+        {
+            uuids.add(image.getPostUuid());
+        }
+
+        List<Object[]> details = postDAO.getPostDetailsFromUuids(uuids);
+
+        for(Object[] detail : details)
+        {
+            String uuid = (String) detail[0];
+
+            siteCache.addToObjectCache(detail, SiteGenerationCache.IMAGE_POST_DETAILS, uuid);
+        }
+    }
+
+    public String getImagePostTitle(Image image)
+    {
+        String uuid = image.getPostUuid();
+
+        Object[] details = (Object[]) siteCache.getCachedObject(SiteGenerationCache.IMAGE_POST_DETAILS, uuid);
+        if (details == null)
+        {
+            return null;
+        }
+        return (String) details[1];
+    }
+
+    public Date getImagePostCreateDate(Image image)
+    {
+        String uuid = image.getPostUuid();
+
+        Object[] details = (Object[]) siteCache.getCachedObject(SiteGenerationCache.IMAGE_POST_DETAILS, uuid);
+        if (details == null)
+        {
+            return null;
+        }
+        return (Date) details[2];
+    }
+
+    public String getImagePostUrl(Image image)
+    {
+        String uuid = image.getPostUuid();
+        if (uuid == null)
+        {
+            return null;
+        }
+        return linkSource.createPageRenderLinkWithContext(Index.class, uuid).toURI();
     }
 
     private Integer getImageIndexInGallery(AbstractPost post, String imageLink)

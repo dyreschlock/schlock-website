@@ -52,7 +52,7 @@
 
                 <t:loop source="galleryImages" value="currentImage" index="currentIndex">
 
-                    <img src="${currentImage.imageLink}" onclick="galleryClicked(${currentIndex})" />
+                    <img alt="${altText}" title="${altText}" src="${currentImage.imageLink}" onclick="galleryClicked(${currentIndex})" />
                 </t:loop>
             </div>
         </div>

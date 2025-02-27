@@ -2,7 +2,6 @@ package com.schlock.website.components.blog.content;
 
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
-import com.schlock.website.pages.Index;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.blog.ImageManagement;
@@ -15,6 +14,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
+import java.util.Date;
 import java.util.List;
 
 public class ImageGalleryScript
@@ -85,21 +85,15 @@ public class ImageGalleryScript
             String postLink = "";
             if (post.isPhotoPage())
             {
-                String postUuid = image.getPostUuid();
-                if (StringUtils.isNotBlank(postUuid))
-                {
-                    List<AbstractPost> posts = postDAO.getAllByUuid(postUuid);
-                    for(AbstractPost post : posts)
-                    {
-                        if (!post.isCoursePage() && (post.isPublished() || post.isClubPost()))
-                        {
-                            String title = post.getTitle();
-                            String date = dateFormatter.dateFormat(post.getCreated());
+                String title = imageManagement.getImagePostTitle(image);
+                Date created = imageManagement.getImagePostCreateDate(image);
 
-                            comment = messages.format(POST_LINK_TEXT_KEY, title, date);
-                            postLink = linkSource.createPageRenderLinkWithContext(Index.class, postUuid).toURI();
-                        }
-                    }
+                if (title != null && created != null)
+                {
+                    String date = dateFormatter.dateFormat(created);
+
+                    comment = messages.format(POST_LINK_TEXT_KEY, title, date);
+                    postLink = imageManagement.getImagePostUrl(image);
                 }
             }
 

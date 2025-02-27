@@ -5,11 +5,19 @@ import com.schlock.website.entities.blog.Image;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public interface ImageManagement
 {
     List<Image> getGalleryImages(AbstractPost post);
+
+    String getImagePostTitle(Image image);
+
+    Date getImagePostCreateDate(Image image);
+
+    String getImagePostUrl(Image image);
+
 
     Image getPostPreviewImage(AbstractPost post);
 

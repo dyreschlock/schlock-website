@@ -103,4 +103,7 @@ public interface PostDAO extends BaseDAO<AbstractPost>
     List<LessonPost> getByYearGradeLessonKeyword(String year, String grade, String lesson);
 
     List<LessonPost> getByYearGradeLessonKeyword(String year, List<String> grade, String lesson);
+
+
+    List<Object[]> getPostDetailsFromUuids(List<String> uuids);
 }

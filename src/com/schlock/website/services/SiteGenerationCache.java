@@ -21,13 +21,14 @@ public interface SiteGenerationCache
     String FOOTER_PINNED_DETAILS = "footerPinnedDetails";
     String FOOTER_PAGE_DETAILS = "footerPageDetails";
 
+    String IMAGE_POST_DETAILS = "imagePostDetails";
+
     String TOP_POSTS = "topPosts";
     String PAGED_CACHED = "pagedCache";
     String ARCHIVED_POSTS = "archivedPosts";
 
     String NEXT_POSTS = "nextPosts";
     String PREVIOUS_POSTS = "previousPosts";
-
 
     String getCachedString(String cache, Object... params);
 

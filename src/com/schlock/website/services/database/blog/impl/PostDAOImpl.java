@@ -865,4 +865,29 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
         return query.list();
     }
+
+
+    public List<Object[]> getPostDetailsFromUuids(List<String> uuids)
+    {
+        String text = " select p.uuid, p.title, p.created " +
+                " from AbstractPost p " +
+                " where p.uuid in (:postUuids) " +
+                " and p.class is not :coursePage " +
+                " and " +
+                    "(" +
+                        "(p.class is :clubClass " +
+                            "and p.publishedLevel > :notVisible) " +
+                        " or (p.class is not :clubClass " +
+                            "and p.publishedLevel > :notPublished)" +
+                    ")";
+
+        Query query = session.createQuery(text);
+        query.setParameterList("postUuids", uuids);
+        query.setParameter("coursePage", CoursePage.class.getName());
+        query.setParameter("clubClass", ClubPost.class.getName());
+        query.setParameter("notVisible", AbstractPost.LEVEL_NOT_VISIBLE);
+        query.setParameter("notPublished", AbstractPost.LEVEL_UNPUBLISHED);
+
+        return query.list();
+    }
 }
