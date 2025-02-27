@@ -29,6 +29,42 @@
             </div>
             <br class="clr" />
 
+            <div class="title clr">${message:custom-pages}</div>
+
+            <div class="categoryPosts">
+                <t:loop source="collectionPages" value="currentDetails">
+                    <div class="postLink archive">
+                        <a title="${currentTitle}" href="${currentLink}"></a>
+                        <h2><t:outputraw value="currentTitle" /></h2>
+                    </div>
+                </t:loop>
+                <br class="clr" />
+            </div>
+
+            <br class="clr"/>
+
+            <div class="categoryPosts">
+                <t:loop source="pokemonPages" value="currentDetails">
+                    <div class="postLink archive">
+                        <a title="${currentTitle}" href="${currentLink}"></a>
+                        <h2><t:outputraw value="currentTitle" /></h2>
+                    </div>
+                </t:loop>
+                <br class="clr" />
+            </div>
+            <br class="clr"/>
+
+            <div class="categoryPosts">
+                <t:loop source="siteHistoryPages" value="currentDetails">
+                    <div class="postLink archive">
+                        <a title="${currentTitle}" href="${currentLink}"></a>
+                        <h2><t:outputraw value="currentTitle" /></h2>
+                    </div>
+                </t:loop>
+                <br class="clr" />
+            </div>
+            <br class="clr"/>
+
         </div>
     </div>
 </html>
