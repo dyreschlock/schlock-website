@@ -29,41 +29,34 @@
             </div>
             <br class="clr" />
 
-            <div class="title clr">${message:custom-pages}</div>
 
-            <div class="categoryPosts">
-                <t:loop source="collectionPages" value="currentDetails">
-                    <div class="postLink archive">
-                        <a title="${currentTitle}" href="${currentLink}"></a>
-                        <h2><t:outputraw value="currentTitle" /></h2>
+            <t:loop source="customPageDetails" value="currentPageDetails">
+
+                <div class="title clr">${currentPageDetails.groupTitle}</div>
+
+                <div class="categoryPosts">
+                    <t:loop source="currentPageDetails.pageDetails" value="currentDetails">
+                        <div class="postLink archive">
+                            <a title="${currentTitle}" href="${currentLink}"></a>
+                            <h2><t:outputraw value="currentTitle" /></h2>
+                        </div>
+                    </t:loop>
+                    <br class="clr" />
+                </div>
+                <t:if test="currentPageDetails.hasPreviewPost">
+                    <div class="postPreviews">
+                        <div class="secondaryPost">
+                            <a title="${currentPageDetails.previewPostTitle}" href="${currentPageDetails.previewPostLink}" ></a>
+                            <div class="postImage" style="background-image: url(${currentPageDetails.previewPostImage})" />
+                            <h2><t:outputraw value="currentPageDetails.previewPostTitle" /></h2>
+                            <br class="clr" />
+                        </div>
+                        <br class="clr" />
                     </div>
-                </t:loop>
-                <br class="clr" />
-            </div>
+                </t:if>
+                <br class="clr"/>
 
-            <br class="clr"/>
-
-            <div class="categoryPosts">
-                <t:loop source="pokemonPages" value="currentDetails">
-                    <div class="postLink archive">
-                        <a title="${currentTitle}" href="${currentLink}"></a>
-                        <h2><t:outputraw value="currentTitle" /></h2>
-                    </div>
-                </t:loop>
-                <br class="clr" />
-            </div>
-            <br class="clr"/>
-
-            <div class="categoryPosts">
-                <t:loop source="siteHistoryPages" value="currentDetails">
-                    <div class="postLink archive">
-                        <a title="${currentTitle}" href="${currentLink}"></a>
-                        <h2><t:outputraw value="currentTitle" /></h2>
-                    </div>
-                </t:loop>
-                <br class="clr" />
-            </div>
-            <br class="clr"/>
+            </t:loop>
 
         </div>
     </div>

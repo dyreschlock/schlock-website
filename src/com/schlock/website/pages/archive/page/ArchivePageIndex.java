@@ -14,7 +14,9 @@ import com.schlock.website.pages.old.v5.V5Index;
 import com.schlock.website.pages.old.v6.V6Index;
 import com.schlock.website.pages.old.v7.V7Index;
 import com.schlock.website.services.DeploymentContext;
+import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.database.blog.PostDAO;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -35,6 +37,9 @@ public class ArchivePageIndex
     private DeploymentContext context;
 
     @Inject
+    private ImageManagement imageManagement;
+
+    @Inject
     private PageRenderLinkSource linkSource;
 
     @Inject
@@ -42,6 +47,9 @@ public class ArchivePageIndex
 
     @Property
     private Page currentPage;
+
+    @Property
+    private CustomPageDetails currentPageDetails;
 
     @Property
     private String[] currentDetails;
@@ -58,8 +66,18 @@ public class ArchivePageIndex
         return (Page) post;
     }
 
+    public List<CustomPageDetails> getCustomPageDetails()
+    {
+        return Arrays.asList(
+                getCollectionPageDetails(),
+                getPokemonGoPageDetails(),
+                getShinyPokemonPageDetails(),
+                getSiteHistoryPageDetails()
+        );
+    }
 
-    public List<String[]> getCollectionPages()
+
+    private CustomPageDetails getCollectionPageDetails()
     {
         List<String> titles = Arrays.asList(
                 "video-game-collection",
@@ -74,41 +92,82 @@ public class ArchivePageIndex
 
         );
 
-        return collectStrings(titles, links);
+        List<String[]> pageDetails = collectStrings(titles, links);
+
+        String title = messages.get("collection-pages");
+
+        String previewTitle = messages.get(pageDetails.get(0)[0]);
+        String previewLink = pageDetails.get(0)[1];
+
+        AbstractPost post = postDAO.getByUuid("video-game-collection");
+        String previewImage = imageManagement.getPostPreviewImageLink(post);
+
+        return new CustomPageDetails(title, pageDetails, previewTitle, previewLink, previewImage);
     }
 
-    public List<String[]> getPokemonPages()
+    private CustomPageDetails getPokemonGoPageDetails()
     {
         List<String> titles = Arrays.asList(
                 "pokemon-go-raid-counters",
                 "pokemon-go-raid-counters-custom",
+                "pokemon-go-unown"
+        );
+
+        List<String> links = Arrays.asList(
+                linkSource.createPageRenderLink(PokemonRaidCounter.class).toURI(),
+                linkSource.createPageRenderLinkWithContext(PokemonRaidCounter.class, CounterType.CUSTOM.toString().toLowerCase()).toURI(),
+                linkSource.createPageRenderLink(PokemonUnown.class).toURI()
+        );
+
+        List<String[]> pageDetails = collectStrings(titles, links);
+
+        String title = messages.get("pokemon-go-pages");
+
+        String previewTitle = messages.get(pageDetails.get(0)[0]);
+        String previewLink = pageDetails.get(0)[1];
+
+        AbstractPost post = postDAO.getByUuid("pokemon-go-raid-counters");
+        String previewImage = imageManagement.getPostPreviewImageLink(post);
+
+        return new CustomPageDetails(title, pageDetails, previewTitle, previewLink, previewImage);
+    }
+
+    private CustomPageDetails getShinyPokemonPageDetails()
+    {
+        List<String> titles = Arrays.asList(
                 "shiny-pokemon-all",
                 "shiny-pokemon-go",
                 "shiny-pokemon-lets",
                 "shiny-pokemon-legends-list",
                 "shiny-pokemon-legends-catches",
-                "shiny-pokemon-legends-remaining",
-                "pokemon-go-unown"
+                "shiny-pokemon-legends-remaining"
         );
 
         String domain = context.webDomain();
 
         List<String> links = Arrays.asList(
-                linkSource.createPageRenderLink(PokemonRaidCounter.class).toURI(),
-                linkSource.createPageRenderLinkWithContext(PokemonRaidCounter.class, CounterType.CUSTOM.toString().toLowerCase()).toURI(),
                 domain + "pokemon/shinydex/",
                 domain + "pokemon/shinydex/go",
                 domain + "pokemon/shinydex/letsgo",
                 domain + "pokemon/shinydex/hisui/dex",
                 domain + "pokemon/shinydex/hisui/order",
-                domain + "pokemon/shinydex/hisui/missing",
-                linkSource.createPageRenderLink(PokemonUnown.class).toURI()
+                domain + "pokemon/shinydex/hisui/missing"
         );
 
-        return collectStrings(titles, links);
+        List<String[]> pageDetails = collectStrings(titles, links);
+
+        String title = messages.get("shiny-pokemon-pages");
+
+        String previewTitle = messages.get(pageDetails.get(0)[0]);
+        String previewLink = pageDetails.get(0)[1];
+
+        AbstractPost post = postDAO.getByUuid("shiny-pokemon-inventory");
+        String previewImage = imageManagement.getPostPreviewImageLink(post);
+
+        return new CustomPageDetails(title, pageDetails, previewTitle, previewLink, previewImage);
     }
 
-    public List<String[]> getSiteHistoryPages()
+    private CustomPageDetails getSiteHistoryPageDetails()
     {
         List<String> titles = Arrays.asList(
                 "site-version-7",
@@ -130,7 +189,11 @@ public class ArchivePageIndex
                 linkSource.createPageRenderLink(V1Index.class).toURI()
         );
 
-        return collectStrings(titles, links);
+        List<String[]> pageDetails = collectStrings(titles, links);
+
+        String title = messages.get("old-site-pages");
+
+        return new CustomPageDetails(title, pageDetails);
     }
 
     private List<String[]> collectStrings(List<String> titles, List<String> links)
@@ -151,6 +214,8 @@ public class ArchivePageIndex
         return strings;
     }
 
+
+
     public String getCurrentTitle()
     {
         String key = currentDetails[0];
@@ -162,7 +227,6 @@ public class ArchivePageIndex
         String link = currentDetails[1];
         return link;
     }
-
 
 
 
@@ -188,5 +252,66 @@ public class ArchivePageIndex
     {
         String link = linkSource.createPageRenderLink(ArchiveIndex.class).toURI();
         return link;
+    }
+
+
+    public class CustomPageDetails
+    {
+        private String groupTitle;
+        private List<String[]> pageDetails;
+
+        private String previewPostTitle;
+        private String previewPostLink;
+        private String previewPostImage;
+
+        public CustomPageDetails(String groupTitle,
+                                 List<String[]> pageDetails,
+                                 String previewPostTitle,
+                                 String previewPostLink,
+                                 String previewPostImage)
+        {
+            this.groupTitle = groupTitle;
+            this.pageDetails = pageDetails;
+            this.previewPostTitle = previewPostTitle;
+            this.previewPostLink = previewPostLink;
+            this.previewPostImage = previewPostImage;
+        }
+
+        public CustomPageDetails(String groupTitle,
+                                 List<String[]> pageDetails)
+        {
+            this.groupTitle = groupTitle;
+            this.pageDetails = pageDetails;
+        }
+
+        public boolean isHasPreviewPost()
+        {
+            return StringUtils.isNotBlank(previewPostTitle);
+        }
+
+        public String getGroupTitle()
+        {
+            return groupTitle;
+        }
+
+        public List<String[]> getPageDetails()
+        {
+            return pageDetails;
+        }
+
+        public String getPreviewPostTitle()
+        {
+            return previewPostTitle;
+        }
+
+        public String getPreviewPostLink()
+        {
+            return previewPostLink;
+        }
+
+        public String getPreviewPostImage()
+        {
+            return previewPostImage;
+        }
     }
 }
