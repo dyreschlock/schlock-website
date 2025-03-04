@@ -99,6 +99,10 @@
 
         <div class="postBody" itemprop="articleBody">
             <t:outputraw value="postBodyHTML" />
+
+            <t:if test="post.stubPost">
+                <p><i>${message:stub-message}</i></p>
+            </t:if>
         </div>
 
         <t:body />

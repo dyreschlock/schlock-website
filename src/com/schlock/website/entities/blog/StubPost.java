@@ -15,6 +15,6 @@ public class StubPost extends Post
 
     public String getDisplayNumber()
     {
-        return "-----";
+        return "—";
     }
 }
