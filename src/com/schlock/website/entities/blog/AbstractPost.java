@@ -61,6 +61,11 @@ public abstract class AbstractPost extends Persisted
         return false;
     }
 
+    public boolean isStubPost()
+    {
+        return false;
+    }
+
     public boolean isClubPost()
     {
         return false;

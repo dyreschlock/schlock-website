@@ -216,10 +216,16 @@ public class PostManagementImpl implements PostManagement
         int count = 1;
         for(Post post : posts)
         {
-            post.setNumber(count);
+            if (post.isStubPost())
+            {
+                post.setNumber(null);
+            }
+            else
+            {
+                post.setNumber(count);
+                count++;
+            }
             postDAO.save(post);
-
-            count++;
         }
     }
 
