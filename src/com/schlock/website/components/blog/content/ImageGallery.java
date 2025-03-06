@@ -68,7 +68,17 @@ public class ImageGallery
 
     public String getAltText()
     {
-        return imageManagement.getImagePostTitle(currentImage);
+        if (post.isPhotoPage())
+        {
+            return imageManagement.getImagePostTitle(currentImage);
+        }
+
+        Image image = currentImage;
+        if (image.getParent() != null)
+        {
+            image = image.getParent();
+        }
+        return image.getImageName();
     }
 
 
