@@ -189,7 +189,7 @@ public class PostDisplay
 
     public boolean isShowNumber()
     {
-        if (post.isPost())
+        if (post.isPost() && !post.isStubPost())
         {
             return ((Post) post).getNumber() != null;
         }
