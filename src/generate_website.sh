@@ -10,6 +10,7 @@ cd ${output_directory_html}
 
 ## wget
 # --recursive : go through the entire website
+# --level : the depth of recursive. default is 5, but inf = infinite, so it should do all pages
 # --no-host-directories : output pages directly into the directory rather than a 'localhost/8084' folder
 # --timestamping : don't download multiples of the same file. (might now work) (the following 2 flags are used with it)
 # --html-extension : write html files as html files
@@ -17,12 +18,13 @@ cd ${output_directory_html}
 # --domains : restrict download to localhost only
 # -e robots=off : ignores robots.txt
 # http://localhost:8084/ <-- this is the website (this website) to fetch
-## wget doesn't actually get everything so /apps/pocket and /apps/ps2 are also added
+## wget doesn't actually get everything so more starting points have been added
 
 start_timestamp=$(date +"%Y-%m-%d %H:%M:%S")
 
 wget \
   --recursive \
+  --level=inf \
   --no-host-directories \
   --timestamping \
     --no-if-modified-since \
