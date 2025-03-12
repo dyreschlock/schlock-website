@@ -13,6 +13,10 @@
             <div class="title">${message:email-title}</div>
             <div class="details">${message:website-email}</div>
         </div>
+        <div id="lastUpdated">
+            <div class="title">${message:last-updated}</div>
+            <div class="details">${lastUpdated}</div>
+        </div>
         <br class="clr" />
         <br class="clr" />
 

@@ -2,10 +2,13 @@ package com.schlock.website.pages;
 
 import com.schlock.website.entities.Icon;
 import com.schlock.website.entities.blog.Page;
+import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
+
+import java.util.Date;
 
 public class AboutMe
 {
@@ -13,10 +16,20 @@ public class AboutMe
     private PageRenderLinkSource linkSource;
 
     @Inject
+    private DateFormatter dateFormatter;
+
+    @Inject
     private Messages messages;
 
     @Inject
     private PostDAO postDAO;
+
+
+
+    public String getLastUpdated()
+    {
+        return dateFormatter.shortDateFormat(new Date());
+    }
 
 
     public String getRssRedirect()
