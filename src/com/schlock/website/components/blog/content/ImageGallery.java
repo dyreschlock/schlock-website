@@ -4,6 +4,7 @@ import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Image;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.LayoutManagement;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -70,7 +71,11 @@ public class ImageGallery
     {
         if (post.isPhotoPage())
         {
-            return imageManagement.getImagePostTitle(currentImage);
+            String title = imageManagement.getImagePostTitle(currentImage);
+            if (StringUtils.isNotBlank(title))
+            {
+                return title;
+            }
         }
 
         Image image = currentImage;
