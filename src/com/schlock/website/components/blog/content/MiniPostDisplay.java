@@ -3,12 +3,15 @@ package com.schlock.website.components.blog.content;
 import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.ProjectCategory;
+import com.schlock.website.pages.Index;
+import com.schlock.website.pages.projects.ProjectsIndex;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.PostManagement;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.List;
 
@@ -23,6 +26,9 @@ public class MiniPostDisplay
 
     @Inject
     private PostManagement postManagement;
+
+    @Inject
+    private PageRenderLinkSource linkSource;
 
 
     @Property
@@ -43,6 +49,11 @@ public class MiniPostDisplay
         return dateFormat.dateFormat(post.getCreated());
     }
 
+    public String getPostLink()
+    {
+        return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid()).toURI();
+    }
+
     public String getPostTitleHtml()
     {
         String title = post.getTitle();
@@ -59,6 +70,11 @@ public class MiniPostDisplay
     public List<ProjectCategory> getProjectCategories()
     {
         return post.getProjectCategories();
+    }
+
+    public String getCategoryLink()
+    {
+        return linkSource.createPageRenderLinkWithContext(ProjectsIndex.class, currentCategory.getUuid()).toURI();
     }
 
     public String getCategoryCssClass()

@@ -3,7 +3,7 @@
     >
     <div class="miniPost">
 
-        <a class="title" title="${post.title}" href="/${post.uuid}">
+        <a class="title" title="${post.title}" href="${postLink}">
             <h2><t:outputraw value="postTitleHtml" /></h2>
         </a>
         <t:if test="showDateLinks">
@@ -13,7 +13,7 @@
                 <t:if test="project">
                     <t:loop source="projectCategories" value="currentCategory">
                         //
-                        <a class="${categoryCssClass}" title="${currentCategory.name}" href="/projects/${currentCategory.uuid}">${currentCategory.name}</a>
+                        <a class="${categoryCssClass}" title="${currentCategory.name}" href="${categoryLink}">${currentCategory.name}</a>
                     </t:loop>
                 </t:if>
             </div>
