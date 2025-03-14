@@ -141,6 +141,10 @@ public class CssCacheImpl implements CssCache
         }
 
         String uuid = post.getUuid();
+        if (post.isCoursePage())
+        {
+            uuid += "-course";
+        }
 
         String css = cachedExtra.get(uuid);
         if (css == null)
