@@ -159,23 +159,23 @@ public class CssCacheImpl implements CssCache
                 css = fontCss + extraCss;
             }
 
-            if (Page.ERROR_PAGE_UUID.equals(uuid))
+            else if (Page.ERROR_PAGE_UUID.equals(uuid))
             {
                 css = createExtraCss(PERFECT_DOS_VGA_FONT, uuid);
             }
 
-            if (post.isHasLessonLinks())
+            else if (post.isHasLessonLinks())
             {
                 css = createExtraCss(Page.LESSON_PLANS_UUID);
             }
 
-            if (post instanceof CoursePage)
+            else if (post instanceof CoursePage)
             {
                 css = createExtraCss(Page.COURSE_LIST_UUID, Page.LESSON_PLANS_UUID);
             }
 
             //somewhat catch-all / individual special pages should come before this
-            if (BLOG_UUID_WITH_EXTRA_CSS.contains(uuid))
+            else if (BLOG_UUID_WITH_EXTRA_CSS.contains(uuid))
             {
                 css = createExtraCss(uuid);
             }
