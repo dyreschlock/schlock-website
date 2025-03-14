@@ -18,7 +18,6 @@ cd ${output_directory_html}
 # --domains : restrict download to localhost only
 # -e robots=off : ignores robots.txt
 # http://localhost:8084/ <-- this is the website (this website) to fetch
-## wget doesn't actually get everything so more starting points have been added
 
 start_timestamp=$(date +"%Y-%m-%d %H:%M:%S")
 
@@ -33,14 +32,7 @@ wget \
   --reject jpg,jpeg,png,gif,mpg,webp \
   --domains localhost \
   -e robots=off \
-  http://localhost:8084 \
-  http://localhost:8084/apps/pocket \
-  http://localhost:8084/apps/ps2 \
-  http://localhost:8084/old \
-  http://localhost:8084/old/v3 \
-  http://localhost:8084/old/v3/photo \
-  http://localhost:8084/old/v4 \
-  http://localhost:8084/old/v4/photo
+  http://localhost:8084
 
 
 wget \
