@@ -47,12 +47,14 @@ public class PostContentsManagementImpl implements PostContentsManagement
         String html = "";
         if (post != null)
         {
-            html = siteCache.getCachedString(SiteGenerationCache.RAW_POST_HTML, post.getUuid());
+            Boolean course = post.isCoursePage();
+
+            html = siteCache.getCachedString(SiteGenerationCache.RAW_POST_HTML, post.getUuid(), course);
             if (StringUtils.isBlank(html))
             {
                 html = readHTMLContents(post);
 
-                siteCache.addToStringCache(html, SiteGenerationCache.RAW_POST_HTML, post.getUuid());
+                siteCache.addToStringCache(html, SiteGenerationCache.RAW_POST_HTML, post.getUuid(), course);
             }
         }
         return html;
