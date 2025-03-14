@@ -34,36 +34,36 @@
                 <t:if test="hasCategories">
                     <t:loop source="topCategories" value="currentCategory">
                         //
-                        <a title="${currentCategory.name}" href="/category/${currentCategory.uuid}">${currentCategory.name}</a>
+                        <a title="${currentCategory.name}" href="${currentCategoryLink}">${currentCategory.name}</a>
                         <t:loop source="subcategories" value="currentSubcategory">
-                            <a title="${currentSubcategory.name}" href="/category/${currentSubcategory.uuid}">/${currentSubcategory.name}</a>
+                            <a title="${currentSubcategory.name}" href="${currentSubcategoryLink}">/${currentSubcategory.name}</a>
                         </t:loop>
                     </t:loop>
 
                     <t:loop source="extraCategories" value="currentCategory">
                         //
-                        <a title="${currentCategory.name}" href="/category/${currentCategory.uuid}">${currentCategory.name}</a>
+                        <a title="${currentCategory.name}" href="${currentCategoryLink}">${currentCategory.name}</a>
                     </t:loop>
                 </t:if>
 
                 <t:if test="project">
                     <t:loop source="projectCategories" value="currentCategory">
                         //
-                        <a class="${categoryCssClass}" title="${currentCategory.name}" href="/projects/${currentCategory.uuid}">${currentCategory.name}</a>
+                        <a class="${categoryCssClass}" title="${currentCategory.name}" href="${currentProjectCategoryLink}">${currentCategory.name}</a>
                     </t:loop>
                 </t:if>
 
                 <t:if test="lessonDisplay">
                     //
-                    <a class="${lessonCssClass}" title="${lessonYearKeyword}" href="/lessons/${lessonYearKeyword}"><t:outputraw value="lessonYearText" /></a>
+                    <a class="${lessonCssClass}" title="${lessonYearKeyword}" href="${lessonYearLink}"><t:outputraw value="lessonYearText" /></a>
                     <t:loop source="grades" value="currentGrade">
-                        .<a class="${lessonCssClass}" title="${currentGrade}" href="/lessons/${lessonYearKeyword}/${currentGrade}"><t:outputraw value="lessonGrade" /></a>
+                        .<a class="${lessonCssClass}" title="${currentGrade}" href="${lessonGradeLink}"><t:outputraw value="lessonGrade" /></a>
                     </t:loop>
                 </t:if>
 
                 <t:if test="courseDisplay">
                     //
-                    <a class="${lessonCssClass}" title="${coursePageTitle}" href="/courses/${coursePageUuid}">${coursePageTitle}</a>
+                    <a class="${lessonCssClass}" title="${coursePageTitle}" href="${coursePageLink}">${coursePageTitle}</a>
                 </t:if>
             </div>
         </t:if>
@@ -110,7 +110,7 @@
         <t:if test="post.coursePage">
             <div class="postBody">
                 <div class="returnLink">
-                    // <a href="/courses">${message:return-to-courses}</a>
+                    // <a href="${coursePageReturnLink}">${message:return-to-courses}</a>
                 </div>
             </div>
         </t:if>

@@ -1,6 +1,10 @@
 package com.schlock.website.components.blog.content;
 
 import com.schlock.website.entities.blog.*;
+import com.schlock.website.pages.category.CategoryIndex;
+import com.schlock.website.pages.courses.CoursesIndex;
+import com.schlock.website.pages.lessons.LessonsIndex;
+import com.schlock.website.pages.projects.ProjectsIndex;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.LessonsManagement;
@@ -14,6 +18,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.List;
 
@@ -28,6 +33,9 @@ public class PostDisplay
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
     @Property
     private String cssClass;
+
+    @Inject
+    private PageRenderLinkSource linkSource;
 
     @Inject
     private DeploymentContext context;
@@ -101,6 +109,16 @@ public class PostDisplay
         return post.getExtraCategories();
     }
 
+    public String getCurrentCategoryLink()
+    {
+        return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, currentCategory.getUuid()).toURI();
+    }
+
+    public String getCurrentSubcategoryLink()
+    {
+        return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, currentSubcategory.getUuid()).toURI();
+    }
+
     public boolean isProject()
     {
         return post.isProject();
@@ -123,14 +141,15 @@ public class PostDisplay
         return css;
     }
 
+    public String getCurrentProjectCategoryLink()
+    {
+        return linkSource.createPageRenderLinkWithContext(ProjectsIndex.class, currentCategory.getUuid()).toURI();
+    }
+
+
     public boolean isLessonDisplay()
     {
         return post.isLessonPost() && post.getCoursePage() == null;
-    }
-
-    public boolean isCourseDisplay()
-    {
-        return post.isLessonPost() && post.getCoursePage() != null;
     }
 
     public String getLessonCssClass()
@@ -149,6 +168,12 @@ public class PostDisplay
         return keyword;
     }
 
+    public String getLessonYearLink()
+    {
+        String keyword = lessonManagement.getYear(post);
+        return linkSource.createPageRenderLinkWithContext(LessonsIndex.class, keyword).toURI();
+    }
+
     public String getLessonYearText()
     {
         String y = lessonManagement.getYear(post);
@@ -163,6 +188,12 @@ public class PostDisplay
         return lessonManagement.getGrades(post);
     }
 
+    public String getLessonGradeLink()
+    {
+        String keyword = lessonManagement.getYear(post);
+        return linkSource.createPageRenderLinkWithContext(LessonsIndex.class, keyword, currentGrade).toURI();
+    }
+
     public String getLessonGrade()
     {
         String text = messages.get(currentGrade);
@@ -170,15 +201,32 @@ public class PostDisplay
         return html;
     }
 
-    public String getCoursePageUuid()
+
+    public boolean isCourseDisplay()
     {
-        return (post.getCoursePage() != null) ? post.getCoursePage().getUuid() : null;
+        return post.isLessonPost() && post.getCoursePage() != null;
+    }
+
+    public String getCoursePageLink()
+    {
+        if (post.getCoursePage() != null)
+        {
+            String uuid = post.getCoursePage().getUuid();
+            return linkSource.createPageRenderLinkWithContext(CoursesIndex.class, uuid).toURI();
+        }
+        return null;
     }
 
     public String getCoursePageTitle()
     {
         return (post.getCoursePage() != null) ? post.getCoursePage().getTitle() : null;
     }
+
+    public String getCoursePageReturnLink()
+    {
+        return linkSource.createPageRenderLink(CoursesIndex.class).toURI();
+    }
+
 
 
     public String getPostBodyHTML()
