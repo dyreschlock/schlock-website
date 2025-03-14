@@ -17,7 +17,7 @@
             <t:loop source="categories" value="currentCategory">
 
                 <t:if test="!pageCategory">
-                    <a href="/category/${currentCategory.uuid}">
+                    <a href="${categoryLink}">
                         <div class="title clr">${categoryTitle}</div>
                     </a>
                 </t:if>
@@ -68,7 +68,7 @@
 
                 <div class="returnLink">
                     //
-                    <a href="/category/${parent.uuid}">
+                    <a href="${returnLink}">
                         ${returnToCategory}
                     </a>
                 </div>

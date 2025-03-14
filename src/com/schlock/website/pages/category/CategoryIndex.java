@@ -14,6 +14,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.*;
 
@@ -22,6 +23,8 @@ public class CategoryIndex
     @SessionState
     private ViewState viewState;
 
+    @Inject
+    private PageRenderLinkSource linkSource;
 
     @Inject
     private Messages messages;
@@ -89,6 +92,11 @@ public class CategoryIndex
         Long catId = currentCategory.getId();
 
         return pageId.equals(catId);
+    }
+
+    public String getCategoryLink()
+    {
+        return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, currentCategory.getUuid()).toURI();
     }
 
     public String getCategoryTitle()
@@ -178,6 +186,10 @@ public class CategoryIndex
         return archiveManagement.getPreviewPosts(currentIteration, id, exclude);
     }
 
+    public String getReturnLink()
+    {
+        return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, getParent().getUuid()).toURI();
+    }
 
     public String getReturnToCategory()
     {
