@@ -16,7 +16,7 @@
 
             <div class="gallery ${columnClass}" style="background-image: url(${currentImage})">
 
-                <a href="/${currentPost.uuid}" />
+                <a href="${currentPostLink}" />
 
                 <span><!-- overlay effect --></span>
 

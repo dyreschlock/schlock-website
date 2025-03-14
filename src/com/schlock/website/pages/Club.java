@@ -120,6 +120,11 @@ public class Club
         return cls;
     }
 
+    public String getCurrentPostLink()
+    {
+        return linkSource.createPageRenderLinkWithContext(Index.class, currentPost.getUuid()).toURI();
+    }
+
     public String getCurrentImage()
     {
         String link = imageManagement.getPostPreviewImageLink(currentPost);
