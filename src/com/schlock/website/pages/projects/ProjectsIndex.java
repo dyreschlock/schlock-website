@@ -10,18 +10,20 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.*;
 
 public class ProjectsIndex
 {
-    private static final String NULL = "NULL";
-
     @Inject
     private CategoryDAO categoryDAO;
 
     @Inject
     private PostDAO postDAO;
+
+    @Inject
+    private PageRenderLinkSource linkSource;
 
     @Inject
     private Messages messages;
@@ -82,15 +84,27 @@ public class ProjectsIndex
         return css;
     }
 
-    public String getCategoryUuid()
+
+    public String getCurrentCategoryLink()
     {
         String uuid = currentCategory.getUuid();
         if (category != null && category.equals(currentCategory))
         {
-            uuid = NULL;
+            return linkSource.createPageRenderLink(ProjectsIndex.class).toURI();
         }
-        return uuid;
+        return linkSource.createPageRenderLinkWithContext(ProjectsIndex.class, uuid).toURI();
     }
+
+    public String getCurrentSubcategoryLink()
+    {
+        String uuid = currentSubcategory.getUuid();
+        if (category != null && category.equals(currentSubcategory))
+        {
+            return linkSource.createPageRenderLink(ProjectsIndex.class).toURI();
+        }
+        return linkSource.createPageRenderLinkWithContext(ProjectsIndex.class, uuid).toURI();
+    }
+
 
     public List<ProjectCategory> getSubcategories()
     {
@@ -114,16 +128,6 @@ public class ProjectsIndex
             }
         }
         return css;
-    }
-
-    public String getSubcategoryUuid()
-    {
-        String uuid = currentSubcategory.getUuid();
-        if (category != null && category.equals(currentSubcategory))
-        {
-            uuid = NULL;
-        }
-        return uuid;
     }
 
 

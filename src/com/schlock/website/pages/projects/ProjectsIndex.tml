@@ -15,14 +15,14 @@
                     <div class="column ${extraCategoryCss}">
 
                         <div class="categoryCategory">
-                            <a href="/projects/${categoryUuid}">
+                            <a href="${currentCategoryLink}">
                                 ${currentCategory.name}
                             </a>
                         </div>
 
                         <t:loop source="subcategories" value="currentSubcategory">
                             <div class="categoryTitle">
-                                <a class="${categoryCssClass}" href="/projects/${subcategoryUuid}">
+                                <a class="${categoryCssClass}" href="${currentSubcategoryLink}">
                                     ${currentSubcategory.name}
                                 </a>
                             </div>
