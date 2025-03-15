@@ -1,6 +1,8 @@
 package com.schlock.website.components.blog.layout;
 
 import com.schlock.website.entities.blog.*;
+import com.schlock.website.pages.Index;
+import com.schlock.website.pages.category.CategoryIndex;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -8,6 +10,7 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.List;
 
@@ -16,6 +19,9 @@ public class Subheader
     @Parameter
     private AbstractPost post;
 
+
+    @Inject
+    private PageRenderLinkSource linkSource;
 
     @Inject
     private PostManagement postManagement;
@@ -62,6 +68,11 @@ public class Subheader
         return cachedPreviousPost;
     }
 
+    public String getPreviousPostLink()
+    {
+        return linkSource.createPageRenderLinkWithContext(Index.class, getPreviousPost().getUuid()).toURI();
+    }
+
     public String getPreviousPostTitleHtml()
     {
         String title = getPreviousPost().getTitle();
@@ -90,6 +101,11 @@ public class Subheader
         return cachedNextPost;
     }
 
+    public String getNextPostLink()
+    {
+        return linkSource.createPageRenderLinkWithContext(Index.class, getNextPost().getUuid()).toURI();
+    }
+
     public String getNextPostTitleHtml()
     {
         String title = getNextPost().getTitle();
@@ -108,5 +124,10 @@ public class Subheader
     public boolean isNotFirst()
     {
         return currentIndex != 0;
+    }
+
+    public String getCategoryLink()
+    {
+        return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, currentCategory.getUuid()).toURI();
     }
 }

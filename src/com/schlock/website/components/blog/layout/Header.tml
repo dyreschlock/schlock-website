@@ -2,20 +2,20 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
     <div class="title">
-        <a href="/">
+        <a href="${homeLink}">
             <span>${message:website-title}</span>
         </a>
     </div>
     <div class="links">
-        <a title="${message:home}" href="/">${message:home}</a>
+        <a title="${message:home}" href="${homeLink}">${message:home}</a>
         <span class="divider">&#183;</span>
-        <a title="${message:archive}" href="/archive">${message:archive}</a>
+        <a title="${message:archive}" href="${archiveLink}">${message:archive}</a>
         <span class="divider">&#183;</span>
-        <a title="${message:photo}" href="/photo">${message:photo}</a>
+        <a title="${message:photo}" href="${photoLink}">${message:photo}</a>
         <span class="divider">&#183;</span>
-        <a title="${message:projects}" href="/projects">${message:projects}</a>
+        <a title="${message:projects}" href="${projectsLink}">${message:projects}</a>
         <span class="divider">&#183;</span>
-        <a title="${message:about-me}" href="/aboutme">${message:about-me}</a>
+        <a title="${message:about-me}" href="${aboutMeLink}">${message:about-me}</a>
     </div>
     <div class="menu">
         <a title="${message:menu}" onclick="menuClicked()">☰</a>
@@ -24,26 +24,26 @@
 
     <div id="overlayMenu" style="display: none;">
         <div class="menuLinks">
-            <a title="${message:home}" href="/">${message:home}</a> &#183;&#183;
+            <a title="${message:home}" href="${homeLink}">${message:home}</a> &#183;&#183;
         </div>
         <div class="menuLinks">
-            <a title="${message:archive}" href="/archive">${message:archive}</a> &#183;&#183;
+            <a title="${message:archive}" href="${archiveLink}">${message:archive}</a> &#183;&#183;
         </div>
         <div class="menuLinks">
-            <a title="${message:photo}" href="/photo">${message:photo}</a> &#183;&#183;
+            <a title="${message:photo}" href="${photoLink}">${message:photo}</a> &#183;&#183;
         </div>
         <div class="menuLinks">
-            <a title="${message:projects}" href="/projects">${message:projects}</a> &#183;&#183;
+            <a title="${message:projects}" href="${projectsLink}">${message:projects}</a> &#183;&#183;
         </div>
         <div class="menuLinks">
-            <a title="${message:about-me}" href="/aboutme">${message:about-me}</a> &#183;&#183;
+            <a title="${message:about-me}" href="${aboutMeLink}">${message:about-me}</a> &#183;&#183;
         </div>
         <br class="clr" />
         <div class="menuSubheaderLinks">
             <div class="categoryTitle">${message:categories}</div>
             <t:loop source="categories" value="currentCategory">
                 <div class="menuSubLinks">
-                    <a title="${currentCategory.name}" href="/category/${currentCategory.uuid}">${currentCategory.name}</a> &#183;&#183;
+                    <a title="${currentCategory.name}" href="${categoryLink}">${currentCategory.name}</a> &#183;&#183;
                 </div>
             </t:loop>
 
