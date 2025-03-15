@@ -4,6 +4,8 @@
      xmlns:c="tapestry-library:blog/content"
     >
 
+    <h1 class="photo">${page.title}</h1>
+
     <c:imagegallery post="page" />
 
 </html>
