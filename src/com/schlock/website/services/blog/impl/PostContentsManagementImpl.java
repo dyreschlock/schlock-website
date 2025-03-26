@@ -65,7 +65,9 @@ public class PostContentsManagementImpl implements PostContentsManagement
         String filepath = getFilepath(post);
         String contents = readFileContents(filepath);
 
-        return postManagement.generatePostHTML(contents);
+        return contents;
+
+//        return postManagement.generatePostHTML(contents);
     }
 
     private String getFilepath(AbstractPost post)
