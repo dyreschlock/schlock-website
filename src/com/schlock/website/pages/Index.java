@@ -6,11 +6,14 @@ import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.apps.SubtitleFixer;
 import com.schlock.website.pages.apps.kendo.KendoIndex;
 import com.schlock.website.pages.apps.pocket.ImageSelector;
+import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,22 +25,33 @@ public class Index
 
     private static final String EVENT = "events.html";
 
-    @SessionState
-    private ViewState viewState;
+    @Inject
+    private Messages messages;
 
     @Inject
     private PostDAO postDAO;
 
-    @Property
-    private AbstractPost post;
+    @Inject
+    private CategoryDAO categoryDAO;
 
+    @Inject
+    private PageRenderLinkSource linkSource;
+
+
+    @Persist
+    private AbstractPost currentPost;
+
+
+
+    @SessionState
+    private ViewState viewState;
 
     Object onActivate()
     {
         viewState.reset();
-        post = postDAO.getMostRecentFrontPagePost();
 
-        return true;
+        AbstractPost post = postDAO.getMostRecentFrontPagePost();
+        return linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid());
     }
 
     Object onActivate(String parameter)
@@ -74,22 +88,46 @@ public class Index
         {
             return Club.class;
         }
-
-        List<AbstractPost> posts = postDAO.getAllByUuid(parameter);
-        for(AbstractPost post : posts)
+        else
         {
-            if (!post.isCoursePage())
+            AbstractPost requested = null;
+
+            List<AbstractPost> posts = postDAO.getAllByUuid(parameter);
+            for(AbstractPost post : posts)
             {
-                this.post = post;
+                if (!post.isCoursePage())
+                {
+                    requested = post;
+                }
             }
-        }
-
-        if (post == null)
-        {
-            boolean unpublished = viewState.isShowUnpublished();
-            post = postDAO.getMostRecentPost(unpublished);
+            if (posts.isEmpty())
+            {
+                boolean unpublished = viewState.isShowUnpublished();
+                requested = postDAO.getMostRecentPost(unpublished);
+            }
+            currentPost = requested;
         }
 
         return true;
+    }
+
+
+
+    Object onPassivate()
+    {
+        if(currentPost != null)
+        {
+            return new Object[] { currentPost.getUuid() };
+        }
+        return null;
+    }
+
+    public AbstractPost getCurrentPost()
+    {
+        if(currentPost == null)
+        {
+            currentPost = postDAO.getMostRecentPost(false);
+        }
+        return currentPost;
     }
 }
