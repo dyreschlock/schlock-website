@@ -2,12 +2,12 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
     <div class="title">
-        <a href="${homeLink}">
+        <a href="/">
             <span>${message:website-title}</span>
         </a>
     </div>
     <div class="links">
-        <a title="${message:home}" href="${homeLink}">${message:home}</a>
+        <a title="${message:home}" href="/">${message:home}</a>
         <span class="divider">&#183;</span>
         <a title="${message:archive}" href="${archiveLink}">${message:archive}</a>
         <span class="divider">&#183;</span>
@@ -24,7 +24,7 @@
 
     <div id="overlayMenu" style="display: none;">
         <div class="menuLinks">
-            <a title="${message:home}" href="${homeLink}">${message:home}</a> &#183;&#183;
+            <a title="${message:home}" href="/">${message:home}</a> &#183;&#183;
         </div>
         <div class="menuLinks">
             <a title="${message:archive}" href="${archiveLink}">${message:archive}</a> &#183;&#183;

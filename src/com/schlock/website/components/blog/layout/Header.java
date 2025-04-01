@@ -3,7 +3,6 @@ package com.schlock.website.components.blog.layout;
 import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.pages.AboutMe;
-import com.schlock.website.pages.Index;
 import com.schlock.website.pages.archive.ArchiveIndex;
 import com.schlock.website.pages.category.CategoryIndex;
 import com.schlock.website.pages.photo.PhotoIndex;
@@ -26,11 +25,6 @@ public class Header
     @Property
     private AbstractCategory currentCategory;
 
-
-    public String getHomeLink()
-    {
-        return linkSource.createPageRenderLink(Index.class).toURI();
-    }
 
     public String getArchiveLink()
     {
