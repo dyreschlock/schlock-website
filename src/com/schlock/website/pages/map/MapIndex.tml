@@ -11,19 +11,14 @@
             <p class="description">${pageDescription}</p>
         </div>
 
+        <!-- Focus on All Japan / Focus on Gifu / Focus on Tokyo / Focus on Kyushu -->
+
         <div id="map"></div>
         <div id="mapHeight" />
 
     </div>
 
     <script>
-
-        var map = L.map('map').setView([51.505, -0.09], 13);
-
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        maxZoom: 19,
-                        attribution: '&copy; OpenStreetMap'
-                    }).addTo(map);
-
+        <t:outputraw value="javascript" />
     </script>
 </html>
