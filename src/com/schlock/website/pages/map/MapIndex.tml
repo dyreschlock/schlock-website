@@ -5,8 +5,24 @@
     >
 
     <div id="postContent">
-
         <h1 id="headline">${page.title}</h1>
+
+        <div class="postBody">
+            <p class="description">${pageDescription}</p>
+        </div>
+
+        <div id="map"></div>
+
     </div>
 
+    <script>
+
+        var map = L.map('map').setView([51.505, -0.09], 13);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '&copy; OpenStreetMap'
+                    }).addTo(map);
+
+    </script>
 </html>

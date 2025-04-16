@@ -25,6 +25,10 @@ public class Page extends AbstractPost
         return true;
     }
 
+    public boolean isMapPage()
+    {
+        return MAP_UUID.equalsIgnoreCase(getUuid());
+    }
 
     public boolean isClub()
     {

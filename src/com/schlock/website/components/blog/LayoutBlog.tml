@@ -51,6 +51,7 @@
         <style><t:outputraw value="primaryCss" /></style>
 
         <l:headerScript />
+        <l:mapHeaderScript post="post" />
         <c:imageGalleryScript post="post" />
     </head>
 

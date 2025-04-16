@@ -86,6 +86,11 @@ public abstract class AbstractPost extends Persisted
         return false;
     }
 
+    public boolean isMapPage()
+    {
+        return false;
+    }
+
     public boolean isProject()
     {
         for (AbstractCategory category : getCategories())
