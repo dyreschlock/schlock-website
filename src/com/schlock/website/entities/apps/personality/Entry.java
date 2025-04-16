@@ -1,7 +1,5 @@
 package com.schlock.website.entities.apps.personality;
 
-import javax.persistence.criteria.CriteriaBuilder;
-
 public class Entry
 {
     private static final String DELIM = ",";
@@ -61,8 +59,8 @@ public class Entry
         this.identityType = params[12];
         this.identityScore = Integer.parseInt(params[13]);
 
-        this.role = params[14];
-        this.strategy = params[15];
+//        this.role = params[14];
+//        this.strategy = params[15];
     }
 
     public String getImageName()

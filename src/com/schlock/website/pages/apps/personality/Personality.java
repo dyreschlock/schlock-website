@@ -3,7 +3,6 @@ package com.schlock.website.pages.apps.personality;
 import com.schlock.website.entities.apps.personality.Entry;
 import org.apache.tapestry5.annotations.Persist;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

@@ -175,6 +175,7 @@
                         <td>Code:</td>
                         <td>${entry.code}</td>
                     </tr>
+                    <!--
                     <tr>
                         <td>Role:</td>
                         <td>${entry.role}</td>
@@ -183,6 +184,7 @@
                         <td>Strategy:</td>
                         <td>${entry.strategy}</td>
                     </tr>
+                    -->
                     </tbody>
                 </table>
             </div>
