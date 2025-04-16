@@ -152,6 +152,18 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
+    public List<Post> getAllPublishedWithMapLocation()
+    {
+        String text = "select p " +
+                        " from Post p " +
+                        " where p.publishedLevel >= " + POST_PUBLISHED + " " +
+                        " and p.mapLocation is not null " +
+                        " order by p.created desc ";
+
+        Query query = session.createQuery(text);
+        return query.list();
+    }
+
     public List<Post> getAllVisibleByDate()
     {
         String text = "select p " +

@@ -18,6 +18,7 @@ public class BlogModule
         binder.bind(LessonsManagement.class, LessonsManagementImpl.class);
         binder.bind(KeywordManagement.class, KeywordManagementImpl.class);
         binder.bind(SitemapManagement.class, SitemapManagementImpl.class);
+        binder.bind(MapLocationManagement.class, MapLocationManagementImpl.class);
 
         binder.bind(CssCache.class, CssCacheImpl.class);
         binder.bind(JavaScriptCache.class, JavaScriptCacheImpl.class);

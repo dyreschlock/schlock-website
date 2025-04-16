@@ -26,6 +26,8 @@
 
         <property name="keywordString" />
 
+        <property name="mapLocation" />
+
         <set name="categories" cascade="none" lazy="true" table="blog_posts_categories">
             <key column="postId" />
             <many-to-many class="com.schlock.website.entities.blog.AbstractCategory" column="categoryId" />

@@ -38,6 +38,8 @@ public abstract class AbstractPost extends Persisted
 
     private String keywordString;
 
+    private String mapLocation;
+
     private Set<AbstractCategory> categories;
     private List<Keyword> keywords;
 
@@ -326,6 +328,16 @@ public abstract class AbstractPost extends Persisted
     public void setKeywordString(String keywordString)
     {
         this.keywordString = keywordString;
+    }
+
+    public String getMapLocation()
+    {
+        return mapLocation;
+    }
+
+    public void setMapLocation(String mapLocation)
+    {
+        this.mapLocation = mapLocation;
     }
 
     public List<Keyword> getKeywords()

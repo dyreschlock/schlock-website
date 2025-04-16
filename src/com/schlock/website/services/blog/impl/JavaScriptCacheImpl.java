@@ -30,11 +30,14 @@ public class JavaScriptCacheImpl implements JavaScriptCache
 
     public String getCustomJavascript(AbstractPost post)
     {
-        String filepath = String.format(EXTRA_JS_FILE, post.getUuid());
-        return getFileAsString(filepath);
+        return getCustomJavascript(post.getUuid());
     }
 
-
+    public String getCustomJavascript(String uuid)
+    {
+        String filepath = String.format(EXTRA_JS_FILE, uuid);
+        return getFileAsString(filepath);
+    }
 
     private String getFileAsString(String path)
     {

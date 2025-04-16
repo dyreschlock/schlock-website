@@ -38,6 +38,8 @@ public interface PostDAO extends BaseDAO<AbstractPost>
 
     Set<String> getAllGalleryNames();
 
+    List<Post> getAllPublishedWithMapLocation();
+
 
     Post getMostRecentFrontPagePost();
 

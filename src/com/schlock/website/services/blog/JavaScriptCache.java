@@ -7,4 +7,6 @@ public interface JavaScriptCache
     boolean isHasCustomJavascript(AbstractPost post);
 
     String getCustomJavascript(AbstractPost post);
+
+    String getCustomJavascript(String uuid);
 }
