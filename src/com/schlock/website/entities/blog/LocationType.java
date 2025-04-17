@@ -3,10 +3,10 @@ package com.schlock.website.entities.blog;
 public enum LocationType
 {
     EVENT,
-    MUSEUM,
-    URBAN,
-    TOWER,
     HISTORY,
+    MUSEUM,
+    NATURE,
     RUINS,
-    NATURE;
+    TOWER,
+    URBAN;
 }
