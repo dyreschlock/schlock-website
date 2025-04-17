@@ -38,7 +38,8 @@ public abstract class AbstractPost extends Persisted
 
     private String keywordString;
 
-    private String mapLocation;
+    private String locationCoords;
+    private LocationType locationType;
 
     private Set<AbstractCategory> categories;
     private List<Keyword> keywords;
@@ -330,14 +331,24 @@ public abstract class AbstractPost extends Persisted
         this.keywordString = keywordString;
     }
 
-    public String getMapLocation()
+    public String getLocationCoords()
     {
-        return mapLocation;
+        return locationCoords;
     }
 
-    public void setMapLocation(String mapLocation)
+    public void setLocationCoords(String locationCoords)
     {
-        this.mapLocation = mapLocation;
+        this.locationCoords = locationCoords;
+    }
+
+    public LocationType getLocationType()
+    {
+        return locationType;
+    }
+
+    public void setLocationType(LocationType locationType)
+    {
+        this.locationType = locationType;
     }
 
     public List<Keyword> getKeywords()

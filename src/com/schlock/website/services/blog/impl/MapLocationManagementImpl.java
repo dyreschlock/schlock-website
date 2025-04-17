@@ -21,10 +21,10 @@ public class MapLocationManagementImpl implements MapLocationManagement
     private final PageRenderLinkSource linkSource;
 
     public MapLocationManagementImpl(DateFormatter dateFormatter,
-                                        JavaScriptCache javaScriptCache,
-                                        ImageManagement imageManagement,
-                                        PostDAO postDAO,
-                                        PageRenderLinkSource linkSource)
+                                     JavaScriptCache javaScriptCache,
+                                     ImageManagement imageManagement,
+                                     PostDAO postDAO,
+                                     PageRenderLinkSource linkSource)
     {
         this.dateFormatter = dateFormatter;
         this.javaScriptCache = javaScriptCache;
@@ -35,20 +35,28 @@ public class MapLocationManagementImpl implements MapLocationManagement
 
     private final String DELIM = "/";
 
+
     public String generateMapJavascript()
+    {
+        String baseScript = javaScriptCache.getCustomJavascript(Page.MAP_UUID);
+
+        String markers = generateMapMarkers();
+
+        return String.format(baseScript, markers);
+    }
+
+    private String generateMapMarkers()
     {
         StringBuilder script = new StringBuilder();
 
-        script.append(javaScriptCache.getCustomJavascript(Page.MAP_UUID));
-
-
-        String MARKER = "var marker%s = L.marker([%s]).addTo(map);" +
-                        " marker%s.bindPopup('" +
+        String MARKER = "var marker%s = " +
+                            "L.marker([%s]).bindPopup('" +
                                 "<p><b>%s</b></p>" +
                                 "<p>%s</p>" +
                                 "<p><img src=\"%s\" /></p>" +
                                 "<p><a href=\"%s\">View Post</a></p>" +
-                        "', {maxWidth : 220});\r\n";
+                            "', {maxWidth : 220})" +
+                            ".addTo(%s);\r\n";
 
         List<Post> posts = postDAO.getAllPublishedWithMapLocation();
         for (int i = 0; i < posts.size(); i++)
@@ -58,21 +66,20 @@ public class MapLocationManagementImpl implements MapLocationManagement
             String title = post.getTitle().replace("'", "\\\'");
             String date = dateFormatter.dateFormat(post.getCreated());
             String coverImage = imageManagement.getPostPreviewMetadataLink(post.getUuid());
-
             String link = linkSource.createPageRenderLinkWithContext(Index.class, post.getUuid()).toURI();
+            String layer = post.getLocationType().name().toLowerCase();
 
-            String location = post.getMapLocation();
+            String location = post.getLocationCoords();
+            String[] coords = location.split(DELIM);
 
-            String[] parts = location.split(DELIM);
-            for (int j = 0; j < parts.length; j++)
+            for (int j = 0; j < coords.length; j++)
             {
                 String mark = i + "_" + j;
+                String coord = coords[j];
 
-                String part = parts[j];
-
-                if (part.contains(","))
+                if (coord.contains(","))
                 {
-                    String marker = String.format(MARKER, mark, part, mark, title, date, coverImage, link);
+                    String marker = String.format(MARKER, mark, coord, title, date, coverImage, link, layer);
                     script.append(marker);
                 }
             }

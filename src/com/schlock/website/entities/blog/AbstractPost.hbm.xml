@@ -26,7 +26,13 @@
 
         <property name="keywordString" />
 
-        <property name="mapLocation" />
+        <property name="locationCoords" />
+        <property name="locationType">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.schlock.website.entities.blog.LocationType</param>
+                <param name="type">12</param>
+            </type>
+        </property>
 
         <set name="categories" cascade="none" lazy="true" table="blog_posts_categories">
             <key column="postId" />

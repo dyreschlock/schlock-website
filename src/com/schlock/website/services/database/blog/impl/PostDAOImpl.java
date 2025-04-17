@@ -157,7 +157,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         String text = "select p " +
                         " from Post p " +
                         " where p.publishedLevel >= " + POST_PUBLISHED + " " +
-                        " and p.mapLocation is not null " +
+                        " and p.locationCoords is not null " +
                         " order by p.created desc ";
 
         Query query = session.createQuery(text);
