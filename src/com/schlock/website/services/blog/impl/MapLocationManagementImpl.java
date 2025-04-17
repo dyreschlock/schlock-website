@@ -45,17 +45,18 @@ public class MapLocationManagementImpl implements MapLocationManagement
     {
         String baseScript = javaScriptCache.getCustomJavascript(Page.MAP_UUID);
 
+        String shadowIconPath = LocationType.getShadowIconPath();
         String declaration = generateLayerDeclaration();
         String markers = generateMapMarkers();
 
-        return String.format(baseScript, declaration, markers);
+        return String.format(baseScript, shadowIconPath, declaration, markers);
     }
 
     private String generateMapMarkers()
     {
         StringBuilder script = new StringBuilder();
 
-        String MARKER = "L.marker([%s]).bindPopup('" +
+        String MARKER = "L.marker([%s],{icon: %sIcon}).bindPopup('" +
                             "<p><b>%s</b></p>" +
                             "<p>%s</p>" +
                             "<p><img src=\"%s\" /></p>" +
@@ -79,7 +80,7 @@ public class MapLocationManagementImpl implements MapLocationManagement
             {
                 if (coord.contains(","))
                 {
-                    String marker = String.format(MARKER, coord, title, date, coverImage, link, layer);
+                    String marker = String.format(MARKER, coord, layer, title, date, coverImage, link, layer);
                     script.append(marker);
                 }
             }
@@ -91,6 +92,7 @@ public class MapLocationManagementImpl implements MapLocationManagement
     {
         StringBuilder declarations = new StringBuilder();
         StringBuilder overlays = new StringBuilder();
+        StringBuilder icons = new StringBuilder();
 
         String DECLARE = "const %s =  L.layerGroup().addTo(map);";
 
@@ -99,6 +101,8 @@ public class MapLocationManagementImpl implements MapLocationManagement
                           "};";
 
         String OVERLAY_ENTRY = "'%s': %s";
+
+        String ICON = "const %sIcon = new LeafIcon({iconUrl: '%s'});";
 
         for(LocationType type : LocationType.values())
         {
@@ -114,9 +118,13 @@ public class MapLocationManagementImpl implements MapLocationManagement
             }
             String overlay = String.format(OVERLAY_ENTRY, description, name);
             overlays.append(overlay);
+
+            String iconUrl = type.getIconPath();
+            String icon = String.format(ICON, name, iconUrl);
+            icons.append(icon);
         }
 
-        String overlay = String.format(OVERLAYS, overlays.toString());
-        return declarations.toString() + overlay;
+        String overlay = String.format(OVERLAYS, overlays);
+        return declarations + overlay + icons;
     }
 }

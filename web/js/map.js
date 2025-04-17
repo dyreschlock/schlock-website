@@ -5,6 +5,17 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
+var LeafIcon = L.Icon.extend({
+    options: {
+        shadowUrl: '%s',
+        iconSize:     [25, 41],
+        shadowSize:   [41, 41],
+        iconAnchor:   [12, 41],
+        shadowAnchor: [12, 41],
+        popupAnchor:  [1, -39]
+    }
+});
+
 %s
 
 %s
