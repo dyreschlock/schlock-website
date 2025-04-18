@@ -1,6 +1,6 @@
 #map
 {
-    width: 100%;
+    width: @app_width;
     height: 786px;
 
     position: absolute;
@@ -32,3 +32,35 @@
     }
 }
 
+#buttonRow
+{
+    div
+    {
+        position: relative;
+        float: left;
+    }
+
+    div:first-child
+    {
+        margin: 5px 10px 10px 0px;
+        padding: 5px 0px;
+    }
+
+    div:nth-child(n+2)
+    {
+        border: 1px solid @textcolor_unselected;
+        border-radius: 5px;
+
+        margin: 5px 10px 10px 0px;
+        padding: 5px 10px;
+    }
+}
+
+/* ipad viewport size */
+@media all and (max-width: @app_width)
+{
+    #map
+    {
+        width: 100%;
+    }
+}

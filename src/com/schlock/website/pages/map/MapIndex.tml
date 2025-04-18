@@ -11,7 +11,17 @@
             <p class="description">${pageDescription}</p>
         </div>
 
-        <!-- Focus on All Japan / Focus on Gifu / Focus on Tokyo / Focus on Kyushu -->
+        <div id="buttonRow">
+            <div>${message:focus}</div>
+
+            <div id="buttonJapan">${message:buttonJapan}</div>
+            <div id="buttonHonshu">${message:buttonHonshu}</div>
+            <div id="buttonGifu">${message:buttonGifu}</div>
+            <div id="buttonTokyo">${message:buttonTokyo}</div>
+            <div id="buttonNagasaki">${message:buttonNagasaki}</div>
+            <div id="buttonOkinawa">${message:buttonOkinawa}</div>
+        </div>
+        <br class="clr" />
 
         <div id="map"></div>
         <div id="mapHeight" />

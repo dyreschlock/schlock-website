@@ -1,4 +1,4 @@
-const map = L.map('map').setView([33.116862, 135.562120], 6);
+const map = L.map('map').setView([34.651848,134.8393581], 7);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     minZoom: 4,
@@ -22,3 +22,21 @@ var LeafIcon = L.Icon.extend({
 %s
 
 const layerControl = L.control.layers(null, overlays).addTo(map);
+
+
+function focusJapan(e)    { map.setView([33.116862, 135.562120], 6); }
+function focusHonshu(e)   { map.setView([34.651848,134.8393581], 7); }
+function focusGifu(e)     { map.setView([36.2013562,137.3277502], 10); }
+function focusTokyo(e)    { map.setView([35.6929124,139.6799312], 12); }
+function focusNagasaki(e) { map.setView([32.7834387,129.8885672], 13); }
+function focusOkinawa(e)  { map.setView([26.458202,127.9956607], 10); }
+
+document.getElementById("buttonJapan").addEventListener("click", focusJapan);
+document.getElementById("buttonHonshu").addEventListener("click", focusHonshu);
+document.getElementById("buttonGifu").addEventListener("click", focusGifu);
+document.getElementById("buttonTokyo").addEventListener("click", focusTokyo);
+document.getElementById("buttonNagasaki").addEventListener("click", focusNagasaki);
+document.getElementById("buttonOkinawa").addEventListener("click", focusOkinawa);
+
+
+
