@@ -48,6 +48,9 @@
 
     div:nth-child(n+2)
     {
+        cursor: pointer;
+        user-select: none;
+
         border: 1px solid @textcolor_unselected;
         border-radius: 5px;
 
@@ -62,5 +65,14 @@
     #map
     {
         width: 100%;
+    }
+}
+
+@media all and (max-width: 767px)
+{
+    #buttonOkinawa
+    {
+        visibility: hidden;
+        display: none;
     }
 }
