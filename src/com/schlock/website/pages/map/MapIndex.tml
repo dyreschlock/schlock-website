@@ -26,6 +26,15 @@
         <div id="map"></div>
         <div id="mapHeight" />
 
+        <table class="markers">
+            <t:loop source="markers" value="currentMarker">
+                <tr>
+                    <td><img src="${markerpath}" alt="${markerName}" title="${markerName}" /></td>
+                    <td><t:outputraw value="markerDescription" /></td>
+                </tr>
+            </t:loop>
+        </table>
+
     </div>
 
     <script>

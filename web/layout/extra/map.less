@@ -14,6 +14,8 @@
 #mapHeight
 {
     height: 786px;
+
+    padding-bottom: 50px;
 }
 
 .leaflet-popup-content
@@ -59,6 +61,51 @@
     }
 }
 
+table.markers
+{
+    padding: 0;
+    border-spacing: 0;
+
+    font-size: 1.1em;
+
+    td
+    {
+        vertical-align: middle;
+    }
+
+    td:first-child
+    {
+        width: 25px;
+    }
+
+    td:nth-child(n+2)
+    {
+        padding-left: 10px;
+    }
+
+    div
+    {
+        position: relative;
+        float: left;
+
+        padding: 5px 0;
+    }
+
+    div.desc
+    {
+        padding: 12px 0px 5px 10px;
+    }
+
+    img
+    {
+        width: 25px;
+        height: 41px;
+
+        margin-top: 5px;
+    }
+}
+
+
 /* ipad viewport size */
 @media all and (max-width: @app_width)
 {
@@ -74,5 +121,10 @@
     {
         visibility: hidden;
         display: none;
+    }
+
+    #mapHeight
+    {
+        padding-bottom: 20px;
     }
 }
