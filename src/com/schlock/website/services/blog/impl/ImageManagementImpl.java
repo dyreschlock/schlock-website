@@ -68,23 +68,24 @@ public class ImageManagementImpl implements ImageManagement
 
         List<Image> galleryImages = new ArrayList<Image>();
 
-        Map<String, Image> images = generateImagesByGallery(galleryName);
-        for(String filename : images.keySet())
+        HashSet<String> names = new HashSet<>();
+
+        List<Image> images = imageDAO.getByGalleryOrderByNameDesc(galleryName);
+        for(Image image : images)
         {
-            Image image = images.get(filename);
-            if (image.isThumbnail())
+            String filename = image.getImageName();
+            String basename = filename.substring(0, filename.lastIndexOf("."));
+
+            if (!names.contains(basename))
             {
                 galleryImages.add(image);
-            }
-            else
-            {
-                //if doesn't have thumbnail -> yes
-                int index = filename.lastIndexOf(".");
 
-                String thumbnailName = filename.substring(0, index) + "_t" + filename.substring(index);
-                if(!images.containsKey(thumbnailName))
+                names.add(basename);
+                if (image.isThumbnail())
                 {
-                    galleryImages.add(image);
+                    String name = image.getParent().getImageName();
+                    basename = name.substring(0, name.lastIndexOf("."));
+                    names.add(basename);
                 }
             }
         }
@@ -229,7 +230,7 @@ public class ImageManagementImpl implements ImageManagement
         File photo = new File(deploymentContext.photoLocation());
         for(File photoDir : photo.listFiles(filter))
         {
-            List<Image> images = imageDAO.getByGallery(photoDir.getName());
+            List<Image> images = imageDAO.getByGalleryOrderByNameDesc(photoDir.getName());
             if (images.size() == 0)
             {
                 System.out.println(photoDir.getName());
@@ -360,7 +361,7 @@ public class ImageManagementImpl implements ImageManagement
 
     private Map<String, Image> getImagesByGallery(String galleryName)
     {
-        List<Image> allImages = imageDAO.getByGallery(galleryName);
+        List<Image> allImages = imageDAO.getByGalleryOrderByNameDesc(galleryName);
 
         Map<String, Image> cache = new HashMap<String, Image>();
         for(Image image : allImages)
@@ -501,12 +502,6 @@ public class ImageManagementImpl implements ImageManagement
         if (StringUtils.startsWith(originalLink, SLASH))
         {
             originalLink = originalLink.substring(1);
-        }
-
-        boolean exists = checkIfImageExists(originalLink);
-        if (!exists)
-        {
-            throw new RuntimeException("image does not exist: " + link);
         }
 
         String[] parts = originalLink.split(SLASH);

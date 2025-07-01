@@ -45,11 +45,11 @@ public class ImageDAOImpl extends BaseDAOImpl<Image> implements ImageDAO
         return (Image) singleResult(query);
     }
 
-    public List<Image> getByGallery(String galleryName)
+    public List<Image> getByGalleryOrderByNameDesc(String galleryName)
     {
         String text = " from Image i " +
                         " where i.galleryName = :galleryName " +
-                        " order by imageName ";
+                        " order by imageName desc";
 
         Query query = session.createQuery(text);
         query.setParameter("galleryName", galleryName);

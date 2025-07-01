@@ -9,7 +9,7 @@ public interface ImageDAO extends BaseDAO<Image>
 {
     Image getByDirectoryGalleryName(String directory, String galleryName, String imageName);
 
-    List<Image> getByGallery(String galleryName);
+    List<Image> getByGalleryOrderByNameDesc(String galleryName);
 
     List<Image> getFavorites();
 
