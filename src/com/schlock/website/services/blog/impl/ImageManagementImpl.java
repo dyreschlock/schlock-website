@@ -613,13 +613,12 @@ public class ImageManagementImpl implements ImageManagement
         List<AbstractPost> posts = postDAO.getAllWithGallery();
         for(AbstractPost post : posts)
         {
-            Image coverImage = getPostPreviewImage(post);
-            if (coverImage != null)
+            String coverOutputLocation = COVER_DIRECTORY + post.getUuid() + ".jpg";
+            File coverOutput = new File(coverOutputLocation);
+            if (!coverOutput.exists())
             {
-                String coverOutputLocation = COVER_DIRECTORY + post.getUuid() + ".jpg";
-
-                File coverOutput = new File(coverOutputLocation);
-                if (!coverOutput.exists())
+                Image coverImage = getPostPreviewImage(post);
+                if (coverImage != null)
                 {
                     String coverInputLocation = PHOTO_DIRECTORY + coverImage.getGalleryName() + "/" + coverImage.getImageName();
                     File coverInput = new File(coverInputLocation);
@@ -631,7 +630,7 @@ public class ImageManagementImpl implements ImageManagement
                     catch (Exception e)
                     {
                         System.out.println(String.format("Failure converting image: %s", coverInputLocation));
-                        e.printStackTrace();
+//                        e.printStackTrace();
                     }
                 }
             }
