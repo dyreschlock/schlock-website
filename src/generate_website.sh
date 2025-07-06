@@ -38,7 +38,8 @@ wget \
 wget \
   --no-host-directories \
   http://localhost:8084/manifest \
-  http://localhost:8084/sitemap
+  http://localhost:8084/sitemap \
+  http://localhots:8084/llms.txt
 
 # find = finds all directories excluding .dot directories
 for dir in $(find . -mindepth 1 -type d -not \( -path "./.*" -prune \)) ; do

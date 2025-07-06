@@ -64,6 +64,10 @@ public class Index
         {
             return Feed.class;
         }
+        else if(StringUtils.equalsIgnoreCase(Llms.FILENAME, parameter))
+        {
+            return Llms.class;
+        }
         else if (StringUtils.equalsIgnoreCase(Page.ABOUT_ME_UUID, parameter))
         {
             return AboutMe.class;
