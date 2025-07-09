@@ -94,15 +94,15 @@ public class MapLocationManagementImpl implements MapLocationManagement
         StringBuilder overlays = new StringBuilder();
         StringBuilder icons = new StringBuilder();
 
-        String DECLARE = "const %s =  L.layerGroup().addTo(map);";
+        String DECLARE = "const %s =  L.layerGroup().addTo(map);\r\n";
 
         String OVERLAYS = "const overlays = {" +
                             "%s" +
-                          "};";
+                          "};\r\n";
 
         String OVERLAY_ENTRY = "'%s': %s";
 
-        String ICON = "const %sIcon = new LeafIcon({iconUrl: '%s'});";
+        String ICON = "const %sIcon = new LeafIcon({iconUrl: '%s'});\r\n";
 
         for(LocationType type : LocationType.values())
         {
