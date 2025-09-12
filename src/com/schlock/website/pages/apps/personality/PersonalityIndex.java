@@ -6,7 +6,7 @@ import org.apache.tapestry5.annotations.Persist;
 import java.util.Arrays;
 import java.util.List;
 
-public class Personality
+public class PersonalityIndex
 {
     private static final List<String> DATA_STRING = Arrays.asList(
             "Jim Hendricks,m,INTJ-T,Architect,Introverted,80,Intuitive,76,Thinking,52,Judging,69,Turbulent,61,Analyst,Constant Improvement"
