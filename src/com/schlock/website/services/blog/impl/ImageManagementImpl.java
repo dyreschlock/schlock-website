@@ -706,6 +706,8 @@ public class ImageManagementImpl implements ImageManagement
     {
         final String O = "Ō";
         final String TM = "™";
+        final String R = "®";
+        final String APO = "'";
 
         File directory = new File(webDirPath);
 
@@ -724,6 +726,8 @@ public class ImageManagementImpl implements ImageManagement
 
             name = name.replace(O, "O");
             name = name.replace(TM, "");
+            name = name.replace(R, "");
+            name = name.replace(APO, "");
             name = name.replace(" ", "_");
 
             File newfile = new File(webDirPath + name);
