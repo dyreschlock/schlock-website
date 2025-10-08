@@ -1,7 +1,9 @@
+@map_height: 640px;
+
 #map
 {
-    width: @app_width;
-    height: 786px;
+    width: @ex_width;
+    height: @map_height;
 
     position: absolute;
 
@@ -13,7 +15,7 @@
 
 #mapHeight
 {
-    height: 786px;
+    height: @map_height;
 
     padding-bottom: 50px;
 }
@@ -107,11 +109,11 @@ table.markers
 
 
 /* ipad viewport size */
-@media all and (max-width: @app_width)
+@media all and (max-width: @ex_width)
 {
     #map
     {
-        width: 100%;
+        width: 98%;
     }
 }
 
