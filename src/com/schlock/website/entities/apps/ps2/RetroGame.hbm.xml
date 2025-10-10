@@ -28,11 +28,21 @@
         <property name="postUUID" />
 
 
-
         <joined-subclass name="com.schlock.website.entities.apps.ps2.DreamcastGame" table="retro_game_dreamcast">
             <key column="id"/>
 
             <property name="sdcardSlot" column="sd_slot" />
+            <property name="serialNumber" />
+            <property name="gameName" column="name" />
+
+            <property name="haveArt" />
+            <property name="boxartFilename" />
+
+        </joined-subclass>
+
+        <joined-subclass name="com.schlock.website.entities.apps.ps2.GamecubeGame" table="retro_game_gamecube">
+            <key column="id"/>
+
             <property name="serialNumber" />
             <property name="gameName" column="name" />
 

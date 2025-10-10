@@ -3,11 +3,13 @@ package com.schlock.website.pages.regeneration;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.pokemon.PokemonDataGameMasterService;
 import com.schlock.website.services.apps.ps2.DreamcastService;
+import com.schlock.website.services.apps.ps2.GamecubeService;
 import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostContentsManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.blog.SitemapManagement;
+import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
@@ -50,6 +52,9 @@ public class RegenerationIndex
     @Inject
     private DreamcastService dreamcastService;
 
+    @Inject
+    private GamecubeService gamecubeService;
+
     public boolean isLocal()
     {
         return deploymentContext.isLocal();
@@ -58,8 +63,11 @@ public class RegenerationIndex
     /*
      * No slash at the beginning. Slash at the end.
      */
-    private static final String LOCATION = "photo/250101_lego/";
+    private static final String LOCATION = "photo/251004_dreamcast/";
 
+
+    @Inject
+    private PostDAO postDAO;
 
     @CommitAfter
     void onProcessImageDirectory()
@@ -299,6 +307,17 @@ public class RegenerationIndex
         dreamcastService.writeArtFilesToLocal();
     }
 
+    @CommitAfter
+    void onUpdateGamecubeGameInventory()
+    {
+        gamecubeService.updateGameInventory();
+    }
+
+    @CommitAfter
+    void onCovertGamecubeArtImages()
+    {
+        gamecubeService.writeArtFilesToLocal();
+    }
 
 
     @Property

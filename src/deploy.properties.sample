@@ -30,6 +30,11 @@ playstation.directory.data=
 dreamcast.directory.drive=
 dreamcast.directory.data=
 
+gamecube.directory.drive=
+gamecube.directory.data=
+
+boxart.source.url=
+
 github.html.repo=
 github.content.repo=
 github.photos.repo=

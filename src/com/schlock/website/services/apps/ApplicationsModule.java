@@ -17,14 +17,8 @@ import com.schlock.website.services.apps.pocket.impl.PocketDataServiceImpl;
 import com.schlock.website.services.apps.pocket.impl.PocketImageServiceImpl;
 import com.schlock.website.services.apps.pokemon.*;
 import com.schlock.website.services.apps.pokemon.impl.*;
-import com.schlock.website.services.apps.ps2.DreamcastService;
-import com.schlock.website.services.apps.ps2.RetroGameImageService;
-import com.schlock.website.services.apps.ps2.PlaystationPropertyService;
-import com.schlock.website.services.apps.ps2.PlaystationService;
-import com.schlock.website.services.apps.ps2.impl.DreamcastServiceImpl;
-import com.schlock.website.services.apps.ps2.impl.RetroGameImageServiceImpl;
-import com.schlock.website.services.apps.ps2.impl.PlaystationPropertyServiceImpl;
-import com.schlock.website.services.apps.ps2.impl.PlaystationServiceImpl;
+import com.schlock.website.services.apps.ps2.*;
+import com.schlock.website.services.apps.ps2.impl.*;
 import com.schlock.website.services.apps.ranking.RankingService;
 import com.schlock.website.services.apps.ranking.impl.RankingServiceImpl;
 import com.schlock.website.services.apps.subtitles.SubtitleFixerService;
@@ -72,5 +66,6 @@ public class ApplicationsModule
         binder.bind(PlaystationPropertyService.class, PlaystationPropertyServiceImpl.class);
 
         binder.bind(DreamcastService.class, DreamcastServiceImpl.class);
+        binder.bind(GamecubeService.class, GamecubeServiceImpl.class);
     }
 }

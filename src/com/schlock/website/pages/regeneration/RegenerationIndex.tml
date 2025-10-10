@@ -107,8 +107,9 @@
                             / <t:eventlink t:id="updatePokemonCategories">Update Categories</t:eventlink><br />
                             <br />
                             <br />
-                            <h2>Update Playstation Data</h2>
+                            <h2>Modded Console Actions</h2>
                             <br />
+                            <b>Update Playstation Data</b><br/>
                             - <t:eventlink t:id="updateGameInventory">Update List of Games from Drive</t:eventlink>
                             --- <t:eventlink t:id="updateGameSaveFiles">Locate / Update Save Files</t:eventlink><br/>
                             - <t:eventlink t:id="readConfigFiles">Read Config Files from Data</t:eventlink>
@@ -116,12 +117,15 @@
                             --- <t:eventlink t:id="writeArtFiles">Write Art Images to Local</t:eventlink><br />
                             - <t:eventlink t:id="copyLocalFilesToDrive">Copy Local Files to Drive</t:eventlink><br/>
                             <br />
-                            <br />
-                            <h2>Update Dreamcast Data</h2>
+                            <b>Update Dreamcast Data</b>
                             <br/>
                             - <t:eventlink t:id="updateDreamcastGameInventory">Update List of Games from Drive</t:eventlink><br/>
-                            - <t:eventlink t:id="convertDreamcastArtImages">Collect and Convert Art Images to Web Location</t:eventlink>
+                            - <t:eventlink t:id="convertDreamcastArtImages">Collect and Convert Art Images to Web Location</t:eventlink><br/>
                             <br/>
+                            <b>Update Gamecube Data</b>
+                            <br/>
+                            - <t:eventlink t:id="updateGamecubeGameInventory">Update List of Games from Drive</t:eventlink><br/>
+                            - <t:eventlink t:id="convertGamecubeArtImages">Collect and Convert Art Images to Web Location</t:eventlink><br/>
                             <br/>
                             <h2>Website Validation / Optimization</h2>
                             <br />

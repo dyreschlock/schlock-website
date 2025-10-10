@@ -5,7 +5,7 @@ public enum PlaystationPlatform
     PS2("DVD", ".iso", ""),
     PS1("POPS", ".vcd", ""),
     DC("", "gdi", "Sega_-_Dreamcast"),
-    GC("", "rvz", "");
+    GC("", "iso", "");
 
     private final String IMAGE_LINK = "img/%s.png";
 
