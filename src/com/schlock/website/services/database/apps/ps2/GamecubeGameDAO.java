@@ -9,5 +9,7 @@ public interface GamecubeGameDAO extends BaseDAO<GamecubeGame>
 {
     List<GamecubeGame> getAllAvailable();
 
+    List<GamecubeGame> getAllWithNoArt();
+
     GamecubeGame getBySerialNumber(String serial);
 }

@@ -48,6 +48,9 @@ public interface DeploymentContext
     String dreamcastDriveDirectory();
     String dreamcastDataDirectory();
 
+    String gamecubeDriveDirectory();
+    String gamecubeDataDirectory();
+
     String gameBoxartSourceUrl();
 
     String coverImageLocationLocal();

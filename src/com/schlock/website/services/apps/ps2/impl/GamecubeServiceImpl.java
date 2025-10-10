@@ -9,7 +9,6 @@ import com.schlock.website.services.database.apps.ps2.GamecubeGameDAO;
 import com.schlock.website.services.database.apps.ps2.RetroGameDAO;
 
 import java.io.File;
-import java.util.Collections;
 import java.util.List;
 
 public class GamecubeServiceImpl extends AbstractRetroConsoleServiceImpl<GamecubeGame> implements GamecubeService
@@ -33,12 +32,14 @@ public class GamecubeServiceImpl extends AbstractRetroConsoleServiceImpl<Gamecub
 
     protected List<GamecubeGame> getAllGamesWithNoArt()
     {
-        return Collections.emptyList();
+        return gameDAO.getAllWithNoArt();
     }
 
     protected File getBoxartBaseFile(GamecubeGame game)
     {
-        return null;
+        final String ART_DATA_PATH = context.gamecubeDataDirectory() + "boxart/";
+
+        return new File(ART_DATA_PATH + game.getBoxartFilename());
     }
 
     protected String getBoxartRepoNam()

@@ -11,7 +11,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
-import java.util.Collections;
 import java.util.List;
 
 public class DreamcastServiceImpl extends AbstractRetroConsoleServiceImpl<DreamcastGame> implements DreamcastService
@@ -129,7 +128,7 @@ public class DreamcastServiceImpl extends AbstractRetroConsoleServiceImpl<Dreamc
 
     protected List getAllGamesWithNoArt()
     {
-        return Collections.emptyList();
+        return gameDAO.getAllWithNoArt();
     }
 
     protected File getBoxartBaseFile(DreamcastGame game)
