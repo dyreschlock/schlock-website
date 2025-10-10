@@ -45,6 +45,7 @@
 
             <property name="serialNumber" />
             <property name="gameName" column="name" />
+            <property name="drive" />
 
             <property name="haveArt" />
             <property name="boxartFilename" />

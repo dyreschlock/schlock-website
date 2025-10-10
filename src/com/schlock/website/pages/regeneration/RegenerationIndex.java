@@ -314,7 +314,7 @@ public class RegenerationIndex
     }
 
     @CommitAfter
-    void onCovertGamecubeArtImages()
+    void onConvertGamecubeArtImages()
     {
         gamecubeService.writeArtFilesToLocal();
     }

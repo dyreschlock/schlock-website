@@ -4,7 +4,7 @@ import com.schlock.website.entities.apps.ps2.GamecubeGame;
 import com.schlock.website.services.database.BaseDAOImpl;
 import com.schlock.website.services.database.apps.ps2.GamecubeGameDAO;
 import org.hibernate.Query;
-import org.hibernate.classic.Session;
+import org.hibernate.Session;
 
 import java.util.List;
 
@@ -17,7 +17,12 @@ public class GamecubeGameDAOImpl extends BaseDAOImpl<GamecubeGame> implements Ga
 
     public List<GamecubeGame> getAllAvailable()
     {
-        return getAll();
+        String text = " select g " +
+                " from GamecubeGame g " +
+                " where g.available is true ";
+
+        Query query = session.createQuery(text);
+        return query.list();
     }
 
     public List<GamecubeGame> getAllWithNoArt()
@@ -25,14 +30,22 @@ public class GamecubeGameDAOImpl extends BaseDAOImpl<GamecubeGame> implements Ga
         String text = " select g " +
                         " from GamecubeGame g " +
                         " where g.available is true " +
+                        " and g.serialNumber is not null " +
                         " and g.haveArt is false ";
 
         Query query = session.createQuery(text);
         return query.list();
     }
 
-    public GamecubeGame getBySerialNumber(String serial)
+    public GamecubeGame getByGameName(String gameName)
     {
-        return null;
+        String text = " select g " +
+                " from GamecubeGame g " +
+                " where g.gameName = :gameName ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("gameName", gameName);
+
+        return (GamecubeGame) singleResult(query);
     }
 }
