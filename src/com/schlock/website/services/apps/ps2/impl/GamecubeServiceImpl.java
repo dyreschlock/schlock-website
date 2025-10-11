@@ -8,13 +8,14 @@ import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.database.apps.ps2.GamecubeGameDAO;
 import com.schlock.website.services.database.apps.ps2.RetroGameDAO;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileFilter;
 import java.util.List;
 
 public class GamecubeServiceImpl extends AbstractRetroConsoleServiceImpl<GamecubeGame> implements GamecubeService
 {
+    private final String FILE_TYPE = "." + PlaystationPlatform.GC.fileType();
+
     private final GamecubeGameDAO gameDAO;
 
     public GamecubeServiceImpl(GamecubeGameDAO gameDAO,
@@ -27,10 +28,6 @@ public class GamecubeServiceImpl extends AbstractRetroConsoleServiceImpl<Gamecub
         this.gameDAO = gameDAO;
     }
 
-    private final String FAKE_DRIVE = "SORNY";
-    private final String GAMES_LIST = "games.txt";
-    private final String SERIALS = "wiitdb.txt";
-
     public void updateGameInventory()
     {
         verifyGameInventory();
@@ -40,42 +37,66 @@ public class GamecubeServiceImpl extends AbstractRetroConsoleServiceImpl<Gamecub
 
     private void verifyGameInventory()
     {
+        final String DRIVE_PATH = context.gamecubeDriveDirectory();
 
+        for(GamecubeGame game : gameDAO.getAllAvailable())
+        {
+            String location = DRIVE_PATH + game.getGameName() + FILE_TYPE;
+            File gameFile = new File(location);
+            if (!gameFile.exists())
+            {
+                game.setDrive(null);
+                game.setAvailable(false);
+
+                gameDAO.save(game);
+            }
+        }
     }
 
     private void createAndUpdateEntries()
     {
-        final String DATA_LOCATION = context.gamecubeDataDirectory();
+        final String DRIVE_PATH = context.gamecubeDriveDirectory();
 
-        File gamesList = new File(DATA_LOCATION + GAMES_LIST);
-        try
+        FileFilter filter = new FileFilter()
         {
-            BufferedReader in = new BufferedReader(new FileReader(gamesList));
-
-            String line = in.readLine();
-            while(line != null)
+            @Override
+            public boolean accept(File pathname)
             {
-                processGame(line);
+                boolean coorectFileType = pathname.getName().endsWith(FILE_TYPE);
+                boolean notDot = !pathname.getName().startsWith(".");
 
-                line = in.readLine();
+                return notDot && coorectFileType;
             }
-        }
-        catch(Exception e)
+        };
+
+        File gameDrive = new File(DRIVE_PATH);
+        if (gameDrive.exists())
         {
-            throw new RuntimeException(e);
+            String driveName = gameDrive.getName();
+
+            for(File game : gameDrive.listFiles(filter))
+            {
+                String filename = game.getName();
+                processGame(filename, driveName);
+            }
         }
     }
 
-    private void processGame(String name)
+    private void processGame(String name, String driveName)
     {
-        String title = name.substring(0, name.indexOf(".zip"));
+        String title = name.substring(0, name.lastIndexOf(FILE_TYPE));
 
         GamecubeGame game = gameDAO.getByGameName(title);
-        if (game == null)
+        if (game != null)
         {
-            game = GamecubeGame.create(FAKE_DRIVE, title, null);
-            gameDAO.save(game);
+            game.setDrive(driveName);
+            game.setAvailable(true);
         }
+        else
+        {
+            game = GamecubeGame.create(driveName, title, null);
+        }
+        gameDAO.save(game);
     }
 
 
