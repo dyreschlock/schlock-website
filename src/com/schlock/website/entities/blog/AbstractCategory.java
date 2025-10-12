@@ -28,7 +28,7 @@ import com.schlock.website.entities.Persisted;
  * - Books
  * - Anime
  *
- * Miscellanous
+ * Miscellaneous
  * - Running
  * - Toys
  * - Recipes
