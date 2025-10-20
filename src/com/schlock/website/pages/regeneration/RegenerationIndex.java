@@ -63,7 +63,7 @@ public class RegenerationIndex
     /*
      * No slash at the beginning. Slash at the end.
      */
-    private static final String LOCATION = "photo/251004_dreamcast/";
+    private static final String LOCATION = "photo/250914_doai_onsen/";
 
 
     @Inject

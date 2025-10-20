@@ -180,12 +180,12 @@ public abstract class AbstractOldVersionPage extends AbstractOldLinks
 
     public List<String> getReviewCategoryUuids()
     {
-        return Arrays.asList("reviews", "film", "books", "anime", "toys");
+        return Arrays.asList("game-reviews", "film-tv", "books", "anime", "toys");
     }
 
     protected List<String> getTravelPhotoCategoryUuids()
     {
-        return Arrays.asList("travel", "takayama", "america");
+        return Arrays.asList("travel", "hida-takayama", "america");
     }
 
     protected List<String> getClubPhotoCategoryUuids()

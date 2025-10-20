@@ -73,13 +73,13 @@ public abstract class AbstractOldRecentPosts
         List<String> uuids = new ArrayList<>();
         if(isProjectsPage())
         {
-             uuids = Arrays.asList("travel", "takayama", "events", "america");
+             uuids = Arrays.asList("travel", "hida-takayama", "events", "america");
         }
         if (isGamesPage())
         {
             count = 6;
 
-            uuids = Arrays.asList("reviews", "film", "books", "anime", "toys");
+            uuids = Arrays.asList("game-reviews", "film-tv", "books", "anime", "toys");
         }
 
         Set<Long> categoryIds = new HashSet<>();
