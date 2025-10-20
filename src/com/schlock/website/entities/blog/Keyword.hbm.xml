@@ -8,6 +8,18 @@
         </id>
 
         <property name="name" not-null="true" />
+        <property name="title" />
+        <property name="description" />
+
+        <property name="type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.schlock.website.entities.blog.KeywordType</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+
+        <many-to-one name="parent" column="parentId" class="com.schlock.website.entities.blog.Keyword" />
+        <property name="ordering" />
 
     </class>
 </hibernate-mapping>
