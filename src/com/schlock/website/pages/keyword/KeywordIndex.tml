@@ -34,6 +34,14 @@
 
                 <l:postpreviewlink post="mostRecent" cssClass="'primaryPost'" />
 
+                <t:if test="keywordVisible">
+                    <p class="description"><t:outputraw value="keywordDescription" /></p>
+                </t:if>
+
+
+
+
+
                 <t:loop source="yearMonthIterations" value="currentIteration">
                     <div class="title clr">${iterationTitle}</div>
 

@@ -1,6 +1,7 @@
 package com.schlock.website.pages.keyword;
 
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.blog.Page;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.blog.ImageManagement;
@@ -57,20 +58,20 @@ public class KeywordIndex
     private AbstractPost currentPost;
 
 
-    private String selectedKeywordName;
+    private Keyword selectedKeyword;
     private Page cachedPage;
 
 
 
     Object onActivate()
     {
-        selectedKeywordName = null;
+        selectedKeyword = null;
         return true;
     }
 
     Object onActivate(String name)
     {
-        selectedKeywordName = name;
+        selectedKeyword = keywordDAO.getByName(name);
         return true;
     }
 
@@ -102,20 +103,36 @@ public class KeywordIndex
 
     public boolean isKeywordSelected()
     {
-        return selectedKeywordName != null;
+        return selectedKeyword != null;
+    }
+
+    public boolean isKeywordVisible()
+    {
+        return selectedKeyword != null && selectedKeyword.isVisible();
+    }
+
+    public String getSelectedKeywordName()
+    {
+        if (isKeywordSelected())
+        {
+            return selectedKeyword.getName();
+        }
+        return null;
     }
 
     public AbstractPost getMostRecent()
     {
         int LIMIT = 1;
+        String keywordName = getSelectedKeywordName();
 
-        List<Post> posts = postManagement.getTopPosts(LIMIT, selectedKeywordName, Collections.EMPTY_SET);
+        List<Post> posts = postManagement.getTopPosts(LIMIT, keywordName, Collections.EMPTY_SET);
         return posts.get(0);
     }
 
     public List<String> getYearMonthIterations()
     {
-        return archiveManagement.getYearlyMonthlyIterations(selectedKeywordName);
+        String keywordName = getSelectedKeywordName();
+        return archiveManagement.getYearlyMonthlyIterations(keywordName);
     }
 
     public String getIterationTitle()
@@ -125,7 +142,8 @@ public class KeywordIndex
 
     public List<Post> getPosts()
     {
-        return archiveManagement.getPosts(currentIteration, selectedKeywordName);
+        String keywordName = getSelectedKeywordName();
+        return archiveManagement.getPosts(currentIteration, keywordName);
     }
 
     public List<Post> getPreviewPosts()
@@ -133,7 +151,8 @@ public class KeywordIndex
         Set<Long> exclude = new HashSet<>();
         exclude.add(getMostRecent().getId());
 
-        return archiveManagement.getPreviewPosts(currentIteration, selectedKeywordName, exclude);
+        String keywordName = getSelectedKeywordName();
+        return archiveManagement.getPreviewPosts(currentIteration, keywordName, exclude);
     }
 
     public String getCoverImagePostUuid()
@@ -162,8 +181,11 @@ public class KeywordIndex
         String title = messages.get("title");
         if (isKeywordSelected())
         {
-            String keyword = keywordManagement.getKeywordTitle(selectedKeywordName);
-            title = messages.format("title-keyword", keyword);
+            title = selectedKeyword.getTitle();
+            if (!selectedKeyword.isVisible())
+            {
+                title = messages.format("title-keyword", title);
+            }
         }
         return title;
     }
@@ -173,10 +195,26 @@ public class KeywordIndex
         String text = messages.get("description");
         if (isKeywordSelected())
         {
-            String keyword = keywordManagement.getKeywordTitle(selectedKeywordName);
-            text = messages.format("description-keyword", keyword);
+            if (selectedKeyword.isVisible())
+            {
+                text = selectedKeyword.getDescription();
+            }
+            else
+            {
+                String keyword = selectedKeyword.getTitle();
+                text = messages.format("description-keyword", keyword);
+            }
         }
         return text;
+    }
+
+    public String getKeywordDescription()
+    {
+        String description = getPageDescription();
+
+        description = description.replace(". ", ".<br/>");
+
+        return description;
     }
 
     public String getPageUrl()
@@ -184,7 +222,7 @@ public class KeywordIndex
         String url = linkSource.createPageRenderLink(KeywordIndex.class).toURI();
         if (isKeywordSelected())
         {
-            url += "/" + selectedKeywordName;
+            url += "/" + selectedKeyword.getName();
         }
         return url;
     }
