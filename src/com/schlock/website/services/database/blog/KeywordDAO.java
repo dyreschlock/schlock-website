@@ -10,4 +10,6 @@ public interface KeywordDAO extends BaseDAO<Keyword>
     Keyword getByName(String name);
 
     List<Object[]> getAllAvailable();
+
+    List<Keyword> getSubInOrder(Keyword keyword);
 }

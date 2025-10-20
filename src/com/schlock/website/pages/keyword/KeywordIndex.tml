@@ -36,10 +36,39 @@
 
                 <t:if test="keywordVisible">
                     <p class="description"><t:outputraw value="keywordDescription" /></p>
+
+                    <t:loop source="subKeywords" value="currentSubKeyword">
+
+                        <t:if test="!currentKeyword">
+                            <a href="${currentSubKeywordLink}">
+                                <div class="title clr">${currentSubKeyword.title}</div>
+                            </a>
+                        </t:if>
+                        <t:if test="currentKeyword">
+                            <div class="title clr">${message:most-recent}</div>
+                        </t:if>
+
+
+                        <div class="categoryPosts">
+                            <t:loop source="subPosts" value="currentPost">
+                                <l:postlink post="currentPost" cssClass="'archive'" />
+                            </t:loop>
+
+                            <br class="clr" />
+                        </div>
+
+                        <div class="postPreviews">
+                            <t:loop source="subPreviewPosts" value="currentPost">
+                                <l:postpreviewlink post="currentPost" cssClass="'secondaryPost'" />
+                            </t:loop>
+
+                            <br class="clr" />
+                        </div>
+                    </t:loop>
+                    <br class="clr" />
+
+                    <div class="title center">${message:full-archive}</div>
                 </t:if>
-
-
-
 
 
                 <t:loop source="yearMonthIterations" value="currentIteration">

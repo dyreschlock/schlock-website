@@ -41,4 +41,20 @@ public class KeywordDAOImpl extends BaseDAOImpl<Keyword> implements KeywordDAO
 
         return query.list();
     }
+
+    public List<Keyword> getSubInOrder(Keyword parent)
+    {
+        String text = "select child " +
+                " from Keyword child " +
+                " join child.parent par " +
+                " where par.id = :parentId " +
+                " and child.type = :type " +
+                " order by child.ordering asc ";
+
+        Query query = session.createQuery(text);
+        query.setLong("parentId", parent.getId());
+        query.setParameter("type", parent.getType());
+
+        return query.list();
+    }
 }

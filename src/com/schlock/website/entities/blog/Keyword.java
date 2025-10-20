@@ -25,6 +25,10 @@ public class Keyword extends Persisted
         this.name = name;
     }
 
+    public boolean isTopKeyword()
+    {
+        return parent == null;
+    }
 
     public boolean isVisible()
     {

@@ -1,9 +1,6 @@
 package com.schlock.website.pages.keyword;
 
-import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.Keyword;
-import com.schlock.website.entities.blog.Page;
-import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.*;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.KeywordManagement;
 import com.schlock.website.services.blog.PostArchiveManagement;
@@ -12,17 +9,18 @@ import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class KeywordIndex
 {
+    @SessionState
+    private ViewState viewState;
+
     @Inject
     private PageRenderLinkSource linkSource;
 
@@ -52,6 +50,9 @@ public class KeywordIndex
     private Object[] currentKeyword;
 
     @Property
+    private Keyword currentSubKeyword;
+
+    @Property
     private String currentIteration;
 
     @Property
@@ -61,17 +62,24 @@ public class KeywordIndex
     private Keyword selectedKeyword;
     private Page cachedPage;
 
+    private Set<Long> excludeIds;
 
 
     Object onActivate()
     {
         selectedKeyword = null;
+        excludeIds = new HashSet<>();
+
         return true;
     }
 
     Object onActivate(String name)
     {
         selectedKeyword = keywordDAO.getByName(name);
+
+        excludeIds = new HashSet<>();
+        excludeIds.add(getMostRecent().getId());
+
         return true;
     }
 
@@ -129,6 +137,34 @@ public class KeywordIndex
         return posts.get(0);
     }
 
+    private List<Keyword> cachedKeywords;
+
+    public List<Keyword> getSubKeywords()
+    {
+        if (cachedKeywords == null)
+        {
+            List<Keyword> keywords = new ArrayList<>();
+            if (selectedKeyword.isTopKeyword())
+            {
+                keywords.add(selectedKeyword);
+            }
+            keywords.addAll(keywordDAO.getSubInOrder(selectedKeyword));
+
+            cachedKeywords = keywords;
+        }
+        return cachedKeywords;
+    }
+
+    public boolean isCurrentKeyword()
+    {
+        return selectedKeyword.equals(currentSubKeyword);
+    }
+
+    public String getCurrentSubKeywordLink()
+    {
+        return linkSource.createPageRenderLinkWithContext(KeywordIndex.class, currentSubKeyword.getName()).toURI();
+    }
+
     public List<String> getYearMonthIterations()
     {
         String keywordName = getSelectedKeywordName();
@@ -140,6 +176,32 @@ public class KeywordIndex
         return archiveManagement.getIterationTitle(currentIteration);
     }
 
+    public List<Post> getSubPosts()
+    {
+        int postCount = 21;
+        boolean unpublished = viewState.isShowUnpublished();
+        String keywordName = currentSubKeyword.getName();
+
+        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, null, null, null, keywordName);
+        return posts;
+    }
+
+    public List<Post> getSubPreviewPosts()
+    {
+        int count = getSubPosts().size();
+        int LIMIT = (int) Math.floor(((double) count ) / ((double) 7));
+        if (LIMIT < 1)
+        {
+            LIMIT = 1;
+        }
+
+        String keywordName = currentSubKeyword.getName();
+
+        List<Post> posts = postManagement.getTopPosts(LIMIT, keywordName, excludeIds);
+
+        return posts;
+    }
+
     public List<Post> getPosts()
     {
         String keywordName = getSelectedKeywordName();
@@ -148,11 +210,8 @@ public class KeywordIndex
 
     public List<Post> getPreviewPosts()
     {
-        Set<Long> exclude = new HashSet<>();
-        exclude.add(getMostRecent().getId());
-
         String keywordName = getSelectedKeywordName();
-        return archiveManagement.getPreviewPosts(currentIteration, keywordName, exclude);
+        return archiveManagement.getPreviewPosts(currentIteration, keywordName, excludeIds);
     }
 
     public String getCoverImagePostUuid()
@@ -181,8 +240,15 @@ public class KeywordIndex
         String title = messages.get("title");
         if (isKeywordSelected())
         {
-            title = selectedKeyword.getTitle();
-            if (!selectedKeyword.isVisible())
+            if (selectedKeyword.isVisible())
+            {
+                title = selectedKeyword.getTitle();
+                if (!selectedKeyword.isTopKeyword())
+                {
+                    title = selectedKeyword.getParent().getTitle() + " /" + title;
+                }
+            }
+            else
             {
                 title = messages.format("title-keyword", title);
             }
