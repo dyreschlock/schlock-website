@@ -1,10 +1,13 @@
 package com.schlock.website.components.blog.layout;
 
-import com.schlock.website.entities.blog.*;
+import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Keyword;
+import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.Index;
-import com.schlock.website.pages.category.CategoryIndex;
+import com.schlock.website.pages.keyword.KeywordIndex;
 import com.schlock.website.services.blog.PostManagement;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -27,7 +30,7 @@ public class Subheader
     private PostManagement postManagement;
 
     @Inject
-    private CategoryDAO categoryDAO;
+    private KeywordDAO keywordDAO;
 
     @Inject
     private PostDAO postDAO;
@@ -38,7 +41,7 @@ public class Subheader
 
 
     @Property
-    private AbstractCategory currentCategory;
+    private Keyword currentKeyword;
 
     @Property
     private Integer currentIndex;
@@ -115,10 +118,9 @@ public class Subheader
     }
 
 
-
-    public List<PostCategory> getCategories()
+    public List<Keyword> getKeywords()
     {
-        return categoryDAO.getTopInOrder();
+        return keywordDAO.getTopInOrder();
     }
 
     public boolean isNotFirst()
@@ -126,8 +128,8 @@ public class Subheader
         return currentIndex != 0;
     }
 
-    public String getCategoryLink()
+    public String getKeywordLink()
     {
-        return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, currentCategory.getUuid()).toURI();
+        return linkSource.createPageRenderLinkWithContext(KeywordIndex.class, currentKeyword.getName()).toURI();
     }
 }

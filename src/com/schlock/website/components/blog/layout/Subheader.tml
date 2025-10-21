@@ -31,9 +31,9 @@
     </div>
 
     <div class="categories">
-        <t:loop source="categories" value="currentCategory" index="currentIndex">
+        <t:loop source="keywords" value="currentKeyword" index="currentIndex">
             <t:if test="notFirst"><span class="divider">&#183;</span></t:if>
-            <a title="${currentCategory.name}" href="${categoryLink}">${currentCategory.name}</a>
+            <a title="${currentKeyword.name}" href="${keywordLink}">${currentKeyword.title}</a>
         </t:loop>
         <span class="divider">&#183;</span>
         <a title="${message:today}" onclick="todayClicked()">${message:today}</a>

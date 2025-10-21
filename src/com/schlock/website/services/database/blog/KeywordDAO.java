@@ -11,5 +11,7 @@ public interface KeywordDAO extends BaseDAO<Keyword>
 
     List<Object[]> getAllAvailable();
 
+    List<Keyword> getTopInOrder();
+
     List<Keyword> getSubInOrder(Keyword keyword);
 }
