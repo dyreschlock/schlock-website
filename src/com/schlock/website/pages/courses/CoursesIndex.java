@@ -87,7 +87,7 @@ public class CoursesIndex
 
     public List<Keyword> getCourseKeywords()
     {
-        return keywordDAO.getCourseKeywordsInOrder();
+        return keywordDAO.getTopCourseKeywordsInOrder();
     }
 
     public List<AbstractPost> getCoursesByKeyword()

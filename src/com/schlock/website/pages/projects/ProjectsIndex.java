@@ -1,9 +1,9 @@
 package com.schlock.website.pages.projects;
 
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.blog.Page;
-import com.schlock.website.entities.blog.ProjectCategory;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Persist;
@@ -17,7 +17,7 @@ import java.util.*;
 public class ProjectsIndex
 {
     @Inject
-    private CategoryDAO categoryDAO;
+    private KeywordDAO keywordDAO;
 
     @Inject
     private PostDAO postDAO;
@@ -30,13 +30,13 @@ public class ProjectsIndex
 
 
     @Persist
-    private ProjectCategory category;
+    private Keyword selectedKeyword;
 
     @Property
-    private ProjectCategory currentCategory;
+    private Keyword currentKeyword;
 
     @Property
-    private ProjectCategory currentSubcategory;
+    private Keyword currentSubKeyword;
 
     @Property
     private AbstractPost currentPage;
@@ -45,13 +45,13 @@ public class ProjectsIndex
     private int currentIndex;
 
 
-    private Map<Long, List<AbstractPost>> postCache;
+    private Map<String, List<AbstractPost>> postCache;
     private Set<Long> excludeIds;
 
 
     Object onActivate()
     {
-        category = null;
+        selectedKeyword = null;
         postCache = new HashMap<>();
         excludeIds = new HashSet<>();
         return true;
@@ -63,18 +63,19 @@ public class ProjectsIndex
 
         if (StringUtils.isNotBlank(parameter))
         {
-            category = (ProjectCategory) categoryDAO.getByUuid(ProjectCategory.class, parameter);
+            selectedKeyword = keywordDAO.getByName(parameter);
         }
         return true;
     }
 
 
-    public List<ProjectCategory> getCategories()
+
+    public List<Keyword> getKeywords()
     {
-        return categoryDAO.getTopProjectInOrder();
+        return keywordDAO.getTopProjectKeywordsInOrder();
     }
 
-    public String getExtraCategoryCss()
+    public String getExtraCss()
     {
         String css = "";
         if ((currentIndex + 1) % 4 == 0)
@@ -85,41 +86,41 @@ public class ProjectsIndex
     }
 
 
-    public String getCurrentCategoryLink()
+    public String getCurrentKeywordLink()
     {
-        String uuid = currentCategory.getUuid();
-        if (category != null && category.equals(currentCategory))
+        if (selectedKeyword != null && selectedKeyword.equals(currentKeyword))
         {
             return linkSource.createPageRenderLink(ProjectsIndex.class).toURI();
         }
-        return linkSource.createPageRenderLinkWithContext(ProjectsIndex.class, uuid).toURI();
+        String name = currentKeyword.getName();
+        return linkSource.createPageRenderLinkWithContext(ProjectsIndex.class, name).toURI();
     }
 
-    public String getCurrentSubcategoryLink()
+    public String getCurrentSubKeywordLink()
     {
-        String uuid = currentSubcategory.getUuid();
-        if (category != null && category.equals(currentSubcategory))
+        if (selectedKeyword != null && selectedKeyword.equals(currentSubKeyword))
         {
             return linkSource.createPageRenderLink(ProjectsIndex.class).toURI();
         }
-        return linkSource.createPageRenderLinkWithContext(ProjectsIndex.class, uuid).toURI();
+        String name = currentSubKeyword.getName();
+        return linkSource.createPageRenderLinkWithContext(ProjectsIndex.class, name).toURI();
     }
 
 
-    public List<ProjectCategory> getSubcategories()
+    public List<Keyword> getSubKeywords()
     {
-        return categoryDAO.getSubProjectInOrder(currentCategory.getId());
+        return keywordDAO.getSubInOrder(currentKeyword);
     }
 
-    public String getCategoryCssClass()
+    public String getKeywordCssClass()
     {
-        String css = currentCategory.getUuid();
-        if (category != null)
+        String css = currentKeyword.getName();
+        if (selectedKeyword != null)
         {
-            String selected = category.getUuid();
+            String selected = selectedKeyword.getName();
 
-            String par = currentCategory.getUuid();
-            String cat = currentSubcategory.getUuid();
+            String par = currentKeyword.getName();
+            String cat = currentSubKeyword.getName();
 
             if (!StringUtils.equalsIgnoreCase(selected, par) &&
                     !StringUtils.equalsIgnoreCase(selected, cat))
@@ -132,55 +133,56 @@ public class ProjectsIndex
 
 
 
-    public List<ProjectCategory> getAllSubcategories()
+    public List<Keyword> getAllSubKeywords()
     {
-        if (category != null)
+        if (selectedKeyword != null)
         {
-            if (category.isTopCategory())
+            if (selectedKeyword.isTopKeyword())
             {
-                return categoryDAO.getSubProjectInOrder(category.getId());
+                return keywordDAO.getSubInOrder(selectedKeyword);
             }
-            return Arrays.asList(category);
+            return Arrays.asList(selectedKeyword);
         }
-        List<ProjectCategory> categories = categoryDAO.getSubProjectInOrder();
 
-        Collections.sort(categories, new Comparator<ProjectCategory>()
+        List<Keyword> keywords = keywordDAO.getSubProjectKeywordsInOrder();
+
+        Collections.sort(keywords, new Comparator<Keyword>()
         {
-            public int compare(ProjectCategory o1, ProjectCategory o2)
+            public int compare(Keyword o1, Keyword o2)
             {
-                List<AbstractPost> p1 = getCategoryProjects(o1.getId());
-                List<AbstractPost> p2 = getCategoryProjects(o2.getId());
+                List<AbstractPost> p1 = getCategoryProjects(o1.getName());
+                List<AbstractPost> p2 = getCategoryProjects(o2.getName());
 
                 return p2.get(0).getCreated().compareTo(p1.get(0).getCreated());
             }
         });
 
-        return categories;
+        return keywords;
     }
 
-    private List<AbstractPost> getCategoryProjects(Long categoryId)
+    private List<AbstractPost> getCategoryProjects(String keywordName)
     {
-        List<AbstractPost> posts = postCache.get(categoryId);
+        List<AbstractPost> posts = postCache.get(keywordName);
         if (posts == null)
         {
-            posts = postDAO.getAllProjectsByCategory(false, categoryId);
+            posts = postDAO.getAllProjectsByKeyword(keywordName);
 
-            postCache.put(categoryId, posts);
+            postCache.put(keywordName, posts);
         }
         return posts;
     }
 
-    public List<AbstractPost> getCategoryProjects()
+    public List<AbstractPost> getProjectPages()
     {
-        Long categoryId = currentSubcategory.getId();
+        String keywordName = currentSubKeyword.getName();
 
-        List<AbstractPost> pages = getCategoryProjects(categoryId);
+        List<AbstractPost> pages = getCategoryProjects(keywordName);
         return pages;
     }
 
-    public List<AbstractPost> getCategoryTopProjects()
+    public List<AbstractPost> getTopProjectPages()
     {
-        List<AbstractPost> posts = getCategoryProjects();
+        List<AbstractPost> posts = getProjectPages();
 
         int total = (int) Math.floor(((double) posts.size()) / ((double) 7)) +1;
         int count = 0;
@@ -223,9 +225,9 @@ public class ProjectsIndex
 
     public String getPageDescription()
     {
-        if (category != null)
+        if (selectedKeyword != null)
         {
-            return category.getDescription();
+            return selectedKeyword.getDescription();
         }
         return messages.get("description");
     }

@@ -650,6 +650,11 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
+    public List<AbstractPost> getAllProjectsByKeyword(String keyword)
+    {
+        return getAllByKeywordAndType(keyword, false, KeywordType.PROJECT);
+    }
+
     public List<AbstractPost> getAllCoursesByKeyword(String keyword)
     {
         return getAllByKeywordAndType(keyword, true, KeywordType.COURSE);
@@ -669,6 +674,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
             publishLevel = POST_PUBLISHED;
         }
         text += " and p.publishedLevel >= " + publishLevel + " ";
+        text += " order by p.created desc ";
 
 
         Query query = session.createQuery(text);

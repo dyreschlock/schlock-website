@@ -11,19 +11,19 @@
 
         <div class="postBody">
             <div class="fourColumns">
-                <t:loop source="categories" value="currentCategory" index="currentIndex">
-                    <div class="column ${extraCategoryCss}">
+                <t:loop source="keywords" value="currentKeyword" index="currentIndex">
+                    <div class="column ${extraCss}">
 
                         <div class="categoryCategory">
-                            <a href="${currentCategoryLink}">
-                                ${currentCategory.name}
+                            <a href="${currentKeywordLink}">
+                                ${currentKeyword.title}
                             </a>
                         </div>
 
-                        <t:loop source="subcategories" value="currentSubcategory">
+                        <t:loop source="subKeywords" value="currentSubKeyword">
                             <div class="categoryTitle">
-                                <a class="${categoryCssClass}" href="${currentSubcategoryLink}">
-                                    ${currentSubcategory.name}
+                                <a class="${keywordCssClass}" href="${currentSubKeywordLink}">
+                                    ${currentSubKeyword.title}
                                 </a>
                             </div>
                         </t:loop>
@@ -35,22 +35,22 @@
 
             <p class="description"><t:outputraw value="pageDescription" /></p>
 
-            <t:loop source="allSubcategories" value="currentSubcategory">
+            <t:loop source="allSubKeywords" value="currentSubKeyword">
 
                 <div class="title clr">
-                    ${currentSubcategory.parent.name} /
-                    <span class="${currentSubcategory.parent.uuid}">${currentSubcategory.name}</span>
+                    ${currentSubKeyword.parent.title} /
+                    <span class="${currentSubKeyword.parent.name}">${currentSubKeyword.title}</span>
                 </div>
 
                 <div class="categoryPosts">
-                    <t:loop source="categoryProjects" value="currentPage">
+                    <t:loop source="projectPages" value="currentPage">
                         <l:postlink post="currentPage" cssClass="'archive'" displayDate="true" displayNumber="false" />
                     </t:loop>
                     <br class="clr" />
                 </div>
 
                 <div class="postPreviews">
-                    <t:loop source="categoryTopProjects" value="currentPage">
+                    <t:loop source="topProjectPages" value="currentPage">
                         <c:minipostdisplay post="currentPage" />
                         <br class="clr" />
                     </t:loop>

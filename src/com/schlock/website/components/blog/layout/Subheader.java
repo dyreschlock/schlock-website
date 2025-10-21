@@ -120,7 +120,7 @@ public class Subheader
 
     public List<Keyword> getKeywords()
     {
-        return keywordDAO.getTopInOrder();
+        return keywordDAO.getTopPostKeywordsInOrder();
     }
 
     public boolean isNotFirst()

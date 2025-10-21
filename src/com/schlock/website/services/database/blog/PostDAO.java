@@ -93,6 +93,8 @@ public interface PostDAO extends BaseDAO<AbstractPost>
 
     List<AbstractPost> getAllCoursesByCategory(Long categoryId);
 
+    List<AbstractPost> getAllProjectsByKeyword(String keyword);
+
     List<AbstractPost> getAllCoursesByKeyword(String keyword);
 
     ClubPost getMostRecentClubPost(boolean withUnpublished);
