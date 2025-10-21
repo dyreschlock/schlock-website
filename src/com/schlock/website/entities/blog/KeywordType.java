@@ -4,5 +4,6 @@ public enum KeywordType
 {
     VISIBLE,
     PROJECT,
-    COURSE;
+    COURSE,
+    LESSON;
 }
