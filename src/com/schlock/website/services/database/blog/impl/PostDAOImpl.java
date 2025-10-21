@@ -650,6 +650,34 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
+    public List<AbstractPost> getAllCoursesByKeyword(String keyword)
+    {
+        return getAllByKeywordAndType(keyword, true, KeywordType.COURSE);
+    }
+
+    private List<AbstractPost> getAllByKeywordAndType(String keyword, boolean withUnpublished, KeywordType type)
+    {
+        String text = " select distinct p " +
+                        " from AbstractPost p " +
+                        " join p.keywords k " +
+                        " where k.type = :type " +
+                        " and k.name = :name ";
+
+        int publishLevel = POST_UNPUBLISHED;
+        if (!withUnpublished)
+        {
+            publishLevel = POST_PUBLISHED;
+        }
+        text += " and p.publishedLevel >= " + publishLevel + " ";
+
+
+        Query query = session.createQuery(text);
+        query.setParameter("type", type);
+        query.setParameter("name", keyword);
+
+        return query.list();
+    }
+
     private Query clubPostsQuery(boolean withUnpublished)
     {
         String text = "from ClubPost p ";

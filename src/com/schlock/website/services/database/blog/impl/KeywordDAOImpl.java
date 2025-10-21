@@ -45,8 +45,16 @@ public class KeywordDAOImpl extends BaseDAOImpl<Keyword> implements KeywordDAO
 
     public List<Keyword> getTopInOrder()
     {
-        KeywordType type = KeywordType.VISIBLE;
+        return getByType(KeywordType.VISIBLE);
+    }
 
+    public List<Keyword> getCourseKeywordsInOrder()
+    {
+        return getByType(KeywordType.COURSE);
+    }
+
+    private List<Keyword> getByType(KeywordType type)
+    {
         String text = " select k " +
                 " from Keyword k " +
                 " where k.parent is null " +

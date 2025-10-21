@@ -11,14 +11,14 @@
 
         <c:postdisplay post="page" cssClass="courses archive">
             <div class="postBody columns">
-                <t:loop source="categories" value="currentCategory" index="currentIndex">
+                <t:loop source="courseKeywords" value="currentKeyword" index="currentIndex">
 
-                    <div class="column ${extraCatCss}">
+                    <div class="column ${extraCss}">
                         <div class="title clr" style="text-align: left;">
-                            ${currentCategory.name}
+                            ${currentKeyword.title}
                         </div>
 
-                        <t:loop source="categoryCourses" value="currentPost">
+                        <t:loop source="coursesByKeyword" value="currentPost">
                             <l:postlink post="currentPost" />
                         </t:loop>
                     </div>

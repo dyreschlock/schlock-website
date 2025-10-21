@@ -1,11 +1,8 @@
 package com.schlock.website.pages.courses;
 
-import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.CourseCategory;
-import com.schlock.website.entities.blog.CoursePage;
-import com.schlock.website.entities.blog.Page;
+import com.schlock.website.entities.blog.*;
 import com.schlock.website.services.blog.LessonsManagement;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -19,14 +16,14 @@ public class CoursesIndex
     private LessonsManagement lessonManagement;
 
     @Inject
-    private CategoryDAO categoryDAO;
+    private KeywordDAO keywordDAO;
 
     @Inject
     private PostDAO postDAO;
 
 
     @Property
-    private CourseCategory currentCategory;
+    private Keyword currentKeyword;
 
     @Property
     private Integer currentIndex;
@@ -87,23 +84,23 @@ public class CoursesIndex
         return selectedPage != null && !selectedPage.isLessonCourse();
     }
 
-    public List<CourseCategory> getCategories()
+    
+    public List<Keyword> getCourseKeywords()
     {
-        return categoryDAO.getCourseInOrder();
+        return keywordDAO.getCourseKeywordsInOrder();
     }
 
-    public List<AbstractPost> getCategoryCourses()
+    public List<AbstractPost> getCoursesByKeyword()
     {
         int postCount = 21;
-        Long catId = currentCategory.getId();
+        String keyword = currentKeyword.getName();
         boolean unpublished = true;
 
-        List<AbstractPost> posts = postDAO.getAllCoursesByCategory(catId);
+        List<AbstractPost> posts = postDAO.getAllCoursesByKeyword(keyword);
         return posts;
     }
 
-
-    public String getExtraCatCss()
+    public String getExtraCss()
     {
         String extraCss = "";
         if ((currentIndex + 1) % 2 == 0)
