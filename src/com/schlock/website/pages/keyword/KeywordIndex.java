@@ -91,7 +91,7 @@ public class KeywordIndex
 
     public String getWeightClass()
     {
-        int weight = (int) currentKeyword[1];
+        int weight = (int) currentKeyword[2];
         return "weight" + weight;
     }
 
@@ -104,8 +104,8 @@ public class KeywordIndex
 
     public String getCurrentKeywordName()
     {
-        String uuid = (String) currentKeyword[0];
-        return keywordManagement.getKeywordTitle(uuid);
+        String title = (String) currentKeyword[1];
+        return title;
     }
 
 
@@ -155,7 +155,7 @@ public class KeywordIndex
         return cachedKeywords;
     }
 
-    public boolean isCurrentKeyword()
+    public boolean isCurrentKeywordCurrent()
     {
         return selectedKeyword.equals(currentSubKeyword);
     }
@@ -250,6 +250,7 @@ public class KeywordIndex
             }
             else
             {
+                title = keywordManagement.getKeywordTitle(selectedKeyword.getName());
                 title = messages.format("title-keyword", title);
             }
         }

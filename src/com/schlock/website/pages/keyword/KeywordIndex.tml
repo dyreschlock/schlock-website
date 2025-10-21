@@ -39,12 +39,12 @@
 
                     <t:loop source="subKeywords" value="currentSubKeyword">
 
-                        <t:if test="!currentKeyword">
+                        <t:if test="!currentKeywordCurrent">
                             <a href="${currentSubKeywordLink}">
                                 <div class="title clr">${currentSubKeyword.title}</div>
                             </a>
                         </t:if>
-                        <t:if test="currentKeyword">
+                        <t:if test="currentKeywordCurrent">
                             <div class="title clr">${message:most-recent}</div>
                         </t:if>
 

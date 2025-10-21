@@ -84,7 +84,7 @@ public class CoursesIndex
         return selectedPage != null && !selectedPage.isLessonCourse();
     }
 
-    
+
     public List<Keyword> getCourseKeywords()
     {
         return keywordDAO.getCourseKeywordsInOrder();

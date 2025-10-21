@@ -73,7 +73,7 @@ public class KeywordManagementImpl implements KeywordManagement
             String name = (String) entry[0];
             if (!excludes.contains(name))
             {
-                long count = (long) entry[1];
+                long count = (long) entry[2];
 
                 Integer weight = 1;
                 if (count >= 25)
@@ -98,7 +98,7 @@ public class KeywordManagementImpl implements KeywordManagement
                 }
 
                 Calendar recent = Calendar.getInstance();
-                recent.setTime((Date) entry[2]);
+                recent.setTime((Date) entry[3]);
 
                 int year = recent.get(Calendar.YEAR);
                 if (year >= 2015)
@@ -119,13 +119,33 @@ public class KeywordManagementImpl implements KeywordManagement
                     weight = 1;
                 }
 
-                Object[] newEntry = new Object[2];
+                String title = (String) entry[1];
+                if (title == null)
+                {
+                    title = getKeywordTitle(name);
+                }
+
+                Object[] newEntry = new Object[3];
                 newEntry[0] = name;
-                newEntry[1] = weight;
+                newEntry[1] = title;
+                newEntry[2] = weight;
 
                 namesAndWeights.add(newEntry);
             }
         }
+
+        Collections.sort(namesAndWeights, new Comparator<Object[]>()
+        {
+            public int compare(Object[] o1, Object[] o2)
+            {
+                String t1 = (String) o1[1];
+                String t2 = (String) o2[1];
+
+                return t1.compareTo(t2);
+            }
+
+        });
+
         return namesAndWeights;
     }
 
