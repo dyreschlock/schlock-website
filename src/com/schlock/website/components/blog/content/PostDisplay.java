@@ -1,8 +1,8 @@
 package com.schlock.website.components.blog.content;
 
 import com.schlock.website.entities.blog.*;
-import com.schlock.website.pages.category.CategoryIndex;
 import com.schlock.website.pages.courses.CoursesIndex;
+import com.schlock.website.pages.keyword.KeywordIndex;
 import com.schlock.website.pages.lessons.LessonsIndex;
 import com.schlock.website.pages.projects.ProjectsIndex;
 import com.schlock.website.services.DateFormatter;
@@ -67,10 +67,10 @@ public class PostDisplay
     private Keyword currentKeyword;
 
     @Property
-    private AbstractCategory currentCategory;
+    private Keyword currentSubKeyword;
 
     @Property
-    private AbstractCategory currentSubcategory;
+    private AbstractCategory currentCategory;
 
     @Property
     private String currentGrade;
@@ -94,30 +94,31 @@ public class PostDisplay
         return !post.getCategories().isEmpty();
     }
 
-    public List<PostCategory> getTopCategories()
+    public List<Keyword> getTopKeywords()
     {
-        return post.getTopPostCategories();
+        return post.getTopPostKeywords();
     }
 
-    public List<AbstractCategory> getSubcategories()
+    public List<Keyword> getSubKeywords()
     {
-        return post.getSubcategories(currentCategory);
+        return post.getSubPostKeywords(currentKeyword);
     }
 
-    public List<AbstractCategory> getExtraCategories()
+    public List<Keyword> getExtraKeywords()
     {
-        return post.getExtraCategories();
+        return post.getExtraKeywords();
     }
 
-    public String getCurrentCategoryLink()
+    public String getCurrentKeywordLink()
     {
-        return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, currentCategory.getUuid()).toURI();
+        return linkSource.createPageRenderLinkWithContext(KeywordIndex.class, currentKeyword.getName()).toURI();
     }
 
-    public String getCurrentSubcategoryLink()
+    public String getCurrentSubKeywordLink()
     {
-        return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, currentSubcategory.getUuid()).toURI();
+        return linkSource.createPageRenderLinkWithContext(KeywordIndex.class, currentSubKeyword.getName()).toURI();
     }
+
 
     public boolean isProject()
     {

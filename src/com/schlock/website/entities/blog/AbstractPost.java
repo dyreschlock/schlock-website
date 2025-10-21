@@ -122,6 +122,59 @@ public abstract class AbstractPost extends Persisted
         return publishedLevel >= LEVEL_PUBLISHED;
     }
 
+    public List<Keyword> getTopPostKeywords()
+    {
+        List<Keyword> top = new ArrayList<>();
+
+        for(Keyword keyword : keywords)
+        {
+            if (keyword.isVisible() && keyword.isTopKeyword())
+            {
+                top.add(keyword);
+            }
+        }
+
+        Collections.sort(top, new KeywordComparator());
+        return top;
+    }
+
+    public List<Keyword> getSubPostKeywords(Keyword top)
+    {
+        List<Keyword> sub = new ArrayList<>();
+
+        for(Keyword keyword : keywords)
+        {
+            if (keyword.getParent() != null &&
+                    keyword.getParent().getId().equals(top.getId()))
+            {
+                sub.add(keyword);
+            }
+        }
+
+        Collections.sort(sub, new KeywordComparator());
+        return sub;
+    }
+
+    public List<Keyword> getExtraKeywords()
+    {
+        List<Keyword> extra = new ArrayList<>();
+
+        List<Keyword> top = getTopPostKeywords();
+        for(Keyword keyword : keywords)
+        {
+            if (keyword.isVisible() && !keyword.isTopKeyword())
+            {
+                if (!top.contains(keyword.getParent()))
+                {
+                    extra.add(keyword);
+                }
+            }
+        }
+
+        Collections.sort(extra, new KeywordComparator());
+        return extra;
+    }
+
     public List<PostCategory> getTopPostCategories()
     {
         List<PostCategory> top = new ArrayList<>();
