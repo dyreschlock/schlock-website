@@ -175,6 +175,21 @@ public abstract class AbstractPost extends Persisted
         return extra;
     }
 
+    public List<Keyword> getAllSubProjectKeywords()
+    {
+        List<Keyword> project = new ArrayList<>();
+
+        for(Keyword keyword : keywords)
+        {
+            if (keyword.isProject() && !keyword.isTopKeyword())
+            {
+                project.add(keyword);
+            }
+        }
+        Collections.sort(project, new KeywordComparator());
+        return project;
+    }
+
     public List<PostCategory> getTopPostCategories()
     {
         List<PostCategory> top = new ArrayList<>();

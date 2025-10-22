@@ -1,8 +1,7 @@
 package com.schlock.website.components.blog.content;
 
-import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.ProjectCategory;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.pages.Index;
 import com.schlock.website.pages.projects.ProjectsIndex;
 import com.schlock.website.services.DateFormatter;
@@ -32,8 +31,7 @@ public class MiniPostDisplay
 
 
     @Property
-    private AbstractCategory currentCategory;
-
+    private Keyword currentKeyword;
 
     public boolean isShowDateLinks()
     {
@@ -67,24 +65,24 @@ public class MiniPostDisplay
         return post.isProject();
     }
 
-    public List<ProjectCategory> getProjectCategories()
+    public List<Keyword> getProjectKeywords()
     {
-        return post.getProjectCategories();
+        return post.getAllSubProjectKeywords();
     }
 
-    public String getCategoryLink()
+    public String getProjectLink()
     {
-        return linkSource.createPageRenderLinkWithContext(ProjectsIndex.class, currentCategory.getUuid()).toURI();
+        return linkSource.createPageRenderLinkWithContext(ProjectsIndex.class, currentKeyword.getName()).toURI();
     }
 
-    public String getCategoryCssClass()
+    public String getCssClass()
     {
         String css = "";
 
-        AbstractCategory parent = currentCategory.getParent();
-        if(parent != null)
+        Keyword parent = currentKeyword.getParent();
+        if (parent != null)
         {
-            css = parent.getUuid();
+            css = parent.getName();
         }
         return css;
     }

@@ -35,6 +35,10 @@ public class Keyword extends Persisted
         return type != null && type.equals(KeywordType.VISIBLE);
     }
 
+    public boolean isProject()
+    {
+        return type != null && type.equals(KeywordType.PROJECT);
+    }
 
 
 

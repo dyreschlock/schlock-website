@@ -11,9 +11,9 @@
                 ${createdDate}
 
                 <t:if test="project">
-                    <t:loop source="projectCategories" value="currentCategory">
+                    <t:loop source="projectKeywords" value="currentKeyword">
                         //
-                        <a class="${categoryCssClass}" title="${currentCategory.name}" href="${categoryLink}">${currentCategory.name}</a>
+                        <a class="${cssClass}" title="${currentKeyword.title}" href="${projectLink}">${currentKeyword.title}</a>
                     </t:loop>
                 </t:if>
             </div>
