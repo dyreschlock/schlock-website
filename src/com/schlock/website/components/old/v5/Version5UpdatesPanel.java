@@ -1,7 +1,7 @@
 package com.schlock.website.components.old.v5;
 
 import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.PostCategory;
+import com.schlock.website.entities.blog.Keyword;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 
@@ -23,7 +23,9 @@ public class Version5UpdatesPanel
 
     @Parameter(required = true)
     @Property
-    private PostCategory category;
+    private Keyword keyword;
+
+
 
     @Property
     private AbstractPost currentPost;

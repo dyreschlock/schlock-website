@@ -1,6 +1,6 @@
 package com.schlock.website.pages;
 
-import com.schlock.website.entities.blog.AbstractCategory;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.DeploymentContext;
@@ -15,7 +15,6 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @ContentType(value="application/rss+xml")
 public class Feed
@@ -43,7 +42,7 @@ public class Feed
     private Post currentPost;
 
     @Property
-    private AbstractCategory currentCategory;
+    private Keyword currentKeyword;
 
 
     public String getWebUrl()
@@ -59,9 +58,9 @@ public class Feed
         return posts;
     }
 
-    public Set<AbstractCategory> getCategories()
+    public List<Keyword> getKeywords()
     {
-        return currentPost.getCategories();
+        return currentPost.getKeywords();
     }
 
     public String getDescription()

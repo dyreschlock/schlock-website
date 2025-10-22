@@ -41,9 +41,9 @@
         <br class="clr" />
         <div class="menuSubheaderLinks">
             <div class="categoryTitle">${message:categories}</div>
-            <t:loop source="categories" value="currentCategory">
+            <t:loop source="keywords" value="currentKeyword">
                 <div class="menuSubLinks">
-                    <a title="${currentCategory.name}" href="${categoryLink}">${currentCategory.name}</a> &#183;&#183;
+                    <a title="${currentKeyword.title}" href="${keywordLink}">${currentKeyword.title}</a> &#183;&#183;
                 </div>
             </t:loop>
 

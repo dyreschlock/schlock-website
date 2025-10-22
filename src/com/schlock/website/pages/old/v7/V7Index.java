@@ -1,19 +1,19 @@
 package com.schlock.website.pages.old.v7;
 
 import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.PostCategory;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 public class V7Index extends AbstractOldVersionPage
 {
     @Inject
-    private CategoryDAO categoryDAO;
+    private KeywordDAO keywordDAO;
 
-    private PostCategory category;
+    private Keyword keyword;
     private AbstractPost post;
     private String page;
     private Integer pageNumber;
@@ -30,7 +30,7 @@ public class V7Index extends AbstractOldVersionPage
         pageNumber = 1;
 
         post = getDefaultPost();
-        category = null;
+        keyword = null;
 
         return true;
     }
@@ -45,8 +45,8 @@ public class V7Index extends AbstractOldVersionPage
         post = null;
         pageNumber = 1;
 
-        category = getCategory(param);
-        if (category == null)
+        keyword = getKeyword(param);
+        if (keyword == null)
         {
             if (isMonthlyArchivePage(param) || isPagedPage(param))
             {
@@ -69,7 +69,7 @@ public class V7Index extends AbstractOldVersionPage
         post = null;
 
         page = null;
-        category = null;
+        keyword = null;
         pageNumber = Integer.parseInt(p2);
 
         if (isPagedPage(p1))
@@ -78,8 +78,8 @@ public class V7Index extends AbstractOldVersionPage
         }
         else
         {
-            category = getCategory(p1);
-            if (category == null)
+            keyword = getKeyword(p1);
+            if (keyword == null)
             {
                 page = p1;
             }
@@ -87,9 +87,9 @@ public class V7Index extends AbstractOldVersionPage
         return true;
     }
 
-    protected PostCategory getCategory(String param)
+    protected Keyword getKeyword(String param)
     {
-        return (PostCategory) categoryDAO.getByUuid(PostCategory.class, param);
+        return keywordDAO.getByName(param);
     }
 
     public String getPage()
@@ -107,9 +107,9 @@ public class V7Index extends AbstractOldVersionPage
         return SiteVersion.V7;
     }
 
-    public PostCategory getCategory()
+    public Keyword getKeyword()
     {
-        return category;
+        return keyword;
     }
 
     public Integer getPageNumber()

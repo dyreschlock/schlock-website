@@ -8,8 +8,8 @@
             <t:if test="showPostDetails">
                 Posted in
 
-                <t:loop source="categories" value="currentCategory" index="currentIndex">
-                    <t:if test="notFirst">, </t:if><v7:version7categorylink category="currentCategory" />
+                <t:loop source="keywords" value="currentKeyword" index="currentIndex">
+                    <t:if test="notFirst">, </t:if><v7:version7categorylink keyword="currentKeyword" />
                 </t:loop>
 
                 | ${postDate} <!-- by dyreschlock --> <span>Comments Off</span>

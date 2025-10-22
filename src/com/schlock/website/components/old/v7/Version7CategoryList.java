@@ -1,8 +1,8 @@
 package com.schlock.website.components.old.v7;
 
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.blog.Post;
-import com.schlock.website.entities.blog.PostCategory;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -13,33 +13,33 @@ import java.util.List;
 public class Version7CategoryList
 {
     @Inject
-    private CategoryDAO categoryDAO;
+    private KeywordDAO keywordDAO;
 
     @Inject
     private PostDAO postDAO;
 
     @Property
-    private PostCategory currentCategory;
+    private Keyword currentKeyword;
 
 
-    private HashMap<Long, Integer> categoryCount = new HashMap<>();
+    private HashMap<String, Integer> categoryCount = new HashMap<>();
 
 
-    public List<PostCategory> getCategories()
+    public List<Keyword> getKeywords()
     {
-        return categoryDAO.getAllPostCategoriesInAlphaOrder();
+        return keywordDAO.getAllPostKeywordsInAlphaOrder();
     }
 
     public Integer getPostCount()
     {
-        Long categoryId = currentCategory.getId();
-        Integer count = categoryCount.get(categoryId);
+        String keywordName = currentKeyword.getName();
+        Integer count = categoryCount.get(keywordName);
         if (count == null)
         {
-            List<Post> posts = postDAO.getMostRecentPosts(null, false, null, null, categoryId);
+            List<Post> posts = postDAO.getMostRecentPosts(null, false, null, null, keywordName);
             count = posts.size();
 
-            categoryCount.put(categoryId, count);
+            categoryCount.put(keywordName, count);
         }
         return count;
     }

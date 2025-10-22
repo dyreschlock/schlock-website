@@ -2,12 +2,12 @@ package com.schlock.website.pages.old;
 
 import com.schlock.website.components.old.AbstractOldLinks;
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.blog.Post;
-import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.services.blog.CssCache;
 import com.schlock.website.services.blog.PostArchiveManagement;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -47,7 +47,7 @@ public abstract class AbstractOldVersionPage extends AbstractOldLinks
     private PostArchiveManagement archiveManagement;
 
     @Inject
-    private CategoryDAO categoryDAO;
+    private KeywordDAO keywordDAO;
 
     @Inject
     private PostDAO postDAO;
@@ -57,7 +57,7 @@ public abstract class AbstractOldVersionPage extends AbstractOldLinks
     abstract public AbstractPost getPost();
     abstract public SiteVersion getVersion();
 
-    public PostCategory getCategory()
+    public Keyword getKeyword()
     {
         return null;
     }
@@ -67,14 +67,14 @@ public abstract class AbstractOldVersionPage extends AbstractOldLinks
         return null;
     }
 
-    protected List<Long> getCategoryIds()
+    protected List<String> getKeywordNames()
     {
-        List<Long> categoryIds = new ArrayList<>();
-        if (getCategory() != null)
+        List<String> names = new ArrayList<>();
+        if (getKeyword() != null)
         {
-            categoryIds.add(getCategory().getId());
+            names.add(getKeyword().getName());
         }
-        return categoryIds;
+        return names;
     }
 
 
@@ -152,9 +152,9 @@ public abstract class AbstractOldVersionPage extends AbstractOldLinks
         Integer pageNumber = getPageNumber();
 
         List<Post> results = new ArrayList<>();
-        if (!getCategoryIds().isEmpty())
+        if (!getKeywordNames().isEmpty())
         {
-            results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber, new HashSet<>(getCategoryIds()));
+            results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber, new HashSet<>(getKeywordNames()));
         }
         else if (isPagedPage(getPage()))
         {
@@ -173,17 +173,17 @@ public abstract class AbstractOldVersionPage extends AbstractOldLinks
 
 
 
-    public PostCategory getUpdatesCategory()
+    public Keyword getUpdatesCategory()
     {
-        return (PostCategory) categoryDAO.getByUuid(PostCategory.class, UPDATES_CAT_UUID);
+        return keywordDAO.getByName(UPDATES_CAT_UUID);
     }
 
-    public List<String> getReviewCategoryUuids()
+    public List<String> getReviewCategoryNames()
     {
         return Arrays.asList("game-reviews", "film-tv", "books", "anime", "toys");
     }
 
-    protected List<String> getTravelPhotoCategoryUuids()
+    protected List<String> getTravelPhotoCategoryNames()
     {
         return Arrays.asList("travel", "hida-takayama", "america");
     }

@@ -2,7 +2,7 @@
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
     
-    <t:loop source="categoryIds" value="currentCategoryId">
+    <t:loop source="keywordNames" value="currentKeywordName">
 
         <table style="margin:3px 0px 0px 0px;" width="100%" border="0" bgcolor="#000000" cellpadding="10">
             <tr>

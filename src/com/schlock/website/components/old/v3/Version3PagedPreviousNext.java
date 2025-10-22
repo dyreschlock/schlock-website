@@ -14,7 +14,7 @@ import java.util.List;
 public class Version3PagedPreviousNext extends AbstractOldPagedPreviousNext
 {
     @Parameter(required = true)
-    private List<Long> categoryIds;
+    private List<String> keywordNames;
 
     @Inject
     private PostArchiveManagement archiveManagement;
@@ -28,9 +28,9 @@ public class Version3PagedPreviousNext extends AbstractOldPagedPreviousNext
         return SiteVersion.V3;
     }
 
-    public List<Long> getCategoryIds()
+    public List<String> getKeywordNames()
     {
-        return categoryIds;
+        return keywordNames;
     }
 
     public boolean isHasPrevious()

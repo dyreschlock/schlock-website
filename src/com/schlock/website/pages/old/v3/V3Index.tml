@@ -13,7 +13,7 @@
 <p>&nbsp;</p>
 
 <t:if test="reviewsPost">
-    <v3:version3reviewspage post="post" reviewCategoryUuids="reviewCategoryUuids" />
+    <v3:version3reviewspage post="post" reviewCategoryNames="reviewCategoryNames" />
 </t:if>
 
 <t:if test="photoPost">
@@ -47,7 +47,7 @@
                             </t:if>
 
                             <t:if test="reviewsPage">
-                                <v3:version3reviewslistingdisplay page="classPage" categoryIds="categoryIds" image2="grid2Image" image4="grid4Image" />
+                                <v3:version3reviewslistingdisplay page="classPage" keywordNames="keywordNames" image2="grid2Image" image4="grid4Image" />
                             </t:if>
 
                             <t:if test="standardPage">
@@ -75,7 +75,7 @@
 
                                                 <t:if test="showPrevious">
 
-                                                    <v3:version3pagedpreviousnext post="post" page="classPage" pageNumber="pageNumber" categoryIds="categoryIds" />
+                                                    <v3:version3pagedpreviousnext post="post" page="classPage" pageNumber="pageNumber" keywordNames="keywordNames" />
 
                                                 </t:if>
                                             </td>

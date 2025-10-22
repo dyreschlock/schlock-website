@@ -1,7 +1,7 @@
 package com.schlock.website.components.old.v5;
 
 import com.schlock.website.components.old.AbstractOldPostListingDisplay;
-import com.schlock.website.entities.blog.AbstractCategory;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.v5.V5PhotoPopup;
@@ -34,10 +34,9 @@ public class Version5PhotoPanel extends AbstractOldPostListingDisplay
 
     public List<Post> getPosts()
     {
-        Set<Long> categoryIds = new HashSet<>();
-        categoryIds.addAll(getCategoryIds());
+        Set<String> names = new HashSet<>(getKeywordNames());
 
-        List<Post> posts = postDAO.getMostRecentPosts(null, false, null, null, categoryIds);
+        List<Post> posts = postDAO.getMostRecentPosts(null, false, null, null, names);
         return posts;
     }
 
@@ -63,11 +62,11 @@ public class Version5PhotoPanel extends AbstractOldPostListingDisplay
 
     public String getCurrentCategoryName()
     {
-        for(AbstractCategory cat : getCurrentPost().getAllPostCategories())
+        for(Keyword keyword : getCurrentPost().getAllPostKeywords())
         {
-            if (!cat.isTopCategory())
+            if (!keyword.isTopKeyword())
             {
-                return cat.getName().toLowerCase();
+                return keyword.getName();
             }
         }
         return "";

@@ -771,19 +771,14 @@ public class PostManagementImpl implements PostManagement
     }
 
 
-    public List<Post> getTopPosts(Integer count, Long categoryId, Set<Long> excludeIds)
-    {
-        return getTopPosts(count, null, null, categoryId, null, excludeIds);
-    }
-
     public List<Post> getTopPosts(Integer count, String keywordName, Set<Long> excludeIds)
     {
-        return getTopPosts(count, null, null, null, keywordName, excludeIds);
+        return getTopPosts(count, null, null, keywordName, excludeIds);
     }
 
     public List<Post> getTopPosts(Integer count, Integer year, Integer month, Set<Long> excludeIds)
     {
-        return getTopPosts(count, year, month, null, null, excludeIds);
+        return getTopPosts(count, year, month, null, excludeIds);
     }
 
     /*
@@ -791,19 +786,19 @@ public class PostManagementImpl implements PostManagement
         - most recent pinned
         - most recent
      */
-    public List<Post> getTopPosts(final Integer LIMIT, Integer year, Integer month, Long categoryId, String keywordName, final Set<Long> EXCLUDE)
+    public List<Post> getTopPosts(final Integer LIMIT, Integer year, Integer month, String keywordName, final Set<Long> EXCLUDE)
     {
-        List<Post> posts = siteCache.getCachedPosts(SiteGenerationCache.TOP_POSTS, LIMIT, year, month, categoryId, keywordName, EXCLUDE);
+        List<Post> posts = siteCache.getCachedPosts(SiteGenerationCache.TOP_POSTS, LIMIT, year, month, keywordName, EXCLUDE);
         if (posts == null)
         {
-            posts = topPosts(LIMIT, year, month, categoryId, keywordName, EXCLUDE);
+            posts = topPosts(LIMIT, year, month, keywordName, EXCLUDE);
 
-            siteCache.addToPostCache(posts, SiteGenerationCache.TOP_POSTS, LIMIT, year, month, categoryId, keywordName, EXCLUDE);
+            siteCache.addToPostCache(posts, SiteGenerationCache.TOP_POSTS, LIMIT, year, month, keywordName, EXCLUDE);
         }
         return posts;
     }
 
-    private List<Post> topPosts(final Integer LIMIT, Integer year, Integer month, Long categoryId, String keywordName, final Set<Long> EXCLUDE)
+    private List<Post> topPosts(final Integer LIMIT, Integer year, Integer month, String keywordName, final Set<Long> EXCLUDE)
     {
         List<Post> posts = new ArrayList<>();
 
@@ -815,7 +810,7 @@ public class PostManagementImpl implements PostManagement
 
 
         //ONE most recent normal post with gallery
-        List<Post> results = postDAO.getMostRecentPostsWithGallery(1, unpublished, year, month, categoryId, keywordName, excludeIds);
+        List<Post> results = postDAO.getMostRecentPostsWithGallery(1, unpublished, year, month, keywordName, excludeIds);
         for (Post post : results)
         {
             posts.add(post);
@@ -831,7 +826,7 @@ public class PostManagementImpl implements PostManagement
         }
 
         //all most recent promoted posts
-        results = postDAO.getMostRecentPinnedPosts(count, unpublished, year, month, categoryId, keywordName, excludeIds);
+        results = postDAO.getMostRecentPinnedPosts(count, unpublished, year, month, keywordName, excludeIds);
         for (Post post : results)
         {
             posts.add(post);
@@ -847,7 +842,7 @@ public class PostManagementImpl implements PostManagement
         }
 
         //remaining most recent posts with gallery
-        results = postDAO.getMostRecentPostsWithGallery(count, unpublished, year, month, categoryId, keywordName, excludeIds);
+        results = postDAO.getMostRecentPostsWithGallery(count, unpublished, year, month, keywordName, excludeIds);
         for (Post post : results)
         {
             posts.add(post);
@@ -863,7 +858,7 @@ public class PostManagementImpl implements PostManagement
         }
 
         //all other remaining posts without galleries
-        results = postDAO.getMostRecentPosts(count, unpublished, year, month, categoryId, keywordName, excludeIds);
+        results = postDAO.getMostRecentPosts(count, unpublished, year, month, keywordName, excludeIds);
         for (Post post : results)
         {
             posts.add(post);
@@ -885,7 +880,7 @@ public class PostManagementImpl implements PostManagement
             boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
             int count = PostDAO.MIN_RECENT;
 
-            posts = postDAO.getNextPosts(count, post, null, false, unpublished, null, null, null);
+            posts = postDAO.getNextPosts(count, post, null, false, unpublished, null, null);
 
             siteCache.addToPostCache(posts, SiteGenerationCache.NEXT_POSTS, post.getId());
         }
@@ -900,7 +895,7 @@ public class PostManagementImpl implements PostManagement
             boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
             int count = PostDAO.MIN_RECENT;
 
-            posts = postDAO.getPreviousPosts(count, post, null, false, unpublished, null, null, null);
+            posts = postDAO.getPreviousPosts(count, post, null, false, unpublished, null, null);
 
             siteCache.addToPostCache(posts, SiteGenerationCache.PREVIOUS_POSTS, post.getId());
         }
@@ -962,18 +957,17 @@ public class PostManagementImpl implements PostManagement
 
             Class clazz = c.clazz;
             String keyName = c.keywordName;
-            Long catId = c.categoryId;
 
             boolean pinned = c.pinned;
 
             List<AbstractPost> ps;
             if (next)
             {
-                ps = postDAO.getNextPosts(count, post, clazz, pinned, unpublished, catId, keyName, excludeIds);
+                ps = postDAO.getNextPosts(count, post, clazz, pinned, unpublished, keyName, excludeIds);
             }
             else
             {
-                ps = postDAO.getPreviousPosts(count, post, clazz, pinned, unpublished, catId, keyName, excludeIds);
+                ps = postDAO.getPreviousPosts(count, post, clazz, pinned, unpublished, keyName, excludeIds);
             }
 
             for (AbstractPost p : ps)
@@ -997,18 +991,13 @@ public class PostManagementImpl implements PostManagement
 
     /*
 
-     pinned, no class, keyword, no category
+     pinned, no class, keyword
 
-     class, keyword, category
-     class, keyword, no category
+     class, keyword
 
-     no class, keyword, category
-     no class, keyword, no category
-     no class, no keyword, category
-     no class, no keyword, no category
-
+     no class, keyword
+     no class, no keyword
      */
-
     private List<SearchCriteria> createSearchCriteria(AbstractPost post)
     {
         List<SearchCriteria> criteria = new ArrayList<>();
@@ -1016,23 +1005,15 @@ public class PostManagementImpl implements PostManagement
         List<Keyword> keywords = post.getKeywords();
         for (Keyword keyword : keywords)
         {
-            criteria.add(new SearchCriteria(null, keyword.getName(), null));
+            criteria.add(new SearchCriteria(null, keyword.getName()));
         }
 
         if (post.isClubPost())
         {
-            criteria.add(new SearchCriteria(post.getClass(), null, null));
+            criteria.add(new SearchCriteria(post.getClass(), null));
         }
 
-        List<AbstractCategory> categories = post.getAllPostCategories();
-        Collections.reverse(categories);
-
-        for (AbstractCategory category : categories)
-        {
-            criteria.add(new SearchCriteria(null, null, category.getId()));
-        }
-
-        criteria.add(new SearchCriteria(null, null, null));
+        criteria.add(new SearchCriteria(null, null));
 
         return criteria;
     }
@@ -1041,23 +1022,20 @@ public class PostManagementImpl implements PostManagement
     {
         public Class clazz;
         public String keywordName;
-        public Long categoryId;
 
         public boolean pinned;
 
-        public SearchCriteria(Class clazz, String keywordName, Long categoryId)
+        public SearchCriteria(Class clazz, String keywordName)
         {
             this.clazz = clazz;
             this.keywordName = keywordName;
-            this.categoryId = categoryId;
             this.pinned = false;
         }
 
-        public SearchCriteria(Class clazz, String keywordName, Long categoryId, boolean pinned)
+        public SearchCriteria(Class clazz, String keywordName, boolean pinned)
         {
             this.clazz = clazz;
             this.keywordName = keywordName;
-            this.categoryId = categoryId;
             this.pinned = pinned;
         }
     }

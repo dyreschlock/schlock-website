@@ -25,7 +25,7 @@
                 <v7:version7postdisplay post="currentPost" />
             </t:loop>
 
-            <v7:version7pagedpreviousnext post="post" pageNumber="pageNumber" category="category" page="page" />
+            <v7:version7pagedpreviousnext post="post" pageNumber="pageNumber" keyword="keyword" page="page" />
         </div>
 
         <div id="sidebar">

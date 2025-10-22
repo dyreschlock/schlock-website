@@ -14,7 +14,7 @@ import java.util.List;
 public class Version4PagedPreviousNext extends AbstractOldPagedPreviousNext
 {
     @Parameter(required = true)
-    private List<Long> categoryIds;
+    private List<String> keywordNames;
 
     @Inject
     private PostArchiveManagement archiveManagement;
@@ -25,9 +25,9 @@ public class Version4PagedPreviousNext extends AbstractOldPagedPreviousNext
         return SiteVersion.V4;
     }
 
-    public List<Long> getCategoryIds()
+    public List<String> getKeywordNames()
     {
-        return categoryIds;
+        return keywordNames;
     }
 
     protected String getLinkContext()

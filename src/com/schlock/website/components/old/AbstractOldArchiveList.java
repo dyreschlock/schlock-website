@@ -25,8 +25,8 @@ public abstract class AbstractOldArchiveList
 
     public List<String> getMonthYears()
     {
-        Long id = null;
-        return archiveManagement.getYearlyMonthlyIterations(id);
+        String name = null;
+        return archiveManagement.getYearlyMonthlyIterations(name);
     }
 
     public String getMonthYearLink()

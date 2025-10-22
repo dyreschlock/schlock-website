@@ -2,6 +2,6 @@
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     >
 
-    <a href="${categoryLink}" title="View all posts in ${categoryTitle}" rel="category">${categoryTitle}</a>
+    <a href="${keywordLink}" title="View all posts in ${keyword.title}" rel="category">${keyword.title}</a>
 
 </t:container>

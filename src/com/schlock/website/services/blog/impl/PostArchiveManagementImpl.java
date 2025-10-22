@@ -56,7 +56,7 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         ViewState viewState = asoManager.get(ViewState.class);
         boolean unpublished = viewState.isShowUnpublished();
 
-        results = new ArrayList<String>();
+        results = new ArrayList<>();
 
         if (year != null && month != null)
         {
@@ -80,32 +80,6 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         }
 
         siteCache.addToStringListCache(results, SiteGenerationCache.YEARLY_MONTHLY_ITERATIONS, year, month);
-
-        return results;
-    }
-
-    public List<String> getYearlyMonthlyIterations(Long categoryId)
-    {
-        List<String> results = siteCache.getCachedStringList(SiteGenerationCache.YEARLY_MONTHLY_ITERATIONS, categoryId);
-        if (results != null)
-        {
-            return results;
-        }
-
-        boolean unpublished = asoManager.get(ViewState.class).isShowUnpublished();
-
-        results = new ArrayList<>();
-
-        List<List<Integer>> dates = postDAO.getYearsMonthsByCategory(unpublished, categoryId);
-        for (List<Integer> date : dates)
-        {
-            Integer year = date.get(0);
-            Integer month = date.get(1);
-
-            results.add(createIteration(year, month));
-        }
-
-        siteCache.addToStringListCache(results, SiteGenerationCache.YEARLY_MONTHLY_ITERATIONS, categoryId);
 
         return results;
     }
@@ -136,9 +110,9 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         return results;
     }
 
-    public String getNextYearlyMontlyIteration(String iteration, Long categoryId)
+    public String getNextYearlyMontlyIteration(String iteration, String keywordName)
     {
-        List<String> iterations = getYearlyMonthlyIterations(categoryId);
+        List<String> iterations = getYearlyMonthlyIterations(keywordName);
 
         int index = iterations.indexOf(iteration) -1;
         if (index < 0)
@@ -148,9 +122,9 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         return iterations.get(index);
     }
 
-    public String getPreviousYearlyMonthlyInteration(String iteration, Long categoryId)
+    public String getPreviousYearlyMonthlyInteration(String iteration, String keywordName)
     {
-        List<String> iterations = getYearlyMonthlyIterations(categoryId);
+        List<String> iterations = getYearlyMonthlyIterations(keywordName);
 
         int index = iterations.indexOf(iteration) +1;
         if (index == 0 || index == iterations.size())
@@ -164,22 +138,12 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
 
     public List<Post> getPosts(String iteration)
     {
-        return getPosts(iteration, null, null);
-    }
-
-    public List<Post> getPosts(String iteration, Long categoryId)
-    {
-        return getPosts(iteration, categoryId, null);
+        return getPosts(iteration, null);
     }
 
     public List<Post> getPosts(String iteration, String keywordName)
     {
-        return getPosts(iteration, null, keywordName);
-    }
-
-    private List<Post> getPosts(String iteration, Long categoryId, String keywordName)
-    {
-        List<Post> results = siteCache.getCachedPosts(SiteGenerationCache.ARCHIVED_POSTS, iteration, categoryId, keywordName);
+        List<Post> results = siteCache.getCachedPosts(SiteGenerationCache.ARCHIVED_POSTS, iteration, keywordName);
         if (results != null)
         {
             return results;
@@ -191,31 +155,21 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         Integer year = parseYear(iteration);
         Integer month = parseMonth(iteration);
 
-        results = postDAO.getMostRecentPosts(null, unpublished, year, month, categoryId, keywordName);
+        results = postDAO.getMostRecentPosts(null, unpublished, year, month, keywordName);
 
-        siteCache.addToPostCache(results, SiteGenerationCache.ARCHIVED_POSTS, iteration, categoryId, keywordName);
+        siteCache.addToPostCache(results, SiteGenerationCache.ARCHIVED_POSTS, iteration, keywordName);
 
         return results;
     }
 
     public List<Post> getPreviewPosts(String iteration, Set<Long> excludeIds)
     {
-        return getPreviewPosts(iteration, null, null, excludeIds);
-    }
-
-    public List<Post> getPreviewPosts(String iteration, Long categoryId, Set<Long> excludeIds)
-    {
-        return getPreviewPosts(iteration, categoryId, null, excludeIds);
+        return getPreviewPosts(iteration, null, excludeIds);
     }
 
     public List<Post> getPreviewPosts(String iteration, String keywordName, Set<Long> excludeIds)
     {
-        return getPreviewPosts(iteration, null, keywordName, excludeIds);
-    }
-
-    private List<Post> getPreviewPosts(String iteration, Long categoryId, String keywordName, Set<Long> excludeIds)
-    {
-        int count = getPosts(iteration, categoryId, keywordName).size();
+        int count = getPosts(iteration, keywordName).size();
         int LIMIT = (int) Math.floor(((double) count ) / ((double) 7));
         if (LIMIT < 1)
         {
@@ -225,7 +179,7 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         Integer year = parseYear(iteration);
         Integer month = parseMonth(iteration);
 
-        List<Post> posts = postManagement.getTopPosts(LIMIT, year, month, categoryId, keywordName, excludeIds);
+        List<Post> posts = postManagement.getTopPosts(LIMIT, year, month, keywordName, excludeIds);
         return posts;
     }
 
@@ -257,9 +211,9 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
             Integer year = parseYear(iteration);
             Integer month = parseMonth(iteration);
 
-            Long categoryId = null;
+            String keywordName = null;
 
-            results = postDAO.getMostRecentPosts(null, unpublished, year, month, categoryId);
+            results = postDAO.getMostRecentPosts(null, unpublished, year, month, keywordName);
             results = pagedPosts(results, postCount, pageNumber);
 
             siteCache.addToPostCache(results, SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, iteration);
@@ -267,18 +221,18 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         return results;
     }
 
-    public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Set<Long> categoryIds)
+    public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Set<String> keywordNames)
     {
-        List<Post> results = siteCache.getCachedPosts(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, categoryIds);
+        List<Post> results = siteCache.getCachedPosts(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, keywordNames);
         if (results == null)
         {
             ViewState viewState = asoManager.get(ViewState.class);
             boolean unpublished = viewState.isShowUnpublished();
 
-            results = postDAO.getMostRecentPosts(null, unpublished, null, null, categoryIds);
+            results = postDAO.getMostRecentPosts(null, unpublished, null, null, keywordNames);
             results = pagedPosts(results, postCount, pageNumber);
 
-            siteCache.addToPostCache(results, SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, categoryIds);
+            siteCache.addToPostCache(results, SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, keywordNames);
         }
         return results;
     }

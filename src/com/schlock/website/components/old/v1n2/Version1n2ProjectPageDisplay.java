@@ -1,15 +1,14 @@
 package com.schlock.website.components.old.v1n2;
 
-import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.ClubPost;
-import com.schlock.website.entities.blog.ProjectCategory;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.v1.V1Projects;
 import com.schlock.website.pages.old.v2.V2Projects;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.blog.ImageManagement;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -27,7 +26,7 @@ public class Version1n2ProjectPageDisplay
 
     @Parameter(required = true)
     @Property
-    private List<AbstractCategory> photoCategories;
+    private List<Keyword> photoCategories;
 
 
     @Inject
@@ -40,7 +39,7 @@ public class Version1n2ProjectPageDisplay
     private PageRenderLinkSource linkSource;
 
     @Inject
-    private CategoryDAO categoryDAO;
+    private KeywordDAO keywordDAO;
 
     @Inject
     private PostDAO postDAO;
@@ -48,20 +47,15 @@ public class Version1n2ProjectPageDisplay
 
 
     @Property
-    private AbstractCategory currentCategory;
+    private Keyword currentKeyword;
 
     @Property
     private AbstractPost currentPost;
 
 
-    public List<ProjectCategory> getProjectCategories()
+    public List<Keyword> getProjectCategories()
     {
-        return categoryDAO.getTopProjectInOrder();
-    }
-
-    public String getCategoryTitle()
-    {
-        return currentCategory.getName();
+        return keywordDAO.getTopProjectKeywordsInOrder();
     }
 
     public String getCategoryEarlyDate()
@@ -74,23 +68,23 @@ public class Version1n2ProjectPageDisplay
 
     public List<AbstractPost> getCategoryPosts()
     {
-        Long categoryId = currentCategory.getId();
+        String keywordName = currentKeyword.getName();
 
         List<AbstractPost> posts = null;
-        if ("events".equals(currentCategory.getUuid()))
+        if ("events".equals(keywordName))
         {
             List<ClubPost> results = postDAO.getAllClubPosts(true);
 
             posts = new ArrayList<>();
             posts.addAll(results);
         }
-        else if (currentCategory.isProject())
+        else if (currentKeyword.isProject())
         {
-            posts = postDAO.getAllProjectsByCategory(false, categoryId);
+            posts = postDAO.getAllProjectsByKeyword(keywordName);
         }
-        else if (currentCategory.isPost())
+        else if (currentKeyword.isVisible())
         {
-            posts = postDAO.getMostRecentPostsWithGallery(null, false, null, null, categoryId, null, Collections.EMPTY_SET);
+            posts = postDAO.getMostRecentPostsWithGallery(null, false, null, null, keywordName, Collections.EMPTY_SET);
         }
         return posts;
     }

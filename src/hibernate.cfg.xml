@@ -29,7 +29,6 @@
         <property name="bonecp.releaseHelperThreads">3</property>
 
 
-        <mapping resource="com/schlock/website/entities/blog/AbstractCategory.hbm.xml" />
         <mapping resource="com/schlock/website/entities/blog/AbstractPost.hbm.xml" />
         <mapping resource="com/schlock/website/entities/blog/Keyword.hbm.xml" />
         <mapping resource="com/schlock/website/entities/blog/Image.hbm.xml" />

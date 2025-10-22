@@ -1,8 +1,9 @@
 package com.schlock.website.components.old.v7;
 
-import com.schlock.website.entities.blog.AbstractCategory;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.old.SiteVersion;
 import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import javax.inject.Inject;
@@ -10,22 +11,18 @@ import javax.inject.Inject;
 public class Version7CategoryLink
 {
     @Parameter(required = true)
-    private AbstractCategory category;
+    @Property
+    private Keyword keyword;
 
     @Inject
     private PageRenderLinkSource linkSource;
 
 
-    public String getCategoryTitle()
-    {
-        return category.getName();
-    }
-
-    public String getCategoryLink()
+    public String getKeywordLink()
     {
         Class indexClass = SiteVersion.V7.indexClass();
-        String uuid = category.getUuid();
+        String name = keyword.getName();
 
-        return linkSource.createPageRenderLinkWithContext(indexClass, uuid).toURI();
+        return linkSource.createPageRenderLinkWithContext(indexClass, name).toURI();
     }
 }

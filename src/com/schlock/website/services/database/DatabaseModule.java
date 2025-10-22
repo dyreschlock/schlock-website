@@ -31,11 +31,9 @@ import com.schlock.website.services.database.apps.ps2.impl.DreamcastGameDAOImpl;
 import com.schlock.website.services.database.apps.ps2.impl.GamecubeGameDAOImpl;
 import com.schlock.website.services.database.apps.ps2.impl.PlaystationGameDAOImpl;
 import com.schlock.website.services.database.apps.ps2.impl.RetroGameDAOImpl;
-import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.ImageDAO;
 import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
-import com.schlock.website.services.database.blog.impl.CategoryDAOImpl;
 import com.schlock.website.services.database.blog.impl.ImageDAOImpl;
 import com.schlock.website.services.database.blog.impl.KeywordDAOImpl;
 import com.schlock.website.services.database.blog.impl.PostDAOImpl;
@@ -50,7 +48,6 @@ public class DatabaseModule
     {
         binder.bind(PostDAO.class, PostDAOImpl.class);
         binder.bind(ImageDAO.class, ImageDAOImpl.class);
-        binder.bind(CategoryDAO.class, CategoryDAOImpl.class);
         binder.bind(KeywordDAO.class, KeywordDAOImpl.class);
 
         binder.bind(BingoOptionDAO.class, BingoOptionDAOImpl.class);

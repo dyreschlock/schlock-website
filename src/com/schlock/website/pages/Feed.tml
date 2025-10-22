@@ -21,8 +21,8 @@
                 <pubDate>${currentPostDate}</pubDate>
                 <guid>${currentPostURL}</guid>
                 <link>${currentPostURL}</link>
-                <t:loop source="categories" value="currentCategory">
-                    <category>${currentCategory.name}</category>
+                <t:loop source="keywords" value="currentKeyword">
+                    <category>${currentKeyword.title}</category>
                 </t:loop>
             </item>
 

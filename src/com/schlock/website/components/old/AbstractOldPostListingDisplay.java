@@ -8,7 +8,7 @@ import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.PostManagement;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -39,21 +39,21 @@ public abstract class AbstractOldPostListingDisplay
     private PostManagement postManagement;
 
     @Inject
-    private CategoryDAO categoryDAO;
+    private KeywordDAO keywordDAO;
 
     @Inject
     private PostDAO postDAO;
 
 
     @Parameter(required = true)
-    private List<Long> categoryIds;
+    private List<String> keywordNames;
 
     @Parameter
     private String page;
 
 
     @Property
-    private Long currentCategoryId;
+    private String currentKeywordName;
 
     private AbstractPost currentPost;
     private Integer currentIndex;
@@ -88,17 +88,17 @@ public abstract class AbstractOldPostListingDisplay
 
     public String getCurrentCategoryName()
     {
-        return categoryDAO.getById(currentCategoryId).getName();
+        return keywordDAO.getByName(currentKeywordName).getTitle();
     }
 
-    public List<Long> getCategoryIds()
+    public List<String> getKeywordNames()
     {
-        return categoryIds;
+        return keywordNames;
     }
 
     public List<Post> getPosts()
     {
-        List<Post> posts = postDAO.getMostRecentPosts(null, false, null, null, currentCategoryId);
+        List<Post> posts = postDAO.getMostRecentPosts(null, false, null, null, currentKeywordName);
         return posts;
     }
 

@@ -1,10 +1,13 @@
 package com.schlock.website.services.blog.impl;
 
-import com.schlock.website.entities.blog.*;
+import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Keyword;
+import com.schlock.website.entities.blog.Page;
+import com.schlock.website.entities.blog.Post;
 import com.schlock.website.services.blog.PostArchiveManagement;
 import com.schlock.website.services.blog.SitemapManagement;
 import com.schlock.website.services.blog.TodayArchiveManagement;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 
 import java.util.ArrayList;
@@ -16,18 +19,18 @@ public class SitemapManagementImpl implements SitemapManagement
     private final TodayArchiveManagement calendarArchiveManagement;
     private final PostArchiveManagement archiveManagement;
 
-    private final CategoryDAO categoryDAO;
+    private final KeywordDAO keywordDAO;
     private final PostDAO postDAO;
 
     public SitemapManagementImpl(TodayArchiveManagement calendarArchiveManagement,
                                  PostArchiveManagement archiveManagement,
-                                 CategoryDAO categoryDAO,
+                                 KeywordDAO keywordDAO,
                                  PostDAO postDAO)
     {
         this.calendarArchiveManagement = calendarArchiveManagement;
         this.archiveManagement = archiveManagement;
 
-        this.categoryDAO = categoryDAO;
+        this.keywordDAO = keywordDAO;
         this.postDAO = postDAO;
     }
 
@@ -62,9 +65,9 @@ public class SitemapManagementImpl implements SitemapManagement
         boolean unpublished = false;
         Integer allYears = null;
         Integer allMonths = null;
-        Long allCategories = null;
+        String allKeywords = null;
 
-        List<Post> posts = postDAO.getMostRecentPosts(allPosts, unpublished, allYears, allMonths, allCategories);
+        List<Post> posts = postDAO.getMostRecentPosts(allPosts, unpublished, allYears, allMonths, allKeywords);
 
         for(Post post : posts)
         {
@@ -97,9 +100,9 @@ public class SitemapManagementImpl implements SitemapManagement
         List<String> pages = new ArrayList<>();
         pages.add(COURSES + "/index.html");
 
-        for(CourseCategory cat : categoryDAO.getCourseInOrder())
+        for(Keyword keyword : keywordDAO.getTopCourseKeywordsInOrder())
         {
-            for(AbstractPost page : postDAO.getAllCoursesByCategory(cat.getId()))
+            for(AbstractPost page : postDAO.getAllCoursesByKeyword(keyword.getName()))
             {
                 pages.add(COURSES + "/" + page.getUuid() + ".html");
             }
@@ -143,17 +146,17 @@ public class SitemapManagementImpl implements SitemapManagement
 
     private List<String> getCategoryPages()
     {
-        final String CATEGORY = "category";
+        final String KEYWORD = "keyword";
 
         List<String> pages = new ArrayList<>();
 
-        for(PostCategory cat : categoryDAO.getTopInOrder())
+        for(Keyword keyword : keywordDAO.getTopPostKeywordsInOrder())
         {
-            pages.add(CATEGORY + "/" + cat.getUuid() + ".html");
+            pages.add(KEYWORD + "/" + keyword.getName() + ".html");
 
-            for(PostCategory sub : categoryDAO.getSubInOrder(cat.getId()))
+            for(Keyword subkeyword : keywordDAO.getSubInOrder(keyword))
             {
-                pages.add(CATEGORY + "/" + sub.getUuid() + ".html");
+                pages.add(KEYWORD + "/" + subkeyword.getName() + ".html");
             }
         }
         return pages;
@@ -166,13 +169,13 @@ public class SitemapManagementImpl implements SitemapManagement
         List<String> pages = new ArrayList<>();
         pages.add(PROJECTS + "/index.html");
 
-        for(ProjectCategory cat : categoryDAO.getTopProjectInOrder())
+        for(Keyword keyword : keywordDAO.getTopProjectKeywordsInOrder())
         {
-            pages.add(PROJECTS + "/" + cat.getUuid() + ".html");
+            pages.add(PROJECTS + "/" + keyword.getName() + ".html");
 
-            for(ProjectCategory sub : categoryDAO.getSubProjectInOrder(cat.getId()))
+            for(Keyword subkeyword : keywordDAO.getSubInOrder(keyword))
             {
-                pages.add(PROJECTS + "/" + sub.getUuid() + ".html");
+                pages.add(PROJECTS + "/" + subkeyword.getName() + ".html");
             }
         }
         return pages;

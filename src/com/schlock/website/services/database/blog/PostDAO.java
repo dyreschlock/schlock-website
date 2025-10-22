@@ -48,37 +48,33 @@ public interface PostDAO extends BaseDAO<AbstractPost>
     Post getFirstAvailablePost(boolean withUnpublished);
 
 
-    List<Post> getMostRecentPostsWithGallery(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, String keywordName, Set<Long> excludeIds);
+    List<Post> getMostRecentPostsWithGallery(Integer postCount, boolean withUnpublished, Integer year, Integer month, String keywordName, Set<Long> excludeIds);
 
 
-    List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId);
+    List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, String keywordName);
 
-    List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, String keywordName);
+    List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Set<String> keywordNames);
 
-    List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Set<Long> categoryIds);
-
-    List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, String keywordName, Set<Long> excludeIds);
+    List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, String keywordName, Set<Long> excludeIds);
 
 
-    List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId);
+    List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, String keywordName);
 
-    List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, String keywordName, Set<Long> excludeIds);
+    List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, String keywordName, Set<Long> excludeIds);
 
 
-    Post getNextPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
+    Post getNextPost(AbstractPost currentPost, boolean withUnpublished, String keywordName);
 
-    List<AbstractPost> getNextPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, String keywordName, Set<Long> excludePosts);
+    List<AbstractPost> getNextPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, String keywordName, Set<Long> excludePosts);
 
-    Post getPreviousPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId);
+    Post getPreviousPost(AbstractPost currentPost, boolean withUnpublished, String keywordName);
 
-    List<AbstractPost> getPreviousPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, String keywordName, Set<Long> excludePosts);
+    List<AbstractPost> getPreviousPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, String keywordName, Set<Long> excludePosts);
 
 
     List<Integer> getAllYears(boolean withUnpublished);
 
     List<Integer> getMonths(Integer year, boolean withUnpublished);
-
-    List<List<Integer>> getYearsMonthsByCategory(boolean withUnpublished, Long categoryId);
 
     List<List<Integer>> getYearsMonthsByKeyword(boolean withUnplished, String keywordName);
 
@@ -87,23 +83,11 @@ public interface PostDAO extends BaseDAO<AbstractPost>
 
     List<Page> getAllPagesNoCourses(boolean withUnpublished);
 
-    AbstractPost getMostRecentProject(boolean withUnpublished);
-
-    List<AbstractPost> getAllProjectsByCategory(boolean withUnpublished, Long categoryId);
-
-    List<AbstractPost> getAllCoursesByCategory(Long categoryId);
-
     List<AbstractPost> getAllProjectsByKeyword(String keyword);
 
     List<AbstractPost> getAllCoursesByKeyword(String keyword);
 
-    ClubPost getMostRecentClubPost(boolean withUnpublished);
-
     List<ClubPost> getAllClubPosts(boolean withUnpublished);
-
-    LessonPost getMostRecentLessonPost(boolean withUnpublished);
-
-    List<LessonPost> getAllLessonPosts(boolean withUnpublished);
 
 
     List<LessonPost> getByYearGradeLessonKeyword(String year, String grade, String lesson);

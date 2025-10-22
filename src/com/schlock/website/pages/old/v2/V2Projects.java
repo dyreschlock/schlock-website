@@ -1,10 +1,9 @@
 package com.schlock.website.pages.old.v2;
 
-import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.PostCategory;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.services.DateFormatter;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -14,7 +13,7 @@ import java.util.List;
 public class V2Projects extends AbstractVersion2Page
 {
     @Inject
-    private CategoryDAO categoryDAO;
+    private KeywordDAO keywordDAO;
 
     @Inject
     private PostDAO postDAO;
@@ -60,9 +59,9 @@ public class V2Projects extends AbstractVersion2Page
 
     public boolean isProjectPost()
     {
-        for(AbstractCategory cat : post.getCategories())
+        for(Keyword keyword : post.getKeywords())
         {
-            if (cat.isProject())
+            if (keyword.isProject())
             {
                 return true;
             }
@@ -76,17 +75,17 @@ public class V2Projects extends AbstractVersion2Page
     }
 
 
-    public List<AbstractCategory> getPhotoCategories()
+    public List<Keyword> getPhotoCategories()
     {
-        List<AbstractCategory> categories = new ArrayList<>();
-        for(String uuid : getTravelPhotoCategoryUuids())
+        List<Keyword> keywords = new ArrayList<>();
+        for(String name : getTravelPhotoCategoryNames())
         {
-            categories.add(categoryDAO.getByUuid(PostCategory.class, uuid));
+            keywords.add(keywordDAO.getByName(name));
         }
-        for(String uuid : getClubPhotoCategoryUuids())
+        for(String name : getClubPhotoCategoryUuids())
         {
-            categories.add(categoryDAO.getByUuid(PostCategory.class, uuid));
+            keywords.add(keywordDAO.getByName(name));
         }
-        return categories;
+        return keywords;
     }
 }

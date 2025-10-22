@@ -1,22 +1,19 @@
 package com.schlock.website.pages.old.v5;
 
-import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.entities.blog.Page;
-import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.services.DeploymentContext;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class V5Index extends AbstractVersion5Page
 {
     @Inject
-    private CategoryDAO categoryDAO;
+    private KeywordDAO keywordDAO;
 
     @Inject
     private DeploymentContext context;
@@ -78,36 +75,21 @@ public class V5Index extends AbstractVersion5Page
         return true;
     }
 
-    public List<Long> getCategoryIds()
+    public List<String> getKeywordNames()
     {
         if (isUpdatesPage())
         {
-            return Arrays.asList(getUpdatesCategory().getId());
+            return Arrays.asList(getUpdatesCategory().getName());
         }
-
         if (isReviewsPage())
         {
-            List<Long> categoryIds = new ArrayList<>();
-            for(String uuid : getReviewCategoryUuids())
-            {
-                AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, uuid);
-                categoryIds.add(cat.getId());
-            }
-            return categoryIds;
+            return getReviewCategoryNames();
         }
-
         if (isPhotoPage())
         {
-            List<Long> categoryIds = new ArrayList<>();
-            for(String uuid : getTravelPhotoCategoryUuids())
-            {
-                AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, uuid);
-                categoryIds.add(cat.getId());
-            }
-            return categoryIds;
+            return getTravelPhotoCategoryNames();
         }
-
-        return super.getCategoryIds();
+        return super.getKeywordNames();
     }
 
 

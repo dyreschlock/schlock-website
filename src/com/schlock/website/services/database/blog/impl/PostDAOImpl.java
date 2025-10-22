@@ -229,15 +229,15 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
             orderByClause = " order by p.created asc";
         }
 
-        Long catId = null;
+        HashSet<String> names = new HashSet<>();
+        HashSet<Long> excludes = new HashSet<>();
 
         Query query = createQuery(TOP_RECENT,
                                     null,
                                     null,
                                     publishLevel,
-                                    catId,
-                                    null,
-                                    null,
+                                    names,
+                                    excludes,
                                     selectClause,
                                     null,
                                     orderByClause);
@@ -245,7 +245,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return (Post) singleResult(query);
     }
 
-    public List<Post> getMostRecentPostsWithGallery(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, String keywordName, Set<Long> excludeIds)
+    public List<Post> getMostRecentPostsWithGallery(Integer postCount, boolean withUnpublished, Integer year, Integer month, String keywordName, Set<Long> excludeIds)
     {
         int publishLevel = POST_PUBLISHED;
         if (withUnpublished)
@@ -261,7 +261,6 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
                                     year,
                                     month,
                                     publishLevel,
-                                    categoryId,
                                     keywordName,
                                     excludeIds,
                                     selectClause,
@@ -271,41 +270,35 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
-    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId)
+    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, String keywordName)
     {
-        String keyword = null;
-        return getMostRecentPosts(postCount, withUnpublished, year, month, categoryId, keyword);
-    }
-
-    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, String keywordName)
-    {
-        Set<Long> catIds = new HashSet<>();
-        if (categoryId != null)
+        Set<String> names = new HashSet<>();
+        if (keywordName != null)
         {
-            catIds.add(categoryId);
+            names.add(keywordName);
         }
 
-        return getMostRecentPosts(postCount, withUnpublished, year, month, catIds, keywordName, null);
+        return getMostRecentPosts(postCount, withUnpublished, year, month, names, null);
     }
 
 
-    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Set<Long> categoryIds)
+    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Set<String> keywordNames)
     {
-        return getMostRecentPosts(postCount, withUnpublished, year, month, categoryIds, null, null);
+        return getMostRecentPosts(postCount, withUnpublished, year, month, keywordNames, null);
     }
 
-    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, String keywordName, Set<Long> excludeIds)
+    public List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, String keywordName, Set<Long> excludeIds)
     {
-        Set<Long> catIds = new HashSet<>();
-        if (categoryId != null)
+        Set<String> names = new HashSet<>();
+        if (keywordName != null)
         {
-            catIds.add(categoryId);
+            names.add(keywordName);
         }
 
-        return getMostRecentPosts(postCount, withUnpublished, year, month, catIds, keywordName, excludeIds);
+        return getMostRecentPosts(postCount, withUnpublished, year, month, names, excludeIds);
     }
 
-    private List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Set<Long> categoryIds, String keywordName, Set<Long> excludeIds)
+    private List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Set<String> keywordNames, Set<Long> excludeIds)
     {
         int publishLevel = POST_PUBLISHED;
         if (withUnpublished)
@@ -320,8 +313,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
                 year,
                 month,
                 publishLevel,
-                categoryIds,
-                keywordName,
+                keywordNames,
                 excludeIds,
                 selectClause,
                 null,
@@ -332,12 +324,12 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
 
 
-    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId)
+    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, String keywordName)
     {
-        return getMostRecentPinnedPosts(postCount, withUnpublished, year, month, categoryId, null, null);
+        return getMostRecentPinnedPosts(postCount, withUnpublished, year, month, keywordName, null);
     }
 
-    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, Long categoryId, String keywordName, Set<Long> excludeIds)
+    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, String keywordName, Set<Long> excludeIds)
     {
         boolean pinnedOnly = true;
 
@@ -348,7 +340,6 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
                                     year,
                                     month,
                                     POST_PINNED,
-                                    categoryId,
                                     keywordName,
                                     excludeIds,
                                     selectClause,
@@ -358,7 +349,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
-    private Query nextPostQuery(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, String keywordName, Set<Long> excludePosts)
+    private Query nextPostQuery(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, String keywordName, Set<Long> excludePosts)
     {
         int publishLevel = POST_PUBLISHED;
         if (pinnedOnly)
@@ -386,7 +377,6 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
                                     null,
                                     null,
                                     publishLevel,
-                                    categoryId,
                                     keywordName,
                                     excludePosts,
                                     selectClause,
@@ -397,20 +387,20 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query;
     }
 
-    public Post getNextPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
+    public Post getNextPost(AbstractPost currentPost, boolean withUnpublished, String keywordName)
     {
-        Query query = nextPostQuery(ONLY_ONE, currentPost, null, false, withUnpublished, categoryId, null, null);
+        Query query = nextPostQuery(ONLY_ONE, currentPost, null, false, withUnpublished, keywordName, null);
         return (Post) singleResult(query);
     }
 
-    public List<AbstractPost> getNextPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, String keywordName, Set<Long> excludePosts)
+    public List<AbstractPost> getNextPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, String keywordName, Set<Long> excludePosts)
     {
-        Query query = nextPostQuery(postCount, currentPost, clazz, pinnedOnly, withUnpublished, categoryId, keywordName, excludePosts);
+        Query query = nextPostQuery(postCount, currentPost, clazz, pinnedOnly, withUnpublished, keywordName, excludePosts);
         return query.list();
     }
 
 
-    private Query previousPostQuery(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, String keywordName, Set<Long> excludePosts)
+    private Query previousPostQuery(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, String keywordName, Set<Long> excludePosts)
     {
         int publishLevel = POST_PUBLISHED;
         if (pinnedOnly)
@@ -438,7 +428,6 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
                 null,
                 null,
                 publishLevel,
-                categoryId,
                 keywordName,
                 excludePosts,
                 selectClause,
@@ -449,15 +438,15 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query;
     }
 
-    public Post getPreviousPost(AbstractPost currentPost, boolean withUnpublished, Long categoryId)
+    public Post getPreviousPost(AbstractPost currentPost, boolean withUnpublished, String keywordName)
     {
-        Query query = previousPostQuery(ONLY_ONE, currentPost, null, false, withUnpublished, categoryId, null, null);
+        Query query = previousPostQuery(ONLY_ONE, currentPost, null, false, withUnpublished, keywordName, null);
         return (Post) singleResult(query);
     }
 
-    public List<AbstractPost> getPreviousPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, Long categoryId, String keywordName, Set<Long> excludePosts)
+    public List<AbstractPost> getPreviousPosts(Integer postCount, AbstractPost currentPost, Class clazz, boolean pinnedOnly, boolean withUnpublished, String keywordName, Set<Long> excludePosts)
     {
-        Query query = previousPostQuery(postCount, currentPost, clazz, pinnedOnly, withUnpublished, categoryId, keywordName, excludePosts);
+        Query query = previousPostQuery(postCount, currentPost, clazz, pinnedOnly, withUnpublished, keywordName, excludePosts);
         return query.list();
     }
 
@@ -496,25 +485,10 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query.list();
     }
 
-    public List<List<Integer>> getYearsMonthsByCategory(boolean withUnpublished, Long categoryId)
+    public List<List<Integer>> getYearsMonthsByKeyword(boolean withUnpublished, String keywordName)
     {
-        return getYearsMonthsByCategoryKeyword(withUnpublished, categoryId, null);
-    }
+        String text = "select year(p.created), month(p.created) from Post p ";
 
-    public List<List<Integer>> getYearsMonthsByKeyword(boolean withUnplished, String keywordName)
-    {
-        return getYearsMonthsByCategoryKeyword(withUnplished, null, keywordName);
-    }
-
-    private List<List<Integer>> getYearsMonthsByCategoryKeyword(boolean withUnpublished, Long categoryId, String keywordName)
-    {
-        String text = "select year(p.created), month(p.created)" +
-                        " from Post p ";
-
-        if (categoryId != null)
-        {
-            text += " join p.categories c ";
-        }
         if (keywordName != null)
         {
             text += " join p.keywords k ";
@@ -522,10 +496,6 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
         text += " where p.created is not null ";
 
-        if (categoryId != null)
-        {
-            text += " and c.id = :categoryId ";
-        }
         if (keywordName != null)
         {
             text += " and k.name = :keywordName ";
@@ -538,10 +508,6 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
                 " order by year(p.created) desc, month(p.created) desc ";
 
         Query query = session.createQuery(text);
-        if (categoryId != null)
-        {
-            query.setParameter("categoryId", categoryId);
-        }
         if (keywordName != null)
         {
             query.setParameter("keywordName", keywordName);
@@ -593,60 +559,6 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
         Query query = session.createQuery(text);
         query.setParameter("coursePage", CoursePage.class.getName());
-        return query.list();
-    }
-
-    public AbstractPost getMostRecentProject(boolean withUnpublished)
-    {
-        String text = "select p " +
-                        " from AbstractPost p " +
-                        " join p.categories c " +
-                        " where c.class = '" + ProjectCategory.class.getCanonicalName() + "' ";
-        if (!withUnpublished)
-        {
-            text += " and p.publishedLevel >= " + POST_PUBLISHED + " ";
-        }
-        text += " order by p.created desc ";
-
-        Query query = session.createQuery(text);
-        return (AbstractPost) singleResult(query);
-    }
-
-    public List<AbstractPost> getAllProjectsByCategory(boolean withUnpublished, Long categoryId)
-    {
-        return getAllByCategoryClass(ProjectCategory.class, withUnpublished, categoryId);
-    }
-
-    public List<AbstractPost> getAllCoursesByCategory(Long categoryId)
-    {
-        return getAllByCategoryClass(CourseCategory.class, true, categoryId);
-    }
-
-    private List<AbstractPost> getAllByCategoryClass(Class categoryClass, boolean withUnpublished, Long categoryId)
-    {
-        String text = "select distinct p " +
-                        " from AbstractPost p " +
-                        " join p.categories c " +
-                        " where c.class = '" + categoryClass.getCanonicalName() + "' ";
-
-        int publishLevel = POST_UNPUBLISHED;
-        if (!withUnpublished)
-        {
-            publishLevel = POST_PUBLISHED;
-        }
-        text += " and p.publishedLevel >= " + publishLevel + " ";
-
-        if (categoryId != null)
-        {
-            text += " and c.id = :categoryId ";
-        }
-        text += " order by p.created desc ";
-
-        Query query = session.createQuery(text);
-        if (categoryId != null)
-        {
-            query.setParameter("categoryId", categoryId);
-        }
         return query.list();
     }
 
@@ -702,49 +614,16 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         return query;
     }
 
-    public ClubPost getMostRecentClubPost(boolean withUnpublished)
-    {
-        Query query = clubPostsQuery(withUnpublished);
-        return (ClubPost) singleResult(query);
-    }
-
     public List<ClubPost> getAllClubPosts(boolean withUnpublished)
     {
         Query query = clubPostsQuery(withUnpublished);
         return query.list();
     }
 
-    private Query lessonPostsQuery(boolean withUnpublished)
-    {
-        String text = "from LessonPost p ";
-
-        if (!withUnpublished)
-        {
-            text += " where p.publishedLevel >= " + POST_PUBLISHED + " ";
-        }
-        text += " order by p.created desc ";
-
-        Query query = session.createQuery(text);
-        return query;
-    }
-
-    public LessonPost getMostRecentLessonPost(boolean withUnpublished)
-    {
-        Query query = lessonPostsQuery(withUnpublished);
-        return (LessonPost) singleResult(query);
-    }
-
-    public List<LessonPost> getAllLessonPosts(boolean withUnpublished)
-    {
-        Query query = lessonPostsQuery(withUnpublished);
-        return query.list();
-    }
-
     private Query createQuery(Integer postCount,
                               Integer year,
                               Integer month,
                               int publishLevel,
-                              Long categoryId,
                               String keywordName,
                               Set<Long> excludePosts,
 
@@ -752,36 +631,31 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
                               List<String> whereClauses,
                               String orderByClause)
     {
-        Set<Long> catIds = new HashSet<>();
-        if (categoryId != null)
-        {
-            catIds.add(categoryId);
-        }
-
-        return createQuery(postCount, year, month, publishLevel, catIds, keywordName, excludePosts, selectClause, whereClauses, orderByClause);
-    }
-
-    private Query createQuery(Integer postCount,
-                              Integer year,
-                              Integer month,
-                              int publishLevel,
-                              Set<Long> categoryIds,
-                              String keywordName,
-                              Set<Long> excludePosts,
-
-                              String selectClause,
-                              List<String> whereClauses,
-                              String orderByClause)
-    {
-        List<String> phrases = new ArrayList<String>();
-        phrases.add(" p.publishedLevel >= " + publishLevel +" ");
-        if (categoryIds != null && !categoryIds.isEmpty())
-        {
-            phrases.add(" c.id in (:categoryIds) ");
-        }
+        Set<String> names = new HashSet<>();
         if (keywordName != null)
         {
-            phrases.add(" k.name = :keywordName ");
+            names.add(keywordName);
+        }
+
+        return createQuery(postCount, year, month, publishLevel, names, excludePosts, selectClause, whereClauses, orderByClause);
+    }
+
+    private Query createQuery(Integer postCount,
+                              Integer year,
+                              Integer month,
+                              int publishLevel,
+                              Set<String> keywordNames,
+                              Set<Long> excludePosts,
+
+                              String selectClause,
+                              List<String> whereClauses,
+                              String orderByClause)
+    {
+        List<String> phrases = new ArrayList<>();
+        phrases.add(" p.publishedLevel >= " + publishLevel +" ");
+        if (keywordNames != null && !keywordNames.isEmpty())
+        {
+            phrases.add(" k.name in (:keywordNames) ");
         }
         if (year != null)
         {
@@ -801,11 +675,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         }
 
         String text = selectClause;
-        if (categoryIds != null && !categoryIds.isEmpty())
-        {
-            text += " join p.categories c ";
-        }
-        if (keywordName != null)
+        if (keywordNames != null && !keywordNames.isEmpty())
         {
             text += " join p.keywords k ";
         }
@@ -824,13 +694,9 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
         text += orderByClause;
 
         Query query = session.createQuery(text);
-        if (categoryIds != null && !categoryIds.isEmpty())
+        if (keywordNames != null && !keywordNames.isEmpty())
         {
-            query.setParameterList("categoryIds", categoryIds);
-        }
-        if (keywordName != null)
-        {
-            query.setParameter("keywordName", keywordName);
+            query.setParameterList("keywordNames", keywordNames);
         }
         if (year != null)
         {

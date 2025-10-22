@@ -182,7 +182,7 @@ public class KeywordIndex
         boolean unpublished = viewState.isShowUnpublished();
         String keywordName = currentSubKeyword.getName();
 
-        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, null, null, null, keywordName);
+        List<Post> posts = postDAO.getMostRecentPosts(postCount, unpublished, null, null, keywordName);
         return posts;
     }
 

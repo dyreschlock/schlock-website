@@ -1,13 +1,12 @@
 package com.schlock.website.components.blog.layout;
 
-import com.schlock.website.entities.blog.AbstractCategory;
-import com.schlock.website.entities.blog.PostCategory;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.pages.AboutMe;
 import com.schlock.website.pages.archive.ArchiveIndex;
-import com.schlock.website.pages.category.CategoryIndex;
+import com.schlock.website.pages.keyword.KeywordIndex;
 import com.schlock.website.pages.photo.PhotoIndex;
 import com.schlock.website.pages.projects.ProjectsIndex;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
@@ -20,10 +19,10 @@ public class Header
     private PageRenderLinkSource linkSource;
 
     @Inject
-    private CategoryDAO categoryDAO;
+    private KeywordDAO keywordDAO;
 
     @Property
-    private AbstractCategory currentCategory;
+    private Keyword currentKeyword;
 
 
     public String getArchiveLink()
@@ -47,13 +46,13 @@ public class Header
     }
 
 
-    public List<PostCategory> getCategories()
+    public List<Keyword> getKeywords()
     {
-        return categoryDAO.getTopInOrder();
+        return keywordDAO.getTopPostKeywordsInOrder();
     }
 
-    public String getCategoryLink()
+    public String getKeywordLink()
     {
-        return linkSource.createPageRenderLinkWithContext(CategoryIndex.class, currentCategory.getUuid()).toURI();
+        return linkSource.createPageRenderLinkWithContext(KeywordIndex.class, currentKeyword.getName()).toURI();
     }
 }

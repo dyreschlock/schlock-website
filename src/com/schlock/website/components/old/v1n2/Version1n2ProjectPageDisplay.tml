@@ -30,9 +30,9 @@
             <tr>
                 <td width="45%" align="center" valign="top" class="projects">
 
-                    <t:loop source="projectCategories" value="currentCategory">
+                    <t:loop source="projectCategories" value="currentKeyword">
 
-                        <p><font size="2">${categoryTitle}<br/>
+                        <p><font size="2">${currentKeyword.title}<br/>
                             <font size="1">${categoryEarlyDate} - Present</font></font></p>
 
                         <div class="projects"><div class="wrap"><div class="content">
@@ -49,9 +49,9 @@
                 <td width="10%" align="center" valign="top">&nbsp;</td>
                 <td width="45%" align="center" valign="top" class="projects">
 
-                    <t:loop source="photoCategories" value="currentCategory">
+                    <t:loop source="photoCategories" value="currentKeyword">
 
-                        <p><font size="2">${categoryTitle}<br/>
+                        <p><font size="2">${currentKeyword.title}<br/>
                             <font size="1">${categoryEarlyDate} - Present</font></font></p>
 
                         <div class="projects"><div class="wrap"><div class="content">

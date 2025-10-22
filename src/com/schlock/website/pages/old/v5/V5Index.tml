@@ -43,11 +43,11 @@
                                         <div id="contentPanel" class="contentBody">
 
                                             <t:if test="updatesPage">
-                                                <v5:version5updatespanel posts="posts" post="post" pageNumber="pageNumber" category="updatesCategory" />
+                                                <v5:version5updatespanel posts="posts" post="post" pageNumber="pageNumber" keyword="updatesCategory" />
                                             </t:if>
 
                                             <t:if test="photoPage">
-                                                <v5:version5photopanel categoryIds="categoryIds" />
+                                                <v5:version5photopanel keywordNames="keywordNames" />
                                             </t:if>
 
                                             <t:if test="clubPage">
@@ -55,7 +55,7 @@
                                             </t:if>
 
                                             <t:if test="reviewsPage">
-                                                <v5:version5reviewspanel page="classPage" categoryIds="categoryIds" />
+                                                <v5:version5reviewspanel page="classPage" keywordNames="keywordNames" />
                                             </t:if>
 
                                             <t:if test="siteMapPage">

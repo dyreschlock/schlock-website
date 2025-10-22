@@ -29,7 +29,7 @@
 
                 <t:if test="reviewsPage">
                     <t:if test="!hasPost">
-                        <v4:version4reviewslistingdisplay page="classPage" categoryIds="categoryIds" />
+                        <v4:version4reviewslistingdisplay page="classPage" keywordNames="keywordNames" />
                     </t:if>
 
                     <t:if test="hasPost">
@@ -71,7 +71,7 @@
                         </table>
                     </t:if>
 
-                    <v4:version4pagedpreviousnext post="post" page="page" pageNumber="pageNumber" categoryIds="categoryIds" />
+                    <v4:version4pagedpreviousnext post="post" page="page" pageNumber="pageNumber" keywordNames="keywordNames" />
                 </t:if>
             </td>
             <td width="200" align="center" valign="top" style="margin:5px 0px 5px 0px;">

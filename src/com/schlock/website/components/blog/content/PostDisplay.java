@@ -9,7 +9,6 @@ import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.LessonsManagement;
 import com.schlock.website.services.blog.PostManagement;
-import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.BindingConstants;
@@ -53,9 +52,6 @@ public class PostDisplay
     private Messages messages;
 
     @Inject
-    private CategoryDAO categoryDAO;
-
-    @Inject
     private PostDAO postDAO;
 
 
@@ -68,9 +64,6 @@ public class PostDisplay
 
     @Property
     private Keyword currentSubKeyword;
-
-    @Property
-    private AbstractCategory currentCategory;
 
     @Property
     private String currentGrade;
@@ -87,11 +80,6 @@ public class PostDisplay
     public String getWebUrl()
     {
         return context.webDomain();
-    }
-
-    public boolean isHasCategories()
-    {
-        return !post.getCategories().isEmpty();
     }
 
     public List<Keyword> getTopKeywords()
@@ -125,26 +113,26 @@ public class PostDisplay
         return post.isProject();
     }
 
-    public List<ProjectCategory> getProjectCategories()
+    public List<Keyword> getProjectKeywords()
     {
-        return post.getProjectCategories();
+        return post.getAllSubProjectKeywords();
     }
 
-    public String getCategoryCssClass()
+    public String getProjectCssClass()
     {
         String css = "";
 
-        AbstractCategory parent = currentCategory.getParent();
+        Keyword parent = currentKeyword.getParent();
         if (parent != null)
         {
-            css = parent.getUuid();
+            css = parent.getName();
         }
         return css;
     }
 
-    public String getCurrentProjectCategoryLink()
+    public String getCurrentProjectLink()
     {
-        return linkSource.createPageRenderLinkWithContext(ProjectsIndex.class, currentCategory.getUuid()).toURI();
+        return linkSource.createPageRenderLinkWithContext(ProjectsIndex.class, currentKeyword.getName()).toURI();
     }
 
 

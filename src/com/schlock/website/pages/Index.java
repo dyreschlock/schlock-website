@@ -6,7 +6,6 @@ import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.pages.apps.SubtitleFixer;
 import com.schlock.website.pages.apps.kendo.KendoIndex;
 import com.schlock.website.pages.apps.pocket.ImageSelector;
-import com.schlock.website.services.database.blog.CategoryDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Persist;
@@ -30,9 +29,6 @@ public class Index
 
     @Inject
     private PostDAO postDAO;
-
-    @Inject
-    private CategoryDAO categoryDAO;
 
     @Inject
     private PageRenderLinkSource linkSource;

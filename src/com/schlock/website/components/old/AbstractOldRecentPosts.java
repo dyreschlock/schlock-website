@@ -1,10 +1,11 @@
 package com.schlock.website.components.old;
 
-import com.schlock.website.entities.blog.*;
+import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.blog.ViewState;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.blog.PostManagement;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -26,7 +27,7 @@ public abstract class AbstractOldRecentPosts
     private PostManagement postManagement;
 
     @Inject
-    private CategoryDAO categoryDAO;
+    private KeywordDAO keywordDAO;
 
     @Inject
     private PostDAO postDAO;
@@ -82,13 +83,8 @@ public abstract class AbstractOldRecentPosts
             uuids = Arrays.asList("game-reviews", "film-tv", "books", "anime", "toys");
         }
 
-        Set<Long> categoryIds = new HashSet<>();
-        for(String uuid : uuids)
-        {
-            AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, uuid);
-            categoryIds.add(cat.getId());
-        }
-        return postDAO.getMostRecentPosts(count, unpublished, null, null, categoryIds);
+        Set<String> names = new HashSet<>(uuids);
+        return postDAO.getMostRecentPosts(count, unpublished, null, null, names);
     }
 
     public String getCurrentPostLink()

@@ -36,20 +36,20 @@
                     //
                     <a title="${currentKeyword.name}" href="${currentKeywordLink}">${currentKeyword.title}</a>
                     <t:loop source="subKeywords" value="currentSubKeyword">
-                        <a title="${currentSubKeyword.name}" href="${currentSubKeywordLink}">/${currentSubKeyword.title}</a>
+                        <a title="${currentSubKeyword.title}" href="${currentSubKeywordLink}">/${currentSubKeyword.title}</a>
                     </t:loop>
                 </t:loop>
 
                 <t:loop source="extraKeywords" value="currentKeyword">
                     //
-                    <a title="${currentKeyword.name}" href="${currentKeywordLink}">${currentKeyword.title}</a>
+                    <a title="${currentKeyword.title}" href="${currentKeywordLink}">${currentKeyword.title}</a>
                 </t:loop>
 
 
                 <t:if test="project">
-                    <t:loop source="projectCategories" value="currentCategory">
+                    <t:loop source="projectKeywords" value="currentKeyword">
                         //
-                        <a class="${categoryCssClass}" title="${currentCategory.name}" href="${currentProjectCategoryLink}">${currentCategory.name}</a>
+                        <a class="${projectCssClass}" title="${currentKeyword.title}" href="${currentProjectLink}">${currentKeyword.title}</a>
                     </t:loop>
                 </t:if>
 

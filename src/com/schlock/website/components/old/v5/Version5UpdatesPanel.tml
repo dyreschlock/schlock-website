@@ -16,7 +16,7 @@
 
                 <hr align="center" width="100%" size="1" />
 
-                <v5:version5pagedpreviousnext post="post" pageNumber="pageNumber" category="category" />
+                <v5:version5pagedpreviousnext post="post" pageNumber="pageNumber" keyword="keyword" />
 
             </td>
         </tr>

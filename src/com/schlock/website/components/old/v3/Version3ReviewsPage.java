@@ -1,7 +1,7 @@
 package com.schlock.website.components.old.v3;
 
 import com.schlock.website.components.old.AbstractOldPostDisplay;
-import com.schlock.website.entities.blog.AbstractCategory;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.services.DeploymentContext;
 import org.apache.tapestry5.annotations.Parameter;
@@ -16,16 +16,16 @@ public class Version3ReviewsPage extends AbstractOldPostDisplay
 
 
     @Parameter(required = true)
-    private List<String> reviewCategoryUuids;
+    private List<String> reviewCategoryNames;
 
 
     public String getCategoryName()
     {
-        for(AbstractCategory cat : getPost().getCategories())
+        for(Keyword keyword : getPost().getKeywords())
         {
-            if (reviewCategoryUuids.contains(cat.getUuid()))
+            if (reviewCategoryNames.contains(keyword.getName()))
             {
-                return cat.getName();
+                return keyword.getName();
             }
         }
         return "Game";

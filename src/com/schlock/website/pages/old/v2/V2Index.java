@@ -1,7 +1,7 @@
 package com.schlock.website.pages.old.v2;
 
 import com.schlock.website.entities.blog.AbstractPost;
-import com.schlock.website.entities.blog.PostCategory;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
 import org.apache.tapestry5.annotations.Property;
@@ -68,13 +68,13 @@ public class V2Index extends AbstractOldVersionPage
         return SiteVersion.V2;
     }
 
-    public PostCategory getCategory()
+    public Keyword getKeyword()
     {
         if (getPost() == null)
         {
             return getUpdatesCategory();
         }
-        return super.getCategory();
+        return super.getKeyword();
     }
 
     public Integer getPageNumber()

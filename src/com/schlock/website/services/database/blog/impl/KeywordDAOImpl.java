@@ -72,6 +72,19 @@ public class KeywordDAOImpl extends BaseDAOImpl<Keyword> implements KeywordDAO
         return query.list();
     }
 
+    public List<Keyword> getAllPostKeywordsInAlphaOrder()
+    {
+        String text = " select k " +
+                        " from Keyword k " +
+                        " where k.type = :type " +
+                        " order by k.title asc ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("type", KeywordType.VISIBLE);
+
+        return query.list();
+    }
+
     public List<Keyword> getSubProjectKeywordsInOrder()
     {
         String text = " select child " +

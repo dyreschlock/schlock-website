@@ -41,7 +41,6 @@ public abstract class AbstractPost extends Persisted
     private String locationCoords;
     private LocationType locationType;
 
-    private Set<AbstractCategory> categories;
     private List<Keyword> keywords;
 
     protected AbstractPost()
@@ -96,9 +95,9 @@ public abstract class AbstractPost extends Persisted
 
     public boolean isProject()
     {
-        for (AbstractCategory category : getCategories())
+        for(Keyword keyword : getKeywords())
         {
-            if (category.isProject())
+            if (keyword.isProject())
             {
                 return true;
             }
@@ -175,6 +174,19 @@ public abstract class AbstractPost extends Persisted
         return extra;
     }
 
+    public List<Keyword> getAllPostKeywords()
+    {
+        List<Keyword> keywords = new ArrayList<>();
+        for(Keyword keyword : keywords)
+        {
+            if (keyword.isVisible())
+            {
+                keywords.add(keyword);
+            }
+        }
+        return keywords;
+    }
+
     public List<Keyword> getAllSubProjectKeywords()
     {
         List<Keyword> project = new ArrayList<>();
@@ -188,90 +200,6 @@ public abstract class AbstractPost extends Persisted
         }
         Collections.sort(project, new KeywordComparator());
         return project;
-    }
-
-    public List<PostCategory> getTopPostCategories()
-    {
-        List<PostCategory> top = new ArrayList<>();
-
-        for (AbstractCategory category : getAllPostCategories())
-        {
-            if (category.isTopCategory() && category.isPost())
-            {
-                top.add((PostCategory) category);
-            }
-        }
-
-        Collections.sort(top, new CategoryComparator());
-        return top;
-    }
-
-    public List<AbstractCategory> getSubcategories(AbstractCategory top)
-    {
-        List<AbstractCategory> sub = new ArrayList<>();
-
-        for (AbstractCategory category : getAllPostCategories())
-        {
-            if (category.getParent() != null &&
-                    category.getParent().getId().equals(top.getId()))
-            {
-                sub.add(category);
-            }
-        }
-
-        Collections.sort(sub, new CategoryComparator());
-        return sub;
-    }
-
-    public List<AbstractCategory> getExtraCategories()
-    {
-        List<AbstractCategory> extra = new ArrayList<>();
-
-        List<PostCategory> top = getTopPostCategories();
-        for(AbstractCategory cat : getCategories())
-        {
-            if (cat.isPost() && !cat.isTopCategory())
-            {
-                AbstractCategory parent = cat.getParent();
-                if (!top.contains(parent))
-                {
-                    extra.add(cat);
-                }
-            }
-        }
-        return extra;
-    }
-
-    public List<AbstractCategory> getAllPostCategories()
-    {
-        List<AbstractCategory> cat = new ArrayList<>();
-
-        for (AbstractCategory category : getCategories())
-        {
-            if (category.isPost())
-            {
-                cat.add(category);
-            }
-        }
-
-        Collections.sort(cat, new CategoryComparator());
-        return cat;
-    }
-
-    public List<ProjectCategory> getProjectCategories()
-    {
-        List<ProjectCategory> cat = new ArrayList<>();
-
-        for (AbstractCategory category : getCategories())
-        {
-            if (category.isProject() && !category.isTopCategory())
-            {
-                cat.add((ProjectCategory) category);
-            }
-        }
-
-        Collections.sort(cat, new CategoryComparator());
-        return cat;
     }
 
     public boolean isHasGallery()
@@ -427,15 +355,5 @@ public abstract class AbstractPost extends Persisted
     public void setKeywords(List<Keyword> keywords)
     {
         this.keywords = keywords;
-    }
-
-    public Set<AbstractCategory> getCategories()
-    {
-        return categories;
-    }
-
-    public void setCategories(Set<AbstractCategory> categories)
-    {
-        this.categories = categories;
     }
 }

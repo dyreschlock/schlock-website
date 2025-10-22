@@ -1,23 +1,26 @@
 package com.schlock.website.pages.old.v3;
 
-import com.schlock.website.entities.blog.*;
+import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Page;
+import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.PostArchiveManagement;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class V3Index extends AbstractOldVersionPage
 {
     @Inject
-    private CategoryDAO categoryDAO;
+    private KeywordDAO keywordDAO;
 
     @Inject
     private DeploymentContext context;
@@ -112,36 +115,27 @@ public class V3Index extends AbstractOldVersionPage
         return isPhotoPage() || isClubPage();
     }
 
-    public List<Long> getCategoryIds()
+    public List<String> getKeywordNames()
     {
-        List<String> categoryUuids = new ArrayList<>();
+        List<String> names = new ArrayList<>();
         if (isPhotoPage())
         {
-            categoryUuids = getTravelPhotoCategoryUuids();
+            names = getTravelPhotoCategoryNames();
         }
         else if (isClubPage())
         {
-            categoryUuids = getClubPhotoCategoryUuids();
+            names = getClubPhotoCategoryUuids();
         }
         else if (isReviewsPage())
         {
-            categoryUuids = getReviewCategoryUuids();
+            names = getReviewCategoryNames();
         }
 
-        List<Long> categoryIds = new ArrayList<>();
-        if (!categoryUuids.isEmpty())
+        if (!names.isEmpty())
         {
-            for(String uuid : categoryUuids)
-            {
-                AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, uuid);
-                categoryIds.add(cat.getId());
-            }
+            return names;
         }
-        else if (isArchivePage() || isDefaultPost())
-        {
-            categoryIds.add(getUpdatesCategory().getId());
-        }
-        return categoryIds;
+        return Arrays.asList(getUpdatesCategory().getName());
     }
 
     public List<AbstractPost> getPosts()

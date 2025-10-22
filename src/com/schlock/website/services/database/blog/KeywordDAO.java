@@ -13,6 +13,8 @@ public interface KeywordDAO extends BaseDAO<Keyword>
 
     List<Keyword> getTopPostKeywordsInOrder();
 
+    List<Keyword> getAllPostKeywordsInAlphaOrder();
+
     List<Keyword> getTopCourseKeywordsInOrder();
 
     List<Keyword> getTopProjectKeywordsInOrder();

@@ -1,7 +1,7 @@
 package com.schlock.website.components.old;
 
-import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.pages.old.AbstractOldVersionPage;
@@ -11,7 +11,10 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 
 public abstract class AbstractOldPagedPreviousNext
 {
@@ -22,7 +25,7 @@ public abstract class AbstractOldPagedPreviousNext
     private Integer pageNumber;
 
     @Parameter
-    private AbstractCategory category;
+    private Keyword keyword;
 
     @Parameter
     private String page;
@@ -51,11 +54,11 @@ public abstract class AbstractOldPagedPreviousNext
         return page;
     }
 
-    protected List<Long> getCategoryIds()
+    protected List<String> getKeywordNames()
     {
-        if (category != null)
+        if (keyword != null)
         {
-            return Arrays.asList(category.getId());
+            return Arrays.asList(keyword.getName());
         }
         return Collections.EMPTY_LIST;
     }
@@ -103,9 +106,9 @@ public abstract class AbstractOldPagedPreviousNext
     protected String getLinkContext()
     {
         String context = getPage();
-        if (StringUtils.isBlank(context) && category != null)
+        if (StringUtils.isBlank(context) && keyword != null)
         {
-            context = category.getUuid();
+            context = keyword.getName();
         }
         return context;
     }
@@ -125,9 +128,9 @@ public abstract class AbstractOldPagedPreviousNext
         final int postCount = AbstractOldVersionPage.POSTS_PER_PAGE;
 
         List<Post> results;
-        if (!getCategoryIds().isEmpty())
+        if (!getKeywordNames().isEmpty())
         {
-            results = archiveManagement.getPagedPosts(postCount, pageNumber, new HashSet(getCategoryIds()));
+            results = archiveManagement.getPagedPosts(postCount, pageNumber, new HashSet(getKeywordNames()));
         }
         else if (AbstractOldVersionPage.BLOG_PAGE.equals(getPage()) ||
                    AbstractOldVersionPage.ARCHIVE_PAGE.equals(getPage()))

@@ -1,14 +1,13 @@
 package com.schlock.website.pages.old.v2;
 
-import com.schlock.website.entities.blog.AbstractCategory;
 import com.schlock.website.entities.blog.AbstractPost;
+import com.schlock.website.entities.blog.Keyword;
 import com.schlock.website.entities.blog.Post;
-import com.schlock.website.entities.blog.PostCategory;
 import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.blog.PostManagement;
-import com.schlock.website.services.database.blog.CategoryDAO;
+import com.schlock.website.services.database.blog.KeywordDAO;
 import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -31,7 +30,7 @@ public class V2Reviews extends AbstractVersion2Page
     private DateFormatter dateFormatter;
 
     @Inject
-    private CategoryDAO categoryDAO;
+    private KeywordDAO keywordDAO;
 
     @Inject
     private PostDAO postDAO;
@@ -104,13 +103,8 @@ public class V2Reviews extends AbstractVersion2Page
 
     public List<Post> getReviewPosts()
     {
-        Set<Long> categoryIds = new HashSet<>();
-        for(String uuid : getReviewCategoryUuids())
-        {
-            AbstractCategory cat = categoryDAO.getByUuid(PostCategory.class, uuid);
-            categoryIds.add(cat.getId());
-        }
-        return postDAO.getMostRecentPosts(null, false, null, null, categoryIds);
+        Set<String> names = new HashSet<>(getReviewCategoryNames());
+        return postDAO.getMostRecentPosts(null, false, null, null, names);
     }
 
     public String getCurrentPostLink()
@@ -128,11 +122,11 @@ public class V2Reviews extends AbstractVersion2Page
             post = currentPost;
         }
 
-        for(AbstractCategory cat : post.getCategories())
+        for(Keyword keyword : post.getKeywords())
         {
-            if (getReviewCategoryUuids().contains(cat.getUuid()))
+            if (getReviewCategoryNames().contains(keyword.getName()))
             {
-                return cat.getName();
+                return keyword.getName();
             }
         }
         return "Game";
