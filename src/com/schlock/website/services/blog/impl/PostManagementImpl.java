@@ -193,15 +193,12 @@ public class PostManagementImpl implements PostManagement
          */
     }
 
-    public void regenerateAllPostHTML()
+    public void createImagesFromPostHTML()
     {
         for(AbstractPost post : postDAO.getAll())
         {
-            String text = postContentsManagement.getHTMLContents(post);
-            generatePostHTML(post, text, null, false);
-            // this will create image objects for inline post images
-
-            postDAO.save(post);
+            String html = postContentsManagement.getHTMLContents(post);
+            imageManagement.updateImagesInHTML(post, html, false);
         }
     }
 

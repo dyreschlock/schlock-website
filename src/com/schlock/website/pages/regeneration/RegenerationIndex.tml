@@ -66,9 +66,8 @@
                             - <t:eventlink t:id="regeneratePostNumbers">Regenerate Post Numbers</t:eventlink><br/>
                             - <t:eventlink t:id="regenKeywords">Regenerate Keywords for All Posts</t:eventlink><br/>
                             <br/>
-                            - <t:eventlink t:id="generateImageObjects">Find and Create Image Objects from Gallery Images</t:eventlink><br/>
-                            - <t:eventlink t:id="regenHtml">Regenerate all AbstractPost HTML</t:eventlink><br/>
-                            --- This will find all post images linked but not in the gallery<br/>
+                            - <t:eventlink t:id="generateImageObjectsGalleries">Create Image Objects from Galleries</t:eventlink><br/>
+                            - <t:eventlink t:id="generateImageObjectsPostHTML">Create Image Objects from Post HTML</t:eventlink><br/>
                             <br/>
                             - <t:eventlink t:id="createPostPreviewImages">Create Cover Images</t:eventlink> (Social Media Post Previews)<br/>
                             - <t:eventlink t:id="generateWebpFiles">Generate WebP Files from Images</t:eventlink><br/>

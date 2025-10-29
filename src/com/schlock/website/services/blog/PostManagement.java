@@ -13,7 +13,7 @@ public interface PostManagement
 {
     Date getUpdatedTime(Page page);
 
-    void regenerateAllPostHTML();
+    void createImagesFromPostHTML();
 
     void regenerateAllKeywords();
 

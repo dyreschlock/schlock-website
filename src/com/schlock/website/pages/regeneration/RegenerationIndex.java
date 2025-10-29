@@ -124,8 +124,8 @@ public class RegenerationIndex
         onRegeneratePostNumbers();
         onRegenKeywords();
 
-        onGenerateImageObjects();
-        onRegenHTML();
+        onGenerateImageObjectsGalleries();
+        onGenerateImageObjectsPostHTML();
 
         onCreatePostPreviewImages();
         onGenerateWebpFiles();
@@ -144,15 +144,15 @@ public class RegenerationIndex
     }
 
     @CommitAfter
-    void onGenerateImageObjects()
+    void onGenerateImageObjectsGalleries()
     {
         imageManagement.generateImageObjects();
     }
 
     @CommitAfter
-    void onRegenHTML()
+    void onGenerateImageObjectsPostHTML()
     {
-        postManagement.regenerateAllPostHTML();
+        postManagement.createImagesFromPostHTML();
     }
 
     @CommitAfter
