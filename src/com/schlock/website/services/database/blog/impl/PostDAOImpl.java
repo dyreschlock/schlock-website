@@ -306,7 +306,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
             publishLevel = POST_UNPUBLISHED;
         }
 
-        String selectClause = "select p from Post p ";
+        String selectClause = "select distinct p from Post p ";
         String orderByClause = " order by p.created desc ";
 
         Query query = createQuery(postCount,
