@@ -27,7 +27,7 @@
                                 <v2:version2postdisplay post="currentPost" />
                             </t:loop>
 
-                            <v1n2:version1n2pagedpreviousnext version="version" post="post" pageNumber="pageNumber" category="category" page="page" />
+                            <v1n2:version1n2pagedpreviousnext version="version" post="post" pageNumber="pageNumber" keyword="keyword" page="page" />
                         </td>
                     </tr>
                     <tr>

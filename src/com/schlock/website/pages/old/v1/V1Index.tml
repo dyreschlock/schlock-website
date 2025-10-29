@@ -28,7 +28,7 @@
                                 <p align="center"><font color="#666666">________________________________________</font></p>
                             </t:loop>
 
-                            <v1n2:version1n2pagedpreviousnext version="version" post="post" pageNumber="pageNumber" category="category" page="page" />
+                            <v1n2:version1n2pagedpreviousnext version="version" post="post" pageNumber="pageNumber" keyword="keyword" page="page" />
                         </td>
                     </tr>
                     <tr>
