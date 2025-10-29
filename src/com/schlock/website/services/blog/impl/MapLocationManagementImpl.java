@@ -56,17 +56,20 @@ public class MapLocationManagementImpl implements MapLocationManagement
     {
         StringBuilder script = new StringBuilder();
 
-        String MARKER = "L.marker([%s],{icon: %sIcon}).bindPopup('" +
-                            "<p><b>%s</b></p>" +
-                            "<p>%s</p>" +
-                            "<p><img src=\"%s\" /></p>" +
-                            "<p><a href=\"%s\">View Post</a></p>" +
-                        "', {maxWidth : 220})" +
-                        ".addTo(%s);\r\n";
+        String MARKER = "markers.set(\"%s\", " +
+                            "L.marker([%s],{icon: %sIcon}).bindPopup('" +
+                                "<p><b>%s</b></p>" +
+                                "<p>%s</p>" +
+                                "<p><img src=\"%s\" /></p>" +
+                                "<p><a href=\"%s\">View Post</a></p>" +
+                            "', {maxWidth : 220})" +
+                            ".addTo(%s)" +
+                        ");\r\n";
 
         List<Post> posts = postDAO.getAllPublishedWithMapLocation();
         for(Post post : posts)
         {
+            String uuid = post.getUuid();
             String title = post.getTitle().replace("'", "\\\'");
             String date = dateFormatter.dateFormat(post.getCreated());
             String coverImage = imageManagement.getPostPreviewMetadataLink(post.getUuid());
@@ -80,7 +83,7 @@ public class MapLocationManagementImpl implements MapLocationManagement
             {
                 if (coord.contains(","))
                 {
-                    String marker = String.format(MARKER, coord, layer, title, date, coverImage, link, layer);
+                    String marker = String.format(MARKER, uuid, coord, layer, title, date, coverImage, link, layer);
                     script.append(marker);
                 }
             }

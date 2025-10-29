@@ -1,4 +1,4 @@
-const map = L.map('map').setView([34.651848,134.8393581], 7);
+const map = L.map('map');
 
 const baseMapSet = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     minZoom: 4,
@@ -26,7 +26,6 @@ const japan1974set = L.tileLayer("https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}
 });
 
 
-
 const mapsets = {
     'Standard': baseMapSet,
     'Modern Japan Imagery' : japanModernset,
@@ -45,6 +44,8 @@ var LeafIcon = L.Icon.extend({
         popupAnchor:  [1, -39]
     }
 });
+
+const markers = new Map();
 
 %s
 
@@ -67,5 +68,19 @@ document.getElementById("buttonTokyo").addEventListener("click", focusTokyo);
 document.getElementById("buttonNagasaki").addEventListener("click", focusNagasaki);
 document.getElementById("buttonOkinawa").addEventListener("click", focusOkinawa);
 
+
+const urlParams = window.location.search;
+if(urlParams == "")
+{
+    map.setView([34.651848,134.8393581], 7);
+}
+else
+{
+    const mark = markers.get(urlParams.substring(1));
+
+    map.setView(mark.getLatLng(), 12);
+    
+    mark.openPopup();
+}
 
 
