@@ -15,6 +15,7 @@ cd ${output_directory_html}
 # --timestamping : don't download multiples of the same file. (might now work) (the following 2 flags are used with it)
 # --html-extension : write html files as html files
 # --reject : do not download any images
+# --reject-regex : this pattern should prevent URLs with parameters using ?
 # --domains : restrict download to localhost only
 # -e robots=off : ignores robots.txt
 # http://localhost:8084/ <-- this is the website (this website) to fetch
@@ -30,6 +31,7 @@ wget \
     --no-use-server-timestamps \
   --html-extension \
   --reject jpg,jpeg,png,gif,mpg,webp \
+  --reject-regex "(.*)\?(.*)" \
   --domains localhost \
   -e robots=off \
   http://localhost:8084
