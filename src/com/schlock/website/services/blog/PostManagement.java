@@ -15,6 +15,8 @@ public interface PostManagement
 
     void regenerateAllPostHTML();
 
+    void regenerateAllKeywords();
+
     void regeneratePostNumbers();
 
     String generateCommentHTML(String comment);

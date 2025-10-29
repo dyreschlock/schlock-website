@@ -201,6 +201,14 @@ public class PostManagementImpl implements PostManagement
             generatePostHTML(post, text, null, false);
             // this will create image objects for inline post images
 
+            postDAO.save(post);
+        }
+    }
+
+    public void regenerateAllKeywords()
+    {
+        for(AbstractPost post : postDAO.getAll())
+        {
             String keyString = post.getKeywordString();
             List<Keyword> keywords = keywordManagement.generateKeywords(keyString);
             post.setKeywords(keywords);

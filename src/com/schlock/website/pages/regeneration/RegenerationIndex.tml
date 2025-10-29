@@ -60,17 +60,16 @@
                             <br/>
                             <br/>
                             <h2><t:eventlink t:id="regenPostItems">Generate Post Items</t:eventlink></h2>
-                            (It will do all five of the following, in order)<br/>
+                            (It will do all six of the following, in order)<br/>
                             <br/>
                             - <t:eventlink t:id="regeneratePostNumbers">Regenerate Post Numbers</t:eventlink><br/>
-                            <br/>
-                            - <t:eventlink t:id="createPostPreviewImages">Create Post Preview Image Files</t:eventlink> (Images in Github for Metadata)<br/>
+                            - <t:eventlink t:id="regenKeywords">Regenerate Keywords for All Posts</t:eventlink><br/>
                             <br/>
                             - <t:eventlink t:id="generateImageObjects">Find and Create Image Objects from Gallery Images</t:eventlink><br/>
                             - <t:eventlink t:id="regenHtml">Regenerate all AbstractPost HTML</t:eventlink><br/>
                             --- This will find all post images linked but not in the gallery<br/>
-                            --- It will also generate keyword objects<br/>
                             <br/>
+                            - <t:eventlink t:id="createPostPreviewImages">Create Cover Images</t:eventlink> (Social Media Post Previews)<br/>
                             - <t:eventlink t:id="generateWebpFiles">Generate WebP Files from Images</t:eventlink><br/>
                             <br/>
                             <br/>
