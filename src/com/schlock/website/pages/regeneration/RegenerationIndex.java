@@ -119,12 +119,14 @@ public class RegenerationIndex
     @CommitAfter
     void onRegenPostItems()
     {
+        onGenerateHTMLFilesForPosts();
+
         onRegeneratePostNumbers();
         onRegenKeywords();
 
         onGenerateImageObjects();
         onRegenHTML();
-        
+
         onCreatePostPreviewImages();
         onGenerateWebpFiles();
     }

@@ -56,11 +56,12 @@
                             - <t:eventlink t:id="sanitizeImages">Remove all Invalid Characters From Image Filenames</t:eventlink><br/>
                             - <t:eventlink t:id="generateThumbnails">Generate Thumbnails for Directory</t:eventlink><br/>
                             <br/>
-                            - <t:eventlink t:id="generateHTMLFilesForPosts">Generate HTML Files for Posts</t:eventlink><br/>
-                            <br/>
                             <br/>
                             <h2><t:eventlink t:id="regenPostItems">Generate Post Items</t:eventlink></h2>
-                            (It will do all six of the following, in order)<br/>
+                            (It will do all seven of the following, in order)<br/>
+                            <br/>
+                            - <t:eventlink t:id="generateHTMLFilesForPosts">Generate Blank HTML Files for Posts</t:eventlink><br/>
+                            --- (Run after new posts are created in the database) <br/>
                             <br/>
                             - <t:eventlink t:id="regeneratePostNumbers">Regenerate Post Numbers</t:eventlink><br/>
                             - <t:eventlink t:id="regenKeywords">Regenerate Keywords for All Posts</t:eventlink><br/>
@@ -71,6 +72,7 @@
                             <br/>
                             - <t:eventlink t:id="createPostPreviewImages">Create Cover Images</t:eventlink> (Social Media Post Previews)<br/>
                             - <t:eventlink t:id="generateWebpFiles">Generate WebP Files from Images</t:eventlink><br/>
+                            --- (Both actions depend on photos in Google Drive)<br/>
                             <br/>
                             <br/>
 
@@ -125,6 +127,7 @@
                             <br/>
                             - <t:eventlink t:id="updateGamecubeGameInventory">Update List of Games from Drive</t:eventlink><br/>
                             - <t:eventlink t:id="convertGamecubeArtImages">Collect and Convert Art Images to Web Location</t:eventlink><br/>
+                            <br/>
                             <br/>
                             <h2>Website Validation / Optimization</h2>
                             <br />
