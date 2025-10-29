@@ -185,7 +185,7 @@ public abstract class AbstractOldVersionPage extends AbstractOldLinks
 
     protected List<String> getTravelPhotoCategoryNames()
     {
-        return Arrays.asList("travel", "hida-takayama", "america");
+        return Arrays.asList("travel", "urban-exploration", "hida-takayama", "america");
     }
 
     protected List<String> getClubPhotoCategoryUuids()
