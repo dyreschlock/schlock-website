@@ -216,6 +216,11 @@ public abstract class AbstractPost extends Persisted
         return StringUtils.isNotBlank(getLessonPlanLink()) || StringUtils.isNotBlank(getFlashCardsLink());
     }
 
+    public boolean isHasMapLocation()
+    {
+        return getLocationType() != null && getLocationCoords() != null;
+    }
+
 
     public String getWpid()
     {

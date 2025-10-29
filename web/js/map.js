@@ -79,7 +79,7 @@ else
     const mark = markers.get(urlParams.substring(1));
 
     map.setView(mark.getLatLng(), 12);
-    
+
     mark.openPopup();
 }
 

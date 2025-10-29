@@ -65,6 +65,11 @@
                     //
                     <a class="${lessonCssClass}" title="${coursePageTitle}" href="${coursePageLink}">${coursePageTitle}</a>
                 </t:if>
+
+                <t:if test="hasMapLocation">
+                    //
+                    <a class="viewmap" title="${message:view-on-map}" href="${mapPageLink}">${message:view-on-map}</a>
+                </t:if>
             </div>
         </t:if>
 

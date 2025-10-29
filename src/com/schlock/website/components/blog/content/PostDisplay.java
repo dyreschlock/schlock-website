@@ -4,6 +4,7 @@ import com.schlock.website.entities.blog.*;
 import com.schlock.website.pages.courses.CoursesIndex;
 import com.schlock.website.pages.keyword.KeywordIndex;
 import com.schlock.website.pages.lessons.LessonsIndex;
+import com.schlock.website.pages.map.MapIndex;
 import com.schlock.website.pages.projects.ProjectsIndex;
 import com.schlock.website.services.DateFormatter;
 import com.schlock.website.services.DeploymentContext;
@@ -217,6 +218,18 @@ public class PostDisplay
     }
 
 
+    public boolean isHasMapLocation()
+    {
+        return post.isHasMapLocation();
+    }
+
+    public String getMapPageLink()
+    {
+        String uuid = post.getUuid();
+        String URL = linkSource.createPageRenderLink(MapIndex.class).toURI();
+
+        return URL + "?" + uuid;
+    }
 
     public String getPostBodyHTML()
     {
