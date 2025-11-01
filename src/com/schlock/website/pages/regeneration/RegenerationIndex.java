@@ -63,7 +63,7 @@ public class RegenerationIndex
     /*
      * No slash at the beginning. Slash at the end.
      */
-    private static final String LOCATION = "photo/251018_nfc/";
+    private static final String LOCATION = "photo/250915_tsukechi/";
 
 
     @Inject
@@ -322,6 +322,12 @@ public class RegenerationIndex
     void onUpdateGamecubeGameInventory()
     {
         gamecubeService.updateGameInventory();
+    }
+
+    @CommitAfter
+    void onUpdateGamecubeSaveFiles()
+    {
+        gamecubeService.updateGameSaveFiles();
     }
 
     @CommitAfter

@@ -12,4 +12,6 @@ public interface GamecubeGameDAO extends BaseDAO<GamecubeGame>
     List<GamecubeGame> getAllWithNoArt();
 
     GamecubeGame getByGameName(String title);
+
+    GamecubeGame getBySerialNumber(String serialNumber);
 }

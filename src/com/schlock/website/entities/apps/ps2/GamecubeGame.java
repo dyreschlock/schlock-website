@@ -21,7 +21,7 @@ public class GamecubeGame extends RetroGame
 
     public String getSaveFileRelativeFilepath()
     {
-        String serial = getGameIdMemcardFormat(getSerialNumber());
+        String serial = getSerialNumberMemcardFormat(getSerialNumber());
         return SAVE_FOLDER + serial;
     }
 
@@ -91,8 +91,20 @@ public class GamecubeGame extends RetroGame
         return game;
     }
 
-    private static String getGameIdMemcardFormat(String gameId)
+    private static final String ZERO_ZERO = "00";
+
+    private static String getSerialNumberMemcardFormat(String standardFormat)
     {
-        return gameId + "00";
+        return standardFormat + ZERO_ZERO;
+    }
+
+    public static String getSerialNumberStandardFormat(String memcardFormat)
+    {
+        return memcardFormat.substring(0, memcardFormat.length() - 2);
+    }
+
+    public static boolean isSerialNumberMemcardFormat(String memcardFormat)
+    {
+        return memcardFormat.endsWith(ZERO_ZERO);
     }
 }

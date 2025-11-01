@@ -2,6 +2,7 @@ package com.schlock.website.services.apps.ps2.impl;
 
 import com.schlock.website.entities.apps.ps2.DreamcastGame;
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
+import com.schlock.website.entities.apps.ps2.RetroGame;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.ps2.DreamcastService;
 import com.schlock.website.services.blog.ImageManagement;
@@ -11,6 +12,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 public class DreamcastServiceImpl extends AbstractRetroConsoleServiceImpl<DreamcastGame> implements DreamcastService
@@ -124,6 +126,22 @@ public class DreamcastServiceImpl extends AbstractRetroConsoleServiceImpl<Dreamc
             game = DreamcastGame.create(sdcardSlot, name, serialNumber);
         }
         gameDAO.save(game);
+    }
+
+
+    protected List<String> getSaveFileLocalDirectories()
+    {
+        return Arrays.asList();
+    }
+
+    protected boolean isValidGameFolder(String folderName)
+    {
+        return false;
+    }
+
+    protected RetroGame getGameByFolderName(String folderName)
+    {
+        return null;
     }
 
     protected List getAllGamesWithNoArt()

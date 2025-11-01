@@ -6,15 +6,14 @@ import com.schlock.website.entities.apps.ps2.RetroGame;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.ps2.PlaystationPropertyService;
 import com.schlock.website.services.apps.ps2.PlaystationService;
+import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
+import com.schlock.website.services.database.apps.ps2.RetroGameDAO;
 
 import java.io.*;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Properties;
-import java.util.TreeSet;
+import java.util.*;
 
-public class PlaystationServiceImpl implements PlaystationService
+public class PlaystationServiceImpl extends AbstractRetroConsoleServiceImpl<PlaystationGame> implements PlaystationService
 {
     private final PlaystationPropertyService propService;
     private final PlaystationGameDAO gameDAO;
@@ -23,8 +22,12 @@ public class PlaystationServiceImpl implements PlaystationService
 
     public PlaystationServiceImpl(PlaystationPropertyService propService,
                                     PlaystationGameDAO gameDAO,
+                                    RetroGameDAO retroGameDAO,
+                                    ImageManagement imageManagement,
                                     DeploymentContext context)
     {
+        super(retroGameDAO, imageManagement, context);
+
         this.propService = propService;
         this.gameDAO = gameDAO;
         this.context = context;
@@ -151,7 +154,7 @@ public class PlaystationServiceImpl implements PlaystationService
     }
 
 
-    public void writeArtFilesToLocal() throws Exception
+    public void writeArtFilesToLocal()
     {
         final String DATA_PATH = context.playstationDataDirectory();
         final String LOCAL_PATH = context.playstationLocalDirectory();
@@ -162,14 +165,21 @@ public class PlaystationServiceImpl implements PlaystationService
             File source = new File(DATA_PATH + game.getArtRelativeFilepath());
             if (source.exists())
             {
-                File localDest = new File(LOCAL_PATH + game.getArtRelativeFilepath());
-                copyFile(source, localDest);
+                try
+                {
+                    File localDest = new File(LOCAL_PATH + game.getArtRelativeFilepath());
+                    copyFile(source, localDest);
 
-                File webDest = new File(WEB_PATH + game.getCoverImageFilename());
-                copyFile(source, webDest);
+                    File webDest = new File(WEB_PATH + game.getCoverImageFilename());
+                    copyFile(source, webDest);
 
-                game.setHaveArt(true);
-                gameDAO.save(game);
+                    game.setHaveArt(true);
+                    gameDAO.save(game);
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -223,79 +233,39 @@ public class PlaystationServiceImpl implements PlaystationService
         }
     }
 
-    public void updateGameSaveFiles()
+
+    protected List<String> getSaveFileLocalDirectories()
     {
-        updateCurrentGameSaves();
-        locateNewGameSaves();
+        final String LOCAL_PATH = context.memcardSavesLocalDirectory();
+        String folder = LOCAL_PATH + PlaystationGame.SAVE_FOLDER + "/";
+
+        return Arrays.asList(folder + PlaystationPlatform.PS2.name(),
+                                folder + PlaystationPlatform.PS1.name());
     }
 
-    private void updateCurrentGameSaves()
+    protected boolean isValidGameFolder(String folderName)
     {
-        final String LOCAL_PATH = context.playstationLocalDirectory();
-
-        for(PlaystationGame game : gameDAO.getAllWithSave())
-        {
-            String filepath = LOCAL_PATH + game.getSaveFileRelativeFilepath();
-            File saveFolder = new File(filepath);
-
-            if (!saveFolder.exists())
-            {
-                game.setHaveSave(false);
-                gameDAO.save(game);
-            }
-        }
+        return PlaystationGame.isGameIdMemcardFormat(folderName);
     }
 
-    private void locateNewGameSaves()
+    protected RetroGame getGameByFolderName(String folderName)
     {
-        final String MCP_PATH = context.playstationLocalDirectory() + PlaystationGame.SAVE_FOLDER + "/";
-
-        FilenameFilter saveFolderFormat = new FilenameFilter()
-        {
-            public boolean accept(File dir, String name)
-            {
-                return PlaystationGame.isGameIdMemcardFormat(name);
-            }
-        };
-
-        File saveFolder = new File(MCP_PATH + PlaystationPlatform.PS2.name());
-        for(File folder : saveFolder.listFiles(saveFolderFormat))
-        {
-            updateGameWithSaveFolder(folder);
-        }
-
-        saveFolder = new File(MCP_PATH + PlaystationPlatform.PS1.name());
-        for(File folder : saveFolder.listFiles(saveFolderFormat))
-        {
-            updateGameWithSaveFolder(folder);
-        }
+        String gameId = PlaystationGame.getGameIdStandardFormat(folderName);
+        return gameDAO.getByGameId(gameId);
     }
 
-    private void updateGameWithSaveFolder(File saveFolder)
+    protected List getAllGamesWithNoArt()
     {
-        String gameId = PlaystationGame.getGameIdStandardFormat(saveFolder.getName());
-
-        PlaystationGame game = gameDAO.getByGameId(gameId);
-        if (game != null)
-        {
-            game.setHaveSave(true);
-            gameDAO.save(game);
-        }
-        else
-        {
-            System.out.println("Game not found:" + gameId);
-        }
+        return null;
     }
 
-    public String getSaveFileLink(RetroGame game)
+    protected String getBoxartRepoNam()
     {
-        if (game.isHaveSave())
-        {
-            final String REPO = context.memcardSavesOnlineDirectory();
-            String filepath = game.getSaveFileRelativeFilepath();
+        return PlaystationPlatform.PS2.boxartRepoName();
+    }
 
-            return REPO + filepath;
-        }
+    protected File getBoxartBaseFile(PlaystationGame game)
+    {
         return null;
     }
 }

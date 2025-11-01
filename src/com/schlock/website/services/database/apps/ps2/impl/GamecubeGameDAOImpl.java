@@ -40,11 +40,23 @@ public class GamecubeGameDAOImpl extends BaseDAOImpl<GamecubeGame> implements Ga
     public GamecubeGame getByGameName(String gameName)
     {
         String text = " select g " +
-                " from GamecubeGame g " +
-                " where g.gameName = :gameName ";
+                        " from GamecubeGame g " +
+                        " where g.gameName = :gameName ";
 
         Query query = session.createQuery(text);
         query.setParameter("gameName", gameName);
+
+        return (GamecubeGame) singleResult(query);
+    }
+
+    public GamecubeGame getBySerialNumber(String serialNumber)
+    {
+        String text = " select g " +
+                        " from GamecubeGame g " +
+                        " where g.serialNumber = :serialNumber ";
+
+        Query query = session.createQuery(text);
+        query.setParameter("serialNumber", serialNumber);
 
         return (GamecubeGame) singleResult(query);
     }

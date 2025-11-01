@@ -9,6 +9,7 @@ import com.schlock.website.services.database.apps.ps2.RetroGameDAO;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -38,7 +39,6 @@ public abstract class AbstractRetroConsoleServiceImpl<T extends RetroGame> imple
     protected abstract File getBoxartBaseFile(T game);
 
     protected abstract String getBoxartRepoNam();
-
 
     public void writeArtFilesToLocal()
     {
@@ -83,10 +83,74 @@ public abstract class AbstractRetroConsoleServiceImpl<T extends RetroGame> imple
         }
     }
 
+
+
+
     public void updateGameSaveFiles()
     {
-
+        updateCurrentGameSaves();
+        locateNewGameSaves();
     }
+
+    private void updateCurrentGameSaves()
+    {
+        for(RetroGame game : gameDAO.getAllWithSave())
+        {
+            String filepath = getSaveFileLocalPath(game);
+            File saveFolder = new File(filepath);
+
+            if (!saveFolder.exists())
+            {
+                game.setHaveSave(false);
+                gameDAO.save(game);
+            }
+        }
+    }
+
+    protected abstract List<String> getSaveFileLocalDirectories();
+
+    protected abstract boolean isValidGameFolder(String folderName);
+
+    protected abstract RetroGame getGameByFolderName(String folderName);
+
+    private void locateNewGameSaves()
+    {
+        List<String> directories = getSaveFileLocalDirectories();
+
+        FilenameFilter saveFolderFormat = new FilenameFilter()
+        {
+            public boolean accept(File dir, String name)
+            {
+                return isValidGameFolder(name);
+            }
+        };
+
+        for(String directory : directories)
+        {
+            File saveFolder = new File(directory);
+            for(File folder : saveFolder.listFiles(saveFolderFormat))
+            {
+                updateGameWithSaveFolder(folder);
+            }
+        }
+    }
+
+    private void updateGameWithSaveFolder(File saveFolder)
+    {
+        RetroGame game = getGameByFolderName(saveFolder.getName());
+
+        if (game != null)
+        {
+            game.setHaveSave(true);
+            gameDAO.save(game);
+        }
+        else
+        {
+            System.out.println("Game not found:" + saveFolder.getName());
+        }
+    }
+
+
 
     public String getSaveFileLink(RetroGame game)
     {
@@ -98,6 +162,14 @@ public abstract class AbstractRetroConsoleServiceImpl<T extends RetroGame> imple
             return REPO + filepath;
         }
         return null;
+    }
+
+    protected String getSaveFileLocalPath(RetroGame game)
+    {
+        final String LOCAL = context.memcardSavesLocalDirectory();
+        String filepath = game.getSaveFileRelativeFilepath();
+
+        return LOCAL + filepath;
     }
 
     private void downloadMissingBoxartImages(File boxartDataFile)
