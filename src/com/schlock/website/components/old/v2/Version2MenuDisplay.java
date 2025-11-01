@@ -17,13 +17,13 @@ public class Version2MenuDisplay extends AbstractOldLinks
 
     public String getImageLinkStar1()
     {
-        String link = context.webDomain() + "img/old/star1.gif";
+        String link = context.webDomain() + "assets/old/star1.gif";
         return link;
     }
 
     public String getImageLinkStar2()
     {
-        String link = context.webDomain() + "img/old/star2.gif";
+        String link = context.webDomain() + "assets/old/star2.gif";
         return link;
     }
 }

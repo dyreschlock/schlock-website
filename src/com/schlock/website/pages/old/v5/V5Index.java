@@ -128,7 +128,7 @@ public class V5Index extends AbstractVersion5Page
 
     private String layoutImageLink(int number)
     {
-        String link = "%simg/old/v5/%s_%s.jpg";
+        String link = "%sassets/old/v5/%s_%s.jpg";
 
         String domain = context.webDomain();
         String page = getClassPage();

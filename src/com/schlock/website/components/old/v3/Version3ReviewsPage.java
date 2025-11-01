@@ -38,13 +38,13 @@ public class Version3ReviewsPage extends AbstractOldPostDisplay
 
     public String getCircleImage1Link()
     {
-        String link = context.webDomain() + "img/old/circle1.gif";
+        String link = context.webDomain() + "assets/old/circle1.gif";
         return link;
     }
 
     public String getCircleImage2Link()
     {
-        String link = context.webDomain() + "img/old/circle2.gif";
+        String link = context.webDomain() + "assets/old/circle2.gif";
         return link;
     }
 }

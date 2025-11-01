@@ -152,7 +152,7 @@ public class V2Reviews extends AbstractVersion2Page
 
     public String getImageLinkStar1()
     {
-        String link = context.webDomain() + "img/old/star1.gif";
+        String link = context.webDomain() + "assets/old/star1.gif";
         return link;
     }
 }

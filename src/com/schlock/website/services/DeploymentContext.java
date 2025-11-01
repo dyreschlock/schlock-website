@@ -5,8 +5,8 @@ public interface DeploymentContext
     String IMAGE_DIR = "image/";
     String PHOTO_DIR = "photo/";
     String PHOTO_EX_DIR = "photo_ex/";
-    String COVER_DIR = "img/cover/";
-    String IMG_DIR = "img/";
+    String COVER_DIR = "assets/cover/";
+    String IMG_DIR = "assets/";
 
     String MISC_DIR = "misc/";
     String SPAMM_DIR = "spamm/";

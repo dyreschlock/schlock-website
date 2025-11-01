@@ -149,7 +149,7 @@ public class V4Index extends AbstractOldVersionPage
 
     public String getMainTopImage()
     {
-        String link = "%simg/old/v4/%s_1.jpg";
+        String link = "%sassets/old/v4/%s_1.jpg";
 
         String domain = context.webDomain();
         String page = getClassPage();
@@ -159,7 +159,7 @@ public class V4Index extends AbstractOldVersionPage
 
     public String getMainBottomImage()
     {
-        String link = "%simg/old/v4/%s_2.jpg";
+        String link = "%sassets/old/v4/%s_2.jpg";
 
         String domain = context.webDomain();
         String page = getClassPage();

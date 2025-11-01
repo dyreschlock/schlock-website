@@ -12,11 +12,11 @@ public class OldIndex extends AbstractVersion5Page
 
     public String getImageLinkWinter1()
     {
-        return context.webDomain() + "img/old/winter1.jpg";
+        return context.webDomain() + "assets/old/winter1.jpg";
     }
 
     public String getImageLinkWinter2()
     {
-        return context.webDomain() + "img/old/winter2.jpg";
+        return context.webDomain() + "assets/old/winter2.jpg";
     }
 }

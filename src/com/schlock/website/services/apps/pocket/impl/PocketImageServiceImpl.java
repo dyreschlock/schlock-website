@@ -27,7 +27,7 @@ public class PocketImageServiceImpl extends GameImageServiceImpl<PocketGame> imp
 
     protected String imageLink(PocketGame game)
     {
-        final String IMG_LINK = context.webDomain() + "img/pocket/%s/%s.bmp";
+        final String IMG_LINK = context.webDomain() + "assets/pocket/%s/%s.bmp";
 
         String platform = game.getPlatformName();
         String filehash = game.getFileHash();
@@ -38,7 +38,7 @@ public class PocketImageServiceImpl extends GameImageServiceImpl<PocketGame> imp
 
     protected String imageFilepath(PocketGame game)
     {
-        final String IMG_FILE_PATH = context.webOutputDirectory() + "/img/pocket/%s/%s.bmp";
+        final String IMG_FILE_PATH = context.webOutputDirectory() + "/assets/pocket/%s/%s.bmp";
 
         String imageFilepath = String.format(IMG_FILE_PATH, game.getPlatform(), game.getFileHash());
         return imageFilepath;

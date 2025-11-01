@@ -86,13 +86,13 @@ public class V1Index extends AbstractOldVersionPage
 
     public String getImageLinkPopular()
     {
-        String link = context.webDomain() + "img/old/popular.gif";
+        String link = context.webDomain() + "assets/old/popular.gif";
         return link;
     }
 
     public String getImageLinkComic()
     {
-        String link = context.webDomain() + "img/old/pic4.jpg";
+        String link = context.webDomain() + "assets/old/pic4.jpg";
         return link;
     }
 }

@@ -199,7 +199,7 @@ public class V3Index extends AbstractOldVersionPage
 
     private String getImageLink(String urlFormat)
     {
-        String link = "%simg/old/v3/%s";
+        String link = "%sassets/old/v3/%s";
         String domain = context.webDomain();
         String image = String.format(urlFormat, getClassPage());
 

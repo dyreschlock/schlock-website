@@ -7,7 +7,7 @@ public enum PlaystationPlatform
     DC("", "gdi", "Sega_-_Dreamcast"),
     GC("", "iso", "Nintendo_-_GameCube");
 
-    private final String IMAGE_LINK = "img/%s.png";
+    private final String IMAGE_LINK = "assets/%s.png";
 
     private final String folder;
     private final String filetype;
