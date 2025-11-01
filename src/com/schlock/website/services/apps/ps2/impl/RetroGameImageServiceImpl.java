@@ -24,7 +24,7 @@ public class RetroGameImageServiceImpl extends GameImageServiceImpl<RetroGame> i
 
     protected String imageLink(RetroGame game)
     {
-        final String IMG_LINK = context.webDomain() + "img/%s/%s";
+        final String IMG_LINK = context.webDomain() + "assets/%s/%s";
 
         String folder = game.getPlatform().gameImageFolder();
         String filename = game.getCoverImageFilename();
