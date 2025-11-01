@@ -40,7 +40,7 @@ public class PocketImageServiceImpl extends GameImageServiceImpl<PocketGame> imp
     {
         final String IMG_FILE_PATH = context.webOutputDirectory() + "/assets/pocket/%s/%s.bmp";
 
-        String imageFilepath = String.format(IMG_FILE_PATH, game.getPlatform(), game.getFileHash());
+        String imageFilepath = String.format(IMG_FILE_PATH, game.getPlatformName(), game.getFileHash());
         return imageFilepath;
     }
 }
