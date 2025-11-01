@@ -1,7 +1,11 @@
 package com.schlock.website.entities.apps.ps2;
 
+import com.schlock.website.entities.Icon;
+
 public class GamecubeGame extends RetroGame
 {
+    public static final String SAVE_FOLDER = "mcpgc/MemoryCards/";
+
     private String drive;
 
     private String gameName;
@@ -17,7 +21,13 @@ public class GamecubeGame extends RetroGame
 
     public String getSaveFileRelativeFilepath()
     {
-        return "";
+        String serial = getGameIdMemcardFormat(getSerialNumber());
+        return SAVE_FOLDER + serial;
+    }
+
+    public Icon getMemcardIcon()
+    {
+        return Icon.GC_MEM;
     }
 
     public String getDrive()
@@ -79,5 +89,10 @@ public class GamecubeGame extends RetroGame
         game.setPlatform(PlaystationPlatform.GC);
 
         return game;
+    }
+
+    private static String getGameIdMemcardFormat(String gameId)
+    {
+        return gameId + "00";
     }
 }

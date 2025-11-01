@@ -1,5 +1,6 @@
 package com.schlock.website.entities.apps.ps2;
 
+import com.schlock.website.entities.Icon;
 import com.schlock.website.entities.Persisted;
 
 import java.text.SimpleDateFormat;
@@ -50,6 +51,10 @@ public class RetroGame extends Persisted
         return "";
     }
 
+    public Icon getMemcardIcon()
+    {
+        return null;
+    }
 
     public String getTitle()
     {

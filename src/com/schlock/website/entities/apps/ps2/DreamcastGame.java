@@ -1,5 +1,7 @@
 package com.schlock.website.entities.apps.ps2;
 
+import com.schlock.website.entities.Icon;
+
 public class DreamcastGame extends RetroGame
 {
     private String sdcardSlot;
@@ -17,6 +19,11 @@ public class DreamcastGame extends RetroGame
     public String getSaveFileRelativeFilepath()
     {
         return "";
+    }
+
+    public Icon getMemcardIcon()
+    {
+        return Icon.DC_MEM;
     }
 
     public String getSdcardSlot()

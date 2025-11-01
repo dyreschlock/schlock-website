@@ -1,13 +1,12 @@
 package com.schlock.website.components.apps.ps2;
 
 import com.schlock.website.components.apps.games.DataPanel;
-import com.schlock.website.entities.Icon;
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
 import com.schlock.website.entities.apps.ps2.RetroGame;
 import com.schlock.website.entities.blog.AbstractPost;
 import com.schlock.website.pages.apps.ps2.Index;
-import com.schlock.website.services.apps.ps2.RetroGameImageService;
 import com.schlock.website.services.apps.ps2.PlaystationService;
+import com.schlock.website.services.apps.ps2.RetroGameImageService;
 import com.schlock.website.services.blog.IconManagement;
 import com.schlock.website.services.database.apps.ps2.RetroGameDAO;
 import com.schlock.website.services.database.blog.PostDAO;
@@ -119,7 +118,7 @@ public class GamesPanel
 
     public String getSaveIconSrc()
     {
-        return iconManagement.getIconLink(Icon.PS_MEM);
+        return iconManagement.getIconLink(currentGame.getMemcardIcon());
     }
 
     public String getCurrentGameGenre()

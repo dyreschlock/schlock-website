@@ -1,5 +1,7 @@
 package com.schlock.website.entities.apps.ps2;
 
+import com.schlock.website.entities.Icon;
+
 import java.io.File;
 
 public class PlaystationGame extends RetroGame
@@ -47,6 +49,11 @@ public class PlaystationGame extends RetroGame
         return SAVE_FOLDER + "/" + platFolder + "/" + saveFolder;
     }
 
+    public Icon getMemcardIcon()
+    {
+        return Icon.PS_MEM;
+    }
+
     public String getCoverImageFilename()
     {
         return gameId + ART_FILETYPE;
@@ -66,7 +73,6 @@ public class PlaystationGame extends RetroGame
     {
         this.gameName = currentFilename.substring(12, currentFilename.length() - 4);
     }
-
 
     public String getGameId()
     {

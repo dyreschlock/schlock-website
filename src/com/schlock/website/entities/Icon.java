@@ -4,6 +4,8 @@ public enum Icon
 {
     SEED,
     PS_MEM,
+    GC_MEM,
+    DC_MEM,
     RSS,
     TWITTER,
     YOUTUBE,
