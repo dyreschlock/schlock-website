@@ -25,7 +25,7 @@ public abstract class AbstractRetroConsoleServiceImpl<T extends RetroGame> imple
 
     public AbstractRetroConsoleServiceImpl(RetroGameDAO gameDAO,
                                             ImageManagement imageManagement,
-                                           DeploymentContext context)
+                                            DeploymentContext context)
     {
         this.gameDAO = gameDAO;
 
@@ -81,6 +81,23 @@ public abstract class AbstractRetroConsoleServiceImpl<T extends RetroGame> imple
                 }
             }
         }
+    }
+
+    public void updateGameSaveFiles()
+    {
+
+    }
+
+    public String getSaveFileLink(RetroGame game)
+    {
+        if (game.isHaveSave())
+        {
+            final String REPO = context.memcardSavesOnlineDirectory();
+            String filepath = game.getSaveFileRelativeFilepath();
+
+            return REPO + filepath;
+        }
+        return null;
     }
 
     private void downloadMissingBoxartImages(File boxartDataFile)

@@ -2,6 +2,7 @@ package com.schlock.website.services.apps.ps2.impl;
 
 import com.schlock.website.entities.apps.ps2.PlaystationGame;
 import com.schlock.website.entities.apps.ps2.PlaystationPlatform;
+import com.schlock.website.entities.apps.ps2.RetroGame;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.ps2.PlaystationPropertyService;
 import com.schlock.website.services.apps.ps2.PlaystationService;
@@ -284,5 +285,17 @@ public class PlaystationServiceImpl implements PlaystationService
         {
             System.out.println("Game not found:" + gameId);
         }
+    }
+
+    public String getSaveFileLink(RetroGame game)
+    {
+        if (game.isHaveSave())
+        {
+            final String REPO = context.memcardSavesOnlineDirectory();
+            String filepath = game.getSaveFileRelativeFilepath();
+
+            return REPO + filepath;
+        }
+        return null;
     }
 }

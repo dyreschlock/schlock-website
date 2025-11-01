@@ -1,5 +1,7 @@
 package com.schlock.website.services.apps.ps2;
 
+import com.schlock.website.entities.apps.ps2.RetroGame;
+
 public interface PlaystationService
 {
     void updateGameInventory();
@@ -13,4 +15,6 @@ public interface PlaystationService
     void copyLocalFilesToDrive() throws Exception;
 
     void updateGameSaveFiles();
+
+    String getSaveFileLink(RetroGame game);
 }

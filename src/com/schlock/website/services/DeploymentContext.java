@@ -41,6 +41,9 @@ public interface DeploymentContext
 
     String pokemonLocalDirectory();
 
+    String memcardSavesOnlineDirectory();
+    String memcardSavesLocalDirectory();
+
     String playstationDriveDirectory();
     String playstationDataDirectory();
     String playstationLocalDirectory();

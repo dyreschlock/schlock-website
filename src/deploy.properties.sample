@@ -17,6 +17,7 @@ hibernate.connection.password.hosted=
 webdirectory.location.hosted=
 datadirectory.location.hosted=
 githubdirectory.location.hosted=
+github.location.online=
 
 new.connection.username.hosted=
 new.connection.password.hosted=
@@ -39,6 +40,7 @@ github.html.repo=
 github.content.repo=
 github.photos.repo=
 github.ps2.repo=
+github.memcard-repo=
 github.pokemon.repo=
 
 discord.webhook=

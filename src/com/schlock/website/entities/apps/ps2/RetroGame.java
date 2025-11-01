@@ -50,18 +50,6 @@ public class RetroGame extends Persisted
         return "";
     }
 
-    public String getSaveFileLink()
-    {
-        if (isHaveSave())
-        {
-            final String LINK = "https://github.com/dyreschlock/ps2-opl-loadout/tree/master/";
-            String filepath = getSaveFileRelativeFilepath();
-
-            return LINK + filepath;
-        }
-        return null;
-    }
-
 
     public String getTitle()
     {

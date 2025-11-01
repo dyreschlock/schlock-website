@@ -23,6 +23,8 @@ public class DeploymentContextImpl implements DeploymentContext
     private static final String DATADIR_PARAM = "datadirectory.location";
     private static final String GITHUBDIR_PARAM = "githubdirectory.location";
 
+    private static final String GITHUB_ONLINE_PARAM = "github.location.online";
+
     private static final String PS_DRIVE_PARAM = "playstation.directory.drive";
     private static final String PS_DATA_PARAM = "playstation.directory.data";
 
@@ -38,6 +40,7 @@ public class DeploymentContextImpl implements DeploymentContext
     private static final String GITHUB_CONTENT_PARAM = "github.content.repo";
     private static final String GITHUB_PHOTOS_PARAM = "github.photos.repo";
     private static final String GITHUB_PS2_PARAM = "github.ps2.repo";
+    private static final String GITHUB_MEMCARD_PARAM = "github.memcard.repo";
     private static final String GITHUB_POKEMON_PARAM = "github.pokemon.repo";
 
     private static final String DISCORD_WEBHOOK_PARAM = "discord.webhook";
@@ -186,6 +189,11 @@ public class DeploymentContextImpl implements DeploymentContext
         return getDeployProperties().getProperty(GITHUBDIR_PARAM + "." + context);
     }
 
+    private String githubOnlineDirectory()
+    {
+        return getDeployProperties().getProperty(GITHUB_ONLINE_PARAM);
+    }
+
     public String blogContentInputDirectory()
     {
         String contentRepo = getDeployProperties().getProperty(GITHUB_CONTENT_PARAM);
@@ -208,6 +216,18 @@ public class DeploymentContextImpl implements DeploymentContext
     {
         String pokemonRepo = getDeployProperties().getProperty(GITHUB_POKEMON_PARAM);
         return githubDirectory() + pokemonRepo;
+    }
+
+    public String memcardSavesOnlineDirectory()
+    {
+        String memcardRepo = getDeployProperties().getProperty(GITHUB_MEMCARD_PARAM);
+        return githubOnlineDirectory() + memcardRepo + "/tree/master/";
+    }
+
+    public String memcardSavesLocalDirectory()
+    {
+        String memcardRepo = getDeployProperties().getProperty(GITHUB_MEMCARD_PARAM);
+        return githubDirectory() + memcardRepo;
     }
 
     public String playstationDriveDirectory()

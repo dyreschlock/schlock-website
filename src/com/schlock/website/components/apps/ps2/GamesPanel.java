@@ -114,7 +114,7 @@ public class GamesPanel
 
     public String getCurrentGameSaveFileLink()
     {
-        return currentGame.getSaveFileLink();
+        return playstationService.getSaveFileLink(currentGame);
     }
 
     public String getSaveIconSrc()
