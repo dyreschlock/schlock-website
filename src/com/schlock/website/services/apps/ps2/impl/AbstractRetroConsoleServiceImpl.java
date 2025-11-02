@@ -4,7 +4,7 @@ import com.schlock.website.entities.apps.ps2.RetroGame;
 import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.ps2.RetroConsoleService;
 import com.schlock.website.services.blog.ImageManagement;
-import com.schlock.website.services.database.apps.ps2.RetroGameDAO;
+import com.schlock.website.services.database.BaseDAO;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -19,16 +19,16 @@ public abstract class AbstractRetroConsoleServiceImpl<T extends RetroGame> imple
 {
     private static final int CONVERTED_IMAGE_WIDTH = 160;
 
-    private final RetroGameDAO gameDAO;
+    private final BaseDAO baseDAO;
 
     private final ImageManagement imageManagement;
     protected final DeploymentContext context;
 
-    public AbstractRetroConsoleServiceImpl(RetroGameDAO gameDAO,
-                                            ImageManagement imageManagement,
-                                            DeploymentContext context)
+    public AbstractRetroConsoleServiceImpl(BaseDAO baseDAO,
+                                           ImageManagement imageManagement,
+                                           DeploymentContext context)
     {
-        this.gameDAO = gameDAO;
+        this.baseDAO = baseDAO;
 
         this.imageManagement = imageManagement;
         this.context = context;
@@ -71,13 +71,13 @@ public abstract class AbstractRetroConsoleServiceImpl<T extends RetroGame> imple
                     if (boxartImageFile.exists())
                     {
                         game.setHaveArt(true);
-                        gameDAO.save(game);
+                        baseDAO.save(game);
                     }
                 }
                 else
                 {
                     game.setHaveArt(true);
-                    gameDAO.save(game);
+                    baseDAO.save(game);
                 }
             }
         }
@@ -94,7 +94,7 @@ public abstract class AbstractRetroConsoleServiceImpl<T extends RetroGame> imple
 
     private void updateCurrentGameSaves()
     {
-        for(RetroGame game : gameDAO.getAllWithSave())
+        for(RetroGame game : getAllGamesWithSaves())
         {
             String filepath = getSaveFileLocalPath(game);
             File saveFolder = new File(filepath);
@@ -102,10 +102,12 @@ public abstract class AbstractRetroConsoleServiceImpl<T extends RetroGame> imple
             if (!saveFolder.exists())
             {
                 game.setHaveSave(false);
-                gameDAO.save(game);
+                baseDAO.save(game);
             }
         }
     }
+
+    protected abstract List<T> getAllGamesWithSaves();
 
     protected abstract List<String> getSaveFileLocalDirectories();
 
@@ -142,7 +144,7 @@ public abstract class AbstractRetroConsoleServiceImpl<T extends RetroGame> imple
         if (game != null)
         {
             game.setHaveSave(true);
-            gameDAO.save(game);
+            baseDAO.save(game);
         }
         else
         {

@@ -7,7 +7,6 @@ import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.ps2.DreamcastService;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.database.apps.ps2.DreamcastGameDAO;
-import com.schlock.website.services.database.apps.ps2.RetroGameDAO;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -23,11 +22,10 @@ public class DreamcastServiceImpl extends AbstractRetroConsoleServiceImpl<Dreamc
     private final DreamcastGameDAO gameDAO;
 
     public DreamcastServiceImpl(DreamcastGameDAO gameDAO,
-                                RetroGameDAO retroGameDAO,
                                 ImageManagement imageManagement,
                                 DeploymentContext context)
     {
-        super(retroGameDAO, imageManagement, context);
+        super(gameDAO, imageManagement, context);
 
         this.gameDAO = gameDAO;
     }
@@ -128,6 +126,11 @@ public class DreamcastServiceImpl extends AbstractRetroConsoleServiceImpl<Dreamc
         gameDAO.save(game);
     }
 
+
+    protected List<DreamcastGame> getAllGamesWithSaves()
+    {
+        return gameDAO.getAllWithSave();
+    }
 
     protected List<String> getSaveFileLocalDirectories()
     {

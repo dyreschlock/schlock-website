@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface RetroGameDAO extends BaseDAO<RetroGame>
 {
-    List<RetroGame> getAllWithSave();
-
     List<RetroGame> getCombinedAvailableGames();
 
     List<RetroGame> getCombinedAvailableGamesWithSaves(PlaystationPlatform platform);

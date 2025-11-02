@@ -48,7 +48,6 @@ public class PlaystationGameDAOImpl extends BaseDAOImpl<PlaystationGame> impleme
                         " where g.haveSave is true ";
 
         Query query = session.createQuery(text);
-
         return query.list();
     }
 }

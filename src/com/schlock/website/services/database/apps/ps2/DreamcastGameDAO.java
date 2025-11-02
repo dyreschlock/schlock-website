@@ -9,6 +9,8 @@ public interface DreamcastGameDAO extends BaseDAO<DreamcastGame>
 {
     List<DreamcastGame> getAllAvailable();
 
+    List<DreamcastGame> getAllWithSave();
+
     List<DreamcastGame> getAllWithNoArt();
 
     DreamcastGame getBySerialNumber(String serial);

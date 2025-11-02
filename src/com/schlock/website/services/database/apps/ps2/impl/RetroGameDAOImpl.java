@@ -17,17 +17,6 @@ public class RetroGameDAOImpl extends BaseDAOImpl<RetroGame> implements RetroGam
     }
 
 
-    public List<RetroGame> getAllWithSave()
-    {
-        String text = "select g " +
-                        " from RetroGame g " +
-                        " where g.haveSave is true ";
-
-        Query query = session.createQuery(text);
-
-        return query.list();
-    }
-
     public List<RetroGame> getCombinedAvailableGames()
     {
         return getCombinedAvailableGamesByPlatformGenre(null, null);

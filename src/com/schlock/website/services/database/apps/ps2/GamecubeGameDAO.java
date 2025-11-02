@@ -9,6 +9,8 @@ public interface GamecubeGameDAO extends BaseDAO<GamecubeGame>
 {
     List<GamecubeGame> getAllAvailable();
 
+    List<GamecubeGame> getAllWithSave();
+
     List<GamecubeGame> getAllWithNoArt();
 
     GamecubeGame getByGameName(String title);

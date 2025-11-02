@@ -313,6 +313,12 @@ public class RegenerationIndex
     }
 
     @CommitAfter
+    void onUpdateDreamcastSaveFiles()
+    {
+        dreamcastService.updateGameSaveFiles();
+    }
+
+    @CommitAfter
     void onConvertDreamcastArtImages()
     {
         dreamcastService.writeArtFilesToLocal();

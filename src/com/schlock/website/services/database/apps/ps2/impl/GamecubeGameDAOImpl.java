@@ -18,13 +18,22 @@ public class GamecubeGameDAOImpl extends BaseDAOImpl<GamecubeGame> implements Ga
     public List<GamecubeGame> getAllAvailable()
     {
         String text = " select g " +
-                " from GamecubeGame g " +
-                " where g.available is true ";
+                        " from GamecubeGame g " +
+                        " where g.available is true ";
 
         Query query = session.createQuery(text);
         return query.list();
     }
 
+    public List<GamecubeGame> getAllWithSave()
+    {
+        String text = "select g " +
+                        " from GamecubeGame g " +
+                        " where g.haveSave is true ";
+
+        Query query = session.createQuery(text);
+        return query.list();
+    }
     public List<GamecubeGame> getAllWithNoArt()
     {
         String text = " select g " +

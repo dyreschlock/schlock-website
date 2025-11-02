@@ -7,7 +7,6 @@ import com.schlock.website.services.DeploymentContext;
 import com.schlock.website.services.apps.ps2.GamecubeService;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.database.apps.ps2.GamecubeGameDAO;
-import com.schlock.website.services.database.apps.ps2.RetroGameDAO;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -21,11 +20,10 @@ public class GamecubeServiceImpl extends AbstractRetroConsoleServiceImpl<Gamecub
     private final GamecubeGameDAO gameDAO;
 
     public GamecubeServiceImpl(GamecubeGameDAO gameDAO,
-                                RetroGameDAO retroGameDAO,
                                 ImageManagement imageManagement,
                                 DeploymentContext context)
     {
-        super(retroGameDAO, imageManagement, context);
+        super(gameDAO, imageManagement, context);
 
         this.gameDAO = gameDAO;
     }
@@ -102,6 +100,11 @@ public class GamecubeServiceImpl extends AbstractRetroConsoleServiceImpl<Gamecub
     }
 
 
+    protected List<GamecubeGame> getAllGamesWithSaves()
+    {
+        return gameDAO.getAllWithSave();
+    }
+
     protected List<String> getSaveFileLocalDirectories()
     {
         final String LOCAL_PATH = context.memcardSavesLocalDirectory();
@@ -115,8 +118,7 @@ public class GamecubeServiceImpl extends AbstractRetroConsoleServiceImpl<Gamecub
 
     protected RetroGame getGameByFolderName(String folderName)
     {
-        String gameId = GamecubeGame.getSerialNumberStandardFormat(folderName);
-        return gameDAO.getBySerialNumber(gameId);
+        return gameDAO.getBySerialNumber(folderName);
     }
 
     protected List<GamecubeGame> getAllGamesWithNoArt()

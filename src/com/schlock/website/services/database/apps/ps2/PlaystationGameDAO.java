@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface PlaystationGameDAO extends BaseDAO<PlaystationGame>
 {
+    List<PlaystationGame> getAllWithSave();
+
     PlaystationGame getByGameId(String gameId);
 
     PlaystationGame getByGameIdAndFilename(String gameId, String gameName);
-
-    List<PlaystationGame> getAllWithSave();
 }

@@ -19,8 +19,18 @@ public class DreamcastGameDAOImpl extends BaseDAOImpl<DreamcastGame> implements 
     public List<DreamcastGame> getAllAvailable()
     {
         String text = " select g " +
-                " from DreamcastGame g " +
-                " where g.available is true ";
+                        " from DreamcastGame g " +
+                        " where g.available is true ";
+
+        Query query = session.createQuery(text);
+        return query.list();
+    }
+
+    public List<DreamcastGame> getAllWithSave()
+    {
+        String text = "select g " +
+                        " from DreamcastGame g " +
+                        " where g.haveSave is true ";
 
         Query query = session.createQuery(text);
         return query.list();

@@ -8,7 +8,6 @@ import com.schlock.website.services.apps.ps2.PlaystationPropertyService;
 import com.schlock.website.services.apps.ps2.PlaystationService;
 import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.database.apps.ps2.PlaystationGameDAO;
-import com.schlock.website.services.database.apps.ps2.RetroGameDAO;
 
 import java.io.*;
 import java.util.*;
@@ -22,11 +21,10 @@ public class PlaystationServiceImpl extends AbstractRetroConsoleServiceImpl<Play
 
     public PlaystationServiceImpl(PlaystationPropertyService propService,
                                     PlaystationGameDAO gameDAO,
-                                    RetroGameDAO retroGameDAO,
                                     ImageManagement imageManagement,
                                     DeploymentContext context)
     {
-        super(retroGameDAO, imageManagement, context);
+        super(gameDAO, imageManagement, context);
 
         this.propService = propService;
         this.gameDAO = gameDAO;
@@ -234,10 +232,15 @@ public class PlaystationServiceImpl extends AbstractRetroConsoleServiceImpl<Play
     }
 
 
+    protected List<PlaystationGame> getAllGamesWithSaves()
+    {
+        return gameDAO.getAllWithSave();
+    }
+
     protected List<String> getSaveFileLocalDirectories()
     {
         final String LOCAL_PATH = context.memcardSavesLocalDirectory();
-        String folder = LOCAL_PATH + PlaystationGame.SAVE_FOLDER + "/";
+        String folder = LOCAL_PATH + "/" + PlaystationGame.SAVE_FOLDER + "/";
 
         return Arrays.asList(folder + PlaystationPlatform.PS2.name(),
                                 folder + PlaystationPlatform.PS1.name());
