@@ -72,7 +72,7 @@ public class PokemonData extends Persisted
         this.number = number;
     }
 
-    private static final String IMAGE_LINK = "img/pokemon/%s.png";
+    private static final String IMAGE_LINK = "assets/pokemon/%s.png";
 
     public String getImageLinkPath()
     {
