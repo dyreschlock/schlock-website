@@ -719,6 +719,43 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
     }
 
 
+    public List<Post> getMostRecentPostsThrough2009WithGallery(boolean withUnpublished, String keywordName)
+    {
+        Set<String> keywordNames = new HashSet<>();
+        if (keywordName != null)
+        {
+            keywordNames.add(keywordName);
+        }
+
+        return getMostRecentPostsThrough2009WithGallery(withUnpublished, keywordNames);
+    }
+
+    public List<Post> getMostRecentPostsThrough2009WithGallery(boolean withUnpublished, Set<String> keywords)
+    {
+        int year = 2009;
+
+        int publishLevel = POST_PUBLISHED;
+        if (withUnpublished)
+        {
+            publishLevel = POST_UNPUBLISHED;
+        }
+
+        String text = "select distinct p from Post p" +
+                        " join p.keywords k " +
+                        " where k.name in (:keywordNames) " +
+                        " and p.publishedLevel >= " + publishLevel + " " +
+                        " and year(p.created) <= :year " +
+                        " and p.galleryName is not null " +
+                        " order by p.created desc";
+
+        Query query = session.createQuery(text);
+
+        query.setParameter("year", year);
+        query.setParameterList("keywordNames", keywords);
+
+        return query.list();
+    }
+
     public List<LessonPost> getByYearGradeLessonKeyword(String year, String grade, String lesson)
     {
         List<String> grades = Arrays.asList(grade);

@@ -36,7 +36,7 @@ public class Version5PhotoPanel extends AbstractOldPostListingDisplay
     {
         Set<String> names = new HashSet<>(getKeywordNames());
 
-        List<Post> posts = postDAO.getMostRecentPosts(null, false, null, null, names);
+        List<Post> posts = postDAO.getMostRecentPostsThrough2009WithGallery(false, names);
         return posts;
     }
 
