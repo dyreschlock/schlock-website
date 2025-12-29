@@ -154,16 +154,16 @@ public abstract class AbstractOldVersionPage extends AbstractOldLinks
         List<Post> results = new ArrayList<>();
         if (!getKeywordNames().isEmpty())
         {
-            results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber, new HashSet<>(getKeywordNames()));
+            results = archiveManagement.getPagedPosts(getVersion(), getDefaultPostsPerPage(), pageNumber, new HashSet<>(getKeywordNames()));
         }
         else if (isPagedPage(getPage()))
         {
-            results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber);
+            results = archiveManagement.getPagedPosts(getVersion(), getDefaultPostsPerPage(), pageNumber);
         }
         else if (isMonthlyArchivePage(getPage()))
         {
             String archiveIteration = getPage();
-            results = archiveManagement.getPagedPosts(getDefaultPostsPerPage(), pageNumber, archiveIteration);
+            results = archiveManagement.getPagedPosts(getVersion(), getDefaultPostsPerPage(), pageNumber, archiveIteration);
         }
 
         List<AbstractPost> posts = new ArrayList<>();

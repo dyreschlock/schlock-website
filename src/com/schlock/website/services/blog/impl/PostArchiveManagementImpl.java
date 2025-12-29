@@ -3,6 +3,7 @@ package com.schlock.website.services.blog.impl;
 import com.schlock.website.entities.blog.ClubPost;
 import com.schlock.website.entities.blog.Post;
 import com.schlock.website.entities.blog.ViewState;
+import com.schlock.website.entities.old.SiteVersion;
 import com.schlock.website.services.SiteGenerationCache;
 import com.schlock.website.services.blog.PostArchiveManagement;
 import com.schlock.website.services.blog.PostManagement;
@@ -184,7 +185,7 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
     }
 
 
-    public List<Post> getPagedPosts(Integer postCount, Integer pageNumber)
+    public List<Post> getPagedPosts(SiteVersion version, Integer postCount, Integer pageNumber)
     {
         List<Post> results = siteCache.getCachedPosts(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber);
         if (results == null)
@@ -200,7 +201,7 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         return results;
     }
 
-    public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, String iteration)
+    public List<Post> getPagedPosts(SiteVersion version, Integer postCount, Integer pageNumber, String iteration)
     {
         List<Post> results = siteCache.getCachedPosts(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, iteration);
         if (results == null)
@@ -221,18 +222,26 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
         return results;
     }
 
-    public List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Set<String> keywordNames)
+    public List<Post> getPagedPosts(SiteVersion version, Integer postCount, Integer pageNumber, Set<String> keywordNames)
     {
-        List<Post> results = siteCache.getCachedPosts(SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, keywordNames);
+        List<Post> results = siteCache.getCachedPosts(SiteGenerationCache.PAGED_CACHED, version.isAllPosts(), postCount, pageNumber, keywordNames);
         if (results == null)
         {
             ViewState viewState = asoManager.get(ViewState.class);
             boolean unpublished = viewState.isShowUnpublished();
 
-            results = postDAO.getMostRecentPosts(null, unpublished, null, null, keywordNames);
+            if (version.isAllPosts())
+            {
+                results = postDAO.getMostRecentPosts(null, unpublished, null, null, keywordNames);
+            }
+            else
+            {
+                results = postDAO.getMostRecentPostsThrough2009WithGallery(unpublished, keywordNames);
+            }
+
             results = pagedPosts(results, postCount, pageNumber);
 
-            siteCache.addToPostCache(results, SiteGenerationCache.PAGED_CACHED, postCount, pageNumber, keywordNames);
+            siteCache.addToPostCache(results, SiteGenerationCache.PAGED_CACHED, version.isAllPosts(), postCount, pageNumber, keywordNames);
         }
         return results;
     }

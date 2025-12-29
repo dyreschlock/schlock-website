@@ -130,17 +130,17 @@ public abstract class AbstractOldPagedPreviousNext
         List<Post> results;
         if (!getKeywordNames().isEmpty())
         {
-            results = archiveManagement.getPagedPosts(postCount, pageNumber, new HashSet(getKeywordNames()));
+            results = archiveManagement.getPagedPosts(getVersion(), postCount, pageNumber, new HashSet(getKeywordNames()));
         }
         else if (AbstractOldVersionPage.BLOG_PAGE.equals(getPage()) ||
                    AbstractOldVersionPage.ARCHIVE_PAGE.equals(getPage()))
         {
-            results = archiveManagement.getPagedPosts(postCount, pageNumber);
+            results = archiveManagement.getPagedPosts(getVersion(), postCount, pageNumber);
         }
         else
         {
             String archiveIteration = getPage();
-            results = archiveManagement.getPagedPosts(postCount, pageNumber, archiveIteration);
+            results = archiveManagement.getPagedPosts(getVersion(), postCount, pageNumber, archiveIteration);
         }
         return results.size();
     }

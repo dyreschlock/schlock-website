@@ -1,6 +1,7 @@
 package com.schlock.website.services.blog;
 
 import com.schlock.website.entities.blog.Post;
+import com.schlock.website.entities.old.SiteVersion;
 
 import java.util.List;
 import java.util.Set;
@@ -25,11 +26,11 @@ public interface PostArchiveManagement
     List<Post> getPreviewPosts(String iteration, String keywordName, Set<Long> excludeIds);
 
 
-    List<Post> getPagedPosts(Integer postCount, Integer pageNumber);
+    List<Post> getPagedPosts(SiteVersion version, Integer postCount, Integer pageNumber);
 
-    List<Post> getPagedPosts(Integer postCount, Integer pageNumber, String iteration);
+    List<Post> getPagedPosts(SiteVersion version, Integer postCount, Integer pageNumber, String iteration);
 
-    List<Post> getPagedPosts(Integer postCount, Integer pageNumber, Set<String> keywordNames);
+    List<Post> getPagedPosts(SiteVersion version, Integer postCount, Integer pageNumber, Set<String> keywordNames);
 
     List<Post> getPagedClubPosts(Integer postCount, Integer pageNumber);
 

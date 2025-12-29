@@ -10,19 +10,22 @@ import com.schlock.website.pages.old.v7.V7Index;
 
 public enum SiteVersion
 {
-    V1(V1Index.class),
-    V2(V2Index.class),
-    V3(V3Index.class),
-    V4(V4Index.class),
-    V5(V5Index.class),
-    V6(V6Index.class),
-    V7(V7Index.class);
+    V1(V1Index.class, false),
+    V2(V2Index.class, false),
+    V3(V3Index.class, false),
+    V4(V4Index.class, false),
+    V5(V5Index.class, false),
+    V6(V6Index.class, true),
+    V7(V7Index.class, true);
 
     private final Class indexClass;
 
-    SiteVersion(Class indexClass)
+    private final boolean allPosts;
+
+    SiteVersion(Class indexClass, boolean allPosts)
     {
         this.indexClass = indexClass;
+        this.allPosts = allPosts;
     }
 
 
@@ -34,5 +37,10 @@ public enum SiteVersion
     public Class indexClass()
     {
         return indexClass;
+    }
+
+    public boolean isAllPosts()
+    {
+        return allPosts;
     }
 }
