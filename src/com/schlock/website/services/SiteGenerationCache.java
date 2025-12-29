@@ -26,6 +26,7 @@ public interface SiteGenerationCache
     String TOP_POSTS = "topPosts";
     String PAGED_CACHED = "pagedCache";
     String ARCHIVED_POSTS = "archivedPosts";
+    String OLD_VERSION_PROJECT_POSTS = "oldVersionProjectPosts";
 
     String NEXT_POSTS = "nextPosts";
     String PREVIOUS_POSTS = "previousPosts";

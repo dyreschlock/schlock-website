@@ -51,17 +51,20 @@
 
                     <t:loop source="photoCategories" value="currentKeyword">
 
-                        <p><font size="2">${currentKeyword.title}<br/>
-                            <font size="1">${categoryEarlyDate} - Present</font></font></p>
+                        <t:if test="hasPosts">
 
-                        <div class="projects"><div class="wrap"><div class="content">
-                            <t:loop source="categoryPosts" value="currentPost">
-                                <div class="projectImage" style="background-image: url(${currentPostImage})">
-                                    <a href="${currentPostLink}"></a>
-                                </div>
-                            </t:loop>
-                        </div></div></div>
-                        <br class="clr"/>
+                            <p><font size="2">${currentKeyword.title}<br/>
+                                <font size="1">${categoryEarlyDate} - Present</font></font></p>
+
+                            <div class="projects"><div class="wrap"><div class="content">
+                                <t:loop source="categoryPosts" value="currentPost">
+                                    <div class="projectImage" style="background-image: url(${currentPostImage})">
+                                        <a href="${currentPostLink}"></a>
+                                    </div>
+                                </t:loop>
+                            </div></div></div>
+                            <br class="clr"/>
+                        </t:if>
                     </t:loop>
                     <p>&nbsp;</p>
                 </td>
