@@ -55,6 +55,7 @@ public class CssCacheImpl implements CssCache
 
     //fonts
     private final static String EB_GARAMOND_FONT = "layout/font/EBGaramond.css";
+    private final static String GILL_SANS_FONT = "layout/font/GillSans.css";
     private final static String NOTO_SANS_FONT = "layout/font/NotoSansJP.css";
     private final static String PERFECT_DOS_VGA_FONT = "layout/font/PerfectDOS-VGA-437.css";
 
@@ -340,6 +341,9 @@ public class CssCacheImpl implements CssCache
         {
             String garamond = getFileAsString(EB_GARAMOND_FONT);
             css = garamond + css;
+
+            String gillsans = getFileAsString(GILL_SANS_FONT);
+            css = gillsans + css;
         }
 
         return css;
