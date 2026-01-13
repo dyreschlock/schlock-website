@@ -379,6 +379,10 @@ public class PostManagementImpl implements PostManagement
         html = changeLineBreaksToHtmlTags(html);
         html = changePostTitlesForCss(html);
         html = changeImagesAndLinksToLocal(html);
+
+        boolean useGalleryLink = !rssFeed && oldVersion == null;
+        html = imageManagement.updateImagesInHTML(post, html, useGalleryLink);
+
         if(rssFeed)
         {
             html = changeLinksToAbsolute(html);
@@ -387,9 +391,6 @@ public class PostManagementImpl implements PostManagement
         html = removeBreaksFromBetweenHtmlCode(html);
 
         html = wrapJapaneseTextInTags(html);
-
-        boolean useGalleryLink = !rssFeed && oldVersion == null;
-        html = imageManagement.updateImagesInHTML(post, html, useGalleryLink);
 
         if (changeLinks)
         {
