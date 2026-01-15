@@ -9,7 +9,6 @@ import com.schlock.website.services.blog.ImageManagement;
 import com.schlock.website.services.blog.PostContentsManagement;
 import com.schlock.website.services.blog.PostManagement;
 import com.schlock.website.services.blog.SitemapManagement;
-import com.schlock.website.services.database.blog.PostDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
@@ -63,11 +62,8 @@ public class RegenerationIndex
     /*
      * No slash at the beginning. Slash at the end.
      */
-    private static final String LOCATION = "photo/250915_tsukechi/";
+    private static final String LOCATION = "photo/250723_selling/";
 
-
-    @Inject
-    private PostDAO postDAO;
 
     @CommitAfter
     void onProcessImageDirectory()

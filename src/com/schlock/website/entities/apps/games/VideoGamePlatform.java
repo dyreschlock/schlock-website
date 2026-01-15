@@ -41,10 +41,16 @@ public class VideoGamePlatform extends Persisted
         return count;
     }
 
-    public List<VideoGameHardware> getSortedHardware()
+    public List<VideoGameHardware> getSortedAvailableHardware()
     {
         List<VideoGameHardware> output = new ArrayList<VideoGameHardware>();
-        output.addAll(hardware);
+        for(VideoGameHardware hard : getHardware())
+        {
+            if (!hard.isSold())
+            {
+                output.add(hard);
+            }
+        }
 
         Collections.sort(output, new Comparator<VideoGameHardware>()
         {

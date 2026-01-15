@@ -247,7 +247,7 @@ public class    Index
 
         for(VideoGamePlatform platform : platformDAO.getAll())
         {
-            if (platform.getHardware().size() > 0)
+            if (platform.getSortedAvailableHardware().size() > 0)
             {
                 platforms.add(platform);
             }

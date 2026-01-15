@@ -28,6 +28,8 @@
             </type>
         </property>
 
+        <property name="sold" />
+
         <property name="postUUID" />
 
     </class>

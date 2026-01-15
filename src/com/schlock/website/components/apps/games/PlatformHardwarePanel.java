@@ -46,14 +46,14 @@ public class PlatformHardwarePanel
     {
         if (isPlatformSelected())
         {
-            return platform.getSortedHardware();
+            return platform.getSortedAvailableHardware();
         }
 
         List<VideoGameHardware> hardware = new ArrayList<VideoGameHardware>();
 
         for(VideoGamePlatform platform : platformDAO.getAll())
         {
-            hardware.addAll(platform.getSortedHardware());
+            hardware.addAll(platform.getSortedAvailableHardware());
         }
         return hardware;
     }

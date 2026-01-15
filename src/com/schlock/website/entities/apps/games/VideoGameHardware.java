@@ -16,6 +16,8 @@ public class VideoGameHardware extends Persisted
     private Region region;
     private HardwareType hardwareType;
 
+    private boolean sold;
+
     private String postUUID;
 
     public VideoGameHardware()
@@ -80,6 +82,16 @@ public class VideoGameHardware extends Persisted
     public void setHardwareType(HardwareType hardwareType)
     {
         this.hardwareType = hardwareType;
+    }
+
+    public boolean isSold()
+    {
+        return sold;
+    }
+
+    public void setSold(boolean sold)
+    {
+        this.sold = sold;
     }
 
     public String getPostUUID()
