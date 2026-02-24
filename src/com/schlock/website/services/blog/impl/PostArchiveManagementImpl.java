@@ -171,7 +171,7 @@ public class PostArchiveManagementImpl implements PostArchiveManagement
     public List<Post> getPreviewPosts(String iteration, String keywordName, Set<Long> excludeIds)
     {
         int count = getPosts(iteration, keywordName).size();
-        int LIMIT = (int) Math.floor(((double) count ) / ((double) 7));
+        int LIMIT = (int) Math.floor(((double) count ) / ((double) 6));
         if (LIMIT < 1)
         {
             LIMIT = 1;

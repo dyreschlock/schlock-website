@@ -15,6 +15,7 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
     private static final int POST_UNPUBLISHED = AbstractPost.LEVEL_UNPUBLISHED;
     private static final int POST_PUBLISHED = AbstractPost.LEVEL_PUBLISHED;
     private static final int POST_FRONT_PAGE = AbstractPost.LEVEL_FRONT_PAGE;
+    private static final int POST_MIN_PINNED = AbstractPost.LEVEL_MIN_PINNED;
     private static final int POST_PINNED = AbstractPost.LEVEL_PINNED;
 
 
@@ -324,22 +325,25 @@ public class PostDAOImpl extends BaseDAOImpl<AbstractPost> implements PostDAO
 
 
 
-    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, String keywordName)
+    public List<Post> getMostRecentSuperPinnedPosts(Integer postCount, Integer year, Integer month, String keywordName)
     {
-        return getMostRecentPinnedPosts(postCount, withUnpublished, year, month, keywordName, null);
+        return getMostRecentPinnedPosts(postCount, POST_PINNED, year, month, keywordName, null);
     }
 
-    public List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, String keywordName, Set<Long> excludeIds)
+    public List<Post> getMostRecentPinnedPosts(Integer postCount, Integer year, Integer month, String keywordName, Set<Long> excludeIds)
     {
-        boolean pinnedOnly = true;
+        return getMostRecentPinnedPosts(postCount, POST_MIN_PINNED, year, month, keywordName, excludeIds);
+    }
 
+    private List<Post> getMostRecentPinnedPosts(Integer postCount, int publishLevel, Integer year, Integer month, String keywordName, Set<Long> excludeIds)
+    {
         String selectClause = "select p from Post p ";
         String orderByClause = " order by p.created desc ";
 
         Query query = createQuery(postCount,
                                     year,
                                     month,
-                                    POST_PINNED,
+                                    publishLevel,
                                     keywordName,
                                     excludeIds,
                                     selectClause,

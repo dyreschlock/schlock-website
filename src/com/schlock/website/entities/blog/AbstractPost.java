@@ -17,6 +17,7 @@ public abstract class AbstractPost extends Persisted
     public static final int LEVEL_UNPUBLISHED = 1;
     public static final int LEVEL_PUBLISHED = 2;
     public static final int LEVEL_FRONT_PAGE = 3;
+    public static final int LEVEL_MIN_PINNED = 4;
     public static final int LEVEL_PINNED = 5;
 
 

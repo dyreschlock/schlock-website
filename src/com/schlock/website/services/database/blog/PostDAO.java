@@ -58,9 +58,9 @@ public interface PostDAO extends BaseDAO<AbstractPost>
     List<Post> getMostRecentPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, String keywordName, Set<Long> excludeIds);
 
 
-    List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, String keywordName);
+    List<Post> getMostRecentSuperPinnedPosts(Integer postCount, Integer year, Integer month, String keywordName);
 
-    List<Post> getMostRecentPinnedPosts(Integer postCount, boolean withUnpublished, Integer year, Integer month, String keywordName, Set<Long> excludeIds);
+    List<Post> getMostRecentPinnedPosts(Integer postCount, Integer year, Integer month, String keywordName, Set<Long> excludeIds);
 
 
     List<Post> getMostRecentPostsThrough2009WithGallery(boolean withUnpublished, String keywordName);

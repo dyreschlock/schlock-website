@@ -816,23 +816,23 @@ public class PostManagementImpl implements PostManagement
 
 
         //ONE most recent normal post with gallery
-        List<Post> results = postDAO.getMostRecentPostsWithGallery(1, unpublished, year, month, keywordName, excludeIds);
-        for (Post post : results)
-        {
-            posts.add(post);
-
-            excludeIds.add(post.getId());
-
-            count--;
-        }
-
-        if (count == 0)
-        {
-            return posts;
-        }
+//        List<Post> results = postDAO.getMostRecentPostsWithGallery(1, unpublished, year, month, keywordName, excludeIds);
+//        for (Post post : results)
+//        {
+//            posts.add(post);
+//
+//            excludeIds.add(post.getId());
+//
+//            count--;
+//        }
+//
+//        if (count == 0)
+//        {
+//            return posts;
+//        }
 
         //all most recent promoted posts
-        results = postDAO.getMostRecentPinnedPosts(count, unpublished, year, month, keywordName, excludeIds);
+        List<Post> results = postDAO.getMostRecentPinnedPosts(count, year, month, keywordName, excludeIds);
         for (Post post : results)
         {
             posts.add(post);

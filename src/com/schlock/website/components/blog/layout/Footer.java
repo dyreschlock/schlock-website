@@ -78,9 +78,8 @@ public class Footer
         if (postDetails == null)
         {
             int postCount = PostDAOImpl.TOP_RECENT +2;
-            boolean unpublished = viewState.isShowUnpublished();
 
-            List<Post> posts = postDAO.getMostRecentPinnedPosts(postCount, unpublished, null, null, null);
+            List<Post> posts = postDAO.getMostRecentSuperPinnedPosts(postCount, null, null, null);
             postDetails = createPostDetails(posts);
 
             siteCache.addToObjectCache(postDetails, SiteGenerationCache.FOOTER_PINNED_DETAILS);
