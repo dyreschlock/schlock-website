@@ -1,9 +1,12 @@
 package com.schlock.website.entities.apps.ps2;
 
 import com.schlock.website.entities.Icon;
+import org.apache.commons.lang.StringUtils;
 
 public class DreamcastGame extends RetroGame
 {
+    public static final String SAVE_FOLDER = "vmu/Dreamcast/";
+
     private String sdcardSlot;
     private String gameName;
 
@@ -18,7 +21,8 @@ public class DreamcastGame extends RetroGame
 
     public String getSaveFileRelativeFilepath()
     {
-        return "";
+        String gameId = getGameIdMemcardFormat(getSerialNumber());
+        return SAVE_FOLDER + gameId;
     }
 
     public Icon getMemcardIcon()
@@ -86,5 +90,30 @@ public class DreamcastGame extends RetroGame
         game.setPlatform(PlaystationPlatform.DC);
 
         return game;
+    }
+
+
+    public static String getGameIdMemcardFormat(String standardFormat)
+    {
+        String gameId = standardFormat.replace("-", "");
+        return gameId;
+    }
+
+    public static String getGameIdStandardFormat(String memcardFormat)
+    {
+        int i = StringUtils.indexOfAny(memcardFormat, "1234567890");
+        if (i > 0 && i < memcardFormat.length())
+        {
+            String first = memcardFormat.substring(0, i);
+            String last = memcardFormat.substring(i, memcardFormat.length());
+
+            return first + "-" + last;
+        }
+        return memcardFormat;
+    }
+
+    public static boolean isSerialNumberMemcardFormat(String memcardFormat)
+    {
+        return memcardFormat.length() == 6 || memcardFormat.length() == 7;
     }
 }

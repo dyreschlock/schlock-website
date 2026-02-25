@@ -134,17 +134,24 @@ public class DreamcastServiceImpl extends AbstractRetroConsoleServiceImpl<Dreamc
 
     protected List<String> getSaveFileLocalDirectories()
     {
-        return Arrays.asList();
+        final String LOCAL_PATH = context.memcardSavesLocalDirectory();
+        return Arrays.asList(LOCAL_PATH + "/" + DreamcastGame.SAVE_FOLDER);
     }
 
     protected boolean isValidGameFolder(String folderName)
     {
-        return false;
+        return DreamcastGame.isSerialNumberMemcardFormat(folderName);
     }
 
     protected RetroGame getGameByFolderName(String folderName)
     {
-        return null;
+        RetroGame game = gameDAO.getBySerialNumber(folderName);
+        if(game == null)
+        {
+            String gameId = DreamcastGame.getGameIdStandardFormat(folderName);
+            game = gameDAO.getBySerialNumber(gameId);
+        }
+        return game;
     }
 
     protected List getAllGamesWithNoArt()
