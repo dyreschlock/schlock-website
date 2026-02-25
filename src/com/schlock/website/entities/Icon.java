@@ -34,7 +34,13 @@ public enum Icon
         if (platformCode.length() >= 2)
         {
             String code = platformCode.substring(0, 2) + "_mem";
-            return Icon.valueOf(code.toUpperCase());
+            for(Icon icon : values())
+            {
+                if (icon.name().equalsIgnoreCase(code))
+                {
+                    return icon;
+                }
+            }
         }
         return null;
     }

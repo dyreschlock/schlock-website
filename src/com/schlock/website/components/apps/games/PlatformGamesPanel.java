@@ -144,7 +144,7 @@ public class PlatformGamesPanel
 
     public String getSaveIconSrc()
     {
-        String platformCode = platform.getCode();
+        String platformCode = getCurrentGamePlatformCode();
         Icon icon = Icon.getGamePlatformIcon(platformCode);
         if (icon != null)
         {
