@@ -27,4 +27,15 @@ public enum Icon
 
         return path;
     }
+
+
+    public static Icon getGamePlatformIcon(String platformCode)
+    {
+        if (platformCode.length() >= 2)
+        {
+            String code = platformCode.substring(0, 2) + "_mem";
+            return Icon.valueOf(code.toUpperCase());
+        }
+        return null;
+    }
 }
