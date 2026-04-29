@@ -17,6 +17,8 @@ public enum Icon
     EBAY,
     DISCORD,
     TWITCH,
+    RA, // retro achievements
+    KOFI,
     BLUESKY;
 
 

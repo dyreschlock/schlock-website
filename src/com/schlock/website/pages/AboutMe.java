@@ -92,6 +92,16 @@ public class AboutMe
         return Icon.BLUESKY;
     }
 
+    public Icon getRa()
+    {
+        return Icon.RA;
+    }
+
+    public Icon getKofi()
+    {
+        return Icon.KOFI;
+    }
+
 
     private Page cachedPage;
 

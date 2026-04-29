@@ -26,15 +26,20 @@
             <l:iconlink icon="bluesky" redirectUrl="${message:blueskyUrl}" altTitleText="${message:blueskyTitle}" />
             <l:iconlink icon="twitter" redirectUrl="${message:twitterUrl}" altTitleText="${message:twitterTitle}" />
             <l:iconlink icon="discord" redirectUrl="${message:discordUrl}" altTitleText="${message:discordTitle}" />
-            <l:iconlink icon="twitch" redirectUrl="${message:twitchUrl}" altTitleText="${message:twitchUrl}" />
             <l:iconlink icon="youtube" redirectUrl="${message:youtube1Url}" altTitleText="${message:youtube1Title}" />
             <l:iconlink icon="youtube" redirectUrl="${message:youtube2Url}" altTitleText="${message:youtube2Title}" />
             <l:iconlink icon="ebay" redirectUrl="${message:ebayUrl}" altTitleText="${message:ebayTitle}" />
+            <l:iconlink icon="kofi" redirectUrl="${message:kofiUrl}" altTitleText="${message:kofiTitle}" />
         </div>
         <div id="codeLinks">
             <div class="title">${message:codeTitle}</div>
             <l:iconlink icon="stack" redirectUrl="${message:stackUrl}" altTitleText="${message:stackTitle}" />
             <l:iconlink icon="github" redirectUrl="${message:githubUrl}" altTitleText="${message:githubTitle}" />
+        </div>
+        <div id="gameLinks">
+            <div class="title">${message:gamesTitle}</div>
+            <l:iconlink icon="twitch" redirectUrl="${message:twitchUrl}" altTitleText="${message:twitchUrl}" />
+            <l:iconlink icon="ra" redirectUrl="${message:raUrl}" altTitleText="${message:raTitle}" />
         </div>
 
         <br class="clr" />
